@@ -26,3 +26,4 @@ wp-content/themes/soma/.phpunit.cache/
 wp-content/themes/soma/coverage/
 wp-content/themes/soma/composer.lock
 wp-content/themes/soma/package-lock.json
+wp-content/themes/soma/error_log
