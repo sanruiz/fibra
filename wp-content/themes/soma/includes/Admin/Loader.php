@@ -16,21 +16,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Admin Loader class
  */
-class Admin implements LoadableInterface {
+class Loader implements LoadableInterface {
 
 	/**
 	 * Singleton instance
 	 *
-	 * @var Admin|null
+	 * @var Loader|null
 	 */
-	private static ?Admin $instance = null;
+	private static ?Loader $instance = null;
 
 	/**
 	 * Get singleton instance
 	 *
-	 * @return Admin
+	 * @return Loader
 	 */
-	public static function instance(): Admin {
+	public static function instance(): Loader {
 		if ( self::$instance === null ) {
 			self::$instance = new self();
 		}

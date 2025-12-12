@@ -147,7 +147,7 @@ class Theme {
 		/*
 		 * TODO: Register additional components as they are migrated:
 		 * - Custom Fields Loader (priority 15)
-		 * - Page Builder Loader (priority 25)
+		 */
 		 */
 	}
 
