@@ -159,15 +159,15 @@ class BlockRenderer {
 
 		// Pass block data to partial via WordPress query vars
 		set_query_var( 'soma_block_counter', $counter );
-		set_query_var( 'soma_block_content', $block[ $field_group ] ?? [] );
+		set_query_var( 'soma_block_content', $block[ $field_group ] ?? array() );
 		set_query_var( 'soma_block_layout', $layout );
 
 		// Render with optional caching
 		if ( $this->caching_enabled ) {
-			$block_data = [
+			$block_data = array(
 				'block_counter' => $counter,
-				'block_content' => $block[ $field_group ] ?? [],
-			];
+				'block_content' => $block[ $field_group ] ?? array(),
+			);
 			$this->render_with_cache( $layout, $partial, $block_data );
 		} else {
 			$this->render_partial( $partial );
@@ -184,7 +184,7 @@ class BlockRenderer {
 		// Must have acf_fc_layout key
 		if ( ! isset( $block['acf_fc_layout'] ) ) {
 			if ( function_exists( 'soma_log_warning' ) ) {
-				soma_log_warning( 'BlockRenderer: Block missing acf_fc_layout key', [ 'block' => $block ] );
+				soma_log_warning( 'BlockRenderer: Block missing acf_fc_layout key', array( 'block' => $block ) );
 			}
 			return false;
 		}
@@ -192,7 +192,7 @@ class BlockRenderer {
 		// Layout must be non-empty string
 		if ( ! is_string( $block['acf_fc_layout'] ) || empty( $block['acf_fc_layout'] ) ) {
 			if ( function_exists( 'soma_log_warning' ) ) {
-				soma_log_warning( 'BlockRenderer: Invalid acf_fc_layout value', [ 'layout' => $block['acf_fc_layout'] ] );
+				soma_log_warning( 'BlockRenderer: Invalid acf_fc_layout value', array( 'layout' => $block['acf_fc_layout'] ) );
 			}
 			return false;
 		}
@@ -214,7 +214,13 @@ class BlockRenderer {
 
 		// Log error via PSR-3 logger
 		if ( function_exists( 'soma_log_error' ) ) {
-			soma_log_error( $message, [ 'layout' => $layout, 'error' => $error ] );
+			soma_log_error(
+				$message,
+				array(
+					'layout' => $layout,
+					'error'  => $error,
+				)
+			);
 		}
 
 		// Display error in development (WP_DEBUG)
@@ -251,8 +257,8 @@ class BlockRenderer {
 			return;
 		}
 
-		$cache_key = $this->get_cache_key( $layout, $pageBlock );
-		$cache_tags = [ 'page_builder', 'block_' . $layout ];
+		$cache_key  = $this->get_cache_key( $layout, $pageBlock );
+		$cache_tags = array( 'page_builder', 'block_' . $layout );
 
 		// Get or generate cached output
 		$output = soma_cache_remember(
@@ -304,16 +310,16 @@ class BlockRenderer {
 
 		if ( $layout !== null ) {
 			// Invalidate specific block type
-			soma_cache_invalidate_tags( [ 'block_' . $layout ] );
+			soma_cache_invalidate_tags( array( 'block_' . $layout ) );
 		} else {
 			// Invalidate all page builder blocks
-			soma_cache_invalidate_tags( [ 'page_builder' ] );
+			soma_cache_invalidate_tags( array( 'page_builder' ) );
 		}
 
 		if ( function_exists( 'soma_log_debug' ) ) {
 			soma_log_debug(
 				'BlockRenderer: Cache invalidated',
-				[ 'layout' => $layout ?? 'all' ]
+				array( 'layout' => $layout ?? 'all' )
 			);
 		}
 	}
@@ -326,10 +332,10 @@ class BlockRenderer {
 	 * @return array{registered_blocks: int, caching_enabled: bool, cache_ttl: int}
 	 */
 	public function get_stats(): array {
-		return [
+		return array(
 			'registered_blocks' => $this->registry->count(),
 			'caching_enabled'   => $this->caching_enabled,
 			'cache_ttl'         => $this->cache_ttl,
-		];
+		);
 	}
 }

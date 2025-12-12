@@ -88,8 +88,8 @@ class Loader implements LoadableInterface {
 	 */
 	public function init(): void {
 		// Register hooks for cache invalidation
-		add_action( 'save_post', $this->invalidate_cache_on_save(...) );
-		add_action( 'acf/save_post', $this->invalidate_cache_on_acf_save(...), 20 );
+		add_action( 'save_post', $this->invalidate_cache_on_save( ... ) );
+		add_action( 'acf/save_post', $this->invalidate_cache_on_acf_save( ... ), 20 );
 
 		// Optional: Enable block caching (disabled by default)
 		// $this->renderer->enable_caching( true, 3600 );
@@ -97,10 +97,10 @@ class Loader implements LoadableInterface {
 		if ( function_exists( 'soma_log_info' ) ) {
 			soma_log_info(
 				'PageBuilder: System initialized',
-				[
+				array(
 					'registered_blocks' => $this->registry->count(),
 					'caching_enabled'   => false,
-				]
+				)
 			);
 		}
 	}
@@ -150,7 +150,7 @@ class Loader implements LoadableInterface {
 		if ( function_exists( 'soma_log_debug' ) ) {
 			soma_log_debug(
 				'PageBuilder: Cache invalidated on post save',
-				[ 'post_id' => $post_id ]
+				array( 'post_id' => $post_id )
 			);
 		}
 	}
@@ -172,7 +172,7 @@ class Loader implements LoadableInterface {
 		if ( function_exists( 'soma_log_debug' ) ) {
 			soma_log_debug(
 				'PageBuilder: Cache invalidated on ACF save',
-				[ 'post_id' => $post_id ]
+				array( 'post_id' => $post_id )
 			);
 		}
 	}
@@ -208,7 +208,7 @@ class Loader implements LoadableInterface {
 		if ( function_exists( 'soma_log_info' ) ) {
 			soma_log_info(
 				'PageBuilder: Caching ' . ( $enabled ? 'enabled' : 'disabled' ),
-				[ 'ttl' => $ttl ]
+				array( 'ttl' => $ttl )
 			);
 		}
 	}

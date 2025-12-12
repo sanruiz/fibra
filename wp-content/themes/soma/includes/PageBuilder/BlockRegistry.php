@@ -38,7 +38,7 @@ class BlockRegistry {
 	 *
 	 * @var array<string, array{field_group: string, partial: string}>
 	 */
-	private array $blocks = [];
+	private array $blocks = array();
 
 	/**
 	 * Get singleton instance
@@ -164,10 +164,10 @@ class BlockRegistry {
 	 * @return void
 	 */
 	public function register_block( string $layout, string $field_group, string $partial ): void {
-		$this->blocks[ $layout ] = [
+		$this->blocks[ $layout ] = array(
 			'field_group' => $field_group,
 			'partial'     => $partial,
-		];
+		);
 	}
 
 	/**
