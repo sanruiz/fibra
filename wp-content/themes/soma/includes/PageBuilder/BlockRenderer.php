@@ -157,16 +157,18 @@ class BlockRenderer {
 			return;
 		}
 
-		// Set global $pageBlock for backward compatibility
-		global $pageBlock;
-		$pageBlock = [
-			'block_counter' => $counter,
-			'block_content' => $block[ $field_group ] ?? [],
-		];
+		// Pass block data to partial via WordPress query vars
+		set_query_var( 'soma_block_counter', $counter );
+		set_query_var( 'soma_block_content', $block[ $field_group ] ?? [] );
+		set_query_var( 'soma_block_layout', $layout );
 
 		// Render with optional caching
 		if ( $this->caching_enabled ) {
-			$this->render_with_cache( $layout, $partial, $pageBlock );
+			$block_data = [
+				'block_counter' => $counter,
+				'block_content' => $block[ $field_group ] ?? [],
+			];
+			$this->render_with_cache( $layout, $partial, $block_data );
 		} else {
 			$this->render_partial( $partial );
 		}
