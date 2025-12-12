@@ -123,13 +123,15 @@ class Theme {
 	 * @return void
 	 */
 	private function register_components(): void {
-		// TODO: Register components here as they are migrated.
-		// Example (will be implemented in Phase 2):
-		// $this->loader->register( \Soma\PostTypes\Loader::instance() );
+		// Register Post Types (priority 20).
+		$this->loader->register( \Soma\PostTypes\Loader::instance() );
+
+		// TODO: Register additional components as they are migrated.
 		// $this->loader->register( \Soma\CustomFields\Loader::instance() );
 		// $this->loader->register( \Soma\API\Loader::instance() );
 		// $this->loader->register( \Soma\PageBuilder\Loader::instance() );
 		// $this->loader->register( \Soma\Elementor\Loader::instance() );
+		// $this->loader->register( \Soma\CF7\Loader::instance() );
 	}
 
 	/**
