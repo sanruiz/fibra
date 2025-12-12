@@ -89,7 +89,7 @@ class Loader implements LoadableInterface {
 	public function init(): void {
 		if ( ! $this->is_elementor_active() ) {
 			add_action( 'admin_notices', $this->elementor_missing_notice( ... ) );
-			soma_log_warning( 'Elementor plugin not active' );
+			\soma_log_warning( 'Elementor plugin not active' );
 			return;
 		}
 
@@ -99,7 +99,7 @@ class Loader implements LoadableInterface {
 		// Register widgets.
 		add_action( 'elementor/widgets/register', $this->register_widgets( ... ) );
 
-		soma_log_info(
+		\soma_log_info(
 			'Elementor integration initialized',
 			[
 				'widgets' => count( $this->widgets ),
@@ -148,7 +148,7 @@ class Loader implements LoadableInterface {
 			]
 		);
 
-		soma_log_debug( 'Registered Elementor category: soma' );
+		\soma_log_debug( 'Registered Elementor category: soma' );
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Loader implements LoadableInterface {
 
 		foreach ( $this->widgets as $name => $class ) {
 			if ( ! class_exists( $class ) ) {
-				soma_log_warning(
+				\soma_log_warning(
 					'Elementor widget class not found',
 					[
 						'widget' => $name,
@@ -175,7 +175,7 @@ class Loader implements LoadableInterface {
 				$widgets_manager->register( new $class() );
 				++$registered_count;
 
-				soma_log_debug(
+				\soma_log_debug(
 					'Registered Elementor widget',
 					[
 						'widget' => $name,
@@ -183,7 +183,7 @@ class Loader implements LoadableInterface {
 					]
 				);
 			} catch ( \Exception $e ) {
-				soma_log_error(
+				\soma_log_error(
 					'Failed to register Elementor widget',
 					[
 						'widget' => $name,
@@ -193,7 +193,7 @@ class Loader implements LoadableInterface {
 			}
 		}
 
-		soma_log_info(
+		\soma_log_info(
 			'Registered Elementor widgets',
 			[
 				'total'      => count( $this->widgets ),

@@ -65,7 +65,7 @@ abstract class WidgetBase extends Widget_Base {
 	 */
 	protected function get_acf_field( string $field_name, ?int $post_id = null, $default = null ) {
 		if ( ! function_exists( 'get_field' ) ) {
-			soma_log_warning(
+			\soma_log_warning(
 				'ACF not available in Elementor widget',
 				[
 					'widget' => $this->get_name(),
