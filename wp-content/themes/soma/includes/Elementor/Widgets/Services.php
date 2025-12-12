@@ -7,6 +7,8 @@
 
 namespace Soma\Elementor\Widgets;
 
+use Elementor\Controls_Manager;
+use Elementor\Repeater;
 use Soma\Elementor\Base\WidgetBase;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -71,13 +73,13 @@ class Services extends WidgetBase {
 			]
 		);
 
-		$repeater = new \Elementor\Repeater();
+		$repeater = new Repeater();
 
 		$repeater->add_control(
 			'service_icon',
 			[
 				'label' => __( 'Icon', 'soma' ),
-				'type'  => \Elementor\Controls_Manager::MEDIA,
+				'type'  => Controls_Manager::MEDIA,
 			]
 		);
 
@@ -85,7 +87,7 @@ class Services extends WidgetBase {
 			'service_title',
 			[
 				'label'   => __( 'Title', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::TEXT,
+				'type'    => Controls_Manager::TEXT,
 				'default' => __( 'Service Title', 'soma' ),
 			]
 		);
@@ -94,7 +96,7 @@ class Services extends WidgetBase {
 			'service_description',
 			[
 				'label'   => __( 'Description', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::TEXTAREA,
+				'type'    => Controls_Manager::TEXTAREA,
 				'default' => __( 'Service description goes here.', 'soma' ),
 			]
 		);
@@ -103,7 +105,7 @@ class Services extends WidgetBase {
 			'service_link',
 			[
 				'label' => __( 'Link', 'soma' ),
-				'type'  => \Elementor\Controls_Manager::URL,
+				'type'  => Controls_Manager::URL,
 			]
 		);
 
@@ -111,7 +113,7 @@ class Services extends WidgetBase {
 			'services_list',
 			[
 				'label'       => __( 'Services List', 'soma' ),
-				'type'        => \Elementor\Controls_Manager::REPEATER,
+				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
 				'default'     => [
 					[
@@ -145,7 +147,7 @@ class Services extends WidgetBase {
 			'columns',
 			[
 				'label'           => __( 'Columns', 'soma' ),
-				'type'            => \Elementor\Controls_Manager::SELECT,
+				'type'            => Controls_Manager::SELECT,
 				'desktop_default' => '3',
 				'tablet_default'  => '2',
 				'mobile_default'  => '1',
@@ -167,7 +169,7 @@ class Services extends WidgetBase {
 			'grid_gap',
 			[
 				'label'      => __( 'Gap', 'soma' ),
-				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
 					'px'  => [
@@ -203,20 +205,20 @@ class Services extends WidgetBase {
 			'section_style_card',
 			[
 				'label' => __( 'Card', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_background_control( 'card_background', __( 'Background', 'soma' ), '--soma-bg-white' );
-		$this->add_spacing_control( 'card_padding', __( 'Padding', 'soma' ), '30px' );
-		$this->add_border_control( 'card_border', __( 'Border', 'soma' ) );
-		$this->add_shadow_control( 'card_shadow', __( 'Box Shadow', 'soma' ) );
+		$this->add_background_control( 'card_background', __( 'Background', 'soma' ), '{{WRAPPER}} .service-item' );
+		$this->add_spacing_control( 'card_padding', __( 'Padding', 'soma' ), '{{WRAPPER}} .service-item' );
+		$this->add_border_control( 'card_border', __( 'Border', 'soma' ), '{{WRAPPER}} .service-item' );
+		$this->add_shadow_control( 'card_shadow', __( 'Box Shadow', 'soma' ), '{{WRAPPER}} .service-item' );
 
 		$this->add_control(
 			'card_hover_transition',
 			[
 				'label'     => __( 'Hover Transition', 'soma' ),
-				'type'      => \Elementor\Controls_Manager::SLIDER,
+				'type'      => Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
 						'min'  => 0,
@@ -240,7 +242,7 @@ class Services extends WidgetBase {
 			'section_style_icon',
 			[
 				'label' => __( 'Icon', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -248,7 +250,7 @@ class Services extends WidgetBase {
 			'icon_size',
 			[
 				'label'      => __( 'Size', 'soma' ),
-				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
 					'px'  => [
@@ -274,7 +276,7 @@ class Services extends WidgetBase {
 			'icon_spacing',
 			[
 				'label'      => __( 'Spacing', 'soma' ),
-				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
 					'px'  => [
@@ -303,7 +305,7 @@ class Services extends WidgetBase {
 			'section_style_title',
 			[
 				'label' => __( 'Title', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -319,7 +321,7 @@ class Services extends WidgetBase {
 			'title_spacing',
 			[
 				'label'      => __( 'Spacing', 'soma' ),
-				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
 					'px'  => [
@@ -348,7 +350,7 @@ class Services extends WidgetBase {
 			'section_style_description',
 			[
 				'label' => __( 'Description', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 

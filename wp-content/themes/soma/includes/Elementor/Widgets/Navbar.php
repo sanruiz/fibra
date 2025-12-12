@@ -246,10 +246,11 @@ class Navbar extends WidgetBase {
 			]
 		);
 
-		$this->add_background_control( '{{WRAPPER}} .soma-navbar' );
+		$this->add_background_control( 'navbar_background', __( 'Background', 'soma' ), '{{WRAPPER}} .soma-navbar' );
 
 		$this->add_spacing_control(
-			'padding',
+			'navbar_padding',
+			__( 'Padding', 'soma' ),
 			'{{WRAPPER}} .soma-navbar .content',
 			[
 				'top'    => '1',

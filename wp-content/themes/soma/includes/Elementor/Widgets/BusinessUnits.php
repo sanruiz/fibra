@@ -8,6 +8,7 @@
 namespace Soma\Elementor\Widgets;
 
 use Soma\Elementor\Base\WidgetBase;
+use Elementor\Controls_Manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -76,7 +77,7 @@ class BusinessUnits extends WidgetBase {
 			'title',
 			[
 				'label'   => __( 'Title', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::TEXT,
+				'type'    => Controls_Manager::TEXT,
 				'default' => __( 'Business Units', 'soma' ),
 			]
 		);
@@ -85,7 +86,7 @@ class BusinessUnits extends WidgetBase {
 			'max_items',
 			[
 				'label'   => __( 'Maximum Items', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::NUMBER,
+				'type'    => Controls_Manager::NUMBER,
 				'min'     => 1,
 				'max'     => 20,
 				'step'    => 1,
@@ -97,7 +98,7 @@ class BusinessUnits extends WidgetBase {
 			'layout',
 			[
 				'label'   => __( 'Layout', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::SELECT,
+				'type'    => Controls_Manager::SELECT,
 				'options' => [
 					'grid' => __( 'Grid', 'soma' ),
 					'list' => __( 'List', 'soma' ),
@@ -120,7 +121,7 @@ class BusinessUnits extends WidgetBase {
 			'section_style_title',
 			[
 				'label' => __( 'Title', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -139,7 +140,7 @@ class BusinessUnits extends WidgetBase {
 			'section_style_grid',
 			[
 				'label' => __( 'Grid', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -147,7 +148,7 @@ class BusinessUnits extends WidgetBase {
 			'grid_gap',
 			[
 				'label'      => __( 'Gap', 'soma' ),
-				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
 					'px'  => [
@@ -176,18 +177,18 @@ class BusinessUnits extends WidgetBase {
 			'section_style_item',
 			[
 				'label' => __( 'Items', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_border_control( 'item_border', __( 'Border', 'soma' ) );
-		$this->add_shadow_control( 'item_shadow', __( 'Box Shadow', 'soma' ) );
+		$this->add_border_control( 'item_border', __( 'Border', 'soma' ), '{{WRAPPER}} .item a' );
+		$this->add_shadow_control( 'item_shadow', __( 'Box Shadow', 'soma' ), '{{WRAPPER}} .item a' );
 
 		$this->add_control(
 			'item_hover_transition',
 			[
 				'label'     => __( 'Hover Transition', 'soma' ),
-				'type'      => \Elementor\Controls_Manager::SLIDER,
+				'type'      => Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
 						'min'  => 0,
@@ -211,7 +212,7 @@ class BusinessUnits extends WidgetBase {
 			'section_style_label',
 			[
 				'label' => __( 'Labels', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 

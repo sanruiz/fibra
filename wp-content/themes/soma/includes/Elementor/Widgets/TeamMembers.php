@@ -11,7 +11,6 @@ namespace Soma\Elementor\Widgets;
 
 use Soma\Elementor\Base\WidgetBase;
 use Elementor\Controls_Manager;
-use Soma\Core\Enums\PostType;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

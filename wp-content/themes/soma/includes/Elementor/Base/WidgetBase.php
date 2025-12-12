@@ -11,12 +11,12 @@
 
 namespace Soma\Elementor\Base;
 
-use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Typography;
+use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -58,12 +58,12 @@ abstract class WidgetBase extends Widget_Base {
 	 *
 	 * Helper to retrieve ACF field values with fallback.
 	 *
-	 * @param string   $field_name ACF field name.
-	 * @param int|null $post_id    Post ID (null for current post).
-	 * @param mixed    $default    Default value if field doesn't exist.
+	 * @param string          $field_name ACF field name.
+	 * @param int|string|null $post_id    Post ID (null for current post, 'options' for options page).
+	 * @param mixed           $default    Default value if field doesn't exist.
 	 * @return mixed
 	 */
-	protected function get_acf_field( string $field_name, ?int $post_id = null, $default = null ) {
+	protected function get_acf_field( string $field_name, int|string|null $post_id = null, $default = null ) {
 		if ( ! function_exists( 'get_field' ) ) {
 			\soma_log_warning(
 				'ACF not available in Elementor widget',
@@ -114,20 +114,18 @@ abstract class WidgetBase extends Widget_Base {
 				'name'           => $control_name,
 				'label'          => $label,
 				'selector'       => $selector,
-				'fields_options' => array_merge(
-					[
-						'font_family' => [
-							'default' => 'var(--soma-font-primary)',
-						],
-						'font_size'   => [
-							'default' => [
-								'unit' => 'rem',
-								'size' => 1,
-							],
+				'fields_options' => [
+					'font_family' => [
+						'default' => 'var(--soma-font-primary)',
+					],
+					'font_size'   => [
+						'default' => [
+							'unit' => 'rem',
+							'size' => 1,
 						],
 					],
-					$default
-				),
+					...$default,
+				],
 			]
 		);
 	}
@@ -137,26 +135,25 @@ abstract class WidgetBase extends Widget_Base {
 	 *
 	 * Adds responsive spacing control (margin/padding).
 	 *
-	 * @param string $type      'margin' or 'padding'.
-	 * @param string $selector  CSS selector.
-	 * @param array  $default   Default spacing values.
+	 * @param string $control_name Control name/ID.
+	 * @param string $label        Control label.
+	 * @param string $selector     CSS selector.
+	 * @param array  $default      Default spacing values.
 	 */
 	protected function add_spacing_control(
-		string $type,
+		string $control_name,
+		string $label,
 		string $selector,
 		array $default = []
 	): void {
 		$this->add_responsive_control(
-			$type,
+			$control_name,
 			[
-				'label'      => ucfirst( $type ),
+				'label'      => $label,
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
-					$selector => sprintf(
-						'%s: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						$type
-					),
+					$selector => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 				'default'    => $default,
 			]
@@ -195,19 +192,26 @@ abstract class WidgetBase extends Widget_Base {
 	/**
 	 * Register border control group
 	 *
-	 * @param string $selector CSS selector.
+	 * @param string $control_name Control name/ID.
+	 * @param string $label        Control label.
+	 * @param string $selector     CSS selector.
 	 */
-	protected function add_border_control( string $selector ): void {
+	protected function add_border_control(
+		string $control_name,
+		string $label,
+		string $selector
+	): void {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'border',
+				'name'     => $control_name,
+				'label'    => $label,
 				'selector' => $selector,
 			]
 		);
 
 		$this->add_responsive_control(
-			'border_radius',
+			$control_name . '_radius',
 			[
 				'label'      => __( 'Border Radius', 'soma' ),
 				'type'       => Controls_Manager::DIMENSIONS,
@@ -222,13 +226,20 @@ abstract class WidgetBase extends Widget_Base {
 	/**
 	 * Register box shadow control group
 	 *
-	 * @param string $selector CSS selector.
+	 * @param string $control_name Control name/ID.
+	 * @param string $label        Control label.
+	 * @param string $selector     CSS selector.
 	 */
-	protected function add_shadow_control( string $selector ): void {
+	protected function add_shadow_control(
+		string $control_name,
+		string $label,
+		string $selector
+	): void {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name'     => 'box_shadow',
+				'name'     => $control_name,
+				'label'    => $label,
 				'selector' => $selector,
 			]
 		);
@@ -237,13 +248,20 @@ abstract class WidgetBase extends Widget_Base {
 	/**
 	 * Register background control group
 	 *
-	 * @param string $selector CSS selector.
+	 * @param string $control_name Control name/ID.
+	 * @param string $label        Control label.
+	 * @param string $selector     CSS selector.
 	 */
-	protected function add_background_control( string $selector ): void {
+	protected function add_background_control(
+		string $control_name,
+		string $label,
+		string $selector
+	): void {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'     => 'background',
+				'name'     => $control_name,
+				'label'    => $label,
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => $selector,
 			]

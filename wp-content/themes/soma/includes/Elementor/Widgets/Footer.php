@@ -7,6 +7,7 @@
 
 namespace Soma\Elementor\Widgets;
 
+use Elementor\Controls_Manager;
 use Soma\Elementor\Base\WidgetBase;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -76,7 +77,7 @@ class Footer extends WidgetBase {
 			'style_variant',
 			[
 				'label'   => __( 'Footer Style', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::SELECT,
+				'type'    => Controls_Manager::SELECT,
 				'options' => [
 					'default'   => __( 'Default (Social + Business Units)', 'soma' ),
 					'fibrasoma' => __( 'Fibrasoma (Single Menu)', 'soma' ),
@@ -99,7 +100,7 @@ class Footer extends WidgetBase {
 			'use_acf_logo',
 			[
 				'label'   => __( 'Use ACF Logo', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::SWITCHER,
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
@@ -108,7 +109,7 @@ class Footer extends WidgetBase {
 			'custom_logo',
 			[
 				'label'     => __( 'Custom Logo', 'soma' ),
-				'type'      => \Elementor\Controls_Manager::MEDIA,
+				'type'      => Controls_Manager::MEDIA,
 				'condition' => [
 					'use_acf_logo' => '',
 				],
@@ -119,7 +120,7 @@ class Footer extends WidgetBase {
 			'logo_subtext',
 			[
 				'label'       => __( 'Logo Subtext', 'soma' ),
-				'type'        => \Elementor\Controls_Manager::TEXTAREA,
+				'type'        => Controls_Manager::TEXTAREA,
 				'default'     => '',
 				'placeholder' => __( 'Enter subtext below logo', 'soma' ),
 			]
@@ -139,7 +140,7 @@ class Footer extends WidgetBase {
 			'newsletter_form',
 			[
 				'label'       => __( 'Contact Form 7 Shortcode', 'soma' ),
-				'type'        => \Elementor\Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'placeholder' => '[contact-form-7 id="123"]',
 				'description' => __( 'Enter the CF7 shortcode for newsletter subscription', 'soma' ),
@@ -150,7 +151,7 @@ class Footer extends WidgetBase {
 			'success_message',
 			[
 				'label'   => __( 'Success Message', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::TEXT,
+				'type'    => Controls_Manager::TEXT,
 				'default' => __( 'Thank you for subscribing.', 'soma' ),
 			]
 		);
@@ -169,7 +170,7 @@ class Footer extends WidgetBase {
 			'location_text',
 			[
 				'label'   => __( 'Location Text', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::WYSIWYG,
+				'type'    => Controls_Manager::WYSIWYG,
 				'default' => '',
 			]
 		);
@@ -188,7 +189,7 @@ class Footer extends WidgetBase {
 			'fibrasoma_menu',
 			[
 				'label'     => __( 'Fibrasoma Menu', 'soma' ),
-				'type'      => \Elementor\Controls_Manager::SELECT,
+				'type'      => Controls_Manager::SELECT,
 				'options'   => $this->get_menu_choices(),
 				'default'   => 'fibrasoma_footer',
 				'condition' => [
@@ -201,7 +202,7 @@ class Footer extends WidgetBase {
 			'social_menu',
 			[
 				'label'     => __( 'Social Menu', 'soma' ),
-				'type'      => \Elementor\Controls_Manager::SELECT,
+				'type'      => Controls_Manager::SELECT,
 				'options'   => $this->get_menu_choices(),
 				'default'   => 'social',
 				'condition' => [
@@ -214,7 +215,7 @@ class Footer extends WidgetBase {
 			'business_units_menu',
 			[
 				'label'     => __( 'Business Units Menu', 'soma' ),
-				'type'      => \Elementor\Controls_Manager::SELECT,
+				'type'      => Controls_Manager::SELECT,
 				'options'   => $this->get_menu_choices(),
 				'default'   => 'business_units',
 				'condition' => [
@@ -237,7 +238,7 @@ class Footer extends WidgetBase {
 			'copyright',
 			[
 				'label'   => __( 'Copyright Text', 'soma' ),
-				'type'    => \Elementor\Controls_Manager::TEXTAREA,
+				'type'    => Controls_Manager::TEXTAREA,
 				'default' => '© ' . current_time( 'Y' ) . ' ' . get_bloginfo( 'name' ),
 			]
 		);
@@ -246,7 +247,7 @@ class Footer extends WidgetBase {
 			'credits_link',
 			[
 				'label' => __( 'Credits Link', 'soma' ),
-				'type'  => \Elementor\Controls_Manager::URL,
+				'type'  => Controls_Manager::URL,
 			]
 		);
 
@@ -254,7 +255,7 @@ class Footer extends WidgetBase {
 			'privacy_link',
 			[
 				'label' => __( 'Privacy Policy Link', 'soma' ),
-				'type'  => \Elementor\Controls_Manager::URL,
+				'type'  => Controls_Manager::URL,
 			]
 		);
 
@@ -272,12 +273,12 @@ class Footer extends WidgetBase {
 			'section_style_container',
 			[
 				'label' => __( 'Container', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_background_control( 'container_background', __( 'Background', 'soma' ), '--soma-bg-dark' );
-		$this->add_spacing_control( 'container_padding', __( 'Padding', 'soma' ), '60px 20px' );
+		$this->add_background_control( 'container_background', __( 'Background', 'soma' ), '{{WRAPPER}} .footer-partial-c90350' );
+		$this->add_spacing_control( 'container_padding', __( 'Padding', 'soma' ), '{{WRAPPER}} .footer-partial-c90350 .container' );
 
 		$this->end_controls_section();
 
@@ -286,7 +287,7 @@ class Footer extends WidgetBase {
 			'section_style_logo',
 			[
 				'label' => __( 'Logo', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -294,7 +295,7 @@ class Footer extends WidgetBase {
 			'logo_width',
 			[
 				'label'      => __( 'Width', 'soma' ),
-				'type'       => \Elementor\Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range'      => [
 					'px' => [
@@ -331,7 +332,7 @@ class Footer extends WidgetBase {
 			'section_style_typography',
 			[
 				'label' => __( 'Typography', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -360,7 +361,7 @@ class Footer extends WidgetBase {
 			'section_style_colors',
 			[
 				'label' => __( 'Colors', 'soma' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
