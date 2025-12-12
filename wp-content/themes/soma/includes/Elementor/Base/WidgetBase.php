@@ -36,7 +36,7 @@ abstract class WidgetBase extends Widget_Base {
 	/**
 	 * Widget category
 	 *
-	 * @return string
+	 * @return array<int, string>
 	 */
 	public function get_categories(): array {
 		return [ 'soma' ];

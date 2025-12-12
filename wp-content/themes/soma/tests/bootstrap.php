@@ -15,12 +15,6 @@ if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
 	exit( 1 );
 }
 
-// Load Simple Mocks FIRST before anything else.
-$mocks_file = __DIR__ . '/Mocks/SimpleMocks.php';
-if ( file_exists( $mocks_file ) ) {
-	require_once $mocks_file;
-}
-
 // Create mock classes for testing.
 if ( ! class_exists( 'WP_Customize_Manager' ) ) {
 	class WP_Customize_Manager {
@@ -94,6 +88,8 @@ if ( ! class_exists( 'WPCF7_Submission' ) ) {
 	class WPCF7_Submission {
 		private static $instance = null;
 		private $posted_data = [];
+
+		private function __construct() {}
 
 		public static function get_instance() {
 			if ( self::$instance === null ) {

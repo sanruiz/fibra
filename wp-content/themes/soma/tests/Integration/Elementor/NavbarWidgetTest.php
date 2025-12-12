@@ -95,20 +95,29 @@ class NavbarWidgetTest extends WP_UnitTestCase {
 	 * Test widget has controls registered
 	 */
 	public function test_has_controls(): void {
-		// Elementor requires widget to be added to a document.
-		$this->widget->_register_controls();
+		// Use reflection to call protected register_controls method
+		$reflection = new \ReflectionClass( $this->widget );
+		$method = $reflection->getMethod( 'register_controls' );
+		$method->invoke( $this->widget );
 
 		$controls = $this->widget->get_controls();
 
 		$this->assertNotEmpty( $controls, 'Widget should have controls registered' );
+		
+		// Verify specific controls exist
+		$this->assertArrayHasKey( 'menu', $controls, 'Widget should have menu control' );
 	}
 
 	/**
 	 * Test widget renders without errors
 	 */
 	public function test_renders_without_errors(): void {
+		// Use reflection to call protected render method
+		$reflection = new \ReflectionClass( $this->widget );
+		$method = $reflection->getMethod( 'render' );
+		
 		ob_start();
-		$this->widget->render();
+		$method->invoke( $this->widget );
 		$output = ob_get_clean();
 
 		$this->assertNotEmpty( $output, 'Widget should render output' );

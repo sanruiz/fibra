@@ -163,8 +163,10 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		foreach ( $this->widget_classes as $name => $class ) {
 			$widget = new $class();
 
-			// Register controls (Elementor requirement).
-			$widget->_register_controls();
+			// Use reflection to call protected register_controls method
+			$reflection = new \ReflectionClass( $widget );
+			$method = $reflection->getMethod( 'register_controls' );
+			$method->invoke( $widget );
 
 			$controls = $widget->get_controls();
 
@@ -182,8 +184,12 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		foreach ( $this->widget_classes as $name => $class ) {
 			$widget = new $class();
 
+			// Use reflection to call protected render method
+			$reflection = new \ReflectionClass( $widget );
+			$method = $reflection->getMethod( 'render' );
+
 			ob_start();
-			$widget->render();
+			$method->invoke( $widget );
 			$output = ob_get_clean();
 
 			$this->assertIsString( $output, "Widget '$name' should render string output" );
@@ -246,8 +252,12 @@ class AllWidgetsTest extends WP_UnitTestCase {
 			$widget         = new $class();
 			$expected_class = $expected_classes[ $name ];
 
+			// Use reflection to call protected render method
+			$reflection = new \ReflectionClass( $widget );
+			$method = $reflection->getMethod( 'render' );
+
 			ob_start();
-			$widget->render();
+			$method->invoke( $widget );
 			$output = ob_get_clean();
 
 			$this->assertStringContainsString(
