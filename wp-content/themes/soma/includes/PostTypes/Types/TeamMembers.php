@@ -9,7 +9,7 @@
  */
 
 namespace Soma\PostTypes\Types;
-
+use Soma\Core\Enums\PostType;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -24,11 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class TeamMembers {
 
 	/**
-	 * Post type slug
+	 * Post type enum
 	 *
-	 * @var string
+	 * @var PostType
 	 */
-	private const POST_TYPE = 'team-members';
+	private const POST_TYPE = PostType::TEAM_MEMBERS;
 
 	/**
 	 * Singleton instance
@@ -90,7 +90,7 @@ class TeamMembers {
 	 */
 	public function register(): void {
 		register_post_type(
-			self::POST_TYPE,
+			self::POST_TYPE->value(),
 			[
 				'labels'             => [
 					'name'          => __( 'Team Members', 'soma' ),
@@ -101,7 +101,7 @@ class TeamMembers {
 				'has_archive'        => false,
 				'show_in_rest'       => false,
 				'show_in_menu'       => true,
-				'rewrite'            => [ 'slug' => self::POST_TYPE ],
+				'rewrite'            => [ 'slug' => self::POST_TYPE->value() ],
 				'menu_icon'          => 'dashicons-groups',
 				'supports'           => [ 'title', 'thumbnail' ],
 			]
@@ -114,6 +114,6 @@ class TeamMembers {
 	 * @return string
 	 */
 	public function get_post_type(): string {
-		return self::POST_TYPE;
+		return self::POST_TYPE->value();
 	}
 }

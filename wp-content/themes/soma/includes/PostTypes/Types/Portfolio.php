@@ -10,6 +10,8 @@
 
 namespace Soma\PostTypes\Types;
 
+use Soma\Core\Enums\PostType;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -24,11 +26,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Portfolio {
 
 	/**
-	 * Post type slug
+	 * Post type enum
 	 *
-	 * @var string
+	 * @var PostType
 	 */
-	private const POST_TYPE = 'portfolio';
+	private const POST_TYPE = PostType::PORTFOLIO;
 
 	/**
 	 * Singleton instance
@@ -90,7 +92,7 @@ class Portfolio {
 	 */
 	public function register(): void {
 		register_post_type(
-			self::POST_TYPE,
+			self::POST_TYPE->value(),
 			[
 				'labels'             => [
 					'name'          => __( 'Portfolio', 'soma' ),
@@ -101,7 +103,7 @@ class Portfolio {
 				'has_archive'        => false,
 				'show_in_rest'       => false,
 				'show_in_menu'       => true,
-				'rewrite'            => [ 'slug' => self::POST_TYPE ],
+				'rewrite'            => [ 'slug' => self::POST_TYPE->value() ],
 				'menu_icon'          => 'dashicons-portfolio',
 				'supports'           => [ 'title', 'thumbnail' ],
 			]
@@ -114,6 +116,6 @@ class Portfolio {
 	 * @return string
 	 */
 	public function get_post_type(): string {
-		return self::POST_TYPE;
+		return self::POST_TYPE->value();
 	}
 }
