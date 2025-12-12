@@ -1,59 +1,80 @@
-# GitHub Copilot Instructions for Soma WordPress Theme
+# GitHub Copilot Instructions for FibraSOMA Project
 
-## 🚀 Project Status: Modernization in Progress
+## 🚀 Project Status: Development Ready
 
-**Current Version**: 2.0.7 (Legacy)  
-**Target Version**: 3.0.0 (Modernized - PSR-4 + Elementor + Quality Gates)  
-**Migration Phase**: Phase 2 - Module Migration (In Progress)  
-**Migration Plan**: See [docs/MIGRATION_PLAN.md](../wp-content/themes/soma/docs/MIGRATION_PLAN.md)
+**Website Project**: FibraSOMA (Real Estate Investment Trust)  
+**WordPress Theme**: SOMA v2.0.7 → v3.0.0 (Modernization)  
+**Development Timeline**: 9 weeks (Dec 9, 2025 - Jan 30, 2026)  
+**Current Phase**: Week 1 - Theme Modernization + Base Setup  
+**Project Management**: GitHub Projects @ https://github.com/users/miguelcolmenares/projects/1
 
 ## Project Context
-This is a **WordPress theme** (`wp-content/themes/soma/`) undergoing a comprehensive modernization to adopt PSR-4 standards, Elementor integration, and enterprise-grade development practices inspired by the WellSpring theme architecture.
 
-Only the `soma` theme directory is tracked in git—WordPress core and other themes are excluded via `.gitignore`.
+This is a **9-week WordPress website development project** for FibraSOMA with two parallel workstreams:
 
-## 📋 Modernization Roadmap
+1. **Website Development** (9 weeks): Building FibraSOMA corporate website
+2. **Theme Modernization** (Week 1): Upgrading SOMA theme from v2.0.7 to v3.0.0 with PSR-4, Elementor, and quality gates
 
-### Current State (v2.0.7 - Legacy)
-- ❌ No PSR-4 compliance (files use underscores, no namespaces)
-- ❌ No Singleton pattern or LoadableInterface
-- ❌ No PHP 8.1+ features (enums, match, first-class callables)
-- ❌ No testing infrastructure (zero unit tests)
-- ❌ No quality gates (no PHPCS, PHPStan, or validation)
-- ❌ No Elementor integration
-- ❌ No centralized CSS variables system
-- ✅ ACF Flexible Content page builder (50+ partials) - **PRESERVE**
-- ✅ 4 custom post types working
-- ✅ REST API endpoints functional
-- ✅ Webpack build system operational
+**Repository**: `sanruiz/fibra` (branch: master, default: main)  
+**Theme Location**: `wp-content/themes/soma/`  
+**Documentation**: See `docs/` for all project plans and guides
 
-### Target State (v3.0.0 - Modernized)
-- ✅ **PSR-4 Compliance**: `Soma\` namespace, PascalCase files
-- ✅ **Singleton Pattern**: All core classes use `instance()` method
-- ✅ **LoadableInterface**: Standardized component loading with priorities
-- ✅ **PHP 8.1+ Features**: Enums, match expressions, first-class callables, readonly
-- ✅ **Quality Gates**: PHPCS (0 errors), PHPStan Level 8, 80%+ test coverage
-- ✅ **Testing Infrastructure**: PHPUnit unit tests, integration tests
-- ✅ **Elementor Integration**: 8+ custom widgets in 'soma' category
-- ✅ **CSS Variables**: 200+ design tokens in `assets/css/variables.css`
-- ✅ **Helper Functions**: Centralized `soma_*` global functions
-- ✅ **Logging System**: PSR-3 compliant Logger with 8 levels
-- ✅ **Cache System**: Tag-based invalidation, auto-cleanup
-- ✅ **Documentation**: Complete developer guides in `docs/`
-- ✅ **Backward Compatibility**: ACF flexible content system fully preserved
+## 📊 GitHub Project Organization
 
-### Migration Phases (13 weeks)
+### Issues & Milestones
+- **54 total issues** created and organized
+- **8 milestones** (one per week, plus combined weeks 4-5)
+- **28 labels** for categorization (weeks, types, priorities, components)
+- **4 project columns**: Backlog (46), Todo (8), In Progress, Done
+
+### Current Distribution
+- **Week 1** (8 issues in Todo): Theme modernization + base setup
+- **Weeks 2-9** (46 issues in Backlog): Website features and content
+
+### View Project
+- **Project Board**: https://github.com/users/miguelcolmenares/projects/1
+- **Issues**: https://github.com/sanruiz/fibra/issues
+- **Milestones**: https://github.com/sanruiz/fibra/milestones
+
+## 📋 9-Week Development Plan
+
+### Week 1: Alistamiento + Modernización Theme (Current)
+**Milestone**: Semana 1: Alistamiento + Modernización Theme  
+**Status**: 🔄 In Progress  
+**Issues**: #1-8
+
+**Priority**: Issue #1 - Complete SOMA theme modernization (8 phases, 150+ subtasks)
+- PSR-4 compliance with `Soma\` namespace
+- Elementor integration (8+ widgets)
+- Quality gates (PHPCS, PHPStan Level 8, 80%+ test coverage)
+- See `docs/MIGRATION_PLAN.md` for full details
+
+### Weeks 2-9: Website Development
+**See**: `docs/PLAN_DESARROLLO_FIBRASOMA.md` for complete breakdown
+- Week 2: Home page sections
+- Week 3: Corporate pages (About, Portfolio, Team)
+- Weeks 4-5: Investor relations section
+- Week 6: Individual project templates
+- Week 7: ESG/ASG section
+- Week 8: News system
+- Week 9: Contact forms + QA + launch
+
+## 📝 Theme Modernization Status
+
+### Modernization Phases (Week 1)
 
 | Phase | Status | Deliverables |
 |-------|--------|--------------|
 | 1. Foundation & Infrastructure | ✅ Complete | Composer, PSR-4, quality tools |
-| 2. Module Migration | 🔄 In Progress | Post Types ✅, CF7 ✅, API ✅, Custom Fields ⏳ |
-| 3. Utilities & Helpers | ⏳ Pending | Logger, Cache, Enums, Helpers |
-| 4. Elementor Integration | ⏳ Pending | 8+ custom widgets |
+| 2. Module Migration | ✅ Complete | Post Types ✅, CF7 ✅, API ✅, Custom Fields ✅ |
+| 3. Utilities & Helpers | ✅ Complete | Logger, Cache, Enums, Helpers |
+| 4. Elementor Integration | 🔄 In Progress | 8+ custom widgets |
 | 5. CSS Variables System | ⏳ Pending | 200+ design tokens |
 | 6. Page Builder Enhancement | ⏳ Pending | ACF system modernization |
 | 7. Testing & Quality | ⏳ Pending | 80%+ coverage, quality gates |
 | 8. Documentation & Release | ⏳ Pending | Complete docs, v3.0.0 |
+
+**Current Focus**: Fase 4 - Elementor Integration (8+ custom widgets)
 
 **Full Migration Plan**: [docs/MIGRATION_PLAN.md](../wp-content/themes/soma/docs/MIGRATION_PLAN.md)  
 **Architecture Vision**: [docs/ARCHITECTURE_VISION.md](../wp-content/themes/soma/docs/ARCHITECTURE_VISION.md)
