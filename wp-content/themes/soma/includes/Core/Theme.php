@@ -129,6 +129,9 @@ class Theme {
 		// Register CF7 Integration (priority 30).
 		$this->loader->register( \Soma\CF7\Loader::instance() );
 
+		// Register Elementor Integration (priority 30).
+		$this->loader->register( \Soma\Elementor\Loader::instance() );
+
 		// Register REST API Endpoints (priority 35).
 		$this->loader->register( \Soma\API\Loader::instance() );
 
