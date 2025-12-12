@@ -135,11 +135,8 @@ class Theme {
 		// Register Post Types (priority 20).
 		$this->loader->register( \Soma\PostTypes\Loader::instance() );
 
-		// Register CF7 Integration (priority 30).
-		$this->loader->register( \Soma\CF7\Loader::instance() );
-
-		// Register Elementor Integration (priority 30).
-		$this->loader->register( \Soma\Elementor\Loader::instance() );
+	// Register Page Builder (priority 25) - ACF flexible content system.
+	$this->loader->register( \Soma\PageBuilder\Loader::instance() );
 
 		// Register REST API Endpoints (priority 35).
 		$this->loader->register( \Soma\API\Loader::instance() );
