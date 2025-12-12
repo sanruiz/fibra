@@ -34,6 +34,13 @@
         
         <!-- Allow nullable types and union types -->
         <exclude name="WordPress.PHP.DisallowAlternativePHPTags.MaybeASPOpenTagFound"/>
+        
+        <!-- PSR-4: Allow PascalCase file names (not WordPress lowercase-hyphenated) -->
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        
+        <!-- Allow modern PHP conditions (not Yoda style) -->
+        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
     </rule>
 
     <!-- Rules: WordPress Core -->

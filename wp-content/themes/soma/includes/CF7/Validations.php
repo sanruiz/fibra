@@ -85,24 +85,24 @@ class Validations {
 	/**
 	 * Validate name field (letters and spaces only).
 	 *
-	 * @param string $string The string to validate.
+	 * @param string $value The string to validate.
 	 * @return bool True if valid, false otherwise.
 	 */
-	private function validate_name( string $string ): bool {
-		return ctype_alpha( str_replace( ' ', '', $string ) );
+	private function validate_name( string $value ): bool {
+		return ctype_alpha( str_replace( ' ', '', $value ) );
 	}
 
 	/**
 	 * Validate email format.
 	 *
-	 * @param string $string The email to validate.
+	 * @param string $value The email to validate.
 	 * @return bool True if valid, false otherwise.
 	 */
-	private function validate_email_format( string $string ): bool {
-		if ( empty( $string ) ) {
+	private function validate_email_format( string $value ): bool {
+		if ( empty( $value ) ) {
 			return false;
 		}
-		return (bool) preg_match( '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i', $string );
+		return (bool) preg_match( '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i', $value );
 	}
 
 	/**
@@ -114,6 +114,7 @@ class Validations {
 	 */
 	public function validate_text( $result, $tag ) {
 		if ( 'fname' === $tag->name ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- CF7 handles nonce verification.
 			$txtname = isset( $_POST['fname'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['fname'] ) ) ) : '';
 			if ( ! $this->validate_name( $txtname ) ) {
 				$result->invalidate( $tag, __( 'Must contain letters only', 'soma' ) );
@@ -132,11 +133,13 @@ class Validations {
 	public function validate_email( $result, $tag ) {
 		if ( \in_array( $tag->name, [ 'email', 'newsletter-email' ], true ) ) {
 			$email = '';
+			// phpcs:disable WordPress.Security.NonceVerification.Missing -- CF7 handles nonce verification.
 			if ( isset( $_POST['email'] ) ) {
 				$email = trim( sanitize_email( wp_unslash( $_POST['email'] ) ) );
 			} elseif ( isset( $_POST['newsletter-email'] ) ) {
 				$email = trim( sanitize_email( wp_unslash( $_POST['newsletter-email'] ) ) );
 			}
+			// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 			if ( ! $this->validate_email_format( $email ) ) {
 				$result->invalidate( $tag, __( 'Invalid email address', 'soma' ) );

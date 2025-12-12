@@ -132,10 +132,12 @@ class Theme {
 		// Register REST API Endpoints (priority 35).
 		$this->loader->register( \Soma\API\Loader::instance() );
 
-		// TODO: Register additional components as they are migrated.
-		// $this->loader->register( \Soma\CustomFields\Loader::instance() );
-		// $this->loader->register( \Soma\PageBuilder\Loader::instance() );
-		// $this->loader->register( \Soma\Elementor\Loader::instance() );
+		/*
+		 * TODO: Register additional components as they are migrated:
+		 * - Custom Fields Loader
+		 * - Page Builder Loader
+		 * - Elementor Loader
+		 */
 	}
 
 	/**

@@ -6,19 +6,19 @@ parameters:
         - vendor
         - node_modules
         - tests/Mocks
-    bootstrapFiles:
-        - %currentWorkingDirectory%/../../plugins/advanced-custom-fields-pro/acf.php
     ignoreErrors:
-        # WordPress dynamic properties
-        - '#Access to an undefined property WP_[a-zA-Z_]+::\$[a-zA-Z_]+#'
-        # ACF dynamic functions
+        # ACF functions (stubs don't provide function signatures)
         - '#Function get_field not found#'
-        - '#Function the_field not found#'
-        - '#Function have_rows not found#'
-        - '#Function get_sub_field not found#'
+        # Contact Form 7 classes (no official stubs available)
+        - '#unknown class WPCF7#'
+        - '#invalid type WPCF7#'
+        - '#Method .* has invalid return type WPCF7#'
+        # Action callbacks don't need return types
+        - '#Action callback returns .* but should not return anything#'
+        # Allow missing array value types
+        -
+            identifier: missingType.iterableValue
+        # Allow missing generic types
+        -
+            identifier: missingType.generics
     treatPhpDocTypesAsCertain: false
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
-    
-includes:
-    - vendor/szepeviktor/phpstan-wordpress/extension.neon
