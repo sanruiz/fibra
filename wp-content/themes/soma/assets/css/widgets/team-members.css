@@ -1,0 +1,135 @@
+/**
+ * Team Members Widget Styles
+ * 
+ * Elementor widget for team members grid.
+ * 
+ * @package Soma
+ * @since 3.0.0
+ */
+
+/* Container */
+.soma-team-members {
+	padding: 50px 0;
+}
+
+/* Grid */
+.soma-team-members .team-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 40px;
+}
+
+/* Team member card */
+.soma-team-members .team-member {
+	text-align: center;
+	transition: transform 0.3s ease;
+}
+
+.soma-team-members .team-member:hover {
+	transform: translateY(-10px);
+}
+
+/* Thumbnail */
+.soma-team-members .team-member .thumbnail {
+	position: relative;
+	width: 100%;
+	padding-top: 100%; /* Square aspect ratio */
+	overflow: hidden;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.soma-team-members .team-member .thumbnail img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+}
+
+.soma-team-members .team-member:hover .thumbnail img {
+	transform: scale(1.1);
+}
+
+/* Name */
+.soma-team-members .team-member h3 {
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--soma-text-primary, #000000);
+	margin: 0 0 8px;
+	line-height: 1.3;
+}
+
+/* Position */
+.soma-team-members .team-member .position {
+	font-size: 14px;
+	color: var(--soma-text-secondary, #666666);
+	margin-bottom: 15px;
+}
+
+/* Social links */
+.soma-team-members .team-member .social-links {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	margin-top: 15px;
+}
+
+.soma-team-members .team-member .social-links a {
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background-color: var(--soma-bg-light, #f5f5f5);
+	color: var(--soma-text-primary, #000000);
+	text-decoration: none;
+	transition: all 0.3s ease;
+	font-size: 16px;
+}
+
+.soma-team-members .team-member .social-links a:hover {
+	background-color: var(--soma-primary, #0066cc);
+	color: var(--soma-text-light, #ffffff);
+	transform: translateY(-3px);
+}
+
+/* No members message */
+.soma-team-members .no-members {
+	text-align: center;
+	padding: 60px 20px;
+	color: var(--soma-text-secondary, #666666);
+	font-size: 16px;
+}
+
+/* Responsive: Tablet */
+@media screen and (max-width: 991px) {
+	.soma-team-members .team-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 30px;
+	}
+
+	.soma-team-members .team-member h3 {
+		font-size: 18px;
+	}
+}
+
+/* Responsive: Mobile */
+@media screen and (max-width: 767px) {
+	.soma-team-members {
+		padding: 30px 0;
+	}
+
+	.soma-team-members .team-grid {
+		grid-template-columns: 1fr;
+		gap: 25px;
+	}
+
+	.soma-team-members .team-member .thumbnail {
+		max-width: 300px;
+		margin: 0 auto 20px;
+	}
+}
