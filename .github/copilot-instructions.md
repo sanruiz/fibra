@@ -70,13 +70,22 @@ This is a **9-week WordPress website development project** for FibraSOMA with tw
 | 3. Utilities & Helpers | ✅ Complete | Logger, Cache, Enums, Helpers |
 | 4. Elementor Integration | ✅ Complete | 8 widgets, CSS files, style dependencies, integration tests |
 | 5. CSS Variables System | ✅ Complete | 200+ design tokens, 55 SCSS partials migrated |
-| 6. Page Builder Enhancement | ⏳ Pending | ACF system modernization |
+| 6. Page Builder Enhancement | 🔄 In Progress | ACF system modernization, PSR-4 refactoring |
 | 7. Testing & Quality | ⏳ Pending | 80%+ coverage, quality gates |
 | 8. Documentation & Release | ⏳ Pending | Complete docs, v3.0.0 |
 
-**Current Focus**: Phase 6 - Page Builder Enhancement (ACF system modernization)
+**Current Focus**: Phase 6 - Page Builder Enhancement (40% complete)
 
 **Phase 5 Complete**: CSS Variables System with 200+ design tokens, all 55 SCSS partials migrated, production build optimized (180 KiB bundle), comprehensive documentation (CSS_VARIABLES.md)
+
+**Phase 6 Progress (40%)**: 
+- ✅ PSR-4 infrastructure complete (Loader, BlockRegistry, BlockRenderer)
+- ✅ Registered in Theme.php (priority 25)
+- ✅ page-builder.php updated with PSR-4 + backward compat
+- ✅ 53 blocks mapped with validation and error handling
+- ⏳ Testing integration pending
+- ⏳ Partial documentation pending
+- ⏳ Quality validation pending
 
 **Full Migration Plan**: [docs/MIGRATION_PLAN.md](../wp-content/themes/soma/docs/MIGRATION_PLAN.md)  
 **Architecture Vision**: [docs/ARCHITECTURE_VISION.md](../wp-content/themes/soma/docs/ARCHITECTURE_VISION.md)
@@ -85,25 +94,36 @@ This is a **9-week WordPress website development project** for FibraSOMA with tw
 
 ## Core Architecture: ACF Flexible Content Page Builder
 
-**Critical Pattern:** This theme uses a custom page builder system (`page-builder.php`) that maps ACF flexible content layouts to PHP partials:
+**v3.0.0 PSR-4 System (Current):** The page builder now uses a modern PSR-4 architecture:
 
 ```php
 // In page.php, templates/*.php, single.php:
 global $pageBuilder;
 $pageBuilder = get_field('soma_blocks'); // ACF flexible content field
-get_template_part('page-builder'); // Renders all blocks
+get_template_part('page-builder'); // Renders all blocks using PSR-4 system
 
-// page-builder.php maps ACF layouts to partials:
-$blockList = [
-    "BusinessUnits" => "business_units_content",
-    "Navbar" => "navbar_content",
-    // ...50+ mappings
-];
+// page-builder.php uses PSR-4 BlockRenderer:
+if ( class_exists( '\Soma\PageBuilder\BlockRenderer' ) ) {
+    $renderer = \Soma\PageBuilder\BlockRenderer::instance();
+    $renderer->render( $pageBuilder ); // Handles validation, caching, error logging
+}
 ```
+
+**PSR-4 PageBuilder Components:**
+- **`includes/PageBuilder/Loader.php`**: LoadableInterface, priority 25, cache invalidation hooks
+- **`includes/PageBuilder/BlockRegistry.php`**: Centralized 53 block mappings (layout → field_group + partial)
+- **`includes/PageBuilder/BlockRenderer.php`**: Rendering engine with validation, PSR-3 logging, optional caching
+
+**Features:**
+- Multi-layer validation (structure, registry, file existence)
+- Error handling with `soma_log_error()` + WP_DEBUG display
+- Optional block caching with tag-based invalidation
+- Cache auto-invalidation on `save_post` and `acf/save_post`
+- 100% backward compatible with v2.x (maintains global `$pageBlock`)
 
 **When creating new content blocks:**
 1. Add partial to `/partials/ComponentName.php` with global `$pageBlock` access
-2. Register mapping in `page-builder.php` `$blockList` array
+2. Register in `BlockRegistry::register_default_blocks()`: `$this->register_block('ComponentName', 'component_name_content', 'ComponentName')`
 3. Create corresponding SCSS in `/sass/partials/_ComponentName.scss`
 4. Import SCSS in `/sass/main.scss` under `// #DittoPartials`
 5. Add JS handler in `/js/components/componentName.js` if interactive
