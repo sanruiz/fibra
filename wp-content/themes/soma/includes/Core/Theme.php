@@ -123,6 +123,9 @@ class Theme {
 	 * @return void
 	 */
 	private function register_components(): void {
+		// Register Utilities FIRST (priority 10) - provides helper functions for all components.
+		$this->loader->register( \Soma\Utils\Loader::instance() );
+
 		// Register Post Types (priority 20).
 		$this->loader->register( \Soma\PostTypes\Loader::instance() );
 
@@ -134,9 +137,6 @@ class Theme {
 
 		// Register REST API Endpoints (priority 35).
 		$this->loader->register( \Soma\API\Loader::instance() );
-
-		// Register Utilities (priority 45).
-		$this->loader->register( \Soma\Utils\Loader::instance() );
 
 		/*
 		 * TODO: Register additional components as they are migrated:

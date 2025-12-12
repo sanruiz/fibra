@@ -204,12 +204,11 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 - `should_load()`: Conditional loading check
 
 **Priority System:**
-- 10: Core components (Theme, Loader)
+- 10: Utilities (must load FIRST to provide soma_* helper functions)
 - 20: Post Types
-- 30: CF7, Integrations
+- 30: CF7, Elementor, Integrations
 - 35: REST API
 - 40: Admin
-- 45: Utilities
 
 ## Custom Post Types & Endpoints
 - **CPTs:** portfolio, news, careers, team_members, events, documents (all registered in `inc/post-types.php`)

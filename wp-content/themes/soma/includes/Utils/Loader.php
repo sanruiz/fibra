@@ -89,7 +89,7 @@ class Loader implements LoadableInterface {
 	 * @return int
 	 */
 	public function get_priority(): int {
-		return 45; // Load utilities early.
+		return 10; // Load utilities FIRST so helper functions are available.
 	}
 
 	/**
