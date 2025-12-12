@@ -30,17 +30,17 @@ if ( class_exists( 'Soma\Core\Theme' ) ) {
 }
 
 /**
- * Legacy Theme Includes (Temporary - Phase 2)
+ * Legacy Theme Includes (Temporary - Pending Migration)
  *
  * These files are being phased out as components are migrated to PSR-4.
- * Files marked as "MIGRATED" are now loaded via PSR-4 architecture.
+ * Migrated to PSR-4 in previous phases:
+ * - theme-config.php → Migrated in Phase 5 (\Soma\Assets, \Soma\Navigation, \Soma\Admin)
+ * - post-types.php → Migrated in Phase 2 (\Soma\PostTypes\Loader)
+ * - endpoints.php → Migrated in Phase 2 (\Soma\API\Loader)
+ * - cf7-validations.php → Migrated in Phase 2 (\Soma\CF7\Loader)
  */
 $soma_theme = array(
-	'/theme-config.php',    // Theme general config.
-	// '/post-types.php',      // MIGRATED: Now loaded via \Soma\PostTypes\Loader.
-	'/taxonomies.php',      // Register taxonomies.
-	// '/endpoints.php',       // MIGRATED: Now loaded via \Soma\API\Loader.
-	// '/cf7-validations.php', // MIGRATED: Now loaded via \Soma\CF7\Loader.
+	'/taxonomies.php',      // TODO: Migrate to \Soma\Taxonomies\Loader in future phase.
 );
 foreach ( $soma_theme as $file ) {
 	require_once __DIR__ . '/inc' . $file;
