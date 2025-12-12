@@ -25,18 +25,38 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ContactForm extends WidgetBase {
 
+	/**
+	 * Get widget name
+	 *
+	 * @return string
+	 */
 	public function get_name(): string {
 		return 'soma-contact-form';
 	}
 
+	/**
+	 * Get widget title
+	 *
+	 * @return string
+	 */
 	public function get_title(): string {
 		return __( 'Contact Form', 'soma' );
 	}
 
+	/**
+	 * Get widget icon
+	 *
+	 * @return string
+	 */
 	public function get_icon(): string {
 		return 'eicon-form-horizontal';
 	}
 
+	/**
+	 * Register widget controls
+	 *
+	 * @return void
+	 */
 	protected function register_controls(): void {
 		$this->start_controls_section(
 			'section_form',
@@ -61,14 +81,20 @@ class ContactForm extends WidgetBase {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Render widget output
+	 *
+	 * @return void
+	 */
 	protected function render(): void {
 		$settings = $this->get_settings_for_display();
 
 		if ( empty( $settings['form_id'] ) ) {
-			echo '<p>' . __( 'Please select a contact form.', 'soma' ) . '</p>';
+			echo '<p>' . esc_html__( 'Please select a contact form.', 'soma' ) . '</p>';
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_shortcode is safe
 		echo do_shortcode( sprintf( '[contact-form-7 id="%d"]', absint( $settings['form_id'] ) ) );
 	}
 

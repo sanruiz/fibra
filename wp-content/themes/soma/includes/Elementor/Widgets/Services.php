@@ -170,7 +170,7 @@ class Services extends WidgetBase {
 				'type'       => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
-					'px' => [
+					'px'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -251,7 +251,7 @@ class Services extends WidgetBase {
 				'type'       => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
-					'px' => [
+					'px'  => [
 						'min' => 20,
 						'max' => 200,
 					],
@@ -277,7 +277,7 @@ class Services extends WidgetBase {
 				'type'       => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
-					'px' => [
+					'px'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -322,7 +322,7 @@ class Services extends WidgetBase {
 				'type'       => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
-					'px' => [
+					'px'  => [
 						'min' => 0,
 						'max' => 50,
 					],

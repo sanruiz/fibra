@@ -238,7 +238,7 @@ class Footer extends WidgetBase {
 			[
 				'label'   => __( 'Copyright Text', 'soma' ),
 				'type'    => \Elementor\Controls_Manager::TEXTAREA,
-				'default' => '© ' . date( 'Y' ) . ' ' . get_bloginfo( 'name' ),
+				'default' => '© ' . current_time( 'Y' ) . ' ' . get_bloginfo( 'name' ),
 			]
 		);
 
@@ -432,11 +432,11 @@ class Footer extends WidgetBase {
 									<?php
 									wp_nav_menu(
 										[
-											'menu'           => $settings['fibrasoma_menu'],
+											'menu'        => $settings['fibrasoma_menu'],
 											'theme_location' => 'fibrasoma_footer',
-											'container'      => 'div',
-											'menu_class'     => 'fibrasoma-list',
-											'fallback_cb'    => false,
+											'container'   => 'div',
+											'menu_class'  => 'fibrasoma-list',
+											'fallback_cb' => false,
 										]
 									);
 									?>
@@ -446,11 +446,11 @@ class Footer extends WidgetBase {
 										<?php
 										wp_nav_menu(
 											[
-												'menu'           => $settings['social_menu'],
+												'menu' => $settings['social_menu'],
 												'theme_location' => 'social',
-												'container'      => 'div',
-												'menu_class'     => 'social-list',
-												'fallback_cb'    => false,
+												'container' => 'div',
+												'menu_class' => 'social-list',
+												'fallback_cb' => false,
 											]
 										);
 										?>
@@ -460,11 +460,11 @@ class Footer extends WidgetBase {
 										<?php
 										wp_nav_menu(
 											[
-												'menu'           => $settings['business_units_menu'],
+												'menu' => $settings['business_units_menu'],
 												'theme_location' => 'business_units',
-												'container'      => 'div',
-												'menu_class'     => 'business-list',
-												'fallback_cb'    => false,
+												'container' => 'div',
+												'menu_class' => 'business-list',
+												'fallback_cb' => false,
 											]
 										);
 										?>
@@ -482,13 +482,13 @@ class Footer extends WidgetBase {
 						<div class="credits">
 							<?php if ( ! empty( $settings['credits_link']['url'] ) ) : ?>
 								<a href="<?php echo esc_url( $settings['credits_link']['url'] ); ?>" 
-								   target="<?php echo esc_attr( $settings['credits_link']['is_external'] ? '_blank' : '_self' ); ?>">
+									target="<?php echo esc_attr( $settings['credits_link']['is_external'] ? '_blank' : '_self' ); ?>">
 									<?php echo esc_html( $settings['credits_link']['custom_attributes'] ?? __( 'Credits', 'soma' ) ); ?>
 								</a>
 							<?php endif; ?>
 							<?php if ( ! empty( $settings['privacy_link']['url'] ) ) : ?>
 								<a href="<?php echo esc_url( $settings['privacy_link']['url'] ); ?>" 
-								   target="<?php echo esc_attr( $settings['privacy_link']['is_external'] ? '_blank' : '_self' ); ?>">
+									target="<?php echo esc_attr( $settings['privacy_link']['is_external'] ? '_blank' : '_self' ); ?>">
 									<?php echo esc_html( $settings['privacy_link']['custom_attributes'] ?? __( 'Privacy Policy', 'soma' ) ); ?>
 								</a>
 							<?php endif; ?>

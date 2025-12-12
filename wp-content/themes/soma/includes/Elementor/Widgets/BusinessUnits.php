@@ -150,7 +150,7 @@ class BusinessUnits extends WidgetBase {
 				'type'       => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'rem' ],
 				'range'      => [
-					'px' => [
+					'px'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -190,8 +190,8 @@ class BusinessUnits extends WidgetBase {
 				'type'      => \Elementor\Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
-						'min' => 0,
-						'max' => 1,
+						'min'  => 0,
+						'max'  => 1,
 						'step' => 0.1,
 					],
 				],
@@ -316,12 +316,12 @@ class BusinessUnits extends WidgetBase {
 				<?php for ( $i = 0; $i < $max_items; $i++ ) : ?>
 					<?php if ( isset( $business_units[ $i ] ) ) : ?>
 						<?php
-						$business_unit_id   = $business_units[ $i ];
-						$businessunit_info  = get_field( 'business_unit_data', $business_unit_id );
-						$color              = $businessunit_info['color'] ?? '#000000';
-						$label              = $businessunit_info['label'] ?? '';
-						$image_cover        = $businessunit_info['image_cover'] ?? null;
-						$permalink          = get_the_permalink( $business_unit_id );
+						$business_unit_id  = $business_units[ $i ];
+						$businessunit_info = get_field( 'business_unit_data', $business_unit_id );
+						$color             = $businessunit_info['color'] ?? '#000000';
+						$label             = $businessunit_info['label'] ?? '';
+						$image_cover       = $businessunit_info['image_cover'] ?? null;
+						$permalink         = get_the_permalink( $business_unit_id );
 						?>
 						<div class="item item-num-<?php echo esc_attr( $business_unit_id ); ?>">
 							<style>

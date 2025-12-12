@@ -24,18 +24,38 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class NewsList extends WidgetBase {
 
+	/**
+	 * Get widget name
+	 *
+	 * @return string
+	 */
 	public function get_name(): string {
 		return 'soma-news-list';
 	}
 
+	/**
+	 * Get widget title
+	 *
+	 * @return string
+	 */
 	public function get_title(): string {
 		return __( 'News List', 'soma' );
 	}
 
+	/**
+	 * Get widget icon
+	 *
+	 * @return string
+	 */
 	public function get_icon(): string {
 		return 'eicon-post-list';
 	}
 
+	/**
+	 * Register widget controls
+	 *
+	 * @return void
+	 */
 	protected function register_controls(): void {
 		$this->start_controls_section(
 			'section_query',
@@ -58,9 +78,14 @@ class NewsList extends WidgetBase {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Render widget output
+	 *
+	 * @return void
+	 */
 	protected function render(): void {
 		$settings = $this->get_settings_for_display();
-		$news     = soma_get_news_items(
+		$news     = \soma_get_news_items(
 			[
 				'posts_per_page' => $settings['posts_per_page'],
 			]
@@ -75,8 +100,8 @@ class NewsList extends WidgetBase {
 							$news->the_post();
 							?>
 							<article class="news-item">
-								<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-								<div class="meta"><?php the_time( 'F j, Y' ); ?></div>
+								<h3><a href="<?php the_permalink(); ?>">< the_title(); ?></a></h3>
+								<div class="meta"><?php echo esc_html( get_the_date( 'F j, Y' ) ); ?></div>
 								<div class="excerpt"><?php the_excerpt(); ?></div>
 							</article>
 							<?php
@@ -85,7 +110,7 @@ class NewsList extends WidgetBase {
 						?>
 					</div>
 				<?php else : ?>
-					<p><?php _e( 'No news found.', 'soma' ); ?></p>
+					<p><?php esc_html_e( 'No news found.', 'soma' ); ?></p>
 				<?php endif; ?>
 			</div>
 		</section>

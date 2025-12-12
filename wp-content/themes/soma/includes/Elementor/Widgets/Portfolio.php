@@ -24,18 +24,38 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Portfolio extends WidgetBase {
 
+	/**
+	 * Get widget name
+	 *
+	 * @return string
+	 */
 	public function get_name(): string {
 		return 'soma-portfolio';
 	}
 
+	/**
+	 * Get widget title
+	 *
+	 * @return string
+	 */
 	public function get_title(): string {
 		return __( 'Portfolio', 'soma' );
 	}
 
+	/**
+	 * Get widget icon
+	 *
+	 * @return string
+	 */
 	public function get_icon(): string {
 		return 'eicon-gallery-masonry';
 	}
 
+	/**
+	 * Register widget controls
+	 *
+	 * @return void
+	 */
 	protected function register_controls(): void {
 		$this->start_controls_section(
 			'section_query',
@@ -58,9 +78,14 @@ class Portfolio extends WidgetBase {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Render widget output
+	 *
+	 * @return void
+	 */
 	protected function render(): void {
 		$settings  = $this->get_settings_for_display();
-		$portfolio = soma_get_portfolio_items(
+		$portfolio = \soma_get_portfolio_items(
 			[
 				'posts_per_page' => $settings['posts_per_page'],
 			]
@@ -84,7 +109,7 @@ class Portfolio extends WidgetBase {
 						?>
 					</div>
 				<?php else : ?>
-					<p><?php _e( 'No portfolio items found.', 'soma' ); ?></p>
+					<p><?php esc_html_e( 'No portfolio items found.', 'soma' ); ?></p>
 				<?php endif; ?>
 			</div>
 		</section>
