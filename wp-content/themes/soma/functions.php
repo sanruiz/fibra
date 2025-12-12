@@ -30,17 +30,17 @@ if ( class_exists( 'Soma\Core\Theme' ) ) {
 }
 
 /**
- * Legacy Theme Includes (Temporary - Phase 1)
+ * Legacy Theme Includes (Temporary - Phase 2)
  *
- * These will be migrated to PSR-4 components in Phase 2.
- * DO NOT REMOVE until all components are migrated.
+ * These files are being phased out as components are migrated to PSR-4.
+ * Files marked as "MIGRATED" are now loaded via PSR-4 architecture.
  */
 $soma_theme = array(
 	'/theme-config.php',    // Theme general config.
-	'/post-types.php',      // Register post types.
+	// '/post-types.php',      // MIGRATED: Now loaded via \Soma\PostTypes\Loader.
 	'/taxonomies.php',      // Register taxonomies.
-	'/endpoints.php',       // Register endpoints.
-	'/cf7-validations.php', // Contact Form 7 Custom Validations.
+	// '/endpoints.php',       // MIGRATED: Now loaded via \Soma\API\Loader.
+	// '/cf7-validations.php', // MIGRATED: Now loaded via \Soma\CF7\Loader.
 );
 foreach ( $soma_theme as $file ) {
 	require_once __DIR__ . '/inc' . $file;
