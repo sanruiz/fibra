@@ -12,7 +12,6 @@
 use Soma\Utils\Logger;
 use Soma\Utils\Cache;
 use Soma\Core\Enums\PostType;
-use WP_Query;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
