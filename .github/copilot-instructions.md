@@ -1,85 +1,49 @@
 # GitHub Copilot Instructions for FibraSOMA Project
 
-## 🚀 Project Status: Development Ready
+## 🚀 Project Status: Website Development
 
 **Website Project**: FibraSOMA (Real Estate Investment Trust)  
-**WordPress Theme**: SOMA v2.0.7 → v3.0.0 (Modernization)  
-**Development Timeline**: 9 weeks (Dec 9, 2025 - Jan 30, 2026)  
-**Current Phase**: Week 1 - Theme Modernization + Base Setup  
+**WordPress Theme**: SOMA v3.0.0 ✅ (Fully Modernized)  
+**Development Timeline**: 8 weeks remaining (Dec 16, 2025 - Jan 30, 2026)  
+**Current Phase**: Week 2 - Home Page Development  
 **Project Management**: GitHub Projects @ https://github.com/users/miguelcolmenares/projects/1
 
 ## Project Context
 
-This is a **9-week WordPress website development project** for FibraSOMA with two parallel workstreams:
-
-1. **Website Development** (9 weeks): Building FibraSOMA corporate website
-2. **Theme Modernization** (Week 1): Upgrading SOMA theme from v2.0.7 to v3.0.0 with PSR-4, Elementor, and quality gates
+This is an **8-week WordPress website development project** for FibraSOMA's corporate website using the newly modernized SOMA v3.0.0 theme.
 
 **Repository**: `sanruiz/fibra` (branch: master, default: main)  
-**Theme Location**: `wp-content/themes/soma/`  
-**Documentation**: See `docs/` for all project plans and guides
+**Theme**: `wp-content/themes/soma/` (PSR-4, PHP 8.1+, Elementor integrated)  
+**Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
 
 ## 📊 GitHub Project Organization
 
 ### Issues & Milestones
-- **54 total issues** created and organized
-- **8 milestones** (one per week, plus combined weeks 4-5)
-- **28 labels** for categorization (weeks, types, priorities, components)
-- **4 project columns**: Backlog (46), Todo (8), In Progress, Done
-
-### Current Distribution
-- **Week 1** (8 issues in Todo): Theme modernization + base setup
-- **Weeks 2-9** (46 issues in Backlog): Website features and content
+- **54 total issues**: 1 closed (theme modernization), 53 for website development
+- **8 milestones**: Week 2 through Week 9
+- **28 labels**: weeks, types, priorities, components
+- **4 project columns**: Backlog, Todo, In Progress, Done
 
 ### View Project
 - **Project Board**: https://github.com/users/miguelcolmenares/projects/1
 - **Issues**: https://github.com/sanruiz/fibra/issues
 - **Milestones**: https://github.com/sanruiz/fibra/milestones
 
-## 📋 9-Week Development Plan
+## 📋 Website Development Plan (Weeks 2-9)
 
-### Week 1: Alistamiento + Modernización Theme (Current)
-**Milestone**: Semana 1: Alistamiento + Modernización Theme  
-**Status**: 🔄 In Progress  
-**Issues**: #1-8
+- **Week 2**: Home page sections (hero, business units, portfolio showcase, news feed)
+- **Week 3**: Corporate pages (About Us, Portfolio Archive, Team Members)
+- **Weeks 4-5**: Investor Relations section (reports, presentations, financial data)
+- **Week 6**: Individual project templates with galleries and technical specs
+- **Week 7**: ESG/ASG section (sustainability initiatives, corporate governance)
+- **Week 8**: News system (archive, categories, individual articles)
+- **Week 9**: Contact forms, final QA, performance optimization, launch
 
-**Priority**: Issue #1 - Complete SOMA theme modernization (8 phases, 150+ subtasks)
-- PSR-4 compliance with `Soma\` namespace
-- Elementor integration (8+ widgets)
-- Quality gates (PHPCS, PHPStan Level 8, 80%+ test coverage)
-- See `docs/MIGRATION_PLAN.md` for full details
+## 🎯 SOMA v3.0.0 Theme - Completed ✅
 
-### Weeks 2-9: Website Development
-**See**: `docs/PLAN_DESARROLLO_FIBRASOMA.md` for complete breakdown
-- Week 2: Home page sections
-- Week 3: Corporate pages (About, Portfolio, Team)
-- Weeks 4-5: Investor relations section
-- Week 6: Individual project templates
-- Week 7: ESG/ASG section
-- Week 8: News system
-- Week 9: Contact forms + QA + launch
-
-## 📝 Theme Modernization Status
-
-### Modernization Phases (Week 1)
-
-| Phase | Status | Deliverables |
-|-------|--------|--------------|
-| 1. Foundation & Infrastructure | ✅ Complete | Composer, PSR-4, quality tools |
-| 2. Module Migration | ✅ Complete | Post Types ✅, CF7 ✅, API ✅, Custom Fields ✅ |
-| 3. Utilities & Helpers | ✅ Complete | Logger, Cache, Enums, Helpers |
-| 4. Elementor Integration | ✅ Complete | 8 widgets, CSS files, style dependencies, integration tests |
-| 5. CSS Variables System | ✅ Complete | 200+ design tokens, 55 SCSS partials migrated |
-| 6. Page Builder Enhancement | ✅ Complete | PSR-4 architecture, 53 blocks, query vars, testing |
-| 7. Testing & Quality | ⏳ Pending | 80%+ coverage, quality gates |
-| 8. Documentation & Release | ⏳ Pending | Complete docs, v3.0.0 |
-
-**Current Focus**: Phase 7 - Testing & Quality
-
-**Phase 6 Complete**: PageBuilder PSR-4 system with 53 blocks registered, breaking changes (globals → query vars), 3 testing approaches, quality validation (PHPCS + PHPStan Level 6), comprehensive documentation (PHASE_6_COMPLETION.md)
-
-**Full Migration Plan**: [docs/MIGRATION_PLAN.md](../wp-content/themes/soma/docs/MIGRATION_PLAN.md)  
-**Architecture Vision**: [docs/ARCHITECTURE_VISION.md](../wp-content/themes/soma/docs/ARCHITECTURE_VISION.md)
+**Version**: 3.0.0 (Released December 12, 2025)  
+**Migration**: v2.0.7 → v3.0.0 complete  
+**Documentation**: 5,800+ lines across 8 major docs
 
 ---
 
@@ -128,13 +92,18 @@ if ( class_exists( '\Soma\PageBuilder\BlockRenderer' ) ) {
 5. Add JS handler in `/js/components/componentName.js` if interactive
 6. Import/initialize in `/js/main.js` with conditional check
 
-## Directory Structure
+## Directory Structure (PSR-4)
 
-**`/inc/`** - Module system loaded via `functions.php`:
-- `theme-config.php`: Enqueues assets (versioned at `2.0.7`), registers 5 nav menus, ACF options pages
-- `post-types.php`: Custom post types (portfolio, news, careers, team_members, events, documents)
-- `endpoints.php`: REST API endpoints at `/wp-json/soma/*` (news, careers, portfolio, documents, events)
-- `cf7-validations.php`: Contact Form 7 custom validation classes
+**`/includes/`** - PSR-4 classes with `Soma\` namespace:
+- `Core/` - Theme core (Loader, Theme, Interfaces, Enums)
+- `PostTypes/` - Custom post types (Portfolio, News, Careers, TeamMembers)
+- `Taxonomies/` - Custom taxonomies (PortfolioTaxonomy, NewsTaxonomy, TeamMembersTaxonomy)
+- `API/` - REST endpoints (NewsEndpoint, CareersEndpoint, PortfolioEndpoint, DocumentsEndpoint, EventsEndpoint)
+- `PageBuilder/` - ACF flexible content (Loader, BlockRegistry, BlockRenderer)
+- `Elementor/` - 8 custom widgets (Navbar, Footer, BusinessUnits, Services, TeamMembers, NewsList, Portfolio, ContactForm)
+- `CF7/` - Contact Form 7 integration (Validations)
+- `Utils/` - Helper functions (Helpers, Logger, Cache, CacheInvalidationManager, Enums)
+- `Admin/` - Admin customizations
 
 **`/partials/`** - Page builder components (50+ files). Each accesses block data via WordPress query vars:
 ```php
@@ -292,6 +261,52 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 ## Common Pitfalls
 - **Don't use `locate_template()`** in this codebase—use `get_template_part()`
 - **Webpack requires legacy OpenSSL flag** for Node.js (see `package.json` scripts)
-- **Global variables matter:** `$pageBuilder` in templates, `$pageBlock` in partials
+- **NO global variables:** Use `get_query_var()` for block data (v3.0+ breaking change)
 - **SCSS imports must be added to `main.scss`** under `// #DittoPartials` marker
 - **JS handlers need conditional initialization** in `main.js` to avoid errors on pages without components
+
+## 📚 Complete Documentation (5,800+ lines)
+
+**Development Guides:**
+- **[DEVELOPMENT.md](../wp-content/themes/soma/docs/DEVELOPMENT.md)** (1,093 lines) - Complete developer guide with setup, architecture, patterns, testing
+- **[WIDGETS.md](../wp-content/themes/soma/docs/WIDGETS.md)** (900 lines) - Elementor widgets reference with controls and examples
+- **[HELPERS.md](../wp-content/themes/soma/docs/HELPERS.md)** (850+ lines) - API reference for 24 soma_* helper functions
+- **[MIGRATION_FROM_V2.md](../wp-content/themes/soma/docs/MIGRATION_FROM_V2.md)** (1,549 lines) - Upgrade guide from v2.0.7 to v3.0.0
+- **[TESTING_GUIDE.md](../wp-content/themes/soma/docs/TESTING_GUIDE.md)** (337 lines) - Testing documentation with examples
+- **[CHANGELOG.md](../wp-content/themes/soma/CHANGELOG.md)** (850+ lines) - Complete v3.0.0 changelog
+- **[README.md](../wp-content/themes/soma/README.md)** (600+ lines) - Comprehensive project overview
+
+**Quick Reference:**
+- **Helper Functions**: 24 functions in `Soma\Utils\Helpers` (Logger, Cache, Post Types, Templates, ACF, Utilities)
+- **Enums**: PostType, Taxonomy, LogLevel, CacheTag (all type-safe)
+- **Widgets**: 8 Elementor widgets in 'soma' category
+- **Tests**: 108 tests passing (355 assertions) - `vendor/bin/phpunit`
+- **Quality**: PHPCS clean, PHPStan Level 6, no critical errors
+
+## v3.0.0 Quick Start
+
+**Installation:**
+```bash
+cd wp-content/themes/soma
+composer install --no-dev --optimize-autoloader
+npm install
+npm run prod
+```
+
+**Development:**
+```bash
+npm run watch           # Development with hot reload
+composer test           # Run all 108 tests
+composer phpcs          # Check coding standards
+composer phpstan        # Static analysis Level 6
+```
+
+**Key Features v3.0.0:**
+- ✅ PSR-4 architecture with `Soma\` namespace
+- ✅ PHP 8.1+ (enums, match, first-class callables)
+- ✅ 24 helper functions (`soma_*` prefix)
+- ✅ PSR-3 logging to `wp-content/uploads/soma-logs/`
+- ✅ Tag-based caching with auto-invalidation
+- ✅ 8 Elementor widgets with ACF integration
+- ✅ 53 ACF blocks via PageBuilder
+- ✅ 108 tests, PHPCS clean, PHPStan Level 6
