@@ -3,6 +3,11 @@
  * PHPUnit Bootstrap for Soma Theme Tests
  */
 
+// Define testing environment constant.
+if ( ! defined( 'SOMA_TESTING' ) ) {
+	define( 'SOMA_TESTING', true );
+}
+
 // Set up WordPress tests environment.
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 

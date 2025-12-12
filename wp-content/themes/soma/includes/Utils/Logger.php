@@ -213,8 +213,8 @@ class Logger {
 			fclose( $handle );
 		}
 
-		// Also log to error_log for critical errors.
-		if ( $level->severity() >= LogLevel::ERROR->severity() ) {
+		// Also log to error_log for critical errors (but not during tests).
+		if ( $level->severity() >= LogLevel::ERROR->severity() && ! defined( 'SOMA_TESTING' ) ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			error_log( sprintf( '[SOMA %s] %s', strtoupper( $level->value() ), $message ) );
 		}
