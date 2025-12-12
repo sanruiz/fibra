@@ -1,0 +1,259 @@
+/**
+ * SOMA Theme CSS Variables
+ * Design Tokens System v3.0.0
+ * 
+ * Naming Convention: --soma-[category]-[property]-[variant]
+ * 
+ * Categories:
+ * - color-*: Brand colors, text, backgrounds
+ * - font-*: Typography (families, sizes, weights, line-heights)
+ * - spacing-*: Margins, paddings, gaps
+ * - layout-*: Containers, borders, shadows, transitions
+ * - breakpoint-*: Responsive design breakpoints
+ */
+
+:root {
+	/* ========================================
+	   BRAND COLORS
+	   ======================================== */
+	
+	/* Primary Colors */
+	--soma-color-primary: #171717;
+	--soma-color-primary-light: #7E7E87;
+	--soma-color-primary-dark: #000000;
+	
+	/* Secondary Colors */
+	--soma-color-secondary: #FFFFFF;
+	--soma-color-secondary-light: #F5F5F5;
+	--soma-color-secondary-dark: #D8D8D8;
+	
+	/* Accent Colors */
+	--soma-color-accent: #dc3232;
+	--soma-color-accent-hover: #c32929;
+	
+	/* ========================================
+	   TEXT COLORS
+	   ======================================== */
+	
+	--soma-color-text-primary: #171717;
+	--soma-color-text-secondary: #7E7E87;
+	--soma-color-text-light: #FFFFFF;
+	--soma-color-text-muted: #999999;
+	
+	/* ========================================
+	   BACKGROUND COLORS
+	   ======================================== */
+	
+	--soma-color-bg-white: #FFFFFF;
+	--soma-color-bg-light: #F5F5F5;
+	--soma-color-bg-dark: #171717;
+	--soma-color-bg-black: #000000;
+	
+	/* ========================================
+	   BORDER COLORS
+	   ======================================== */
+	
+	--soma-color-border-light: #D8D8D8;
+	--soma-color-border-dark: #7E7E87;
+	--soma-color-border-white: #FFFFFF;
+	--soma-color-border-accent: #dc3232;
+	
+	/* ========================================
+	   TYPOGRAPHY - FONT FAMILIES
+	   ======================================== */
+	
+	--soma-font-family-primary: 'Roboto', sans-serif;
+	--soma-font-family-secondary: 'Roboto';
+	--soma-font-family-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+	
+	/* ========================================
+	   TYPOGRAPHY - FONT SIZES
+	   ======================================== */
+	
+	/* Headings - Desktop */
+	--soma-font-size-h1: 74px;
+	--soma-font-size-h2: 74px;
+	--soma-font-size-h3: 34px;
+	--soma-font-size-h4: 56px;
+	--soma-font-size-h5: 30px;
+	--soma-font-size-h6: 25px;
+	
+	/* Headings - Mobile */
+	--soma-font-size-h1-mobile: 44px;
+	--soma-font-size-h2-mobile: 44px;
+	--soma-font-size-h3-mobile: 25px;
+	--soma-font-size-h4-mobile: 25px;
+	--soma-font-size-h5-mobile: 25px;
+	--soma-font-size-h6-mobile: 18px;
+	
+	/* Body Text */
+	--soma-font-size-body: 20px;
+	--soma-font-size-body-mobile: 18px;
+	--soma-font-size-small: 16px;
+	--soma-font-size-tiny: 14px;
+	
+	/* ========================================
+	   TYPOGRAPHY - LINE HEIGHTS
+	   ======================================== */
+	
+	/* Headings - Desktop */
+	--soma-line-height-h1: 72px;
+	--soma-line-height-h2: 72px;
+	--soma-line-height-h3: 42px;
+	--soma-line-height-h4: 62px;
+	--soma-line-height-h5: 25px;
+	--soma-line-height-h6: 30px;
+	
+	/* Headings - Mobile */
+	--soma-line-height-h1-mobile: 44px;
+	--soma-line-height-h2-mobile: 44px;
+	--soma-line-height-h3-mobile: 30px;
+	--soma-line-height-h4-mobile: 30px;
+	--soma-line-height-h5-mobile: 30px;
+	--soma-line-height-h6-mobile: 24px;
+	
+	/* Body Text */
+	--soma-line-height-body: 27px;
+	--soma-line-height-body-mobile: 24px;
+	--soma-line-height-small: 25px;
+	--soma-line-height-tiny: 16px;
+	
+	/* ========================================
+	   TYPOGRAPHY - LETTER SPACING
+	   ======================================== */
+	
+	--soma-letter-spacing-tight: -1.5px;
+	--soma-letter-spacing-medium: -1.4px;
+	--soma-letter-spacing-small: -0.37px;
+	--soma-letter-spacing-normal: 0;
+	
+	/* ========================================
+	   TYPOGRAPHY - FONT WEIGHTS
+	   ======================================== */
+	
+	--soma-font-weight-normal: 400;
+	--soma-font-weight-medium: 500;
+	--soma-font-weight-semibold: 600;
+	--soma-font-weight-bold: 700;
+	
+	/* ========================================
+	   SPACING SYSTEM (8px base)
+	   ======================================== */
+	
+	--soma-spacing-xs: 10px;
+	--soma-spacing-sm: 20px;
+	--soma-spacing-md: 30px;
+	--soma-spacing-lg: 40px;
+	--soma-spacing-xl: 50px;
+	--soma-spacing-2xl: 60px;
+	--soma-spacing-3xl: 70px;
+	--soma-spacing-4xl: 80px;
+	--soma-spacing-5xl: 90px;
+	
+	/* Common Spacing Values (from patterns found) */
+	--soma-spacing-5: 5px;
+	--soma-spacing-15: 15px;
+	--soma-spacing-25: 25px;
+	--soma-spacing-45: 45px;
+	--soma-spacing-55: 55px;
+	
+	/* ========================================
+	   LAYOUT - CONTAINERS
+	   ======================================== */
+	
+	--soma-container-max-width: 1440px;
+	--soma-container-padding-desktop: 80px;
+	--soma-container-padding-tablet-landscape: 40px;
+	--soma-container-padding-tablet-portrait: 30px;
+	--soma-container-padding-mobile: 20px;
+	
+	/* ========================================
+	   LAYOUT - BORDERS
+	   ======================================== */
+	
+	--soma-border-width-thin: 1px;
+	--soma-border-width-medium: 2px;
+	--soma-border-radius-none: 0;
+	--soma-border-radius-sm: 4px;
+	--soma-border-radius-md: 8px;
+	--soma-border-radius-lg: 12px;
+	--soma-border-radius-full: 9999px;
+	
+	/* ========================================
+	   LAYOUT - SHADOWS
+	   ======================================== */
+	
+	--soma-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--soma-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+	--soma-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+	--soma-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.2);
+	
+	/* ========================================
+	   LAYOUT - TRANSITIONS
+	   ======================================== */
+	
+	--soma-transition-fast: 150ms ease;
+	--soma-transition-base: 300ms ease;
+	--soma-transition-slow: 500ms ease;
+	--soma-transition-all: all 0.3s ease;
+	
+	/* ========================================
+	   LAYOUT - Z-INDEX
+	   ======================================== */
+	
+	--soma-z-index-dropdown: 1000;
+	--soma-z-index-sticky: 1020;
+	--soma-z-index-fixed: 1030;
+	--soma-z-index-modal-backdrop: 1040;
+	--soma-z-index-modal: 1050;
+	--soma-z-index-popover: 1060;
+	--soma-z-index-tooltip: 1070;
+	
+	/* ========================================
+	   BREAKPOINTS (for JS usage)
+	   ======================================== */
+	
+	--soma-breakpoint-mobile: 767px;
+	--soma-breakpoint-tablet-portrait: 768px;
+	--soma-breakpoint-tablet-landscape: 1024px;
+	--soma-breakpoint-desktop: 1440px;
+	--soma-breakpoint-wide: 1920px;
+	
+	/* ========================================
+	   COMPONENT-SPECIFIC VARIABLES
+	   ======================================== */
+	
+	/* Footer */
+	--soma-footer-padding-top: 90px;
+	--soma-footer-padding-bottom: 60px;
+	--soma-footer-padding-top-mobile: 80px;
+	--soma-footer-padding-bottom-mobile: 55px;
+	--soma-footer-logo-width: 152px;
+	--soma-footer-logo-width-mobile: 127px;
+	--soma-footer-logo-width-fibrasoma: 292px;
+	--soma-footer-logo-width-fibrasoma-mobile: 244px;
+	
+	/* Images */
+	--soma-image-max-width: 100%;
+	--soma-image-height-auto: auto;
+	
+	/* Forms */
+	--soma-input-padding: 12px 16px;
+	--soma-input-border-width: 1px;
+	--soma-input-border-radius: 4px;
+	--soma-input-focus-ring: 0 0 0 3px rgba(23, 23, 23, 0.1);
+}
+
+/**
+ * Dark Mode Override (if needed in future)
+ * Uncomment when dark mode is implemented
+ */
+/*
+[data-theme="dark"] {
+	--soma-color-primary: #FFFFFF;
+	--soma-color-secondary: #171717;
+	--soma-color-text-primary: #FFFFFF;
+	--soma-color-bg-white: #171717;
+	--soma-color-bg-dark: #FFFFFF;
+}
+*/

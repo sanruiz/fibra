@@ -39,8 +39,14 @@ add_filter( 'style_loader_src', 'add_custom_version_to_stylesheet', 10, 2 );
  * https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/
  */
 function ditto_scripts() {
-    wp_enqueue_style( 'core', get_template_directory_uri() . '/style.css' );
-    wp_enqueue_style('main-styles', get_template_directory_uri() . '/css/main.bundle.css', array(), '2.0.7');
+    // CSS Variables - Load FIRST (highest priority)
+    wp_enqueue_style( 'soma-variables', get_template_directory_uri() . '/assets/css/variables.css', array(), '3.0.0' );
+    
+    // Core styles
+    wp_enqueue_style( 'core', get_template_directory_uri() . '/style.css', array( 'soma-variables' ) );
+    wp_enqueue_style('main-styles', get_template_directory_uri() . '/css/main.bundle.css', array( 'soma-variables' ), '2.0.7');
+    
+    // Scripts
     wp_enqueue_script('main-scripts', get_template_directory_uri() . '/js/main.bundle.js', array('jquery'), '2.0.7', true);
 }
 add_action( 'wp_enqueue_scripts', 'ditto_scripts');

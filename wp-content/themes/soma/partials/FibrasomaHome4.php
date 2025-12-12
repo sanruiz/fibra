@@ -85,7 +85,7 @@ $arrow = '
                                 <?php if($content['date']): ?>
                                     <?php $formated_date = date("F j, Y", $content['date']) ?>
                                     <div class="date">
-                                        <?= translateDate($formated_date) ?>
+                                        <?= soma_translate_date($formated_date) ?>
                                     </div>
                                 <?php endif; ?>
                                 <div class="press-title">
@@ -118,7 +118,7 @@ $arrow = '
                                 <?php if($content['date']): ?>
                                     <?php $formated_date = date("F j, Y", $content['date']) ?>
                                     <div class="date">
-                                        <?= translateDate($formated_date) ?>
+                                        <?= soma_translate_date($formated_date) ?>
                                     </div>
                                 <?php endif; ?>
                                 <div class="press-title">
@@ -149,7 +149,7 @@ $arrow = '
                                 <?php if($content['date']): ?>
                                     <?php $formated_date = date("F j, Y", $content['date']) ?>
                                     <div class="date">
-                                        <?= translateDate($formated_date) ?>
+                                        <?= soma_translate_date($formated_date) ?>
                                     </div>
                                 <?php endif; ?>
                                 <div class="press-title">

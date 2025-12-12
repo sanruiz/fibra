@@ -385,3 +385,61 @@ function soma_asset_url( string $path ): string {
 	$url = get_template_directory_uri() . '/' . ltrim( $path, '/' );
 	return add_query_arg( 'ver', soma_get_version(), $url );
 }
+
+// =============================================================================
+// Translation Helpers
+// =============================================================================
+
+/**
+ * Translate date strings to Spanish (WP Multilang integration)
+ *
+ * @param string      $str_date Date string to translate.
+ * @param string|null $format   Format type ('short' for abbreviated months).
+ * @return string Translated date string.
+ */
+function soma_translate_date( string $str_date, ?string $format = null ): string {
+	if ( ! function_exists( 'wpm_get_language' ) || wpm_get_language() !== 'es' ) {
+		return $str_date;
+	}
+
+	if ( $format === 'short' ) {
+		// Short month names
+		$translations = array(
+			'Jan' => 'Ene',
+			'Apr' => 'Abr',
+			'Aug' => 'Ago',
+			'Dec' => 'Dic',
+		);
+	} else {
+		// Full month names
+		$translations = array(
+			'January'   => 'Enero',
+			'February'  => 'Febrero',
+			'March'     => 'Marzo',
+			'April'     => 'Abril',
+			'May'       => 'Mayo',
+			'June'      => 'Junio',
+			'July'      => 'Julio',
+			'August'    => 'Agosto',
+			'September' => 'Septiembre',
+			'October'   => 'Octubre',
+			'November'  => 'Noviembre',
+			'December'  => 'Diciembre',
+		);
+	}
+
+	return str_replace( array_keys( $translations ), array_values( $translations ), $str_date );
+}
+
+// =============================================================================
+// Stock Data Helpers
+// =============================================================================
+
+/**
+ * Get current stock data
+ *
+ * @return array|null Stock data or null if not available.
+ */
+function soma_get_stock_data(): ?array {
+	return \Soma\Admin\StockData::get_stock_data();
+}

@@ -118,12 +118,18 @@ class Theme {
 	 * Register all theme components.
 	 *
 	 * Components will be loaded in priority order by the Loader.
-	 * Lower priority numbers load first (10-50 recommended range).
+	 * Lower priority numbers load first (5-50 recommended range).
 	 *
 	 * @return void
 	 */
 	private function register_components(): void {
-		// Register Utilities FIRST (priority 10) - provides helper functions for all components.
+		// Register Assets FIRST (priority 5) - CSS/JS loading.
+		$this->loader->register( \Soma\Core\Assets::instance() );
+
+		// Register Navigation (priority 8) - WordPress menus.
+		$this->loader->register( \Soma\Core\Navigation::instance() );
+
+		// Register Utilities (priority 10) - provides helper functions for all components.
 		$this->loader->register( \Soma\Utils\Loader::instance() );
 
 		// Register Post Types (priority 20).
@@ -138,11 +144,13 @@ class Theme {
 		// Register REST API Endpoints (priority 35).
 		$this->loader->register( \Soma\API\Loader::instance() );
 
+		// Register Admin Components (priority 40).
+		$this->loader->register( \Soma\Admin\Loader::instance() );
+
 		/*
 		 * TODO: Register additional components as they are migrated:
-		 * - Custom Fields Loader
-		 * - Page Builder Loader
-		 * - Elementor Loader
+		 * - Custom Fields Loader (priority 15)
+		 * - Page Builder Loader (priority 25)
 		 */
 	}
 

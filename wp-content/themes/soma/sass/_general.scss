@@ -7,18 +7,18 @@
 }
 
 .container {
-    max-width: 1440px;
+    max-width: var(--soma-container-max-width, 1440px);
     box-sizing: border-box;
-    padding: 0 80px;
+    padding: 0 var(--soma-container-padding-desktop, 80px);
     margin: auto;
     @media (#{$t-landscape}) {
-        padding: 0 40px;
+        padding: 0 var(--soma-container-padding-tablet-landscape, 40px);
     }
     @media (#{$t-portrait}) {
-        padding: 0 30px;
+        padding: 0 var(--soma-container-padding-tablet-portrait, 30px);
     }
     @media screen and ($mobile) {
-        padding: 0 20px;
+        padding: 0 var(--soma-container-padding-mobile, 20px);
     }
 }
 
@@ -27,51 +27,51 @@ html.no-scroll body {
 }
 
 body, a, p, div {
-    font-family: $f1;
-    color: $c1;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: 27px;
+    font-family: var(--soma-font-family-primary, $f1);
+    color: var(--soma-color-text-primary, $c1);
+    font-size: var(--soma-font-size-body, 20px);
+    letter-spacing: var(--soma-letter-spacing-normal, 0);
+    line-height: var(--soma-line-height-body, 27px);
     @media (#{$mobile}) {
-        font-size: 18px;
-        line-height: 24px;
+        font-size: var(--soma-font-size-body-mobile, 18px);
+        line-height: var(--soma-line-height-body-mobile, 24px);
     }
 }
 
 h2 {
-    font-size: 74px;
-    color: $c1;
-    letter-spacing: -1.5px;
-    line-height: 72px;
-    font-weight: normal;
+    font-size: var(--soma-font-size-h2, 74px);
+    color: var(--soma-color-text-primary, $c1);
+    letter-spacing: var(--soma-letter-spacing-tight, -1.5px);
+    line-height: var(--soma-line-height-h2, 72px);
+    font-weight: var(--soma-font-weight-normal, normal);
     @media (#{$mobile}) {
-        font-size: 44px;
-        line-height: 44px;
+        font-size: var(--soma-font-size-h2-mobile, 44px);
+        line-height: var(--soma-line-height-h2-mobile, 44px);
     }
 }
 
 h3 {
-    font-size: 34px;
-    color: $c1;
-    letter-spacing: 0;
-    line-height: 42px;
-    font-weight: normal;
+    font-size: var(--soma-font-size-h3, 34px);
+    color: var(--soma-color-text-primary, $c1);
+    letter-spacing: var(--soma-letter-spacing-normal, 0);
+    line-height: var(--soma-line-height-h3, 42px);
+    font-weight: var(--soma-font-weight-normal, normal);
     @media (#{$mobile}) {
-        font-size: 25px;
-        line-height: 30px;
-        letter-spacing: -0.37px;
+        font-size: var(--soma-font-size-h3-mobile, 25px);
+        line-height: var(--soma-line-height-h3-mobile, 30px);
+        letter-spacing: var(--soma-letter-spacing-small, -0.37px);
     }
 }
 
 h4 {
-    font-size: 56px;
-    color: #171717;
-    letter-spacing: -1.4px;
-    line-height: 62px;
-    font-weight: normal;
+    font-size: var(--soma-font-size-h4, 56px);
+    color: var(--soma-color-text-primary, #171717);
+    letter-spacing: var(--soma-letter-spacing-medium, -1.4px);
+    line-height: var(--soma-line-height-h4, 62px);
+    font-weight: var(--soma-font-weight-normal, normal);
     @media (#{$mobile}) {
-        font-size: 25px;
-        line-height: 30px;
+        font-size: var(--soma-font-size-h4-mobile, 25px);
+        line-height: var(--soma-line-height-h4-mobile, 30px);
     }
 }
 
