@@ -64,6 +64,11 @@ class Admin implements LoadableInterface {
 		ThemeSettings::instance();
 		StockData::instance();
 		
+		// Load test page (development/testing only)
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			PageBuilderTestPage::instance();
+		}
+		
 		// Admin hooks
 		add_action( 'admin_menu', $this->remove_default_menus(...) );
 		add_action( 'admin_enqueue_scripts', $this->admin_custom_scripts(...) );
