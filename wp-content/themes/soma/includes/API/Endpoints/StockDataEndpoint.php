@@ -88,7 +88,7 @@ final class StockDataEndpoint {
 	 * @return void
 	 */
 	private function init(): void {
-		add_action( 'rest_api_init', $this->register(...) );
+		add_action( 'rest_api_init', $this->register( ... ) );
 	}
 
 	/**
@@ -102,7 +102,7 @@ final class StockDataEndpoint {
 			self::ROUTE,
 			[
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => $this->handle(...),
+				'callback'            => $this->handle( ... ),
 				'permission_callback' => '__return_true',
 			]
 		);

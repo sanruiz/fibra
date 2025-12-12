@@ -77,9 +77,9 @@ class Validations {
 	 * @return void
 	 */
 	private function init(): void {
-		add_filter( 'wpcf7_validate_email*', $this->validate_email(...), 20, 2 );
-		add_filter( 'wpcf7_validate_text*', $this->validate_text(...), 30, 2 );
-		add_action( 'wpcf7_display_message', $this->custom_validation_message(...) );
+		add_filter( 'wpcf7_validate_email*', $this->validate_email( ... ), 20, 2 );
+		add_filter( 'wpcf7_validate_text*', $this->validate_text( ... ), 30, 2 );
+		add_action( 'wpcf7_display_message', $this->custom_validation_message( ... ) );
 	}
 
 	/**

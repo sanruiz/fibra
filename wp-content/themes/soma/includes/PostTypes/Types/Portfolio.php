@@ -80,7 +80,7 @@ class Portfolio {
 	 * @return void
 	 */
 	private function init(): void {
-		add_action( 'init', $this->register(...) );
+		add_action( 'init', $this->register( ... ) );
 	}
 
 	/**

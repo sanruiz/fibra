@@ -32,9 +32,6 @@
         <!-- Allow short array syntax -->
         <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
         
-        <!-- Allow modern PHP syntax -->
-        <exclude name="WordPress.PHP.DisallowShortTernary"/>
-        
         <!-- Allow nullable types and union types -->
         <exclude name="WordPress.PHP.DisallowAlternativePHPTags.MaybeASPOpenTagFound"/>
     </rule>

@@ -86,7 +86,7 @@ final class EventsEndpoint {
 	 * @return void
 	 */
 	private function init(): void {
-		add_action( 'rest_api_init', $this->register(...) );
+		add_action( 'rest_api_init', $this->register( ... ) );
 	}
 
 	/**
@@ -100,7 +100,7 @@ final class EventsEndpoint {
 			self::ROUTE,
 			[
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => $this->handle(...),
+				'callback'            => $this->handle( ... ),
 				'permission_callback' => '__return_true',
 			]
 		);
@@ -139,20 +139,20 @@ final class EventsEndpoint {
 			$args['offset'] = $params['offset'];
 		}
 
-		$posts           = get_posts( $args );
+		$posts            = get_posts( $args );
 		$formatted_events = [];
 
 		if ( $posts ) {
 			foreach ( $posts as $item ) {
-				$content            = get_field( 'event_info', $item->ID );
+				$content             = get_field( 'event_info', $item->ID );
 				$formatted_init_date = $content['end_date']
 					? $this->translate_date( gmdate( 'M j', $content['init_date'] ), 'short' )
 					: $this->translate_date( gmdate( 'M j, Y', $content['init_date'] ) );
-				$formatted_end_date = $content['end_date']
+				$formatted_end_date  = $content['end_date']
 					? $this->translate_date( gmdate( 'M j', $content['end_date'] ), 'short' )
 					: null;
-				$year               = gmdate( 'Y', $content['init_date'] );
-				$filter             = $this->translate_date( gmdate( 'M Y', $content['init_date'] ), 'short' );
+				$year                = gmdate( 'Y', $content['init_date'] );
+				$filter              = $this->translate_date( gmdate( 'M Y', $content['init_date'] ), 'short' );
 
 				$main_file = $this->format_file( $content );
 
