@@ -1,12 +1,27 @@
-   
 <?php
 /**
- * 
- * Partial Name: Navbar
- * 
+ * Block Partial: Navbar
+ *
+ * Main site navigation bar with logo, menu, and language switcher.
+ * Supports two styles: 'fibrasoma' and 'default'.
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data (usually empty for Navbar)
+ * @uses get_query_var('soma_block_layout')  string Layout name ('Navbar')
+ *
+ * Note: Navbar typically uses ACF options page ('header_content', 'options')
+ * rather than block-specific content.
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
 $logo = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ) , 'full' )[0];

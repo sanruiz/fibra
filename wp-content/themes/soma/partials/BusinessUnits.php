@@ -1,15 +1,36 @@
-   
 <?php
 /**
- * 
- * Partial Name: BusinessUnits
- * 
+ * Block Partial: BusinessUnits
+ *
+ * Displays a grid of business unit pages with links.
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data from 'business_units_content'
+ * @uses get_query_var('soma_block_layout')  string Layout name ('BusinessUnits')
+ *
+ * Example Usage:
+ * <code>
+ * $counter = get_query_var('soma_block_counter');
+ * $content = get_query_var('soma_block_content');
+ * $layout  = get_query_var('soma_block_layout');
+ * </code>
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
-global $pageBlock;
+// Get block data from query vars (v3.0+)
+$block_counter = get_query_var( 'soma_block_counter' );
+$block_content = get_query_var( 'soma_block_content' );
+$block_layout  = get_query_var( 'soma_block_layout' );
 
 $businessunits = get_posts([
     'post_type' => 'page',

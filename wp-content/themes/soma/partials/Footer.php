@@ -1,12 +1,27 @@
-   
 <?php
 /**
- * 
- * Partial Name: Footer
- * 
+ * Block Partial: Footer
+ *
+ * Site footer with logo, location info, navigation menus, and social links.
+ * Supports two styles: 'fibrasoma' and 'default'.
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data (usually empty for Footer)
+ * @uses get_query_var('soma_block_layout')  string Layout name ('Footer')
+ *
+ * Note: Footer typically uses ACF options page ('footer_content', 'options')
+ * rather than block-specific content.
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
 $data = get_field('footer_content', 'options');
