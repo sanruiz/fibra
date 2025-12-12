@@ -22,7 +22,7 @@
             }
         }
         .read{
-            color: #7E7E87;
+            color: var(--soma-color-text-secondary, #7E7E87);
         }
         .content {
             .boxtextcontent-H{
@@ -98,8 +98,8 @@
         }
         .font-size-small {
             p {
-                font-size: 18px;
-                color: #7E7E87;
+                font-size: var(--soma-font-size-medium, 18px);
+                color: var(--soma-color-text-secondary, #7E7E87);
                 line-height: 25px;
             }
         }
@@ -114,7 +114,7 @@
                 margin-top: 40px;
             }
             &:hover{
-                color: #7E7E87; 
+                color: var(--soma-color-text-secondary, #7E7E87); 
             }
         }
         .boxtextcontent-H{
@@ -164,9 +164,9 @@
     }
     a {
         @media screen and ($only-desk) {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             &:hover {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
         }
     }

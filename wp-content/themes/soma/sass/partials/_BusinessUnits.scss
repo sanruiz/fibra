@@ -11,7 +11,7 @@
         margin-bottom: 50px;
         @media (#{$t-portrait}) {
             margin-bottom: 45px;
-            font-size: 25px;
+            font-size: var(--soma-font-size-h6, 25px);
             letter-spacing: -0.37px;
             line-height: 30px;
         }
@@ -22,7 +22,7 @@
         flex-wrap: wrap;
         position: relative;
         background-color: $c1;
-        transition: .5s background;
+        transition: var(--soma-transition, .5s) background;
         @media (#{$t-portrait}) {
             padding: 0 20px;
             background-color: white;
@@ -113,7 +113,7 @@
                 opacity: 0;
                 visibility: hidden;
                 z-index: 0;
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
                 @media (#{$t-portrait}) {
                     position: relative;
                     opacity: 1;

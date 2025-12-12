@@ -42,7 +42,7 @@
             .item {
                 margin-bottom: 20px;
                 a {
-                    font-size: 25px;
+                    font-size: var(--soma-font-size-h6, 25px);
                     text-decoration: none;
                 }
             }
@@ -56,7 +56,7 @@
                 width: 100%;
             }
             a {
-                font-size: 25px;
+                font-size: var(--soma-font-size-h6, 25px);
             }
         }
         .image {
@@ -85,7 +85,7 @@
                 visibility: hidden;
                 opacity: 0;
                 z-index: 1;
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
                 img {
                     width: 100%;
                     height: 100%;
@@ -104,9 +104,9 @@
     }
     a {
         @media screen and ($only-desk) {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             &:hover {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
         }
     }

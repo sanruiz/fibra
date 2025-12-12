@@ -36,7 +36,7 @@
             .value {
                 font-family: $f2;
                 font-size: 74px;
-                color: #171717;
+                color: var(--soma-color-primary, #171717);
                 letter-spacing: -0.47px;
                 line-height: 67px;
                 margin-bottom: 5px;
@@ -46,12 +46,12 @@
                 }
             }
             .label {
-                font-size: 20px;
-                color: #171717;
+                font-size: var(--soma-font-size-large, 20px);
+                color: var(--soma-color-primary, #171717);
                 letter-spacing: 0;
                 line-height: 23px;
                 @media (#{$mobile}) {
-                    font-size: 18px;
+                    font-size: var(--soma-font-size-medium, 18px);
                 }
             }
             &:last-of-type {

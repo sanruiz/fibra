@@ -57,11 +57,11 @@
                         cursor: pointer;
                     }
                     h3, .member-title {
-                        transition: .5s;
+                        transition: var(--soma-transition, .5s);
                     }
                     &:hover {
                         h3, .member-title {
-                            color: #7E7E87;
+                            color: var(--soma-color-text-secondary, #7E7E87);
                         }
                     }
                 }

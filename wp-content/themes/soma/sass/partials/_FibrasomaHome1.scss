@@ -37,7 +37,7 @@
                     padding-bottom: 50px;
                     min-height: unset;
                     p{
-                        font-size: 18px;
+                        font-size: var(--soma-font-size-medium, 18px);
                         line-height: 24.3px;
                     }
                     @media (#{$t-portrait}) {
@@ -73,9 +73,9 @@
     }
     a {
         @media screen and ($only-desk) {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             &:hover {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
         }
     }

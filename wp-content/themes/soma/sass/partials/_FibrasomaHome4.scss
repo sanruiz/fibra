@@ -76,7 +76,7 @@
             a{
                 text-decoration: none;
                 .date{
-                    font-size: 16px;
+                    font-size: var(--soma-font-size-small, 16px);
                     line-height: 21px;
                     font-weight: lighter;
                     margin-bottom: 25px;
@@ -87,7 +87,7 @@
                     line-height: 42px;
                     margin-bottom: 20px;
                     @media (#{$mobile}) {
-                        font-size: 25px;
+                        font-size: var(--soma-font-size-h6, 25px);
                         line-height: 30px;
                     }
                 }
@@ -110,7 +110,7 @@
                         // }
                     }
                     @media (#{$mobile}) {
-                        font-size: 20px;
+                        font-size: var(--soma-font-size-large, 20px);
                         line-height: 26px;
                         margin-bottom: 45px;
                     }
@@ -123,13 +123,13 @@
                 .label span:before,
                 .label svg line,
                 .label svg polygon {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                 }
                 &:hover {
                     .date,
                     .press-title,
                     .label {
-                        color: #7E7E87;
+                        color: var(--soma-color-text-secondary, #7E7E87);
                     }
                     .label span:before {
                         border-bottom:1px solid #7E7E87;
@@ -147,9 +147,9 @@
     }
     a {
         @media screen and ($only-desk) {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             &:hover {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
         }
     }

@@ -55,7 +55,7 @@
                     width: 100%;
                 }
                 h3{
-                    color: #7E7E87;
+                    color: var(--soma-color-text-secondary, #7E7E87);
                 }
                 .arrow{
                     position: absolute;

@@ -73,11 +73,11 @@
             -webkit-columns: 2;
             -moz-columns: 2;
             li {
-                font-size: 18px;
+                font-size: var(--soma-font-size-medium, 18px);
                 color: $c1;
                 line-height: 25px;
                 span {
-                    color: #7E7E87;
+                    color: var(--soma-color-text-secondary, #7E7E87);
                 }
             }
         }
@@ -112,13 +112,13 @@
                 display: none;
             }
             &:hover{
-                color: #7E7E87; 
+                color: var(--soma-color-text-secondary, #7E7E87); 
             }
         }
         a{
             transition: 0.5s;
             &:hover{
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
         }
     }
@@ -173,7 +173,7 @@
         }
         @media screen and ($only-desk) {
             svg line, svg polygon {
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
             }
             &:hover {
                 svg line {
@@ -207,7 +207,7 @@
             margin: 0 10px;
             border: 1px solid transparent;
             border-radius: 50%;
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             button {
                 font-size: 0;
                 background-color: $c1;
@@ -217,7 +217,7 @@
                 height: 4px;
                 cursor: pointer;
                 border-radius: 50%;
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
             }
             &.slick-active {
                 border: 1px solid $c1;
@@ -232,9 +232,9 @@
     }
     a {
         @media screen and ($only-desk) {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             &:hover {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
         }
     }

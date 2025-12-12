@@ -27,10 +27,10 @@
             }
             @media screen and ($only-desk) {
                 h3 {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                 }
                 &:hover h3 {
-                    color: #7E7E87;
+                    color: var(--soma-color-text-secondary, #7E7E87);
                 }
             }
         }
@@ -46,9 +46,9 @@
     }
     a {
         @media screen and ($only-desk) {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             &:hover {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
         }
     }

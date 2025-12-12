@@ -48,8 +48,8 @@
             input,
             textarea {
                 background-color: transparent;
-                font-size: 20px;
-                color: #FFFFFF;
+                font-size: var(--soma-font-size-large, 20px);
+                color: var(--soma-color-text-light, #FFFFFF);
                 line-height: 25px;
                 border: none;
                 width: 100%;
@@ -60,13 +60,13 @@
                 -webkit-border-radius:0px;
                 -webkit-appearance: none;
                 &::placeholder {
-                    color: #FFFFFF;
+                    color: var(--soma-color-text-light, #FFFFFF);
                 }
                 &.wpcf7-not-valid {
                     border-bottom: 1px solid #dc3232;
                 }
                 @media screen and ($mobile) {
-                    font-size: 18px;
+                    font-size: var(--soma-font-size-medium, 18px);
                     line-height: 24px;
                 }
             }
@@ -82,16 +82,16 @@
                 border: none;
                 padding: 0;
                 border-bottom: 1px solid #fff;
-                color: #fff;
+                color: var(--soma-color-text-light, #fff);
                 cursor: pointer;
                 @media screen and ($mobile) {
-                    font-size: 18px;
+                    font-size: var(--soma-font-size-medium, 18px);
                     line-height: 24px;
                 }
                 @media screen and ($only-desk) {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                     &:hover {
-                        color: #7E7E87;
+                        color: var(--soma-color-text-secondary, #7E7E87);
                         border-bottom: 1px solid #7E7E87;
                     }
                 }
@@ -109,15 +109,15 @@
                 border: none;
                 text-align: right;
                 @media screen and ($mobile) {
-                    font-size: 18px;
+                    font-size: var(--soma-font-size-medium, 18px);
                     line-height: 24px;
                     bottom: 0;
                 }
             }
             .thankyou-message {
-                color: #FFFFFF;
+                color: var(--soma-color-text-light, #FFFFFF);
                 @media screen and ($mobile) {
-                    font-size: 18px;
+                    font-size: var(--soma-font-size-medium, 18px);
                     line-height: 24px;
                 }
             }

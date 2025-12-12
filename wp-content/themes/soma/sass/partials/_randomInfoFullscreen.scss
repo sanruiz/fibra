@@ -50,7 +50,7 @@
                 }
             }
             .label {
-                font-size: 20px;
+                font-size: var(--soma-font-size-large, 20px);
                 color: #ffffff;
                 letter-spacing: 0;
                 line-height: 27px;
@@ -60,7 +60,7 @@
                     width: auto;
                 }
                 @media (#{$mobile}) {
-                    font-size: 18px;
+                    font-size: var(--soma-font-size-medium, 18px);
                     line-height: 23px;
                     padding-right: 40px;
                 }

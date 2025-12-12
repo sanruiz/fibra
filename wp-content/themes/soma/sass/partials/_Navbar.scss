@@ -1,24 +1,24 @@
 .navbar-partial-df27ae {
     $parent: &;
     box-sizing: border-box;
-    padding: 19px 0 37px 0;
-    background-color: #fff;
+    padding: var(--soma-spacing-19, 19px) 0 var(--soma-spacing-37, 37px) 0;
+    background-color: var(--soma-color-bg-white, #fff);
     z-index: 900;
     &.style-fibrasoma {
-        padding: 0 0 37px 0;
+        padding: 0 0 var(--soma-spacing-37, 37px) 0;
         
         @media screen and ($t-landscape) {
-            padding: 0 0 16px 0;
+            padding: 0 0 var(--soma-spacing-sm, 16px) 0;
         }
         @media screen and ($mobile) {
-            padding: 0 0 19px 0;
+            padding: 0 0 var(--soma-spacing-19, 19px) 0;
         }
     }
     @media screen and ($t-landscape) {
-        padding: 21px 0 16px 0;
+        padding: var(--soma-spacing-21, 21px) 0 var(--soma-spacing-sm, 16px) 0;
     }
     @media screen and ($mobile) {
-        padding: 25px 0 19px 0;
+        padding: var(--soma-spacing-25, 25px) 0 var(--soma-spacing-19, 19px) 0;
     }
     .content {
         display: flex;
@@ -71,11 +71,11 @@
                 top: 0;
                 left: -100vw;
                 bottom: 100%;
-                background-color: #fff;
+                background-color: var(--soma-color-bg-white, #fff);
                 z-index: 700;
                 box-sizing: border-box;
                 padding: 100px 40px 45px 40px;
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
                 @at-root #{$parent}.open-menu .content .nav {
                     left: 0;
                     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -120,7 +120,7 @@
     }
     .logo {
         a {
-            font-size: 40px;
+            font-size: var(--soma-font-size-2xl, 40px);
             text-decoration: none;
         }
         img {
@@ -158,7 +158,7 @@
                 box-sizing: border-box;
                 padding: 20px 30px;
                 z-index: 900;
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
                 .submenu-title {
                     display: none;
                 }
@@ -170,12 +170,12 @@
                     }
                     &:hover{
                         a{
-                            color: #7E7E87;
+                            color: var(--soma-color-text-secondary, #7E7E87);
                         }
                     }
                 }
                 a {
-                    color: #fff;
+                    color: var(--soma-color-text-light, #fff);
                 }
                 @media screen and ($t-landscape) {
                     position: fixed;
@@ -183,7 +183,7 @@
                     height: 100%;
                     top: 0;
                     left: -100vw;
-                    background-color: #fff;
+                    background-color: var(--soma-color-bg-white, #fff);
                     z-index: 750;
                     box-sizing: border-box;
                     padding: 116px 40px 45px 40px;
@@ -191,7 +191,7 @@
                     opacity: 1;
                     bottom: unset;
                     transform: unset;
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                     &.open-submenu {
                         left: 0;
                         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -226,7 +226,7 @@
                 @media screen and ($mobile) {
                     padding: 116px 20px 45px 20px;
                     a {
-                        font-size: 20px;
+                        font-size: var(--soma-font-size-large, 20px);
                         letter-spacing: 0;
                         line-height: 33px;
                     }
@@ -295,7 +295,7 @@
             }
             a {
                 font-size: 15px;
-                color: #FFFFFF;
+                color: var(--soma-color-text-light, #FFFFFF);
                 letter-spacing: 0;
                 line-height: 32px;
                 text-decoration: none;
@@ -308,14 +308,14 @@
             }
             @media screen and ($only-desk) {
                 a, svg polygon {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                 }
                 &:hover {
                     a {
-                        color: #7E7E87;
+                        color: var(--soma-color-text-secondary, #7E7E87);
                     }
                     svg polygon {
-                        stroke: #7E7E87;
+                        stroke: var(--soma-color-text-secondary, #7E7E87);
                     }
                 }
             }
@@ -327,12 +327,12 @@
             }
         }
         .lang-switcher .item-language-main > span span:before {
-            color: #FFFFFF !important;
+            color: var(--soma-color-text-light, #FFFFFF) !important;
         }
         .lang-switcher{
             &:after{
-                border-bottom: 1px solid #FFFFFF !important;
-                border-right: 1px solid #FFFFFF !important;
+                border-bottom: 1px solid var(--soma-color-border-light, #FFFFFF) !important;
+                border-right: 1px solid var(--soma-color-border-light, #FFFFFF) !important;
             }
         }
         @media screen and ($t-landscape) {
@@ -370,7 +370,7 @@
                 &:after {
                     content: 'Search';
                     font-family: "Roboto";
-                    font-size: 18px;
+                    font-size: var(--soma-font-size-medium, 18px);
                     color: #898992;
                     letter-spacing: 0;
                     line-height: 35.2px;
@@ -397,8 +397,8 @@
                 height: 8px;
                 top: 8px;
                 right: 2px;
-                border-bottom: 1px solid #7E7E87;
-                border-right: 1px solid #7E7E87;
+                border-bottom: 1px solid var(--soma-color-border-secondary, #7E7E87);
+                border-right: 1px solid var(--soma-color-border-secondary, #7E7E87);
                 transform: rotate(45deg);
                 @media screen and ($t-landscape) {
                     content: unset;
@@ -425,7 +425,7 @@
                         > span:before {
                             font-family: $f1;
                             font-size: 16.5px;
-                            color: #7E7E87;
+                            color: var(--soma-color-text-secondary, #7E7E87);
                             letter-spacing: 0;
                             line-height: 1;
                         }
@@ -471,7 +471,7 @@
                 a {
                     text-decoration: none;
                     > span:before {
-                        color: #7E7E87 !important;
+                        color: var(--soma-color-text-secondary, #7E7E87) !important;
                     }
                 }
             }
@@ -550,16 +550,16 @@
     li {
         a {
             @media screen and ($only-desk) {
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
                 &:hover {
-                    color: #7E7E87;
+                    color: var(--soma-color-text-secondary, #7E7E87);
                 }
             }
         }
         &.current-menu-ancestor a,
         &.current-page-ancestor a,
         &.current-menu-item a {
-            color: #7E7E87;
+            color: var(--soma-color-text-secondary, #7E7E87);
         }
     }
     // sticky style
@@ -577,13 +577,13 @@
             opacity: 1 !important;
         }
         &.sticky-open {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             top: 0;
             visibility: visible;
             opacity: 1;
         }
         &.sticky-close {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             top: -200px;
             visibility: visible;
             opacity: 0;

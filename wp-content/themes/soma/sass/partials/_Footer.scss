@@ -1,9 +1,9 @@
 .footer-partial-c90350 {
-    background-color: $c1;
-    padding: 90px 0 60px 0;
+    background-color: var(--soma-color-bg-dark, $c1);
+    padding: var(--soma-footer-padding-top, 90px) 0 var(--soma-footer-padding-bottom, 60px) 0;
     box-sizing: border-box;
     @media screen and ($mobile) {
-        padding: 80px 0 55px 0;
+        padding: var(--soma-footer-padding-top-mobile, 80px) 0 var(--soma-footer-padding-bottom-mobile, 55px) 0;
     }
     .row {
         display: flex;
@@ -15,19 +15,19 @@
             }
         }
         > div {
-            width: calc(100% - 15px);
+            width: calc(100% - var(--soma-spacing-15, 15px));
             @media screen and ($mobile) {
                 width: 100%;
             }
         }
         &:nth-of-type(1) {
-            margin-bottom: 70px;
+            margin-bottom: var(--soma-spacing-3xl, 70px);
             @media screen and ($mobile) {
                 margin-bottom: 0;
             }
         }
         &:nth-of-type(2) {
-            margin-bottom: 50px;
+            margin-bottom: var(--soma-spacing-xl, 50px);
             @media screen and ($mobile) {
                 margin-bottom: 0;
             }
@@ -36,65 +36,65 @@
     .logo {
         img {
             width: 100%;
-            max-width: 152px;
-            margin-bottom: 10px;
+            max-width: var(--soma-footer-logo-width, 152px);
+            margin-bottom: var(--soma-spacing-xs, 10px);
             @media screen and ($mobile) {
-                max-width: 127px;
+                max-width: var(--soma-footer-logo-width-mobile, 127px);
             }
         }
     }
     &.style-fibrasoma .logo img {
-        max-width: 292px;
+        max-width: var(--soma-footer-logo-width-fibrasoma, 292px);
         @media screen and ($mobile) {
-            max-width: 244px;
+            max-width: var(--soma-footer-logo-width-fibrasoma-mobile, 244px);
         }
     }
     .logo_subtext {
-        font-size: 30px;
-        letter-spacing: 0;
-        line-height: 25px;
-        color: #FFFFFF;
+        font-size: var(--soma-font-size-h5, 30px);
+        letter-spacing: var(--soma-letter-spacing-normal, 0);
+        line-height: var(--soma-line-height-h5, 25px);
+        color: var(--soma-color-text-light, #FFFFFF);
         @media screen and ($mobile) {
-            font-size: 25px;
-            letter-spacing: -0.37px;
-            line-height: 30px;
-            margin-bottom: 50px;
+            font-size: var(--soma-font-size-h6, 25px);
+            letter-spacing: var(--soma-letter-spacing-small, -0.37px);
+            line-height: var(--soma-line-height-h6, 30px);
+            margin-bottom: var(--soma-spacing-xl, 50px);
         }
     }
     .location {
-        font-size: 16px;
-        color: #FFFFFF;
-        line-height: 25px;
+        font-size: var(--soma-font-size-small, 16px);
+        color: var(--soma-color-text-light, #FFFFFF);
+        line-height: var(--soma-line-height-small, 25px);
         &.mobile-copy {
             display: none;
         }
-                @media screen and ($mobile) {
+        @media screen and ($mobile) {
             display: none;
             &.mobile-copy {
                 display: block;
-                margin-bottom: 45px;
+                margin-bottom: var(--soma-spacing-45, 45px);
             }   
         }
     }
     .copyright {
-        font-size: 14px;
-        line-height: 16px;
-        color: #7E7E87;
+        font-size: var(--soma-font-size-tiny, 14px);
+        line-height: var(--soma-line-height-tiny, 16px);
+        color: var(--soma-color-text-secondary, #7E7E87);
     }
     .credits {
         a {
-            font-size: 14px;
-            line-height: 16px;
-            color: #7E7E87;
+            font-size: var(--soma-font-size-tiny, 14px);
+            line-height: var(--soma-line-height-tiny, 16px);
+            color: var(--soma-color-text-secondary, #7E7E87);
             display: table;
             text-decoration: none;
-            margin-bottom: 5px;
+            margin-bottom: var(--soma-spacing-5, 5px);
             &:last-of-type {
                 margin-bottom: 0;
             }
         }
-                @media screen and ($mobile) {
-            margin-bottom: 55px;
+        @media screen and ($mobile) {
+            margin-bottom: var(--soma-spacing-55, 55px);
         }
     }
     .nav-container {
@@ -109,7 +109,7 @@
             position: relative;
             width: 50%;
             @media screen and ($mobile) {
-                margin-bottom: 50px;
+                margin-bottom: var(--soma-spacing-xl, 50px);
             }
             .title {
                 position: absolute;
@@ -118,41 +118,41 @@
                 @media screen and ($mobile) {
                     position: initial;
                     top: 0;
-                    margin-bottom: 20px;
+                    margin-bottom: var(--soma-spacing-md, 20px);
                 }
             }
         }
         .fibrasoma-list {
             columns: 2;
-            column-gap: 40px;
+            column-gap: var(--soma-spacing-2xl, 40px);
             @media screen and ($t-portrait) {
                 column-gap: 0;
             }
             @media screen and ($mobile) {
                 columns: 1;
-                margin-bottom: 50px;
+                margin-bottom: var(--soma-spacing-xl, 50px);
             }
         }
         .title {
-            font-size: 16px;
-            color: #FFFFFF;
+            font-size: var(--soma-font-size-small, 16px);
+            color: var(--soma-color-text-light, #FFFFFF);
         }
         ul {
             padding: 0;
             margin: 0;
             list-style: none;
             li {
-                line-height: 19px;
+                line-height: var(--soma-line-height-small, 19px);
             }
             a {
-                font-size: 16px;
-                color: #FFFFFF;
-                line-height: 25px;
+                font-size: var(--soma-font-size-small, 16px);
+                color: var(--soma-color-text-light, #FFFFFF);
+                line-height: var(--soma-line-height-small, 25px);
                 text-decoration: none;
                 @media screen and ($only-desk) {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                     &:hover {
-                        color: #7E7E87;
+                        color: var(--soma-color-text-secondary, #7E7E87);
                     }
                 }
             }
@@ -160,7 +160,7 @@
     }
     .newsletter {
         @media screen and ($mobile) {
-            margin-bottom: 50px;
+            margin-bottom: var(--soma-spacing-xl, 50px);
         }
         .wpcf7-response-output {
             display: none !important;
@@ -168,16 +168,16 @@
     }
     .success-form {
         display: none;
-        font-size: 30px;
-        letter-spacing: 0;
-        line-height: 25px;
-        color: #FFFFFF;
-        margin-top: 54px;
+        font-size: var(--soma-font-size-h5, 30px);
+        letter-spacing: var(--soma-letter-spacing-normal, 0);
+        line-height: var(--soma-line-height-h5, 25px);
+        color: var(--soma-color-text-light, #FFFFFF);
+        margin-top: var(--soma-spacing-54, 54px);
         @media screen and ($mobile) {
             margin-top: 0px;
-            font-size: 25px;
-            letter-spacing: -0.37px;
-            line-height: 30px;
+            font-size: var(--soma-font-size-h6, 25px);
+            letter-spacing: var(--soma-letter-spacing-small, -0.37px);
+            line-height: var(--soma-line-height-h6, 30px);
         }
     }
 }
@@ -185,20 +185,20 @@
 .news-letter-form {
     width: 100%;
     .title {
-        font-size: 30px;
-        color: #FFFFFF;
-        line-height: 25px;
-        margin-bottom: 10px;
+        font-size: var(--soma-font-size-h5, 30px);
+        color: var(--soma-color-text-light, #FFFFFF);
+        line-height: var(--soma-line-height-h5, 25px);
+        margin-bottom: var(--soma-spacing-xs, 10px);
         @media screen and ($mobile) {
-            font-size: 25px;
-            letter-spacing: -0.37px;
-            line-height: 30px;
-            margin-bottom: 10px;
+            font-size: var(--soma-font-size-h6, 25px);
+            letter-spacing: var(--soma-letter-spacing-small, -0.37px);
+            line-height: var(--soma-line-height-h6, 30px);
+            margin-bottom: var(--soma-spacing-xs, 10px);
         }
     }
     .form {
         width: 100%;
-        max-width: 408px;
+        max-width: var(--soma-footer-nav-width, 408px);
         position: relative;
         br {
             display: none;
@@ -213,11 +213,11 @@
             cursor: pointer;
             @media screen and ($only-desk) {    
                 svg line, svg path {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                 }
                 &:hover {
                     svg line, svg path {
-                        stroke: #7E7E87;
+                        stroke: var(--soma-color-text-secondary, #7E7E87);
                     }
                 }
             }
@@ -228,14 +228,14 @@
         }
         input {
             background-color: transparent;
-            font-size: 16px;
-            color: #FFFFFF;
-            line-height: 25px;
+            font-size: var(--soma-font-size-small, 16px);
+            color: var(--soma-color-text-light, #FFFFFF);
+            line-height: var(--soma-line-height-small, 25px);
             border: none;
             width: 100%;
-            border-bottom: 1px solid #D8D8D8;
+            border-bottom: 1px solid var(--soma-color-border-light, #D8D8D8);
             box-sizing: border-box;
-            padding: 8px 30px 15px 0;
+            padding: var(--soma-spacing-8, 8px) var(--soma-spacing-30, 30px) var(--soma-spacing-sm, 15px) 0;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
@@ -243,17 +243,17 @@
             -webkit-border-radius: 0px;
 
             &::placeholder {
-                color: #FFFFFF;
+                color: var(--soma-color-text-light, #FFFFFF);
             }
             &.wpcf7-not-valid {
-                border-bottom: 1px solid #dc3232;
+                border-bottom: 1px solid var(--soma-color-accent, #dc3232);
             }
         }
         .wpcf7-not-valid-tip {
             position: absolute;
             bottom: 22px;
             right: 35px;
-            font-size: 16px;
+            font-size: var(--soma-font-size-small, 16px);
             line-height: 1;
             width: auto;
             @media screen and ($mobile) {
@@ -263,17 +263,17 @@
             }
         }
         .noempty{
-            stroke: #dc3232!important;
+            stroke: var(--soma-color-accent, #dc3232)!important;
             g{
-                stroke: #dc3232!important;
+                stroke: var(--soma-color-accent, #dc3232)!important;
             }
             path{
-                fill: #dc3232;
+                fill: var(--soma-color-accent, #dc3232);
             }
         }
         .ajax-loader {
-            width: 30px !important;
-            height: 30px !important;
+            width: var(--soma-spacing-30, 30px) !important;
+            height: var(--soma-spacing-30, 30px) !important;
             right: 0;
             bottom: 12px;
             position: absolute;
@@ -292,10 +292,10 @@
                 border-radius: 50%;
             }
             &:after {
-                border: 1px solid #7E7E87;
+                border: 1px solid var(--soma-color-text-secondary, #7E7E87);
             }
             &:after {
-                border-top: 2px solid #fff;
+                border-top: 2px solid var(--soma-color-text-light, #fff);
                 -webkit-animation: form-loader 0.6s linear infinite both;
                 animation: form-loader 0.6s linear infinite both;
             }
@@ -303,9 +303,9 @@
         .ajax-loader-name{
             position: absolute;
             top: 7px;
-            font-size: 16px;
-            color: #FFFFFF;
-            line-height: 25px;
+            font-size: var(--soma-font-size-small, 16px);
+            color: var(--soma-color-text-light, #FFFFFF);
+            line-height: var(--soma-line-height-small, 25px);
         }
     }
     // .ajax-loader {

@@ -84,25 +84,25 @@
                             }
                         }
                         .label{
-                            font-size: 18px;
+                            font-size: var(--soma-font-size-medium, 18px);
                             line-height: 16.2px;
-                            color: #7E7E87;
+                            color: var(--soma-color-text-secondary, #7E7E87);
                             padding-top: 10px;
                         }
                     }
                     @media screen and ($only-desk) {
-                        transition: .5s;
+                        transition: var(--soma-transition, .5s);
                         .extra-file,
                         .file-title span,
                         .file-title span:before,
                         .file-title svg line,
                         .file-title svg polygon {
-                            transition: .5s;
+                            transition: var(--soma-transition, .5s);
                         }
                         &:hover {
                             border-bottom: 1px solid #7E7E87;
                             .file-title span{
-                                color: #7E7E87;
+                                color: var(--soma-color-text-secondary, #7E7E87);
                             }
                             .file-title span:before {
                                 border-bottom:1px solid #7E7E87;
@@ -132,13 +132,13 @@
             display: inline-block;
             margin-top: 150px;
             @media screen and ($only-desk) {
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
                 svg line,
                 svg polygon {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                 }
                 &:hover {
-                    color: #7E7E87;
+                    color: var(--soma-color-text-secondary, #7E7E87);
                     svg line{
                         stroke: #7E7E87;
                     }

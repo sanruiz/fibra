@@ -43,7 +43,7 @@
                 margin: 0;
             }
             span {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
             @media screen and ($t-portrait) {
                 width: calc(100% * (6 / 12));
@@ -66,7 +66,7 @@
                 margin: 0;
             }
             span {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
             .designed-by {
                 display: none;
@@ -94,9 +94,9 @@
     }
     a {
         @media screen and ($only-desk) {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             &:hover {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
         }
     }

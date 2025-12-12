@@ -48,7 +48,7 @@
                 display: none;
             }
             h3 {
-                font-size: 25px;
+                font-size: var(--soma-font-size-h6, 25px);
                 margin-top: 0;
                 margin-bottom: 5px;
                 text-decoration: underline;
@@ -73,10 +73,10 @@
                 }
                 @media screen and ($only-desk) {
                     a {
-                        transition: .5s;
-                        svg .color { transition: .5s; }
+                        transition: var(--soma-transition, .5s);
+                        svg .color { transition: var(--soma-transition, .5s); }
                         &:hover {
-                            color: #7E7E87;
+                            color: var(--soma-color-text-secondary, #7E7E87);
                             svg .color { stroke: #7E7E87; }
                         }
                     }
@@ -85,8 +85,8 @@
         }
     }
     .label {
-        font-size: 16px;
-        color: #7E7E87;
+        font-size: var(--soma-font-size-small, 16px);
+        color: var(--soma-color-text-secondary, #7E7E87);
         letter-spacing: 0;
         line-height: 1;
         margin-bottom: 0px;
@@ -97,27 +97,27 @@
             margin-top: 0;
         }
         .item {
-            font-size: 20px;
-            color: #7E7E87;
+            font-size: var(--soma-font-size-large, 20px);
+            color: var(--soma-color-text-secondary, #7E7E87);
             letter-spacing: 0;
             line-height: 38px;
             cursor: pointer;
             display: table;
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             &.active {
-                color: #171717
+                color: var(--soma-color-primary, #171717)
             }
             &:last-of-type {
                 text-decoration: underline;
                 margin-top: 30px;
-                color: #171717;
+                color: var(--soma-color-primary, #171717);
                 @media screen and ($mobile) {
                     margin-top: 0;
                 }
             }
             @media screen and ($only-desk) {
                 &:hover {
-                    color: #171717
+                    color: var(--soma-color-primary, #171717)
                 }
             }
         }
@@ -135,7 +135,7 @@
                 right: 0;
                 width: 12px;
                 height: 12px;
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
                 &:after ,&:before {
                     content: '';
                     display: block;

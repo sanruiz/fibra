@@ -12,10 +12,10 @@
         .filter {
             cursor: pointer;
             margin-right: 25px;
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             
             &:not(.active) {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
             }
             @media screen and ($only-desk) {
                 &:hover {
@@ -74,7 +74,7 @@
         h3 {
             margin: 0;
             margin-top: 18px;
-            font-size: 20px;
+            font-size: var(--soma-font-size-large, 20px);
             line-height: 22px;
              u{
                text-decoration: none;
@@ -84,7 +84,7 @@
            text-decoration: none;
         }
         .city {
-            color: #7E7E87;
+            color: var(--soma-color-text-secondary, #7E7E87);
             margin-top: 5px;
             font-size: 15px;
             line-height: 18px;
@@ -214,11 +214,11 @@
                 }
                 @media screen and ($only-desk) {
                     h3 {
-                        transition: .5s;
+                        transition: var(--soma-transition, .5s);
                     }
                     &:hover {
                         h3 {
-                            color: #7E7E87;
+                            color: var(--soma-color-text-secondary, #7E7E87);
                         }
                     }
                 }
@@ -256,11 +256,11 @@
                 }
                 @media screen and ($only-desk) {
                     h3 {
-                        transition: .5s;
+                        transition: var(--soma-transition, .5s);
                     }
                     &:hover {
                         h3 {
-                            color: #7E7E87;
+                            color: var(--soma-color-text-secondary, #7E7E87);
                         }
                     }
                 }
@@ -320,7 +320,7 @@
         }
     }
     &.style-fibrasoma{
-        background-color: #171717;
+        background-color: var(--soma-color-primary, #171717);
         padding: 30px 0 4px 0!important;
         div{
             color: #ffffff;
@@ -422,11 +422,11 @@
                     }
                     @media screen and ($only-desk) {
                         .info-container .title h3 {
-                            transition: .5s;
+                            transition: var(--soma-transition, .5s);
                         }
                         &:hover {
                             .info-container .title h3 {
-                                color: #7E7E87;
+                                color: var(--soma-color-text-secondary, #7E7E87);
                             }
                         }
                     }
@@ -456,11 +456,11 @@
                 .project {
                     @media screen and ($only-desk) {
                         .info-container .title h3 {
-                            transition: .5s;
+                            transition: var(--soma-transition, .5s);
                         }
                         &:hover {
                             .info-container .title h3 {
-                                color: #7E7E87;
+                                color: var(--soma-color-text-secondary, #7E7E87);
                             }
                         }
                     }

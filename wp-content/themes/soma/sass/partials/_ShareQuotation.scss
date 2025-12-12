@@ -9,18 +9,18 @@
         }
     }
     &.black-bg {
-        background-color: #171717;
+        background-color: var(--soma-color-primary, #171717);
         h3, h2, p, span, a {
             color: white;
         }
     }
     &.white-bg {
         a svg line{
-            stroke: #171717;
+            stroke: var(--soma-color-primary, #171717);
         }
         a svg polygon{
-            stroke: #171717;
-            fill: #171717;
+            stroke: var(--soma-color-primary, #171717);
+            fill: var(--soma-color-primary, #171717);
         }
     }
     @media (#{$t-landscape}) {
@@ -95,19 +95,19 @@
             }
         }
         @media screen and ($only-desk) {
-            transition: .5s;
+            transition: var(--soma-transition, .5s);
             svg line,
             svg polygon {
-                transition: .5s;
+                transition: var(--soma-transition, .5s);
             }
             &:hover {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
                 svg line{
-                    stroke: #7E7E87;
+                    stroke: var(--soma-color-text-secondary, #7E7E87);
                 }
                 svg polygon{
-                    stroke: #7E7E87;
-                    fill: #7E7E87;
+                    stroke: var(--soma-color-text-secondary, #7E7E87);
+                    fill: var(--soma-color-text-secondary, #7E7E87);
                 }
             }
         }

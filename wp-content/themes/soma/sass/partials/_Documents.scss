@@ -75,14 +75,14 @@
                 position: absolute;
                 top: 0;
                 right: 0;
-                font-size: 16px;
+                font-size: var(--soma-font-size-small, 16px);
                 letter-spacing: 0;
                 @media screen and ($mobile) {
                     position: initial;
                 }
             }
             .press-label {
-                color: #7E7E87;
+                color: var(--soma-color-text-secondary, #7E7E87);
                 svg {
                     width: 18px;
                     height: auto;
@@ -94,12 +94,12 @@
             @media screen and ($only-desk) {
                 .text h3,
                 .press-date {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                 }
                 &:hover {
                     .text h3,
                     .press-date {
-                        color: #7E7E87;
+                        color: var(--soma-color-text-secondary, #7E7E87);
                     }
                 }
             }
@@ -209,8 +209,8 @@
                 }
             }
             .press-date {
-                font-size: 16px;
-                color: #FFFFFF;
+                font-size: var(--soma-font-size-small, 16px);
+                color: var(--soma-color-text-light, #FFFFFF);
                 letter-spacing: 0;
                 position: absolute;
                 left: 15px;
@@ -229,13 +229,13 @@
                 .text h3,
                 .press-date,
                 .press-label {
-                    transition: .5s;
+                    transition: var(--soma-transition, .5s);
                 }
                 &:hover {
                     .text h3,
                     .press-date,
                     .press-label {
-                        color: #7E7E87;
+                        color: var(--soma-color-text-secondary, #7E7E87);
                     }
                 }
             }
