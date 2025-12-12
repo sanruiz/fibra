@@ -281,8 +281,8 @@ final class DocumentsEndpoint {
 	 * @return string Translated date.
 	 */
 	private function translate_date( string $date_string ): string {
-		if ( function_exists( 'translateDate' ) ) {
-			return translateDate( $date_string );
+		if ( function_exists( 'soma_translate_date' ) ) {
+			return soma_translate_date( $date_string );
 		}
 		return $date_string;
 	}

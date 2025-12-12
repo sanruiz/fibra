@@ -403,7 +403,7 @@ function soma_translate_date( string $str_date, ?string $format = null ): string
 	}
 
 	if ( $format === 'short' ) {
-		// Short month names
+		// Short month names.
 		$translations = array(
 			'Jan' => 'Ene',
 			'Apr' => 'Abr',
@@ -411,7 +411,7 @@ function soma_translate_date( string $str_date, ?string $format = null ): string
 			'Dec' => 'Dic',
 		);
 	} else {
-		// Full month names
+		// Full month names.
 		$translations = array(
 			'January'   => 'Enero',
 			'February'  => 'Febrero',
@@ -429,6 +429,18 @@ function soma_translate_date( string $str_date, ?string $format = null ): string
 	}
 
 	return str_replace( array_keys( $translations ), array_values( $translations ), $str_date );
+}
+
+/**
+ * Translate date (backward compatibility alias)
+ *
+ * @deprecated 3.0.0 Use soma_translate_date() instead.
+ * @param string      $str_date Date string to translate.
+ * @param string|null $format   Optional. Format type ('short' for abbreviated months).
+ * @return string Translated date string.
+ */
+function translateDate( string $str_date, ?string $format = null ): string {
+	return soma_translate_date( $str_date, $format );
 }
 
 // =============================================================================

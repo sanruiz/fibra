@@ -223,8 +223,8 @@ final class EventsEndpoint {
 	 * @return string Translated date.
 	 */
 	private function translate_date( string $date_string, string $format = '' ): string {
-		if ( function_exists( 'translateDate' ) ) {
-			return translateDate( $date_string, $format );
+		if ( function_exists( 'soma_translate_date' ) ) {
+			return soma_translate_date( $date_string, $format );
 		}
 		return $date_string;
 	}
