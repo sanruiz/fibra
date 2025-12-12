@@ -78,13 +78,15 @@ This is a **9-week WordPress website development project** for FibraSOMA with tw
 
 **Phase 5 Complete**: CSS Variables System with 200+ design tokens, all 55 SCSS partials migrated, production build optimized (180 KiB bundle), comprehensive documentation (CSS_VARIABLES.md)
 
-**Phase 6 Progress (40%)**: 
+**Phase 6 Progress (60%)**: 
 - ✅ PSR-4 infrastructure complete (Loader, BlockRegistry, BlockRenderer)
 - ✅ Registered in Theme.php (priority 25)
-- ✅ page-builder.php updated with PSR-4 + backward compat
+- ✅ page-builder.php rewritten (34 lines clean, no backward compat)
 - ✅ 53 blocks mapped with validation and error handling
-- ⏳ Testing integration pending
-- ⏳ Partial documentation pending
+- ✅ Backward compatibility removed (globals eliminated)
+- ✅ Deprecated files deleted (inc/theme-config.php.deprecated)
+- ✅ Testing infrastructure complete (PHPUnit + Admin UI + WP-CLI)
+- ⏳ Partial documentation pending (53+ files)
 - ⏳ Quality validation pending
 
 **Full Migration Plan**: [docs/MIGRATION_PLAN.md](../wp-content/themes/soma/docs/MIGRATION_PLAN.md)  
@@ -94,18 +96,17 @@ This is a **9-week WordPress website development project** for FibraSOMA with tw
 
 ## Core Architecture: ACF Flexible Content Page Builder
 
-**v3.0.0 PSR-4 System (Current):** The page builder now uses a modern PSR-4 architecture:
+**v3.0.0 PSR-4 System (Current):** The page builder uses modern PSR-4 architecture with WordPress query vars:
 
 ```php
 // In page.php, templates/*.php, single.php:
-global $pageBuilder;
-$pageBuilder = get_field('soma_blocks'); // ACF flexible content field
-get_template_part('page-builder'); // Renders all blocks using PSR-4 system
+get_template_part('page-builder'); // Renders all ACF soma_blocks using PSR-4
 
-// page-builder.php uses PSR-4 BlockRenderer:
+// page-builder.php (34 lines):
+$soma_blocks = get_field( 'soma_blocks' );
 if ( class_exists( '\Soma\PageBuilder\BlockRenderer' ) ) {
     $renderer = \Soma\PageBuilder\BlockRenderer::instance();
-    $renderer->render( $pageBuilder ); // Handles validation, caching, error logging
+    $renderer->render( $soma_blocks ); // Validation, error logging, caching
 }
 ```
 
@@ -119,11 +120,20 @@ if ( class_exists( '\Soma\PageBuilder\BlockRenderer' ) ) {
 - Error handling with `soma_log_error()` + WP_DEBUG display
 - Optional block caching with tag-based invalidation
 - Cache auto-invalidation on `save_post` and `acf/save_post`
-- 100% backward compatible with v2.x (maintains global `$pageBlock`)
+- **WordPress query vars** (no globals) for partial data access
 
 **When creating new content blocks:**
-1. Add partial to `/partials/ComponentName.php` with global `$pageBlock` access
-2. Register in `BlockRegistry::register_default_blocks()`: `$this->register_block('ComponentName', 'component_name_content', 'ComponentName')`
+1. Add partial to `/partials/ComponentName.php` using WordPress query vars:
+   ```php
+   // Access block data via WordPress query vars (v3.0+)
+   $block_counter = get_query_var( 'soma_block_counter' );
+   $block_content = get_query_var( 'soma_block_content' );
+   $block_layout = get_query_var( 'soma_block_layout' );
+   ```
+2. Register in `BlockRegistry::register_default_blocks()`: 
+   ```php
+   $this->register_block('ComponentName', 'component_name_content', 'ComponentName')
+   ```
 3. Create corresponding SCSS in `/sass/partials/_ComponentName.scss`
 4. Import SCSS in `/sass/main.scss` under `// #DittoPartials`
 5. Add JS handler in `/js/components/componentName.js` if interactive
@@ -137,7 +147,13 @@ if ( class_exists( '\Soma\PageBuilder\BlockRenderer' ) ) {
 - `endpoints.php`: REST API endpoints at `/wp-json/soma/*` (news, careers, portfolio, documents, events)
 - `cf7-validations.php`: Contact Form 7 custom validation classes
 
-**`/partials/`** - Page builder components (50+ files). Each accesses `global $pageBlock` containing `block_counter` and `block_content` from ACF
+**`/partials/`** - Page builder components (50+ files). Each accesses block data via WordPress query vars:
+```php
+// v3.0.0+ Standard (NO globals)
+$block_counter = get_query_var( 'soma_block_counter' ); // Block index
+$block_content = get_query_var( 'soma_block_content' ); // ACF field data
+$block_layout  = get_query_var( 'soma_block_layout' );  // Layout name
+```
 
 **`/templates/`** - Custom page templates with special header comment (e.g., `business-unit-template.php`, `navigationsidebar-template.php`)
 
