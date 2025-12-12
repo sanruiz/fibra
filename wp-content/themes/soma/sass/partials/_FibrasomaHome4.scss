@@ -1,0 +1,156 @@
+.fibrasomahome4-partial-d09078 {
+    padding: 25px 0 74px 0;
+    @media screen and ($mobile) {
+        padding: 17px 0 31px 0;
+    }
+    .content{
+        display: flex;
+        flex-wrap: wrap;
+        
+        img{
+            display: block;
+            width: 100%;
+        }
+        .text{
+            width: calc(100% - 210px);
+            margin-bottom: 50px;
+            .number{
+                h2{
+                    font-family: $f2;
+                    margin: 0;
+                }
+            }
+            .title{
+                h3{
+                    margin: 18px 0px 0px 0px;
+                }
+            }
+            @media (#{$mobile}) {
+                width: calc(100% - 65px);
+            }
+        }
+        .link{
+            max-width: 210px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            margin-bottom: 50px;
+            a{
+                @media (#{$mobile}) {
+                    max-width: 65px;
+                }
+            }
+            @media (#{$mobile}) {
+                width: 65px;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+        .press-col-1{
+            width: calc(100% * (7 / 12));
+            @media (#{$mobile}) {
+                width: 100%;
+            }
+            .item{
+                .press-title{
+                    max-width: 480px;
+                }
+            }
+        }
+        .press-col-2{
+            width: calc(100% * (5 / 12));
+            @media (#{$mobile}) {
+                width: 100%;
+            }
+            .item{
+                padding-left: 130px;
+                @media (#{$t-portrait}) {
+                    padding-left: 50px;
+                }
+                @media (#{$mobile}) {
+                    padding-left: 0px;
+                }
+            }
+        }
+        .item{
+            a{
+                text-decoration: none;
+                .date{
+                    font-size: 16px;
+                    line-height: 21px;
+                    font-weight: lighter;
+                    margin-bottom: 25px;
+                    margin-top: 20px;
+                }
+                .press-title{
+                    font-size: 34px;
+                    line-height: 42px;
+                    margin-bottom: 20px;
+                    @media (#{$mobile}) {
+                        font-size: 25px;
+                        line-height: 30px;
+                    }
+                }
+                .label{
+                    margin-bottom: 70px;
+                    svg{
+                        padding-left: 7px;
+                    }
+                    span{
+                        text-decoration: underline;
+                        // position: relative;
+                        // &:before{
+                        //     content : "";
+                        //     position: absolute;
+                        //     left    : 0;
+                        //     bottom  : .02em;
+                        //     height  : 1px;
+                        //     width   : calc(100% - 25px); 
+                        //     border-bottom:.1em solid;
+                        // }
+                    }
+                    @media (#{$mobile}) {
+                        font-size: 20px;
+                        line-height: 26px;
+                        margin-bottom: 45px;
+                    }
+                }
+            }
+            @media screen and ($only-desk) {
+                .date,
+                .press-title,
+                .label,
+                .label span:before,
+                .label svg line,
+                .label svg polygon {
+                    transition: .5s;
+                }
+                &:hover {
+                    .date,
+                    .press-title,
+                    .label {
+                        color: #7E7E87;
+                    }
+                    .label span:before {
+                        border-bottom:1px solid #7E7E87;
+                    }
+                    .label svg line {
+                        stroke: #7E7E87;
+                    }
+                    .label svg polygon {
+                        stroke: #7E7E87;
+                        fill: #7E7E87;
+                    }
+                }
+            }
+        }
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: .5s;
+            &:hover {
+                color: #7E7E87;
+            }
+        }
+    }
+}

@@ -1,0 +1,145 @@
+.searchpanel-partial-1749fc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    z-index: 950;
+    padding-top: 25px;
+    transform: translateY(-100%);
+    overflow: auto;
+    transition: .5s;
+    &.open {
+        transform: translateY(0);
+    }
+    .title {
+        font-size: 16px;
+        color: #7E7E87;
+        letter-spacing: 0;
+        @media screen and ($mobile) {
+            font-size: 14px;
+        }
+    }
+    .search-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 10px;
+        form {
+            width: calc(100% - 29px);
+            input {
+                width: 100%;
+                padding: 0;
+                border: none;
+                font-size: 34px;
+                color: #171717;
+                letter-spacing: 0;
+                line-height: 42px;
+                &::placeholder {
+                    color: #171717;
+                    opacity: 1;
+                }
+                @media screen and ($mobile) {
+                    font-size: 25px;
+                    letter-spacing: -0.37px;
+                    line-height: 30px;
+                }
+            }
+        }
+        .close-button {
+            width: 29px;
+            cursor: pointer;
+            @media screen and ($t-landscape) {
+                width: 24px;
+                top: -40px;
+                position: relative;
+                svg {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+    }
+    .search-results {
+        display: flex;
+        flex-wrap: wrap;
+        padding-bottom: 20px;
+        &.grid-view {
+            justify-content: space-between;
+            .item {
+                width: calc(50% - 15px);
+                margin-bottom: 75px;
+                @media screen and ($mobile) {
+                    width: 100%;
+                    margin-bottom: 50px;
+                }
+                .thumb {
+                    height: 376px;
+                    @media screen and ($t-landscape) {
+                        height: 260px;
+                    }
+                    @media screen and ($t-portrait) {
+                        height: 202px;
+                    }
+                    &.image img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                    &.logo {
+                        background-color: $c1;
+                        position: relative;
+                        img {
+                            width: 80%;
+                            max-width: 250px;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+                    }
+                }
+                .post-type {
+                    text-transform: capitalize;
+                    font-size: 16px;
+                    color: #171717;
+                    letter-spacing: 0;
+                    margin-top: 20px;
+                    @media screen and ($t-landscape) {
+                        font-size: 14px;
+                    }
+                }
+                a {
+                    text-decoration: none;
+                }
+                h3 {
+                    margin: 0;
+                    text-decoration: underline;
+                    @media screen and ($t-landscape) {
+                        font-size: 25px;
+                        color: #171717;
+                        letter-spacing: -0.37px;
+                        line-height: 30px;
+                    }
+                }
+            }
+        }
+    }
+    .search-nav {
+        display: flex;
+        margin-top: 105px;
+        margin-bottom: 60px;
+        @media screen and ($t-landscape) {
+            margin-top: 25px;
+            margin-bottom: 24px;
+        }
+        .message {
+            font-size: 16px;
+            color: #171717;
+            letter-spacing: 0;
+        }
+    }
+}

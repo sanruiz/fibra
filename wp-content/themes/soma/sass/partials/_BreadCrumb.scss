@@ -1,0 +1,39 @@
+.breadcrumb-partial-ad683a {
+    padding: 70px 0 0 0;
+    @media screen and ($mobile) {
+        padding: 10px 0 0 0;
+    }
+    a, span {
+        font-size: 16px;
+        letter-spacing: 0;
+        @media (#{$mobile}) {
+            font-size: 14px;
+        }
+    }
+    a {
+        color: #7E7E87;
+        text-decoration: none;
+        transition: .5s;
+        &:hover {
+            color: $c1;
+        }
+    }
+    i {
+        color: #7E7E87;
+    }
+    i:nth-child(1n+4){
+        @media screen and ($mobile) {
+            display: none;
+        }
+    }
+    span:nth-child(1n+4){
+        @media screen and ($mobile) {
+            display: none;
+        }
+    }
+    a:nth-child(1n+4){
+        @media screen and ($mobile) {
+            display: none;
+        }
+    }
+}

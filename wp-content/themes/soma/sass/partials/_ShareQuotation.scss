@@ -1,0 +1,115 @@
+.sharequotation-partial-7baa8d {
+    margin-top: 100px;
+    padding: 60px 0;
+    &:first-of-type {
+        margin-top: 0;
+        padding: 20px 0 300px 0;
+        @media screen and ($mobile) {
+            padding: 10px 0 50px 0;
+        }
+    }
+    &.black-bg {
+        background-color: #171717;
+        h3, h2, p, span, a {
+            color: white;
+        }
+    }
+    &.white-bg {
+        a svg line{
+            stroke: #171717;
+        }
+        a svg polygon{
+            stroke: #171717;
+            fill: #171717;
+        }
+    }
+    @media (#{$t-landscape}) {
+        margin-top: 50px;
+    }
+    @media screen and ($mobile) {
+        padding: 40px 0;
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        .col {
+            width: calc(100% * (4 / 12));
+            box-sizing: border-box;
+            &:nth-child(1) {
+                padding-right: 15px;
+                @media screen and ($t-landscape) {
+                    width: 100%;
+                    padding-right: 0;
+                }
+            }
+            &:nth-child(2) {
+                padding-left: 15px;
+                padding-right: 15px;
+                @media screen and ($t-landscape) {
+                    width: 50%;
+                    padding-left: 0;
+                }
+                @media screen and ($t-portrait) {
+                    width: 100%;
+                    padding: 0;
+                }
+            }
+            &:nth-child(3) {
+                padding-left: 15px;
+                @media screen and ($t-landscape) {
+                    width: 50%;
+                }
+                @media screen and ($t-portrait) {
+                    width: 100%;
+                    padding: 0;
+                }
+            }
+            
+            .price h2 {
+                margin-top: -15px;
+            }
+            .price p {
+                margin-top: -60px;
+                @media (#{$mobile}) {
+                    margin-top: -30px;
+                }
+            }
+        }
+    }
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        &.mobile {
+            display: none;
+        }
+        svg {
+            margin-left: 5px;
+        }
+        @media screen and ($t-portrait) {
+            &.mobile {
+                display: table;
+                margin-bottom: 30px;
+            }
+            &.desk {
+                display: none;
+            }
+        }
+        @media screen and ($only-desk) {
+            transition: .5s;
+            svg line,
+            svg polygon {
+                transition: .5s;
+            }
+            &:hover {
+                color: #7E7E87;
+                svg line{
+                    stroke: #7E7E87;
+                }
+                svg polygon{
+                    stroke: #7E7E87;
+                    fill: #7E7E87;
+                }
+            }
+        }
+    }
+}

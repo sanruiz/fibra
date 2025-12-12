@@ -1,0 +1,81 @@
+.image-partial-7ce04d {
+    padding: 40px 0 70px 0;
+    &.dark-style {
+        background-color: $c1;
+        padding: 50px 0 0 0;
+        
+        &:last-of-type {
+            padding-bottom: 0;
+            .content {
+                padding-bottom: 150px;
+                border-bottom: 1px solid #999999;
+                @media screen and ($mobile) {
+                    padding-bottom: 76px;
+                }
+            }
+        }
+    }
+    @media screen and ($t-portrait) {
+        padding: 20px 0 40px 0;
+    }
+    @media screen and ($mobile) {
+        padding: 10px 0 40px 0;
+        &.mobile-fullscreen {
+            padding: 0;
+            .content {
+                .image {
+                    width: auto !important;
+                    height: 100vh;
+                    margin-left: -20px;
+                    margin-right: -20px;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
+            }
+        }
+    }
+    .content {
+        display: flex;
+        .large {
+            width: 100%;
+        }
+        .small {
+            width: calc(100% * (7 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media screen and ($t-portrait) {
+                width: 100%;
+                padding-right: 0;
+            }
+        }
+        &.two-images {
+            justify-content: space-between;
+            @media screen and ($mobile) {
+                flex-wrap: wrap;
+            }
+            .image {
+                width: calc(100% * (7 / 12));
+                box-sizing: border-box;
+                padding-right: 15px;
+                @media screen and ($mobile) {
+                    width: 100%;
+                    padding-right: 0;
+                    margin-bottom: 45px;
+                }
+            }
+            .image-2 {
+                width: calc(100% * (4 / 12) + 15px);
+                @media screen and ($mobile) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    img {
+        width: 100%;
+    }
+}

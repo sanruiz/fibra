@@ -1,0 +1,19 @@
+# Ignorar todo
+/*
+
+# Excepto estos archivos/directorios
+!.gitignore
+!wp-content/
+
+# Dentro de wp-content, ignorar todo
+wp-content/*
+
+# Excepto themes
+!wp-content/themes/
+
+# Dentro de themes, ignorar todo
+wp-content/themes/*
+
+# Excepto soma
+!wp-content/themes/soma/
+!wp-content/themes/soma/**

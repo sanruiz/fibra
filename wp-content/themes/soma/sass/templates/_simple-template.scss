@@ -1,0 +1,28 @@
+#simple-template-ee30ff {
+    padding: 0 0 140px 0;
+    @media screen and ($mobile) {
+        padding: 0 0 70px 0;
+    }
+    .container {
+        p {
+            color: #7E7E87;
+            margin: 0;
+            max-width: 1172px;
+        }
+        a {
+            color: #7E7E87;
+            text-decoration: none;
+            @media screen and ($only-desk) {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        strong {
+            color: $c1;
+            span {
+                color: $c1;
+            }
+        }
+    }
+}

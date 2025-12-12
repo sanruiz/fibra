@@ -1,0 +1,54 @@
+   
+<?php
+/**
+ * 
+ * Partial Name: Text
+ * 
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
+
+global $pageBlock;
+?>
+
+<?php if($pageBlock['block_content']['text']): ?>
+<section class="text-partial-4ad1f2 <?= $pageBlock['block_content']['dark_style'] ? 'dark-style' : '' ?>">
+    <div class="container">
+        <div class="content">
+            <div id="content" onload="countLines();" class="box-content columns-<?= $pageBlock['block_content']['columns'] ?> justify-<?= $pageBlock['block_content']['justify'] ?> font-size-<?= $pageBlock['block_content']['font_size'] ?>">
+                <?= $pageBlock['block_content']['text'] ?>
+            </div>
+            <div class="read" onclick="deploy(this)" >
+                Read more
+            </div>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<script>
+    var allboxtext = $('.box-content');
+    allboxtext.each(function (index,objeto) {
+        var boxtextH = $(objeto).height();
+        if (boxtextH > 400 && !$(objeto).hasClass("boxtextcontent-H")) {
+            $(objeto).addClass("boxtextcontent-H");
+        }
+        else if (!$(objeto).hasClass("boxtextcontent-H")) {
+            $(objeto).parent().find('.read').hide();
+        }
+    });
+
+    
+    function deploy(element) {
+        if ($(element).text().trim() == "Read more") {
+            $(element).text("Read less");
+            $(element).parent().parent().find('.box-content').removeClass("boxtextcontent-H");
+        }
+        else{
+            $(element).text("Read more");
+            $(element).parent().parent().find('.box-content').addClass("boxtextcontent-H");
+        }
+    }
+</script>
+                    

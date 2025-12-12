@@ -1,0 +1,161 @@
+.events-partial-e5e1bb {
+    padding: 70px 0 80px 0;
+    @media screen and ($mobile) {
+        padding: 20px 0 32px 0;
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        .filters {
+            box-sizing: border-box;
+            width: calc(100% * (2 / 12));
+            @media screen and ($mobile) {
+                width: 100%;
+                margin-bottom: 45px;
+            }
+        }
+        .events {
+            box-sizing: border-box;
+            width: calc(100% * (9 / 12));
+            @media screen and (max-width: 1350px) {
+                width: calc(100% * (10 / 12));
+            }
+            @media screen and ($mobile) {
+                width: 100%;
+            }
+        }
+    }
+    .event-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        width: calc(100% + 30px);
+        .event {
+            width: calc(100% / 3);
+            box-sizing: border-box;
+            padding: 0 15px 57px 15px;
+            margin-bottom: 70px;
+            position: relative;
+            @media screen and ($t-landscape) {
+                width: calc(100% / 2);
+            }
+            @media screen and ($mobile) {
+                width: 100%;
+                margin-bottom: 45px;
+                padding: 0 15px 47px 15px;
+            }
+            &.hidden {
+                display: none;
+            }
+            h3 {
+                font-size: 25px;
+                margin-top: 0;
+                margin-bottom: 5px;
+                text-decoration: underline;
+                white-space: nowrap;
+                svg {
+                    margin-left: 15px;
+                    margin-bottom: -6px;
+                }
+                @media screen and ($mobile) {
+                    margin-bottom: 5px;
+                }
+            }
+            .link {
+                position: absolute;
+                bottom: 0;
+                left: 15px;
+                svg {
+                    margin-left: 10px;
+                    .color {
+                        stroke: #171717;
+                    }
+                }
+                @media screen and ($only-desk) {
+                    a {
+                        transition: .5s;
+                        svg .color { transition: .5s; }
+                        &:hover {
+                            color: #7E7E87;
+                            svg .color { stroke: #7E7E87; }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .label {
+        font-size: 16px;
+        color: #7E7E87;
+        letter-spacing: 0;
+        line-height: 1;
+        margin-bottom: 0px;
+    }
+    .filters .list {
+        margin-top: -10px;
+        @media screen and ($mobile) {
+            margin-top: 0;
+        }
+        .item {
+            font-size: 20px;
+            color: #7E7E87;
+            letter-spacing: 0;
+            line-height: 38px;
+            cursor: pointer;
+            display: table;
+            transition: .5s;
+            &.active {
+                color: #171717
+            }
+            &:last-of-type {
+                text-decoration: underline;
+                margin-top: 30px;
+                color: #171717;
+                @media screen and ($mobile) {
+                    margin-top: 0;
+                }
+            }
+            @media screen and ($only-desk) {
+                &:hover {
+                    color: #171717
+                }
+            }
+        }
+    }
+    .mobile-title {
+        display: none;
+        @media screen and ($mobile) {
+            display: block;
+            position: relative;
+            margin-bottom: 10px;
+            span {
+                position: absolute;
+                display: block;
+                top: calc(50% - 6px);
+                right: 0;
+                width: 12px;
+                height: 12px;
+                transition: .5s;
+                &:after ,&:before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 2px;
+                    background-color: $c1;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                }
+                &:before {
+                    transform: rotate(90deg);
+                }
+            }
+            &.open span {
+                transform: rotate(45deg);
+            }
+            &:not(.open) + .list {
+                display: none;
+            }
+        }
+    }
+}

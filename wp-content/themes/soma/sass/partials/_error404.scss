@@ -1,0 +1,24 @@
+#ditto_404_error {
+    padding: 40px 0 450px 0;
+    @media screen and ($mobile) {
+        padding: 20px 0 390px 0;
+    }
+    .content {
+        max-width: 517px;
+        h3 {
+            margin-top: 0;
+            margin-bottom: 50px;
+        }
+        p {
+            margin: 0;
+        }
+        a {
+            @media screen and ($only-desk) {
+                transition: .5s;
+                &:hover {
+                    color: #7E7E87;
+                }
+            }
+        }
+    }
+}

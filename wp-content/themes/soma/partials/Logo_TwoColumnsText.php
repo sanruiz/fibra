@@ -1,0 +1,58 @@
+   
+<?php
+/**
+ * 
+ * Partial Name: Logo_TwoColumnsText
+ * 
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
+
+global $pageBlock;
+?>
+
+<section class="logo-twocolumnstext-partial-823da8">
+    <div class="container">
+        <div class="content">
+            <div class="logo">
+                <?php if(!$pageBlock['block_content']['hide_logo']): ?>
+                    <svg width="106px" height="109px" viewBox="0 0 106 109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-79.000000, -2883.000000)">
+                                <g transform="translate(79.000000, 2883.273143)">
+                                    <polygon fill="#171717" points="106 90.384203 90.0913455 43.7074192 75.1941215 0 30.5243463 0 0 89.5594954 0 107.752066 19.9512483 107.752066 47.9584883 24.654692 57.7589368 24.654692 85.7651341 107.752066 106 107.752066"></polygon> 
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                <?php endif; ?>
+            </div>
+            <div class="text">
+                <?php if($pageBlock['block_content']['title']): ?>
+                    <div class="title">
+                        <?php if($pageBlock['block_content']['font_size'] == 'normal'): ?>
+                            <h2><?= $pageBlock['block_content']['title'] ?></h2>
+                        <?php endif; ?>
+                        <?php if($pageBlock['block_content']['font_size'] == 'small'): ?>
+                            <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if($pageBlock['block_content']['text']): ?>
+                    <div class="two-columns">
+                        <p><?= $pageBlock['block_content']['text'] ?></p>
+                    </div>
+                    <div class="one-columns">
+                        <p><?= $pageBlock['block_content']['text'] ?></p>
+                    </div>
+                <?php endif; ?>
+                <?php if($pageBlock['block_content']['link']): ?>
+                    <div class="link">
+                        <a href="<?= $pageBlock['block_content']['link']['url'] ?>" target="<?= $pageBlock['block_content']['link']['target'] ?>"><?= $pageBlock['block_content']['link']['title'] ?></a>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</section>

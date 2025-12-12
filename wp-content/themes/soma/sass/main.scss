@@ -1,0 +1,108 @@
+// Fonts
+// @font-face {
+//     font-family: 'Neue Haas Unica Pro Regular';
+//     // src: url('../fonts/NeueHaasUnicaPro-Regular.woff2') format('woff2'),
+//         //     url('../fonts/NeueHaasUnicaPro-Regular.woff') format('woff'),
+//         //     url('../fonts/NeueHaasUnicaPro-Regular.ttf') format('truetype'),
+//         //     url('../fonts/NeueHaasUnicaPro-Regular.svg#NeueHaasUnicaPro-Regular') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: 'Neue Haas Unica Pro Medium';
+//     // src: url('../fonts/NeueHaasUnicaPro-Medium.woff2') format('woff2'),
+//         //     url('../fonts/NeueHaasUnicaPro-Medium.woff') format('woff'),
+//         //     url('../fonts/NeueHaasUnicaPro-Medium.ttf') format('truetype'),
+//         //     url('../fonts/NeueHaasUnicaPro-Medium.svg#NeueHaasUnicaPro-Medium') format('svg');
+//     font-weight: 500;
+//     font-style: normal;
+//     font-display: swap;
+// }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+$f1: 'Roboto', sans-serif;
+$f2: 'Roboto';
+
+// Colors
+$c1: #171717;
+
+// Breakpoints
+$only-desk: 'min-width: 1025px';
+$t-landscape: 'max-width: 1024px';
+$t-portrait: 'max-width: 991px';
+$mobile: 'max-width: 767px';
+
+// Packages
+@import '~normalize.css';
+@import '~slick-carousel/slick/slick';
+
+// Main Styles
+@import './general';
+
+// Ditto include zone (don't delete anything below)
+// #DittoPartials
+@import "./partials/CareersList";
+@import "./partials/AnalystCoverage";
+@import "./partials/FibrasomaHomeEvents";
+@import "./partials/Events";
+@import "./partials/ContactHeader";
+@import "./partials/ProjectContactInfo";
+@import "./partials/AnnualReports";
+@import "./partials/Report";
+@import "./partials/Redirect";
+@import "./partials/TeamMembersFibrasoma";
+@import "./partials/Contact";
+@import "./partials/TextSlider";
+@import "./partials/ShareQuotation";
+@import "./partials/FibrasomaHeader";
+@import "./partials/Documents";
+@import "./partials/FibrasomaHome4";
+@import "./partials/FibrasomaHome3";
+@import "./partials/FibrasomaHome2";
+@import "./partials/FibrasomaHome1";
+@import "./partials/FeaturedText";
+@import "./partials/randomInfoFullscreen";
+@import "./partials/SearchPanel";
+@import "./partials/BusinessUnitsContact";
+@import "./partials/ContactInfo";
+@import "./partials/Initiatives";
+@import "./partials/Art";
+@import "./partials/Text";
+@import "./partials/Image";
+@import "./partials/ProjectInfo";
+@import "./partials/Portfolio";
+@import "./partials/Brand";
+@import "./partials/LogoGrid";
+@import "./partials/BusinessUnits2";
+@import "./partials/Image_Text";
+@import "./partials/Timeline";
+@import "./partials/TeamMembers";
+@import "./partials/TwoImages";
+@import "./partials/Logo_Image";
+@import "./partials/VimeoPlayer";
+@import "./partials/HeaderText";
+@import "./partials/NewsList";
+@import "./partials/TwoColumnsText";
+@import "./partials/Phrase";
+@import "./partials/Logo_TwoColumnsText";
+@import "./partials/BusinessUnits";
+@import "./partials/Bigtext_Image";
+@import "./partials/BreadCrumb";
+@import "./partials/randomInfo";
+@import "./partials/fullscreenSlider";
+@import "./partials/Footer";
+@import "./partials/Navbar";
+@import "./partials/singleNews";
+@import "./partials/singleTeamMembers";
+@import "./partials/singleProject";
+@import "./partials/error404";
+// #DittoTemplates
+@import "./templates/under-development-template";
+@import "./templates/somalanding-template";
+@import "./templates/navigationsidebar-template";
+@import "./templates/simple-template";
+@import "./templates/art-template";
+@import "./templates/business-unit-template";

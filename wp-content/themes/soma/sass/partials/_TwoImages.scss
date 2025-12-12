@@ -1,0 +1,116 @@
+.twoimages-partial-efb0cd {
+    padding: 75px 0 100px 0;
+    @media (#{$t-portrait}) {
+        padding: 40px 0 60px 0;
+    }
+    @media (#{$mobile}) {
+        padding: 25px 0 30px 0;
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        @media (#{$t-portrait}) {
+            display: block;
+        }
+        .image-1 {
+            width: calc(100% * (5 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media (#{$t-portrait}) {
+                width: 100%;
+                padding-right: 0px;
+            }
+            h4 {
+                width: 155%;
+                position: relative;
+                margin-top: 65px;
+                margin-bottom: 140px;
+                letter-spacing: -0.5px;
+                @media (#{$t-portrait}) {
+                    width: 100%;
+                    margin-top: 0px;
+                    margin-bottom: 60px;
+                }
+                @media (#{$mobile}) {
+                    margin-bottom: 45px;
+                }
+            }
+            img {
+                width: 100%;
+                margin-bottom: 60px;
+                @media screen and ($t-portrait) {
+                    margin-bottom: 0;
+                }
+            }
+        }
+        .image-2 {
+            width: calc(100% * (6 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            @media (#{$t-portrait}) {
+                width: 100%;
+                padding-left: 0px;
+            }
+            img {
+                width: 100%;
+            }
+        }
+        .text {
+            width: calc(100% * (8 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media (#{$t-portrait}) {
+                width: 100%;
+                margin-top: 60px;
+                max-width: 600px;
+            }
+            @media screen and ($mobile) {
+                margin-top: 80px;
+            }
+            h3 {
+                margin-top: -15px;
+                margin-bottom: 0;
+            }
+            p {
+                margin-top: 50px;
+                margin-bottom: 0;
+                column-count: 2;
+                column-gap: 30px;
+                @media (#{$t-portrait}) {
+                    column-count: 1;
+                    margin-top: 30px;
+                }
+                @media screen and ($mobile) {
+                    margin-top: 40px;
+                }
+            }
+            .link {
+                margin-top: 50px;
+                @media (#{$t-portrait}) {
+                    margin-top: 40px;
+                }
+            }
+        }
+        .desk{
+            @media (#{$t-portrait}) {
+                display: none;
+            }
+        }
+        .tablet{
+            display: none;
+            @media (#{$t-portrait}) {
+                display: block;
+                margin-bottom: 45px;
+            }
+        }
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: .5s;
+            &:hover {
+                color: #7E7E87;
+            }
+        }
+    }
+}

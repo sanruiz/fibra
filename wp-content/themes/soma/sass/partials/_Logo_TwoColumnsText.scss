@@ -1,0 +1,94 @@
+.logo-twocolumnstext-partial-823da8 + .logo-twocolumnstext-partial-823da8 {
+    padding: 0 0 70px 0;
+    margin-top: -54px;
+}
+
+.logo-twocolumnstext-partial-823da8 {
+    padding: 66px 0 70px 0;
+    @media (#{$mobile}) {
+        padding: 30px 0 35px 0;
+    }
+    .content {
+        display: flex;
+        @media (#{$t-portrait}) {
+            display: block;
+        }
+        .logo {
+            width: calc(100% * (4 / 12) );
+            box-sizing: border-box;
+            padding-right: 15px;
+            padding-top: 13px;
+            @media screen and ($t-portrait) {
+                width: 100%;
+            }
+            @media screen and ($mobile) {
+                svg {
+                    width: 66px;
+                    height: auto;
+                }
+            }
+        }
+        .text {
+            width: calc(100% * (8 / 12) );
+            box-sizing: border-box;
+            padding-left: 15px;
+            @media (#{$t-portrait}) {
+                padding-left: 0px;
+                width: 100%;
+            }
+            .link{
+                @media (#{$mobile}) {
+                    margin-top: 40px;
+                }
+            }
+        }
+    }
+    h2 {
+        margin: 0;
+        width: 100%;
+        max-width: 692px;
+
+    }
+    h3 {
+        margin: 0;
+        width: 100%;
+        max-width: 692px;
+    }
+    .title {
+        margin-bottom: 50px;
+        @media (#{$t-portrait}) {
+            margin-bottom: 85px;
+            margin-top: 35px;
+        }
+        @media (#{$mobile}) {
+            margin-bottom: 35px;
+            margin-top: 40px;
+        }
+    }
+    .two-columns {
+        margin-bottom: 47px;
+        @media (#{$t-portrait}) {
+            display: none;
+        }
+        p {
+            margin: 0;
+            column-count: 2;
+            column-gap: 30px;
+        }
+    }
+    .one-columns{
+        display: none;
+        @media (#{$t-portrait}) {
+            display: block;
+            max-width: 600px;
+        }
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: .5s;
+            &:hover {
+                color: #7E7E87;
+            }
+        }
+    }
+}

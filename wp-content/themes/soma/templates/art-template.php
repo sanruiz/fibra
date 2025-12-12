@@ -1,0 +1,39 @@
+   
+<?php
+/**
+ * 
+ * Template Name: Art
+ * 
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
+
+get_header();
+
+global $pageBuilder;
+$pageBuilder = get_field('soma_blocks');
+
+$art_content = get_field('art_content');
+?>
+
+<?php get_template_part('partials/BreadCrumb'); ?>
+
+<main id="art-template-d74087">
+
+    <section class="art-title-section">
+        <div class="container">
+            <h2><?= get_the_title() ?></h2>
+            <p><?= $art_content['subtitle'] ?></p>
+        </div>
+        <script>
+            $('#menu-main-menu .menu-item.art').addClass('current-menu-item');
+        </script>
+    </section>
+
+    <?php get_template_part('page-builder'); ?>
+    
+</main>
+
+<?php get_footer(); ?>
+                    

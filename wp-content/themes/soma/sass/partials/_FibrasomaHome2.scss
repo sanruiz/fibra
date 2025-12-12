@@ -1,0 +1,159 @@
+.fibrasomahome2-partial-99fd7f {
+    padding: 75px 0px 75px 0px;
+    @media (#{$t-portrait}) {
+        padding: 45px 0px 42px 0px;
+    }
+    .content{
+        display: flex;
+        @media (#{$t-portrait}) {
+            display: block;
+        }
+        .text{
+            width: calc(100% * (4 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            position: relative;
+            .number{
+                h2{
+                    margin: -14px 0px 0px 0px;
+                    font-family: "Roboto";
+                }
+            }
+            .title{
+                h3{
+                    margin: 20px 0px 0px 0px;
+                    @media (#{$t-portrait}) {
+                        margin: 10px 0px 35px 0px;
+                    }
+                }
+            }
+
+            @media (#{$t-portrait}) {
+                width: 100%;
+                padding-right: 0px;
+                margin-bottom: 40px;
+            }
+        }
+        .image{
+            width: calc(100% * (8 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            img{
+                display: block;
+                width: 100%;
+            }
+            @media (#{$t-portrait}) {
+                width: 100%;
+                padding-left: 0px;
+            }
+            .documents{
+                display: flex;
+                flex-wrap: wrap;
+                padding-top: 20px;
+                @media (#{$mobile}) {
+                    display: block;
+                }
+                .item{
+                    width: calc(50% - 14px);
+                    border-bottom: 1px solid $c1;
+                    padding-top: 25px;
+                    padding-bottom: 25px;
+                    @media (#{$mobile}) {
+                        width: 100%;
+                        margin-right: 0px!important;
+                        margin-left: 0px!important;
+                    }
+                    a{
+                        text-decoration: none;
+                        .file-title{
+                            svg{
+                                padding-left: 7px;
+                            }
+                            span{
+                                text-decoration: underline;
+                                // position: relative;
+                                // &:before{
+                                //     content : "";
+                                //     position: absolute;
+                                //     left    : 0;
+                                //     bottom  : 3px;
+                                //     height  : 1px;
+                                //     width   : calc(100% - 25px); 
+                                //     border-bottom:1px solid #171717;
+                                // }
+                            }
+                        }
+                        .label{
+                            font-size: 18px;
+                            line-height: 16.2px;
+                            color: #7E7E87;
+                            padding-top: 10px;
+                        }
+                    }
+                    @media screen and ($only-desk) {
+                        transition: .5s;
+                        .extra-file,
+                        .file-title span,
+                        .file-title span:before,
+                        .file-title svg line,
+                        .file-title svg polygon {
+                            transition: .5s;
+                        }
+                        &:hover {
+                            border-bottom: 1px solid #7E7E87;
+                            .file-title span{
+                                color: #7E7E87;
+                            }
+                            .file-title span:before {
+                                border-bottom:1px solid #7E7E87;
+                            }
+                            .file-title svg line{
+                                stroke: #7E7E87;
+                            }
+                            .file-title svg polygon{
+                                stroke: #7E7E87;
+                                fill: #7E7E87;
+                            }
+                        }
+                    }
+                }
+                .item:nth-child(2n+1){
+                    margin-right: 14px;
+                }
+                .item:nth-child(2n){
+                    margin-left: 14px;
+                }
+                &.separator-hidden .item {
+                    border-bottom: none;
+                }
+            }
+        }
+        .extra-file {
+            display: inline-block;
+            margin-top: 150px;
+            @media screen and ($only-desk) {
+                transition: .5s;
+                svg line,
+                svg polygon {
+                    transition: .5s;
+                }
+                &:hover {
+                    color: #7E7E87;
+                    svg line{
+                        stroke: #7E7E87;
+                    }
+                    svg polygon{
+                        stroke: #7E7E87;
+                        fill: #7E7E87;
+                    }
+                }
+            }
+            @media screen and ($t-portrait) {
+                position: absolute;
+                margin: 0;
+                bottom: 4px;
+                right: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,100 @@
+.textslider-partial-8bf200 {
+    padding-top: 100px;
+    @media (#{$t-landscape}) {
+        padding-top: 70px;
+    }
+    .content{
+        display: flex;
+        flex-wrap: wrap;
+        .selector{
+            width: calc(100% * (4 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media (#{$t-landscape}) {
+                width: 100%;
+                padding-right: 0;
+            }
+            .title {
+                color: $c1;
+                position: relative;
+                @media screen and ($mobile) {
+                    .close-button {
+                        position: absolute;
+                        right: 0;
+                        top: calc(50% - 6px);
+                        width: 12px;
+                        height: 12px;
+                        transform: rotate(45deg);
+                        transition: .5s;
+                        &::after,
+                        &::before {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            width: 100%;
+                            height: 2px;
+                            background-color: $c1;
+                        }
+                        &::before {
+                            transform: rotate(90deg);
+                        }
+                    }
+                    &.closed {
+                        .close-button {
+                            transform: rotate(0);
+                        }
+                        + .list {
+                            height: 0;
+                            overflow: hidden;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+            .list {
+                margin-top: 40px;
+                .item {
+                    color: grey;
+                    cursor: pointer;
+                    transition: .5s;
+                    margin-bottom: 10px;
+                    @media screen and ($only-desk) {
+                        &:hover {
+                            color: $c1;
+                        }
+                    }
+                }
+                .active {
+                    color: $c1;
+                }
+            }
+        }
+        .slider {
+            width: calc(100% * (8 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            @media (#{$t-landscape}) {
+                width: 100%;
+                margin-top: 40px;
+                padding-left: 0;
+            }
+            h2{
+                margin-top: 0;
+                margin-bottom: 13px;
+            }
+            h3{
+                margin: 0;
+                max-width: 735px;
+                @media (#{$t-landscape}) {
+                    margin-top: 8px;
+                }
+            }
+            p {
+                margin: 40px 0;
+                max-width: 570px;
+            }
+        }
+    }
+}

@@ -1,0 +1,132 @@
+   
+<?php
+/**
+ * 
+ * Partial Name: Footer
+ * 
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
+
+$data = get_field('footer_content', 'options');
+?>
+
+<section class="footer-partial-c90350 style-<?= $data['style'] ?>">
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div class="logo">
+                    <?php if($data['logo']): ?>
+                        <a href="<?= get_site_url() ?>">
+                            <img src="<?= $data['logo']['url'] ?>" alt="<?= $data['logo']['alt'] ?>">
+                        </a>
+                    <?php endif; ?>
+                    <div class="logo_subtext">
+                        <?= $data['logo_subtext'] ?>
+                    </div>
+                </div>
+                <div class="location mobile-copy">
+                    <?= $data['location_text'] ?>
+                </div>
+                <div class="newsletter">
+                    <?= do_shortcode( $data['newsletter_form_shortcode'] ) ?>
+                    <div class="success-form">
+                            Thank you for subscribing.                 
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="location">
+                    <?= $data['location_text'] ?>
+                </div>
+                <div class="nav">
+                    <div class="nav-container">
+                        <?php if($data['style'] == 'fibrasoma'): ?>
+                            <?php
+                                wp_nav_menu([
+                                    'menu'            => 'fibrasoma_footer',
+                                    'theme_location'  => 'fibrasoma_footer',
+                                    'container'       => 'div',
+                                    'menu_class'      => 'fibrasoma-list'
+                                ]);
+                            ?>
+                        <?php else: ?>
+                            <div class="nav-list">
+                                <div class="title"><?= wpm_get_language() == 'es' ? "Redes" : "Social" ?></div>
+                                <?php
+                                    wp_nav_menu([
+                                        'menu'            => 'social',
+                                        'theme_location'  => 'social',
+                                        'container'       => 'div',
+                                        'menu_class'      => 'social-list'
+                                    ]);
+                                ?>
+                            </div>
+                            <div class="nav-list">
+                                <div class="title"><?= wpm_get_language() == 'es' ? "Unidades de Negocio" : "Business Units" ?></div>
+                                <?php
+                                    wp_nav_menu([
+                                        'menu'            => 'business_units',
+                                        'theme_location'  => 'business_units',
+                                        'container'       => 'div',
+                                        'menu_class'      => 'business-list'
+                                    ]);
+                                ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="copyright"><?= $data['copyright'] ?></div>
+                <div class="credits">
+                    <?php if($data['credits']): ?>
+                        <a href="<?= $data['credits']['url'] ?>" target="<?= $data['credits']['target'] ?>"><?= $data['credits']['title'] ?></a>
+                    <?php endif; ?>
+                    <?php if($data['privacy_policy']): ?>
+                        <a href="<?= $data['privacy_policy']['url'] ?>" target="<?= $data['privacy_policy']['target'] ?>"><?= $data['privacy_policy']['title'] ?></a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    jQuery(function(){
+        var wpcf7Elm = document.querySelector( '.footer-partial-c90350' );
+        wpcf7Elm.addEventListener( 'wpcf7invalid', function( event ) {
+            var inputs = event.detail.inputs;
+            for ( var i = 0; i < inputs.length; i++ ) {            
+                
+                $('.wpcf7-not-valid-tip').each(function() {
+                    jQuery('#btn-arrow').addClass('noempty');
+                    if ($(this).text() == "Email address entered is not valid, DNS resolution failed." ||  jQuery(this).text() == "The email value is not valid." ||  jQuery(this).text() == "The e-mail address entered is invalid." || jQuery(this).text() == "La dirección de correo electrónico que has introducido no es válida.") {
+                        $(this).show();
+                        $(this).text('Inavalid email');
+                    }
+                })
+            }
+        }, false );
+        wpcf7Elm.addEventListener( 'wpcf7mailsent', function( event ) {
+            
+            $('form').hide(200);
+            $('.success-form').show(200);
+        }, false );
+
+        $(document).ajaxStart(function(){
+            $("#wait").css("display", "block");
+            $(".ajax-loader-name").text("Submitting...");
+            $('#btn-arrow').hide();
+            $('#input-email').css("font-size", "0px");
+        });
+        $(document).ajaxComplete(function(){
+            $("#wait").css("display", "none");
+            $(".ajax-loader-name").text("");
+            $('#btn-arrow').show();
+            $('#input-email').css("font-size", "16px");
+        });
+    });
+</script>
