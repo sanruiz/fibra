@@ -34,33 +34,33 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="container">
         <div class="content">
             <div class="image">
-                <?php if($pageBlock['block_content']['image']): ?>
-                    <img src="<?= $pageBlock['block_content']['image']['url'] ?>" alt="<?= $pageBlock['block_content']['image']['alt'] ?>">
+                <?php if(get_query_var('soma_block_content')['image']): ?>
+                    <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
                 <?php endif; ?>
             </div>
             <div class="text-container">
-                <?php if($pageBlock['block_content']['logo']): ?>
+                <?php if(get_query_var('soma_block_content')['logo']): ?>
                     <div class="logo">
-                        <img src="<?= $pageBlock['block_content']['logo']['url'] ?>" alt="<?= $pageBlock['block_content']['logo']['alt'] ?>">
+                        <img src="<?= get_query_var('soma_block_content')['logo']['url'] ?>" alt="<?= get_query_var('soma_block_content')['logo']['alt'] ?>">
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['title']): ?>
-                    <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
+                    <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['text']): ?>
+                <?php if(get_query_var('soma_block_content')['text']): ?>
                     <div class="text">
-                        <p><?= $pageBlock['block_content']['text'] ?></p>
+                        <p><?= get_query_var('soma_block_content')['text'] ?></p>
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['link']): ?>
+                <?php if(get_query_var('soma_block_content')['link']): ?>
                     <div class="link">
-                        <a href="<?= $pageBlock['block_content']['link']['url'] ?>" target="<?= $pageBlock['block_content']['link']['target'] ?>"><?= $pageBlock['block_content']['link']['title'] ?></a>
+                        <a href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>"><?= get_query_var('soma_block_content')['link']['title'] ?></a>
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['file']): ?>
+                <?php if(get_query_var('soma_block_content')['file']): ?>
                     <div class="file">
-                        <a href="<?= $pageBlock['block_content']['file']['url'] ?>" target="_blank">
-                            <?= do_shortcode( "[wpm_translate]{$pageBlock['block_content']['file']['title']}[/wpm_translate]" ) ?>
+                        <a href="<?= get_query_var('soma_block_content')['file']['url'] ?>" target="_blank">
+                            <?= do_shortcode( "[wpm_translate]{get_query_var('soma_block_content')['file']['title']}[/wpm_translate]" ) ?>
                             <svg width="17px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <g transform="translate(-733.000000, -553.000000)">

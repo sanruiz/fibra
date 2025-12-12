@@ -30,11 +30,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if($pageBlock['block_content']): ?>
+<?php if(get_query_var('soma_block_content')): ?>
 <section class="logogrid-partial-7384ec">
     <div class="container">
         <div class="content">
-            <?php foreach($pageBlock['block_content'] as $key => $item): ?>
+            <?php foreach(get_query_var('soma_block_content') as $key => $item): ?>
                 <?php $idlogo = $item['title'];
                     // $idlogo = str_replace("[:en]"," ",$idlogo);
                     // $idlogo = str_replace("[:es]"," ",$idlogo);

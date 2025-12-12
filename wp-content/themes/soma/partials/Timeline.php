@@ -30,10 +30,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if($pageBlock['block_content']['slides']): ?>
-<section class="timeline-partial-04e48b" data-autoplay="<?= $pageBlock['block_content']['autoplay'] ?>" data-speed="<?= $pageBlock['block_content']['autoplay_speed'] ?>">
+<?php if(get_query_var('soma_block_content')['slides']): ?>
+<section class="timeline-partial-04e48b" data-autoplay="<?= get_query_var('soma_block_content')['autoplay'] ?>" data-speed="<?= get_query_var('soma_block_content')['autoplay_speed'] ?>">
     <div class="timeline-slider">
-        <?php foreach($pageBlock['block_content']['slides'] as $key => $item): ?>
+        <?php foreach(get_query_var('soma_block_content')['slides'] as $key => $item): ?>
             <div class="item">
                 <?php if($item['image']): ?>
                     <div class="image">
@@ -48,13 +48,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
     <div class="timeline-dots movil">
         <div class="dot-container">
-            <?php foreach($pageBlock['block_content']['slides'] as $key => $item): ?>
+            <?php foreach(get_query_var('soma_block_content')['slides'] as $key => $item): ?>
                 <div class="dot"></div>
             <?php endforeach; ?>
         </div>
     </div>
     <div class="timeline-captions">
-        <?php foreach($pageBlock['block_content']['slides'] as $key => $item): ?>
+        <?php foreach(get_query_var('soma_block_content')['slides'] as $key => $item): ?>
             <div>
                 <div id= "text-item" class="box-text-item item">
                     <?= $item['text'] ?>
@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
     <div class="timeline-dots desk">
         <div class="dot-container">
-            <?php foreach($pageBlock['block_content']['slides'] as $key => $item): ?>
+            <?php foreach(get_query_var('soma_block_content')['slides'] as $key => $item): ?>
                 <div class="dot"></div>
             <?php endforeach; ?>
         </div>

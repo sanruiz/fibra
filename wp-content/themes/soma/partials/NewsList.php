@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$data = $pageBlock['block_content'];
+$data = get_query_var('soma_block_content');
 
 $post_per_page = $data['posts_per_page'] ? "data-posts-per-page='{$data['posts_per_page']}'" : '';
 $infinite_scroll = $data['infinite_scroll'] ? "data-infinite-scroll='{$data['infinite_scroll']}'" : '';

@@ -32,25 +32,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="twocolumnstext-partial-8dc1b0">
     <div class="container">
         <div class="content">
-            <?php if($pageBlock['block_content']['logo']): ?>
+            <?php if(get_query_var('soma_block_content')['logo']): ?>
                 <div class="logo">
-                    <img src="<?= $pageBlock['block_content']['logo']['url'] ?>" alt="<?= $pageBlock['block_content']['logo']['alt'] ?>">
+                    <img src="<?= get_query_var('soma_block_content')['logo']['url'] ?>" alt="<?= get_query_var('soma_block_content')['logo']['alt'] ?>">
                 </div>
             <?php endif; ?>
-            <?php if($pageBlock['block_content']['title']): ?>
+            <?php if(get_query_var('soma_block_content')['title']): ?>
                 <div class="title">
-                    <?= $pageBlock['block_content']['title'] ?>
+                    <?= get_query_var('soma_block_content')['title'] ?>
                 </div>
             <?php endif; ?>
-            <?php if($pageBlock['block_content']['text']): ?>
+            <?php if(get_query_var('soma_block_content')['text']): ?>
                 <div class="text">
-                    <p><?= $pageBlock['block_content']['text'] ?></p>
+                    <p><?= get_query_var('soma_block_content')['text'] ?></p>
                 </div>
             <?php endif; ?>
-            <?php if($pageBlock['block_content']['link']): ?>
+            <?php if(get_query_var('soma_block_content')['link']): ?>
                 <div class="link">
-                    <a href="<?= $pageBlock['block_content']['link']['url'] ?>" target="<?= $pageBlock['block_content']['link']['target'] ?>">
-                        <?= $pageBlock['block_content']['link']['title'] ?>
+                    <a href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>">
+                        <?= get_query_var('soma_block_content')['link']['title'] ?>
                     </a>
                 </div>
             <?php endif; ?>

@@ -46,30 +46,30 @@ $arrow = '
     <div class="container">
         <div class="content">
             <div class="text">
-                <?php if($pageBlock['block_content']['number']): ?>
+                <?php if(get_query_var('soma_block_content')['number']): ?>
                     <div class="number">
-                        <h2><?= $pageBlock['block_content']['number'] ?></h2>
+                        <h2><?= get_query_var('soma_block_content')['number'] ?></h2>
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['title']): ?>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
                     <div class="title">
-                        <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                        <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                     </div>
                 <?php endif; ?>
-                <?php $extraFile = (wpm_get_language() == 'en') ? $pageBlock['block_content']['file'] : $pageBlock['block_content']['file_es']; ?>
-                <?php if($extraFile && $pageBlock['block_content']['file_label']): ?>
+                <?php $extraFile = (wpm_get_language() == 'en') ? get_query_var('soma_block_content')['file'] : get_query_var('soma_block_content')['file_es']; ?>
+                <?php if($extraFile && get_query_var('soma_block_content')['file_label']): ?>
                     <a class="extra-file" href="<?= $extraFile['url'] ?>" target="_blank">
-                        <?= $pageBlock['block_content']['file_label'] . $arrow ?>
+                        <?= get_query_var('soma_block_content')['file_label'] . $arrow ?>
                     </a>
                 <?php endif; ?>
             </div>
             <div class="image">
-                <?php if($pageBlock['block_content']['image']): ?>
-                    <img src="<?= $pageBlock['block_content']['image']['url'] ?>" alt="<?= $pageBlock['block_content']['image']['alt'] ?>">
+                <?php if(get_query_var('soma_block_content')['image']): ?>
+                    <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['documents']): ?>
-                    <div class="documents <?= (count($pageBlock['block_content']['documents']) > 1) ? '' : 'separator-hidden' ?>">
-                    <?php foreach($pageBlock['block_content']['documents'] as $key => $item): ?>
+                <?php if(get_query_var('soma_block_content')['documents']): ?>
+                    <div class="documents <?= (count(get_query_var('soma_block_content')['documents']) > 1) ? '' : 'separator-hidden' ?>">
+                    <?php foreach(get_query_var('soma_block_content')['documents'] as $key => $item): ?>
                         <?php $content = get_field('document_content', $item); ?>
 
                         <?php $mainFile = (wpm_get_language() == 'en') ? $content['file'] : $content['file_es']; ?>

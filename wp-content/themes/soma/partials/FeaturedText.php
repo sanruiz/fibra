@@ -30,10 +30,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if($pageBlock['block_content']['text']): ?>
+<?php if(get_query_var('soma_block_content')['text']): ?>
 <section class="featuredtext-partial-c8599e">
     <div class="container">
-        <h3><?= $pageBlock['block_content']['text'] ?></h3>
+        <h3><?= get_query_var('soma_block_content')['text'] ?></h3>
     </div>
 </section>
 <?php endif; ?>

@@ -30,19 +30,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if($pageBlock['block_content']['form_shortcode']): ?>
+<?php if(get_query_var('soma_block_content')['form_shortcode']): ?>
 <section class="contact-partial-555b5f">
     <div class="container">
         <div class="content">
             <div class="image">
-                <?php if($pageBlock['block_content']['image']): ?>
-                    <img src="<?= $pageBlock['block_content']['image']['url'] ?>" alt="<?= $pageBlock['block_content']['image']['alt'] ?>">
+                <?php if(get_query_var('soma_block_content')['image']): ?>
+                    <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
                 <?php endif; ?>
             </div>
             <div class="form">
-                <?= do_shortcode($pageBlock['block_content']['form_shortcode']) ?>
+                <?= do_shortcode(get_query_var('soma_block_content')['form_shortcode']) ?>
                 <div class="thankyou-message" style="display: none">
-                    <?= $pageBlock['block_content']['thank_you_message'] ?>
+                    <?= get_query_var('soma_block_content')['thank_you_message'] ?>
                 </div>
             </div>
         </div>

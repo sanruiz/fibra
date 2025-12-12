@@ -28,24 +28,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$iditem = str_replace(' ', '',$pageBlock['block_content']['title']);
+$iditem = str_replace(' ', '',get_query_var('soma_block_content')['title']);
 $iditem  = preg_replace('/[^A-Za-z0-9\-]/', '', $iditem ); 
 ?>
 <section class="brand-partial-e66256" id="<?= $iditem  ?>">
     <div class="container">
         <div class="content">
             <div class="text tablet">
-                <?php if($pageBlock['block_content']['title']): ?>
-                    <h3><u><?= $pageBlock['block_content']['title'] ?></u></h3>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
+                    <h3><u><?= get_query_var('soma_block_content')['title'] ?></u></h3>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['subtitle']): ?>
-                    <div class="subtitle"><?= $pageBlock['block_content']['subtitle'] ?></div>
+                <?php if(get_query_var('soma_block_content')['subtitle']): ?>
+                    <div class="subtitle"><?= get_query_var('soma_block_content')['subtitle'] ?></div>
                 <?php endif; ?>
             </div>
             <div class="gallery">
-                <?php if($pageBlock['block_content']['gallery']): ?>
+                <?php if(get_query_var('soma_block_content')['gallery']): ?>
                     <div class="brand-slick">
-                        <?php foreach($pageBlock['block_content']['gallery'] as $key => $item): ?>
+                        <?php foreach(get_query_var('soma_block_content')['gallery'] as $key => $item): ?>
                             <div class="item">
                                 <img src="<?= $item['url'] ?>" alt="<?= $item['alt'] ?>">
                             </div>
@@ -55,20 +55,20 @@ $iditem  = preg_replace('/[^A-Za-z0-9\-]/', '', $iditem );
             </div>
             <div class="text">
                 <div class="boxtext">
-                    <?php if($pageBlock['block_content']['title']): ?>
-                        <h3 class="desk"><u><?= $pageBlock['block_content']['title'] ?></u></h3>
+                    <?php if(get_query_var('soma_block_content')['title']): ?>
+                        <h3 class="desk"><u><?= get_query_var('soma_block_content')['title'] ?></u></h3>
                     <?php endif; ?>
-                    <?php if($pageBlock['block_content']['subtitle']): ?>
-                        <div class="subtitle desk"><?= $pageBlock['block_content']['subtitle'] ?></div>
+                    <?php if(get_query_var('soma_block_content')['subtitle']): ?>
+                        <div class="subtitle desk"><?= get_query_var('soma_block_content')['subtitle'] ?></div>
                     <?php endif; ?>
-                    <?php if($pageBlock['block_content']['description']): ?>
+                    <?php if(get_query_var('soma_block_content')['description']): ?>
                         <div class="description">
-                            <p><?= $pageBlock['block_content']['description'] ?></p>
+                            <p><?= get_query_var('soma_block_content')['description'] ?></p>
                         </div>
                     <?php endif; ?>
-                    <?php if($pageBlock['block_content']['categories']): ?>
+                    <?php if(get_query_var('soma_block_content')['categories']): ?>
                         <ul>
-                            <?php foreach($pageBlock['block_content']['categories'] as $key => $item): ?>
+                            <?php foreach(get_query_var('soma_block_content')['categories'] as $key => $item): ?>
                                 <li><?= $item['category'] ?></li>
                             <?php endforeach; ?>
                         </ul>
@@ -78,10 +78,10 @@ $iditem  = preg_replace('/[^A-Za-z0-9\-]/', '', $iditem );
                     <div class="read" onclick="deploy(this)" >
                         Read more
                     </div>
-                    <?php if($pageBlock['block_content']['link']): ?>
+                    <?php if(get_query_var('soma_block_content')['link']): ?>
                         <div class="link">
-                            <a href="<?= $pageBlock['block_content']['link']['url'] ?>" target="<?= $pageBlock['block_content']['link']['target'] ?>">
-                                <?= $pageBlock['block_content']['link']['title'] ?>
+                            <a href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>">
+                                <?= get_query_var('soma_block_content')['link']['title'] ?>
                             </a>
                         </div>
                     <?php endif; ?>

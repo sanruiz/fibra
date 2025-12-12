@@ -33,19 +33,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="teammembersfibrasoma-partial-936df8">
     <div class="container">
         <div class="content">
-            <?php if($pageBlock['block_content']['title']): ?>
+            <?php if(get_query_var('soma_block_content')['title']): ?>
                 <div class="title">
-                    <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                    <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                 </div>
             <?php endif; ?>
-            <?php if($pageBlock['block_content']['text']): ?>
+            <?php if(get_query_var('soma_block_content')['text']): ?>
                 <div class="text">
-                    <p><?= $pageBlock['block_content']['text'] ?></p>
+                    <p><?= get_query_var('soma_block_content')['text'] ?></p>
                 </div>
             <?php endif; ?>
-            <?php if($pageBlock['block_content']['team']): ?>
+            <?php if(get_query_var('soma_block_content')['team']): ?>
                 <div class="team-members">
-                    <?php foreach($pageBlock['block_content']['team'] as $key => $item): ?>
+                    <?php foreach(get_query_var('soma_block_content')['team'] as $key => $item): ?>
                         <?php 
                             $info = get_field('team_member_info', $item);
                             $terms = get_the_terms( $item, 'team-members-taxonomy' );

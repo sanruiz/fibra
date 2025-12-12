@@ -35,12 +35,12 @@ $args = [
     'order'			=> $params['order'] ? $params['order'] : 'DESC'
 ];
 
-if($pageBlock['block_content']['category']) {
+if(get_query_var('soma_block_content')['category']) {
     $args['tax_query'] = [
         [
             'taxonomy'  => 'team-members-taxonomy',
             'field'     => 'id',
-            'terms'     => $pageBlock['block_content']['category']->term_id
+            'terms'     => get_query_var('soma_block_content')['category']->term_id
         ]
     ];
 }
@@ -51,12 +51,12 @@ $members = get_posts( $args );
 <section class="teammembers-partial-13dba6">
     <div class="container">
         <?php if($members): ?>
-            <?php if($pageBlock['block_content']['title']): ?>
+            <?php if(get_query_var('soma_block_content')['title']): ?>
                 <div class="title">
-                    <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                    <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                 </div>
             <?php endif; ?>
-            <div class="members" data-columns="<?= $pageBlock['block_content']['columns'] ?>">
+            <div class="members" data-columns="<?= get_query_var('soma_block_content')['columns'] ?>">
                 <?php foreach($members as $key => $item): ?>
                     <?php $info = get_field('team_member_info', $item->ID) ?>
                     <?php $image = get_the_post_thumbnail_url($item->ID) ?>

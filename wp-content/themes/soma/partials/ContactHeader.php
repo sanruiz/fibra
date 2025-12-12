@@ -34,13 +34,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="container">
         <div class="content">
             <div class="text">
-                <?php if($pageBlock['block_content']['text']): ?>
-                    <p><?= $pageBlock['block_content']['text'] ?></p>
+                <?php if(get_query_var('soma_block_content')['text']): ?>
+                    <p><?= get_query_var('soma_block_content')['text'] ?></p>
                 <?php endif; ?>
             </div>
             <div class="info">
-                <?php if($pageBlock['block_content']['info']): ?>
-                    <?php foreach($pageBlock['block_content']['info'] as $key => $item): ?>
+                <?php if(get_query_var('soma_block_content')['info']): ?>
+                    <?php foreach(get_query_var('soma_block_content')['info'] as $key => $item): ?>
                         <div class="item">
                             <?php if($item['label']): ?>
                                 <p><?= $item['label'] ?></p>

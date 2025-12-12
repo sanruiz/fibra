@@ -34,24 +34,24 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="container">
         <div class="content">
             <div class="column-1">
-                <?php if($pageBlock['block_content']['title']): ?>
-                    <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
+                    <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['address']): ?>
+                <?php if(get_query_var('soma_block_content')['address']): ?>
                     <div class="address">
-                        <p><?= $pageBlock['block_content']['address'] ?></p>
+                        <p><?= get_query_var('soma_block_content')['address'] ?></p>
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['link']): ?>
+                <?php if(get_query_var('soma_block_content')['link']): ?>
                     <div class="link">
-                        <a href="<?= $pageBlock['block_content']['link']['url'] ?>" target="<?= $pageBlock['block_content']['link']['target'] ?>"><?= $pageBlock['block_content']['link']['title'] ?></a>
+                        <a href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>"><?= get_query_var('soma_block_content')['link']['title'] ?></a>
                     </div>
                 <?php endif; ?>
             </div>
             <div class="column-2">
-                <?php if($pageBlock['block_content']['contact_info']): ?>
+                <?php if(get_query_var('soma_block_content')['contact_info']): ?>
                     <div class="contact-info">
-                        <?php foreach($pageBlock['block_content']['contact_info'] as $key => $item): ?>
+                        <?php foreach(get_query_var('soma_block_content')['contact_info'] as $key => $item): ?>
                             <?php if($item['link']): ?>
                                 <div class="item">
                                     <div class="title"><?= $item['title'] ?></div>

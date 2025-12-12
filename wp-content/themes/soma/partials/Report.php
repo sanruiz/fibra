@@ -44,23 +44,23 @@ $arrow = '
 ';
 ?>
 
-<?php if($pageBlock['block_content']['report']): ?>
+<?php if(get_query_var('soma_block_content')['report']): ?>
 <?php 
-    $content = get_field('document_content', $pageBlock['block_content']['report']); 
-    $featured_image = get_the_post_thumbnail_url($pageBlock['block_content']['report']);
+    $content = get_field('document_content', get_query_var('soma_block_content')['report']); 
+    $featured_image = get_the_post_thumbnail_url(get_query_var('soma_block_content')['report']);
 ?>
 <section class="report-partial-7c7fc0">
     <div class="container">
         <div class="content">
             <div class="image">
-                <h3><?= get_the_title($pageBlock['block_content']['report']) ?></h3>
+                <h3><?= get_the_title(get_query_var('soma_block_content')['report']) ?></h3>
                 <?php if($featured_image): ?>
                     <img src="<?= $featured_image ?>" alt="Featured image">
                 <?php endif; ?>
             </div>
             <div class="text">
                 <div class="title">
-                    <h3><?= get_the_title($pageBlock['block_content']['report']) ?></h3>
+                    <h3><?= get_the_title(get_query_var('soma_block_content')['report']) ?></h3>
                 </div>
                 <?php if($content['description']): ?>
                     <div class="description">

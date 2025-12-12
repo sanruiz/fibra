@@ -30,16 +30,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if($pageBlock['block_content']['initiatives']): ?>
+<?php if(get_query_var('soma_block_content')['initiatives']): ?>
 <section class="initiatives-partial-215232">
     <div class="container">
-        <?php if($pageBlock['block_content']['title']): ?>
+        <?php if(get_query_var('soma_block_content')['title']): ?>
             <div class="main-title">
-                <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
             </div>
         <?php endif; ?>
         <div class="content">
-            <?php foreach($pageBlock['block_content']['initiatives'] as $key => $item): ?>
+            <?php foreach(get_query_var('soma_block_content')['initiatives'] as $key => $item): ?>
                 <?php if($item['title'] && $item['image'] && $item['pdf']): ?>
                     <div class="item">
                         <a href="<?= $item['pdf']['url'] ?>" target="_blank">

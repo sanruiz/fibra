@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="container">
         <div class="content">
             <div class="text">
-                <h3><?= $pageBlock['block_content']['text'] ?></h3>
+                <h3><?= get_query_var('soma_block_content')['text'] ?></h3>
             </div>
             <div class="image">
-                <?php if($pageBlock['block_content']['image']): ?>
-                    <img src="<?= $pageBlock['block_content']['image']['url'] ?>" alt="<?= $pageBlock['block_content']['image']['alt'] ?>">
+                <?php if(get_query_var('soma_block_content')['image']): ?>
+                    <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
                 <?php endif; ?>
             </div>
         </div>

@@ -28,21 +28,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-global $pageBlock;
 ?>
 
 <section class="businessunitscontact-partial-6f1892">
     <div class="container">
         <div class="content">
             <div class="title">
-                <?php if($pageBlock['block_content']['title']): ?>
-                    <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
+                    <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                 <?php endif; ?>
             </div>
             <div class="info">
-                <?php if($pageBlock['block_content']['units']): ?>
+                <?php if(get_query_var('soma_block_content')['units']): ?>
                     <div class="units">
-                        <?php foreach($pageBlock['block_content']['units'] as $key => $unit): ?>
+                        <?php foreach(get_query_var('soma_block_content')['units'] as $key => $unit): ?>
                             <div class="unit">
                                 <div class="logo">
                                     <?php if($unit['color']): ?>

@@ -36,19 +36,19 @@ function addZero($num) {
 }
 ?>
 
-<?php if($pageBlock['block_content']['slides']): ?>
-<section class="textslider-partial-8bf200" <?= $pageBlock['block_content']['autoplay'] ? 'data-autoplay="1"' : 'data-autoplay="0"' ?> data-autoplay-speed="<?= $pageBlock['block_content']['autoplay_speed'] ?>">
+<?php if(get_query_var('soma_block_content')['slides']): ?>
+<section class="textslider-partial-8bf200" <?= get_query_var('soma_block_content')['autoplay'] ? 'data-autoplay="1"' : 'data-autoplay="0"' ?> data-autoplay-speed="<?= get_query_var('soma_block_content')['autoplay_speed'] ?>">
     <div class="container">
         <div class="content">
             <div class="selector">
-                <?php if($pageBlock['block_content']['title']): ?>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
                     <div class="title" onClick="$(this).toggleClass('closed')">
-                        <?= $pageBlock['block_content']['title'] ?>
+                        <?= get_query_var('soma_block_content')['title'] ?>
                         <span class="close-button"></span>
                     </div>
                 <?php endif; ?>
                 <div class="list">
-                    <?php foreach($pageBlock['block_content']['slides'] as $key => $item): ?>
+                    <?php foreach(get_query_var('soma_block_content')['slides'] as $key => $item): ?>
                         <?php if($item['label']): ?>
                             <div class="item" data-slide="<?= $key ?>">
                                 <?= $item['label'] ?>
@@ -58,7 +58,7 @@ function addZero($num) {
                 </div>
             </div>
             <div class="slider">
-                <?php foreach($pageBlock['block_content']['slides'] as $key => $item): ?>
+                <?php foreach(get_query_var('soma_block_content')['slides'] as $key => $item): ?>
                     <?php if($item): ?>
                         <div class="item">
                             <h2><?= addZero($key + 1) ?></h2>

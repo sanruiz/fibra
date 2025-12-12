@@ -77,8 +77,8 @@ $svg = '
 <section class="businessunits-partial-cea85c">
     <?php $total_pages = (count($businessunits) <= 8) ? count($businessunits) : 8; ?>
     <div class="container">
-        <?php if($pageBlock['block_content']['title']): ?>
-            <div class="title"><?= $pageBlock['block_content']['title'] ?></div>
+        <?php if(get_query_var('soma_block_content')['title']): ?>
+            <div class="title"><?= get_query_var('soma_block_content')['title'] ?></div>
         <?php endif; ?>
     </div>
     <?php if($total_pages >= 3): ?>

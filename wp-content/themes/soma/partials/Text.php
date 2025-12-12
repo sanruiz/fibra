@@ -30,12 +30,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if($pageBlock['block_content']['text']): ?>
-<section class="text-partial-4ad1f2 <?= $pageBlock['block_content']['dark_style'] ? 'dark-style' : '' ?>">
+<?php if(get_query_var('soma_block_content')['text']): ?>
+<section class="text-partial-4ad1f2 <?= get_query_var('soma_block_content')['dark_style'] ? 'dark-style' : '' ?>">
     <div class="container">
         <div class="content">
-            <div id="content" onload="countLines();" class="box-content columns-<?= $pageBlock['block_content']['columns'] ?> justify-<?= $pageBlock['block_content']['justify'] ?> font-size-<?= $pageBlock['block_content']['font_size'] ?>">
-                <?= $pageBlock['block_content']['text'] ?>
+            <div id="content" onload="countLines();" class="box-content columns-<?= get_query_var('soma_block_content')['columns'] ?> justify-<?= get_query_var('soma_block_content')['justify'] ?> font-size-<?= get_query_var('soma_block_content')['font_size'] ?>">
+                <?= get_query_var('soma_block_content')['text'] ?>
             </div>
             <div class="read" onclick="deploy(this)" >
                 Read more

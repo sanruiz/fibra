@@ -30,10 +30,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if($pageBlock['block_content']['slides']): ?>
+<?php if(get_query_var('soma_block_content')['slides']): ?>
 <section class="fullscreenslider-partial-09e45b">
     <div class="slider">
-        <?php foreach($pageBlock['block_content']['slides'] as $key => $item): ?>
+        <?php foreach(get_query_var('soma_block_content')['slides'] as $key => $item): ?>
             <?php if($item['type'] == 'image' && $item['image']): ?>
                 <div class="item image-item">
                     <img src="<?= $item['image']['url'] ?>" alt="<?= $item['image']['alt'] ?>">

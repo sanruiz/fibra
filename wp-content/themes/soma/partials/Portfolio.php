@@ -31,16 +31,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 $preFilter = isset($_GET['category']) ? $_GET['category'] : null;
 ?>
 
-<?php if($pageBlock['block_content']['main_category'] && $pageBlock['block_content']['posts_per_page']): ?>
-<section class="portfolio-partial-8f3f8b style-<?= $pageBlock['block_content']['style'] ?>" data-main-category="<?= $pageBlock['block_content']['main_category'] ?>" data-posts-per-page="<?= $pageBlock['block_content']['posts_per_page'] ?>" data-lang="<?= wpm_get_language() ?>">
+<?php if(get_query_var('soma_block_content')['main_category'] && get_query_var('soma_block_content')['posts_per_page']): ?>
+<section class="portfolio-partial-8f3f8b style-<?= get_query_var('soma_block_content')['style'] ?>" data-main-category="<?= get_query_var('soma_block_content')['main_category'] ?>" data-posts-per-page="<?= get_query_var('soma_block_content')['posts_per_page'] ?>" data-lang="<?= wpm_get_language() ?>">
     <div class="container">
         <div class="filters desk">
-            <div class="filter all <?= $preFilter ? '' : 'active' ?>" data-filters="<?= $pageBlock['block_content']['main_category'] ?>"><?= (wpm_get_language() == 'en') ? 'All' : 'Todos' ?></div>
-            <?php if($pageBlock['block_content']['filters']): ?>
-                <?php foreach($pageBlock['block_content']['filters'] as $key => $item): ?>
+            <div class="filter all <?= $preFilter ? '' : 'active' ?>" data-filters="<?= get_query_var('soma_block_content')['main_category'] ?>"><?= (wpm_get_language() == 'en') ? 'All' : 'Todos' ?></div>
+            <?php if(get_query_var('soma_block_content')['filters']): ?>
+                <?php foreach(get_query_var('soma_block_content')['filters'] as $key => $item): ?>
                     <?php $filterInfo = get_term($item); ?>
                     <?php if(($filterInfo->count) > 0): ?>
-                        <div class="filter <?= ($filterInfo->slug == $preFilter) ? 'active' : '' ?>" data-filters="<?= $pageBlock['block_content']['main_category'] ?>, <?= $item ?>">
+                        <div class="filter <?= ($filterInfo->slug == $preFilter) ? 'active' : '' ?>" data-filters="<?= get_query_var('soma_block_content')['main_category'] ?>, <?= $item ?>">
                             <?= $filterInfo->name ?>
                         </div>
                     <?php endif; ?>
@@ -97,12 +97,12 @@ $preFilter = isset($_GET['category']) ? $_GET['category'] : null;
                 </svg>
             </div>
             <div class="IteamView" style="display: none;">
-                <div class="filter active" data-filters="<?= $pageBlock['block_content']['main_category'] ?>"><?= (wpm_get_language() == 'en') ? 'All' : 'Todos' ?></div>
-                <?php if($pageBlock['block_content']['filters']): ?>
-                    <?php foreach($pageBlock['block_content']['filters'] as $key => $item): ?>
+                <div class="filter active" data-filters="<?= get_query_var('soma_block_content')['main_category'] ?>"><?= (wpm_get_language() == 'en') ? 'All' : 'Todos' ?></div>
+                <?php if(get_query_var('soma_block_content')['filters']): ?>
+                    <?php foreach(get_query_var('soma_block_content')['filters'] as $key => $item): ?>
                         <?php if((get_term($item)->count) > 0): ?>
                             <?php $filter_name = get_term($item)->name; ?>
-                            <div class="filter" data-filters="<?= $pageBlock['block_content']['main_category'] ?>, <?= $item ?>">
+                            <div class="filter" data-filters="<?= get_query_var('soma_block_content')['main_category'] ?>, <?= $item ?>">
                                 <?= $filter_name ?>
                             </div>
                         <?php endif; ?>

@@ -41,11 +41,11 @@ $careers = get_posts( $args );
     <div class="container">
         <div class="content">
             <div class="title-container">
-                <?php if($pageBlock['block_content']['title']): ?>
-                    <h2><?= $pageBlock['block_content']['title'] ?></h2>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
+                    <h2><?= get_query_var('soma_block_content')['title'] ?></h2>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['text']): ?>
-                    <p><?= $pageBlock['block_content']['text'] ?></p>
+                <?php if(get_query_var('soma_block_content')['text']): ?>
+                    <p><?= get_query_var('soma_block_content')['text'] ?></p>
                 <?php endif; ?>
             </div>
             <?php if($careers): ?>

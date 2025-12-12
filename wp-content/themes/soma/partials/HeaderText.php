@@ -33,14 +33,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="headertext-partial-40964d">
     <div class="container">
         <div class="content">
-            <?php if($pageBlock['block_content']['title']): ?>
-                <h2><?= $pageBlock['block_content']['title'] ?></h2>
+            <?php if(get_query_var('soma_block_content')['title']): ?>
+                <h2><?= get_query_var('soma_block_content')['title'] ?></h2>
             <?php endif; ?>
-            <?php if($pageBlock['block_content']['subtitle']): ?>
-                <h4><?= $pageBlock['block_content']['subtitle'] ?></h4>
+            <?php if(get_query_var('soma_block_content')['subtitle']): ?>
+                <h4><?= get_query_var('soma_block_content')['subtitle'] ?></h4>
             <?php endif; ?>
-            <?php if($pageBlock['block_content']['text']): ?>
-                <p><?= $pageBlock['block_content']['text'] ?></p>
+            <?php if(get_query_var('soma_block_content')['text']): ?>
+                <p><?= get_query_var('soma_block_content')['text'] ?></p>
             <?php endif; ?>
         </div>
     </div>

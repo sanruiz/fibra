@@ -45,22 +45,22 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </svg>
             </div>
             <div class="text">
-                <?php if($pageBlock['block_content']['image']): ?>
+                <?php if(get_query_var('soma_block_content')['image']): ?>
                     <div class="image">
-                        <img src="<?= $pageBlock['block_content']['image']['url'] ?>" alt="<?= $pageBlock['block_content']['image']['alt'] ?>">
+                        <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['title']): ?>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
                     <div class="title">
-                        <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                        <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['text']): ?>
+                <?php if(get_query_var('soma_block_content')['text']): ?>
                     <div class="two-columns">
-                        <p><?= $pageBlock['block_content']['text'] ?></p>
+                        <p><?= get_query_var('soma_block_content')['text'] ?></p>
                     </div>
                     <div class="one-columns">
-                        <p><?= $pageBlock['block_content']['text'] ?></p>
+                        <p><?= get_query_var('soma_block_content')['text'] ?></p>
                     </div>
                 <?php endif; ?>
             </div>

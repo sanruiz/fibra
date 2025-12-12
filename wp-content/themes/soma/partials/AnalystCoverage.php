@@ -32,9 +32,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <section class="analystcoverage-partial-805458">
     <div class="container">
-        <?php if($pageBlock['block_content']['items']): ?>
+        <?php if(get_query_var('soma_block_content')['items']): ?>
             <div class="content">
-                <?php foreach($pageBlock['block_content']['items'] as $key => $item): ?>
+                <?php foreach(get_query_var('soma_block_content')['items'] as $key => $item): ?>
                     <div class="item">
                         <?php if($item['title']): ?>
                             <h3><?= $item['title'] ?></h3>

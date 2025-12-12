@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if($pageBlock['block_content']['press_releases'] == 'latest') {
+if(get_query_var('soma_block_content')['press_releases'] == 'latest') {
     $args = [
         'numberposts'	=> 3,
         'post_type'		=> 'documents-reports',
@@ -44,9 +44,9 @@ if($pageBlock['block_content']['press_releases'] == 'latest') {
     ];
     $press = get_posts( $args );
 } else {
-    $press[0] = $pageBlock['block_content']['items'][0]['press'] ? $pageBlock['block_content']['items'][0]['press'] : null;
-    $press[1] = $pageBlock['block_content']['items'][1]['press'] ? $pageBlock['block_content']['items'][1]['press'] : null;
-    $press[2] = $pageBlock['block_content']['items'][2]['press'] ? $pageBlock['block_content']['items'][2]['press'] : null;
+    $press[0] = get_query_var('soma_block_content')['items'][0]['press'] ? get_query_var('soma_block_content')['items'][0]['press'] : null;
+    $press[1] = get_query_var('soma_block_content')['items'][1]['press'] ? get_query_var('soma_block_content')['items'][1]['press'] : null;
+    $press[2] = get_query_var('soma_block_content')['items'][2]['press'] ? get_query_var('soma_block_content')['items'][2]['press'] : null;
 }
 
 $arrow = '
@@ -67,21 +67,21 @@ $arrow = '
     <div class="container">
         <div class="content">
             <div class="text">
-                <?php if($pageBlock['block_content']['number']): ?>
+                <?php if(get_query_var('soma_block_content')['number']): ?>
                     <div class="number">
-                        <h2><?= $pageBlock['block_content']['number'] ?></h2>
+                        <h2><?= get_query_var('soma_block_content')['number'] ?></h2>
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['title']): ?>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
                     <div class="title">
-                        <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                        <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                     </div>
                 <?php endif; ?>
             </div>
             <div class="link">
-                <?php if($pageBlock['block_content']['link']): ?>
-                    <a class="underline-text" href="<?= $pageBlock['block_content']['link']['url'] ?>" target="<?= $pageBlock['block_content']['link']['target'] ?>">
-                        <?= $pageBlock['block_content']['link']['title'] ?>
+                <?php if(get_query_var('soma_block_content')['link']): ?>
+                    <a class="underline-text" href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>">
+                        <?= get_query_var('soma_block_content')['link']['title'] ?>
                     </a>
                 <?php endif; ?>
             </div>

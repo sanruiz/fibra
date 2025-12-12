@@ -60,14 +60,14 @@ function printEvent ($id) {
 
 $events = [];
 
-if($pageBlock['block_content']['fill_mode'] == "featured") {
-    if($pageBlock['block_content']['events'] && wpm_get_language() == 'en') {
-        foreach($pageBlock['block_content']['events'] as $key => $event) {
+if(get_query_var('soma_block_content')['fill_mode'] == "featured") {
+    if(get_query_var('soma_block_content')['events'] && wpm_get_language() == 'en') {
+        foreach(get_query_var('soma_block_content')['events'] as $key => $event) {
             if($event) $events[] = $event['event']->ID;
         }
     }
-    if($pageBlock['block_content']['events_es'] && wpm_get_language() == 'es') {
-        foreach($pageBlock['block_content']['events_es'] as $key => $event) {
+    if(get_query_var('soma_block_content')['events_es'] && wpm_get_language() == 'es') {
+        foreach(get_query_var('soma_block_content')['events_es'] as $key => $event) {
             if($event) $events[] = $event['event']->ID;
         }
     }
@@ -97,17 +97,17 @@ if($pageBlock['block_content']['fill_mode'] == "featured") {
 
 <section class="fibrasomahomeevents-partial-c9ff47">
     <div class="container">
-        <?php if($pageBlock['block_content']['number']): ?>
+        <?php if(get_query_var('soma_block_content')['number']): ?>
             <div class="number">
-                <h2><?= $pageBlock['block_content']['number'] ?></h2>
+                <h2><?= get_query_var('soma_block_content')['number'] ?></h2>
             </div>
         <?php endif; ?>
         <div class="header">
-            <?php if($pageBlock['block_content']['title']): ?>
-                <h3><?= $pageBlock['block_content']['title'] ?></h3>
+            <?php if(get_query_var('soma_block_content')['title']): ?>
+                <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
             <?php endif; ?>
-            <?php if($pageBlock['block_content']['link']): ?>
-                <a href="<?= $pageBlock['block_content']['link']['url'] ?>" target="_blank"><?= $pageBlock['block_content']['link']['title'] ?></a>
+            <?php if(get_query_var('soma_block_content')['link']): ?>
+                <a href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="_blank"><?= get_query_var('soma_block_content')['link']['title'] ?></a>
             <?php endif; ?>
         </div>
         <div class="events">

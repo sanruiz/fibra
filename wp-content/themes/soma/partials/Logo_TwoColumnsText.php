@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="container">
         <div class="content">
             <div class="logo">
-                <?php if(!$pageBlock['block_content']['hide_logo']): ?>
+                <?php if(!get_query_var('soma_block_content')['hide_logo']): ?>
                     <svg width="106px" height="109px" viewBox="0 0 106 109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <g transform="translate(-79.000000, -2883.000000)">
@@ -47,27 +47,27 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <?php endif; ?>
             </div>
             <div class="text">
-                <?php if($pageBlock['block_content']['title']): ?>
+                <?php if(get_query_var('soma_block_content')['title']): ?>
                     <div class="title">
-                        <?php if($pageBlock['block_content']['font_size'] == 'normal'): ?>
-                            <h2><?= $pageBlock['block_content']['title'] ?></h2>
+                        <?php if(get_query_var('soma_block_content')['font_size'] == 'normal'): ?>
+                            <h2><?= get_query_var('soma_block_content')['title'] ?></h2>
                         <?php endif; ?>
-                        <?php if($pageBlock['block_content']['font_size'] == 'small'): ?>
-                            <h3><?= $pageBlock['block_content']['title'] ?></h3>
+                        <?php if(get_query_var('soma_block_content')['font_size'] == 'small'): ?>
+                            <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['text']): ?>
+                <?php if(get_query_var('soma_block_content')['text']): ?>
                     <div class="two-columns">
-                        <p><?= $pageBlock['block_content']['text'] ?></p>
+                        <p><?= get_query_var('soma_block_content')['text'] ?></p>
                     </div>
                     <div class="one-columns">
-                        <p><?= $pageBlock['block_content']['text'] ?></p>
+                        <p><?= get_query_var('soma_block_content')['text'] ?></p>
                     </div>
                 <?php endif; ?>
-                <?php if($pageBlock['block_content']['link']): ?>
+                <?php if(get_query_var('soma_block_content')['link']): ?>
                     <div class="link">
-                        <a href="<?= $pageBlock['block_content']['link']['url'] ?>" target="<?= $pageBlock['block_content']['link']['target'] ?>"><?= $pageBlock['block_content']['link']['title'] ?></a>
+                        <a href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>"><?= get_query_var('soma_block_content')['link']['title'] ?></a>
                     </div>
                 <?php endif; ?>
             </div>
