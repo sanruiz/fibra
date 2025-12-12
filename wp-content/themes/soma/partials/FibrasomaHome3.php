@@ -1,15 +1,33 @@
-   
 <?php
 /**
- * 
- * Partial Name: FibrasomaHome3
- * 
+ * Block Partial: FibrasomaHome3
+ *
+ * Fibrasoma homepage section 3
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data from 'fibrasoma_home_3_content'
+ * @uses get_query_var('soma_block_layout')  string Layout name ('FibrasomaHome3')
+ *
+ * Example Usage:
+ * <code>
+ * $counter = get_query_var('soma_block_counter');
+ * $content = get_query_var('soma_block_content');
+ * $layout  = get_query_var('soma_block_layout');
+ * </code>
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
-global $pageBlock;
+
 ?>
 <section class="fibrasomahome3-partial-1f0e42">
     <div class="container">

@@ -1,15 +1,32 @@
-   
 <?php
 /**
- * 
- * Partial Name: TeamMembers
- * 
+ * Block Partial: TeamMembers
+ *
+ * Grid of team member cards
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data from 'team_members_content'
+ * @uses get_query_var('soma_block_layout')  string Layout name ('TeamMembers')
+ *
+ * Example Usage:
+ * <code>
+ * $counter = get_query_var('soma_block_counter');
+ * $content = get_query_var('soma_block_content');
+ * $layout  = get_query_var('soma_block_layout');
+ * </code>
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
-global $pageBlock;
 
 $args = [
     'numberposts'	=> -1,

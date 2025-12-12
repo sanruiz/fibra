@@ -1,15 +1,33 @@
-   
 <?php
 /**
- * 
- * Partial Name: AnnualReports
- * 
+ * Block Partial: AnnualReports
+ *
+ * Annual reports listing
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data from 'annual_reports_content'
+ * @uses get_query_var('soma_block_layout')  string Layout name ('AnnualReports')
+ *
+ * Example Usage:
+ * <code>
+ * $counter = get_query_var('soma_block_counter');
+ * $content = get_query_var('soma_block_content');
+ * $layout  = get_query_var('soma_block_layout');
+ * </code>
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
-global $pageBlock;
+
 ?>
 
 <?php if($pageBlock['block_content']['category']): ?>

@@ -1,15 +1,32 @@
-   
 <?php
 /**
- * 
- * Partial Name: Report
- * 
+ * Block Partial: Report
+ *
+ * Report display block
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data from 'report_content'
+ * @uses get_query_var('soma_block_layout')  string Layout name ('Report')
+ *
+ * Example Usage:
+ * <code>
+ * $counter = get_query_var('soma_block_counter');
+ * $content = get_query_var('soma_block_content');
+ * $layout  = get_query_var('soma_block_layout');
+ * </code>
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
-global $pageBlock;
 
 $arrow = '
 <svg width="17px" height="18px" viewBox="0 0 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

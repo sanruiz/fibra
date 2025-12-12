@@ -1,15 +1,32 @@
-   
 <?php
 /**
- * 
- * Partial Name: FibrasomaHome2
- * 
+ * Block Partial: FibrasomaHome2
+ *
+ * Fibrasoma homepage section 2
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data from 'fibrasoma_home_2_content'
+ * @uses get_query_var('soma_block_layout')  string Layout name ('FibrasomaHome2')
+ *
+ * Example Usage:
+ * <code>
+ * $counter = get_query_var('soma_block_counter');
+ * $content = get_query_var('soma_block_content');
+ * $layout  = get_query_var('soma_block_layout');
+ * </code>
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
-global $pageBlock;
 
 $arrow = '
 <svg width="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

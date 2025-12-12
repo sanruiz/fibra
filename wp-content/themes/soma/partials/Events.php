@@ -1,13 +1,33 @@
-   
 <?php
 /**
- * 
- * Partial Name: Events
- * 
+ * Block Partial: Events
+ *
+ * Events listing display
+ *
+ * @package    Soma
+ * @subpackage Partials
+ * @since      3.0.0
+ *
+ * Query Variables (set by BlockRenderer):
+ * @uses get_query_var('soma_block_counter') int    Block index in the page
+ * @uses get_query_var('soma_block_content') array  ACF field data from 'events_content'
+ * @uses get_query_var('soma_block_layout')  string Layout name ('Events')
+ *
+ * Example Usage:
+ * <code>
+ * $counter = get_query_var('soma_block_counter');
+ * $content = get_query_var('soma_block_content');
+ * $layout  = get_query_var('soma_block_layout');
+ * </code>
+ *
+ * @see \Soma\PageBuilder\BlockRenderer
+ * @see \Soma\PageBuilder\BlockRegistry
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
+
+
 ?>
 
 <section class="events-partial-e5e1bb" data-lang="<?= wpm_get_language() ?>">
