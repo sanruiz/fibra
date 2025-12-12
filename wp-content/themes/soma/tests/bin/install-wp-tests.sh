@@ -1,9 +1,19 @@
 #!/usr/bin/env bash
 #
-# WordPress Test Suite Installation Script
-# Installs WordPress core, test suite, and required plugins for integration tests
+# WordPress Test Suite Installation Script for Soma Theme
 #
-# Usage: ./install-wp-tests.sh <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]
+# This script installs the WordPress test suite for integration testing.
+# It downloads WordPress core and creates a test database.
+#
+# @package Soma
+# @since 3.0.0
+#
+# Usage:
+#   bash scripts/install-wp-tests.sh <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]
+#
+# Example:
+#   bash scripts/install-wp-tests.sh soma_test root '' localhost latest
+#
 
 if [ $# -lt 3 ]; then
 	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]"
@@ -21,17 +31,44 @@ TMPDIR=${TMPDIR-/tmp}
 TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
 WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
-WP_PLUGINS_DIR=${WP_CORE_DIR}wp-content/plugins
 
-download() {
-    if [ `which curl` ]; then
-        curl -s "$1" > "$2";
-    elif [ `which wget` ]; then
-        wget -nv -O "$2" "$1"
-    fi
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+print_header() {
+    echo -e "\n${BLUE}$1${NC}"
+    echo "=========================================="
 }
 
-if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+$ ]]; then
+print_success() {
+    echo -e "${GREEN}✅ $1${NC}"
+}
+
+print_warning() {
+    echo -e "${YELLOW}⚠️  $1${NC}"
+}
+
+print_error() {
+    echo -e "${RED}❌ $1${NC}"
+}
+
+download() {
+	if [ `which curl` ]; then
+		curl -s "$1" > "$2";
+	elif [ `which wget` ]; then
+		wget -nv -O "$2" "$1"
+	fi
+}
+
+if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+\-(beta|RC)[0-9]+$ ]]; then
+	WP_BRANCH=${WP_VERSION%\-*}
+	WP_TESTS_TAG="branches/$WP_BRANCH"
+
+elif [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+$ ]]; then
 	WP_TESTS_TAG="branches/$WP_VERSION"
 elif [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
 	if [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0] ]]; then
@@ -53,22 +90,24 @@ else
 	fi
 	WP_TESTS_TAG="tags/$LATEST_VERSION"
 fi
-
 set -ex
 
 install_wp() {
 
 	if [ -d $WP_CORE_DIR ]; then
+		print_warning "WordPress core already installed at: $WP_CORE_DIR"
 		return;
 	fi
 
+	print_header "Installing WordPress Core"
+	
 	mkdir -p $WP_CORE_DIR
 
 	if [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
-		mkdir -p $TMPDIR/wordpress-nightly
-		download https://wordpress.org/nightly-builds/wordpress-latest.zip  $TMPDIR/wordpress-nightly/wordpress-nightly.zip
-		unzip -q $TMPDIR/wordpress-nightly/wordpress-nightly.zip -d $TMPDIR/wordpress-nightly/
-		mv $TMPDIR/wordpress-nightly/wordpress/* $WP_CORE_DIR
+		mkdir -p $TMPDIR/wordpress-trunk
+		rm -rf $TMPDIR/wordpress-trunk/*
+		svn export --quiet https://core.svn.wordpress.org/trunk $TMPDIR/wordpress-trunk/wordpress
+		mv $TMPDIR/wordpress-trunk/wordpress/* $WP_CORE_DIR
 	else
 		if [ $WP_VERSION == 'latest' ]; then
 			local ARCHIVE_NAME='latest'
@@ -95,25 +134,9 @@ install_wp() {
 		tar --strip-components=1 -zxmf $TMPDIR/wordpress.tar.gz -C $WP_CORE_DIR
 	fi
 
-	download https://raw.githubusercontent.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
-}
-
-install_elementor() {
-	echo "Installing Elementor plugin for integration tests..."
+	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
 	
-	if [ ! -d $WP_PLUGINS_DIR ]; then
-		mkdir -p $WP_PLUGINS_DIR
-	fi
-	
-	# Download Elementor from WordPress.org
-	if [ ! -d $WP_PLUGINS_DIR/elementor ]; then
-		download https://downloads.wordpress.org/plugin/elementor.latest-stable.zip $TMPDIR/elementor.zip
-		unzip -q $TMPDIR/elementor.zip -d $WP_PLUGINS_DIR
-		rm $TMPDIR/elementor.zip
-		echo "✓ Elementor installed"
-	else
-		echo "✓ Elementor already installed"
-	fi
+	print_success "WordPress core installed"
 }
 
 install_test_suite() {
@@ -124,12 +147,15 @@ install_test_suite() {
 		local ioption='-i'
 	fi
 
+	print_header "Installing WordPress Test Suite"
+
 	# set up testing suite if it doesn't yet exist
 	if [ ! -d $WP_TESTS_DIR ]; then
 		# set up testing suite
 		mkdir -p $WP_TESTS_DIR
-		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
-		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/data/ $WP_TESTS_DIR/data
+		rm -rf $WP_TESTS_DIR/{includes,data}
+		svn export --quiet --ignore-externals https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
+		svn export --quiet --ignore-externals https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/data/ $WP_TESTS_DIR/data
 	fi
 
 	if [ ! -f wp-tests-config.php ]; then
@@ -142,12 +168,34 @@ install_test_suite() {
 		sed $ioption "s/yourpasswordhere/$DB_PASS/" "$WP_TESTS_DIR"/wp-tests-config.php
 		sed $ioption "s|localhost|${DB_HOST}|" "$WP_TESTS_DIR"/wp-tests-config.php
 	fi
+
+	print_success "WordPress test suite installed"
+}
+
+recreate_db() {
+	shopt -s nocasematch
+	if [[ $1 =~ ^(y|yes)$ ]]
+	then
+		mysqladmin drop $DB_NAME -f --user="$DB_USER" --password="$DB_PASS"$EXTRA
+		create_db
+		print_success "Recreated the database ($DB_NAME)"
+	else
+		print_warning "Leaving the existing database ($DB_NAME) in place"
+	fi
+	shopt -u nocasematch
+}
+
+create_db() {
+	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
 }
 
 install_db() {
+
 	if [ ${SKIP_DB_CREATE} = "true" ]; then
 		return 0
 	fi
+
+	print_header "Configuring Test Database"
 
 	# parse DB_HOST for port or socket references
 	local PARTS=(${DB_HOST//\:/ })
@@ -166,21 +214,52 @@ install_db() {
 	fi
 
 	# create database
-	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
+	DB_EXISTS=$(mysql --user="$DB_USER" --password="$DB_PASS"$EXTRA --execute="SHOW DATABASES LIKE '$DB_NAME';" | grep "$DB_NAME" || echo "")
+	if [ -n "$DB_EXISTS" ]
+	then
+		print_warning "Database '$DB_NAME' already exists"
+		echo "Reinstalling will delete the existing test database"
+		
+		# Check for non-interactive mode via environment variable or CI detection
+		if [[ "$FORCE_DB_RECREATE" == "true" ]] || [[ "$CI" == "true" ]] || [[ "$GITHUB_ACTIONS" == "true" ]] || [[ "$CONTINUOUS_INTEGRATION" == "true" ]]; then
+			print_warning "Non-interactive mode: Automatically recreating database"
+			DELETE_EXISTING_DB="y"
+		else
+			read -p 'Are you sure you want to proceed? [y/N]: ' DELETE_EXISTING_DB
+		fi
+		
+		recreate_db $DELETE_EXISTING_DB
+	else
+		create_db
+		print_success "Created database: $DB_NAME"
+	fi
 }
 
-# Run installation
-echo "Installing WordPress test environment..."
+print_header "Soma Theme - WordPress Test Suite Installer"
+echo "Database: $DB_NAME"
+echo "User: $DB_USER"
+echo "Host: $DB_HOST"
+echo "WordPress Version: $WP_VERSION"
+echo "Tests Dir: $WP_TESTS_DIR"
+echo "Core Dir: $WP_CORE_DIR"
+echo "========================================="
+
 install_wp
 install_test_suite
 install_db
-install_elementor
 
+print_header "Installation Complete! ✅"
+echo "WP Core Dir: $WP_CORE_DIR"
+echo "WP Tests Dir: $WP_TESTS_DIR"
 echo ""
-echo "✓ WordPress test environment ready!"
-echo "  - WordPress: $WP_VERSION"
-echo "  - Test suite: $WP_TESTS_DIR"
-echo "  - Database: $DB_NAME"
-echo "  - Elementor: installed"
+echo "Next steps:"
+echo "1. Install required plugins:"
+echo "   bash scripts/install-acf-for-tests.sh"
+echo "   bash scripts/install-cf7-for-tests.sh"
 echo ""
-echo "Run tests with: vendor/bin/phpunit"
+echo "2. Run tests:"
+echo "   vendor/bin/phpunit"
+echo ""
+echo "3. Or update phpunit.xml with:"
+echo "   <env name=\"WP_TESTS_DIR\" value=\"$WP_TESTS_DIR\"/>"
+echo "========================================="

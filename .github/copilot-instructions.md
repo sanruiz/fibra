@@ -281,6 +281,14 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 4. Build production with `npm run prod` before deployment
 5. Only commit `wp-content/themes/soma/` (per `.gitignore`)
 
+**⚠️ IMPORTANTE - GitHub CLI (`gh`) Commands:**
+- **ALWAYS append `| cat` to `gh` commands** to prevent terminal pagination/waiting
+- Examples:
+  - `gh issue list | cat`
+  - `gh issue view 1 | cat`
+  - `gh pr list | cat`
+- This ensures commands complete immediately without user interaction
+
 ## Common Pitfalls
 - **Don't use `locate_template()`** in this codebase—use `get_template_part()`
 - **Webpack requires legacy OpenSSL flag** for Node.js (see `package.json` scripts)

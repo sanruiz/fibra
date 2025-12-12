@@ -31,7 +31,9 @@ class PortfolioTest extends TestCase {
 	public function test_post_type_constant_is_defined(): void {
 		$reflection = new \ReflectionClass( Portfolio::class );
 		$this->assertTrue( $reflection->hasConstant( 'POST_TYPE' ) );
-		$this->assertEquals( 'portfolio', $reflection->getConstant( 'POST_TYPE' ) );
+		$post_type = $reflection->getConstant( 'POST_TYPE' );
+		$this->assertInstanceOf( \Soma\Core\Enums\PostType::class, $post_type );
+		$this->assertEquals( 'portfolio', $post_type->value );
 	}
 
 	/**

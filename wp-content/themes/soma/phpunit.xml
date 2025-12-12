@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
     bootstrap="tests/bootstrap.php"
     colors="true"
-    cacheDirectory=".phpunit.cache"
+    cacheResultFile=".phpunit.cache/test-results"
     beStrictAboutOutputDuringTests="true"
     failOnRisky="true"
     failOnWarning="true"
@@ -18,21 +18,18 @@
         </testsuite>
     </testsuites>
 
-    <source>
-        <include>
-            <directory>includes</directory>
-        </include>
-        <exclude>
-            <directory>includes/vendor</directory>
-        </exclude>
-    </source>
-
     <coverage
         includeUncoveredFiles="true"
         pathCoverage="false"
         ignoreDeprecatedCodeUnits="true"
         disableCodeCoverageIgnore="false"
     >
+        <include>
+            <directory>includes</directory>
+        </include>
+        <exclude>
+            <directory>includes/vendor</directory>
+        </exclude>
         <report>
             <html outputDirectory="coverage/html"/>
             <text outputFile="php://stdout" showOnlySummary="true"/>
@@ -40,10 +37,6 @@
     </coverage>
 
     <php>
-        <const name="WP_TESTS_DOMAIN" value="example.org"/>
-        <const name="WP_TESTS_EMAIL" value="admin@example.org"/>
-        <const name="WP_TESTS_TITLE" value="Test Site"/>
-        <const name="WP_PHP_BINARY" value="php"/>
-        <const name="WP_DEBUG" value="true"/>
+        <env name="WP_TESTS_DIR" value="/var/folders/cc/1780l0dj06g87fnbw_nl2fkw0000gn/T/wordpress-tests-lib"/>
     </php>
 </phpunit>

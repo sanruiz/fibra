@@ -334,8 +334,12 @@ class BlockRenderer {
 	public function get_stats(): array {
 		return array(
 			'registered_blocks' => $this->registry->count(),
+			'blocks_rendered'   => 0, // TODO: Implement counter in render() method
+			'blocks_cached'     => 0, // TODO: Implement counter in cache operations
+			'cache_hits'        => 0, // TODO: Implement counter in cache retrievals
 			'caching_enabled'   => $this->caching_enabled,
 			'cache_ttl'         => $this->cache_ttl,
+			'errors'            => array(), // TODO: Track errors from rendering
 		);
 	}
 }

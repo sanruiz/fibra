@@ -64,88 +64,66 @@ if ( ! class_exists( 'WP_Customize_Manager' ) ) {
 	}
 }
 
-if ( ! class_exists( 'WPCF7_ContactForm' ) ) {
-	class WPCF7_ContactForm {
-		private $id = 0;
-		private $title = 'Test Form';
-
-		public function __construct( $id = 0, $title = 'Test Form' ) {
-			$this->id = $id;
-			$this->title = $title;
-		}
-
-		public function id() {
-			return $this->id;
-		}
-
-		public function title() {
-			return $this->title;
-		}
-	}
-}
-
-if ( ! class_exists( 'WPCF7_Submission' ) ) {
-	class WPCF7_Submission {
-		private static $instance = null;
-		private $posted_data = [];
-
-		private function __construct() {}
-
-		public static function get_instance() {
-			if ( self::$instance === null ) {
-				self::$instance = new self();
-			}
-			return self::$instance;
-		}
-
-		public function get_posted_data() {
-			return $this->posted_data;
-		}
-
-		public function set_posted_data( $data ) {
-			$this->posted_data = $data;
-		}
-	}
-}
-
-if ( ! class_exists( 'WPCF7_Validation' ) ) {
-	class WPCF7_Validation {
-		private $invalid_fields = [];
-
-		public function invalidate( $tag, $message ) {
-			$name = is_object( $tag ) ? $tag->name : $tag;
-			$this->invalid_fields[ $name ] = $message;
-		}
-
-		public function is_valid( $name = null ) {
-			if ( $name === null ) {
-				return empty( $this->invalid_fields );
-			}
-			return ! isset( $this->invalid_fields[ $name ] );
-		}
-	}
-}
-
-if ( ! class_exists( 'WPCF7_FormTag' ) ) {
-	class WPCF7_FormTag {
-		public $name = '';
-		public $type = '';
-
-		public function __construct( $name = '', $type = '' ) {
-			$this->name = $name;
-			$this->type = $type;
-		}
-	}
-}
-
-if ( ! class_exists( 'WPCF7' ) ) {
-	class WPCF7 {
-		// Mock WPCF7 main class for should_load() checks.
-	}
-}
+// CF7 classes will be loaded from actual plugin in test environment
 
 // Give access to tests_add_filter() function.
 require_once $_tests_dir . '/includes/functions.php';
+
+/**
+ * Load Advanced Custom Fields PRO for testing.
+ */
+function _load_acf_for_tests() {
+	$_tests_dir = getenv( 'WP_TESTS_DIR' );
+	if ( ! $_tests_dir ) {
+		$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
+	}
+	
+	$wp_core_dir = dirname( $_tests_dir ) . '/wordpress';
+	$acf_plugin = $wp_core_dir . '/wp-content/plugins/advanced-custom-fields-pro/acf.php';
+	$acf_helper = $wp_core_dir . '/wp-content/plugins/advanced-custom-fields-pro/acf-test-helper.php';
+	
+	if ( file_exists( $acf_plugin ) ) {
+		require_once $acf_plugin;
+		
+		// Load test helper if available
+		if ( file_exists( $acf_helper ) ) {
+			require_once $acf_helper;
+		}
+		
+		// Trigger ACF initialization
+		if ( function_exists( 'acf' ) && ! did_action( 'acf/init' ) ) {
+			do_action( 'acf/init' );
+		}
+	}
+}
+
+/**
+ * Load Contact Form 7 for testing.
+ */
+function _load_cf7_for_tests() {
+	$_tests_dir = getenv( 'WP_TESTS_DIR' );
+	if ( ! $_tests_dir ) {
+		$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
+	}
+	
+	$wp_core_dir = dirname( $_tests_dir ) . '/wordpress';
+	$cf7_plugin = $wp_core_dir . '/wp-content/plugins/contact-form-7/wp-contact-form-7.php';
+	$cf7_helper = $wp_core_dir . '/wp-content/plugins/contact-form-7/cf7-test-helper.php';
+	
+	if ( file_exists( $cf7_plugin ) ) {
+		require_once $cf7_plugin;
+		
+		// Load test helper if available
+		if ( file_exists( $cf7_helper ) ) {
+			require_once $cf7_helper;
+		}
+		
+		// Trigger CF7 initialization
+		if ( ! did_action( 'wpcf7_init' ) ) {
+			do_action( 'wpcf7_init' );
+		}
+	}
+}
 
 /**
  * Manually load the theme being tested.
@@ -168,6 +146,9 @@ function _manually_load_theme() {
 	require $theme_dir . '/functions.php';
 }
 
+// Load plugins before theme
+tests_add_filter( 'muplugins_loaded', '_load_acf_for_tests', 5 );
+tests_add_filter( 'muplugins_loaded', '_load_cf7_for_tests', 5 );
 tests_add_filter( 'muplugins_loaded', '_manually_load_theme' );
 
 /**
@@ -205,9 +186,15 @@ function _load_elementor_for_tests() {
 	
 	$wp_core_dir = dirname( $_tests_dir ) . '/wordpress';
 	$elementor_plugin = $wp_core_dir . '/wp-content/plugins/elementor/elementor.php';
+	$elementor_helper = $wp_core_dir . '/wp-content/plugins/elementor/elementor-test-helper.php';
 	
 	if ( file_exists( $elementor_plugin ) ) {
 		require_once $elementor_plugin;
+		
+		// Load test helper if available
+		if ( file_exists( $elementor_helper ) ) {
+			require_once $elementor_helper;
+		}
 		
 		// Trigger Elementor loaded action
 		if ( did_action( 'plugins_loaded' ) && ! did_action( 'elementor/loaded' ) ) {
@@ -216,7 +203,8 @@ function _load_elementor_for_tests() {
 	}
 }
 
-tests_add_filter( 'muplugins_loaded', '_load_elementor_for_tests' );
+// Load Elementor after ACF and CF7
+tests_add_filter( 'muplugins_loaded', '_load_elementor_for_tests', 5 );
 
 /**
  * Initialize theme after WordPress is loaded.
