@@ -9,6 +9,7 @@
  */
 
 namespace Soma\PostTypes\Types;
+
 use Soma\Core\Enums\PostType;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -91,20 +92,20 @@ class Careers {
 	public function register(): void {
 		register_post_type(
 			self::POST_TYPE->value(),
-			[
-				'labels'             => [
+			array(
+				'labels'             => array(
 					'name'          => __( 'Careers', 'soma' ),
 					'singular_name' => __( 'Career', 'soma' ),
-				],
+				),
 				'public'             => true,
 				'publicly_queryable' => true,
 				'has_archive'        => false,
 				'show_in_rest'       => false,
 				'show_in_menu'       => true,
-				'rewrite'            => [ 'slug' => self::POST_TYPE->value() ],
+				'rewrite'            => array( 'slug' => self::POST_TYPE->value() ),
 				'menu_icon'          => 'dashicons-universal-access',
-				'supports'           => [ 'title', 'thumbnail' ],
-			]
+				'supports'           => array( 'title', 'thumbnail' ),
+			)
 		);
 	}
 

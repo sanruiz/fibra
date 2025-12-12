@@ -123,11 +123,11 @@ class CacheInvalidationManager {
 		// Log invalidation.
 		soma_log_debug(
 			'Cache invalidated for post type: {post_type}',
-			[
+			array(
 				'post_type' => $post->post_type,
 				'post_id'   => $post_id,
 				'tags'      => array_map( fn( $tag ) => $tag->value(), $tags ),
-			]
+			)
 		);
 	}
 
@@ -157,7 +157,7 @@ class CacheInvalidationManager {
 	 */
 	public function on_term_change( int $term_id, int $tt_id, string $taxonomy ): void {
 		// Invalidate post type caches for taxonomies.
-		$this->cache->invalidate_tags( [ CacheTag::POST_TYPES ] );
+		$this->cache->invalidate_tags( array( CacheTag::POST_TYPES ) );
 	}
 
 	/**
@@ -171,7 +171,7 @@ class CacheInvalidationManager {
 	public function on_option_change( string $option, $old_value, $new_value ): void {
 		// Check if it's an ACF options page.
 		if ( str_starts_with( $option, 'options_' ) ) {
-			$this->cache->invalidate_tags( [ CacheTag::OPTIONS ] );
+			$this->cache->invalidate_tags( array( CacheTag::OPTIONS ) );
 		}
 	}
 
@@ -182,7 +182,7 @@ class CacheInvalidationManager {
 	 * @return void
 	 */
 	public function on_menu_update( int $menu_id ): void {
-		$this->cache->invalidate_tags( [ CacheTag::NAVIGATION ] );
+		$this->cache->invalidate_tags( array( CacheTag::NAVIGATION ) );
 	}
 
 	/**
@@ -192,7 +192,7 @@ class CacheInvalidationManager {
 	 * @return void
 	 */
 	public function on_widgets_update( $old_value ): void {
-		$this->cache->invalidate_tags( [ CacheTag::WIDGETS ] );
+		$this->cache->invalidate_tags( array( CacheTag::WIDGETS ) );
 	}
 
 	/**
@@ -219,10 +219,10 @@ class CacheInvalidationManager {
 
 		soma_log_debug(
 			'Manual cache invalidation: {count} entries',
-			[
+			array(
 				'count' => $count,
 				'tags'  => array_map( fn( $tag ) => $tag->value(), $tags ),
-			]
+			)
 		);
 
 		return $count;

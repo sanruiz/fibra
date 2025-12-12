@@ -92,8 +92,8 @@ class StockData {
 			wp_schedule_event( time(), 'three_hours', 'update_stock_data_event' );
 		}
 
-		add_action( 'update_stock_data_event', $this->fetch_stock_data(...) );
-		add_filter( 'cron_schedules', $this->custom_cron_schedules(...) );
+		add_action( 'update_stock_data_event', $this->fetch_stock_data( ... ) );
+		add_filter( 'cron_schedules', $this->custom_cron_schedules( ... ) );
 	}
 
 	/**
@@ -150,18 +150,18 @@ class StockData {
 		$data = $body['quoteResponse']['result'][0];
 
 		$stock_data = array(
-			'price'                   => $data['regularMarketPrice'] ?? 0,
-			'volume'                  => $data['regularMarketVolume'] ?? 0,
-			'change'                  => $data['regularMarketChange'] ?? 0,
-			'percent'                 => $data['regularMarketChangePercent'] ?? 0,
-			'exchangeTimezoneName'    => $data['exchangeTimezoneName'] ?? '',
-			'exchangeTimezoneOffset'  => $data['gmtOffSetMilliseconds'] ?? 0,
-			'symbol'                  => $data['symbol'] ?? $this->symbol,
-			'timestamp'               => $data['regularMarketTime'] ?? time(),
-			'currency'                => $data['currency'] ?? 'MXN',
-			'shortName'               => $data['shortName'] ?? '',
-			'longName'                => $data['longName'] ?? '',
-			'marketState'             => $data['marketState'] ?? 'CLOSED',
+			'price'                  => $data['regularMarketPrice'] ?? 0,
+			'volume'                 => $data['regularMarketVolume'] ?? 0,
+			'change'                 => $data['regularMarketChange'] ?? 0,
+			'percent'                => $data['regularMarketChangePercent'] ?? 0,
+			'exchangeTimezoneName'   => $data['exchangeTimezoneName'] ?? '',
+			'exchangeTimezoneOffset' => $data['gmtOffSetMilliseconds'] ?? 0,
+			'symbol'                 => $data['symbol'] ?? $this->symbol,
+			'timestamp'              => $data['regularMarketTime'] ?? time(),
+			'currency'               => $data['currency'] ?? 'MXN',
+			'shortName'              => $data['shortName'] ?? '',
+			'longName'               => $data['longName'] ?? '',
+			'marketState'            => $data['marketState'] ?? 'CLOSED',
 		);
 
 		update_option( 'stock_data', $stock_data );

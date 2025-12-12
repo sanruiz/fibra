@@ -41,7 +41,7 @@ class Loader implements LoadableInterface {
 	 *
 	 * @var array<string, string> Widget class names
 	 */
-	private array $widgets = [
+	private array $widgets = array(
 		'Navbar'        => Widgets\Navbar::class,
 		'Footer'        => Widgets\Footer::class,
 		'BusinessUnits' => Widgets\BusinessUnits::class,
@@ -50,14 +50,14 @@ class Loader implements LoadableInterface {
 		'NewsList'      => Widgets\NewsList::class,
 		'Portfolio'     => Widgets\Portfolio::class,
 		'ContactForm'   => Widgets\ContactForm::class,
-	];
+	);
 
 	/**
 	 * Widget styles registry
 	 *
 	 * @var array<string, string> Widget style handles and files
 	 */
-	private array $widget_styles = [
+	private array $widget_styles = array(
 		'soma-navbar'         => 'navbar.css',
 		'soma-footer'         => 'footer.css',
 		'soma-business-units' => 'business-units.css',
@@ -66,7 +66,7 @@ class Loader implements LoadableInterface {
 		'soma-news-list'      => 'news-list.css',
 		'soma-portfolio'      => 'portfolio.css',
 		'soma-contact-form'   => 'contact-form.css',
-	];
+	);
 
 	/**
 	 * Get singleton instance
@@ -120,9 +120,9 @@ class Loader implements LoadableInterface {
 
 		\soma_log_info(
 			'Elementor integration initialized',
-			[
+			array(
 				'widgets' => count( $this->widgets ),
-			]
+			)
 		);
 	}
 
@@ -161,10 +161,10 @@ class Loader implements LoadableInterface {
 	public function register_category( $elements_manager ): void {
 		$elements_manager->add_category(
 			'soma',
-			[
+			array(
 				'title' => __( 'Soma', 'soma' ),
 				'icon'  => 'eicon-posts-grid',
-			]
+			)
 		);
 
 		\soma_log_debug( 'Registered Elementor category: soma' );
@@ -187,11 +187,11 @@ class Loader implements LoadableInterface {
 			if ( ! file_exists( $file_path ) ) {
 				\soma_log_warning(
 					'Widget style file not found',
-					[
+					array(
 						'handle'   => $handle,
 						'filename' => $filename,
 						'path'     => $file_path,
-					]
+					)
 				);
 				continue;
 			}
@@ -199,7 +199,7 @@ class Loader implements LoadableInterface {
 			wp_register_style(
 				$handle,
 				$theme_uri . '/assets/css/widgets/' . $filename,
-				[],
+				array(),
 				$theme_version
 			);
 
@@ -207,19 +207,19 @@ class Loader implements LoadableInterface {
 
 			\soma_log_debug(
 				'Registered widget style',
-				[
+				array(
 					'handle' => $handle,
 					'file'   => $filename,
-				]
+				)
 			);
 		}
 
 		\soma_log_info(
 			'Registered Elementor widget styles',
-			[
+			array(
 				'total'      => \count( $this->widget_styles ),
 				'registered' => $registered_count,
-			]
+			)
 		);
 	}
 
@@ -235,10 +235,10 @@ class Loader implements LoadableInterface {
 			if ( ! class_exists( $class ) ) {
 				\soma_log_warning(
 					'Elementor widget class not found',
-					[
+					array(
 						'widget' => $name,
 						'class'  => $class,
-					]
+					)
 				);
 				continue;
 			}
@@ -249,28 +249,28 @@ class Loader implements LoadableInterface {
 
 				\soma_log_debug(
 					'Registered Elementor widget',
-					[
+					array(
 						'widget' => $name,
 						'class'  => $class,
-					]
+					)
 				);
 			} catch ( \Exception $e ) {
 				\soma_log_error(
 					'Failed to register Elementor widget',
-					[
+					array(
 						'widget' => $name,
 						'error'  => $e->getMessage(),
-					]
+					)
 				);
 			}
 		}
 
 		\soma_log_info(
 			'Registered Elementor widgets',
-			[
+			array(
 				'total'      => count( $this->widgets ),
 				'registered' => $registered_count,
-			]
+			)
 		);
 	}
 

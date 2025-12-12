@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$tags of function soma_cache_invalidate_tags expects array\\<Soma\\\\Utils\\\\Enums\\\\CacheTag\\>, array\\<int, string\\> given\\.$#"
+			count: 2
+			path: includes/PageBuilder/BlockRenderer.php
+
+		-
+			message: "#^Parameter \\#4 \\$tags of function soma_cache_remember expects array\\<Soma\\\\Utils\\\\Enums\\\\CacheTag\\>, array\\<int, string\\> given\\.$#"
+			count: 1
+			path: includes/PageBuilder/BlockRenderer.php

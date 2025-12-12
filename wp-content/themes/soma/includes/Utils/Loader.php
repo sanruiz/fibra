@@ -120,10 +120,10 @@ class Loader implements LoadableInterface {
 		add_filter(
 			'cron_schedules',
 			function ( $schedules ) {
-				$schedules['soma_daily'] = [
+				$schedules['soma_daily'] = array(
 					'interval' => DAY_IN_SECONDS,
 					'display'  => __( 'Once Daily (Soma)', 'soma' ),
-				];
+				);
 				return $schedules;
 			}
 		);
@@ -146,7 +146,7 @@ class Loader implements LoadableInterface {
 		$count = Cache::instance()->cleanup();
 
 		if ( $count > 0 ) {
-			soma_log_info( 'Cache cleanup: {count} expired entries removed', [ 'count' => $count ] );
+			soma_log_info( 'Cache cleanup: {count} expired entries removed', array( 'count' => $count ) );
 		}
 	}
 }

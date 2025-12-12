@@ -98,11 +98,11 @@ final class DocumentsEndpoint {
 		register_rest_route(
 			self::NAMESPACE,
 			self::ROUTE,
-			[
+			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => $this->handle( ... ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 	}
 
@@ -115,12 +115,12 @@ final class DocumentsEndpoint {
 	private function handle( WP_REST_Request $request ): array {
 		$params = $request->get_params();
 
-		$args = [
+		$args = array(
 			'numberposts' => -1,
 			'post_type'   => 'documents-reports',
-			'post_status' => [ 'publish' ],
+			'post_status' => array( 'publish' ),
 			'order'       => $params['order'] ?? 'ASC',
-		];
+		);
 
 		if ( isset( $params['order_by'] ) && $params['order_by'] === 'custom_date' ) {
 			$args['meta_key'] = 'document_content_date';
@@ -130,14 +130,14 @@ final class DocumentsEndpoint {
 		}
 
 		if ( isset( $params['categories'] ) && $params['categories'] ) {
-			$args['tax_query'] = [
-				[
+			$args['tax_query'] = array(
+				array(
 					'taxonomy' => 'documents-taxonomy',
 					'field'    => 'id',
 					'terms'    => array_map( 'intval', explode( ',', $params['categories'] ) ),
 					'operator' => 'AND',
-				],
-			];
+				),
+			);
 		}
 
 		$total = \count( get_posts( $args ) );
@@ -153,7 +153,7 @@ final class DocumentsEndpoint {
 		}
 
 		$posts               = get_posts( $args );
-		$formatted_documents = [];
+		$formatted_documents = array();
 
 		if ( $posts ) {
 			foreach ( $posts as $item ) {
@@ -166,7 +166,7 @@ final class DocumentsEndpoint {
 				$formatted_files = $this->format_additional_files( $content );
 				$main_file       = $this->format_main_file( $content );
 
-				$document = [
+				$document = array(
 					'ID'                   => $item->ID,
 					'title'                => get_the_title( $item->ID ),
 					'featured_image'       => get_the_post_thumbnail_url( $item->ID ),
@@ -179,7 +179,7 @@ final class DocumentsEndpoint {
 					'file'                 => $main_file,
 					'additional_files'     => $formatted_files,
 					'categories'           => $formatted_terms,
-				];
+				);
 
 				// Filter by year if specified.
 				if ( isset( $params['year'] ) ) {
@@ -192,12 +192,12 @@ final class DocumentsEndpoint {
 			}
 		}
 
-		return [
+		return array(
 			'status' => 'success',
 			'total'  => $total,
 			'count'  => \count( $formatted_documents ),
 			'data'   => $formatted_documents,
-		];
+		);
 	}
 
 	/**
@@ -211,7 +211,7 @@ final class DocumentsEndpoint {
 			return null;
 		}
 
-		$formatted_terms = [];
+		$formatted_terms = array();
 		foreach ( $terms as $term ) {
 			$formatted_terms[ $term->term_id ] = $term->name;
 		}
@@ -230,22 +230,22 @@ final class DocumentsEndpoint {
 			return null;
 		}
 
-		$formatted_files = [];
+		$formatted_files = array();
 		$current_lang    = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
 
 		foreach ( $content['additional_files'] as $key => $file ) {
 			$file_content = ( $current_lang === 'en' ) ? $file['file'] : $file['file_es'];
 
-			$formatted_files[ $key ] = [
+			$formatted_files[ $key ] = array(
 				'label' => $file['label'],
-				'file'  => $file_content ? [
+				'file'  => $file_content ? array(
 					'title'    => $file_content['title'],
 					'filename' => $file_content['filename'],
 					'filesize' => $file_content['filesize'],
 					'url'      => $file_content['url'],
 					'type'     => $file_content['subtype'],
-				] : null,
-			];
+				) : null,
+			);
 		}
 
 		return $formatted_files;
@@ -265,13 +265,13 @@ final class DocumentsEndpoint {
 			return null;
 		}
 
-		return [
+		return array(
 			'title'    => $main_file['title'],
 			'filename' => $main_file['filename'],
 			'filesize' => $main_file['filesize'],
 			'url'      => $main_file['url'],
 			'type'     => $main_file['subtype'],
-		];
+		);
 	}
 
 	/**

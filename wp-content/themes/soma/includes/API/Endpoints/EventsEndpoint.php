@@ -98,11 +98,11 @@ final class EventsEndpoint {
 		register_rest_route(
 			self::NAMESPACE,
 			self::ROUTE,
-			[
+			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => $this->handle( ... ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 	}
 
@@ -115,12 +115,12 @@ final class EventsEndpoint {
 	private function handle( WP_REST_Request $request ): array {
 		$params = $request->get_params();
 
-		$args = [
+		$args = array(
 			'numberposts' => -1,
 			'post_type'   => 'events',
-			'post_status' => [ 'publish' ],
+			'post_status' => array( 'publish' ),
 			'order'       => $params['order'] ?? 'ASC',
-		];
+		);
 
 		if ( isset( $params['order_by'] ) && $params['order_by'] === 'custom_date' ) {
 			$args['meta_key'] = 'event_info_init_date';
@@ -140,7 +140,7 @@ final class EventsEndpoint {
 		}
 
 		$posts            = get_posts( $args );
-		$formatted_events = [];
+		$formatted_events = array();
 
 		if ( $posts ) {
 			foreach ( $posts as $item ) {
@@ -156,7 +156,7 @@ final class EventsEndpoint {
 
 				$main_file = $this->format_file( $content );
 
-				$event = [
+				$event = array(
 					'ID'             => $item->ID,
 					'title'          => get_the_title( $item->ID ),
 					'featured_image' => get_the_post_thumbnail_url( $item->ID ),
@@ -171,7 +171,7 @@ final class EventsEndpoint {
 					'file_label'     => $content['file_label'],
 					'file'           => $main_file,
 					'filter'         => $filter,
-				];
+				);
 
 				// Filter by year if specified.
 				if ( isset( $params['year'] ) && $params['year'] ) {
@@ -184,12 +184,12 @@ final class EventsEndpoint {
 			}
 		}
 
-		return [
+		return array(
 			'status' => 'success',
 			'total'  => $total,
 			'count'  => \count( $formatted_events ),
 			'data'   => $formatted_events,
-		];
+		);
 	}
 
 	/**
@@ -206,13 +206,13 @@ final class EventsEndpoint {
 			return null;
 		}
 
-		return [
+		return array(
 			'title'    => $main_file['title'],
 			'filename' => $main_file['filename'],
 			'filesize' => $main_file['filesize'],
 			'url'      => $main_file['url'],
 			'type'     => $main_file['subtype'],
-		];
+		);
 	}
 
 	/**

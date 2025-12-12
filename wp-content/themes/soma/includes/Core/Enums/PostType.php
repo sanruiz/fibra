@@ -83,12 +83,10 @@ enum PostType: string {
 	 * @return array<string, string>
 	 */
 	public static function labels(): array {
-		$labels = [];
+		$labels = array();
 		foreach ( self::cases() as $case ) {
 			$labels[ $case->value ] = $case->label();
 		}
 		return $labels;
 	}
-
-
 }

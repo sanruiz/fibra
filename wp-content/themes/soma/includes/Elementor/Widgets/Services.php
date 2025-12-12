@@ -55,7 +55,7 @@ class Services extends WidgetBase {
 	 * @return array
 	 */
 	public function get_style_depends(): array {
-		return [ 'soma-services' ];
+		return array( 'soma-services' );
 	}
 
 	/**
@@ -77,69 +77,69 @@ class Services extends WidgetBase {
 		// Services section.
 		$this->start_controls_section(
 			'section_services',
-			[
+			array(
 				'label' => __( 'Services', 'soma' ),
-			]
+			)
 		);
 
 		$repeater = new Repeater();
 
 		$repeater->add_control(
 			'service_icon',
-			[
+			array(
 				'label' => __( 'Icon', 'soma' ),
 				'type'  => Controls_Manager::MEDIA,
-			]
+			)
 		);
 
 		$repeater->add_control(
 			'service_title',
-			[
+			array(
 				'label'   => __( 'Title', 'soma' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => __( 'Service Title', 'soma' ),
-			]
+			)
 		);
 
 		$repeater->add_control(
 			'service_description',
-			[
+			array(
 				'label'   => __( 'Description', 'soma' ),
 				'type'    => Controls_Manager::TEXTAREA,
 				'default' => __( 'Service description goes here.', 'soma' ),
-			]
+			)
 		);
 
 		$repeater->add_control(
 			'service_link',
-			[
+			array(
 				'label' => __( 'Link', 'soma' ),
 				'type'  => Controls_Manager::URL,
-			]
+			)
 		);
 
 		$this->add_control(
 			'services_list',
-			[
+			array(
 				'label'       => __( 'Services List', 'soma' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
-				'default'     => [
-					[
+				'default'     => array(
+					array(
 						'service_title'       => __( 'Service 1', 'soma' ),
 						'service_description' => __( 'Description for service 1', 'soma' ),
-					],
-					[
+					),
+					array(
 						'service_title'       => __( 'Service 2', 'soma' ),
 						'service_description' => __( 'Description for service 2', 'soma' ),
-					],
-					[
+					),
+					array(
 						'service_title'       => __( 'Service 3', 'soma' ),
 						'service_description' => __( 'Description for service 3', 'soma' ),
-					],
-				],
+					),
+				),
 				'title_field' => '{{{ service_title }}}',
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -147,57 +147,57 @@ class Services extends WidgetBase {
 		// Layout section.
 		$this->start_controls_section(
 			'section_layout',
-			[
+			array(
 				'label' => __( 'Layout', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_responsive_control(
 			'columns',
-			[
+			array(
 				'label'           => __( 'Columns', 'soma' ),
 				'type'            => Controls_Manager::SELECT,
 				'desktop_default' => '3',
 				'tablet_default'  => '2',
 				'mobile_default'  => '1',
-				'options'         => [
+				'options'         => array(
 					'1' => '1',
 					'2' => '2',
 					'3' => '3',
 					'4' => '4',
 					'5' => '5',
 					'6' => '6',
-				],
-				'selectors'       => [
+				),
+				'selectors'       => array(
 					'{{WRAPPER}} .services-grid' => 'grid-template-columns: repeat({{VALUE}}, 1fr);',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_responsive_control(
 			'grid_gap',
-			[
+			array(
 				'label'      => __( 'Gap', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'rem' ],
-				'range'      => [
-					'px'  => [
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array(
 						'min' => 0,
 						'max' => 100,
-					],
-					'rem' => [
+					),
+					'rem' => array(
 						'min' => 0,
 						'max' => 10,
-					],
-				],
-				'default'    => [
+					),
+				),
+				'default'    => array(
 					'size' => 30,
 					'unit' => 'px',
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .services-grid' => 'gap: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -212,10 +212,10 @@ class Services extends WidgetBase {
 		// Card styles.
 		$this->start_controls_section(
 			'section_style_card',
-			[
+			array(
 				'label' => __( 'Card', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_background_control( 'card_background', __( 'Background', 'soma' ), '{{WRAPPER}} .service-item' );
@@ -225,23 +225,23 @@ class Services extends WidgetBase {
 
 		$this->add_control(
 			'card_hover_transition',
-			[
+			array(
 				'label'     => __( 'Hover Transition', 'soma' ),
 				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
-					'px' => [
+				'range'     => array(
+					'px' => array(
 						'min'  => 0,
 						'max'  => 1,
 						'step' => 0.1,
-					],
-				],
-				'default'   => [
+					),
+				),
+				'default'   => array(
 					'size' => 0.3,
-				],
-				'selectors' => [
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .service-item' => 'transition: all {{SIZE}}s ease;',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -249,62 +249,62 @@ class Services extends WidgetBase {
 		// Icon styles.
 		$this->start_controls_section(
 			'section_style_icon',
-			[
+			array(
 				'label' => __( 'Icon', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_responsive_control(
 			'icon_size',
-			[
+			array(
 				'label'      => __( 'Size', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'rem' ],
-				'range'      => [
-					'px'  => [
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array(
 						'min' => 20,
 						'max' => 200,
-					],
-					'rem' => [
+					),
+					'rem' => array(
 						'min' => 1,
 						'max' => 12,
-					],
-				],
-				'default'    => [
+					),
+				),
+				'default'    => array(
 					'size' => 60,
 					'unit' => 'px',
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .service-icon img' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_responsive_control(
 			'icon_spacing',
-			[
+			array(
 				'label'      => __( 'Spacing', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'rem' ],
-				'range'      => [
-					'px'  => [
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array(
 						'min' => 0,
 						'max' => 100,
-					],
-					'rem' => [
+					),
+					'rem' => array(
 						'min' => 0,
 						'max' => 6,
-					],
-				],
-				'default'    => [
+					),
+				),
+				'default'    => array(
 					'size' => 20,
 					'unit' => 'px',
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .service-icon' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -312,10 +312,10 @@ class Services extends WidgetBase {
 		// Title styles.
 		$this->start_controls_section(
 			'section_style_title',
-			[
+			array(
 				'label' => __( 'Title', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_typography_control(
@@ -328,28 +328,28 @@ class Services extends WidgetBase {
 
 		$this->add_responsive_control(
 			'title_spacing',
-			[
+			array(
 				'label'      => __( 'Spacing', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'rem' ],
-				'range'      => [
-					'px'  => [
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array(
 						'min' => 0,
 						'max' => 50,
-					],
-					'rem' => [
+					),
+					'rem' => array(
 						'min' => 0,
 						'max' => 3,
-					],
-				],
-				'default'    => [
+					),
+				),
+				'default'    => array(
 					'size' => 15,
 					'unit' => 'px',
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .service-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -357,10 +357,10 @@ class Services extends WidgetBase {
 		// Description styles.
 		$this->start_controls_section(
 			'section_style_description',
-			[
+			array(
 				'label' => __( 'Description', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_typography_control(

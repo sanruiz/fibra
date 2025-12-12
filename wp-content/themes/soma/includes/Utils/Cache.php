@@ -115,7 +115,7 @@ class Cache {
 	 * @param array<CacheTag> $tags Cache tags for invalidation.
 	 * @return bool
 	 */
-	public function set( string $key, $value, int $ttl = 3600, array $tags = [] ): bool {
+	public function set( string $key, $value, int $ttl = 3600, array $tags = array() ): bool {
 		$full_key = $this->prefix . $key;
 
 		// Store in object cache.
@@ -141,7 +141,7 @@ class Cache {
 	 * @param array<CacheTag> $tags Cache tags for invalidation.
 	 * @return mixed
 	 */
-	public function remember( string $key, callable $callback, int $ttl = 3600, array $tags = [] ) {
+	public function remember( string $key, callable $callback, int $ttl = 3600, array $tags = array() ) {
 		$value = $this->get( $key );
 
 		if ( null !== $value ) {
@@ -248,7 +248,7 @@ class Cache {
 		foreach ( $tags as $tag ) {
 			$tag_value = $tag->value();
 			if ( ! isset( $tag_index[ $tag_value ] ) ) {
-				$tag_index[ $tag_value ] = [];
+				$tag_index[ $tag_value ] = array();
 			}
 			if ( ! in_array( $key, $tag_index[ $tag_value ], true ) ) {
 				$tag_index[ $tag_value ][] = $key;
@@ -264,8 +264,8 @@ class Cache {
 	 * @return array<string, array<string>>
 	 */
 	private function get_tag_index(): array {
-		$index = get_option( $this->tag_index, [] );
-		return is_array( $index ) ? $index : [];
+		$index = get_option( $this->tag_index, array() );
+		return is_array( $index ) ? $index : array();
 	}
 
 	/**
@@ -291,11 +291,11 @@ class Cache {
 			$total_keys += count( $keys );
 		}
 
-		return [
+		return array(
 			'total_tags' => count( $tag_index ),
 			'total_keys' => $total_keys,
 			'tags'       => array_map( 'count', $tag_index ),
-		];
+		);
 	}
 
 	/**

@@ -98,11 +98,11 @@ final class CareersEndpoint {
 		register_rest_route(
 			self::NAMESPACE,
 			self::ROUTE,
-			[
+			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => $this->handle( ... ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 	}
 
@@ -115,13 +115,13 @@ final class CareersEndpoint {
 	private function handle( WP_REST_Request $request ): array {
 		$params = $request->get_params();
 
-		$args = [
+		$args = array(
 			'numberposts' => -1,
 			'post_type'   => 'careers',
-			'post_status' => [ 'publish' ],
+			'post_status' => array( 'publish' ),
 			'orderby'     => 'menu_order',
 			'order'       => $params['order'] ?? 'DESC',
-		];
+		);
 
 		if ( isset( $params['id'] ) ) {
 			$args['p'] = $params['id'];
@@ -134,13 +134,13 @@ final class CareersEndpoint {
 		}
 
 		$posts           = get_posts( $args );
-		$formatted_posts = [];
+		$formatted_posts = array();
 
 		if ( $posts ) {
 			foreach ( $posts as $item ) {
 				$content = get_field( 'career_content', $item->ID );
 
-				$formatted_posts[] = [
+				$formatted_posts[] = array(
 					'ID'             => $item->ID,
 					'title'          => get_the_title( $item->ID ),
 					'permalink'      => get_the_permalink( $item->ID ),
@@ -149,15 +149,15 @@ final class CareersEndpoint {
 					'location'       => $content['location'] ?? '',
 					'department'     => $content['department'] ?? '',
 					'description'    => $content['description'] ?? '',
-				];
+				);
 			}
 		}
 
-		return [
+		return array(
 			'status' => 'success',
 			'total'  => (int) wp_count_posts( 'careers' )->publish,
 			'count'  => \count( $formatted_posts ),
 			'data'   => $formatted_posts,
-		];
+		);
 	}
 }

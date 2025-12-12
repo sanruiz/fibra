@@ -98,11 +98,11 @@ final class PortfolioEndpoint {
 		register_rest_route(
 			self::NAMESPACE,
 			self::ROUTE,
-			[
+			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => $this->handle( ... ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 	}
 
@@ -115,23 +115,23 @@ final class PortfolioEndpoint {
 	private function handle( WP_REST_Request $request ): array {
 		$params = $request->get_params();
 
-		$args = [
+		$args = array(
 			'numberposts' => -1,
 			'post_type'   => 'portfolio',
-			'post_status' => [ 'publish' ],
+			'post_status' => array( 'publish' ),
 			'orderby'     => 'menu_order',
 			'order'       => $params['order'] ?? 'DESC',
-		];
+		);
 
 		if ( isset( $params['categories'] ) && $params['categories'] ) {
-			$args['tax_query'] = [
-				[
+			$args['tax_query'] = array(
+				array(
 					'taxonomy' => 'portfolio-taxonomy',
 					'field'    => 'id',
 					'terms'    => array_map( 'intval', explode( ',', $params['categories'] ) ),
 					'operator' => 'AND',
-				],
-			];
+				),
+			);
 		}
 
 		$total = \count( get_posts( $args ) );
@@ -147,20 +147,20 @@ final class PortfolioEndpoint {
 		}
 
 		$posts           = get_posts( $args );
-		$formatted_posts = [];
+		$formatted_posts = array();
 
 		if ( $posts ) {
 			foreach ( $posts as $item ) {
 				$info = get_field( 'project_info', $item->ID );
 
-				$formatted_posts[] = [
+				$formatted_posts[] = array(
 					'ID'             => $item->ID,
 					'title'          => get_the_title( $item->ID ),
 					'permalink'      => get_the_permalink( $item->ID ),
 					'featured_image' => get_the_post_thumbnail_url( $item->ID ),
 					'city'           => $info['city'] ?? '',
 					'year'           => $info['year'] ?? '',
-				];
+				);
 			}
 		}
 
@@ -168,11 +168,11 @@ final class PortfolioEndpoint {
 		$years = array_column( $formatted_posts, 'year' );
 		array_multisort( $years, SORT_DESC, $formatted_posts );
 
-		return [
+		return array(
 			'status' => 'success',
 			'total'  => $total,
 			'count'  => \count( $formatted_posts ),
 			'data'   => $formatted_posts,
-		];
+		);
 	}
 }

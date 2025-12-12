@@ -99,11 +99,11 @@ final class NewsEndpoint {
 		register_rest_route(
 			self::NAMESPACE,
 			self::ROUTE,
-			[
+			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => $this->handle( ... ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 	}
 
@@ -116,25 +116,25 @@ final class NewsEndpoint {
 	private function handle( WP_REST_Request $request ): array {
 		$params = $request->get_params();
 
-		$args = [
+		$args = array(
 			'numberposts' => -1,
-			'post_type'   => [ 'news', 'events' ],
-			'post_status' => [ 'publish' ],
-			'meta_query'  => [
+			'post_type'   => array( 'news', 'events' ),
+			'post_status' => array( 'publish' ),
+			'meta_query'  => array(
 				'relation'    => 'OR',
-				'new_date'    => [
+				'new_date'    => array(
 					'key' => 'news_content_date',
-				],
-				'events_date' => [
+				),
+				'events_date' => array(
 					'key' => 'event_info_init_date',
-				],
-			],
-			'orderby'     => [
+				),
+			),
+			'orderby'     => array(
 				'new_date'    => 'DESC',
 				'events_date' => 'DESC',
-			],
+			),
 			'order'       => $params['order'] ?? 'DESC',
-		];
+		);
 
 		if ( isset( $params['id'] ) ) {
 			$args['p'] = $params['id'];
@@ -147,14 +147,14 @@ final class NewsEndpoint {
 		}
 
 		$posts           = get_posts( $args );
-		$formatted_posts = [];
+		$formatted_posts = array();
 
 		if ( $posts ) {
 			foreach ( $posts as $item ) {
 				$info      = null;
 				$date      = null;
 				$timestamp = null;
-				$file      = [];
+				$file      = array();
 				$label     = null;
 
 				if ( $item->post_type === 'news' ) {
@@ -166,13 +166,13 @@ final class NewsEndpoint {
 					$date      = DateTime::createFromFormat( 'U', $info['init_date'] );
 					$timestamp = $info['init_date'];
 					$label     = $info['label'];
-					$file      = [
+					$file      = array(
 						'filelabel' => $info['file_label'],
 						'filedata'  => $info['file'],
-					];
+					);
 				}
 
-				$formatted_posts[] = [
+				$formatted_posts[] = array(
 					'ID'             => $item->ID,
 					'title'          => get_the_title( $item->ID ),
 					'permalink'      => get_the_permalink( $item->ID ),
@@ -182,7 +182,7 @@ final class NewsEndpoint {
 					'label'          => $label,
 					'file'           => $file,
 					'post_type'      => $item->post_type,
-				];
+				);
 			}
 		}
 
@@ -190,11 +190,11 @@ final class NewsEndpoint {
 		$timestamps = array_column( $formatted_posts, 'timestamp' );
 		array_multisort( $timestamps, SORT_DESC, $formatted_posts );
 
-		return [
+		return array(
 			'status' => 'success',
 			'total'  => (int) wp_count_posts( 'news' )->publish,
 			'count'  => \count( $formatted_posts ),
 			'data'   => $formatted_posts,
-		];
+		);
 	}
 }

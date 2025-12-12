@@ -74,13 +74,13 @@ class Assets implements LoadableInterface {
 	 * Initialize the component
 	 */
 	public function init(): void {
-		add_filter( 'style_loader_src', $this->add_custom_version_to_stylesheet(...), 10, 2 );
-		add_action( 'wp_enqueue_scripts', $this->enqueue_scripts(...) );
-		add_action( 'login_enqueue_scripts', $this->login_styles(...) );
-		
+		add_filter( 'style_loader_src', $this->add_custom_version_to_stylesheet( ... ), 10, 1 );
+		add_action( 'wp_enqueue_scripts', $this->enqueue_scripts( ... ) );
+		add_action( 'login_enqueue_scripts', $this->login_styles( ... ) );
+
 		// Deregister default jQuery and use latest version
 		if ( ! is_admin() ) {
-			add_action( 'wp_enqueue_scripts', $this->use_latest_jquery(...), 1 );
+			add_action( 'wp_enqueue_scripts', $this->use_latest_jquery( ... ), 1 );
 		}
 	}
 

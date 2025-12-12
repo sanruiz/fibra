@@ -260,7 +260,7 @@ class BlockRenderer {
 		$cache_key  = $this->get_cache_key( $layout, $pageBlock );
 		$cache_tags = array( 'page_builder', 'block_' . $layout );
 
-		// Get or generate cached output
+		// Get or generate cached output.
 		$output = soma_cache_remember(
 			$cache_key,
 			function () use ( $partial ) {
@@ -309,7 +309,7 @@ class BlockRenderer {
 		}
 
 		if ( $layout !== null ) {
-			// Invalidate specific block type
+			// Invalidate specific block type.
 			soma_cache_invalidate_tags( array( 'block_' . $layout ) );
 		} else {
 			// Invalidate all page builder blocks

@@ -37,7 +37,7 @@ function soma_get_logger(): Logger {
  * @param array<string, mixed> $context Context data.
  * @return void
  */
-function soma_log_emergency( string $message, array $context = [] ): void {
+function soma_log_emergency( string $message, array $context = array() ): void {
 	soma_get_logger()->emergency( $message, $context );
 }
 
@@ -48,7 +48,7 @@ function soma_log_emergency( string $message, array $context = [] ): void {
  * @param array<string, mixed> $context Context data.
  * @return void
  */
-function soma_log_alert( string $message, array $context = [] ): void {
+function soma_log_alert( string $message, array $context = array() ): void {
 	soma_get_logger()->alert( $message, $context );
 }
 
@@ -59,7 +59,7 @@ function soma_log_alert( string $message, array $context = [] ): void {
  * @param array<string, mixed> $context Context data.
  * @return void
  */
-function soma_log_critical( string $message, array $context = [] ): void {
+function soma_log_critical( string $message, array $context = array() ): void {
 	soma_get_logger()->critical( $message, $context );
 }
 
@@ -70,7 +70,7 @@ function soma_log_critical( string $message, array $context = [] ): void {
  * @param array<string, mixed> $context Context data.
  * @return void
  */
-function soma_log_error( string $message, array $context = [] ): void {
+function soma_log_error( string $message, array $context = array() ): void {
 	soma_get_logger()->error( $message, $context );
 }
 
@@ -81,7 +81,7 @@ function soma_log_error( string $message, array $context = [] ): void {
  * @param array<string, mixed> $context Context data.
  * @return void
  */
-function soma_log_warning( string $message, array $context = [] ): void {
+function soma_log_warning( string $message, array $context = array() ): void {
 	soma_get_logger()->warning( $message, $context );
 }
 
@@ -92,7 +92,7 @@ function soma_log_warning( string $message, array $context = [] ): void {
  * @param array<string, mixed> $context Context data.
  * @return void
  */
-function soma_log_notice( string $message, array $context = [] ): void {
+function soma_log_notice( string $message, array $context = array() ): void {
 	soma_get_logger()->notice( $message, $context );
 }
 
@@ -103,7 +103,7 @@ function soma_log_notice( string $message, array $context = [] ): void {
  * @param array<string, mixed> $context Context data.
  * @return void
  */
-function soma_log_info( string $message, array $context = [] ): void {
+function soma_log_info( string $message, array $context = array() ): void {
 	soma_get_logger()->info( $message, $context );
 }
 
@@ -114,7 +114,7 @@ function soma_log_info( string $message, array $context = [] ): void {
  * @param array<string, mixed> $context Context data.
  * @return void
  */
-function soma_log_debug( string $message, array $context = [] ): void {
+function soma_log_debug( string $message, array $context = array() ): void {
 	soma_get_logger()->debug( $message, $context );
 }
 
@@ -151,7 +151,7 @@ function soma_cache_get( string $key, $default_value = null ) {
  * @param array<\Soma\Utils\Enums\CacheTag> $tags Cache tags for invalidation.
  * @return bool
  */
-function soma_cache_set( string $key, $value, int $ttl = 3600, array $tags = [] ): bool {
+function soma_cache_set( string $key, $value, int $ttl = 3600, array $tags = array() ): bool {
 	return soma_get_cache()->set( $key, $value, $ttl, $tags );
 }
 
@@ -164,7 +164,7 @@ function soma_cache_set( string $key, $value, int $ttl = 3600, array $tags = [] 
  * @param array<\Soma\Utils\Enums\CacheTag> $tags Cache tags for invalidation.
  * @return mixed
  */
-function soma_cache_remember( string $key, callable $callback, int $ttl = 3600, array $tags = [] ) {
+function soma_cache_remember( string $key, callable $callback, int $ttl = 3600, array $tags = array() ) {
 	return soma_get_cache()->remember( $key, $callback, $ttl, $tags );
 }
 
@@ -197,14 +197,14 @@ function soma_cache_flush(): bool {
  * @param array<string, mixed> $args WP_Query arguments.
  * @return WP_Query
  */
-function soma_get_portfolio_items( array $args = [] ): WP_Query {
-	$defaults = [
+function soma_get_portfolio_items( array $args = array() ): WP_Query {
+	$defaults = array(
 		'post_type'      => PostType::PORTFOLIO->value(),
 		'posts_per_page' => 10,
 		'post_status'    => 'publish',
 		'orderby'        => 'date',
 		'order'          => 'DESC',
-	];
+	);
 
 	return new WP_Query( wp_parse_args( $args, $defaults ) );
 }
@@ -215,14 +215,14 @@ function soma_get_portfolio_items( array $args = [] ): WP_Query {
  * @param array<string, mixed> $args WP_Query arguments.
  * @return WP_Query
  */
-function soma_get_news_items( array $args = [] ): WP_Query {
-	$defaults = [
+function soma_get_news_items( array $args = array() ): WP_Query {
+	$defaults = array(
 		'post_type'      => PostType::NEWS->value(),
 		'posts_per_page' => 10,
 		'post_status'    => 'publish',
 		'orderby'        => 'date',
 		'order'          => 'DESC',
-	];
+	);
 
 	return new WP_Query( wp_parse_args( $args, $defaults ) );
 }
@@ -233,14 +233,14 @@ function soma_get_news_items( array $args = [] ): WP_Query {
  * @param array<string, mixed> $args WP_Query arguments.
  * @return WP_Query
  */
-function soma_get_careers_items( array $args = [] ): WP_Query {
-	$defaults = [
+function soma_get_careers_items( array $args = array() ): WP_Query {
+	$defaults = array(
 		'post_type'      => PostType::CAREERS->value(),
 		'posts_per_page' => 10,
 		'post_status'    => 'publish',
 		'orderby'        => 'date',
 		'order'          => 'DESC',
-	];
+	);
 
 	return new WP_Query( wp_parse_args( $args, $defaults ) );
 }
@@ -251,14 +251,14 @@ function soma_get_careers_items( array $args = [] ): WP_Query {
  * @param array<string, mixed> $args WP_Query arguments.
  * @return WP_Query
  */
-function soma_get_team_members( array $args = [] ): WP_Query {
-	$defaults = [
+function soma_get_team_members( array $args = array() ): WP_Query {
+	$defaults = array(
 		'post_type'      => PostType::TEAM_MEMBERS->value(),
 		'posts_per_page' => -1,
 		'post_status'    => 'publish',
 		'orderby'        => 'menu_order',
 		'order'          => 'ASC',
-	];
+	);
 
 	return new WP_Query( wp_parse_args( $args, $defaults ) );
 }
@@ -275,7 +275,7 @@ function soma_get_team_members( array $args = [] ): WP_Query {
  * @param array<string, mixed> $args Arguments to pass to template.
  * @return void
  */
-function soma_get_template_part( string $slug, ?string $name = null, array $args = [] ): void {
+function soma_get_template_part( string $slug, ?string $name = null, array $args = array() ): void {
 	if ( ! empty( $args ) ) {
 		set_query_var( 'template_args', $args );
 	}
@@ -290,7 +290,7 @@ function soma_get_template_part( string $slug, ?string $name = null, array $args
  * @param array<string, mixed> $data Data to pass to partial.
  * @return void
  */
-function soma_load_partial( string $partial_name, array $data = [] ): void {
+function soma_load_partial( string $partial_name, array $data = array() ): void {
 	// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase -- Legacy global variable.
 	global $pageBlock;
 

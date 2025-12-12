@@ -93,18 +93,16 @@ enum CacheTag: string {
 	 * @phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 	 */
 	public static function forPostType( string $post_type ): array {
-		$tags = [ self::POST_TYPES ];
+		$tags = array( self::POST_TYPES );
 
 		$type_tags = match ( $post_type ) {
-			'portfolio'    => [ self::PORTFOLIO, self::API ],
-			'news'         => [ self::NEWS, self::API ],
-			'careers'      => [ self::CAREERS, self::API ],
-			'team_members' => [ self::TEAM_MEMBERS, self::API ],
-			default        => [],
+			'portfolio'    => array( self::PORTFOLIO, self::API ),
+			'news'         => array( self::NEWS, self::API ),
+			'careers'      => array( self::CAREERS, self::API ),
+			'team_members' => array( self::TEAM_MEMBERS, self::API ),
+			default        => array(),
 		};
 
 		return array_merge( $tags, $type_tags );
 	}
-
-
 }

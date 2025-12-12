@@ -131,7 +131,7 @@ class Validations {
 	 * @return WPCF7_Validation
 	 */
 	public function validate_email( $result, $tag ) {
-		if ( \in_array( $tag->name, [ 'email', 'newsletter-email' ], true ) ) {
+		if ( \in_array( $tag->name, array( 'email', 'newsletter-email' ), true ) ) {
 			$email = '';
 			// phpcs:disable WordPress.Security.NonceVerification.Missing -- CF7 handles nonce verification.
 			if ( isset( $_POST['email'] ) ) {

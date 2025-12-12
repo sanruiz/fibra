@@ -56,7 +56,7 @@ class Portfolio extends WidgetBase {
 	 * @return array
 	 */
 	public function get_style_depends(): array {
-		return [ 'soma-portfolio' ];
+		return array( 'soma-portfolio' );
 	}
 
 	/**
@@ -67,20 +67,20 @@ class Portfolio extends WidgetBase {
 	protected function register_controls(): void {
 		$this->start_controls_section(
 			'section_query',
-			[
+			array(
 				'label' => __( 'Query', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'posts_per_page',
-			[
+			array(
 				'label'   => __( 'Posts Per Page', 'soma' ),
 				'type'    => Controls_Manager::NUMBER,
 				'default' => 9,
 				'min'     => 1,
 				'max'     => 100,
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -94,9 +94,9 @@ class Portfolio extends WidgetBase {
 	protected function render(): void {
 		$settings  = $this->get_settings_for_display();
 		$portfolio = \soma_get_portfolio_items(
-			[
+			array(
 				'posts_per_page' => $settings['posts_per_page'],
-			]
+			)
 		);
 		?>
 		<section class="soma-portfolio portfolio-partial">

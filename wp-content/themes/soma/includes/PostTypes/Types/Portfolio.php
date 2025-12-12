@@ -93,20 +93,20 @@ class Portfolio {
 	public function register(): void {
 		register_post_type(
 			self::POST_TYPE->value(),
-			[
-				'labels'             => [
+			array(
+				'labels'             => array(
 					'name'          => __( 'Portfolio', 'soma' ),
 					'singular_name' => __( 'Project', 'soma' ),
-				],
+				),
 				'public'             => true,
 				'publicly_queryable' => true,
 				'has_archive'        => false,
 				'show_in_rest'       => false,
 				'show_in_menu'       => true,
-				'rewrite'            => [ 'slug' => self::POST_TYPE->value() ],
+				'rewrite'            => array( 'slug' => self::POST_TYPE->value() ),
 				'menu_icon'          => 'dashicons-portfolio',
-				'supports'           => [ 'title', 'thumbnail' ],
-			]
+				'supports'           => array( 'title', 'thumbnail' ),
+			)
 		);
 	}
 

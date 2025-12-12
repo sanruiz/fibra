@@ -39,7 +39,7 @@ class Loader {
 	 *
 	 * @var array<int, LoadableInterface[]>
 	 */
-	private array $components = [];
+	private array $components = array();
 
 	/**
 	 * Whether components have been loaded
@@ -103,7 +103,7 @@ class Loader {
 		$priority = $component->get_priority();
 
 		if ( ! isset( $this->components[ $priority ] ) ) {
-			$this->components[ $priority ] = [];
+			$this->components[ $priority ] = array();
 		}
 
 		$this->components[ $priority ][] = $component;

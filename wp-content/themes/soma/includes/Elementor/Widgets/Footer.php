@@ -55,7 +55,7 @@ class Footer extends WidgetBase {
 	 * @return array
 	 */
 	public function get_style_depends(): array {
-		return [ 'soma-footer' ];
+		return array( 'soma-footer' );
 	}
 
 	/**
@@ -77,22 +77,22 @@ class Footer extends WidgetBase {
 		// Style variant.
 		$this->start_controls_section(
 			'section_variant',
-			[
+			array(
 				'label' => __( 'Style Variant', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'style_variant',
-			[
+			array(
 				'label'   => __( 'Footer Style', 'soma' ),
 				'type'    => Controls_Manager::SELECT,
-				'options' => [
+				'options' => array(
 					'default'   => __( 'Default (Social + Business Units)', 'soma' ),
 					'fibrasoma' => __( 'Fibrasoma (Single Menu)', 'soma' ),
-				],
+				),
 				'default' => 'default',
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -100,39 +100,39 @@ class Footer extends WidgetBase {
 		// Logo section.
 		$this->start_controls_section(
 			'section_logo',
-			[
+			array(
 				'label' => __( 'Logo', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'use_acf_logo',
-			[
+			array(
 				'label'   => __( 'Use ACF Logo', 'soma' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
-			]
+			)
 		);
 
 		$this->add_control(
 			'custom_logo',
-			[
+			array(
 				'label'     => __( 'Custom Logo', 'soma' ),
 				'type'      => Controls_Manager::MEDIA,
-				'condition' => [
+				'condition' => array(
 					'use_acf_logo' => '',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_control(
 			'logo_subtext',
-			[
+			array(
 				'label'       => __( 'Logo Subtext', 'soma' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'default'     => '',
 				'placeholder' => __( 'Enter subtext below logo', 'soma' ),
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -140,29 +140,29 @@ class Footer extends WidgetBase {
 		// Newsletter section.
 		$this->start_controls_section(
 			'section_newsletter',
-			[
+			array(
 				'label' => __( 'Newsletter', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'newsletter_form',
-			[
+			array(
 				'label'       => __( 'Contact Form 7 Shortcode', 'soma' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'placeholder' => '[contact-form-7 id="123"]',
 				'description' => __( 'Enter the CF7 shortcode for newsletter subscription', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'success_message',
-			[
+			array(
 				'label'   => __( 'Success Message', 'soma' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => __( 'Thank you for subscribing.', 'soma' ),
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -170,18 +170,18 @@ class Footer extends WidgetBase {
 		// Location section.
 		$this->start_controls_section(
 			'section_location',
-			[
+			array(
 				'label' => __( 'Location', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'location_text',
-			[
+			array(
 				'label'   => __( 'Location Text', 'soma' ),
 				'type'    => Controls_Manager::WYSIWYG,
 				'default' => '',
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -189,48 +189,48 @@ class Footer extends WidgetBase {
 		// Menus section.
 		$this->start_controls_section(
 			'section_menus',
-			[
+			array(
 				'label' => __( 'Navigation Menus', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'fibrasoma_menu',
-			[
+			array(
 				'label'     => __( 'Fibrasoma Menu', 'soma' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => $this->get_menu_choices(),
 				'default'   => 'fibrasoma_footer',
-				'condition' => [
+				'condition' => array(
 					'style_variant' => 'fibrasoma',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_control(
 			'social_menu',
-			[
+			array(
 				'label'     => __( 'Social Menu', 'soma' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => $this->get_menu_choices(),
 				'default'   => 'social',
-				'condition' => [
+				'condition' => array(
 					'style_variant' => 'default',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_control(
 			'business_units_menu',
-			[
+			array(
 				'label'     => __( 'Business Units Menu', 'soma' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => $this->get_menu_choices(),
 				'default'   => 'business_units',
-				'condition' => [
+				'condition' => array(
 					'style_variant' => 'default',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -238,34 +238,34 @@ class Footer extends WidgetBase {
 		// Footer bottom section.
 		$this->start_controls_section(
 			'section_bottom',
-			[
+			array(
 				'label' => __( 'Footer Bottom', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'copyright',
-			[
+			array(
 				'label'   => __( 'Copyright Text', 'soma' ),
 				'type'    => Controls_Manager::TEXTAREA,
 				'default' => '© ' . current_time( 'Y' ) . ' ' . get_bloginfo( 'name' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'credits_link',
-			[
+			array(
 				'label' => __( 'Credits Link', 'soma' ),
 				'type'  => Controls_Manager::URL,
-			]
+			)
 		);
 
 		$this->add_control(
 			'privacy_link',
-			[
+			array(
 				'label' => __( 'Privacy Policy Link', 'soma' ),
 				'type'  => Controls_Manager::URL,
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -280,10 +280,10 @@ class Footer extends WidgetBase {
 		// Container styles.
 		$this->start_controls_section(
 			'section_style_container',
-			[
+			array(
 				'label' => __( 'Container', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_background_control( 'container_background', __( 'Background', 'soma' ), '{{WRAPPER}} .footer-partial-c90350' );
@@ -294,36 +294,36 @@ class Footer extends WidgetBase {
 		// Logo styles.
 		$this->start_controls_section(
 			'section_style_logo',
-			[
+			array(
 				'label' => __( 'Logo', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_responsive_control(
 			'logo_width',
-			[
+			array(
 				'label'      => __( 'Width', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%' ],
-				'range'      => [
-					'px' => [
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
 						'min' => 50,
 						'max' => 500,
-					],
-					'%'  => [
+					),
+					'%'  => array(
 						'min' => 10,
 						'max' => 100,
-					],
-				],
-				'default'    => [
+					),
+				),
+				'default'    => array(
 					'size' => 200,
 					'unit' => 'px',
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .logo img' => 'width: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_typography_control(
@@ -339,10 +339,10 @@ class Footer extends WidgetBase {
 		// Typography.
 		$this->start_controls_section(
 			'section_style_typography',
-			[
+			array(
 				'label' => __( 'Typography', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_typography_control(
@@ -368,10 +368,10 @@ class Footer extends WidgetBase {
 		// Colors.
 		$this->start_controls_section(
 			'section_style_colors',
-			[
+			array(
 				'label' => __( 'Colors', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_color_control( 'text_color', __( 'Text Color', 'soma' ), '{{WRAPPER}}', '--soma-text-light' );
@@ -390,7 +390,7 @@ class Footer extends WidgetBase {
 		$settings = $this->get_settings_for_display();
 
 		// Get ACF data if enabled.
-		$acf_data = $settings['use_acf_logo'] === 'yes' ? $this->get_acf_option( 'footer_content', [] ) : [];
+		$acf_data = $settings['use_acf_logo'] === 'yes' ? $this->get_acf_option( 'footer_content', array() ) : array();
 
 		$style_variant = $settings['style_variant'];
 		$logo          = $settings['use_acf_logo'] === 'yes' && ! empty( $acf_data['logo'] ) ? $acf_data['logo'] : $settings['custom_logo'];
@@ -441,13 +441,13 @@ class Footer extends WidgetBase {
 								<?php if ( $style_variant === 'fibrasoma' ) : ?>
 									<?php
 									wp_nav_menu(
-										[
+										array(
 											'menu'        => $settings['fibrasoma_menu'],
 											'theme_location' => 'fibrasoma_footer',
 											'container'   => 'div',
 											'menu_class'  => 'fibrasoma-list',
 											'fallback_cb' => false,
-										]
+										)
 									);
 									?>
 								<?php else : ?>
@@ -455,13 +455,13 @@ class Footer extends WidgetBase {
 										<div class="title"><?php echo function_exists( 'wpm_get_language' ) && wpm_get_language() === 'es' ? 'Redes' : 'Social'; ?></div>
 										<?php
 										wp_nav_menu(
-											[
+											array(
 												'menu' => $settings['social_menu'],
 												'theme_location' => 'social',
 												'container' => 'div',
 												'menu_class' => 'social-list',
 												'fallback_cb' => false,
-											]
+											)
 										);
 										?>
 									</div>
@@ -469,13 +469,13 @@ class Footer extends WidgetBase {
 										<div class="title"><?php echo function_exists( 'wpm_get_language' ) && wpm_get_language() === 'es' ? 'Unidades de Negocio' : 'Business Units'; ?></div>
 										<?php
 										wp_nav_menu(
-											[
+											array(
 												'menu' => $settings['business_units_menu'],
 												'theme_location' => 'business_units',
 												'container' => 'div',
 												'menu_class' => 'business-list',
 												'fallback_cb' => false,
-											]
+											)
 										);
 										?>
 									</div>

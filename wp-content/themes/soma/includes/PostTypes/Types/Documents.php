@@ -91,20 +91,20 @@ class Documents {
 	public function register(): void {
 		register_post_type(
 			self::POST_TYPE,
-			[
-				'labels'             => [
+			array(
+				'labels'             => array(
 					'name'          => __( 'Documents & Reports', 'soma' ),
 					'singular_name' => __( 'Document', 'soma' ),
-				],
+				),
 				'public'             => true,
 				'publicly_queryable' => false,
 				'has_archive'        => false,
 				'show_in_rest'       => false,
 				'show_in_menu'       => true,
-				'rewrite'            => [ 'slug' => self::POST_TYPE ],
+				'rewrite'            => array( 'slug' => self::POST_TYPE ),
 				'menu_icon'          => 'dashicons-pdf',
-				'supports'           => [ 'title', 'thumbnail' ],
-			]
+				'supports'           => array( 'title', 'thumbnail' ),
+			)
 		);
 	}
 

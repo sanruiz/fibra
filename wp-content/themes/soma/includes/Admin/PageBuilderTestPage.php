@@ -43,7 +43,7 @@ class PageBuilderTestPage {
 	 * Private constructor
 	 */
 	private function __construct() {
-		add_action( 'admin_menu', $this->add_test_page(...) );
+		add_action( 'admin_menu', $this->add_test_page( ... ) );
 	}
 
 	/**
@@ -58,7 +58,7 @@ class PageBuilderTestPage {
 			'PageBuilder Tests',
 			'manage_options',
 			'soma-pagebuilder-test',
-			$this->render_test_page(...)
+			$this->render_test_page( ... )
 		);
 	}
 
@@ -103,14 +103,14 @@ class PageBuilderTestPage {
 	 * @return array Test results.
 	 */
 	private function run_all_tests(): array {
-		$results = [
-			'psr4_classes'   => $this->test_psr4_classes(),
-			'block_registry' => $this->test_block_registry(),
-			'partial_files'  => $this->test_partial_files(),
-			'block_renderer' => $this->test_block_renderer(),
+		$results = array(
+			'psr4_classes'     => $this->test_psr4_classes(),
+			'block_registry'   => $this->test_block_registry(),
+			'partial_files'    => $this->test_partial_files(),
+			'block_renderer'   => $this->test_block_renderer(),
 			'helper_functions' => $this->test_helper_functions(),
-			'page_rendering' => $this->test_page_rendering(),
-		];
+			'page_rendering'   => $this->test_page_rendering(),
+		);
 
 		return $results;
 	}
@@ -121,25 +121,25 @@ class PageBuilderTestPage {
 	 * @return array Test result.
 	 */
 	private function test_psr4_classes(): array {
-		$classes = [
+		$classes = array(
 			'\\Soma\\PageBuilder\\Loader'        => 'PageBuilder Loader',
 			'\\Soma\\PageBuilder\\BlockRegistry' => 'Block Registry',
 			'\\Soma\\PageBuilder\\BlockRenderer' => 'Block Renderer',
-		];
+		);
 
-		$results = [];
+		$results = array();
 		foreach ( $classes as $class => $name ) {
-			$results[] = [
-				'name'   => $name,
-				'status' => class_exists( $class ) ? 'pass' : 'fail',
+			$results[] = array(
+				'name'    => $name,
+				'status'  => class_exists( $class ) ? 'pass' : 'fail',
 				'message' => class_exists( $class ) ? 'Class exists' : 'Class not found',
-			];
+			);
 		}
 
-		return [
+		return array(
 			'title'   => 'PSR-4 Classes',
 			'results' => $results,
-		];
+		);
 	}
 
 	/**
@@ -151,34 +151,34 @@ class PageBuilderTestPage {
 		$registry = \Soma\PageBuilder\BlockRegistry::instance();
 		$count    = $registry->count();
 
-		$results = [
-			[
-				'name'   => 'Block Registry Singleton',
-				'status' => 'pass',
+		$results = array(
+			array(
+				'name'    => 'Block Registry Singleton',
+				'status'  => 'pass',
 				'message' => 'Instance created successfully',
-			],
-			[
-				'name'   => 'Registered Blocks Count',
-				'status' => $count === 53 ? 'pass' : 'warn',
+			),
+			array(
+				'name'    => 'Registered Blocks Count',
+				'status'  => $count === 53 ? 'pass' : 'warn',
 				'message' => "Found {$count} blocks (expected 53)",
-			],
-		];
+			),
+		);
 
 		// Test specific blocks
-		$test_blocks = [ 'BusinessUnits', 'fullscreenSlider', 'Portfolio', 'NewsList', 'TeamMembers' ];
+		$test_blocks = array( 'BusinessUnits', 'fullscreenSlider', 'Portfolio', 'NewsList', 'TeamMembers' );
 		foreach ( $test_blocks as $block ) {
-			$results[] = [
-				'name'   => "Block: {$block}",
-				'status' => $registry->is_registered( $block ) ? 'pass' : 'fail',
+			$results[] = array(
+				'name'    => "Block: {$block}",
+				'status'  => $registry->is_registered( $block ) ? 'pass' : 'fail',
 				'message' => $registry->is_registered( $block ) ? 'Registered' : 'Not registered',
-			];
+			);
 		}
 
-		return [
+		return array(
 			'title'   => 'Block Registry',
 			'results' => $results,
-			'stats'   => [ 'total_blocks' => $count ],
-		];
+			'stats'   => array( 'total_blocks' => $count ),
+		);
 	}
 
 	/**
@@ -191,49 +191,49 @@ class PageBuilderTestPage {
 		$all_blocks    = $registry->get_all_blocks();
 		$valid         = 0;
 		$missing       = 0;
-		$missing_files = [];
+		$missing_files = array();
 
 		foreach ( $all_blocks as $layout => $mapping ) {
 			$file = $registry->get_partial_file_path( $layout );
 			if ( $file && file_exists( $file ) ) {
-				$valid++;
+				++$valid;
 			} else {
-				$missing++;
-				$missing_files[] = [
-					'name'   => "Missing: {$layout}",
-					'status' => 'fail',
+				++$missing;
+				$missing_files[] = array(
+					'name'    => "Missing: {$layout}",
+					'status'  => 'fail',
 					'message' => "Partial file not found: {$mapping['partial']}",
-				];
+				);
 			}
 		}
 
-		$results = [
-			[
-				'name'   => 'Partial Files Validation',
-				'status' => $missing === 0 ? 'pass' : 'fail',
+		$results = array(
+			array(
+				'name'    => 'Partial Files Validation',
+				'status'  => $missing === 0 ? 'pass' : 'fail',
 				'message' => "Valid: {$valid}, Missing: {$missing}",
-			],
-		];
+			),
+		);
 
 		if ( ! empty( $missing_files ) ) {
 			$results = array_merge( $results, array_slice( $missing_files, 0, 5 ) );
 			if ( count( $missing_files ) > 5 ) {
-				$results[] = [
-					'name'   => '...',
-					'status' => 'fail',
+				$results[] = array(
+					'name'    => '...',
+					'status'  => 'fail',
 					'message' => 'And ' . ( count( $missing_files ) - 5 ) . ' more missing files',
-				];
+				);
 			}
 		}
 
-		return [
+		return array(
 			'title'   => 'Partial Files',
 			'results' => $results,
-			'stats'   => [
+			'stats'   => array(
 				'valid_files'   => $valid,
 				'missing_files' => $missing,
-			],
-		];
+			),
+		);
 	}
 
 	/**
@@ -244,56 +244,56 @@ class PageBuilderTestPage {
 	private function test_block_renderer(): array {
 		$renderer = \Soma\PageBuilder\BlockRenderer::instance();
 
-		$results = [];
+		$results = array();
 
 		// Test null blocks
 		ob_start();
 		$renderer->render( null );
 		ob_get_clean();
-		$results[] = [
-			'name'   => 'Null Blocks',
-			'status' => 'pass',
+		$results[] = array(
+			'name'    => 'Null Blocks',
+			'status'  => 'pass',
 			'message' => 'Handles null gracefully',
-		];
+		);
 
 		// Test empty array
 		ob_start();
-		$renderer->render( [] );
+		$renderer->render( array() );
 		ob_get_clean();
-		$results[] = [
-			'name'   => 'Empty Array',
-			'status' => 'pass',
+		$results[] = array(
+			'name'    => 'Empty Array',
+			'status'  => 'pass',
 			'message' => 'Handles empty array gracefully',
-		];
+		);
 
 		// Test invalid block
 		ob_start();
-		$renderer->render( [ [ 'invalid' => 'block' ] ] );
+		$renderer->render( array( array( 'invalid' => 'block' ) ) );
 		ob_get_clean();
-		$results[] = [
-			'name'   => 'Invalid Block',
-			'status' => 'pass',
+		$results[] = array(
+			'name'    => 'Invalid Block',
+			'status'  => 'pass',
 			'message' => 'Handles invalid block structure',
-		];
+		);
 
 		// Get stats
-		$stats = $renderer->get_stats();
-		$results[] = [
-			'name'   => 'Renderer Statistics',
-			'status' => 'pass',
+		$stats     = $renderer->get_stats();
+		$results[] = array(
+			'name'    => 'Renderer Statistics',
+			'status'  => 'pass',
 			'message' => sprintf(
 				'Rendered: %d, Cached: %d, Errors: %d',
 				$stats['blocks_rendered'],
 				$stats['blocks_cached'],
 				$stats['errors']
 			),
-		];
+		);
 
-		return [
+		return array(
 			'title'   => 'Block Renderer',
 			'results' => $results,
 			'stats'   => $stats,
-		];
+		);
 	}
 
 	/**
@@ -302,27 +302,27 @@ class PageBuilderTestPage {
 	 * @return array Test result.
 	 */
 	private function test_helper_functions(): array {
-		$functions = [
+		$functions = array(
 			'soma_translate_date' => 'soma_translate_date()',
 			'translateDate'       => 'translateDate() (legacy)',
 			'soma_log_error'      => 'soma_log_error()',
 			'soma_log_info'       => 'soma_log_info()',
 			'soma_cache_get'      => 'soma_cache_get()',
-		];
+		);
 
-		$results = [];
+		$results = array();
 		foreach ( $functions as $func => $name ) {
-			$results[] = [
-				'name'   => $name,
-				'status' => function_exists( $func ) ? 'pass' : 'fail',
+			$results[] = array(
+				'name'    => $name,
+				'status'  => function_exists( $func ) ? 'pass' : 'fail',
 				'message' => function_exists( $func ) ? 'Function exists' : 'Function not found',
-			];
+			);
 		}
 
-		return [
+		return array(
 			'title'   => 'Helper Functions',
 			'results' => $results,
-		];
+		);
 	}
 
 	/**
@@ -332,60 +332,60 @@ class PageBuilderTestPage {
 	 */
 	private function test_page_rendering(): array {
 		$pages = get_posts(
-			[
+			array(
 				'post_type'      => 'page',
 				'posts_per_page' => 10,
 				'post_status'    => 'publish',
-			]
+			)
 		);
 
 		$pages_with_blocks  = 0;
 		$successful_renders = 0;
-		$results            = [];
+		$results            = array();
 		$renderer           = \Soma\PageBuilder\BlockRenderer::instance();
 
 		foreach ( $pages as $page ) {
 			$blocks = get_field( 'soma_blocks', $page->ID );
 			if ( $blocks && is_array( $blocks ) && count( $blocks ) > 0 ) {
-				$pages_with_blocks++;
+				++$pages_with_blocks;
 
 				ob_start();
 				try {
 					$renderer->render( $blocks );
 					$output = ob_get_clean();
-					$successful_renders++;
-					$results[] = [
-						'name'   => "Page: {$page->post_title}",
-						'status' => 'pass',
+					++$successful_renders;
+					$results[] = array(
+						'name'    => "Page: {$page->post_title}",
+						'status'  => 'pass',
 						'message' => count( $blocks ) . ' blocks rendered',
-					];
+					);
 				} catch ( \Exception $e ) {
 					ob_get_clean();
-					$results[] = [
-						'name'   => "Page: {$page->post_title}",
-						'status' => 'fail',
+					$results[] = array(
+						'name'    => "Page: {$page->post_title}",
+						'status'  => 'fail',
 						'message' => $e->getMessage(),
-					];
+					);
 				}
 			}
 		}
 
 		if ( $pages_with_blocks === 0 ) {
-			$results[] = [
-				'name'   => 'No Pages with Blocks',
-				'status' => 'warn',
+			$results[] = array(
+				'name'    => 'No Pages with Blocks',
+				'status'  => 'warn',
 				'message' => 'No pages found with soma_blocks field',
-			];
+			);
 		}
 
-		return [
+		return array(
 			'title'   => 'Page Rendering',
 			'results' => $results,
-			'stats'   => [
+			'stats'   => array(
 				'pages_tested'       => $pages_with_blocks,
 				'successful_renders' => $successful_renders,
-			],
-		];
+			),
+		);
 	}
 
 	/**
@@ -403,11 +403,11 @@ class PageBuilderTestPage {
 		foreach ( $tests as $test ) {
 			foreach ( $test['results'] as $result ) {
 				if ( $result['status'] === 'pass' ) {
-					$total_passed++;
+					++$total_passed;
 				} elseif ( $result['status'] === 'fail' ) {
-					$total_failed++;
+					++$total_failed;
 				} else {
-					$total_warned++;
+					++$total_warned;
 				}
 			}
 		}

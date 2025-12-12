@@ -55,7 +55,7 @@ class BusinessUnits extends WidgetBase {
 	 * @return array
 	 */
 	public function get_style_depends(): array {
-		return [ 'soma-business-units' ];
+		return array( 'soma-business-units' );
 	}
 
 	/**
@@ -77,43 +77,43 @@ class BusinessUnits extends WidgetBase {
 		// Content section.
 		$this->start_controls_section(
 			'section_content',
-			[
+			array(
 				'label' => __( 'Content', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'title',
-			[
+			array(
 				'label'   => __( 'Title', 'soma' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => __( 'Business Units', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_control(
 			'max_items',
-			[
+			array(
 				'label'   => __( 'Maximum Items', 'soma' ),
 				'type'    => Controls_Manager::NUMBER,
 				'min'     => 1,
 				'max'     => 20,
 				'step'    => 1,
 				'default' => 8,
-			]
+			)
 		);
 
 		$this->add_control(
 			'layout',
-			[
+			array(
 				'label'   => __( 'Layout', 'soma' ),
 				'type'    => Controls_Manager::SELECT,
-				'options' => [
+				'options' => array(
 					'grid' => __( 'Grid', 'soma' ),
 					'list' => __( 'List', 'soma' ),
-				],
+				),
 				'default' => 'grid',
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -128,10 +128,10 @@ class BusinessUnits extends WidgetBase {
 		// Title styles.
 		$this->start_controls_section(
 			'section_style_title',
-			[
+			array(
 				'label' => __( 'Title', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_typography_control(
@@ -147,36 +147,36 @@ class BusinessUnits extends WidgetBase {
 		// Grid styles.
 		$this->start_controls_section(
 			'section_style_grid',
-			[
+			array(
 				'label' => __( 'Grid', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_responsive_control(
 			'grid_gap',
-			[
+			array(
 				'label'      => __( 'Gap', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'rem' ],
-				'range'      => [
-					'px'  => [
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array(
 						'min' => 0,
 						'max' => 100,
-					],
-					'rem' => [
+					),
+					'rem' => array(
 						'min' => 0,
 						'max' => 10,
-					],
-				],
-				'default'    => [
+					),
+				),
+				'default'    => array(
 					'size' => 20,
 					'unit' => 'px',
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .content' => 'gap: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -184,10 +184,10 @@ class BusinessUnits extends WidgetBase {
 		// Item styles.
 		$this->start_controls_section(
 			'section_style_item',
-			[
+			array(
 				'label' => __( 'Items', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_border_control( 'item_border', __( 'Border', 'soma' ), '{{WRAPPER}} .item a' );
@@ -195,23 +195,23 @@ class BusinessUnits extends WidgetBase {
 
 		$this->add_control(
 			'item_hover_transition',
-			[
+			array(
 				'label'     => __( 'Hover Transition', 'soma' ),
 				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
-					'px' => [
+				'range'     => array(
+					'px' => array(
 						'min'  => 0,
 						'max'  => 1,
 						'step' => 0.1,
-					],
-				],
-				'default'   => [
+					),
+				),
+				'default'   => array(
 					'size' => 0.3,
-				],
-				'selectors' => [
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .item a' => 'transition: all {{SIZE}}s ease;',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -219,10 +219,10 @@ class BusinessUnits extends WidgetBase {
 		// Label styles.
 		$this->start_controls_section(
 			'section_style_label',
-			[
+			array(
 				'label' => __( 'Labels', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_typography_control(
@@ -286,16 +286,16 @@ class BusinessUnits extends WidgetBase {
 	 */
 	private function query_business_units(): array {
 		$business_units = get_posts(
-			[
+			array(
 				'post_type'  => 'page',
 				'fields'     => 'ids',
 				'nopaging'   => true,
 				'meta_key'   => '_wp_page_template',
 				'meta_value' => 'templates/business-unit-template.php',
-			]
+			)
 		);
 
-		return is_array( $business_units ) ? $business_units : [];
+		return is_array( $business_units ) ? $business_units : array();
 	}
 
 	/**

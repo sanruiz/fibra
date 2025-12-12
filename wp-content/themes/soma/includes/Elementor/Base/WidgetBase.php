@@ -39,7 +39,7 @@ abstract class WidgetBase extends Widget_Base {
 	 * @return array<int, string>
 	 */
 	public function get_categories(): array {
-		return [ 'soma' ];
+		return array( 'soma' );
 	}
 
 	/**
@@ -67,10 +67,10 @@ abstract class WidgetBase extends Widget_Base {
 		if ( ! function_exists( 'get_field' ) ) {
 			\soma_log_warning(
 				'ACF not available in Elementor widget',
-				[
+				array(
 					'widget' => $this->get_name(),
 					'field'  => $field_name,
-				]
+				)
 			);
 			return $default;
 		}
@@ -106,27 +106,27 @@ abstract class WidgetBase extends Widget_Base {
 		string $control_name,
 		string $label,
 		string $selector,
-		array $default = []
+		array $default = array()
 	): void {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[
+			array(
 				'name'           => $control_name,
 				'label'          => $label,
 				'selector'       => $selector,
-				'fields_options' => [
-					'font_family' => [
+				'fields_options' => array(
+					'font_family' => array(
 						'default' => 'var(--soma-font-primary)',
-					],
-					'font_size'   => [
-						'default' => [
+					),
+					'font_size'   => array(
+						'default' => array(
 							'unit' => 'rem',
 							'size' => 1,
-						],
-					],
+						),
+					),
 					...$default,
-				],
-			]
+				),
+			)
 		);
 	}
 
@@ -144,19 +144,19 @@ abstract class WidgetBase extends Widget_Base {
 		string $control_name,
 		string $label,
 		string $selector,
-		array $default = []
+		array $default = array()
 	): void {
 		$this->add_responsive_control(
 			$control_name,
-			[
+			array(
 				'label'      => $label,
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', 'rem', '%' ],
-				'selectors'  => [
+				'size_units' => array( 'px', 'em', 'rem', '%' ),
+				'selectors'  => array(
 					$selector => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
+				),
 				'default'    => $default,
-			]
+			)
 		);
 	}
 
@@ -178,14 +178,14 @@ abstract class WidgetBase extends Widget_Base {
 	): void {
 		$this->add_control(
 			$control_name,
-			[
+			array(
 				'label'     => $label,
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
+				'selectors' => array(
 					$selector => sprintf( '%s: {{VALUE}};', $property ),
-				],
+				),
 				'default'   => $default,
-			]
+			)
 		);
 	}
 
@@ -203,23 +203,23 @@ abstract class WidgetBase extends Widget_Base {
 	): void {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[
+			array(
 				'name'     => $control_name,
 				'label'    => $label,
 				'selector' => $selector,
-			]
+			)
 		);
 
 		$this->add_responsive_control(
 			$control_name . '_radius',
-			[
+			array(
 				'label'      => __( 'Border Radius', 'soma' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
-				'selectors'  => [
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
 					$selector => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 	}
 
@@ -237,11 +237,11 @@ abstract class WidgetBase extends Widget_Base {
 	): void {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[
+			array(
 				'name'     => $control_name,
 				'label'    => $label,
 				'selector' => $selector,
-			]
+			)
 		);
 	}
 
@@ -259,12 +259,12 @@ abstract class WidgetBase extends Widget_Base {
 	): void {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[
+			array(
 				'name'     => $control_name,
 				'label'    => $label,
-				'types'    => [ 'classic', 'gradient' ],
+				'types'    => array( 'classic', 'gradient' ),
 				'selector' => $selector,
-			]
+			)
 		);
 	}
 
@@ -277,7 +277,7 @@ abstract class WidgetBase extends Widget_Base {
 	 */
 	protected function get_menu_choices(): array {
 		$menus   = wp_get_nav_menus();
-		$choices = [ '' => __( 'Select Menu', 'soma' ) ];
+		$choices = array( '' => __( 'Select Menu', 'soma' ) );
 
 		foreach ( $menus as $menu ) {
 			$choices[ $menu->term_id ] = $menu->name;
@@ -294,9 +294,9 @@ abstract class WidgetBase extends Widget_Base {
 	 * @param array $exclude Post types to exclude.
 	 * @return array
 	 */
-	protected function get_post_type_choices( array $exclude = [ 'attachment' ] ): array {
-		$post_types = get_post_types( [ 'public' => true ], 'objects' );
-		$choices    = [];
+	protected function get_post_type_choices( array $exclude = array( 'attachment' ) ): array {
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		$choices    = array();
 
 		foreach ( $post_types as $post_type ) {
 			if ( in_array( $post_type->name, $exclude, true ) ) {
@@ -316,7 +316,7 @@ abstract class WidgetBase extends Widget_Base {
 	 */
 	protected function get_taxonomy_choices( string $post_type ): array {
 		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
-		$choices    = [ '' => __( 'All', 'soma' ) ];
+		$choices    = array( '' => __( 'All', 'soma' ) );
 
 		foreach ( $taxonomies as $taxonomy ) {
 			if ( ! $taxonomy->public ) {

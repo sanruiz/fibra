@@ -91,20 +91,20 @@ class Events {
 	public function register(): void {
 		register_post_type(
 			self::POST_TYPE,
-			[
-				'labels'             => [
+			array(
+				'labels'             => array(
 					'name'          => __( 'Events', 'soma' ),
 					'singular_name' => __( 'Event', 'soma' ),
-				],
+				),
 				'public'             => true,
 				'publicly_queryable' => false,
 				'has_archive'        => false,
 				'show_in_rest'       => false,
 				'show_in_menu'       => true,
-				'rewrite'            => [ 'slug' => self::POST_TYPE ],
+				'rewrite'            => array( 'slug' => self::POST_TYPE ),
 				'menu_icon'          => 'dashicons-clipboard',
-				'supports'           => [ 'title', 'thumbnail' ],
-			]
+				'supports'           => array( 'title', 'thumbnail' ),
+			)
 		);
 	}
 

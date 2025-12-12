@@ -100,11 +100,11 @@ final class StockDataEndpoint {
 		register_rest_route(
 			self::NAMESPACE,
 			self::ROUTE,
-			[
+			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => $this->handle( ... ),
 				'permission_callback' => '__return_true',
-			]
+			)
 		);
 	}
 
@@ -123,7 +123,7 @@ final class StockDataEndpoint {
 			return new WP_Error(
 				'no_data',
 				__( 'No stock data available', 'soma' ),
-				[ 'status' => 404 ]
+				array( 'status' => 404 )
 			);
 		}
 

@@ -58,7 +58,7 @@ class ContactForm extends WidgetBase {
 	 * @return array
 	 */
 	public function get_style_depends(): array {
-		return [ 'soma-contact-form' ];
+		return array( 'soma-contact-form' );
 	}
 
 	/**
@@ -69,22 +69,22 @@ class ContactForm extends WidgetBase {
 	protected function register_controls(): void {
 		$this->start_controls_section(
 			'section_form',
-			[
+			array(
 				'label' => __( 'Form', 'soma' ),
-			]
+			)
 		);
 
 		$cf7_forms = $this->get_cf7_forms();
 
 		$this->add_control(
 			'form_id',
-			[
+			array(
 				'label'       => __( 'Select Form', 'soma' ),
 				'type'        => Controls_Manager::SELECT,
 				'options'     => $cf7_forms,
 				'default'     => ! empty( $cf7_forms ) ? array_key_first( $cf7_forms ) : '',
 				'label_block' => true,
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -113,14 +113,14 @@ class ContactForm extends WidgetBase {
 	 * @return array
 	 */
 	private function get_cf7_forms(): array {
-		$forms     = [];
+		$forms     = array();
 		$cf7_forms = get_posts(
-			[
+			array(
 				'post_type'      => 'wpcf7_contact_form',
 				'posts_per_page' => -1,
 				'orderby'        => 'title',
 				'order'          => 'ASC',
-			]
+			)
 		);
 
 		foreach ( $cf7_forms as $form ) {

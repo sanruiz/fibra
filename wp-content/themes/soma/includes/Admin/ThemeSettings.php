@@ -59,7 +59,7 @@ class ThemeSettings {
 	 * Initialize theme settings
 	 */
 	private function init(): void {
-		add_action( 'init', $this->register_options_pages(...) );
+		add_action( 'init', $this->register_options_pages( ... ) );
 		add_theme_support( 'custom-logo' );
 		add_theme_support( 'post-thumbnails' );
 	}

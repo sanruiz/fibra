@@ -60,7 +60,7 @@ class Navigation implements LoadableInterface {
 	 * Initialize the component
 	 */
 	public function init(): void {
-		add_action( 'init', $this->register_menus(...) );
+		add_action( 'init', $this->register_menus( ... ) );
 	}
 
 	/**

@@ -102,7 +102,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function emergency( string $message, array $context = [] ): void {
+	public function emergency( string $message, array $context = array() ): void {
 		$this->log( LogLevel::EMERGENCY, $message, $context );
 	}
 
@@ -113,7 +113,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function alert( string $message, array $context = [] ): void {
+	public function alert( string $message, array $context = array() ): void {
 		$this->log( LogLevel::ALERT, $message, $context );
 	}
 
@@ -124,7 +124,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function critical( string $message, array $context = [] ): void {
+	public function critical( string $message, array $context = array() ): void {
 		$this->log( LogLevel::CRITICAL, $message, $context );
 	}
 
@@ -135,7 +135,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function error( string $message, array $context = [] ): void {
+	public function error( string $message, array $context = array() ): void {
 		$this->log( LogLevel::ERROR, $message, $context );
 	}
 
@@ -146,7 +146,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function warning( string $message, array $context = [] ): void {
+	public function warning( string $message, array $context = array() ): void {
 		$this->log( LogLevel::WARNING, $message, $context );
 	}
 
@@ -157,7 +157,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function notice( string $message, array $context = [] ): void {
+	public function notice( string $message, array $context = array() ): void {
 		$this->log( LogLevel::NOTICE, $message, $context );
 	}
 
@@ -168,7 +168,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function info( string $message, array $context = [] ): void {
+	public function info( string $message, array $context = array() ): void {
 		$this->log( LogLevel::INFO, $message, $context );
 	}
 
@@ -179,7 +179,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function debug( string $message, array $context = [] ): void {
+	public function debug( string $message, array $context = array() ): void {
 		$this->log( LogLevel::DEBUG, $message, $context );
 	}
 
@@ -191,7 +191,7 @@ class Logger {
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
-	public function log( LogLevel $level, string $message, array $context = [] ): void {
+	public function log( LogLevel $level, string $message, array $context = array() ): void {
 		// Check if logging is enabled in production.
 		if ( ! $this->should_log( $level ) ) {
 			return;
@@ -268,7 +268,7 @@ class Logger {
 	 * @return string
 	 */
 	private function interpolate( string $message, array $context ): string {
-		$replace = [];
+		$replace = array();
 		foreach ( $context as $key => $val ) {
 			$replace[ '{' . $key . '}' ] = $this->stringify( $val );
 		}

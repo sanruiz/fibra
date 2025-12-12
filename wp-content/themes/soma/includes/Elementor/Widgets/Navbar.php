@@ -60,7 +60,7 @@ class Navbar extends WidgetBase {
 	 * @return array
 	 */
 	public function get_style_depends(): array {
-		return [ 'soma-navbar' ];
+		return array( 'soma-navbar' );
 	}
 
 	/**
@@ -78,37 +78,37 @@ class Navbar extends WidgetBase {
 		// Menu Section.
 		$this->start_controls_section(
 			'section_menu',
-			[
+			array(
 				'label' => __( 'Menu', 'soma' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
-			]
+			)
 		);
 
 		$this->add_control(
 			'menu',
-			[
+			array(
 				'label'   => __( 'Select Menu', 'soma' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => $this->get_menu_choices(),
 				'default' => '',
-			]
+			)
 		);
 
 		$this->add_control(
 			'menu_location',
-			[
+			array(
 				'label'   => __( 'Theme Location', 'soma' ),
 				'type'    => Controls_Manager::SELECT,
-				'options' => [
+				'options' => array(
 					''                            => __( 'Select Location', 'soma' ),
 					'main_menu'                   => __( 'Main Menu', 'soma' ),
 					'social'                      => __( 'Social', 'soma' ),
 					'business_units'              => __( 'Business Units', 'soma' ),
 					'fibrasoma_footer'            => __( 'Fibrasoma Footer', 'soma' ),
 					'navigation_sidebar_template' => __( 'Navigation Sidebar', 'soma' ),
-				],
+				),
 				'default' => 'main_menu',
-			]
+			)
 		);
 
 		$this->end_controls_section();
@@ -116,50 +116,50 @@ class Navbar extends WidgetBase {
 		// Logo Section.
 		$this->start_controls_section(
 			'section_logo',
-			[
+			array(
 				'label' => __( 'Logo', 'soma' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
-			]
+			)
 		);
 
 		$this->add_control(
 			'show_logo',
-			[
+			array(
 				'label'        => __( 'Show Logo', 'soma' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'soma' ),
 				'label_off'    => __( 'Hide', 'soma' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-			]
+			)
 		);
 
 		$this->add_control(
 			'use_custom_logo',
-			[
+			array(
 				'label'        => __( 'Use Theme Customizer Logo', 'soma' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Yes', 'soma' ),
 				'label_off'    => __( 'No', 'soma' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-				'condition'    => [
+				'condition'    => array(
 					'show_logo' => 'yes',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_control(
 			'custom_logo',
-			[
+			array(
 				'label'     => __( 'Custom Logo', 'soma' ),
 				'type'      => Controls_Manager::MEDIA,
-				'default'   => [],
-				'condition' => [
+				'default'   => array(),
+				'condition' => array(
 					'show_logo'        => 'yes',
 					'use_custom_logo!' => 'yes',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -167,76 +167,76 @@ class Navbar extends WidgetBase {
 		// Features Section.
 		$this->start_controls_section(
 			'section_features',
-			[
+			array(
 				'label' => __( 'Features', 'soma' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
-			]
+			)
 		);
 
 		$this->add_control(
 			'show_search',
-			[
+			array(
 				'label'        => __( 'Show Search Button', 'soma' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'soma' ),
 				'label_off'    => __( 'Hide', 'soma' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-			]
+			)
 		);
 
 		$this->add_control(
 			'show_language_switcher',
-			[
+			array(
 				'label'        => __( 'Show Language Switcher', 'soma' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'soma' ),
 				'label_off'    => __( 'Hide', 'soma' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-			]
+			)
 		);
 
 		$this->add_control(
 			'style_variant',
-			[
+			array(
 				'label'   => __( 'Style Variant', 'soma' ),
 				'type'    => Controls_Manager::SELECT,
-				'options' => [
+				'options' => array(
 					'default'   => __( 'Default', 'soma' ),
 					'fibrasoma' => __( 'Fibrasoma', 'soma' ),
-				],
+				),
 				'default' => 'default',
-			]
+			)
 		);
 
 		$this->add_control(
 			'top_bar_link_text',
-			[
+			array(
 				'label'       => __( 'Top Bar Link Text', 'soma' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'placeholder' => __( 'Link text', 'soma' ),
-				'condition'   => [
+				'condition'   => array(
 					'style_variant' => 'fibrasoma',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_control(
 			'top_bar_link_url',
-			[
+			array(
 				'label'       => __( 'Top Bar Link URL', 'soma' ),
 				'type'        => Controls_Manager::URL,
 				'placeholder' => __( 'https://your-link.com', 'soma' ),
-				'default'     => [
+				'default'     => array(
 					'url'         => '',
 					'is_external' => true,
-				],
-				'condition'   => [
+				),
+				'condition'   => array(
 					'style_variant' => 'fibrasoma',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -249,10 +249,10 @@ class Navbar extends WidgetBase {
 		// Navbar Style.
 		$this->start_controls_section(
 			'section_navbar_style',
-			[
+			array(
 				'label' => __( 'Navbar', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_background_control( 'navbar_background', __( 'Background', 'soma' ), '{{WRAPPER}} .soma-navbar' );
@@ -261,35 +261,35 @@ class Navbar extends WidgetBase {
 			'navbar_padding',
 			__( 'Padding', 'soma' ),
 			'{{WRAPPER}} .soma-navbar .content',
-			[
+			array(
 				'top'    => '1',
 				'right'  => '0',
 				'bottom' => '1',
 				'left'   => '0',
 				'unit'   => 'rem',
-			]
+			)
 		);
 
 		$this->add_control(
 			'navbar_height',
-			[
+			array(
 				'label'      => __( 'Height', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'rem' ],
-				'range'      => [
-					'px'  => [
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array(
 						'min' => 50,
 						'max' => 200,
-					],
-					'rem' => [
+					),
+					'rem' => array(
 						'min' => 3,
 						'max' => 12,
-					],
-				],
-				'selectors'  => [
+					),
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .soma-navbar .content' => 'min-height: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -297,10 +297,10 @@ class Navbar extends WidgetBase {
 		// Menu Items Style.
 		$this->start_controls_section(
 			'section_menu_style',
-			[
+			array(
 				'label' => __( 'Menu Items', 'soma' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-			]
+			)
 		);
 
 		$this->add_typography_control(
@@ -311,28 +311,28 @@ class Navbar extends WidgetBase {
 
 		$this->add_control(
 			'menu_item_spacing',
-			[
+			array(
 				'label'      => __( 'Item Spacing', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'rem' ],
-				'range'      => [
-					'px'  => [
+				'size_units' => array( 'px', 'rem' ),
+				'range'      => array(
+					'px'  => array(
 						'min' => 0,
 						'max' => 100,
-					],
-					'rem' => [
+					),
+					'rem' => array(
 						'min' => 0,
 						'max' => 5,
-					],
-				],
-				'default'    => [
+					),
+				),
+				'default'    => array(
 					'unit' => 'rem',
 					'size' => 2,
-				],
-				'selectors'  => [
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .main-menu-list > li:not(:last-child)' => 'margin-right: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->start_controls_tabs( 'menu_items_tabs' );
@@ -340,9 +340,9 @@ class Navbar extends WidgetBase {
 		// Normal State.
 		$this->start_controls_tab(
 			'menu_items_normal',
-			[
+			array(
 				'label' => __( 'Normal', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_color_control(
@@ -358,9 +358,9 @@ class Navbar extends WidgetBase {
 		// Hover State.
 		$this->start_controls_tab(
 			'menu_items_hover',
-			[
+			array(
 				'label' => __( 'Hover', 'soma' ),
-			]
+			)
 		);
 
 		$this->add_color_control(
@@ -380,35 +380,35 @@ class Navbar extends WidgetBase {
 		// Logo Style.
 		$this->start_controls_section(
 			'section_logo_style',
-			[
+			array(
 				'label'     => __( 'Logo', 'soma' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => [
+				'condition' => array(
 					'show_logo' => 'yes',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_responsive_control(
 			'logo_width',
-			[
+			array(
 				'label'      => __( 'Width', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%' ],
-				'range'      => [
-					'px' => [
+				'size_units' => array( 'px', '%' ),
+				'range'      => array(
+					'px' => array(
 						'min' => 50,
 						'max' => 500,
-					],
-					'%'  => [
+					),
+					'%'  => array(
 						'min' => 10,
 						'max' => 100,
-					],
-				],
-				'selectors'  => [
+					),
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .logo img' => 'max-width: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$this->end_controls_section();
@@ -431,7 +431,7 @@ class Navbar extends WidgetBase {
 			}
 		}
 
-		$classes = [ 'soma-navbar', 'navbar-partial-df27ae', 'style-' . $settings['style_variant'] ];
+		$classes = array( 'soma-navbar', 'navbar-partial-df27ae', 'style-' . $settings['style_variant'] );
 		?>
 		<section<?php $this->render_classes( $classes ); ?>>
 			<?php if ( 'fibrasoma' === $settings['style_variant'] ) : ?>
@@ -511,10 +511,10 @@ class Navbar extends WidgetBase {
 						</div>
 						<div class="main-menu-container">
 							<?php
-							$menu_args = [
+							$menu_args = array(
 								'container'  => 'div',
 								'menu_class' => 'main-menu-list',
-							];
+							);
 
 							if ( ! empty( $settings['menu'] ) ) {
 								$menu_args['menu'] = $settings['menu'];
