@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    cacheDirectory=".phpunit.cache"
+    beStrictAboutOutputDuringTests="true"
+    failOnRisky="true"
+    failOnWarning="true"
+>
+    <testsuites>
+        <testsuite name="Unit Tests">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration Tests">
+            <directory>tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory>includes</directory>
+        </include>
+        <exclude>
+            <directory>includes/vendor</directory>
+        </exclude>
+    </source>
+
+    <coverage
+        includeUncoveredFiles="true"
+        pathCoverage="false"
+        ignoreDeprecatedCodeUnits="true"
+        disableCodeCoverageIgnore="false"
+    >
+        <report>
+            <html outputDirectory="coverage/html"/>
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
+    </coverage>
+
+    <php>
+        <const name="WP_TESTS_DOMAIN" value="example.org"/>
+        <const name="WP_TESTS_EMAIL" value="admin@example.org"/>
+        <const name="WP_TESTS_TITLE" value="Test Site"/>
+        <const name="WP_PHP_BINARY" value="php"/>
+        <const name="WP_DEBUG" value="true"/>
+    </php>
+</phpunit>

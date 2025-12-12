@@ -1,21 +1,49 @@
 <?php
+/**
+ * Soma Theme - Main Functions File
+ *
+ * @package Soma
+ * @version 3.0.0
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 /**
- * Theme includes
+ * Composer Autoloader
+ *
+ * Load PSR-4 autoloader for modern PHP classes.
+ */
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
+
+/**
+ * Initialize Theme (PSR-4 Architecture)
+ *
+ * Load the main theme class if autoloader is available.
+ * This will replace the legacy includes below in future versions.
+ */
+if ( class_exists( 'Soma\Core\Theme' ) ) {
+	\Soma\Core\Theme::instance();
+}
+
+/**
+ * Legacy Theme Includes (Temporary - Phase 1)
+ *
+ * These will be migrated to PSR-4 components in Phase 2.
+ * DO NOT REMOVE until all components are migrated.
  */
 $soma_theme = array(
-  '/theme-config.php',            // Theme general config
-  '/post-types.php',              // Register post types
-  '/taxonomies.php',              // Register taxonomies
-  '/endpoints.php',               // Register endpoints
-  '/cf7-validations.php',         // Contact Form 7 Custom Validations
+	'/theme-config.php',    // Theme general config.
+	'/post-types.php',      // Register post types.
+	'/taxonomies.php',      // Register taxonomies.
+	'/endpoints.php',       // Register endpoints.
+	'/cf7-validations.php', // Contact Form 7 Custom Validations.
 );
 foreach ( $soma_theme as $file ) {
-  require_once __DIR__ . '/inc' . $file;
+	require_once __DIR__ . '/inc' . $file;
 }
 
 // // Clear any existing scheduled events

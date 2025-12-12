@@ -3,6 +3,7 @@
 
 # Excepto estos archivos/directorios
 !.gitignore
+!.github/
 !wp-content/
 
 # Dentro de wp-content, ignorar todo
@@ -17,3 +18,11 @@ wp-content/themes/*
 # Excepto soma
 !wp-content/themes/soma/
 !wp-content/themes/soma/**
+
+# Ignorar archivos generados en soma
+wp-content/themes/soma/vendor/
+wp-content/themes/soma/node_modules/
+wp-content/themes/soma/.phpunit.cache/
+wp-content/themes/soma/coverage/
+wp-content/themes/soma/composer.lock
+wp-content/themes/soma/package-lock.json
