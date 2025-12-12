@@ -156,7 +156,7 @@ final class CareersEndpoint {
 		return [
 			'status' => 'success',
 			'total'  => (int) wp_count_posts( 'careers' )->publish,
-			'count'  => count( $formatted_posts ),
+			'count'  => \count( $formatted_posts ),
 			'data'   => $formatted_posts,
 		];
 	}

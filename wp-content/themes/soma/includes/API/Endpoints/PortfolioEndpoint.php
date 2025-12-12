@@ -134,7 +134,7 @@ final class PortfolioEndpoint {
 			];
 		}
 
-		$total = count( get_posts( $args ) );
+		$total = \count( get_posts( $args ) );
 
 		if ( isset( $params['id'] ) && $params['id'] ) {
 			$args['p'] = $params['id'];
@@ -171,7 +171,7 @@ final class PortfolioEndpoint {
 		return [
 			'status' => 'success',
 			'total'  => $total,
-			'count'  => count( $formatted_posts ),
+			'count'  => \count( $formatted_posts ),
 			'data'   => $formatted_posts,
 		];
 	}

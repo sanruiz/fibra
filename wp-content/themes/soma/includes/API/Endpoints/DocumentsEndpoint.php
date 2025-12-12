@@ -140,7 +140,7 @@ final class DocumentsEndpoint {
 			];
 		}
 
-		$total = count( get_posts( $args ) );
+		$total = \count( get_posts( $args ) );
 
 		if ( isset( $params['id'] ) ) {
 			$args['p'] = $params['id'];
@@ -195,7 +195,7 @@ final class DocumentsEndpoint {
 		return [
 			'status' => 'success',
 			'total'  => $total,
-			'count'  => count( $formatted_documents ),
+			'count'  => \count( $formatted_documents ),
 			'data'   => $formatted_documents,
 		];
 	}

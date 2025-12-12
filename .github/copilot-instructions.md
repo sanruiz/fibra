@@ -140,6 +140,77 @@ $options = get_field('header_content', 'options'); // From ACF options page
 
 **REST endpoints:** Registered in `inc/endpoints.php` with `'permission_callback' => '__return_true'`
 
+## PSR-4 & Modern PHP Conventions (v3.0.0+)
+
+**Namespace Structure:**
+- Base namespace: `Soma\`
+- All classes in `includes/` directory follow PSR-4 autoloading
+- Example: `includes/API/Endpoints/NewsEndpoint.php` → `namespace Soma\API\Endpoints;`
+
+**Use Statements:**
+- Always import external classes at the top of the file to avoid `\` in code
+- Place `use` statements after namespace declaration, before class definition
+- Group `use` statements logically (WordPress classes, plugin classes, internal classes)
+
+```php
+<?php
+namespace Soma\CF7;
+
+use WPCF7_Submission;
+use WPCF7_Validation;
+use WPCF7_FormTag;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class Validations {
+	// Now use classes directly without \ prefix
+	public function validate_email( $result, $tag ) {
+		$submission = WPCF7_Submission::get_instance(); // ✅ Clean
+		// NOT: $submission = \WPCF7_Submission::get_instance(); // ❌ Avoid
+	}
+}
+```
+
+**Singleton Pattern:**
+```php
+private static ?ClassName $instance = null;
+
+public static function instance(): ClassName {
+	if ( self::$instance === null ) {
+		self::$instance = new self();
+	}
+	return self::$instance;
+}
+
+private function __construct() {}
+private function __clone() {}
+public function __wakeup() {
+	throw new \Exception( 'Cannot unserialize singleton' );
+}
+```
+
+**First-Class Callables (PHP 8.1+):**
+```php
+add_action( 'rest_api_init', $this->register(...) ); // ✅ Modern
+// NOT: add_action( 'rest_api_init', array( $this, 'register' ) ); // ❌ Old
+```
+
+**LoadableInterface Pattern:**
+All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
+- `init()`: Initialize the component
+- `get_priority()`: Return loading priority (10-50)
+- `should_load()`: Conditional loading check
+
+**Priority System:**
+- 10: Core components (Theme, Loader)
+- 20: Post Types
+- 30: CF7, Integrations
+- 35: REST API
+- 40: Admin
+- 45: Utilities
+
 ## Custom Post Types & Endpoints
 - **CPTs:** portfolio, news, careers, team_members, events, documents (all registered in `inc/post-types.php`)
 - **REST routes:** `/wp-json/soma/{news|careers|portfolio|documents|events}` (see `inc/endpoints.php`)

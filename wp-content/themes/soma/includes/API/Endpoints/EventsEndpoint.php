@@ -127,7 +127,7 @@ final class EventsEndpoint {
 			$args['orderby']  = 'meta_value';
 		}
 
-		$total = count( get_posts( $args ) );
+		$total = \count( get_posts( $args ) );
 
 		if ( isset( $params['id'] ) && $params['id'] ) {
 			$args['p'] = $params['id'];
@@ -187,7 +187,7 @@ final class EventsEndpoint {
 		return [
 			'status' => 'success',
 			'total'  => $total,
-			'count'  => count( $formatted_events ),
+			'count'  => \count( $formatted_events ),
 			'data'   => $formatted_events,
 		];
 	}

@@ -193,7 +193,7 @@ final class NewsEndpoint {
 		return [
 			'status' => 'success',
 			'total'  => (int) wp_count_posts( 'news' )->publish,
-			'count'  => count( $formatted_posts ),
+			'count'  => \count( $formatted_posts ),
 			'data'   => $formatted_posts,
 		];
 	}
