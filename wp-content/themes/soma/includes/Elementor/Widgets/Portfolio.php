@@ -51,6 +51,15 @@ class Portfolio extends WidgetBase {
 	}
 
 	/**
+	 * Get style dependencies
+	 *
+	 * @return array
+	 */
+	public function get_style_depends(): array {
+		return [ 'soma-portfolio' ];
+	}
+
+	/**
 	 * Register widget controls
 	 *
 	 * @return void

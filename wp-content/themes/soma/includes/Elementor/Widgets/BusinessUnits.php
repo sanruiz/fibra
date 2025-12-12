@@ -50,6 +50,15 @@ class BusinessUnits extends WidgetBase {
 	}
 
 	/**
+	 * Get style dependencies
+	 *
+	 * @return array
+	 */
+	public function get_style_depends(): array {
+		return [ 'soma-business-units' ];
+	}
+
+	/**
 	 * Register widget controls
 	 *
 	 * @return void

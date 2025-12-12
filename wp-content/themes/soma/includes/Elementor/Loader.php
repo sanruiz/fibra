@@ -53,6 +53,22 @@ class Loader implements LoadableInterface {
 	];
 
 	/**
+	 * Widget styles registry
+	 *
+	 * @var array<string, string> Widget style handles and files
+	 */
+	private array $widget_styles = [
+		'soma-navbar'         => 'navbar.css',
+		'soma-footer'         => 'footer.css',
+		'soma-business-units' => 'business-units.css',
+		'soma-services'       => 'services.css',
+		'soma-team-members'   => 'team-members.css',
+		'soma-news-list'      => 'news-list.css',
+		'soma-portfolio'      => 'portfolio.css',
+		'soma-contact-form'   => 'contact-form.css',
+	];
+
+	/**
 	 * Get singleton instance
 	 *
 	 * @return Loader
@@ -95,6 +111,9 @@ class Loader implements LoadableInterface {
 
 		// Register custom category.
 		add_action( 'elementor/elements/categories_registered', $this->register_category( ... ) );
+
+		// Register widget styles.
+		add_action( 'elementor/frontend/after_register_styles', $this->register_styles( ... ) );
 
 		// Register widgets.
 		add_action( 'elementor/widgets/register', $this->register_widgets( ... ) );
@@ -149,6 +168,59 @@ class Loader implements LoadableInterface {
 		);
 
 		\soma_log_debug( 'Registered Elementor category: soma' );
+	}
+
+	/**
+	 * Register widget styles
+	 *
+	 * Registers (not enqueues) widget CSS files.
+	 * Elementor will enqueue them only when widgets are used.
+	 */
+	public function register_styles(): void {
+		$registered_count = 0;
+		$theme_uri        = get_template_directory_uri();
+		$theme_version    = wp_get_theme()->get( 'Version' );
+
+		foreach ( $this->widget_styles as $handle => $filename ) {
+			$file_path = get_template_directory() . '/assets/css/widgets/' . $filename;
+
+			if ( ! file_exists( $file_path ) ) {
+				\soma_log_warning(
+					'Widget style file not found',
+					[
+						'handle'   => $handle,
+						'filename' => $filename,
+						'path'     => $file_path,
+					]
+				);
+				continue;
+			}
+
+			wp_register_style(
+				$handle,
+				$theme_uri . '/assets/css/widgets/' . $filename,
+				[],
+				$theme_version
+			);
+
+			++$registered_count;
+
+			\soma_log_debug(
+				'Registered widget style',
+				[
+					'handle' => $handle,
+					'file'   => $filename,
+				]
+			);
+		}
+
+		\soma_log_info(
+			'Registered Elementor widget styles',
+			[
+				'total'      => \count( $this->widget_styles ),
+				'registered' => $registered_count,
+			]
+		);
 	}
 
 	/**

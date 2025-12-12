@@ -55,6 +55,15 @@ class Navbar extends WidgetBase {
 	}
 
 	/**
+	 * Get style dependencies
+	 *
+	 * @return array
+	 */
+	public function get_style_depends(): array {
+		return [ 'soma-navbar' ];
+	}
+
+	/**
 	 * Register widget controls
 	 */
 	protected function register_controls(): void {

@@ -53,6 +53,15 @@ class ContactForm extends WidgetBase {
 	}
 
 	/**
+	 * Get style dependencies
+	 *
+	 * @return array
+	 */
+	public function get_style_depends(): array {
+		return [ 'soma-contact-form' ];
+	}
+
+	/**
 	 * Register widget controls
 	 *
 	 * @return void

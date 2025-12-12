@@ -50,6 +50,15 @@ class Footer extends WidgetBase {
 	}
 
 	/**
+	 * Get style dependencies
+	 *
+	 * @return array
+	 */
+	public function get_style_depends(): array {
+		return [ 'soma-footer' ];
+	}
+
+	/**
 	 * Register widget controls
 	 *
 	 * @return void

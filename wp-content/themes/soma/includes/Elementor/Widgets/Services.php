@@ -50,6 +50,15 @@ class Services extends WidgetBase {
 	}
 
 	/**
+	 * Get style dependencies
+	 *
+	 * @return array
+	 */
+	public function get_style_depends(): array {
+		return [ 'soma-services' ];
+	}
+
+	/**
 	 * Register widget controls
 	 *
 	 * @return void
