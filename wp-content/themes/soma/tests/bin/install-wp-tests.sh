@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+#
+# WordPress Test Suite Installation Script
+# Installs WordPress core, test suite, and required plugins for integration tests
+#
+# Usage: ./install-wp-tests.sh <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]
 
 if [ $# -lt 3 ]; then
 	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]"
@@ -16,6 +21,7 @@ TMPDIR=${TMPDIR-/tmp}
 TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
 WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
+WP_PLUGINS_DIR=${WP_CORE_DIR}wp-content/plugins
 
 download() {
     if [ `which curl` ]; then
@@ -89,7 +95,25 @@ install_wp() {
 		tar --strip-components=1 -zxmf $TMPDIR/wordpress.tar.gz -C $WP_CORE_DIR
 	fi
 
-	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
+	download https://raw.githubusercontent.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
+}
+
+install_elementor() {
+	echo "Installing Elementor plugin for integration tests..."
+	
+	if [ ! -d $WP_PLUGINS_DIR ]; then
+		mkdir -p $WP_PLUGINS_DIR
+	fi
+	
+	# Download Elementor from WordPress.org
+	if [ ! -d $WP_PLUGINS_DIR/elementor ]; then
+		download https://downloads.wordpress.org/plugin/elementor.latest-stable.zip $TMPDIR/elementor.zip
+		unzip -q $TMPDIR/elementor.zip -d $WP_PLUGINS_DIR
+		rm $TMPDIR/elementor.zip
+		echo "✓ Elementor installed"
+	else
+		echo "✓ Elementor already installed"
+	fi
 }
 
 install_test_suite() {
@@ -104,13 +128,13 @@ install_test_suite() {
 	if [ ! -d $WP_TESTS_DIR ]; then
 		# set up testing suite
 		mkdir -p $WP_TESTS_DIR
-		rm -rf $WP_TESTS_DIR/{includes,data}
-		svn export --quiet --ignore-externals https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
-		svn export --quiet --ignore-externals https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/data/ $WP_TESTS_DIR/data
+		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
+		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/data/ $WP_TESTS_DIR/data
 	fi
 
-	isvn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
-		svn co --quietnd
+	if [ ! -f wp-tests-config.php ]; then
+		download https://develop.svn.wordpress.org/${WP_TESTS_TAG}/wp-tests-config-sample.php "$WP_TESTS_DIR"/wp-tests-config.php
+		# remove all forward slashes in the end
 		WP_CORE_DIR=$(echo $WP_CORE_DIR | sed "s:/\+$::")
 		sed $ioption "s:dirname( __FILE__ ) . '/src/':'$WP_CORE_DIR/':" "$WP_TESTS_DIR"/wp-tests-config.php
 		sed $ioption "s/youremptytestdbnamehere/$DB_NAME/" "$WP_TESTS_DIR"/wp-tests-config.php
@@ -118,28 +142,9 @@ install_test_suite() {
 		sed $ioption "s/yourpasswordhere/$DB_PASS/" "$WP_TESTS_DIR"/wp-tests-config.php
 		sed $ioption "s|localhost|${DB_HOST}|" "$WP_TESTS_DIR"/wp-tests-config.php
 	fi
-
-}
-
-recreate_db() {
-	shopt -s nocasematch
-	if [[ $1 =~ ^(y|yes)$ ]]
-	then
-		mysqladmin drop $DB_NAME -f --user="$DB_USER" --password="$DB_PASS"$EXTRA
-		create_db
-		echo "Recreated the database ($DB_NAME)."
-	else
-		echo "Leaving the existing database ($DB_NAME) in place."
-	fi
-	shopt  --user="$DB_USER" --password="$DB_PASS" $EXTRA -e "DROP DATABASE IF EXISTS $DB_NAME"
-}
-
-create_db() {
-	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
 }
 
 install_db() {
-
 	if [ ${SKIP_DB_CREATE} = "true" ]; then
 		return 0
 	fi
@@ -161,16 +166,21 @@ install_db() {
 	fi
 
 	# create database
-	if [ $(mysql --user="$DB_USER" --password="$DB_PASS"$EXTRA --execute='show databases;' | grep ^$DB_NAME$) ]
-	thenskip-column-names -e "SHOW DATABASES LIKE '$DB_NAME'" | grep "$DB_NAME" | wc -l) -eq 1 ]
-	then
-		echo "Recreate the database '$DB_NAME'? [y/N]"
-		read -r REPLY
-		recreate_db $REPLY
-		create_db
-	fi
+	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
 }
 
+# Run installation
+echo "Installing WordPress test environment..."
 install_wp
 install_test_suite
 install_db
+install_elementor
+
+echo ""
+echo "✓ WordPress test environment ready!"
+echo "  - WordPress: $WP_VERSION"
+echo "  - Test suite: $WP_TESTS_DIR"
+echo "  - Database: $DB_NAME"
+echo "  - Elementor: installed"
+echo ""
+echo "Run tests with: vendor/bin/phpunit"

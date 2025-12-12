@@ -199,6 +199,30 @@ tests_add_filter( 'wp_loaded', '_setup_test_globals', 1 );
 tests_add_filter( 'init', '_setup_test_globals', 1 );
 
 /**
+ * Load Elementor plugin for integration tests
+ */
+function _load_elementor_for_tests() {
+	$_tests_dir = getenv( 'WP_TESTS_DIR' );
+	if ( ! $_tests_dir ) {
+		$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
+	}
+	
+	$wp_core_dir = dirname( $_tests_dir ) . '/wordpress';
+	$elementor_plugin = $wp_core_dir . '/wp-content/plugins/elementor/elementor.php';
+	
+	if ( file_exists( $elementor_plugin ) ) {
+		require_once $elementor_plugin;
+		
+		// Trigger Elementor loaded action
+		if ( did_action( 'plugins_loaded' ) && ! did_action( 'elementor/loaded' ) ) {
+			do_action( 'elementor/loaded' );
+		}
+	}
+}
+
+tests_add_filter( 'muplugins_loaded', '_load_elementor_for_tests' );
+
+/**
  * Initialize theme after WordPress is loaded.
  */
 function _init_theme_for_tests() {
