@@ -132,6 +132,9 @@ class Theme {
 		// Register Utilities (priority 10) - provides helper functions for all components.
 		$this->loader->register( \Soma\Utils\Loader::instance() );
 
+		// Register Taxonomies (priority 15) - before Post Types to ensure taxonomies exist first.
+		$this->loader->register( \Soma\Taxonomies\Loader::instance() );
+
 		// Register Post Types (priority 20).
 		$this->loader->register( \Soma\PostTypes\Loader::instance() );
 
@@ -143,11 +146,6 @@ class Theme {
 
 		// Register Admin Components (priority 40).
 		$this->loader->register( \Soma\Admin\Loader::instance() );
-
-		/*
-		 * TODO: Register additional components as they are migrated:
-		 * - Custom Fields Loader (priority 15)
-		 */
 	}
 
 	/**
