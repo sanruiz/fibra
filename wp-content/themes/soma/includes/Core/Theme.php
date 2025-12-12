@@ -132,6 +132,9 @@ class Theme {
 		// Register REST API Endpoints (priority 35).
 		$this->loader->register( \Soma\API\Loader::instance() );
 
+		// Register Utilities (priority 45).
+		$this->loader->register( \Soma\Utils\Loader::instance() );
+
 		/*
 		 * TODO: Register additional components as they are migrated:
 		 * - Custom Fields Loader
