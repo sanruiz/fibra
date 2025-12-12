@@ -111,7 +111,7 @@ class Theme {
 		$this->register_components();
 
 		// Load all components.
-		add_action( 'after_setup_theme', [ $this, 'load_components' ], 5 );
+		add_action( 'after_setup_theme', array( $this, 'load_components' ), 5 );
 	}
 
 	/**
@@ -135,8 +135,8 @@ class Theme {
 		// Register Post Types (priority 20).
 		$this->loader->register( \Soma\PostTypes\Loader::instance() );
 
-	// Register Page Builder (priority 25) - ACF flexible content system.
-	$this->loader->register( \Soma\PageBuilder\Loader::instance() );
+		// Register Page Builder (priority 25) - ACF flexible content system.
+		$this->loader->register( \Soma\PageBuilder\Loader::instance() );
 
 		// Register REST API Endpoints (priority 35).
 		$this->loader->register( \Soma\API\Loader::instance() );
@@ -147,7 +147,6 @@ class Theme {
 		/*
 		 * TODO: Register additional components as they are migrated:
 		 * - Custom Fields Loader (priority 15)
-		 */
 		 */
 	}
 
