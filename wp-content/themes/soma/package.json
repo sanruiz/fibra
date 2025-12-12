@@ -1,7 +1,7 @@
 {
-  "name": "ditto",
-  "version": "1.0.0",
-  "description": "Ditto v1.0",
+  "name": "soma-theme",
+  "version": "2.0.7",
+  "description": "Soma WordPress Theme - Modern PSR-4 architecture with ACF flexible content and Elementor integration",
   "main": "./js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,15 +11,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pipe-code/ditto.git"
+    "url": "git+https://github.com/sanruiz/fibra.git"
   },
-  "keywords": [],
-  "author": "PIPE:CODE",
+  "keywords": [
+    "wordpress",
+    "theme",
+    "psr-4",
+    "acf",
+    "elementor",
+    "fibrasoma"
+  ],
+  "author": "Fibrasoma",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pipe-code/ditto/issues"
+    "url": "https://github.com/sanruiz/fibra/issues"
   },
-  "homepage": "https://github.com/pipe-code/ditto#readme",
+  "homepage": "https://github.com/sanruiz/fibra#readme",
   "dependencies": {
     "@vimeo/player": "^2.14.1",
     "css-loader": "^3.5.3",
