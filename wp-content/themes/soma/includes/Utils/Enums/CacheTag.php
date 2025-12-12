@@ -24,17 +24,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 3.0.0
  */
 enum CacheTag: string {
-	case POST_TYPES     = 'post_types';
-	case CUSTOM_FIELDS  = 'custom_fields';
-	case API            = 'api';
-	case WIDGETS        = 'widgets';
-	case PORTFOLIO      = 'portfolio';
-	case NEWS           = 'news';
-	case CAREERS        = 'careers';
-	case TEAM_MEMBERS   = 'team_members';
-	case NAVIGATION     = 'navigation';
-	case OPTIONS        = 'options';
-	case TEMPLATES      = 'templates';
+	case POST_TYPES    = 'post_types';
+	case CUSTOM_FIELDS = 'custom_fields';
+	case API           = 'api';
+	case WIDGETS       = 'widgets';
+	case PORTFOLIO     = 'portfolio';
+	case NEWS          = 'news';
+	case CAREERS       = 'careers';
+	case TEAM_MEMBERS  = 'team_members';
+	case NAVIGATION    = 'navigation';
+	case OPTIONS       = 'options';
+	case TEMPLATES     = 'templates';
 
 	/**
 	 * Get the cache tag value
@@ -89,6 +89,8 @@ enum CacheTag: string {
 	 *
 	 * @param string $post_type Post type name.
 	 * @return array<self>
+	 *
+	 * @phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 	 */
 	public static function forPostType( string $post_type ): array {
 		$tags = [ self::POST_TYPES ];
@@ -104,18 +106,5 @@ enum CacheTag: string {
 		return array_merge( $tags, $type_tags );
 	}
 
-	/**
-	 * Create from string value
-	 *
-	 * @param string $value Cache tag value.
-	 * @return self|null
-	 */
-	public static function tryFrom( string $value ): ?self {
-		foreach ( self::cases() as $case ) {
-			if ( $case->value === $value ) {
-				return $case;
-			}
-		}
-		return null;
-	}
+
 }

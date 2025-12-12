@@ -83,7 +83,7 @@ class Cache {
 	 * Get cached value
 	 *
 	 * @param string $key Cache key.
-	 * @param mixed $default Default value if not found.
+	 * @param mixed  $default Default value if not found.
 	 * @return mixed
 	 */
 	public function get( string $key, $default = null ) {
@@ -109,9 +109,9 @@ class Cache {
 	/**
 	 * Set cached value
 	 *
-	 * @param string $key Cache key.
-	 * @param mixed $value Value to cache.
-	 * @param int $ttl Time to live in seconds (default: 1 hour).
+	 * @param string          $key Cache key.
+	 * @param mixed           $value Value to cache.
+	 * @param int             $ttl Time to live in seconds (default: 1 hour).
 	 * @param array<CacheTag> $tags Cache tags for invalidation.
 	 * @return bool
 	 */
@@ -135,9 +135,9 @@ class Cache {
 	/**
 	 * Remember: Get from cache or execute callback and cache result
 	 *
-	 * @param string $key Cache key.
-	 * @param callable $callback Callback to execute if cache miss.
-	 * @param int $ttl Time to live in seconds (default: 1 hour).
+	 * @param string          $key Cache key.
+	 * @param callable        $callback Callback to execute if cache miss.
+	 * @param int             $ttl Time to live in seconds (default: 1 hour).
 	 * @param array<CacheTag> $tags Cache tags for invalidation.
 	 * @return mixed
 	 */
@@ -177,7 +177,7 @@ class Cache {
 	 * @return int Number of entries invalidated.
 	 */
 	public function invalidate_tags( array $tags ): int {
-		$tag_index = $this->get_tag_index();
+		$tag_index   = $this->get_tag_index();
 		$invalidated = 0;
 
 		foreach ( $tags as $tag ) {
@@ -188,7 +188,7 @@ class Cache {
 
 			foreach ( $tag_index[ $tag_value ] as $key ) {
 				if ( $this->delete( $key ) ) {
-					$invalidated++;
+					++$invalidated;
 				}
 			}
 
@@ -238,7 +238,7 @@ class Cache {
 	/**
 	 * Register tags for a cache key
 	 *
-	 * @param string $key Cache key.
+	 * @param string          $key Cache key.
 	 * @param array<CacheTag> $tags Tags to register.
 	 * @return void
 	 */
@@ -284,7 +284,7 @@ class Cache {
 	 * @return array<string, mixed>
 	 */
 	public function get_stats(): array {
-		$tag_index = $this->get_tag_index();
+		$tag_index  = $this->get_tag_index();
 		$total_keys = 0;
 
 		foreach ( $tag_index as $keys ) {
@@ -321,7 +321,7 @@ class Cache {
 		$cleaned = 0;
 		foreach ( $expired as $key ) {
 			if ( delete_transient( $key ) ) {
-				$cleaned++;
+				++$cleaned;
 			}
 		}
 

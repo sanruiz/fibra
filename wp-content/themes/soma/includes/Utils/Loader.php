@@ -117,13 +117,16 @@ class Loader implements LoadableInterface {
 	 */
 	private function register_cleanup_cron(): void {
 		// Register custom cron schedule.
-		add_filter( 'cron_schedules', function ( $schedules ) {
-			$schedules['soma_daily'] = [
-				'interval' => DAY_IN_SECONDS,
-				'display'  => __( 'Once Daily (Soma)', 'soma' ),
-			];
-			return $schedules;
-		} );
+		add_filter(
+			'cron_schedules',
+			function ( $schedules ) {
+				$schedules['soma_daily'] = [
+					'interval' => DAY_IN_SECONDS,
+					'display'  => __( 'Once Daily (Soma)', 'soma' ),
+				];
+				return $schedules;
+			}
+		);
 
 		// Schedule cleanup if not already scheduled.
 		if ( ! wp_next_scheduled( 'soma_cache_cleanup' ) ) {
@@ -131,7 +134,7 @@ class Loader implements LoadableInterface {
 		}
 
 		// Register cleanup action.
-		add_action( 'soma_cache_cleanup', $this->cleanup_cache(...) );
+		add_action( 'soma_cache_cleanup', $this->cleanup_cache( ... ) );
 	}
 
 	/**

@@ -98,7 +98,7 @@ class Logger {
 	/**
 	 * System is unusable
 	 *
-	 * @param string $message Log message.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -109,7 +109,7 @@ class Logger {
 	/**
 	 * Action must be taken immediately
 	 *
-	 * @param string $message Log message.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -120,7 +120,7 @@ class Logger {
 	/**
 	 * Critical conditions
 	 *
-	 * @param string $message Log message.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -131,7 +131,7 @@ class Logger {
 	/**
 	 * Runtime errors that do not require immediate action
 	 *
-	 * @param string $message Log message.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -142,7 +142,7 @@ class Logger {
 	/**
 	 * Exceptional occurrences that are not errors
 	 *
-	 * @param string $message Log message.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -153,7 +153,7 @@ class Logger {
 	/**
 	 * Normal but significant events
 	 *
-	 * @param string $message Log message.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -164,7 +164,7 @@ class Logger {
 	/**
 	 * Interesting events
 	 *
-	 * @param string $message Log message.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -175,7 +175,7 @@ class Logger {
 	/**
 	 * Detailed debug information
 	 *
-	 * @param string $message Log message.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -186,8 +186,8 @@ class Logger {
 	/**
 	 * Log with arbitrary level
 	 *
-	 * @param LogLevel $level Log level.
-	 * @param string $message Log message.
+	 * @param LogLevel             $level Log level.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return void
 	 */
@@ -239,8 +239,8 @@ class Logger {
 	/**
 	 * Format log entry
 	 *
-	 * @param LogLevel $level Log level.
-	 * @param string $message Log message.
+	 * @param LogLevel             $level Log level.
+	 * @param string               $message Log message.
 	 * @param array<string, mixed> $context Context data.
 	 * @return string
 	 */
@@ -263,7 +263,7 @@ class Logger {
 	/**
 	 * Interpolate context values into message placeholders
 	 *
-	 * @param string $message Message with {placeholders}.
+	 * @param string               $message Message with {placeholders}.
 	 * @param array<string, mixed> $context Context data.
 	 * @return string
 	 */

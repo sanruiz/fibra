@@ -84,6 +84,8 @@ enum LogLevel: string {
 	 *
 	 * @param self $other Other log level.
 	 * @return bool
+	 *
+	 * @phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 	 */
 	public function isMoreSevereThan( self $other ): bool {
 		return $this->severity() > $other->severity();
@@ -98,18 +100,5 @@ enum LogLevel: string {
 		return array_column( self::cases(), 'value' );
 	}
 
-	/**
-	 * Create from string value
-	 *
-	 * @param string $value Log level value.
-	 * @return self|null
-	 */
-	public static function tryFrom( string $value ): ?self {
-		foreach ( self::cases() as $case ) {
-			if ( $case->value === $value ) {
-				return $case;
-			}
-		}
-		return null;
-	}
+
 }

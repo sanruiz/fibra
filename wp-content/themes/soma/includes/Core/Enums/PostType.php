@@ -24,10 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 3.0.0
  */
 enum PostType: string {
-	case PORTFOLIO     = 'portfolio';
-	case NEWS          = 'news';
-	case CAREERS       = 'careers';
-	case TEAM_MEMBERS  = 'team_members';
+	case PORTFOLIO    = 'portfolio';
+	case NEWS         = 'news';
+	case CAREERS      = 'careers';
+	case TEAM_MEMBERS = 'team_members';
 
 	/**
 	 * Get the post type value
@@ -56,6 +56,8 @@ enum PostType: string {
 	 * Get plural label for the post type
 	 *
 	 * @return string
+	 *
+	 * @phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 	 */
 	public function pluralLabel(): string {
 		return match ( $this ) {
@@ -88,18 +90,5 @@ enum PostType: string {
 		return $labels;
 	}
 
-	/**
-	 * Create from string value
-	 *
-	 * @param string $value Post type value.
-	 * @return self|null
-	 */
-	public static function tryFrom( string $value ): ?self {
-		foreach ( self::cases() as $case ) {
-			if ( $case->value === $value ) {
-				return $case;
-			}
-		}
-		return null;
-	}
+
 }

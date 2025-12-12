@@ -81,34 +81,34 @@ class CacheInvalidationManager {
 	 */
 	private function register_hooks(): void {
 		// Post hooks.
-		add_action( 'save_post', $this->on_post_save(...), 10, 3 );
-		add_action( 'delete_post', $this->on_post_delete(...) );
-		add_action( 'trash_post', $this->on_post_delete(...) );
+		add_action( 'save_post', $this->on_post_save( ... ), 10, 3 );
+		add_action( 'delete_post', $this->on_post_delete( ... ) );
+		add_action( 'trash_post', $this->on_post_delete( ... ) );
 
 		// Term hooks.
-		add_action( 'created_term', $this->on_term_change(...), 10, 3 );
-		add_action( 'edited_term', $this->on_term_change(...), 10, 3 );
-		add_action( 'delete_term', $this->on_term_change(...), 10, 3 );
+		add_action( 'created_term', $this->on_term_change( ... ), 10, 3 );
+		add_action( 'edited_term', $this->on_term_change( ... ), 10, 3 );
+		add_action( 'delete_term', $this->on_term_change( ... ), 10, 3 );
 
 		// Option hooks.
-		add_action( 'update_option', $this->on_option_change(...), 10, 3 );
+		add_action( 'update_option', $this->on_option_change( ... ), 10, 3 );
 
 		// Navigation menu hooks.
-		add_action( 'wp_update_nav_menu', $this->on_menu_update(...) );
+		add_action( 'wp_update_nav_menu', $this->on_menu_update( ... ) );
 
 		// Widget hooks.
-		add_action( 'update_option_sidebars_widgets', $this->on_widgets_update(...) );
+		add_action( 'update_option_sidebars_widgets', $this->on_widgets_update( ... ) );
 
 		// Theme customizer hooks.
-		add_action( 'customize_save_after', $this->on_customizer_save(...) );
+		add_action( 'customize_save_after', $this->on_customizer_save( ... ) );
 	}
 
 	/**
 	 * Handle post save event
 	 *
-	 * @param int $post_id Post ID.
+	 * @param int      $post_id Post ID.
 	 * @param \WP_Post $post Post object.
-	 * @param bool $update Whether this is an update.
+	 * @param bool     $update Whether this is an update.
 	 * @return void
 	 */
 	public function on_post_save( int $post_id, \WP_Post $post, bool $update ): void {
@@ -150,8 +150,8 @@ class CacheInvalidationManager {
 	/**
 	 * Handle term change event
 	 *
-	 * @param int $term_id Term ID.
-	 * @param int $tt_id Term taxonomy ID.
+	 * @param int    $term_id Term ID.
+	 * @param int    $tt_id Term taxonomy ID.
 	 * @param string $taxonomy Taxonomy slug.
 	 * @return void
 	 */
@@ -164,8 +164,8 @@ class CacheInvalidationManager {
 	 * Handle option change event
 	 *
 	 * @param string $option Option name.
-	 * @param mixed $old_value Old value.
-	 * @param mixed $new_value New value.
+	 * @param mixed  $old_value Old value.
+	 * @param mixed  $new_value New value.
 	 * @return void
 	 */
 	public function on_option_change( string $option, $old_value, $new_value ): void {
