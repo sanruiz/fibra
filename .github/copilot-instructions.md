@@ -12,9 +12,53 @@
 
 This is an **8-week WordPress website development project** for FibraSOMA's corporate website using the newly modernized SOMA v3.0.0 theme.
 
-**Repository**: `sanruiz/fibra` (branch: master, default: main)  
+**Repository**: `sanruiz/fibra` (default branch: main)  
 **Theme**: `wp-content/themes/soma/` (PSR-4, PHP 8.1+, Elementor integrated)  
 **Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
+
+## 🔀 Branching Strategy
+
+**IMPORTANT**: Each milestone/week MUST be developed in a separate branch, NOT directly in main.
+
+### Branch Naming Convention
+- **Week branches**: `week-N` (e.g., `week-2`, `week-3`, etc.)
+- **Feature branches**: `feature/description` (e.g., `feature/hero-section`)
+- **Fix branches**: `fix/description` (e.g., `fix/navbar-mobile`)
+
+### Workflow
+1. **Create branch from main**: 
+   ```bash
+   git checkout main
+   git pull origin main
+   git checkout -b week-N
+   ```
+
+2. **Work on the branch**: Make all commits for the milestone/week
+
+3. **Create Pull Request**: When work is complete, create PR to main
+   ```bash
+   git push -u origin week-N
+   gh pr create --title "Week N: [Description]" --base main | cat
+   ```
+
+4. **Close Milestone**: After creating the PR, close the corresponding milestone
+   ```bash
+   # Close milestone for Week N
+   gh api repos/sanruiz/fibra/milestones/{milestone_number} -X PATCH -f state=closed | cat
+   # Or use the GitHub web interface
+   ```
+
+5. **Merge to main**: After review and approval, merge the PR
+
+6. **Never commit directly to main**: All changes must go through PRs
+
+### GitHub CLI Commands for PRs
+- **ALWAYS append `| cat`** to `gh` commands to prevent terminal pagination
+- Examples:
+  - `gh pr create --title "Week 2: Home Page" --base main | cat`
+  - `gh pr list | cat`
+  - `gh pr view 55 | cat`
+  - `gh pr merge 55 --squash | cat`
 
 ## 📊 GitHub Project Organization
 
