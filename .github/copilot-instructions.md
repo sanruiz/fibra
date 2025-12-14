@@ -8,6 +8,26 @@
 **Current Phase**: Week 2 - Home Page Development  
 **Project Management**: GitHub Projects @ https://github.com/users/miguelcolmenares/projects/1
 
+## ⚠️ CRITICAL: Language Policy
+
+**ALL project files MUST be written in ENGLISH:**
+
+- ✅ **Documentation** (`.md` files) - English only
+- ✅ **GitHub Actions Workflows** (`.yml` files) - English comments and descriptions
+- ✅ **Scripts** (`.sh`, `.php`, etc.) - English comments and output messages
+- ✅ **Code comments** - English only
+- ✅ **Commit messages** - English only
+- ✅ **PR descriptions** - English only
+- ✅ **Issue descriptions** - English only
+
+**Rationale**: 
+- Professional international standard
+- Better integration with development tools
+- Accessibility for global team members
+- Consistency with SOMA v3.0.0 codebase (fully in English)
+
+**Exception**: User-facing content in WordPress (Spanish for FibraSOMA website visitors)
+
 ## Project Context
 
 This is an **8-week WordPress website development project** for FibraSOMA's corporate website using the newly modernized SOMA v3.0.0 theme.
@@ -15,6 +35,39 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 **Repository**: `sanruiz/fibra` (default branch: main)  
 **Theme**: `wp-content/themes/soma/` (PSR-4, PHP 8.1+, Elementor integrated)  
 **Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
+
+## 📁 Repository Structure
+
+**IMPORTANT Directory Conventions:**
+
+### Theme Development (within soma/)
+- **Location**: `wp-content/themes/soma/`
+- **Contains**: Source code, documentation, tests, assets
+- **Documentation**: `wp-content/themes/soma/docs/`
+
+### GitHub Actions Workflows (repository root)
+- **Location**: `.github/workflows/` (repository root, NOT within theme)
+- **Contains**: All CI/CD workflow files (`.yml`)
+- **Rationale**: GitHub Actions only reads workflows from repository root
+- **Examples**:
+  - `.github/workflows/release-and-deploy.yml`
+  - `.github/workflows/test-sftp-secrets.yml`
+
+### Deployment Scripts (repository root)
+- **Location**: `.github/scripts/` (repository root)
+- **Contains**: Deployment automation scripts (PHP, Shell, etc.)
+- **Examples**:
+  - `.github/scripts/soma-extractor.php`
+
+### Copilot Instructions (repository root)
+- **Location**: `.github/copilot-instructions.md` (repository root)
+- **Purpose**: Global project context and conventions
+
+**Summary:**
+- ✅ Theme code/docs: `wp-content/themes/soma/`
+- ✅ Workflows: `.github/workflows/` (root)
+- ✅ Deployment scripts: `.github/scripts/` (root)
+- ✅ Copilot instructions: `.github/copilot-instructions.md` (root)
 
 ## 🔀 Branching Strategy
 
