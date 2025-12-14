@@ -1,0 +1,39 @@
+.headertext-partial-40964d {
+    padding: 23px 0 36px 0;
+    @media (#{$mobile}) {
+        padding: 23px 0 25px 0;
+    }
+    #ditto-page[data-header-style="fibrasoma"] & {
+        padding: 55px 0 70px 0;
+        @media screen and ($mobile) {
+            padding: 42px 0 70px 0;
+        }
+    }
+    .content {
+        h2 {
+            max-width: 676px;
+            margin-top: 0;
+            margin-bottom: 45px;
+            @media (#{$mobile}) {
+                margin-bottom: 25px;
+            }
+        }
+        h4 {
+            max-width: 985px;
+            margin-top: -10px;
+            margin-bottom: 45px;
+            @media (#{$mobile}) {
+                margin-top: 40px;
+                margin-bottom: 55px;
+                letter-spacing: -0.3px;
+            }
+        }
+        p {
+            max-width: 517px;
+            margin: 0;
+            @media (#{$mobile}) {
+                max-width: 100%;
+            }
+        }
+    }
+}

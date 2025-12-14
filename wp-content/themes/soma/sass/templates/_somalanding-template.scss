@@ -1,0 +1,89 @@
+#somalanding-template-11512d {
+    padding-bottom: 200px;
+    @media screen and ($t-portrait) {
+        padding-bottom: 120px;
+    }
+    .landing-body {
+        display: flex;
+        flex-wrap: wrap;
+        .logo {
+            width: calc(100% * (5 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media screen and ($t-portrait) {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            @media screen and ($mobile) {
+                svg {
+                    width: 115px;
+                    height: auto;
+                }
+            }
+        }
+        .content {
+            width: calc(100% * (7 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            @media screen and ($t-portrait) {
+                width: 100%;
+                padding-left: 0;
+            }
+        }
+    }
+    .landing-header {
+        margin-top: 70px;
+        margin-bottom: 180px;
+        @media screen and (min-width: 1600px) {
+            margin-bottom: 250px;
+        }
+        @media screen and ($t-portrait) {
+            margin-bottom: 100px;
+        }
+        img {
+            width: 296px;
+        }
+    }
+    .title {
+        margin-top: -12px;
+        margin-bottom: 30px;
+    }
+    .subtitle {
+        margin-bottom: 45px;
+    }
+    h2, h3 {
+        margin: 0;
+        max-width: 542px;
+    }
+    form {
+        .wpcf7-response-output {
+            display: none !important;
+        }
+        &.sent .wpcf7-response-output {
+            display: block !important;
+            margin: 10px 0 0 0;
+            font-size: 23px;
+            color: $c1;
+            letter-spacing: 0;
+            line-height: 42px;
+            padding: 0;
+            border: none;
+            @media screen and ($mobile) {
+                font-size: 20px;
+            }
+        }
+    }
+    .news-letter-form {
+        .form {
+            max-width: 517px;
+            input {
+                color: #171717;
+                border-bottom: 1px solid #171717;
+                &::placeholder {
+                    color: #7E7E87;
+                }
+            }
+        }
+    }
+}

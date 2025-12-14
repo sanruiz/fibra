@@ -1,0 +1,178 @@
+* div {
+    -webkit-font-smoothing: antialiased !important;
+}
+
+* button:focus, * input:focus, * textarea:focus, * a:focus {
+    outline: none !important;
+}
+
+.container {
+    max-width: var(--soma-container-max-width, 1440px);
+    box-sizing: border-box;
+    padding: 0 var(--soma-container-padding-desktop, 80px);
+    margin: auto;
+    @media (#{$t-landscape}) {
+        padding: 0 var(--soma-container-padding-tablet-landscape, 40px);
+    }
+    @media (#{$t-portrait}) {
+        padding: 0 var(--soma-container-padding-tablet-portrait, 30px);
+    }
+    @media screen and ($mobile) {
+        padding: 0 var(--soma-container-padding-mobile, 20px);
+    }
+}
+
+html.no-scroll body {
+    overflow: hidden;
+}
+
+body, a, p, div {
+    font-family: var(--soma-font-family-primary, $f1);
+    color: var(--soma-color-text-primary, $c1);
+    font-size: var(--soma-font-size-body, 20px);
+    letter-spacing: var(--soma-letter-spacing-normal, 0);
+    line-height: var(--soma-line-height-body, 27px);
+    @media (#{$mobile}) {
+        font-size: var(--soma-font-size-body-mobile, 18px);
+        line-height: var(--soma-line-height-body-mobile, 24px);
+    }
+}
+
+h2 {
+    font-size: var(--soma-font-size-h2, 74px);
+    color: var(--soma-color-text-primary, $c1);
+    letter-spacing: var(--soma-letter-spacing-tight, -1.5px);
+    line-height: var(--soma-line-height-h2, 72px);
+    font-weight: var(--soma-font-weight-normal, normal);
+    @media (#{$mobile}) {
+        font-size: var(--soma-font-size-h2-mobile, 44px);
+        line-height: var(--soma-line-height-h2-mobile, 44px);
+    }
+}
+
+h3 {
+    font-size: var(--soma-font-size-h3, 34px);
+    color: var(--soma-color-text-primary, $c1);
+    letter-spacing: var(--soma-letter-spacing-normal, 0);
+    line-height: var(--soma-line-height-h3, 42px);
+    font-weight: var(--soma-font-weight-normal, normal);
+    @media (#{$mobile}) {
+        font-size: var(--soma-font-size-h3-mobile, 25px);
+        line-height: var(--soma-line-height-h3-mobile, 30px);
+        letter-spacing: var(--soma-letter-spacing-small, -0.37px);
+    }
+}
+
+h4 {
+    font-size: var(--soma-font-size-h4, 56px);
+    color: var(--soma-color-text-primary, #171717);
+    letter-spacing: var(--soma-letter-spacing-medium, -1.4px);
+    line-height: var(--soma-line-height-h4, 62px);
+    font-weight: var(--soma-font-weight-normal, normal);
+    @media (#{$mobile}) {
+        font-size: var(--soma-font-size-h4-mobile, 25px);
+        line-height: var(--soma-line-height-h4-mobile, 30px);
+    }
+}
+
+#ditto-page[page-slug="contact-us"]:not([data-header-style="fibrasoma"]) {
+    padding-bottom: 75px;
+    @media screen and ($mobile) {
+        padding-bottom: 0;
+    }
+}
+
+// * u,
+// .underline-text {
+//     text-decoration: none;
+//     position: relative;
+//     &:after {
+//         content: '';
+//         display: block;
+//         position: absolute;
+//         border-bottom: .1em solid;
+//         bottom: .02em;
+//         width: 100%;
+//         height: 1px;
+//     }
+// }
+
+span.loading {
+    display: inline-block;
+    padding: 30px;
+    font-size: 20px;
+    color: #666666;
+    letter-spacing: -0.5px;
+    line-height: 42px;
+    .style-dark & {
+        color: #ffffff;
+    }
+}
+
+// Language picker hidden
+.lang-switcher {
+    // display: none !important;
+}
+
+.single-careers-d3cb75{
+    padding-bottom: 125px;
+    @media (#{$mobile}) {
+        padding-bottom: 55px;
+    }
+    .container{
+        display: flex;
+        @media (#{$mobile}) {
+            display: block;
+        }
+        .container-box{
+            width: calc(100% * (7 / 12));
+            box-sizing: border-box;
+            @media (#{$mobile}) {
+                width: 100%;
+            }
+            h2{
+                margin-top: 20px;
+            }
+            .career-text{
+                width: calc(100% * (5 / 7));
+                box-sizing: border-box;
+                @media (#{$mobile}) {
+                    width: 100%;
+                }
+                ul{
+                    padding-left: 16px;
+                    list-style-type: none;
+                    li{
+                        position: relative;
+                        &::marker{
+                            font-size: 8px
+                        }
+                        &::before{
+                            position: absolute;
+                            content: '';
+                            display: inline-block;
+                            width: 4px;
+                            height: 4px;
+                            -moz-border-radius: 50%;
+                            -webkit-border-radius: 50%;
+                            border-radius: 50%;
+                            background-color: #171717;
+                            left: -15px;
+                            top: 12px;
+                        }
+                    }
+                }
+            }
+        }
+        .container-apply{
+            width: calc(100% * (5 / 12));
+            box-sizing: border-box;
+            text-align: right;
+            padding-top: 15px;
+            @media (#{$mobile}) {
+                width: 100%;
+                text-align: left;
+            }
+        }
+    }
+}

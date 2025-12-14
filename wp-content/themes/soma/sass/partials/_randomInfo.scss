@@ -1,0 +1,65 @@
+.randominfo-partial-716012 {
+    padding: 65px 0 60px 0;
+    @media (#{$t-landscape}) {
+        padding: 40px 0 30px 0;
+    }
+    @media (#{$mobile}) {
+        padding: 28px 0 20px 0;
+    }
+    .title {
+        margin-bottom: 55px;
+        @media (#{$mobile}) {
+            margin-bottom: 40px;
+        }
+        h2 {
+            margin: 0;
+        }
+    }
+    .data {
+        display: flex;
+        justify-content: space-between;
+        @media (#{$t-landscape}) {
+            flex-wrap: wrap;
+        }
+        .item {
+            display: inline-block;
+            @media (#{$t-landscape}) {
+                width: 50%;
+                margin-bottom: 30px;  
+                vertical-align: text-top;
+                box-sizing: border-box;
+                padding-right: 10px;       
+            }
+            @media screen and ($mobile) {
+                margin-bottom: 25px;
+            }
+            .value {
+                font-family: $f2;
+                font-size: 74px;
+                color: var(--soma-color-primary, #171717);
+                letter-spacing: -0.47px;
+                line-height: 67px;
+                margin-bottom: 5px;
+                @media (#{$mobile}) {
+                    font-size: 44px;
+                    line-height: 44px;
+                }
+            }
+            .label {
+                font-size: var(--soma-font-size-large, 20px);
+                color: var(--soma-color-primary, #171717);
+                letter-spacing: 0;
+                line-height: 23px;
+                @media (#{$mobile}) {
+                    font-size: var(--soma-font-size-medium, 18px);
+                }
+            }
+            &:last-of-type {
+                display: none;
+                @media screen and ($t-landscape) {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

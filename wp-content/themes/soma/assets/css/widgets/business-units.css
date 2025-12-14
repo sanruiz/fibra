@@ -1,0 +1,291 @@
+/**
+ * Business Units Widget Styles
+ * 
+ * Elementor widget for business units grid.
+ * Compatible with businessunits-partial-cea85c class.
+ * 
+ * @package Soma
+ * @since 3.0.0
+ */
+
+/* Container */
+.soma-business-units,
+.businessunits-partial-cea85c {
+	padding: 25px 0 70px;
+}
+
+.soma-business-units .title,
+.businessunits-partial-cea85c .title {
+	font-size: 34px;
+	color: var(--soma-text-primary, #000000);
+	letter-spacing: -0.5px;
+	line-height: 42px;
+	margin-bottom: 50px;
+	font-weight: 600;
+}
+
+/* Grid content */
+.soma-business-units .content,
+.businessunits-partial-cea85c .content {
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	background-color: var(--soma-text-primary, #000000);
+	transition: 0.5s background;
+}
+
+.soma-business-units .content:hover,
+.businessunits-partial-cea85c .content:hover {
+	background-color: var(--soma-bg-white, #ffffff);
+}
+
+.soma-business-units .content:hover .logo,
+.businessunits-partial-cea85c .content:hover .logo {
+	display: none;
+}
+
+/* Individual items */
+.soma-business-units .item,
+.businessunits-partial-cea85c .item {
+	position: relative;
+	overflow: hidden;
+}
+
+/* Item sizing based on total */
+.soma-business-units .content[data-total="3"] .item,
+.businessunits-partial-cea85c .content[data-total="3"] .item {
+	width: 33.333333%;
+}
+
+.soma-business-units .content[data-total="4"] .item,
+.businessunits-partial-cea85c .content[data-total="4"] .item {
+	width: 25%;
+}
+
+.soma-business-units .content[data-total="5"] .item,
+.businessunits-partial-cea85c .content[data-total="5"] .item,
+.soma-business-units .content[data-total="6"] .item,
+.businessunits-partial-cea85c .content[data-total="6"] .item {
+	width: 33.333333%;
+}
+
+.soma-business-units .content[data-total="7"] .item,
+.businessunits-partial-cea85c .content[data-total="7"] .item,
+.soma-business-units .content[data-total="8"] .item,
+.businessunits-partial-cea85c .content[data-total="8"] .item {
+	width: 25%;
+}
+
+/* CTA sections */
+.soma-business-units .cta,
+.businessunits-partial-cea85c .cta {
+	width: 100%;
+	position: relative;
+	z-index: 1;
+}
+
+.soma-business-units .cta.desk,
+.businessunits-partial-cea85c .cta.desk {
+	height: 24.166666666vw;
+}
+
+.soma-business-units .cta.mobile,
+.businessunits-partial-cea85c .cta.mobile {
+	display: none;
+}
+
+.soma-business-units .cta a,
+.businessunits-partial-cea85c .cta a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	padding: 40px 20px;
+}
+
+/* Logo SVG */
+.soma-business-units .logo,
+.businessunits-partial-cea85c .logo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+}
+
+.soma-business-units .logo svg,
+.businessunits-partial-cea85c .logo svg {
+	width: 151px;
+	height: 37px;
+	fill: var(--soma-bg-white, #ffffff);
+}
+
+.soma-business-units .logo span,
+.businessunits-partial-cea85c .logo span {
+	font-size: 18px;
+	font-weight: 600;
+	text-align: center;
+	line-height: 1.4;
+}
+
+/* Image */
+.soma-business-units .image,
+.businessunits-partial-cea85c .image {
+	position: relative;
+	width: 100%;
+	padding-top: 75%; /* 4:3 aspect ratio */
+	overflow: hidden;
+}
+
+.soma-business-units .image img,
+.businessunits-partial-cea85c .image img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+}
+
+.soma-business-units .item:hover .image img,
+.businessunits-partial-cea85c .item:hover .image img {
+	transform: scale(1.05);
+}
+
+/* Arrow SVG */
+.soma-business-units .arrow,
+.businessunits-partial-cea85c .arrow {
+	width: 39px;
+	height: 38px;
+	fill: var(--soma-bg-white, #ffffff);
+	stroke: var(--soma-bg-white, #ffffff);
+}
+
+/* Empty items (grid fillers) */
+.soma-business-units .empty-item,
+.businessunits-partial-cea85c .empty-item {
+	background-color: transparent;
+}
+
+/* Responsive: Tablet landscape (max-width: 991px) */
+@media screen and (max-width: 991px) {
+	.soma-business-units,
+	.businessunits-partial-cea85c {
+		padding: 25px 0 30px;
+	}
+
+	.soma-business-units .content,
+	.businessunits-partial-cea85c .content {
+		padding: 0 20px;
+		background-color: var(--soma-bg-white, #ffffff);
+	}
+
+	.soma-business-units .content:hover .logo,
+	.businessunits-partial-cea85c .content:hover .logo {
+		display: flex;
+	}
+
+	.soma-business-units .cta.desk,
+	.businessunits-partial-cea85c .cta.desk {
+		display: none;
+	}
+
+	.soma-business-units .cta.mobile,
+	.businessunits-partial-cea85c .cta.mobile {
+		display: block;
+		padding: 30px 0;
+	}
+
+	.soma-business-units .cta.mobile a,
+	.businessunits-partial-cea85c .cta.mobile a {
+		justify-content: space-between;
+		padding: 0;
+	}
+
+	.soma-business-units .content[data-total="3"] .item,
+	.businessunits-partial-cea85c .content[data-total="3"] .item,
+	.soma-business-units .content[data-total="4"] .item,
+	.businessunits-partial-cea85c .content[data-total="4"] .item,
+	.soma-business-units .content[data-total="5"] .item,
+	.businessunits-partial-cea85c .content[data-total="5"] .item,
+	.soma-business-units .content[data-total="6"] .item,
+	.businessunits-partial-cea85c .content[data-total="6"] .item,
+	.soma-business-units .content[data-total="7"] .item,
+	.businessunits-partial-cea85c .content[data-total="7"] .item,
+	.soma-business-units .content[data-total="8"] .item,
+	.businessunits-partial-cea85c .content[data-total="8"] .item {
+		width: 50%;
+	}
+
+	.soma-business-units .title,
+	.businessunits-partial-cea85c .title {
+		margin-bottom: 45px;
+		font-size: 25px;
+		letter-spacing: -0.37px;
+		line-height: 30px;
+	}
+}
+
+/* Responsive: Mobile (max-width: 767px) */
+@media screen and (max-width: 767px) {
+	.soma-business-units .content,
+	.businessunits-partial-cea85c .content {
+		display: block;
+	}
+
+	.soma-business-units .content[data-total="3"] .item,
+	.businessunits-partial-cea85c .content[data-total="3"] .item,
+	.soma-business-units .content[data-total="4"] .item,
+	.businessunits-partial-cea85c .content[data-total="4"] .item,
+	.soma-business-units .content[data-total="5"] .item,
+	.businessunits-partial-cea85c .content[data-total="5"] .item,
+	.soma-business-units .content[data-total="6"] .item,
+	.businessunits-partial-cea85c .content[data-total="6"] .item,
+	.soma-business-units .content[data-total="7"] .item,
+	.businessunits-partial-cea85c .content[data-total="7"] .item,
+	.soma-business-units .content[data-total="8"] .item,
+	.businessunits-partial-cea85c .content[data-total="8"] .item {
+		width: 100%;
+	}
+
+	.soma-business-units .image,
+	.businessunits-partial-cea85c .image {
+		padding-top: 56.25%; /* 16:9 aspect ratio on mobile */
+	}
+}
+
+/* Layout variants */
+.soma-business-units.layout-list .content,
+.businessunits-partial-cea85c.layout-list .content {
+	flex-direction: column;
+}
+
+.soma-business-units.layout-list .item,
+.businessunits-partial-cea85c.layout-list .item {
+	width: 100% !important;
+	display: flex;
+	gap: 30px;
+}
+
+.soma-business-units.layout-list .cta,
+.businessunits-partial-cea85c.layout-list .cta {
+	flex: 1;
+}
+
+.soma-business-units.layout-list .image,
+.businessunits-partial-cea85c.layout-list .image {
+	flex: 1;
+	padding-top: 0;
+	min-height: 300px;
+}
+
+@media screen and (max-width: 767px) {
+	.soma-business-units.layout-list .item,
+	.businessunits-partial-cea85c.layout-list .item {
+		flex-direction: column;
+	}
+}

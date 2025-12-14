@@ -1,0 +1,103 @@
+.projectinfo-partial-dcffdb {
+    padding: 0 0 70px 0;
+    @media screen and ($mobile) {
+        padding: 0 0 65px 0;
+    }
+    &:nth-of-type(2) {
+        padding: 30px 0 70px 0;
+        @media screen and ($mobile) {
+            padding: 20px 0 65px 0;
+        }
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        .description {
+            width: calc(100% * (6 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            order: 1;
+            p {
+                margin: 0;
+                max-width: 517px;
+            }
+            @media screen and ($t-portrait) {
+                width: 100%;
+                margin-bottom: 35px;
+                padding-right: 0;
+                max-width: 600px;
+                p {
+                    max-width: 100%;
+                }
+            }
+            @media screen and ($mobile) {
+                order: 3;
+            }
+        }
+        .info_1 {
+            width: calc(100% * (3 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            order: 2;
+            p {
+                margin: 0;
+            }
+            span {
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+            @media screen and ($t-portrait) {
+                width: calc(100% * (6 / 12));
+            }
+            @media screen and ($mobile) {
+                width: 100%;
+                order: 1;
+                padding-right: 0;
+                .designed-by {
+                    display: none;
+                }
+            }
+        }
+        .info_2 {
+            width: calc(100% * (3 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            order: 3;
+            p {
+                margin: 0;
+            }
+            span {
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+            .designed-by {
+                display: none;
+            }
+            @media screen and ($t-portrait) {
+                width: calc(100% * (6 / 12));
+            }
+            @media screen and ($mobile) {
+                width: 100%;
+                order: 2;
+                padding-left: 0;
+                margin-bottom: 40px;
+                .designed-by {
+                    display: block;
+                }
+            }
+        }
+        .link {
+            margin-top: 45px;
+            order: 4;
+            @media screen and ($mobile) {
+                margin-top: 0;
+            }
+        }
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: var(--soma-transition, .5s);
+            &:hover {
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+        }
+    }
+}

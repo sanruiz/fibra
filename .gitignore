@@ -1,48 +1,28 @@
-# Wordpress - ignore core, configuration, examples, uploads and logs.
-# https://github.com/github/gitignore/blob/main/WordPress.gitignore
+# Ignorar todo
+/*
 
-# Core
-#
-# Note: if you want to stage/commit WP core files
-# you can delete this whole section/until Configuration.
-/wp-admin/
-/wp-content/index.php
-/wp-content/languages
-/wp-content/plugins/index.php
-/wp-content/themes/index.php
-/wp-includes/
-/index.php
-/license.txt
-/readme.html
-/wp-*.php
-/xmlrpc.php
+# Excepto estos archivos/directorios
+!.gitignore
+!.github/
+!wp-content/
 
-# Configuration
-wp-config.php
+# Dentro de wp-content, ignorar todo
+wp-content/*
 
-# Example themes
-/wp-content/themes/twenty*/
+# Excepto themes
+!wp-content/themes/
 
-# Example plugin
-/wp-content/plugins/hello.php
+# Dentro de themes, ignorar todo
+wp-content/themes/*
 
-# Uploads
-/wp-content/uploads/
+# Excepto soma
+!wp-content/themes/soma/
+!wp-content/themes/soma/**
 
-# Log files
-*.log
-
-# htaccess
-/.htaccess
-
-# All plugins
-#
-# Note: If you wish to whitelist plugins,
-# uncomment the next line
-#/wp-content/plugins
-
-# All themes
-#
-# Note: If you wish to whitelist themes,
-# uncomment the next line
-#/wp-content/themes
+# Ignorar archivos generados en soma
+wp-content/themes/soma/vendor/
+wp-content/themes/soma/node_modules/
+wp-content/themes/soma/.phpunit.cache/
+wp-content/themes/soma/coverage/
+wp-content/themes/soma/package-lock.json
+wp-content/themes/soma/error_log

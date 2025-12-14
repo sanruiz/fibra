@@ -1,0 +1,61 @@
+.contactheader-partial-a07d41 {
+    padding: 55px 0 70px 0;
+    @media screen and ($mobile) {
+        padding: 42px 0 50px 0;
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        .text {
+            width: calc(100% * (7 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media screen and ($t-landscape) {
+                width: calc(100% * (6 / 12));
+            }
+            @media screen and ($t-portrait) {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 30px;
+            }
+        }
+        .info {
+            width: calc(100% * (5 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            @media screen and ($t-landscape) {
+                width: calc(100% * (6 / 12));
+            }
+            @media screen and ($t-portrait) {
+                width: 100%;
+                padding: 0;
+            }
+        }
+    }
+    .info {
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+            @media screen and ($mobile) {
+                width: 100%;
+                padding: 0 !important;
+            }
+            &:nth-child(odd) {
+                padding-right: 15px;
+            }
+            &:nth-child(even) {
+                padding-left: 15px;
+            }
+        }
+    }
+    p {
+        max-width: 517px;
+        margin: 0;
+        @media (#{$mobile}) {
+            max-width: 100%;
+        }
+    }
+}

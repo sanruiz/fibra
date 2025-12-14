@@ -1,0 +1,241 @@
+.brand-partial-e66256 {
+    padding: 55px 0 84px 0;
+    @media (#{$t-portrait}) {
+        padding: 30px 0 55px 0;
+    }
+    &:last-of-type {
+        padding: 30px 0 120px 0;
+        .content {
+            &:before{
+                content: unset;
+            }
+        }
+    }
+    .content {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        @media (#{$t-portrait}) {
+            width: 100%;
+            display: block;
+        }
+        .gallery {
+            width: calc(100% * (6 / 12)); 
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media (#{$t-portrait}) {
+                width: 100%;
+                display: block;
+                padding: 0;
+                margin: 0;
+            }
+        }
+        .text {
+            width: calc(100% * (5 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            @media (#{$t-portrait}) {
+                width: 100%;
+                display: block;
+                padding-left: 0px;
+            }
+        }
+        .desk{
+            @media screen and ($t-portrait) {
+                display: none;
+            }
+        }
+        .tablet{
+            margin-bottom: 20px;
+            @media screen and (min-width: 992px) {
+                display: none;
+            }
+        }
+        &:before{
+            @media screen and ($t-portrait) {
+                content: '';
+                position: absolute;
+                left: 0px;
+                bottom: -45px;
+                height: 1px;
+                width: 100%;
+                border-bottom: 1px solid #979797;
+            }
+        }
+    }
+    .text {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0;
+            margin-top: 35px;
+            columns: 2;
+            -webkit-columns: 2;
+            -moz-columns: 2;
+            li {
+                font-size: var(--soma-font-size-medium, 18px);
+                color: $c1;
+                line-height: 25px;
+                span {
+                    color: var(--soma-color-text-secondary, #7E7E87);
+                }
+            }
+        }
+    }
+    h3 {
+        margin-top: -10px;
+        margin-bottom: 0;
+        @media (#{$t-portrait}) {
+            margin-top: 20px;
+        }
+    }
+    p {
+        margin-bottom: 0;
+        margin-top: 35px;
+    }
+    .subtitle {
+        margin-top: 8px;
+    }
+    .boxlink {
+        margin-top: 40px;
+        @media (#{$t-portrait}) {
+            display: flex;
+        }
+        .read{
+            cursor: pointer;
+            text-decoration: underline;
+            transition: 0.5s;
+            padding-right: 10px;
+            margin-right: 10px;
+            border-right: 1px solid rgba(153, 153, 153, 0.7);
+            @media (min-width: 992px){
+                display: none;
+            }
+            &:hover{
+                color: var(--soma-color-text-secondary, #7E7E87); 
+            }
+        }
+        a{
+            transition: 0.5s;
+            &:hover{
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+        }
+    }
+    .boxtext-H{
+        @media (#{$t-portrait}) {
+            max-height: 120px;
+            overflow: hidden;
+            // background: -webkit-linear-gradient(#171717, #fff);
+            // -webkit-background-clip: text;
+            // -webkit-text-fill-color: transparent;
+            position: relative;
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: -webkit-linear-gradient(top, rgba(255,255,255,0.001) 0%, rgba(255,255,255,0.001) calc(100% - 80px), #ffffff 100%);
+            }
+        }
+        @media screen and ($mobile) {
+            max-height: 115px;
+        }
+    }
+    .brand-slick {
+        padding-bottom: 54px;
+        .item {
+            img {
+                width: 100%;
+            }
+        }
+    }
+    .slick-arrow {
+        display: flex !important;
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+        border: none;
+        padding: 0;
+        background-color: transparent;
+        cursor: pointer;
+        &.prev-arrow {
+            left: 0;
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+        &.next-arrow {
+            right: 0;
+        }
+        @media screen and ($only-desk) {
+            svg line, svg polygon {
+                transition: var(--soma-transition, .5s);
+            }
+            &:hover {
+                svg line {
+                    stroke: #7E7E87;
+                }
+                svg polygon {
+                    fill: #7E7E87;
+                    stroke: #7E7E87;
+                }
+            }
+        }
+    }
+    .slick-dots {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 9px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 16px;
+        max-width: calc(100% - 80px);
+        li {
+            width: 4px;
+            height: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            transition: var(--soma-transition, .5s);
+            button {
+                font-size: 0;
+                background-color: $c1;
+                padding: 0;
+                border: none;
+                width: 4px;
+                height: 4px;
+                cursor: pointer;
+                border-radius: 50%;
+                transition: var(--soma-transition, .5s);
+            }
+            &.slick-active {
+                border: 1px solid $c1;
+                width: 16px;
+                height: 16px;
+                button {
+                    width: 8px;
+                    height: 8px;
+                }
+            }
+        }
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: var(--soma-transition, .5s);
+            &:hover {
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+        }
+    }
+}

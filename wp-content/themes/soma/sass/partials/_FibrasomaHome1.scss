@@ -1,0 +1,82 @@
+.fibrasomahome1-partial-870ca3 {
+    padding: 150px 0px 110px 0px;
+    @media (#{$t-portrait}) {
+        padding: 85px 0px 42px 0px;
+    }
+    .content{
+        display: flex;
+        @media (#{$t-portrait}) {
+            display: block;
+        }
+        .text{
+            width: calc(100% * (4 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            position: relative;
+            min-height: 450px;
+            .number{
+                h2{
+                    margin: -14px 0px 0px 0px;
+                    font-family: "Roboto";
+                }
+            }
+            .title{
+                h3{
+                    margin: 20px 0px 0px 0px;
+                    @media (#{$t-portrait}) {
+                        margin: 10px 0px 35px 0px;
+                    }
+                }
+            }
+            .bottom-block{
+                // position: absolute;
+                bottom: 0px;
+                .text{
+                    width: 100%;
+                    max-width: 300px;
+                    padding-bottom: 50px;
+                    min-height: unset;
+                    p{
+                        font-size: var(--soma-font-size-medium, 18px);
+                        line-height: 24.3px;
+                    }
+                    @media (#{$t-portrait}) {
+                        max-width: none;
+                        padding-bottom: 0px;
+                    }
+                }
+                @media (#{$t-portrait}) {
+                    position: relative;
+                    max-width: 600px;
+                }
+            }
+            @media (#{$t-portrait}) {
+                width: 100%;
+                padding-right: 0px;
+                margin-bottom: 40px;
+                min-height: unset;
+            }
+        }
+        .image{
+            width: calc(100% * (8 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            img{
+                display: block;
+                width: 100%;
+            }
+            @media (#{$t-portrait}) {
+                width: 100%;
+                padding-left: 0px;
+            }
+        }
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: var(--soma-transition, .5s);
+            &:hover {
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+        }
+    }
+}

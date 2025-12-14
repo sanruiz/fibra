@@ -1,0 +1,101 @@
+.phrase-partial-3feb8a {
+    padding: 75px 0 75px 0;
+    @media (#{$mobile}) {
+        padding: 40px 0 35px 0;
+    }
+    .content {
+        display: flex;
+        position: relative;
+        @media (#{$t-landscape}) {
+            display: block;
+        }
+        .image {
+            width: calc(100% * (10 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media (#{$t-landscape}) {
+                width: 100%;
+                padding-right: 0px; 
+            }
+            img {
+                width: 100%;
+            }
+        }
+        .phrase {
+            position: absolute;
+            width: calc(100% * (9 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            top: 82px;
+            right: 0;
+            @media (#{$t-landscape}) {
+                position: initial;
+                width: 100%;
+                padding-left: 0px;
+                margin-top: 60px;
+            }
+            @media (#{$mobile}) {
+                margin-top: 40px;
+            }
+            h4 {
+                margin-top: 0;
+                margin-bottom: 30px;
+                @media (#{$mobile}) {
+                    margin-bottom: 25px;
+                    letter-spacing: -0.3px;
+                }
+            }
+            .name {
+                font-family: $f2;
+                font-size: var(--soma-font-size-small, 16px);
+                letter-spacing: 0;
+                line-height: 26px;
+                position: relative;
+                padding-left: 48px;
+                @media (#{$t-landscape}) {
+                    width: fit-content;
+                    margin-left: auto;
+                }
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    width: 35px;
+                    height: 1px;
+                    background-color: $c1;
+                    left: 0;
+                    top: 50%;
+                }
+            }
+        }
+    }
+}
+.style-simple{
+    padding: 75px 0 75px 0;
+    @media (#{$mobile}) {
+        padding: 35px 0 35px 0;
+    }
+    .content {
+        .phrase {
+            position: relative;
+            width: 100%;
+            max-width: 953px;
+            padding-left: 0px;
+            top: 0px;
+            h4 {
+                margin-top: 0;
+                margin-bottom: 25px;
+                @media screen and ($mobile) {
+                    margin-bottom: 20px;
+                }
+            }
+            @media (#{$t-landscape}) {
+                position: initial;
+                margin-top: 0px;
+            }
+            @media (#{$mobile}) {
+                margin-top: 0px;
+            }
+        }
+    }
+}

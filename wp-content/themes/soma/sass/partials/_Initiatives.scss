@@ -1,0 +1,82 @@
+.initiatives-partial-215232 {
+    padding: 0 0 100px 0;
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+            width: calc(100% * (4 / 12));
+            box-sizing: border-box;
+            a {
+                display: inline-block;
+                max-width: 296px;
+                @media screen and ($t-landscape) {
+                    max-width: 100%;
+                    width: 100%;
+                }
+                .image, .title {
+                    @media screen and ($t-landscape) {
+                        width: 100%;
+                    }
+                    img {
+                        @media screen and ($t-landscape) {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+            &:nth-of-type(3n+1) {
+                padding-right: 15px;
+            }
+            &:nth-of-type(3n+2) {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            &:nth-of-type(3n+3) {
+                padding-left: 15px;
+            }
+            h3 {
+                margin-top: 20px;
+                margin-bottom: 0;
+                @media screen and ($t-landscape) {
+                    margin-bottom: 70px;
+                }
+            }
+            @media screen and ($t-landscape) {
+                width: 100%;
+                padding: 0!important;
+            }
+            @media screen and ($only-desk) {
+                h3 {
+                    transition: var(--soma-transition, .5s);
+                }
+                &:hover h3 {
+                    color: var(--soma-color-text-secondary, #7E7E87);
+                }
+            }
+        }
+    }
+    .main-title {
+        h3 {
+            margin-top: 0;
+            margin-bottom: 70px;
+        }
+    }
+    @media screen and ($t-landscape) {
+        padding-bottom: 0px;
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: var(--soma-transition, .5s);
+            &:hover {
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+        }
+    }
+}
+
+.initiatives-partial-215232 + .image-text-partial-9cde64 {
+    .content {
+        padding-top: 50px;
+        border-top: 1px solid $c1;
+    }
+}

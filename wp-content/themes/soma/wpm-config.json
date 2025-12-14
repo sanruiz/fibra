@@ -1,0 +1,21 @@
+{
+    "post_types": {
+        "post": null,
+        "news": [],
+        "careers": [],
+        "portfolio": [],
+        "team-members" : [],
+        "documents-reports" : [],
+        "events" : []
+    },
+    "admin_pages": [
+        "toplevel_page_acf-options-header",
+        "theme-settings_page_acf-options-footer",
+        "theme-settings_page_acf-options-404-error"
+    ],
+    "taxonomies": {
+        "portfolio-taxonomy" : {},
+        "documents-taxonomy" : {},
+        "team-members-taxonomy" : {}
+    }
+}

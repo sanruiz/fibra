@@ -1,0 +1,30 @@
+parameters:
+    level: 6
+    paths:
+        - includes
+    excludePaths:
+        - vendor
+        - node_modules
+        - tests/Mocks
+    ignoreErrors:
+        # ACF functions (stubs don't provide function signatures)
+        - '#Function get_field not found#'
+        # Contact Form 7 classes (no official stubs available)
+        - '#unknown class WPCF7#'
+        - '#invalid type WPCF7#'
+        - '#Method .* has invalid return type WPCF7#'
+        # Elementor classes (stubs have bugs, but classes exist at runtime)
+        - '#unknown class Elementor\\\\#'
+        - '#Access to constant .* on an unknown class Elementor\\\\#'
+        - '#Call to method .* on an unknown class Elementor\\\\#'
+        - '#Instantiated class Elementor\\\\#'
+        - '#Call to an undefined method .*::(?:start_controls_section|end_controls_section|add_control|add_responsive_control|start_controls_tabs|start_controls_tab|end_controls_tab|end_controls_tabs|get_settings_for_display)#'
+        # Action callbacks don't need return types
+        - '#Action callback returns .* but should not return anything#'
+        # Allow missing array value types
+        -
+            identifier: missingType.iterableValue
+        # Allow missing generic types
+        -
+            identifier: missingType.generics
+    treatPhpDocTypesAsCertain: false

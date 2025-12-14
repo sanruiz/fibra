@@ -1,0 +1,88 @@
+.vimeoplayer-partial-8e5131 {
+    padding: 40px 0 70px 0;
+    &.dark-style {
+        background-color: $c1;
+        padding: 100px 0 70px 0;
+        @media screen and ($t-portrait) {
+            padding: 70px 0 50px 0;
+        }
+        @media (#{$mobile}) {
+            padding: 50px 0 40px 0;
+        }
+        &:last-of-type {
+            padding-bottom: 0;
+            .content {
+                padding-bottom: 150px;
+                border-bottom: 1px solid #999999;
+                @media screen and ($mobile) {
+                    padding-bottom: 76px;
+                }
+            }
+        }
+    }
+    @media screen and ($t-portrait) {
+        padding: 30px 0 50px 0;
+    }
+    @media (#{$mobile}) {
+        padding: 20px 0 40px 0;
+    }
+    .content {
+        padding-top: 59.3%;
+        position: relative;
+        width: 100%;
+        background-color: #000;
+        iframe,
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        iframe {
+            z-index: 0;
+        }
+        .cover {
+            z-index: 1;
+            transition: var(--soma-transition, .5s);
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: var(--soma-transition, .5s);
+            z-index: 2;
+            padding: 0;
+            background-color: transparent;
+            border: none;
+            @media screen and ($only-desk) {
+                &:hover {
+                    opacity: .5;
+                }
+            }
+            @media screen and ($mobile) {
+                svg {
+                    width: 60px;
+                }
+            }
+        }
+    }
+    &.playing {
+        .cover,
+        .play-button {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+    .label {
+        margin-top: 45px;
+    }
+}

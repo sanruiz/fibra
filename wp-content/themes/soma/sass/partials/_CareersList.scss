@@ -1,0 +1,80 @@
+.careerslist-partial-57001a {
+    padding: 23px 0 85px 0;
+    @media (#{$mobile}) {
+        padding: 23px 0 25px 0;
+    }
+    .content {
+        h2 {
+            max-width: 676px;
+            margin-top: 0;
+            margin-bottom: 45px;
+            @media (#{$mobile}) {
+                margin-bottom: 25px;
+            }
+        }
+        h3{
+            @media (#{$mobile}) {
+                margin:0;
+                margin-bottom: 10px;
+            }
+        }
+        a{
+            text-decoration: none;
+        }
+        p {
+            max-width: 517px;
+            margin: 0;
+            @media (#{$mobile}) {
+                max-width: 100%;
+            }
+        }
+        .title-container{
+            padding-bottom: 75px;
+        }
+        .careers-item{
+            padding: 5px 0 35px 0;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #171717;
+            @media (#{$mobile}) {
+                display: block;
+                padding: 25px 0 35px 0;
+            }
+            .careers-title{
+                width: calc(100% * (6 / 12));
+                box-sizing: border-box;
+                @media (#{$mobile}) {
+                    width: 100%;
+                }
+            }
+            .careers-city{
+                width: calc(100% * (6 / 12));
+                box-sizing: border-box;
+                position: relative;
+                @media (#{$mobile}) {
+                    width: 100%;
+                }
+                h3{
+                    color: var(--soma-color-text-secondary, #7E7E87);
+                }
+                .arrow{
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    @media (#{$mobile}) {
+                        position: relative;
+                        top: unset;
+                        transform: unset;
+                    }
+                    svg{
+                        @media (#{$mobile}) {
+                            width: 35.2px;
+                            height: 37.42px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

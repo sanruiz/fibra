@@ -1,0 +1,100 @@
+.randominfofullscreen-partial-c09bb0 {
+    position: relative;
+    .image{
+        height: calc(100vh - 173px);
+        img{
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        @media screen and ($t-landscape) {
+            height: calc(100vh - 122px);
+        }
+        @media screen and ($mobile) {
+            height: calc(100vh - 118px); 
+        }
+        &:before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.2);
+            // z-index:-1;
+        }
+    }
+    .data-container{
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 65px;
+        left: 50%;
+        transform: translateX(-50%);
+        .item {
+            display: inline-block;
+            padding-right: 75px;
+            .value {
+                font-family: "Roboto";
+                font-size: 74px;
+                color: #ffffff;
+                letter-spacing: -0.47px;
+                line-height: 67px;
+                margin-bottom: 10px;
+                // text-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
+                @media (#{$mobile}) {
+                    font-size: 44px;
+                    line-height: 44px;
+                }
+            }
+            .label {
+                font-size: var(--soma-font-size-large, 20px);
+                color: #ffffff;
+                letter-spacing: 0;
+                line-height: 27px;
+                width: max-content;
+                // text-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
+                @media (#{$t-portrait}) {
+                    width: auto;
+                }
+                @media (#{$mobile}) {
+                    font-size: var(--soma-font-size-medium, 18px);
+                    line-height: 23px;
+                    padding-right: 40px;
+                }
+            }
+            @media (#{$t-portrait}) {
+                margin-bottom: 25px;
+                padding-right: 0px;
+                // width: 150px;
+                width: 50%;
+            }
+            @media (#{$mobile}) {
+                width: 50%;
+                padding-right: 0px;
+            }
+        }
+        .item:last-child {
+            padding-right: 0px;
+        }
+        .item:nth-child(2n) {
+            @media (#{$t-portrait}) {
+                padding-right: 0px;
+            }
+        }
+        @media (#{$t-portrait}) {
+            flex-wrap: wrap;
+            bottom: 0px;
+            left: 30px;
+            transform: none;
+            right: 35px;
+        }
+        @media (#{$mobile}) {
+            left: 20px;
+            transform: none;
+            right: 20px;
+        }
+    }
+}

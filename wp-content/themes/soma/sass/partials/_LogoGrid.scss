@@ -1,0 +1,33 @@
+.logogrid-partial-7384ec {
+    padding: 55px 0 0 0;
+    @media screen and ($mobile) {
+        padding: 38px 0 0 0;
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+            width: calc(100% / 4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 90px;
+            @media (#{$t-portrait}) {
+                width: calc(100% / 3);
+            }
+            @media (#{$mobile}) {
+                width: calc(100% / 2);
+                margin-bottom: 35px;
+            }
+            img {
+                max-width: calc(100% - 60px);
+                -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+                filter: grayscale(100%);
+                @media (#{$mobile}) {
+                    max-width: 50%;
+                    max-height: 55px;
+                }
+            }
+        }
+    }
+}

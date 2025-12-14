@@ -1,0 +1,113 @@
+.fibrasomahome3-partial-1f0e42 {
+    padding: 150px 0px 110px 0px;
+    @media (#{$t-portrait}) {
+        padding: 50px 0px 50px 0px;
+    }
+    .content{
+        display: flex;
+        flex-wrap: wrap;
+        .text{
+            width: calc(100% * (4 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            position: relative;
+            @media (#{$t-portrait}) {
+                width: 100%;
+            }
+            .number{
+                h2{
+                    margin: -14px 0px 0px 0px;
+                    font-family: "Roboto";
+                }
+            }
+            .title{
+                h3{
+                    margin: 20px 0px 0px 0px;
+                    @media (#{$t-portrait}) {
+                        margin: 10px 0px 35px 0px;
+                    }
+                }
+            }
+        }
+        .list {
+            width: calc(100% * (8 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            position: relative;
+            min-height: 240px;
+            @media (#{$t-portrait}) {
+                width: 100%;
+                padding-left: 0;
+            }
+            .item {
+                margin-bottom: 20px;
+                a {
+                    font-size: var(--soma-font-size-h6, 25px);
+                    text-decoration: none;
+                }
+            }
+        }
+        .link {
+            width: calc(100% * (4 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            position: relative;
+            @media (#{$t-portrait}) {
+                width: 100%;
+            }
+            a {
+                font-size: var(--soma-font-size-h6, 25px);
+            }
+        }
+        .image {
+            width: calc(100% * (8 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            position: relative;
+            @media (#{$t-portrait}) {
+                padding-left: 0;
+                width: 100%;
+                margin-top: 50px;
+            }
+            img{
+                display: block;
+                width: 70%;
+                @media (#{$t-portrait}) {
+                    width: 100%;
+                }
+            }
+            .link-image {
+                position: absolute;
+                top: 0;
+                left: 15px;
+                width: calc((100% - 15px) * 0.7);
+                height: 100%;
+                visibility: hidden;
+                opacity: 0;
+                z-index: 1;
+                transition: var(--soma-transition, .5s);
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                }
+                &.active {
+                    visibility: visible;
+                    opacity: 1;
+                }
+                @media screen and ($t-landscape) {
+                    display: none;
+                }
+            }
+        }
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: var(--soma-transition, .5s);
+            &:hover {
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+        }
+    }
+}

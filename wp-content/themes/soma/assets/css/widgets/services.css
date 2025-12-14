@@ -1,0 +1,190 @@
+/**
+ * Services Widget Styles
+ * 
+ * Elementor widget for services grid with repeater.
+ * 
+ * @package Soma
+ * @since 3.0.0
+ */
+
+/* Container */
+.soma-services {
+	padding: 50px 0;
+}
+
+/* Grid */
+.soma-services .services-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+}
+
+/* Service item (card) */
+.soma-services .service-item {
+	background-color: var(--soma-bg-white, #ffffff);
+	padding: 40px 30px;
+	border: 1px solid var(--soma-border-light, #e0e0e0);
+	border-radius: 8px;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	color: inherit;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.soma-services .service-item:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	border-color: var(--soma-primary, #0066cc);
+}
+
+/* Icon */
+.soma-services .service-icon {
+	width: 60px;
+	height: 60px;
+	margin-bottom: 20px;
+	flex-shrink: 0;
+}
+
+.soma-services .service-icon img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+/* Title */
+.soma-services .service-title {
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--soma-text-primary, #000000);
+	margin: 0 0 15px;
+	line-height: 1.4;
+}
+
+.soma-services .service-item:hover .service-title {
+	color: var(--soma-primary, #0066cc);
+}
+
+/* Description */
+.soma-services .service-description {
+	font-size: 15px;
+	line-height: 1.7;
+	color: var(--soma-text-secondary, #666666);
+	margin: 0;
+	flex-grow: 1;
+}
+
+.soma-services .service-description p {
+	margin: 0 0 10px;
+}
+
+.soma-services .service-description p:last-child {
+	margin-bottom: 0;
+}
+
+/* Link variant (when service has link) */
+.soma-services a.service-item {
+	cursor: pointer;
+}
+
+.soma-services a.service-item::after {
+	content: '→';
+	display: inline-block;
+	margin-left: 10px;
+	opacity: 0;
+	transform: translateX(-10px);
+	transition: all 0.3s ease;
+	font-size: 18px;
+	color: var(--soma-primary, #0066cc);
+}
+
+.soma-services a.service-item:hover::after {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+/* Responsive: Tablet */
+@media screen and (max-width: 991px) {
+	.soma-services .services-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 25px;
+	}
+
+	.soma-services .service-item {
+		padding: 30px 25px;
+	}
+
+	.soma-services .service-title {
+		font-size: 18px;
+	}
+
+	.soma-services .service-description {
+		font-size: 14px;
+	}
+}
+
+/* Responsive: Mobile */
+@media screen and (max-width: 767px) {
+	.soma-services {
+		padding: 30px 0;
+	}
+
+	.soma-services .services-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.soma-services .service-item {
+		padding: 25px 20px;
+	}
+
+	.soma-services .service-icon {
+		width: 50px;
+		height: 50px;
+	}
+}
+
+/* Column variants (controlled by Elementor) */
+.soma-services .services-grid.cols-1 {
+	grid-template-columns: 1fr;
+}
+
+.soma-services .services-grid.cols-2 {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.soma-services .services-grid.cols-3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.soma-services .services-grid.cols-4 {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.soma-services .services-grid.cols-5 {
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.soma-services .services-grid.cols-6 {
+	grid-template-columns: repeat(6, 1fr);
+}
+
+/* Responsive overrides for column variants */
+@media screen and (max-width: 991px) {
+	.soma-services .services-grid.cols-4,
+	.soma-services .services-grid.cols-5,
+	.soma-services .services-grid.cols-6 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.soma-services .services-grid.cols-2,
+	.soma-services .services-grid.cols-3,
+	.soma-services .services-grid.cols-4,
+	.soma-services .services-grid.cols-5,
+	.soma-services .services-grid.cols-6 {
+		grid-template-columns: 1fr;
+	}
+}

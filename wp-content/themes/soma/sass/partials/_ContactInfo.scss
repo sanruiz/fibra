@@ -1,0 +1,71 @@
+.contactinfo-partial-b5328a {
+    padding: 58px 0 40px 0;
+    @media screen and ($t-portrait) {
+        padding: 30px 0 30px 0;
+    }
+    @media screen and ($mobile) {
+        padding: 40px 0 35px 0;
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        .column-1 {
+            width: calc(100% * (5 / 12));
+            box-sizing: border-box;
+            padding-right: 15px;
+            @media screen and ($t-landscape) {
+                width: 100%;
+                padding-right: 0;
+            }
+            .link {
+                @media screen and ($t-landscape) {
+                    margin-bottom: 35px;
+                }
+                @media screen and ($mobile) {
+                    margin-bottom: 35px;
+                }
+            }
+        }
+        .column-2 {
+            width: calc(100% * (6 / 12));
+            box-sizing: border-box;
+            padding-left: 15px;
+            padding-right: 15px;
+            @media screen and ($t-landscape) {
+                width: 100%;
+                padding: 0;
+            }
+        }
+    }
+    .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 25px;
+            &:nth-of-type(2n + 1) {
+                padding-right: 15px;
+            }
+            &:nth-of-type(2n + 2) {
+                padding-left: 15px;
+            }
+            @media (#{$mobile}) {
+                width: 100%;
+                padding-left: 0!important;
+            }
+        }
+    }
+    h3 {
+        margin-top: -5px;
+        margin-bottom: 40px;
+    }
+    a {
+        @media screen and ($only-desk) {
+            transition: var(--soma-transition, .5s);
+            &:hover {
+                color: var(--soma-color-text-secondary, #7E7E87);
+            }
+        }
+    }
+}
