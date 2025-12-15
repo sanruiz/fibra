@@ -102,7 +102,7 @@ class BlockRegistry {
 		$this->register_block( 'FeaturedText', 'featured_text_content', 'FeaturedText' );
 		$this->register_block( 'TextSlider', 'text_slider_content', 'TextSlider' );
 
-		// Lists // Lists & Grids Grids.
+		// Lists & Grids.
 		$this->register_block( 'NewsList', 'news_list_content', 'NewsList' );
 		$this->register_block( 'CareersList', 'careers_list_content', 'CareersList' );
 		$this->register_block( 'TeamMembers', 'team_members_content', 'TeamMembers' );
