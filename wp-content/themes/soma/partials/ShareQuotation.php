@@ -44,34 +44,34 @@ $arrow = '
 
 <?php if ( get_query_var( 'soma_block_content' )['symbol'] ) : ?>
 <section 
-	class="sharequotation-partial-7baa8d <?php echo get_query_var( 'soma_block_content' )['dark_background'] ? 'black-bg' : 'white-bg'; ?>" 
-	data-symbol="<?php echo get_query_var( 'soma_block_content' )['symbol']; ?>" 
-	data-origin="<?php echo get_query_var( 'soma_block_content' )['data_origin']; ?>"
-	data-price="<?php echo get_query_var( 'soma_block_content' )['custom_data']['actual_price']; ?>"
-	data-percent-one="<?php echo get_query_var( 'soma_block_content' )['custom_data']['percent_1']; ?>"
-	data-percent-two="<?php echo get_query_var( 'soma_block_content' )['custom_data']['percent_2']; ?>"
-	data-volume="<?php echo get_query_var( 'soma_block_content' )['custom_data']['volume']; ?>"
-	data-lang="<?php echo wpm_get_language(); ?>"
+	class="sharequotation-partial-7baa8d <?php echo esc_attr( get_query_var( 'soma_block_content' )['dark_background'] ? 'black-bg' : 'white-bg' ); ?>" 
+	data-symbol="<?php echo esc_attr( get_query_var( 'soma_block_content' )['symbol'] ); ?>" 
+	data-origin="<?php echo esc_attr( get_query_var( 'soma_block_content' )['data_origin'] ); ?>"
+	data-price="<?php echo esc_attr( get_query_var( 'soma_block_content' )['custom_data']['actual_price'] ); ?>"
+	data-percent-one="<?php echo esc_attr( get_query_var( 'soma_block_content' )['custom_data']['percent_1'] ); ?>"
+	data-percent-two="<?php echo esc_attr( get_query_var( 'soma_block_content' )['custom_data']['percent_2'] ); ?>"
+	data-volume="<?php echo esc_attr( get_query_var( 'soma_block_content' )['custom_data']['volume'] ); ?>"
+	data-lang="<?php echo esc_attr( wpm_get_language() ); ?>"
 	>
 	<div class="container">
 		<div class="col">
 			<div class="title">
-				<?php echo get_query_var( 'soma_block_content' )['title'] ? "<h3>{get_query_var('soma_block_content')['title']}</h3>" : ''; ?>
+				<?php echo get_query_var( 'soma_block_content' )['title'] ? '<h3>' . esc_html( get_query_var( 'soma_block_content' )['title'] ) . '</h3>' : ''; ?>
 			</div>
 		<?php if ( get_query_var( 'soma_block_content' )['file'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'en' ) : ?>
-				<a class="desk" href="<?php echo get_query_var( 'soma_block_content' )['file']['url']; ?>" target="_blank">
-					<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
+				<a class="desk" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file']['url'] ); ?>" target="_blank">
+					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow; ?>
 				</a>
 			<?php endif; ?>
 		<?php if ( get_query_var( 'soma_block_content' )['file_es'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'es' ) : ?>
-				<a class="desk" href="<?php echo get_query_var( 'soma_block_content' )['file_es']['url']; ?>" target="_blank">
-					<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
+				<a class="desk" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file_es']['url'] ); ?>" target="_blank">
+					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow; ?>
 				</a>
 			<?php endif; ?>
 		</div>
 		<div class="col">
 			<div class="price">
-				<?php echo get_query_var( 'soma_block_content' )['label_1'] ? "<h3>{get_query_var('soma_block_content')['label_1']}</h3>" : ''; ?>
+				<?php echo get_query_var( 'soma_block_content' )['label_1'] ? '<h3>' . esc_html( get_query_var( 'soma_block_content' )['label_1'] ) . '</h3>' : ''; ?>
 				<h2 class="data-price">$0</h2>
 				<p>
 					<span class="data-change">$0</span>&nbsp;
@@ -84,17 +84,17 @@ $arrow = '
 		</div>
 		<div class="col">
 			<div class="price">
-				<?php echo get_query_var( 'soma_block_content' )['label_2'] ? "<h3>{get_query_var('soma_block_content')['label_2']}</h3>" : ''; ?>
+				<?php echo get_query_var( 'soma_block_content' )['label_2'] ? '<h3>' . esc_html( get_query_var( 'soma_block_content' )['label_2'] ) . '</h3>' : ''; ?>
 				<h2 class="data-volume">0</h2>
 			</div>
 			<?php if ( get_query_var( 'soma_block_content' )['file'] && get_query_var( 'soma_block_content' )['file_label'] ) : ?>
-				<a class="mobile" href="<?php echo get_query_var( 'soma_block_content' )['file']['url']; ?>" target="_blank">
-					<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
+				<a class="mobile" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file']['url'] ); ?>" target="_blank">
+					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow; ?>
 				</a>
 			<?php endif; ?>
 		<?php if ( get_query_var( 'soma_block_content' )['file_es'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'es' ) : ?>
-				<a class="mobile" href="<?php echo get_query_var( 'soma_block_content' )['file_es']['url']; ?>" target="_blank">
-					<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
+				<a class="mobile" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file_es']['url'] ); ?>" target="_blank">
+					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow; ?>
 				</a>
 			<?php endif; ?>
 		</div>
