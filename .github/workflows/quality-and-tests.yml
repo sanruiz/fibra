@@ -208,6 +208,9 @@ jobs:
           else
             echo "⚠️ PHPUnit not available or phpunit.xml not found - skipping"
           fi
+        env:
+          WP_TESTS_DIR: /tmp/wordpress-tests-lib
+          WP_CORE_DIR: /tmp/wordpress/
 
       - name: 📊 Upload coverage report
         uses: codecov/codecov-action@v4
