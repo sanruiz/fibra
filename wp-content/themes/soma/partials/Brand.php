@@ -31,15 +31,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 $iditem = str_replace( ' ', '', get_query_var( 'soma_block_content' )['title'] );
 $iditem = preg_replace( '/[^A-Za-z0-9\-]/', '', $iditem );
 ?>
-<section class="brand-partial-e66256" id="<?php echo $iditem; ?>">
+<section class="brand-partial-e66256" id="<?php echo esc_attr( $iditem ); ?>">
 	<div class="container">
 		<div class="content">
 			<div class="text tablet">
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
-					<h3><u><?php echo get_query_var( 'soma_block_content' )['title']; ?></u></h3>
+					<h3><u><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></u></h3>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['subtitle'] ) : ?>
-					<div class="subtitle"><?php echo get_query_var( 'soma_block_content' )['subtitle']; ?></div>
+					<div class="subtitle"><?php echo esc_html( get_query_var( 'soma_block_content' )['subtitle'] ); ?></div>
 				<?php endif; ?>
 			</div>
 			<div class="gallery">
@@ -47,7 +47,7 @@ $iditem = preg_replace( '/[^A-Za-z0-9\-]/', '', $iditem );
 					<div class="brand-slick">
 						<?php foreach ( get_query_var( 'soma_block_content' )['gallery'] as $key => $item ) : ?>
 							<div class="item">
-								<img src="<?php echo $item['url']; ?>" alt="<?php echo $item['alt']; ?>">
+								<img src="<?php echo esc_url( $item['url'] ); ?>" alt="<?php echo esc_attr( $item['alt'] ); ?>">
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -56,20 +56,20 @@ $iditem = preg_replace( '/[^A-Za-z0-9\-]/', '', $iditem );
 			<div class="text">
 				<div class="boxtext">
 					<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
-						<h3 class="desk"><u><?php echo get_query_var( 'soma_block_content' )['title']; ?></u></h3>
+						<h3 class="desk"><u><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></u></h3>
 					<?php endif; ?>
 					<?php if ( get_query_var( 'soma_block_content' )['subtitle'] ) : ?>
-						<div class="subtitle desk"><?php echo get_query_var( 'soma_block_content' )['subtitle']; ?></div>
+						<div class="subtitle desk"><?php echo esc_html( get_query_var( 'soma_block_content' )['subtitle'] ); ?></div>
 					<?php endif; ?>
 					<?php if ( get_query_var( 'soma_block_content' )['description'] ) : ?>
 						<div class="description">
-							<p><?php echo get_query_var( 'soma_block_content' )['description']; ?></p>
+							<p><?php echo esc_html( get_query_var( 'soma_block_content' )['description'] ); ?></p>
 						</div>
 					<?php endif; ?>
 					<?php if ( get_query_var( 'soma_block_content' )['categories'] ) : ?>
 						<ul>
 							<?php foreach ( get_query_var( 'soma_block_content' )['categories'] as $key => $item ) : ?>
-								<li><?php echo $item['category']; ?></li>
+								<li><?php echo esc_html( $item['category'] ); ?></li>
 							<?php endforeach; ?>
 						</ul>
 					<?php endif; ?>
@@ -80,8 +80,8 @@ $iditem = preg_replace( '/[^A-Za-z0-9\-]/', '', $iditem );
 					</div>
 					<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
 						<div class="link">
-							<a href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
-								<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+							<a href="<?php echo esc_url( get_query_var( 'soma_block_content' )['link']['url'] ); ?>" target="<?php echo esc_attr( get_query_var( 'soma_block_content' )['link']['target'] ); ?>">
+								<?php echo esc_html( get_query_var( 'soma_block_content' )['link']['title'] ); ?>
 							</a>
 						</div>
 					<?php endif; ?>
