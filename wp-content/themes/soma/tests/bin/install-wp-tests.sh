@@ -77,7 +77,7 @@ elif [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
 	else
 		WP_TESTS_TAG="tags/$WP_VERSION"
 	fi
-elif [[ $WP_VERSION === 'nightly' || $WP_VERSION === 'trunk' ]]; then
+elif [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
 	WP_TESTS_TAG="trunk"
 else
 	# http serves a single offer, whereas https serves multiple. we only want one
@@ -103,13 +103,13 @@ install_wp() {
 	
 	mkdir -p $WP_CORE_DIR
 
-	if [[ $WP_VERSION === 'nightly' || $WP_VERSION === 'trunk' ]]; then
+	if [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
 		mkdir -p $TMPDIR/wordpress-trunk
 		rm -rf $TMPDIR/wordpress-trunk/*
 		svn export --quiet https://core.svn.wordpress.org/trunk $TMPDIR/wordpress-trunk/wordpress
 		mv $TMPDIR/wordpress-trunk/wordpress/* $WP_CORE_DIR
 	else
-		if [ $WP_VERSION === 'latest' ]; then
+		if [ $WP_VERSION == 'latest' ]; then
 			local ARCHIVE_NAME='latest'
 		elif [[ $WP_VERSION =~ [0-9]+\.[0-9]+ ]]; then
 			# https serves multiple offers, whereas http serves single.
@@ -141,7 +141,7 @@ install_wp() {
 
 install_test_suite() {
 	# portable in-place argument for both GNU sed and Mac OSX sed
-	if [[ $(uname -s) === 'Darwin' ]]; then
+	if [[ $(uname -s) == 'Darwin' ]]; then
 		local ioption='-i.bak'
 	else
 		local ioption='-i'
@@ -221,7 +221,7 @@ install_db() {
 		echo "Reinstalling will delete the existing test database"
 		
 		# Check for non-interactive mode via environment variable or CI detection
-		if [[ "$FORCE_DB_RECREATE" === "true" ]] || [[ "$CI" === "true" ]] || [[ "$GITHUB_ACTIONS" === "true" ]] || [[ "$CONTINUOUS_INTEGRATION" === "true" ]]; then
+		if [[ "$FORCE_DB_RECREATE" == "true" ]] || [[ "$CI" == "true" ]] || [[ "$GITHUB_ACTIONS" == "true" ]] || [[ "$CONTINUOUS_INTEGRATION" == "true" ]]; then
 			print_warning "Non-interactive mode: Automatically recreating database"
 			DELETE_EXISTING_DB="y"
 		else
