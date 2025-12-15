@@ -38,7 +38,7 @@ function printEvent( $id ) {
 	$formated_end_date  = $content['end_date'] ? soma_translate_date( date( 'M j, Y', $content['end_date'] ), 'short' ) : null;
 	$formated_date      = $formated_end_date ? $formated_init_date . ' - ' . $formated_end_date : $formated_init_date;
 
-	$mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es'];
+	$mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es'];
 
 	if ( $mainFile ) {
 		$link = $mainFile ? "<a target='_BLANK' href='{$mainFile['url']}'>{$content['file_label']}{$arrow}</a>" : '';
@@ -60,15 +60,15 @@ function printEvent( $id ) {
 
 $events = [];
 
-if ( get_query_var( 'soma_block_content' )['fill_mode'] == 'featured' ) {
-	if ( get_query_var( 'soma_block_content' )['events'] && wpm_get_language() == 'en' ) {
+if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
+	if ( get_query_var( 'soma_block_content' )['events'] && wpm_get_language() === 'en' ) {
 		foreach ( get_query_var( 'soma_block_content' )['events'] as $key => $event ) {
 			if ( $event ) {
 				$events[] = $event['event']->ID;
 			}
 		}
 	}
-	if ( get_query_var( 'soma_block_content' )['events_es'] && wpm_get_language() == 'es' ) {
+	if ( get_query_var( 'soma_block_content' )['events_es'] && wpm_get_language() === 'es' ) {
 		foreach ( get_query_var( 'soma_block_content' )['events_es'] as $key => $event ) {
 			if ( $event ) {
 				$events[] = $event['event']->ID;

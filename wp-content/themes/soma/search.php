@@ -12,13 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 $lang = $_GET['lang'];
 
 $post_types_ref = [
-	'page'              => $lang == 'es' ? 'Página' : 'Page',
-	'portfolio'         => $lang == 'es' ? 'Portafolio' : 'Portfolio',
-	'documents-reports' => $lang == 'es' ? 'Documento' : 'Document',
-	'news'              => $lang == 'es' ? 'Noticia' : 'News',
-	'team-members'      => $lang == 'es' ? 'Equipo' : 'Team',
-	'events'            => $lang == 'es' ? 'Evento' : 'Event',
-	'careers'           => $lang == 'es' ? 'Carreras' : 'Careers',
+	'page'              => $lang === 'es' ? 'Página' : 'Page',
+	'portfolio'         => $lang === 'es' ? 'Portafolio' : 'Portfolio',
+	'documents-reports' => $lang === 'es' ? 'Documento' : 'Document',
+	'news'              => $lang === 'es' ? 'Noticia' : 'News',
+	'team-members'      => $lang === 'es' ? 'Equipo' : 'Team',
+	'events'            => $lang === 'es' ? 'Evento' : 'Event',
+	'careers'           => $lang === 'es' ? 'Carreras' : 'Careers',
 ];
 
 if ( have_posts() ) :
@@ -28,12 +28,12 @@ if ( have_posts() ) :
 		$post_id      = get_the_id();
 		$post_type    = get_post_type( $post_id );
 		$mainCategory = [];
-		if ( $post_type == 'portfolio' ) {
+		if ( $post_type === 'portfolio' ) {
 			$terms        = get_the_terms( get_the_id(), 'portfolio-taxonomy' );
 			$mainCategory = array_filter(
 				$terms,
 				function ( $var ) {
-					return ( $var->slug == 'fibrasoma' || $var->slug == 'soma_real_estate' || $var->slug == 'soma_construction' );
+					return ( $var->slug === 'fibrasoma' || $var->slug === 'soma_real_estate' || $var->slug === 'soma_construction' );
 				}
 			);
 		}

@@ -44,17 +44,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['designed'] ) : ?>
 
-						<?php if ( get_query_var( 'soma_block_content' )['designed']['type'] == 'Link' ) : ?>   
+						<?php if ( get_query_var( 'soma_block_content' )['designed']['type'] === 'Link' ) : ?>   
 								<div class="designed-by">
-									<p><br><?php echo ( wpm_get_language() == 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
+									<p><br><?php echo ( wpm_get_language() === 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
 									<u><a href="<?php echo get_query_var( 'soma_block_content' )['designed']['desidesigned_by_link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['designed']['desidesigned_by_link']['target']; ?>">
 										<?php echo get_query_var( 'soma_block_content' )['designed']['desidesigned_by_link']['title']; ?>
 										</a>
 									</u>
 								</div>
-						<?php elseif ( get_query_var( 'soma_block_content' )['designed']['type'] == 'Text' ) : ?>
+						<?php elseif ( get_query_var( 'soma_block_content' )['designed']['type'] === 'Text' ) : ?>
 								<div class="designed-by">
-									<p><br><?php echo ( wpm_get_language() == 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
+									<p><br><?php echo ( wpm_get_language() === 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
 									<u><?php echo get_query_var( 'soma_block_content' )['designed']['designed_by']; ?></u> 
 								</div>
 						<?php else : ?>
@@ -66,17 +66,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php if ( get_query_var( 'soma_block_content' )['column_3'] ) : ?>
 					<p><?php echo get_query_var( 'soma_block_content' )['column_3']; ?></p>
 				<?php endif; ?>
-				<?php if ( get_query_var( 'soma_block_content' )['designed']['type'] == 'Link' ) : ?>   
+				<?php if ( get_query_var( 'soma_block_content' )['designed']['type'] === 'Link' ) : ?>   
 						<div class="designed-by">
-							<p><br><?php echo ( wpm_get_language() == 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
+							<p><br><?php echo ( wpm_get_language() === 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
 							<u><a href="<?php echo get_query_var( 'soma_block_content' )['designed']['desidesigned_by_link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['designed']['desidesigned_by_link']['target']; ?>">
 								<?php echo get_query_var( 'soma_block_content' )['designed']['desidesigned_by_link']['title']; ?>
 								</a>
 							</u>
 						</div>
-				<?php elseif ( get_query_var( 'soma_block_content' )['designed']['type'] == 'Text' ) : ?>
+				<?php elseif ( get_query_var( 'soma_block_content' )['designed']['type'] === 'Text' ) : ?>
 						<div class="designed-by">
-							<p><br><?php echo ( wpm_get_language() == 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
+							<p><br><?php echo ( wpm_get_language() === 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
 							<u><?php echo get_query_var( 'soma_block_content' )['designed']['designed_by']; ?></u> 
 						</div>
 				<?php else : ?>

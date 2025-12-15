@@ -29,7 +29,7 @@ $header_options = get_field( 'header_content', 'options' );
 ?>
 
 <section class="navbar-partial-df27ae style-<?php echo $header_options['style']; ?>">
-	<?php if ( $header_options['style'] == 'fibrasoma' ) : ?>
+	<?php if ( $header_options['style'] === 'fibrasoma' ) : ?>
 		<div class="fibrasoma-top-bar-container">
 			<div class="container">
 				<div class="top-bar fibrasoma-top-bar">

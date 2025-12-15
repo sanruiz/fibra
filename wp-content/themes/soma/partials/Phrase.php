@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="phrase-partial-3feb8a style-<?php echo get_query_var( 'soma_block_content' )['style']; ?>">
 	<div class="container">
 		<div class="content">
-			<?php if ( get_query_var( 'soma_block_content' )['style'] == 'withimage' ) : ?>
+			<?php if ( get_query_var( 'soma_block_content' )['style'] === 'withimage' ) : ?>
 				<div class="image">
 					<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
 						<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">

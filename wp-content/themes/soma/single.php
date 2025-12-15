@@ -19,19 +19,19 @@ $header_options = get_field( 'header_content', 'options' );
 
 <main id="ditto-single" page-slug="<?php echo $post->post_name; ?>" data-header-style="<?php echo $header_options['style']; ?>">
 
-	<?php if ( get_post_type() == 'news' ) : ?>
+	<?php if ( get_post_type() === 'news' ) : ?>
 
 		<?php get_template_part( 'singles/news' ); ?>
 	
-	<?php elseif ( get_post_type() == 'careers' ) : ?>
+	<?php elseif ( get_post_type() === 'careers' ) : ?>
 
 		<?php get_template_part( 'singles/careers' ); ?>
 	
-	<?php elseif ( get_post_type() == 'team-members' ) : ?>
+	<?php elseif ( get_post_type() === 'team-members' ) : ?>
 
 		<?php get_template_part( 'singles/team-members' ); ?>
 
-	<?php elseif ( get_post_type() == 'portfolio' ) : ?>
+	<?php elseif ( get_post_type() === 'portfolio' ) : ?>
 
 		<?php
 			global $pageBuilder;
@@ -71,16 +71,16 @@ $header_options = get_field( 'header_content', 'options' );
 </main>
 
 <script>
-<?php if ( get_post_type() == 'news' ) : ?>
+<?php if ( get_post_type() === 'news' ) : ?>
 	$('#menu-main-menu .menu-item.news').addClass('current-menu-item');
 <?php endif; ?>
-<?php if ( get_post_type() == 'careers' ) : ?>
+<?php if ( get_post_type() === 'careers' ) : ?>
 	$('#menu-main-menu .menu-item.careers').addClass('current-menu-item');
 <?php endif; ?>
-<?php if ( get_post_type() == 'portfolio' ) : ?>
+<?php if ( get_post_type() === 'portfolio' ) : ?>
 	$('#menu-main-menu .menu-item.portfolio').addClass('current-menu-item');
 <?php endif; ?>
-<?php if ( get_post_type() == 'team-members' ) : ?>
+<?php if ( get_post_type() === 'team-members' ) : ?>
 	$('#menu-main-menu .menu-item.team-members').addClass('current-menu-item');
 <?php endif; ?>
 </script>

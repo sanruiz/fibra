@@ -88,7 +88,7 @@ $preFilter = isset( $_GET['category'] ) ? $_GET['category'] : null;
 			</div>
 		</div>
 		<div class="filters movil">
-			<div class="ViewAll"> <div style="width: 100%;"><?php echo ( wpm_get_language() == 'en' ) ? 'View All' : 'Ver Todos'; ?> </div> 
+			<div class="ViewAll"> <div style="width: 100%;"><?php echo ( wpm_get_language() === 'en' ) ? 'View All' : 'Ver Todos'; ?> </div> 
 				<svg class="ViewAllsvg" style="transition: 0.5s;" xmlns="http://www.w3.org/2000/svg" width="19.172" height="19.172" viewBox="0 0 19.172 19.172">
 					<g id="Group" transform="translate(9.548 1.77) rotate(45)">
 						<path id="Line" d="M0,0,10.729,10.729" transform="translate(0.19 0.136)" fill="none" stroke="#171717" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"/>
@@ -97,7 +97,7 @@ $preFilter = isset( $_GET['category'] ) ? $_GET['category'] : null;
 				</svg>
 			</div>
 			<div class="IteamView" style="display: none;">
-				<div class="filter active" data-filters="<?php echo get_query_var( 'soma_block_content' )['main_category']; ?>"><?php echo ( wpm_get_language() == 'en' ) ? 'All' : 'Todos'; ?></div>
+				<div class="filter active" data-filters="<?php echo get_query_var( 'soma_block_content' )['main_category']; ?>"><?php echo ( wpm_get_language() === 'en' ) ? 'All' : 'Todos'; ?></div>
 				<?php if ( get_query_var( 'soma_block_content' )['filters'] ) : ?>
 					<?php foreach ( get_query_var( 'soma_block_content' )['filters'] as $key => $item ) : ?>
 						<?php if ( ( get_term( $item )->count ) > 0 ) : ?>

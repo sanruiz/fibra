@@ -68,7 +68,7 @@ $arrow = '
 					</div>
 				<?php endif; ?>
 
-				<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
+				<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 				<?php if ( $mainFile ) : ?>
 					<div class="link">
 						<a href="<?php echo $mainFile['url']; ?>" target="_blank">

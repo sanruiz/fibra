@@ -58,7 +58,7 @@ $data = get_field( 'footer_content', 'options' );
 				</div>
 				<div class="nav">
 					<div class="nav-container">
-						<?php if ( $data['style'] == 'fibrasoma' ) : ?>
+						<?php if ( $data['style'] === 'fibrasoma' ) : ?>
 							<?php
 								wp_nav_menu(
 									[
@@ -71,7 +71,7 @@ $data = get_field( 'footer_content', 'options' );
 							?>
 						<?php else : ?>
 							<div class="nav-list">
-								<div class="title"><?php echo wpm_get_language() == 'es' ? 'Redes' : 'Social'; ?></div>
+								<div class="title"><?php echo wpm_get_language() === 'es' ? 'Redes' : 'Social'; ?></div>
 								<?php
 									wp_nav_menu(
 										[
@@ -84,7 +84,7 @@ $data = get_field( 'footer_content', 'options' );
 								?>
 							</div>
 							<div class="nav-list">
-								<div class="title"><?php echo wpm_get_language() == 'es' ? 'Unidades de Negocio' : 'Business Units'; ?></div>
+								<div class="title"><?php echo wpm_get_language() === 'es' ? 'Unidades de Negocio' : 'Business Units'; ?></div>
 								<?php
 									wp_nav_menu(
 										[
@@ -124,7 +124,7 @@ $data = get_field( 'footer_content', 'options' );
 				
 				$('.wpcf7-not-valid-tip').each(function() {
 					jQuery('#btn-arrow').addClass('noempty');
-					if ($(this).text() == "Email address entered is not valid, DNS resolution failed." ||  jQuery(this).text() == "The email value is not valid." ||  jQuery(this).text() == "The e-mail address entered is invalid." || jQuery(this).text() == "La dirección de correo electrónico que has introducido no es válida.") {
+				if ($(this).text() === "Email address entered is not valid, DNS resolution failed." ||  jQuery(this).text() === "The email value is not valid." ||  jQuery(this).text() === "The e-mail address entered is invalid." || jQuery(this).text() === "La dirección de correo electrónico que has introducido no es válida.") {
 						$(this).show();
 						$(this).text('Inavalid email');
 					}
