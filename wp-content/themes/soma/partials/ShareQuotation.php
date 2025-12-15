@@ -56,16 +56,16 @@ $arrow = '
 	<div class="container">
 		<div class="col">
 			<div class="title">
-				<?php echo get_query_var( 'soma_block_content' )['title'] ? '<h3>' . esc_html( get_query_var( 'soma_block_content' )['title'] ) . '</h3>' : ''; ?>
+				<?php echo wp_kses_post( get_query_var( 'soma_block_content' )['title'] ? '<h3>' . esc_html( get_query_var( 'soma_block_content' )['title'] ) . '</h3>' : '' ); ?>
 			</div>
 		<?php if ( get_query_var( 'soma_block_content' )['file'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'en' ) : ?>
 				<a class="desk" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file']['url'] ); ?>" target="_blank">
-					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow; ?>
+					<?php echo wp_kses_post( esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow ); ?>
 				</a>
 			<?php endif; ?>
 		<?php if ( get_query_var( 'soma_block_content' )['file_es'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'es' ) : ?>
 				<a class="desk" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file_es']['url'] ); ?>" target="_blank">
-					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow; ?>
+					<?php echo wp_kses_post( esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow ); ?>
 				</a>
 			<?php endif; ?>
 		</div>
@@ -89,12 +89,12 @@ $arrow = '
 			</div>
 			<?php if ( get_query_var( 'soma_block_content' )['file'] && get_query_var( 'soma_block_content' )['file_label'] ) : ?>
 				<a class="mobile" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file']['url'] ); ?>" target="_blank">
-					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow; ?>
+					<?php echo wp_kses_post( esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow ); ?>
 				</a>
 			<?php endif; ?>
 		<?php if ( get_query_var( 'soma_block_content' )['file_es'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'es' ) : ?>
 				<a class="mobile" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file_es']['url'] ); ?>" target="_blank">
-					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow; ?>
+				<?php echo wp_kses_post( esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . $arrow ); ?>
 				</a>
 			<?php endif; ?>
 		</div>
