@@ -21,8 +21,7 @@ env:
     THEME_PATH: "wp-content/themes/soma"
 
 jobs:
-    # Job 1: Code quality tests (STRICT MODE) - Runs in parallel
-    code-qualWait for CI to pass (quality-and-tests.yml)
+    # Job 1: Wait for CI to pass (quality-and-tests.yml)
     wait-for-ci:
         name: ⏳ Wait for CI to Pass
         runs-on: ubuntu-latest
