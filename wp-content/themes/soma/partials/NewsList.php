@@ -39,7 +39,7 @@ $post_list        = $data['post_list'] ? "data-post-list='{$formatedPostList}'" 
 $props = "{$post_per_page} {$infinite_scroll} {$post_list}";
 ?>
 
-<section class="newslist-partial-afa6f9 <?php echo ( $data['style'] === 'white' ) ? 'news-white' : 'news-black'; ?>" <?php echo $props; ?> data-lang="<?php echo wpm_get_language(); ?>">
+<section class="newslist-partial-afa6f9 <?php echo esc_attr( ( $data['style'] === 'white' ) ? 'news-white' : 'news-black' ); ?>" <?php echo esc_attr( $props ); ?> data-lang="<?php echo esc_attr( wpm_get_language() ); ?>">
 	<div class="container">
 		<div class="title-container">
 			<div class="title">

@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
 <section class="featuredtext-partial-c8599e">
 	<div class="container">
-		<h3><?php echo get_query_var( 'soma_block_content' )['text']; ?></h3>
+		<h3><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></h3>
 	</div>
 </section>
 <?php endif; ?>

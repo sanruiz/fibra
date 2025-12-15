@@ -32,9 +32,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 $header_options = get_field( 'header_content', 'options' );
 ?>
 
-<section class="searchpanel-partial-1749fc" data-lang="<?php echo wpm_get_language(); ?>">
+<section class="searchpanel-partial-1749fc" data-lang="<?php echo esc_attr( wpm_get_language() ); ?>">
 	<div class="container">
-		<div class="title"><?php echo $header_options['search_title']; ?></div>
+		<div class="title"><?php echo esc_html( $header_options['search_title'] ); ?></div>
 		<div class="search-form">
 			<form>
 				<input id="theFieldID" type="text" autofocus="autofocus" placeholder="<?php echo ( wpm_get_language() === 'en' ) ? 'Search' : 'Buscar'; ?>">

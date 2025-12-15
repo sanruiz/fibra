@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<section class="events-partial-e5e1bb" data-lang="<?php echo wpm_get_language(); ?>">
+<section class="events-partial-e5e1bb" data-lang="<?php echo esc_attr( wpm_get_language() ); ?>">
 	<div class="container">
 		<div class="content">
 			<div class="filters">

@@ -98,7 +98,7 @@ $svg = '
 						<div class="cta desk">
 							<a href="<?php echo esc_url( get_the_permalink( $businessunits[ $i ] ) ); ?>">
 								<div class="logo">
-									<?php echo $svg; ?>
+								<?php echo wp_kses_post( $svg ); ?>
 									<span style="color: <?php echo esc_attr( $businessunit_info['color'] ); ?>"><?php echo esc_html( $businessunit_info['label'] ); ?></span>
 								</div>
 							</a>
@@ -116,7 +116,7 @@ $svg = '
 							</style> 
 							<a href="<?php echo esc_url( get_the_permalink( $businessunits[ $i ] ) ); ?>">
 								<div class="logo">
-									<?php echo $svg; ?>
+									<?php echo wp_kses_post( $svg ); ?>
 									<span style="color: <?php echo esc_attr( $businessunit_info['color'] ); ?>"><?php echo esc_html( $businessunit_info['label'] ); ?></span>
 								</div>
 								<svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="39.124" height="38" viewBox="0 0 39.124 38">

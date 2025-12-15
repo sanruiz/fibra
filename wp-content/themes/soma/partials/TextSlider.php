@@ -50,7 +50,7 @@ function addZero( $num ) {
 				<div class="list">
 					<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
 						<?php if ( $item['label'] ) : ?>
-							<div class="item" data-slide="<?php echo $key; ?>">
+							<div class="item" data-slide="<?php echo esc_attr( $key ); ?>">
 								<?php echo esc_html( $item['label'] ); ?>
 							</div>
 						<?php endif; ?>
@@ -61,7 +61,7 @@ function addZero( $num ) {
 				<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
 					<?php if ( $item ) : ?>
 						<div class="item">
-							<h2><?php echo addZero( $key + 1 ); ?></h2>
+							<h2><?php echo esc_html( addZero( $key + 1 ) ); ?></h2>
 							<?php if ( $item['title'] ) : ?>
 							<h3><?php echo esc_html( $item['title'] ); ?></h3>
 							<?php endif; ?>

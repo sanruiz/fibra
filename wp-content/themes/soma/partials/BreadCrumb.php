@@ -60,7 +60,7 @@ $header_options = get_field( 'header_content', 'options' );
 				<?php if ( get_page_by_path( 'news/' ) ) : ?>
 					<a href="<?php echo esc_url( get_the_permalink( get_page_by_path( 'news/' )->ID ) ); ?>"><?php echo esc_html( get_the_title( get_page_by_path( 'news/' )->ID ) ); ?></a><i>&nbsp;—&nbsp;</i>
 				<?php endif; ?>
-				<span><?php echo limit_text( get_the_title(), 3 ); ?></span>
+				<span><?php echo esc_html( limit_text( get_the_title(), 3 ) ); ?></span>
 			<?php endif; ?>
 
 		<?php if ( get_post_type() === 'careers' ) : ?>
@@ -70,7 +70,7 @@ $header_options = get_field( 'header_content', 'options' );
 				<?php if ( get_page_by_path( 'company/careers/' ) ) : ?>
 					<a href="<?php echo esc_url( get_the_permalink( get_page_by_path( 'company/careers/' )->ID ) ); ?>"><?php echo esc_html( get_the_title( get_page_by_path( 'company/careers/' )->ID ) ); ?></a><i>&nbsp;—&nbsp;</i>
 				<?php endif; ?>
-				<span><?php echo limit_text( get_the_title(), 3 ); ?></span>
+				<span><?php echo esc_html( limit_text( get_the_title(), 3 ) ); ?></span>
 			<?php endif; ?>
 
 		<?php if ( get_post_type() === 'team-members' ) : ?>
