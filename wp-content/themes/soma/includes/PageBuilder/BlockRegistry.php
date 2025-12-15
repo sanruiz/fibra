@@ -138,7 +138,7 @@ class BlockRegistry {
 		$this->register_block( 'FibrasomaHeader', 'fibrasoma_header_content', 'FibrasomaHeader' );
 		$this->register_block( 'FibrasomaHomeEvents', 'fibrasoma_home_events_content', 'FibrasomaHomeEvents' );
 
-		// Documents // Documents & Reports Reports.
+		// Documents & Reports.
 		$this->register_block( 'Documents', 'documents_list_content', 'Documents' );
 		$this->register_block( 'Report', 'report_content', 'Report' );
 		$this->register_block( 'AnnualReports', 'annual_reports_content', 'AnnualReports' );
