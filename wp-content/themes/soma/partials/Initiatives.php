@@ -30,31 +30,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if(get_query_var('soma_block_content')['initiatives']): ?>
+<?php if ( get_query_var( 'soma_block_content' )['initiatives'] ) : ?>
 <section class="initiatives-partial-215232">
-    <div class="container">
-        <?php if(get_query_var('soma_block_content')['title']): ?>
-            <div class="main-title">
-                <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
-            </div>
-        <?php endif; ?>
-        <div class="content">
-            <?php foreach(get_query_var('soma_block_content')['initiatives'] as $key => $item): ?>
-                <?php if($item['title'] && $item['image'] && $item['pdf']): ?>
-                    <div class="item">
-                        <a href="<?= $item['pdf']['url'] ?>" target="_blank">
-                            <div class="image">
-                                <img src="<?= $item['image']['url'] ?>" alt="<?= $item['image']['alt'] ?>">
-                            </div>
-                            <div class="title">
-                                <h3><?= $item['title'] ?></h3>
-                            </div>
-                        </a>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </div>
-    </div>
+	<div class="container">
+		<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+			<div class="main-title">
+				<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+			</div>
+		<?php endif; ?>
+		<div class="content">
+			<?php foreach ( get_query_var( 'soma_block_content' )['initiatives'] as $key => $item ) : ?>
+				<?php if ( $item['title'] && $item['image'] && $item['pdf'] ) : ?>
+					<div class="item">
+						<a href="<?php echo $item['pdf']['url']; ?>" target="_blank">
+							<div class="image">
+								<img src="<?php echo $item['image']['url']; ?>" alt="<?php echo $item['image']['alt']; ?>">
+							</div>
+							<div class="title">
+								<h3><?php echo $item['title']; ?></h3>
+							</div>
+						</a>
+					</div>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</div>
+	</div>
 </section>
 <?php endif; ?>
-                    

@@ -44,46 +44,46 @@ $arrow = '
 ';
 ?>
 
-<?php if(get_query_var('soma_block_content')['report']): ?>
-<?php 
-    $content = get_field('document_content', get_query_var('soma_block_content')['report']); 
-    $featured_image = get_the_post_thumbnail_url(get_query_var('soma_block_content')['report']);
-?>
+<?php if ( get_query_var( 'soma_block_content' )['report'] ) : ?>
+	<?php
+	$content        = get_field( 'document_content', get_query_var( 'soma_block_content' )['report'] );
+	$featured_image = get_the_post_thumbnail_url( get_query_var( 'soma_block_content' )['report'] );
+	?>
 <section class="report-partial-7c7fc0">
-    <div class="container">
-        <div class="content">
-            <div class="image">
-                <h3><?= get_the_title(get_query_var('soma_block_content')['report']) ?></h3>
-                <?php if($featured_image): ?>
-                    <img src="<?= $featured_image ?>" alt="Featured image">
-                <?php endif; ?>
-            </div>
-            <div class="text">
-                <div class="title">
-                    <h3><?= get_the_title(get_query_var('soma_block_content')['report']) ?></h3>
-                </div>
-                <?php if($content['description']): ?>
-                    <div class="description">
-                        <p><?= $content['description'] ?></p>
-                    </div>
-                <?php endif; ?>
+	<div class="container">
+		<div class="content">
+			<div class="image">
+				<h3><?php echo get_the_title( get_query_var( 'soma_block_content' )['report'] ); ?></h3>
+				<?php if ( $featured_image ) : ?>
+					<img src="<?php echo $featured_image; ?>" alt="Featured image">
+				<?php endif; ?>
+			</div>
+			<div class="text">
+				<div class="title">
+					<h3><?php echo get_the_title( get_query_var( 'soma_block_content' )['report'] ); ?></h3>
+				</div>
+				<?php if ( $content['description'] ) : ?>
+					<div class="description">
+						<p><?php echo $content['description']; ?></p>
+					</div>
+				<?php endif; ?>
 
-                <?php $mainFile = (wpm_get_language() == 'en') ? $content['file'] : $content['file_es']; ?>
-                <?php if($mainFile): ?>
-                    <div class="link">
-                        <a href="<?= $mainFile['url'] ?>" target="_blank">
-                            <?= $content['label'] . $arrow ?>
-                        </a>
-                        <?php if($content['has_additional_files'] && $content['additional_files']): ?>
-                            <?php foreach($content['additional_files'] as $key => $file): ?>
-                                <?php $extraFile = (wpm_get_language() == 'en') ? $file['file'] : $file['file_es']; ?>
-                                <a href="<?= $extraFile['url'] ?>" target="_blank"><?= $file['label'] . $arrow ?></a>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
+				<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
+				<?php if ( $mainFile ) : ?>
+					<div class="link">
+						<a href="<?php echo $mainFile['url']; ?>" target="_blank">
+							<?php echo $content['label'] . $arrow; ?>
+						</a>
+						<?php if ( $content['has_additional_files'] && $content['additional_files'] ) : ?>
+							<?php foreach ( $content['additional_files'] as $key => $file ) : ?>
+								<?php $extraFile = ( wpm_get_language() == 'en' ) ? $file['file'] : $file['file_es']; ?>
+								<a href="<?php echo $extraFile['url']; ?>" target="_blank"><?php echo $file['label'] . $arrow; ?></a>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
 </section>
 <?php endif; ?>

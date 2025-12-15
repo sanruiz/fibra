@@ -31,38 +31,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <section class="fibrasomahome1-partial-870ca3">
-    <div class="container">
-        <div class="content">
-            <div class="text">
-                <?php if(get_query_var('soma_block_content')['number']): ?>
-                    <div class="number">
-                        <h2><?= get_query_var('soma_block_content')['number'] ?></h2>
-                    </div>
-                <?php endif; ?>
-                <?php if(get_query_var('soma_block_content')['title']): ?>
-                    <div class="title">
-                        <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
-                    </div>
-                <?php endif; ?>
-                <div class="bottom-block">
-                    <?php if(get_query_var('soma_block_content')['text']): ?>
-                        <div class="text">
-                            <p><?= get_query_var('soma_block_content')['text'] ?></p>
-                        </div>
-                    <?php endif; ?>
-                    <?php if(get_query_var('soma_block_content')['link']): ?>
-                        <div class="link">
-                            <a class="underline-text" href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>"><?= get_query_var('soma_block_content')['link']['title'] ?></a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <div class="image">
-                <?php if(get_query_var('soma_block_content')['image']): ?>
-                    <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="content">
+			<div class="text">
+				<?php if ( get_query_var( 'soma_block_content' )['number'] ) : ?>
+					<div class="number">
+						<h2><?php echo get_query_var( 'soma_block_content' )['number']; ?></h2>
+					</div>
+				<?php endif; ?>
+				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+					<div class="title">
+						<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					</div>
+				<?php endif; ?>
+				<div class="bottom-block">
+					<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
+						<div class="text">
+							<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+						</div>
+					<?php endif; ?>
+					<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
+						<div class="link">
+							<a class="underline-text" href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>"><?php echo get_query_var( 'soma_block_content' )['link']['title']; ?></a>
+						</div>
+					<?php endif; ?>
+				</div>
+			</div>
+			<div class="image">
+				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
+					<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
 </section>
-                    
+					

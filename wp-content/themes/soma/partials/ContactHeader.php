@@ -31,30 +31,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <section class="contactheader-partial-a07d41">
-    <div class="container">
-        <div class="content">
-            <div class="text">
-                <?php if(get_query_var('soma_block_content')['text']): ?>
-                    <p><?= get_query_var('soma_block_content')['text'] ?></p>
-                <?php endif; ?>
-            </div>
-            <div class="info">
-                <?php if(get_query_var('soma_block_content')['info']): ?>
-                    <?php foreach(get_query_var('soma_block_content')['info'] as $key => $item): ?>
-                        <div class="item">
-                            <?php if($item['label']): ?>
-                                <p><?= $item['label'] ?></p>
-                            <?php endif; ?>
-                            <?php if($item['link']): ?>
-                                <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>">
-                                    <?= $item['link']['title'] ?>
-                                </a>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="content">
+			<div class="text">
+				<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
+					<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+				<?php endif; ?>
+			</div>
+			<div class="info">
+				<?php if ( get_query_var( 'soma_block_content' )['info'] ) : ?>
+					<?php foreach ( get_query_var( 'soma_block_content' )['info'] as $key => $item ) : ?>
+						<div class="item">
+							<?php if ( $item['label'] ) : ?>
+								<p><?php echo $item['label']; ?></p>
+							<?php endif; ?>
+							<?php if ( $item['link'] ) : ?>
+								<a href="<?php echo $item['link']['url']; ?>" target="<?php echo $item['link']['target']; ?>">
+									<?php echo $item['link']['title']; ?>
+								</a>
+							<?php endif; ?>
+						</div>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
 </section>
-                    
+					

@@ -30,31 +30,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <section class="twocolumnstext-partial-8dc1b0">
-    <div class="container">
-        <div class="content">
-            <?php if(get_query_var('soma_block_content')['logo']): ?>
-                <div class="logo">
-                    <img src="<?= get_query_var('soma_block_content')['logo']['url'] ?>" alt="<?= get_query_var('soma_block_content')['logo']['alt'] ?>">
-                </div>
-            <?php endif; ?>
-            <?php if(get_query_var('soma_block_content')['title']): ?>
-                <div class="title">
-                    <?= get_query_var('soma_block_content')['title'] ?>
-                </div>
-            <?php endif; ?>
-            <?php if(get_query_var('soma_block_content')['text']): ?>
-                <div class="text">
-                    <p><?= get_query_var('soma_block_content')['text'] ?></p>
-                </div>
-            <?php endif; ?>
-            <?php if(get_query_var('soma_block_content')['link']): ?>
-                <div class="link">
-                    <a href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>">
-                        <?= get_query_var('soma_block_content')['link']['title'] ?>
-                    </a>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
+	<div class="container">
+		<div class="content">
+			<?php if ( get_query_var( 'soma_block_content' )['logo'] ) : ?>
+				<div class="logo">
+					<img src="<?php echo get_query_var( 'soma_block_content' )['logo']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['logo']['alt']; ?>">
+				</div>
+			<?php endif; ?>
+			<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+				<div class="title">
+					<?php echo get_query_var( 'soma_block_content' )['title']; ?>
+				</div>
+			<?php endif; ?>
+			<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
+				<div class="text">
+					<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+				</div>
+			<?php endif; ?>
+			<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
+				<div class="link">
+					<a href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
+						<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+					</a>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
 </section>
-                    
+					

@@ -30,20 +30,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if(get_query_var('soma_block_content')['image']): ?>
-<section class="image-partial-7ce04d <?= get_query_var('soma_block_content')['mobile_fullscreen'] ? 'mobile-fullscreen' : '' ?> <?= get_query_var('soma_block_content')['dark_style'] ? 'dark-style' : '' ?>">
-    <div class="container">
-        <div class="content <?= get_query_var('soma_block_content')['two_images'] ? 'two-images' : '' ?>">
-            <div class="image <?= get_query_var('soma_block_content')['size'] ?>">
-                <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
-            </div>
-            <?php if(get_query_var('soma_block_content')['two_images'] && get_query_var('soma_block_content')['image_2']): ?>
-                <div class="image-2">
-                    <img src="<?= get_query_var('soma_block_content')['image_2']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image_2']['alt'] ?>">
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
+<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
+<section class="image-partial-7ce04d <?php echo get_query_var( 'soma_block_content' )['mobile_fullscreen'] ? 'mobile-fullscreen' : ''; ?> <?php echo get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : ''; ?>">
+	<div class="container">
+		<div class="content <?php echo get_query_var( 'soma_block_content' )['two_images'] ? 'two-images' : ''; ?>">
+			<div class="image <?php echo get_query_var( 'soma_block_content' )['size']; ?>">
+				<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+			</div>
+			<?php if ( get_query_var( 'soma_block_content' )['two_images'] && get_query_var( 'soma_block_content' )['image_2'] ) : ?>
+				<div class="image-2">
+					<img src="<?php echo get_query_var( 'soma_block_content' )['image_2']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image_2']['alt']; ?>">
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
 </section>
 <?php endif; ?>
-                    

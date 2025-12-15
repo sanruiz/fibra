@@ -30,67 +30,67 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <section class="fibrasomahome3-partial-1f0e42">
-    <div class="container">
-        <div class="content">
+	<div class="container">
+		<div class="content">
 
-            <div class="text">
-                <?php if(get_query_var('soma_block_content')['number']): ?>
-                    <div class="number">
-                        <h2><?= get_query_var('soma_block_content')['number'] ?></h2>
-                    </div>
-                <?php endif; ?>
-                <?php if(get_query_var('soma_block_content')['title']): ?>
-                    <div class="title">
-                        <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
-                    </div>
-                <?php endif; ?>
-            </div>
+			<div class="text">
+				<?php if ( get_query_var( 'soma_block_content' )['number'] ) : ?>
+					<div class="number">
+						<h2><?php echo get_query_var( 'soma_block_content' )['number']; ?></h2>
+					</div>
+				<?php endif; ?>
+				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+					<div class="title">
+						<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					</div>
+				<?php endif; ?>
+			</div>
 
-            <div class="list">
-                <?php if(get_query_var('soma_block_content')['list']): ?>
-                    <?php foreach(get_query_var('soma_block_content')['list'] as $key => $item): ?>
-                        <?php if($item['link']): ?>
-                            <div class="item">
-                                <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>" data-item="<?= $key ?>">
-                                    <?= $item['link']['title'] ?>
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
+			<div class="list">
+				<?php if ( get_query_var( 'soma_block_content' )['list'] ) : ?>
+					<?php foreach ( get_query_var( 'soma_block_content' )['list'] as $key => $item ) : ?>
+						<?php if ( $item['link'] ) : ?>
+							<div class="item">
+								<a href="<?php echo $item['link']['url']; ?>" target="<?php echo $item['link']['target']; ?>" data-item="<?php echo $key; ?>">
+									<?php echo $item['link']['title']; ?>
+								</a>
+							</div>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</div>
 
-            <div class="link">
-                <?php if(get_query_var('soma_block_content')['link']): ?>
-                    <a class="underline-text" href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>">
-                        <?= get_query_var('soma_block_content')['link']['title'] ?>
-                    </a>
-                <?php endif; ?>
-            </div>
+			<div class="link">
+				<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
+					<a class="underline-text" href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
+						<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+					</a>
+				<?php endif; ?>
+			</div>
 
-            <div class="image">
-                <?php if(get_query_var('soma_block_content')['image']): ?>
-                    <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
-                <?php endif; ?>
-                <?php if(get_query_var('soma_block_content')['list']): ?>
-                    <?php foreach(get_query_var('soma_block_content')['list'] as $key => $item): ?>
-                        <?php if($item['image']): ?>
-                            <div class="link-image"  data-item="<?= $key ?>">
-                                <img src="<?= $item['image']['url'] ?>" alt="<?= $item['image']['alt'] ?>">
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
-            
-        </div>
-    </div>
-    <script>
-        $('.fibrasomahome3-partial-1f0e42').find('.list a').on('mouseover', function() {
-            $('.fibrasomahome3-partial-1f0e42').find(`.image .link-image[data-item="${$(this).data('item')}"]`).addClass('active').siblings().removeClass('active');
-        });
-        $('.fibrasomahome3-partial-1f0e42').find('.list a').on('mouseout', function() {
-            $('.fibrasomahome3-partial-1f0e42').find(`.image .link-image`).removeClass('active');
-        });
-    </script>
+			<div class="image">
+				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
+					<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+				<?php endif; ?>
+				<?php if ( get_query_var( 'soma_block_content' )['list'] ) : ?>
+					<?php foreach ( get_query_var( 'soma_block_content' )['list'] as $key => $item ) : ?>
+						<?php if ( $item['image'] ) : ?>
+							<div class="link-image"  data-item="<?php echo $key; ?>">
+								<img src="<?php echo $item['image']['url']; ?>" alt="<?php echo $item['image']['alt']; ?>">
+							</div>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</div>
+			
+		</div>
+	</div>
+	<script>
+		$('.fibrasomahome3-partial-1f0e42').find('.list a').on('mouseover', function() {
+			$('.fibrasomahome3-partial-1f0e42').find(`.image .link-image[data-item="${$(this).data('item')}"]`).addClass('active').siblings().removeClass('active');
+		});
+		$('.fibrasomahome3-partial-1f0e42').find('.list a').on('mouseout', function() {
+			$('.fibrasomahome3-partial-1f0e42').find(`.image .link-image`).removeClass('active');
+		});
+	</script>
 </section>

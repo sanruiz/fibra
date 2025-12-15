@@ -38,7 +38,7 @@ $classes_passed = 0;
 foreach ( $classes_to_check as $class => $name ) {
 	if ( class_exists( $class ) ) {
 		echo "  {$green}✓{$reset} {$name} exists\n";
-		$classes_passed++;
+		++$classes_passed;
 	} else {
 		echo "  {$red}✗{$reset} {$name} NOT FOUND\n";
 	}
@@ -69,11 +69,11 @@ $missing_files    = [];
 
 foreach ( $all_blocks as $layout => $mapping ) {
 	$partial_file = $registry->get_partial_file_path( $layout );
-	
+
 	if ( $partial_file && file_exists( $partial_file ) ) {
-		$valid_mappings++;
+		++$valid_mappings;
 	} else {
-		$invalid_mappings++;
+		++$invalid_mappings;
 		$missing_files[] = [
 			'layout'  => $layout,
 			'partial' => $mapping['partial'],
@@ -125,17 +125,17 @@ echo "  {$green}✓{$reset} Handles invalid blocks gracefully\n";
 if ( $registry->is_registered( 'BusinessUnits' ) ) {
 	$valid_blocks = [
 		[
-			'acf_fc_layout'            => 'BusinessUnits',
+			'acf_fc_layout'          => 'BusinessUnits',
 			'business_units_content' => [
 				'title' => 'Test Business Units',
 			],
 		],
 	];
-	
+
 	ob_start();
 	$renderer->render( $valid_blocks );
 	$output = ob_get_clean();
-	
+
 	echo "  {$green}✓{$reset} Can render valid BusinessUnits block\n";
 }
 
@@ -163,7 +163,7 @@ $helpers_passed = 0;
 foreach ( $helpers_to_check as $function => $name ) {
 	if ( function_exists( $function ) ) {
 		echo "  {$green}✓{$reset} {$name} exists\n";
-		$helpers_passed++;
+		++$helpers_passed;
 	} else {
 		echo "  {$red}✗{$reset} {$name} NOT FOUND\n";
 	}
@@ -182,48 +182,48 @@ $warning_tests = 0;
 // Test 1
 if ( $classes_passed === 3 ) {
 	echo "  {$green}✓{$reset} Test 1: PSR-4 Classes - PASSED\n";
-	$passed_tests++;
+	++$passed_tests;
 } else {
 	echo "  {$red}✗{$reset} Test 1: PSR-4 Classes - FAILED\n";
-	$failed_tests++;
+	++$failed_tests;
 }
 
 // Test 2
 if ( $registered_count === 53 ) {
 	echo "  {$green}✓{$reset} Test 2: Block Registry (53 blocks) - PASSED\n";
-	$passed_tests++;
+	++$passed_tests;
 } elseif ( $registered_count > 0 ) {
 	echo "  {$yellow}⚠{$reset} Test 2: Block Registry ({$registered_count} blocks) - WARNING\n";
-	$warning_tests++;
+	++$warning_tests;
 } else {
 	echo "  {$red}✗{$reset} Test 2: Block Registry - FAILED\n";
-	$failed_tests++;
+	++$failed_tests;
 }
 
 // Test 3
 if ( $invalid_mappings === 0 ) {
 	echo "  {$green}✓{$reset} Test 3: Block Mappings ({$valid_mappings} valid) - PASSED\n";
-	$passed_tests++;
+	++$passed_tests;
 } else {
 	echo "  {$red}✗{$reset} Test 3: Block Mappings ({$invalid_mappings} invalid) - FAILED\n";
-	$failed_tests++;
+	++$failed_tests;
 }
 
 // Test 4
 echo "  {$green}✓{$reset} Test 4: BlockRenderer Validation - PASSED\n";
-$passed_tests++;
+++$passed_tests;
 
 // Test 5
 echo "  {$green}✓{$reset} Test 5: Renderer Statistics - PASSED\n";
-$passed_tests++;
+++$passed_tests;
 
 // Test 6
 if ( $helpers_passed === 4 ) {
 	echo "  {$green}✓{$reset} Test 6: Helper Functions - PASSED\n";
-	$passed_tests++;
+	++$passed_tests;
 } else {
 	echo "  {$yellow}⚠{$reset} Test 6: Helper Functions ({$helpers_passed}/4) - WARNING\n";
-	$warning_tests++;
+	++$warning_tests;
 }
 
 echo "\n";

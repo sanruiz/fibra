@@ -30,43 +30,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if(get_query_var('soma_block_content')['text']): ?>
-<section class="text-partial-4ad1f2 <?= get_query_var('soma_block_content')['dark_style'] ? 'dark-style' : '' ?>">
-    <div class="container">
-        <div class="content">
-            <div id="content" onload="countLines();" class="box-content columns-<?= get_query_var('soma_block_content')['columns'] ?> justify-<?= get_query_var('soma_block_content')['justify'] ?> font-size-<?= get_query_var('soma_block_content')['font_size'] ?>">
-                <?= get_query_var('soma_block_content')['text'] ?>
-            </div>
-            <div class="read" onclick="deploy(this)" >
-                Read more
-            </div>
-        </div>
-    </div>
+<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
+<section class="text-partial-4ad1f2 <?php echo get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : ''; ?>">
+	<div class="container">
+		<div class="content">
+			<div id="content" onload="countLines();" class="box-content columns-<?php echo get_query_var( 'soma_block_content' )['columns']; ?> justify-<?php echo get_query_var( 'soma_block_content' )['justify']; ?> font-size-<?php echo get_query_var( 'soma_block_content' )['font_size']; ?>">
+				<?php echo get_query_var( 'soma_block_content' )['text']; ?>
+			</div>
+			<div class="read" onclick="deploy(this)" >
+				Read more
+			</div>
+		</div>
+	</div>
 </section>
 <?php endif; ?>
 
 <script>
-    var allboxtext = $('.box-content');
-    allboxtext.each(function (index,objeto) {
-        var boxtextH = $(objeto).height();
-        if (boxtextH > 400 && !$(objeto).hasClass("boxtextcontent-H")) {
-            $(objeto).addClass("boxtextcontent-H");
-        }
-        else if (!$(objeto).hasClass("boxtextcontent-H")) {
-            $(objeto).parent().find('.read').hide();
-        }
-    });
+	var allboxtext = $('.box-content');
+	allboxtext.each(function (index,objeto) {
+		var boxtextH = $(objeto).height();
+		if (boxtextH > 400 && !$(objeto).hasClass("boxtextcontent-H")) {
+			$(objeto).addClass("boxtextcontent-H");
+		}
+		else if (!$(objeto).hasClass("boxtextcontent-H")) {
+			$(objeto).parent().find('.read').hide();
+		}
+	});
 
-    
-    function deploy(element) {
-        if ($(element).text().trim() == "Read more") {
-            $(element).text("Read less");
-            $(element).parent().parent().find('.box-content').removeClass("boxtextcontent-H");
-        }
-        else{
-            $(element).text("Read more");
-            $(element).parent().parent().find('.box-content').addClass("boxtextcontent-H");
-        }
-    }
+	
+	function deploy(element) {
+		if ($(element).text().trim() == "Read more") {
+			$(element).text("Read less");
+			$(element).parent().parent().find('.box-content').removeClass("boxtextcontent-H");
+		}
+		else{
+			$(element).text("Read more");
+			$(element).parent().parent().find('.box-content').addClass("boxtextcontent-H");
+		}
+	}
 </script>
-                    
+					

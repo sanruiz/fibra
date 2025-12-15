@@ -165,7 +165,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 
 			// Use reflection to call protected register_controls method
 			$reflection = new \ReflectionClass( $widget );
-			$method = $reflection->getMethod( 'register_controls' );
+			$method     = $reflection->getMethod( 'register_controls' );
 			$method->invoke( $widget );
 
 			$controls = $widget->get_controls();
@@ -186,7 +186,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 
 			// Use reflection to call protected render method
 			$reflection = new \ReflectionClass( $widget );
-			$method = $reflection->getMethod( 'render' );
+			$method     = $reflection->getMethod( 'render' );
 
 			ob_start();
 			$method->invoke( $widget );
@@ -254,7 +254,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 
 			// Use reflection to call protected render method
 			$reflection = new \ReflectionClass( $widget );
-			$method = $reflection->getMethod( 'render' );
+			$method     = $reflection->getMethod( 'render' );
 
 			ob_start();
 			$method->invoke( $widget );

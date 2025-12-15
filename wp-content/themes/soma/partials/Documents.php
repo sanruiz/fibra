@@ -29,19 +29,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 ?>
-<section class="documents-partial-15af9d style-<?= get_query_var('soma_block_content')['style'] ?>" 
-    data-order-by-date="<?= get_query_var('soma_block_content')['order_by_custom_date'] ? 1 : 0 ?>" 
-    data-category="<?= get_query_var('soma_block_content')['category'] ?>" 
-    data-posts-per-page="<?= get_query_var('soma_block_content')['posts_per_page'] ?>" 
-    data-lang="<?= wpm_get_language() ?>"
-    >
-    <div class="container">
-        <div class="content">
-            <!-- Ajax -->
-        </div>
-        <div class="loader-container">
-            <!-- <div class="loader"><div></div><div></div><div></div></div> -->
-            <span class="loading">Loading more</span>
-        </div>
-    </div>
+<section class="documents-partial-15af9d style-<?php echo get_query_var( 'soma_block_content' )['style']; ?>" 
+	data-order-by-date="<?php echo get_query_var( 'soma_block_content' )['order_by_custom_date'] ? 1 : 0; ?>" 
+	data-category="<?php echo get_query_var( 'soma_block_content' )['category']; ?>" 
+	data-posts-per-page="<?php echo get_query_var( 'soma_block_content' )['posts_per_page']; ?>" 
+	data-lang="<?php echo wpm_get_language(); ?>"
+	>
+	<div class="container">
+		<div class="content">
+			<!-- Ajax -->
+		</div>
+		<div class="loader-container">
+			<!-- <div class="loader"><div></div><div></div><div></div></div> -->
+			<span class="loading">Loading more</span>
+		</div>
+	</div>
 </section>

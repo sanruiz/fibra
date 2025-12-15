@@ -42,6 +42,6 @@ class NewsTest extends TestCase {
 	public function test_clone_is_prevented(): void {
 		$this->expectException( \Error::class );
 		$instance = News::instance();
-		$clone = clone $instance;
+		$clone    = clone $instance;
 	}
 }

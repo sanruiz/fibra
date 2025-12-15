@@ -1,0 +1,356 @@
+name: SOMA CD - Release & Deploy
+
+# This workflow only runs on version tags (e.g., v3.0.0, v3.0.1)
+# It builds, creates a GitHub release, and deploys to production
+# Requires: CI workflow (quality-and-tests.yml) must pass first
+
+on:
+    push:
+        tags:
+            - "v*"
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Version number (e.g., 3.0.1)"
+                required: true
+                default: "3.0.0"
+
+env:
+    NODE_VERSION: "18"
+    PHP_VERSION: "8.1"
+    THEME_PATH: "wp-content/themes/soma"
+
+jobs:
+    # Job 1: Wait for CI to pass (quality-and-tests.yml)
+    wait-for-ci:
+        name: ⏳ Wait for CI to Pass
+        runs-on: ubuntu-latest
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        
+        steps:
+            - name: 🔍 Check CI workflow status
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const { data: workflows } = await github.rest.actions.listWorkflowRunsForRepo({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          workflow_id: 'quality-and-tests.yml',
+                          head_sha: context.sha,
+                          per_page: 1
+                      });
+                      
+                      if (workflows.workflow_runs.length === 0) {
+                          core.setFailed('No CI workflow run found for this commit. Please ensure CI passes before releasing.');
+                          return;
+                      }
+                      
+                      const ciRun = workflows.workflow_runs[0];
+                      
+                      if (ciRun.conclusion !== 'success') {
+                          core.setFailed(`CI workflow must pass before release. Current status: ${ciRun.conclusion || ciRun.status}`);
+                          return;
+                      }
+                      
+                      core.info(`✅ CI workflow passed (run #${ciRun.run_number})`);
+
+    # Job 2: Build and Release - Only runs after CI passes
+    build-and-release:
+        name: 📦 Build & Release
+        runs-on: ubuntu-latest
+        needs: [wait-for-ci]
+        if: always() && (needs.wait-for-ci.result == 'success' || github.event_name == 'workflow_dispatch')
+        
+        outputs:
+            version: ${{ steps.version.outputs.version }}
+            tag: ${{ steps.version.outputs.tag }}
+            zip_file: ${{ steps.package.outputs.zip_file }}
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🐘 Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  extensions: mbstring, xml, ctype, json, tokenizer, intl, pdo_sqlite, mysql
+                  coverage: none
+
+            - name: 🟢 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+
+            - name: 📦 Install PHP dependencies (production)
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  composer install --no-interaction --no-dev --optimize-autoloader
+
+            - name: 📦 Install Node dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  npm install
+
+            - name: 📊 Extract version from tag
+              id: version
+              run: |
+                  if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+                    VERSION="${{ github.event.inputs.version }}"
+                  elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+                    VERSION=${GITHUB_REF#refs/tags/v}
+                  else
+                    VERSION="dev-${GITHUB_SHA::7}"
+                  fi
+                  
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+                  echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+                  echo "✅ Version extracted: $VERSION"
+
+            - name: 🏗️ Build production assets
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  echo "🏗️ Building production assets..."
+                  npm run prod
+                  echo "✅ Assets built successfully"
+
+            - name: 📦 Create release package
+              id: package
+              run: |
+                  echo "📦 Creating release package..."
+                  
+                  VERSION="${{ steps.version.outputs.version }}"
+                  RELEASE_DIR="releases"
+                  ZIP_NAME="soma-v${VERSION}.zip"
+                  
+                  mkdir -p "$RELEASE_DIR"
+                  
+                  cd "${{ env.THEME_PATH }}"
+                  
+                  # Create zip excluding development files
+                  zip -r "../../../${RELEASE_DIR}/${ZIP_NAME}" . \
+                    -x "*.git*" \
+                    -x "*node_modules/*" \
+                    -x "*tests/*" \
+                    -x "*.phpunit.result.cache" \
+                    -x "*coverage/*" \
+                    -x "*.log" \
+                    -x "*vendor/*/tests/*" \
+                    -x "*vendor/*/test/*" \
+                    -x "*vendor/phpunit/*" \
+                    -x "*vendor/squizlabs/*" \
+                    -x "*vendor/wp-coding-standards/*" \
+                    -x "*vendor/phpstan/*" \
+                    -x "package-lock.json" \
+                    -x "composer.lock" \
+                    -x "phpcs.xml*" \
+                    -x "phpstan.neon*" \
+                    -x "phpunit.xml*" \
+                    -x "webpack.config.js" \
+                    -x "*.md" \
+                    -x "*docs/*" \
+                    -x "*scripts/*"
+                  
+                  cd ../../..
+                  
+                  # Verify package size
+                  ZIP_SIZE=$(du -h "${RELEASE_DIR}/${ZIP_NAME}" | cut -f1)
+                  echo "📊 Package size: ${ZIP_SIZE}"
+                  
+                  echo "zip_file=${ZIP_NAME}" >> $GITHUB_OUTPUT
+                  echo "✅ Package created: ${ZIP_NAME}"
+
+            - name: 📝 Generate release notes
+              id: release_notes
+              run: |
+                  VERSION="${{ steps.version.outputs.version }}"
+                  CHANGELOG_FILE="${{ env.THEME_PATH }}/CHANGELOG.md"
+                  
+                  if [ -f "$CHANGELOG_FILE" ]; then
+                    echo "📝 Extracting release notes from CHANGELOG.md..."
+                    
+                    # Extract release notes for this version
+                    awk "/^## \[${VERSION}\]/,/^## \[/" "$CHANGELOG_FILE" | sed '$d' > release_notes.md
+                    
+                    # If release notes are empty, use a default message
+                    if [ ! -s release_notes.md ]; then
+                      echo "## SOMA Theme Release ${VERSION}" > release_notes.md
+                      echo "" >> release_notes.md
+                      echo "See CHANGELOG.md for details." >> release_notes.md
+                    fi
+                    
+                    echo "✅ Release notes generated"
+                  else
+                    echo "📝 CHANGELOG.md not found, using default release notes"
+                    echo "## SOMA Theme Release ${VERSION}" > release_notes.md
+                    echo "" >> release_notes.md
+                    echo "### What's New" >> release_notes.md
+                    echo "" >> release_notes.md
+                    echo "- PSR-4 architecture with modern PHP 8.1+ features" >> release_notes.md
+                    echo "- 8 Elementor widgets" >> release_notes.md
+                    echo "- Advanced caching and logging systems" >> release_notes.md
+                    echo "- 108 PHPUnit tests with comprehensive coverage" >> release_notes.md
+                  fi
+
+            - name: 🚀 Create GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ steps.version.outputs.tag }}
+                  name: SOMA Theme v${{ steps.version.outputs.version }}
+                  body_path: release_notes.md
+                  files: |
+                      releases/${{ steps.package.outputs.zip_file }}
+                  draft: false
+                  prerelease: false
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: 📤 Upload release artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: soma-release-${{ steps.version.outputs.version }}
+                  path: releases/${{ steps.package.outputs.zip_file }}
+                  retention-days: 90
+
+            - name: 📊 Pipeline summary
+              run: |
+                  echo "## 📦 Build & Release Summary" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Theme**: SOMA v3.0" >> $GITHUB_STEP_SUMMARY
+                  echo "**Version**: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Tag**: ${{ steps.version.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Package**: ${{ steps.package.outputs.zip_file }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "✅ **Release created successfully!**" >> $GITHUB_STEP_SUMMARY
+
+    # Job 3: Deploy via SFTP - Only runs after successful build-and-release
+    deploy:
+        name: 🚀 Deploy to Production (SFTP)
+        runs-on: ubuntu-latest
+        needs: build-and-release
+        if: success()
+        
+        environment:
+            name: production
+
+        steps:
+            - name: 📥 Download release artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: soma-release-${{ needs.build-and-release.outputs.version }}
+                  path: ./release
+
+            - name: 🔐 Setup SSH key
+              run: |
+                  mkdir -p ~/.ssh
+                  echo "${{ secrets.SFTP_SSH_KEY }}" | base64 -d > ~/.ssh/soma_key
+                  chmod 600 ~/.ssh/soma_key
+                  
+                  # Validate key format
+                  if ! ssh-keygen -l -f ~/.ssh/soma_key > /dev/null 2>&1; then
+                    echo "❌ SSH key validation failed"
+                    exit 1
+                  fi
+                  
+                  echo "✅ SSH key configured successfully"
+                  
+                  # Add host to known_hosts
+                  ssh-keyscan -H ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
+                  chmod 644 ~/.ssh/known_hosts
+
+            - name: 🗑️ Create backup of current theme
+              run: |
+                  echo "🗑️ Creating backup of current theme on server..."
+                  
+                  BACKUP_NAME="soma-backup-$(date +%Y%m%d-%H%M%S)"
+                  
+                  sftp -i ~/.ssh/soma_key \
+                    -o StrictHostKeyChecking=no \
+                    ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
+                    cd public_html/wp-content/themes
+                    rename soma ${BACKUP_NAME}
+                    mkdir soma
+                    quit
+                  EOF
+                  
+                  echo "✅ Backup created: ${BACKUP_NAME}"
+
+            - name: 📤 Upload theme via SFTP
+              run: |
+                  echo "📤 Uploading theme package to server..."
+                  
+                  # Upload zip file
+                  sftp -i ~/.ssh/soma_key \
+                    -o StrictHostKeyChecking=no \
+                    ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
+                    cd public_html/wp-content/themes
+                    put ./release/${{ needs.build-and-release.outputs.zip_file }}
+                    quit
+                  EOF
+                  
+                  echo "✅ Theme package uploaded successfully"
+
+            - name: 🔄 Extract and deploy theme
+              run: |
+                  echo "🔄 Extracting theme on server..."
+                  
+                  # Note: Since we don't have shell access, we'll need to use SFTP's limited capabilities
+                  # The zip file is uploaded and will need manual extraction via cPanel
+                  # Or we can try using a PHP script to extract it
+                  
+                  echo "⚠️ Theme zip uploaded to: public_html/wp-content/themes/"
+                  echo "📝 You'll need to extract it via cPanel File Manager or upload pre-extracted files"
+                  
+                  # Alternative: Upload a PHP extraction script
+                  cat > /tmp/extract.php << 'PHPSCRIPT'
+                  <?php
+                  $zipFile = '${{ needs.build-and-release.outputs.zip_file }}';
+                  $extractTo = './soma/';
+                  
+                  if (class_exists('ZipArchive')) {
+                      $zip = new ZipArchive;
+                      if ($zip->open($zipFile) === TRUE) {
+                          $zip->extractTo($extractTo);
+                          $zip->close();
+                          echo "✅ Theme extracted successfully\n";
+                          unlink($zipFile);
+                          echo "✅ Zip file removed\n";
+                      } else {
+                          echo "❌ Failed to open zip file\n";
+                          exit(1);
+                      }
+                  } else {
+                      echo "❌ ZipArchive class not available\n";
+                      exit(1);
+                  }
+                  ?>
+                  PHPSCRIPT
+                  
+                  # Upload extraction script
+                  sftp -i ~/.ssh/soma_key \
+                    -o StrictHostKeyChecking=no \
+                    ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
+                    cd public_html/wp-content/themes
+                    put /tmp/extract.php
+                    quit
+                  EOF
+                  
+                  echo "✅ Extraction script uploaded"
+                  echo "💡 Visit: https://${{ secrets.SITE_DOMAIN }}/wp-content/themes/extract.php to complete extraction"
+
+            - name: 📊 Deployment summary
+              if: always()
+              run: |
+                  echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Version**: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Environment**: Production (Shared Hosting via SFTP)" >> $GITHUB_STEP_SUMMARY
+                  echo "**Host**: ${{ secrets.SFTP_HOST }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Visit cPanel File Manager" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Navigate to: public_html/wp-content/themes/" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Extract: ${{ needs.build-and-release.outputs.zip_file }}" >> $GITHUB_STEP_SUMMARY
+                  echo "4. Or visit: https://${{ secrets.SITE_DOMAIN }}/wp-content/themes/extract.php" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "✅ **Files uploaded successfully!**" >> $GITHUB_STEP_SUMMARY

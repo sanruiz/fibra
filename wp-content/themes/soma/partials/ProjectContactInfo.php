@@ -29,19 +29,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 ?>
-<section class="projectcontactinfo-partial-36c8d9 <?= get_query_var('soma_block_content')['dark_style'] ? 'dark-style' : '' ?>">
-    <div class="container">
-        <div class="content">
-            <div class="column">
-                <?= get_query_var('soma_block_content')['column_1'] ?>
-            </div>
-            <div class="column">
-                <?= get_query_var('soma_block_content')['column_2'] ?>
-            </div>
-            <div class="column">
-                <?= get_query_var('soma_block_content')['column_3'] ?>
-            </div>
-        </div>
-    </div>
+<section class="projectcontactinfo-partial-36c8d9 <?php echo get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : ''; ?>">
+	<div class="container">
+		<div class="content">
+			<div class="column">
+				<?php echo get_query_var( 'soma_block_content' )['column_1']; ?>
+			</div>
+			<div class="column">
+				<?php echo get_query_var( 'soma_block_content' )['column_2']; ?>
+			</div>
+			<div class="column">
+				<?php echo get_query_var( 'soma_block_content' )['column_3']; ?>
+			</div>
+		</div>
+	</div>
 </section>
-                    
+					
