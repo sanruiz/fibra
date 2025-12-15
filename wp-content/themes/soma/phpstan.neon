@@ -2,23 +2,25 @@ parameters:
     level: 6
     paths:
         - includes
+    bootstrapFiles:
+        - vendor/miguelcolmenares/cf7-stubs/contact-form-7-stubs.php
     excludePaths:
         - vendor
         - node_modules
         - tests/Mocks
+        - includes/Elementor  # Plugin dependency - no official PHPStan support
     ignoreErrors:
-        # ACF functions (stubs don't provide function signatures)
+        # ACF functions (plugin dependency - no official PHPStan support)
         - '#Function get_field not found#'
-        # Contact Form 7 classes (no official stubs available)
-        - '#unknown class WPCF7#'
-        - '#invalid type WPCF7#'
-        - '#Method .* has invalid return type WPCF7#'
-        # Elementor classes (stubs have bugs, but classes exist at runtime)
-        - '#unknown class Elementor\\\\#'
-        - '#Access to constant .* on an unknown class Elementor\\\\#'
-        - '#Call to method .* on an unknown class Elementor\\\\#'
-        - '#Instantiated class Elementor\\\\#'
-        - '#Call to an undefined method .*::(?:start_controls_section|end_controls_section|add_control|add_responsive_control|start_controls_tabs|start_controls_tab|end_controls_tab|end_controls_tabs|get_settings_for_display)#'
+        - '#Function acf_add_options_sub_page not found#'
+        # CF7 stub limitation: get_instance() typed as null but returns instance in runtime
+        # Keeping defensive null check in code despite PHPStan warning
+        -
+            message: '#Negated boolean expression is always true#'
+            path: includes/CF7/Validations.php
+        -
+            message: '#Unreachable statement - code above always terminates#'
+            path: includes/CF7/Validations.php
         # Action callbacks don't need return types
         - '#Action callback returns .* but should not return anything#'
         # Allow missing array value types

@@ -11,6 +11,8 @@
 
 namespace Soma\PageBuilder;
 
+use Soma\Utils\Enums\CacheTag;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -258,7 +260,7 @@ class BlockRenderer {
 		}
 
 		$cache_key  = $this->get_cache_key( $layout, $page_block );
-		$cache_tags = array( 'page_builder', 'block_' . $layout );
+		$cache_tags = array( CacheTag::PAGE_BUILDER );
 
 		// Get or generate cached output.
 		$output = soma_cache_remember(
@@ -299,8 +301,9 @@ class BlockRenderer {
 	 * Invalidate block cache
 	 *
 	 * Can be called on post save to clear cached blocks.
+	 * Invalidates all page builder blocks (granular invalidation by layout not supported with enums).
 	 *
-	 * @param string|null $layout Optional layout name to invalidate specific block type.
+	 * @param string|null $layout Optional layout name for logging purposes only.
 	 * @return void
 	 */
 	public function invalidate_cache( ?string $layout = null ): void {
@@ -308,13 +311,8 @@ class BlockRenderer {
 			return;
 		}
 
-		if ( $layout !== null ) {
-			// Invalidate specific block type.
-			soma_cache_invalidate_tags( array( 'block_' . $layout ) );
-		} else {
-			// Invalidate all page builder blocks.
-			soma_cache_invalidate_tags( array( 'page_builder' ) );
-		}
+		// Invalidate all page builder blocks.
+		soma_cache_invalidate_tags( array( CacheTag::PAGE_BUILDER ) );
 
 		if ( function_exists( 'soma_log_debug' ) ) {
 			soma_log_debug(

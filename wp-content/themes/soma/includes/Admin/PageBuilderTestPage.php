@@ -283,9 +283,9 @@ class PageBuilderTestPage {
 			'status'  => 'pass',
 			'message' => sprintf(
 				'Rendered: %d, Cached: %d, Errors: %d',
-				$stats['blocks_rendered'],
-				$stats['blocks_cached'],
-				$stats['errors']
+				$stats['blocks_rendered'] ?? 0,
+				$stats['blocks_cached'] ?? 0,
+				$stats['errors'] ?? 0
 			),
 		);
 
@@ -418,15 +418,15 @@ class PageBuilderTestPage {
 			<h2>Test Summary</h2>
 			<div class="soma-test-stats">
 				<div class="soma-test-stat">
-					<div class="soma-test-stat-number" style="color: #46b450;"><?php echo esc_html( $total_passed ); ?></div>
+					<div class="soma-test-stat-number" style="color: #46b450;"><?php echo esc_html( (string) $total_passed ); ?></div>
 					<div class="soma-test-stat-label">Passed</div>
 				</div>
 				<div class="soma-test-stat">
-					<div class="soma-test-stat-number" style="color: #ffb900;"><?php echo esc_html( $total_warned ); ?></div>
+					<div class="soma-test-stat-number" style="color: #ffb900;"><?php echo esc_html( (string) $total_warned ); ?></div>
 					<div class="soma-test-stat-label">Warnings</div>
 				</div>
 				<div class="soma-test-stat">
-					<div class="soma-test-stat-number" style="color: #dc3232;"><?php echo esc_html( $total_failed ); ?></div>
+					<div class="soma-test-stat-number" style="color: #dc3232;"><?php echo esc_html( (string) $total_failed ); ?></div>
 					<div class="soma-test-stat-label">Failed</div>
 				</div>
 			</div>

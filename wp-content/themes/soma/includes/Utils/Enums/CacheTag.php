@@ -28,6 +28,7 @@ enum CacheTag: string {
 	case CUSTOM_FIELDS = 'custom_fields';
 	case API           = 'api';
 	case WIDGETS       = 'widgets';
+	case PAGE_BUILDER  = 'page_builder';
 	case PORTFOLIO     = 'portfolio';
 	case NEWS          = 'news';
 	case CAREERS       = 'careers';
@@ -56,6 +57,7 @@ enum CacheTag: string {
 			self::CUSTOM_FIELDS => __( 'Custom Fields', 'soma' ),
 			self::API           => __( 'REST API', 'soma' ),
 			self::WIDGETS       => __( 'Widgets', 'soma' ),
+			self::PAGE_BUILDER  => __( 'Page Builder', 'soma' ),
 			self::PORTFOLIO     => __( 'Portfolio', 'soma' ),
 			self::NEWS          => __( 'News', 'soma' ),
 			self::CAREERS       => __( 'Careers', 'soma' ),
