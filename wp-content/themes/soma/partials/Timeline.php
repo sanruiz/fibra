@@ -31,17 +31,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <?php if ( get_query_var( 'soma_block_content' )['slides'] ) : ?>
-<section class="timeline-partial-04e48b" data-autoplay="<?php echo get_query_var( 'soma_block_content' )['autoplay']; ?>" data-speed="<?php echo get_query_var( 'soma_block_content' )['autoplay_speed']; ?>">
+<section class="timeline-partial-04e48b" data-autoplay="<?php echo esc_attr( get_query_var( 'soma_block_content' )['autoplay'] ); ?>" data-speed="<?php echo esc_attr( get_query_var( 'soma_block_content' )['autoplay_speed'] ); ?>">
 	<div class="timeline-slider">
 		<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
 			<div class="item">
 				<?php if ( $item['image'] ) : ?>
 					<div class="image">
-						<img src="<?php echo $item['image']['url']; ?>" alt="<?php echo $item['image']['alt']; ?>">
+					<img src="<?php echo esc_url( $item['image']['url'] ); ?>" alt="<?php echo esc_attr( $item['image']['alt'] ); ?>">
 					</div>
 				<?php endif; ?>
 				<?php if ( $item['year'] ) : ?>
-					<div class="year"><?php echo $item['year']; ?></div>
+				<div class="year"><?php echo esc_html( $item['year'] ); ?></div>
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
 			<div>
 				<div id= "text-item" class="box-text-item item">
-					<?php echo $item['text']; ?>
+					<?php echo wp_kses_post( $item['text'] ); ?>
 				</div>
 				<div class="read" onclick="deploy(this)" >
 					Read more

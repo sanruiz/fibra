@@ -44,14 +44,14 @@ $props = "{$post_per_page} {$infinite_scroll} {$post_list}";
 		<div class="title-container">
 			<div class="title">
 				<?php if ( $data['title_size'] === 'big' ) : ?>
-					<h2><?php echo $data['title']; ?></h2>
+					<h2><?php echo esc_html( $data['title'] ); ?></h2>
 				<?php else : ?>
-					<h3><?php echo $data['title']; ?></h3> 
+					<h3><?php echo esc_html( $data['title'] ); ?></h3> 
 				<?php endif; ?>
 			</div>
 			<div class="link">
 				<?php if ( $data['link'] ) : ?>
-					<a href="<?php echo $data['link']['url']; ?>" target="<?php echo $data['link']['target']; ?>"><?php echo $data['link']['title']; ?></a>
+					<a href="<?php echo esc_url( $data['link']['url'] ); ?>" target="<?php echo esc_attr( $data['link']['target'] ); ?>"><?php echo esc_html( $data['link']['title'] ); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>
