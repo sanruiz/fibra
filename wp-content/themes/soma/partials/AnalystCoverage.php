@@ -37,19 +37,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php foreach ( get_query_var( 'soma_block_content' )['items'] as $key => $item ) : ?>
 					<div class="item">
 						<?php if ( $item['title'] ) : ?>
-							<h3><?php echo $item['title']; ?></h3>
+						<h3><?php echo esc_html( $item['title'] ); ?></h3>
 						<?php endif; ?>
 						<?php if ( $item['name'] ) : ?>
-							<div class="name"><?php echo $item['name']; ?></div>
+						<div class="name"><?php echo esc_html( $item['name'] ); ?></div>
 						<?php endif; ?>
 						<?php if ( $item['phone'] ) : ?>
 							<div class="phone">
-								<a href="<?php echo $item['phone']['url']; ?>" target="<?php echo $item['phone']['target']; ?>"><?php echo $item['phone']['title']; ?></a>
+							<a href="<?php echo esc_url( $item['phone']['url'] ); ?>" target="<?php echo esc_attr( $item['phone']['target'] ); ?>"><?php echo esc_html( $item['phone']['title'] ); ?></a>
 							</div>
 						<?php endif; ?>
 						<?php if ( $item['email'] ) : ?>
 							<div class="email">
-								<a href="<?php echo $item['email']['url']; ?>" target="<?php echo $item['email']['target']; ?>"><?php echo $item['email']['title']; ?></a>
+							<a href="<?php echo esc_url( $item['email']['url'] ); ?>" target="<?php echo esc_attr( $item['email']['target'] ); ?>"><?php echo esc_html( $item['email']['title'] ); ?></a>
 							</div>
 						<?php endif; ?>
 					</div>
