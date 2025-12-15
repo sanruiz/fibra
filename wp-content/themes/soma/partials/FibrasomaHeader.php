@@ -33,16 +33,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="fibrasomaheader-partial-d71c92">
 	<div class="container">
 		<?php if ( get_query_var( 'soma_block_content' )['big_text'] ) : ?>
-			<h3><?php echo get_query_var( 'soma_block_content' )['big_text']; ?></h3>
+			<h3><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['big_text'] ); ?></h3>
 		<?php endif; ?>
 		<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
-			<a href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
-				<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+			<a href="<?php echo esc_url( get_query_var( 'soma_block_content' )['link']['url'] ); ?>" target="<?php echo esc_attr( get_query_var( 'soma_block_content' )['link']['target'] ); ?>">
+				<?php echo esc_html( get_query_var( 'soma_block_content' )['link']['title'] ); ?>
 			</a>
 		<?php endif; ?>
 		<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
 			<div class="image">
-				<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+				<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 			</div>
 		<?php endif; ?>
 	</div>

@@ -35,31 +35,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="content">
 			<div class="image">
 				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
-					<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+					<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 				<?php endif; ?>
 			</div>
 			<div class="text-container">
 				<?php if ( get_query_var( 'soma_block_content' )['logo'] ) : ?>
 					<div class="logo">
-						<img src="<?php echo get_query_var( 'soma_block_content' )['logo']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['logo']['alt']; ?>">
+						<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['logo']['alt'] ); ?>">
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
-					<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
 					<div class="text">
-						<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+						<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></p>
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
 					<div class="link">
-						<a href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>"><?php echo get_query_var( 'soma_block_content' )['link']['title']; ?></a>
+						<a href="<?php echo esc_url( get_query_var( 'soma_block_content' )['link']['url'] ); ?>" target="<?php echo esc_attr( get_query_var( 'soma_block_content' )['link']['target'] ); ?>"><?php echo esc_html( get_query_var( 'soma_block_content' )['link']['title'] ); ?></a>
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['file'] ) : ?>
 					<div class="file">
-						<a href="<?php echo get_query_var( 'soma_block_content' )['file']['url']; ?>" target="_blank">
+						<a href="<?php echo esc_url( get_query_var( 'soma_block_content' )['file']['url'] ); ?>" target="_blank">
 							<?php echo do_shortcode( "[wpm_translate]{get_query_var('soma_block_content')['file']['title']}[/wpm_translate]" ); ?>
 							<svg width="17px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

@@ -110,7 +110,7 @@ $arrow = '
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
-									<span><?php echo esc_html( $content['label'] ) . $arrow; ?></span>
+									<span><?php echo wp_kses_post( esc_html( $content['label'] ) . $arrow ); ?></span>
 									</div>
 								<?php endif; ?>
 							</a>
@@ -143,7 +143,7 @@ $arrow = '
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
-									<span><?php echo esc_html( $content['label'] ) . $arrow; ?></span>
+									<span><?php echo wp_kses_post( esc_html( $content['label'] ) . $arrow ); ?></span>
 									</div>
 								<?php endif; ?>
 							</a>
@@ -157,10 +157,10 @@ $arrow = '
 					<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 					<?php if ( $mainFile ) : ?>
 						<div class="item">
-							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
+							<a href="<?php echo esc_url( $mainFile['url'] ); ?>" target="_blank">
 								<?php if ( $featured_image ) : ?>
 									<div class="image">
-										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+										<img src="<?php echo esc_url( $featured_image ); ?>" alt="Featured Image">
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
@@ -174,7 +174,7 @@ $arrow = '
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
-										<span><?php echo $content['label'] . $arrow; ?></span>
+										<span><?php echo wp_kses_post( $content['label'] . $arrow ); ?></span>
 									</div>
 								<?php endif; ?>
 							</a>
