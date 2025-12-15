@@ -18,15 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-// Get blocks from ACF
+// Get blocks from ACF.
 $soma_blocks = get_field( 'soma_blocks' );
 
-// Render using PSR-4 system
+// Render using PSR-4 system.
 if ( class_exists( '\Soma\PageBuilder\BlockRenderer' ) ) {
 	$renderer = \Soma\PageBuilder\BlockRenderer::instance();
 	$renderer->render( $soma_blocks );
 } else {
-	// PSR-4 system not loaded - check theme initialization
+	// PSR-4 system not loaded - check theme initialization.
 	if ( function_exists( 'soma_log_error' ) ) {
 		soma_log_error( 'PageBuilder: BlockRenderer class not found. Check theme initialization.' );
 	}

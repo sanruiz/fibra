@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 get_header();
 
-global $pageBuilder;
-$pageBuilder = get_field( 'soma_blocks' );
+global $page_builder;
+$page_builder = get_field( 'soma_blocks' );
 
 $art_content = get_field( 'art_content' );
 ?>

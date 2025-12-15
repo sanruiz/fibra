@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 global $post;
-global $pageBuilder;
-$pageBuilder    = get_field( 'soma_blocks' );
+global $page_builder;
+$page_builder   = get_field( 'soma_blocks' );
 $header_options = get_field( 'header_content', 'options' );
 ?>
 

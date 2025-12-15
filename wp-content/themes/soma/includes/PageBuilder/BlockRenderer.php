@@ -245,19 +245,19 @@ class BlockRenderer {
 	/**
 	 * Render with caching
 	 *
-	 * @param string $layout    Layout name.
-	 * @param string $partial   Partial name.
-	 * @param array  $pageBlock Page block data.
+	 * @param string $layout     Layout name.
+	 * @param string $partial    Partial name.
+	 * @param array  $page_block Page block data.
 	 * @return void
 	 */
-	private function render_with_cache( string $layout, string $partial, array $pageBlock ): void {
+	private function render_with_cache( string $layout, string $partial, array $page_block ): void {
 		if ( ! function_exists( 'soma_cache_remember' ) ) {
 			// Fallback to non-cached rendering.
 			$this->render_partial( $partial );
 			return;
 		}
 
-		$cache_key  = $this->get_cache_key( $layout, $pageBlock );
+		$cache_key  = $this->get_cache_key( $layout, $page_block );
 		$cache_tags = array( 'page_builder', 'block_' . $layout );
 
 		// Get or generate cached output.
@@ -280,17 +280,17 @@ class BlockRenderer {
 	/**
 	 * Generate cache key for block
 	 *
-	 * @param string $layout    Layout name.
-	 * @param array  $pageBlock Page block data.
+	 * @param string $layout     Layout name.
+	 * @param array  $page_block Page block data.
 	 * @return string Cache key.
 	 */
-	private function get_cache_key( string $layout, array $pageBlock ): string {
+	private function get_cache_key( string $layout, array $page_block ): string {
 		// Include block counter and content hash in key.
-		$content_hash = md5( serialize( $pageBlock['block_content'] ) );
+		$content_hash = md5( serialize( $page_block['block_content'] ) );
 		return sprintf(
 			'block_%s_%d_%s',
 			$layout,
-			$pageBlock['block_counter'],
+			$page_block['block_counter'],
 			$content_hash
 		);
 	}

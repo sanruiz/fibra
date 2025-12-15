@@ -34,8 +34,8 @@ $data = get_query_var( 'soma_block_content' );
 $post_per_page   = $data['posts_per_page'] ? "data-posts-per-page='{$data['posts_per_page']}'" : '';
 $infinite_scroll = $data['infinite_scroll'] ? "data-infinite-scroll='{$data['infinite_scroll']}'" : '';
 
-$formatedPostList = $data['post_list'] ? json_encode( $data['post_list'] ) : '';
-$post_list        = $data['post_list'] ? "data-post-list='{$formatedPostList}'" : '';
+$formated_post_list = $data['post_list'] ? wp_json_encode( $data['post_list'] ) : '';
+$post_list          = $data['post_list'] ? "data-post-list='{$formated_post_list}'" : '';
 
 $props = "{$post_per_page} {$infinite_scroll} {$post_list}";
 ?>

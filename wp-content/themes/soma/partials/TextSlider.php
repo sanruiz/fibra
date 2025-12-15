@@ -28,8 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-
-function addZero( $num ) {
+/**
+ * Add leading zero to numbers less than 10.
+ *
+ * @param int|string $num Number to format.
+ * @return string Number with leading zero if needed.
+ */
+function add_zero( $num ) {
 	if ( $num < 10 ) {
 		$num = '0' . $num;
 	}
@@ -62,7 +67,7 @@ function addZero( $num ) {
 				<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
 					<?php if ( $item ) : ?>
 						<div class="item">
-							<h2><?php echo esc_html( addZero( $key + 1 ) ); ?></h2>
+							<h2><?php echo esc_html( add_zero( $key + 1 ) ); ?></h2>
 							<?php if ( $item['title'] ) : ?>
 							<h3><?php echo esc_html( $item['title'] ); ?></h3>
 							<?php endif; ?>

@@ -68,16 +68,16 @@ $arrow = '
 					<p><?php echo wp_kses_post( $content['description'] ); ?></p>
 					</div>
 				<?php endif; ?>
-				<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
-				<?php if ( $mainFile ) : ?>
-					<div class="link">
-					<a href="<?php echo esc_url( $mainFile['url'] ); ?>" target="_blank">
+			<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+			<?php if ( $main_file ) : ?>
+				<div class="link">
+				<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">
 						<?php echo esc_html( $content['label'] ) . wp_kses_post( $arrow ); ?>
 						</a>
 						<?php if ( $content['has_additional_files'] && $content['additional_files'] ) : ?>
 							<?php foreach ( $content['additional_files'] as $key => $file ) : ?>
-								<?php $extraFile = ( wpm_get_language() === 'en' ) ? $file['file'] : $file['file_es']; ?>
-							<a href="<?php echo esc_url( $extraFile['url'] ); ?>" target="_blank"><?php echo esc_html( $file['label'] ) . wp_kses_post( $arrow ); ?></a>
+								<?php $extra_file = ( wpm_get_language() === 'en' ) ? $file['file'] : $file['file_es']; ?>
+						<a href="<?php echo esc_url( $extra_file['url'] ); ?>" target="_blank"><?php echo esc_html( $file['label'] ) . wp_kses_post( $arrow ); ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>

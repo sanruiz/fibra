@@ -33,6 +33,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post;
 $post_ancestors = array_reverse( get_post_ancestors( get_the_id() ) );
 
+/**
+ * Limit text to a specific number of words.
+ *
+ * @param string $text  Text to limit.
+ * @param int    $limit Maximum number of words.
+ * @return string Limited text with [...] if truncated.
+ */
 function limit_text( $text, $limit ) {
 	if ( str_word_count( $text, 0 ) > $limit ) {
 		$words = str_word_count( $text, 2 );
@@ -93,13 +100,13 @@ $header_options = get_field( 'header_content', 'options' );
 				<?php endif; ?>
 				<?php $terms = get_the_terms( get_the_id(), 'portfolio-taxonomy' ); ?>
 				<?php if ( $terms ) : ?>
-					<?php foreach ( $terms as $key => $term ) : ?>
-						<?php if ( $term->slug === 'soma_real_estate' ) : ?>
+					<?php foreach ( $terms as $key => $taxonomy_term ) : ?>
+						<?php if ( $taxonomy_term->slug === 'soma_real_estate' ) : ?>
 							<?php if ( get_page_by_path( 'business-units/soma-real-estate/' ) ) : ?>
 								<a href="<?php echo esc_url( get_the_permalink( get_page_by_path( 'business-units/soma-real-estate/' )->ID ) ); ?>"><?php echo esc_html( get_the_title( get_page_by_path( 'business-units/soma-real-estate/' )->ID ) ); ?></a><i>&nbsp;—&nbsp;</i>
 							<?php endif; ?>
 						<?php endif; ?>
-						<?php if ( $term->slug === 'soma_construction' ) : ?>
+						<?php if ( $taxonomy_term->slug === 'soma_construction' ) : ?>
 							<?php if ( get_page_by_path( 'business-units/soma-construction/' ) ) : ?>
 								<a href="<?php echo esc_url( get_the_permalink( get_page_by_path( 'business-units/soma-construction/' )->ID ) ); ?>"><?php echo esc_html( get_the_title( get_page_by_path( 'business-units/soma-construction/' )->ID ) ); ?></a><i>&nbsp;—&nbsp;</i>
 							<?php endif; ?>

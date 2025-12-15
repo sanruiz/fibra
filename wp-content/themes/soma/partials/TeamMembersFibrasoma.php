@@ -52,15 +52,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 							$terms      = get_the_terms( $item, 'team-members-taxonomy' );
 							$categories = '';
 						if ( $terms ) :
-							foreach ( $terms as $key_term => $term ) :
+							foreach ( $terms as $key_term => $taxonomy_term ) :
 								if ( $key_term === 0 ) :
-									$categories .= $term->name;
-									else :
-										$categories .= ', ' . $term->name;
-									endif;
-								endforeach;
-							endif;
-						?>
+									$categories .= $taxonomy_term->name;
+								else :
+									$categories .= ', ' . $taxonomy_term->name;
+								endif;
+							endforeach;
+						endif;
+			?>
 
 						<div class="member <?php echo $info['hide_single_page'] ? 'single-page-hidden' : ''; ?>">
 						<a <?php echo $info['hide_single_page'] ? '' : 'href="' . esc_url( get_the_permalink( $item ) ) . '"'; ?>>

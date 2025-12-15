@@ -57,9 +57,9 @@ $arrow = '
 					<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 					</div>
 				<?php endif; ?>
-				<?php $extraFile = ( wpm_get_language() === 'en' ) ? get_query_var( 'soma_block_content' )['file'] : get_query_var( 'soma_block_content' )['file_es']; ?>
-				<?php if ( $extraFile && get_query_var( 'soma_block_content' )['file_label'] ) : ?>
-				<a class="extra-file" href="<?php echo esc_url( $extraFile['url'] ); ?>" target="_blank">
+			<?php $extra_file = ( wpm_get_language() === 'en' ) ? get_query_var( 'soma_block_content' )['file'] : get_query_var( 'soma_block_content' )['file_es']; ?>
+			<?php if ( $extra_file && get_query_var( 'soma_block_content' )['file_label'] ) : ?>
+			<a class="extra-file" href="<?php echo esc_url( $extra_file['url'] ); ?>" target="_blank">
 					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . wp_kses_post( $arrow ); ?>
 					</a>
 				<?php endif; ?>
@@ -73,10 +73,10 @@ $arrow = '
 					<?php foreach ( get_query_var( 'soma_block_content' )['documents'] as $key => $item ) : ?>
 						<?php $content = get_field( 'document_content', $item ); ?>
 
-						<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
-						<?php if ( $mainFile ) : ?>
-							<div class="item">
-							<a href="<?php echo esc_url( $mainFile['url'] ); ?>" target="_blank">
+						<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+						<?php if ( $main_file ) : ?>
+						<div class="item">
+						<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">
 								<div class="file-title">
 								<span><?php echo esc_html( get_the_title( $item ) ) . wp_kses_post( $arrow ); ?></span>
 								</div>

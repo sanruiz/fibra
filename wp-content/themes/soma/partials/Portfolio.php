@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$pre_filter = isset( $_GET['category'] ) ? $_GET['category'] : null;
+$pre_filter = isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : null;
 ?>
 
 <?php if ( get_query_var( 'soma_block_content' )['main_category'] && get_query_var( 'soma_block_content' )['posts_per_page'] ) : ?>

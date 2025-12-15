@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 get_header();
-global $pageBuilder;
-$pageBuilder = get_field( 'soma_blocks' );
+global $page_builder;
+$page_builder = get_field( 'soma_blocks' );
 
 $bussiness_unit_data = get_field( 'business_unit_data' );
 ?>
