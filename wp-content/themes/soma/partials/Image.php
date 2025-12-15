@@ -31,15 +31,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
-<section class="image-partial-7ce04d <?php echo get_query_var( 'soma_block_content' )['mobile_fullscreen'] ? 'mobile-fullscreen' : ''; ?> <?php echo get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : ''; ?>">
+<section class="image-partial-7ce04d <?php echo esc_attr( get_query_var( 'soma_block_content' )['mobile_fullscreen'] ? 'mobile-fullscreen' : '' ); ?> <?php echo esc_attr( get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : '' ); ?>">
 	<div class="container">
-		<div class="content <?php echo get_query_var( 'soma_block_content' )['two_images'] ? 'two-images' : ''; ?>">
-			<div class="image <?php echo get_query_var( 'soma_block_content' )['size']; ?>">
-				<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+		<div class="content <?php echo esc_attr( get_query_var( 'soma_block_content' )['two_images'] ? 'two-images' : '' ); ?>">
+			<div class="image <?php echo esc_attr( get_query_var( 'soma_block_content' )['size'] ); ?>">
+				<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 			</div>
 			<?php if ( get_query_var( 'soma_block_content' )['two_images'] && get_query_var( 'soma_block_content' )['image_2'] ) : ?>
 				<div class="image-2">
-					<img src="<?php echo get_query_var( 'soma_block_content' )['image_2']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image_2']['alt']; ?>">
+					<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image_2']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image_2']['alt'] ); ?>">
 				</div>
 			<?php endif; ?>
 		</div>

@@ -105,22 +105,22 @@ if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
 	<div class="container">
 		<?php if ( get_query_var( 'soma_block_content' )['number'] ) : ?>
 			<div class="number">
-				<h2><?php echo get_query_var( 'soma_block_content' )['number']; ?></h2>
+				<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['number'] ); ?></h2>
 			</div>
 		<?php endif; ?>
 		<div class="header">
 			<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
-				<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+				<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 			<?php endif; ?>
 			<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
-				<a href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="_blank"><?php echo get_query_var( 'soma_block_content' )['link']['title']; ?></a>
+				<a href="<?php echo esc_url( get_query_var( 'soma_block_content' )['link']['url'] ); ?>" target="_blank"><?php echo esc_html( get_query_var( 'soma_block_content' )['link']['title'] ); ?></a>
 			<?php endif; ?>
 		</div>
 		<div class="events">
 			<?php if ( $events ) : ?>
 				<div class="event-list">
 					<?php foreach ( $events as $key => $event ) : ?>
-						<?php echo printEvent( $event ); ?>
+						<?php echo wp_kses_post( printEvent( $event ) ); ?>
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>
