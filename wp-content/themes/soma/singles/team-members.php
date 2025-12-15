@@ -61,11 +61,11 @@ $image = get_the_post_thumbnail_url()
 						</g>
 					</svg>
 				</div>
-				<h3><?php echo $info['featured_text']; ?></h3>
+				<h3><?php echo esc_html( $info['featured_text'] ); ?></h3>
 			</div>
 			<div class="body">
 				<div class="body-content">
-					<?php echo $info['body']; ?>
+					<?php echo wp_kses_post( $info['body'] ); ?>
 				</div>
 			</div>
 		</div>

@@ -42,13 +42,13 @@ $header_options = get_field( 'header_content', 'options' );
 
 		<section class="project-title-section">
 			<div class="container">
-				<h2><?php echo get_the_title(); ?></h2>
+				<h2><?php echo esc_html( get_the_title() ); ?></h2>
 				<p>
-					<?php echo $city ? $city . '. ' : ''; ?>
+					<?php echo $city ? esc_html( $city ) . '. ' : ''; ?>
 					<?php if ( $terms ) : ?>
 						<?php foreach ( $terms as $key => $term ) : ?>
 							<?php if ( $term->slug !== 'soma_real_estate' && $term->slug !== 'soma_construction' && $term->slug !== 'fibrasoma' ) : ?>
-								<?php echo $term->name . '. '; ?>
+								<?php echo esc_html( $term->name ) . '. '; ?>
 							<?php endif; ?>
 						<?php endforeach; ?>
 					<?php endif; ?>
@@ -62,7 +62,7 @@ $header_options = get_field( 'header_content', 'options' );
 
 		<section>
 			<div class="container">
-				<p><?php echo '[' . get_the_title() . ']'; ?></p>
+				<p><?php echo '[' . esc_html( get_the_title() ) . ']'; ?></p>
 			</div>
 		</section>
 

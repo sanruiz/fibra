@@ -113,10 +113,10 @@ final class StockDataEndpoint {
 	 *
 	 * Fetches stored stock data from WordPress options.
 	 *
-	 * @param WP_REST_Request $request Request object.
+	 * @param WP_REST_Request $_request Request object (unused, required by signature).
 	 * @return WP_REST_Response|WP_Error Response data or error.
 	 */
-	private function handle( WP_REST_Request $request ) {
+	private function handle( WP_REST_Request $_request ) {
 		$stock_data = get_option( 'stock_data' );
 
 		if ( ! $stock_data ) {
