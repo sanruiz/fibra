@@ -60,27 +60,6 @@ jobs:
         runs-on: ubuntu-latest
         needs: [wait-for-ci]
         if: always() && (needs.wait-for-ci.result == 'success' || github.event_name == 'workflow_dispatch')
-        steps:
-            - name: 📥 Checkout code
-              uses: actions/checkout@v4
-
-            - name: 🐘 Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ env.PHP_VERSION }}
-                  extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
-                  coverage: none
-
-            - name: 📦 Cache Composer dependencies
-              uses: actions/cache@v4
-              with:
-                  path: ${{ env.THEME_PATH }}/vendor
-                  key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
-
-            - name: 🎼 Install Composer dependencies
-              run: |
-                  cd ${{ env.THEME_PATH }}
-                  composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader
         
         outputs:
             version: ${{ steps.version.outputs.version }}
