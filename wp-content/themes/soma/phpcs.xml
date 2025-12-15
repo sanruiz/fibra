@@ -17,8 +17,9 @@
     <exclude-pattern>*.js</exclude-pattern>
     <exclude-pattern>*.css</exclude-pattern>
     
-    <!-- Exclude CLI test scripts from output escaping rules -->
-    <exclude-pattern>/scripts/test-page-builder.php</exclude-pattern>
+    <!-- Exclude test and development scripts (not deployed to production) -->
+    <exclude-pattern>/scripts/*</exclude-pattern>
+    <exclude-pattern>/tests/*</exclude-pattern>
 
     <!-- How to scan -->
     <arg value="sp"/> <!-- Show sniff and progress -->
