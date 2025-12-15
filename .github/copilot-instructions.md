@@ -49,9 +49,10 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 - **Location**: `.github/workflows/` (repository root, NOT within theme)
 - **Contains**: All CI/CD workflow files (`.yml`)
 - **Rationale**: GitHub Actions only reads workflows from repository root
-- **Examples**:
-  - `.github/workflows/release-and-deploy.yml`
-  - `.github/workflows/test-sftp-secrets.yml`
+- **Current Workflows**:
+  - `.github/workflows/quality-and-tests.yml` - **CI**: Code quality and automated testing (runs on push/PR)
+  - `.github/workflows/release-and-deploy.yml` - **CD**: Build, release, and deploy (runs on tags only)
+  - `.github/workflows/test-sftp-secrets.yml` - Manual SFTP validation
 
 ### Deployment Scripts (repository root)
 - **Location**: `.github/scripts/` (repository root)
@@ -112,6 +113,77 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
   - `gh pr list | cat`
   - `gh pr view 55 | cat`
   - `gh pr merge 55 --squash | cat`
+
+## 🚀 CI/CD Workflows
+
+### Two-Workflow Architecture
+
+SOMA uses a **modern CI/CD architecture** separating Continuous Integration from Continuous Deployment:
+
+#### Workflow 1: Quality & Tests (CI) - `quality-and-tests.yml`
+- **Purpose**: Fast feedback on code quality and tests
+- **Triggers**: 
+  - Push to branches: `main`, `develop`, `week-*`
+  - Pull requests to: `main`, `develop`
+  - Manual dispatch
+- **Duration**: ~3-5 minutes
+- **Jobs** (run in parallel):
+  1. Code Quality (PHPCS, PHPStan, PHPCBF auto-fix)
+  2. PHP Tests (PHPUnit 108 tests with MySQL)
+  3. Frontend Build (Webpack production)
+  4. CI Summary (always runs)
+- **Does NOT**: Create releases or deploy to production
+- **Purpose**: Validate code changes before release
+
+#### Workflow 2: Release & Deploy (CD) - `release-and-deploy.yml`
+- **Purpose**: Build, release, and deploy to production
+- **Triggers**:
+  - Version tags: `v*` (e.g., v3.0.0, v3.0.1)
+  - Manual dispatch (with version input)
+- **Duration**: ~5-8 minutes
+- **Jobs** (sequential):
+  1. Wait for CI (verifies quality-and-tests.yml passed)
+  2. Build & Release (create GitHub release + ZIP package)
+  3. Deploy (SFTP upload to production)
+- **Prerequisite**: CI workflow MUST pass first
+- **Deployment Flow**:
+  1. Push code → CI runs (quality gates)
+  2. Create tag v3.0.X → CD checks CI status
+  3. If CI passed → Proceeds with release + deploy
+  4. If CI failed → Blocks deployment
+
+### Benefits of Separation
+- ✅ **Faster Feedback**: CI runs on every push (~3-5 min vs ~10-15 min)
+- ✅ **Cost Efficiency**: Avoid running release/deploy unnecessarily
+- ✅ **Clear Intent**: CI for validation, CD for releases only
+- ✅ **Better Control**: Can require CI as status check for PRs
+- ✅ **Easier Debugging**: Smaller, focused workflows
+
+### Workflow Triggers (IMPORTANT)
+
+**CI Workflow** (`quality-and-tests.yml`):
+```yaml
+on:
+  push:
+    branches: [main, develop, week-*]  # Runs on push
+  pull_request:
+    branches: [main, develop]          # Runs on PR
+  workflow_dispatch:                   # Manual trigger
+```
+
+**CD Workflow** (`release-and-deploy.yml`):
+```yaml
+on:
+  push:
+    tags: [v*]              # ONLY runs on version tags
+  workflow_dispatch:        # Manual trigger
+```
+
+**CRITICAL**: 
+- CI runs on **every push** to validate quality
+- CD runs **ONLY on release tags** to deploy
+- Pushing to main no longer triggers full deployment
+- Create tag (git tag v3.0.1) to trigger deployment
 
 ## 📊 GitHub Project Organization
 
