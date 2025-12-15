@@ -106,7 +106,7 @@ $arrow = '
 								</div>
 							<?php endif; ?>
 							<div class="press-title">
-								<?php echo esc_html( get_the_title( $press[0]->ID ) ); ?>
+								<?php echo wp_kses_post( get_the_title( $press[0]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
@@ -139,7 +139,7 @@ $arrow = '
 								</div>
 							<?php endif; ?>
 							<div class="press-title">
-								<?php echo esc_html( get_the_title( $press[1]->ID ) ); ?>
+								<?php echo wp_kses_post( get_the_title( $press[1]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
@@ -170,7 +170,7 @@ $arrow = '
 								</div>
 							<?php endif; ?>
 							<div class="press-title">
-								<?php echo esc_html( get_the_title( $press[2]->ID ) ); ?>
+								<?php echo wp_kses_post( get_the_title( $press[2]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
