@@ -48,5 +48,5 @@ if ( class_exists( 'Soma\Core\Theme' ) ) {
 
 // // Schedule the event again
 // if (!wp_next_scheduled('update_stock_data_event')) {
-//     wp_schedule_event(time(), 'three_hours', 'update_stock_data_event');
+// wp_schedule_event(time(), 'three_hours', 'update_stock_data_event');
 // }

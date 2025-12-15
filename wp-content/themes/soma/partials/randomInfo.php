@@ -30,30 +30,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php if(get_query_var('soma_block_content')['data']): ?>
+<?php if ( get_query_var( 'soma_block_content' )['data'] ) : ?>
 <section class="randominfo-partial-716012">
-    <?php 
-        shuffle(get_query_var('soma_block_content')['data']);
-        usort(get_query_var('soma_block_content')['data'], function($a, $b) {
-            return $b['static'] <=> $a['static'];
-        });
-    ?>
-    <div class="container">
-        <?php if(get_query_var('soma_block_content')['title']): ?>
-            <div class="title">
-                <h2><?= get_query_var('soma_block_content')['title'] ?></h2>
-            </div>
-        <?php endif; ?>
-        <div class="data">
-            <?php $wall = (count(get_query_var('soma_block_content')['data']) < 6) ? count(get_query_var('soma_block_content')['data']) : 6; ?>
-            <?php for ($i = 1; $i <= $wall; $i++): ?>
-                <div class="item">
-                    <div class="value"><?= get_query_var('soma_block_content')['data'][($i - 1)]['value'] ?></div>
-                    <div class="label"><?= get_query_var('soma_block_content')['data'][($i - 1)]['label'] ?></div>
-                </div>
-            <?php endfor ?>
-        </div>
-    </div>
+	<?php
+		shuffle( get_query_var( 'soma_block_content' )['data'] );
+		usort(
+			get_query_var( 'soma_block_content' )['data'],
+			function ( $a, $b ) {
+				return $b['static'] <=> $a['static'];
+			}
+		);
+	?>
+	<div class="container">
+		<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+			<div class="title">
+				<h2><?php echo get_query_var( 'soma_block_content' )['title']; ?></h2>
+			</div>
+		<?php endif; ?>
+		<div class="data">
+			<?php $wall = ( count( get_query_var( 'soma_block_content' )['data'] ) < 6 ) ? count( get_query_var( 'soma_block_content' )['data'] ) : 6; ?>
+			<?php for ( $i = 1; $i <= $wall; $i++ ) : ?>
+				<div class="item">
+					<div class="value"><?php echo get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['value']; ?></div>
+					<div class="label"><?php echo get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['label']; ?></div>
+				</div>
+			<?php endfor ?>
+		</div>
+	</div>
 </section>
 <?php endif; ?>
-                    

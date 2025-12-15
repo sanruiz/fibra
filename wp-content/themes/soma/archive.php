@@ -1,8 +1,7 @@
 <?php
 /**
- * 
- * Default archive.
  *
+ * Default archive.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

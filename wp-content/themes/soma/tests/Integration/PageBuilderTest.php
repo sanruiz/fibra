@@ -118,7 +118,7 @@ class PageBuilderTest extends TestCase {
 	 * Test that partial files exist for all registered blocks
 	 */
 	public function test_partial_files_exist(): void {
-		$all_blocks   = $this->registry->get_all_blocks();
+		$all_blocks    = $this->registry->get_all_blocks();
 		$missing_files = [];
 
 		foreach ( $all_blocks as $layout => $mapping ) {

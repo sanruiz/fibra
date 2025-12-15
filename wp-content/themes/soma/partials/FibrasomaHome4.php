@@ -28,25 +28,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if(get_query_var('soma_block_content')['press_releases'] == 'latest') {
-    $args = [
-        'numberposts'	=> 3,
-        'post_type'		=> 'documents-reports',
-        'post_status'   => array('publish'),
-        'order'			=> 'DESC',
-        'tax_query'     => [
-            [
-                'taxonomy'  => 'documents-taxonomy',
-                'field'     => 'slug',
-                'terms'     => 'press_releases'
-            ]
-        ]
-    ];
-    $press = get_posts( $args );
+if ( get_query_var( 'soma_block_content' )['press_releases'] == 'latest' ) {
+	$args  = [
+		'numberposts' => 3,
+		'post_type'   => 'documents-reports',
+		'post_status' => array( 'publish' ),
+		'order'       => 'DESC',
+		'tax_query'   => [
+			[
+				'taxonomy' => 'documents-taxonomy',
+				'field'    => 'slug',
+				'terms'    => 'press_releases',
+			],
+		],
+	];
+	$press = get_posts( $args );
 } else {
-    $press[0] = get_query_var('soma_block_content')['items'][0]['press'] ? get_query_var('soma_block_content')['items'][0]['press'] : null;
-    $press[1] = get_query_var('soma_block_content')['items'][1]['press'] ? get_query_var('soma_block_content')['items'][1]['press'] : null;
-    $press[2] = get_query_var('soma_block_content')['items'][2]['press'] ? get_query_var('soma_block_content')['items'][2]['press'] : null;
+	$press[0] = get_query_var( 'soma_block_content' )['items'][0]['press'] ? get_query_var( 'soma_block_content' )['items'][0]['press'] : null;
+	$press[1] = get_query_var( 'soma_block_content' )['items'][1]['press'] ? get_query_var( 'soma_block_content' )['items'][1]['press'] : null;
+	$press[2] = get_query_var( 'soma_block_content' )['items'][2]['press'] ? get_query_var( 'soma_block_content' )['items'][2]['press'] : null;
 }
 
 $arrow = '
@@ -64,125 +64,125 @@ $arrow = '
 ?>
 
 <section class="fibrasomahome4-partial-d09078">
-    <div class="container">
-        <div class="content">
-            <div class="text">
-                <?php if(get_query_var('soma_block_content')['number']): ?>
-                    <div class="number">
-                        <h2><?= get_query_var('soma_block_content')['number'] ?></h2>
-                    </div>
-                <?php endif; ?>
-                <?php if(get_query_var('soma_block_content')['title']): ?>
-                    <div class="title">
-                        <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="link">
-                <?php if(get_query_var('soma_block_content')['link']): ?>
-                    <a class="underline-text" href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>">
-                        <?= get_query_var('soma_block_content')['link']['title'] ?>
-                    </a>
-                <?php endif; ?>
-            </div>
-            <div class="press-col-1">
-                <?php if($press[0]): ?>
-                    <?php $content = get_field('document_content', $press[0]->ID); ?>
-                    <?php $featured_image = get_the_post_thumbnail_url($press[0]->ID);  ?>
+	<div class="container">
+		<div class="content">
+			<div class="text">
+				<?php if ( get_query_var( 'soma_block_content' )['number'] ) : ?>
+					<div class="number">
+						<h2><?php echo get_query_var( 'soma_block_content' )['number']; ?></h2>
+					</div>
+				<?php endif; ?>
+				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+					<div class="title">
+						<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					</div>
+				<?php endif; ?>
+			</div>
+			<div class="link">
+				<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
+					<a class="underline-text" href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
+						<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+					</a>
+				<?php endif; ?>
+			</div>
+			<div class="press-col-1">
+				<?php if ( $press[0] ) : ?>
+					<?php $content = get_field( 'document_content', $press[0]->ID ); ?>
+					<?php $featured_image = get_the_post_thumbnail_url( $press[0]->ID ); ?>
 
-                    <?php $mainFile = (wpm_get_language() == 'en') ? $content['file'] : $content['file_es']; ?>
-                    <?php if($mainFile): ?>
-                        <div class="item">
-                            <a href="<?= $mainFile['url'] ?>" target="_blank">
-                                <?php if($featured_image): ?>
-                                    <div class="image">
-                                        <img src="<?= $featured_image ?>" alt="Featured Image">
-                                    </div>
-                                <?php endif; ?>
-                                <?php if($content['date']): ?>
-                                    <?php $formated_date = date("F j, Y", $content['date']) ?>
-                                    <div class="date">
-                                        <?= soma_translate_date($formated_date) ?>
-                                    </div>
-                                <?php endif; ?>
-                                <div class="press-title">
-                                    <?= get_the_title($press[0]->ID) ?>
-                                </div>
-                                <?php if($content['label']): ?>
-                                    <div class="label">
-                                        <span><?= $content['label'] . $arrow ?></span>
-                                    </div>
-                                <?php endif; ?>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </div>
-            <div class="press-col-2">
-                <?php if($press[1]): ?>
-                    <?php $content = get_field('document_content', $press[1]->ID); ?>
-                    <?php $featured_image = get_the_post_thumbnail_url($press[1]->ID);  ?>
+					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php if ( $mainFile ) : ?>
+						<div class="item">
+							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
+								<?php if ( $featured_image ) : ?>
+									<div class="image">
+										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+									</div>
+								<?php endif; ?>
+								<?php if ( $content['date'] ) : ?>
+									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<div class="date">
+										<?php echo soma_translate_date( $formated_date ); ?>
+									</div>
+								<?php endif; ?>
+								<div class="press-title">
+									<?php echo get_the_title( $press[0]->ID ); ?>
+								</div>
+								<?php if ( $content['label'] ) : ?>
+									<div class="label">
+										<span><?php echo $content['label'] . $arrow; ?></span>
+									</div>
+								<?php endif; ?>
+							</a>
+						</div>
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>
+			<div class="press-col-2">
+				<?php if ( $press[1] ) : ?>
+					<?php $content = get_field( 'document_content', $press[1]->ID ); ?>
+					<?php $featured_image = get_the_post_thumbnail_url( $press[1]->ID ); ?>
 
-                    <?php $mainFile = (wpm_get_language() == 'en') ? $content['file'] : $content['file_es']; ?>
-                    <?php if($mainFile): ?>
-                        <div class="item">
-                            <a href="<?= $mainFile['url'] ?>" target="_blank">
-                                <?php if($featured_image): ?>
-                                    <div class="image">
-                                        <img src="<?= $featured_image ?>" alt="Featured Image">
-                                    </div>
-                                <?php endif; ?>
-                                <?php if($content['date']): ?>
-                                    <?php $formated_date = date("F j, Y", $content['date']) ?>
-                                    <div class="date">
-                                        <?= soma_translate_date($formated_date) ?>
-                                    </div>
-                                <?php endif; ?>
-                                <div class="press-title">
-                                    <?= get_the_title($press[1]->ID) ?>
-                                </div>
-                                <?php if($content['label']): ?>
-                                    <div class="label">
-                                        <span><?= $content['label'] . $arrow ?></span>
-                                    </div>
-                                <?php endif; ?>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                <?php endif; ?>
-                <?php if($press[2]): ?>
-                    <?php $content = get_field('document_content', $press[2]->ID); ?>
-                    <?php $featured_image = get_the_post_thumbnail_url($press[2]->ID);  ?>
+					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php if ( $mainFile ) : ?>
+						<div class="item">
+							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
+								<?php if ( $featured_image ) : ?>
+									<div class="image">
+										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+									</div>
+								<?php endif; ?>
+								<?php if ( $content['date'] ) : ?>
+									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<div class="date">
+										<?php echo soma_translate_date( $formated_date ); ?>
+									</div>
+								<?php endif; ?>
+								<div class="press-title">
+									<?php echo get_the_title( $press[1]->ID ); ?>
+								</div>
+								<?php if ( $content['label'] ) : ?>
+									<div class="label">
+										<span><?php echo $content['label'] . $arrow; ?></span>
+									</div>
+								<?php endif; ?>
+							</a>
+						</div>
+					<?php endif; ?>
+				<?php endif; ?>
+				<?php if ( $press[2] ) : ?>
+					<?php $content = get_field( 'document_content', $press[2]->ID ); ?>
+					<?php $featured_image = get_the_post_thumbnail_url( $press[2]->ID ); ?>
 
-                    <?php $mainFile = (wpm_get_language() == 'en') ? $content['file'] : $content['file_es']; ?>
-                    <?php if($mainFile): ?>
-                        <div class="item">
-                            <a href="<?= $mainFile['url'] ?>" target="_blank">
-                                <?php if($featured_image): ?>
-                                    <div class="image">
-                                        <img src="<?= $featured_image ?>" alt="Featured Image">
-                                    </div>
-                                <?php endif; ?>
-                                <?php if($content['date']): ?>
-                                    <?php $formated_date = date("F j, Y", $content['date']) ?>
-                                    <div class="date">
-                                        <?= soma_translate_date($formated_date) ?>
-                                    </div>
-                                <?php endif; ?>
-                                <div class="press-title">
-                                    <?= get_the_title($press[2]->ID) ?>
-                                </div>
-                                <?php if($content['label']): ?>
-                                    <div class="label">
-                                        <span><?= $content['label'] . $arrow ?></span>
-                                    </div>
-                                <?php endif; ?>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
+					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php if ( $mainFile ) : ?>
+						<div class="item">
+							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
+								<?php if ( $featured_image ) : ?>
+									<div class="image">
+										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+									</div>
+								<?php endif; ?>
+								<?php if ( $content['date'] ) : ?>
+									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<div class="date">
+										<?php echo soma_translate_date( $formated_date ); ?>
+									</div>
+								<?php endif; ?>
+								<div class="press-title">
+									<?php echo get_the_title( $press[2]->ID ); ?>
+								</div>
+								<?php if ( $content['label'] ) : ?>
+									<div class="label">
+										<span><?php echo $content['label'] . $arrow; ?></span>
+									</div>
+								<?php endif; ?>
+							</a>
+						</div>
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
 </section>
-                    
+					

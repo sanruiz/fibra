@@ -32,13 +32,15 @@ $block_counter = get_query_var( 'soma_block_counter' );
 $block_content = get_query_var( 'soma_block_content' );
 $block_layout  = get_query_var( 'soma_block_layout' );
 
-$businessunits = get_posts([
-    'post_type' => 'page',
-    'fields' => 'ids',
-    'nopaging' => true,
-    'meta_key' => '_wp_page_template',
-    'meta_value' => 'templates/business-unit-template.php'
-]);
+$businessunits = get_posts(
+	[
+		'post_type'  => 'page',
+		'fields'     => 'ids',
+		'nopaging'   => true,
+		'meta_key'   => '_wp_page_template',
+		'meta_value' => 'templates/business-unit-template.php',
+	]
+);
 
 $svg = '
 <svg width="151px" height="37px" viewBox="0 0 151 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -73,68 +75,68 @@ $svg = '
 ';
 ?>
 
-<?php if($businessunits): ?>
+<?php if ( $businessunits ) : ?>
 <section class="businessunits-partial-cea85c">
-    <?php $total_pages = (count($businessunits) <= 8) ? count($businessunits) : 8; ?>
-    <div class="container">
-        <?php if(get_query_var('soma_block_content')['title']): ?>
-            <div class="title"><?= get_query_var('soma_block_content')['title'] ?></div>
-        <?php endif; ?>
-    </div>
-    <?php if($total_pages >= 3): ?>
-        <div class="content" data-total="<?= $total_pages ?>">
-            <?php for ($i=0; $i < $total_pages; $i++): ?>
-                <?php if($businessunits[$i]): ?>
-                    <div class="item item-num-<?= $businessunits[$i] ?>">
-                        <?php $businessunit_info = get_field('business_unit_data', $businessunits[$i]) ?>
-                        <style>
-                            .item-num-<?= $businessunits[$i] ?> a:hover {
-                                background-color: <?= $businessunit_info['color'] ?>;
-                                
-                            }
-                        </style> 
-                        <div class="cta desk">
-                            <a href="<?= get_the_permalink($businessunits[$i]) ?>">
-                                <div class="logo">
-                                    <?= $svg ?>
-                                    <span style="color: <?= $businessunit_info['color'] ?>"><?= $businessunit_info['label'] ?></span>
-                                </div>
-                            </a>
-                        </div>
-                        <?php if($businessunit_info['image_cover']): ?>
-                            <div class="image">
-                                <img src="<?= $businessunit_info['image_cover']['url'] ?>" alt="<?= $businessunit_info['image_cover']['alt'] ?>">
-                            </div>
-                        <?php endif; ?>
-                        <div class="cta mobile">
-                            <style>
-                                @media (max-width: 991px){ .item-num-<?= $businessunits[$i] ?> a{
-                                    background-color: <?= $businessunit_info['color'] ?>;
-                                }}
-                            </style> 
-                            <a href="<?= get_the_permalink($businessunits[$i]) ?>">
-                                <div class="logo">
-                                    <?= $svg ?>
-                                    <span style="color: <?= $businessunit_info['color'] ?>"><?= $businessunit_info['label'] ?></span>
-                                </div>
-                                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="39.124" height="38" viewBox="0 0 39.124 38">
-                                    <g transform="translate(1.774)">
-                                        <g transform="translate(-0.857 37) rotate(-90)">
-                                            <path d="M.7.083V35.724" transform="translate(17.399 0)" fill="none" stroke="#fff" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"/>
-                                            <path d="M.7.083V35.724" transform="translate(17.399 0)" fill="none"/>
-                                            <path d="M.892,35.2,0,34.309,16.708,17.6,0,.892.892,0l17.6,17.6Z" transform="translate(35.7 19.007) rotate(90)" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
-                                            <path d="M.892,35.2,0,34.309,16.708,17.6,0,.892.892,0l17.6,17.6Z" transform="translate(35.7 19.007) rotate(90)" fill="none"/>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <div class="item empty-item"></div>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
-    <?php endif; ?>
+	<?php $total_pages = ( count( $businessunits ) <= 8 ) ? count( $businessunits ) : 8; ?>
+	<div class="container">
+		<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+			<div class="title"><?php echo get_query_var( 'soma_block_content' )['title']; ?></div>
+		<?php endif; ?>
+	</div>
+	<?php if ( $total_pages >= 3 ) : ?>
+		<div class="content" data-total="<?php echo $total_pages; ?>">
+			<?php for ( $i = 0; $i < $total_pages; $i++ ) : ?>
+				<?php if ( $businessunits[ $i ] ) : ?>
+					<div class="item item-num-<?php echo $businessunits[ $i ]; ?>">
+						<?php $businessunit_info = get_field( 'business_unit_data', $businessunits[ $i ] ); ?>
+						<style>
+							.item-num-<?php echo $businessunits[ $i ]; ?> a:hover {
+								background-color: <?php echo $businessunit_info['color']; ?>;
+								
+							}
+						</style> 
+						<div class="cta desk">
+							<a href="<?php echo get_the_permalink( $businessunits[ $i ] ); ?>">
+								<div class="logo">
+									<?php echo $svg; ?>
+									<span style="color: <?php echo $businessunit_info['color']; ?>"><?php echo $businessunit_info['label']; ?></span>
+								</div>
+							</a>
+						</div>
+						<?php if ( $businessunit_info['image_cover'] ) : ?>
+							<div class="image">
+								<img src="<?php echo $businessunit_info['image_cover']['url']; ?>" alt="<?php echo $businessunit_info['image_cover']['alt']; ?>">
+							</div>
+						<?php endif; ?>
+						<div class="cta mobile">
+							<style>
+								@media (max-width: 991px){ .item-num-<?php echo $businessunits[ $i ]; ?> a{
+									background-color: <?php echo $businessunit_info['color']; ?>;
+								}}
+							</style> 
+							<a href="<?php echo get_the_permalink( $businessunits[ $i ] ); ?>">
+								<div class="logo">
+									<?php echo $svg; ?>
+									<span style="color: <?php echo $businessunit_info['color']; ?>"><?php echo $businessunit_info['label']; ?></span>
+								</div>
+								<svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="39.124" height="38" viewBox="0 0 39.124 38">
+									<g transform="translate(1.774)">
+										<g transform="translate(-0.857 37) rotate(-90)">
+											<path d="M.7.083V35.724" transform="translate(17.399 0)" fill="none" stroke="#fff" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"/>
+											<path d="M.7.083V35.724" transform="translate(17.399 0)" fill="none"/>
+											<path d="M.892,35.2,0,34.309,16.708,17.6,0,.892.892,0l17.6,17.6Z" transform="translate(35.7 19.007) rotate(90)" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+											<path d="M.892,35.2,0,34.309,16.708,17.6,0,.892.892,0l17.6,17.6Z" transform="translate(35.7 19.007) rotate(90)" fill="none"/>
+										</g>
+									</g>
+								</svg>
+							</a>
+						</div>
+					</div>
+				<?php else : ?>
+					<div class="item empty-item"></div>
+				<?php endif; ?>
+			<?php endfor; ?>
+		</div>
+	<?php endif; ?>
 </section>
 <?php endif; ?>

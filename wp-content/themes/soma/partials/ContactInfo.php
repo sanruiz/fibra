@@ -31,40 +31,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <section class="contactinfo-partial-b5328a">
-    <div class="container">
-        <div class="content">
-            <div class="column-1">
-                <?php if(get_query_var('soma_block_content')['title']): ?>
-                    <h3><?= get_query_var('soma_block_content')['title'] ?></h3>
-                <?php endif; ?>
-                <?php if(get_query_var('soma_block_content')['address']): ?>
-                    <div class="address">
-                        <p><?= get_query_var('soma_block_content')['address'] ?></p>
-                    </div>
-                <?php endif; ?>
-                <?php if(get_query_var('soma_block_content')['link']): ?>
-                    <div class="link">
-                        <a href="<?= get_query_var('soma_block_content')['link']['url'] ?>" target="<?= get_query_var('soma_block_content')['link']['target'] ?>"><?= get_query_var('soma_block_content')['link']['title'] ?></a>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="column-2">
-                <?php if(get_query_var('soma_block_content')['contact_info']): ?>
-                    <div class="contact-info">
-                        <?php foreach(get_query_var('soma_block_content')['contact_info'] as $key => $item): ?>
-                            <?php if($item['link']): ?>
-                                <div class="item">
-                                    <div class="title"><?= $item['title'] ?></div>
-                                    <div class="link">
-                                        <a href="<?= $item['link']['url'] ?>" target="<?= $item['link']['target'] ?>"><?= $item['link']['title'] ?></a>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="content">
+			<div class="column-1">
+				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+					<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+				<?php endif; ?>
+				<?php if ( get_query_var( 'soma_block_content' )['address'] ) : ?>
+					<div class="address">
+						<p><?php echo get_query_var( 'soma_block_content' )['address']; ?></p>
+					</div>
+				<?php endif; ?>
+				<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
+					<div class="link">
+						<a href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>"><?php echo get_query_var( 'soma_block_content' )['link']['title']; ?></a>
+					</div>
+				<?php endif; ?>
+			</div>
+			<div class="column-2">
+				<?php if ( get_query_var( 'soma_block_content' )['contact_info'] ) : ?>
+					<div class="contact-info">
+						<?php foreach ( get_query_var( 'soma_block_content' )['contact_info'] as $key => $item ) : ?>
+							<?php if ( $item['link'] ) : ?>
+								<div class="item">
+									<div class="title"><?php echo $item['title']; ?></div>
+									<div class="link">
+										<a href="<?php echo $item['link']['url']; ?>" target="<?php echo $item['link']['target']; ?>"><?php echo $item['link']['title']; ?></a>
+									</div>
+								</div>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
 </section>
-                    
+					

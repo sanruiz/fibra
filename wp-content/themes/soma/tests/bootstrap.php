@@ -82,19 +82,19 @@ function _load_acf_for_tests() {
 	if ( ! $_tests_dir ) {
 		$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
 	}
-	
+
 	$wp_core_dir = dirname( $_tests_dir ) . '/wordpress';
-	$acf_plugin = $wp_core_dir . '/wp-content/plugins/advanced-custom-fields-pro/acf.php';
-	$acf_helper = $wp_core_dir . '/wp-content/plugins/advanced-custom-fields-pro/acf-test-helper.php';
-	
+	$acf_plugin  = $wp_core_dir . '/wp-content/plugins/advanced-custom-fields-pro/acf.php';
+	$acf_helper  = $wp_core_dir . '/wp-content/plugins/advanced-custom-fields-pro/acf-test-helper.php';
+
 	if ( file_exists( $acf_plugin ) ) {
 		require_once $acf_plugin;
-		
+
 		// Load test helper if available
 		if ( file_exists( $acf_helper ) ) {
 			require_once $acf_helper;
 		}
-		
+
 		// Trigger ACF initialization
 		if ( function_exists( 'acf' ) && ! did_action( 'acf/init' ) ) {
 			do_action( 'acf/init' );
@@ -110,19 +110,19 @@ function _load_cf7_for_tests() {
 	if ( ! $_tests_dir ) {
 		$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
 	}
-	
+
 	$wp_core_dir = dirname( $_tests_dir ) . '/wordpress';
-	$cf7_plugin = $wp_core_dir . '/wp-content/plugins/contact-form-7/wp-contact-form-7.php';
-	$cf7_helper = $wp_core_dir . '/wp-content/plugins/contact-form-7/cf7-test-helper.php';
-	
+	$cf7_plugin  = $wp_core_dir . '/wp-content/plugins/contact-form-7/wp-contact-form-7.php';
+	$cf7_helper  = $wp_core_dir . '/wp-content/plugins/contact-form-7/cf7-test-helper.php';
+
 	if ( file_exists( $cf7_plugin ) ) {
 		require_once $cf7_plugin;
-		
+
 		// Load test helper if available
 		if ( file_exists( $cf7_helper ) ) {
 			require_once $cf7_helper;
 		}
-		
+
 		// Trigger CF7 initialization
 		if ( ! did_action( 'wpcf7_init' ) ) {
 			do_action( 'wpcf7_init' );
@@ -164,8 +164,8 @@ function _setup_test_globals() {
 
 	// Create mock WP_Query if not exists.
 	if ( ! $wp_query && class_exists( 'WP_Query' ) ) {
-		$wp_query     = new WP_Query();
-		$wp_the_query = $wp_query;
+		$wp_query             = new WP_Query();
+		$wp_the_query         = $wp_query;
 		$wp_query->query_vars = [];
 		$wp_query->posts      = [];
 		$wp_query->post_count = 0;
@@ -188,19 +188,19 @@ function _load_elementor_for_tests() {
 	if ( ! $_tests_dir ) {
 		$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
 	}
-	
-	$wp_core_dir = dirname( $_tests_dir ) . '/wordpress';
+
+	$wp_core_dir      = dirname( $_tests_dir ) . '/wordpress';
 	$elementor_plugin = $wp_core_dir . '/wp-content/plugins/elementor/elementor.php';
 	$elementor_helper = $wp_core_dir . '/wp-content/plugins/elementor/elementor-test-helper.php';
-	
+
 	if ( file_exists( $elementor_plugin ) ) {
 		require_once $elementor_plugin;
-		
+
 		// Load test helper if available
 		if ( file_exists( $elementor_helper ) ) {
 			require_once $elementor_helper;
 		}
-		
+
 		// Trigger Elementor loaded action
 		if ( did_action( 'plugins_loaded' ) && ! did_action( 'elementor/loaded' ) ) {
 			do_action( 'elementor/loaded' );

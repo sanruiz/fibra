@@ -1,8 +1,7 @@
 <?php
 /**
- * 
- * Footer template.
  *
+ * Footer template.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-    <?= get_template_part('partials/Footer') ?>
+	<?php echo get_template_part( 'partials/Footer' ); ?>
 
 </div> <!-- -Page container -->
 

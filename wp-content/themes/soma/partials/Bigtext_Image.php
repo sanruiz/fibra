@@ -30,17 +30,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <section class="bigtext-image-partial-af66cd">
-    <div class="container">
-        <div class="content">
-            <div class="text">
-                <h3><?= get_query_var('soma_block_content')['text'] ?></h3>
-            </div>
-            <div class="image">
-                <?php if(get_query_var('soma_block_content')['image']): ?>
-                    <img src="<?= get_query_var('soma_block_content')['image']['url'] ?>" alt="<?= get_query_var('soma_block_content')['image']['alt'] ?>">
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="content">
+			<div class="text">
+				<h3><?php echo get_query_var( 'soma_block_content' )['text']; ?></h3>
+			</div>
+			<div class="image">
+				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
+					<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
 </section>
-                    
+					

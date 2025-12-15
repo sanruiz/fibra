@@ -31,17 +31,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <section class="headertext-partial-40964d">
-    <div class="container">
-        <div class="content">
-            <?php if(get_query_var('soma_block_content')['title']): ?>
-                <h2><?= get_query_var('soma_block_content')['title'] ?></h2>
-            <?php endif; ?>
-            <?php if(get_query_var('soma_block_content')['subtitle']): ?>
-                <h4><?= get_query_var('soma_block_content')['subtitle'] ?></h4>
-            <?php endif; ?>
-            <?php if(get_query_var('soma_block_content')['text']): ?>
-                <p><?= get_query_var('soma_block_content')['text'] ?></p>
-            <?php endif; ?>
-        </div>
-    </div>
+	<div class="container">
+		<div class="content">
+			<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
+				<h2><?php echo get_query_var( 'soma_block_content' )['title']; ?></h2>
+			<?php endif; ?>
+			<?php if ( get_query_var( 'soma_block_content' )['subtitle'] ) : ?>
+				<h4><?php echo get_query_var( 'soma_block_content' )['subtitle']; ?></h4>
+			<?php endif; ?>
+			<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
+				<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+			<?php endif; ?>
+		</div>
+	</div>
 </section>

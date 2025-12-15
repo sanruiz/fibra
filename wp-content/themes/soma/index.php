@@ -1,8 +1,7 @@
 <?php
 /**
- * 
- * Default index.
  *
+ * Default index.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +13,7 @@ get_header();
 
 <main id="ditto-index">
 	<div class="container">
-		<h1>SOMA Wordpress Theme</h1>
+		<h1>SOMA WordPress Theme</h1>
 	</div>
 </main>
 

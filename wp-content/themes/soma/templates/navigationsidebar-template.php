@@ -1,19 +1,17 @@
-   
 <?php
 /**
- * 
+ *
  * Template Name: Navigation Sidebar
- * 
  */
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 get_header();
 
 global $post;
 global $pageBuilder;
-$pageBuilder = get_field('soma_blocks');
-$header_options = get_field('header_content', 'options');
+$pageBuilder    = get_field( 'soma_blocks' );
+$header_options = get_field( 'header_content', 'options' );
 
 $arrow = '
 <svg width="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -29,33 +27,34 @@ $arrow = '
 ';
 ?>
 
-<?php if(!is_front_page()): ?>
-	<?php get_template_part('partials/BreadCrumb'); ?>
+<?php if ( ! is_front_page() ) : ?>
+	<?php get_template_part( 'partials/BreadCrumb' ); ?>
 <?php endif; ?>
 
-<main id="navigationsidebar-template-207713" page-slug="<?= $post->post_name ?>" data-header-style="<?= $header_options['style'] ?>">
-    <div class="container">
-        <div class="navigationsidebar-template-content">
-            <div class="template-menu">
-                <?php
-                    wp_nav_menu([
-                        'menu'            => 'navigation_sidebar_template',
-                        'theme_location'  => 'navigation_sidebar_template',
-                        'container'       => 'div',
-                        'menu_class'      => 'navigation-sidebar-list'
-                    ]);
-                ?>
-                <?php if($header_options['navigation_sidebar_template_file']['label'] && $header_options['navigation_sidebar_template_file']['file']): ?>
-                    <a class="extra-file" href="<?= $header_options['navigation_sidebar_template_file']['file']['url'] ?>" target="_blank">
-                        <?= $header_options['navigation_sidebar_template_file']['label'] . $arrow ?>
-                    </a>
-                <?php endif; ?>
-            </div>
-            <div class="template-content">
-                <?php get_template_part('page-builder'); ?>
-            </div>
-        </div>
-    </div>
+<main id="navigationsidebar-template-207713" page-slug="<?php echo $post->post_name; ?>" data-header-style="<?php echo $header_options['style']; ?>">
+	<div class="container">
+		<div class="navigationsidebar-template-content">
+			<div class="template-menu">
+				<?php
+					wp_nav_menu(
+						[
+							'menu'           => 'navigation_sidebar_template',
+							'theme_location' => 'navigation_sidebar_template',
+							'container'      => 'div',
+							'menu_class'     => 'navigation-sidebar-list',
+						]
+					);
+					?>
+				<?php if ( $header_options['navigation_sidebar_template_file']['label'] && $header_options['navigation_sidebar_template_file']['file'] ) : ?>
+					<a class="extra-file" href="<?php echo $header_options['navigation_sidebar_template_file']['file']['url']; ?>" target="_blank">
+						<?php echo $header_options['navigation_sidebar_template_file']['label'] . $arrow; ?>
+					</a>
+				<?php endif; ?>
+			</div>
+			<div class="template-content">
+				<?php get_template_part( 'page-builder' ); ?>
+			</div>
+		</div>
+	</div>
 </main>
 <?php get_footer(); ?>
-                    

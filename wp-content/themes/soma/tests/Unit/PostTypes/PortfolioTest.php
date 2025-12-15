@@ -42,6 +42,6 @@ class PortfolioTest extends TestCase {
 	public function test_clone_is_prevented(): void {
 		$this->expectException( \Error::class );
 		$instance = Portfolio::instance();
-		$clone = clone $instance;
+		$clone    = clone $instance;
 	}
 }
