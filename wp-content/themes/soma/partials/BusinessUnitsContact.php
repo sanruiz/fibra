@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="content">
 			<div class="title">
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
-					<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 				<?php endif; ?>
 			</div>
 			<div class="info">
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 											<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 												<g transform="translate(-625.000000, -654.000000)">
 													<g transform="translate(625.000000, 654.847656)">
-														<polygon fill="<?php echo $unit['color']; ?>" points="39.8831073 34.0075742 33.8973849 16.4451669 28.292219 0 11.4849602 0 0 33.6972732 0 40.5423322 7.50677148 40.5423322 18.044656 9.27646911 21.7321309 9.27646911 32.2696231 40.5423322 39.8831073 40.5423322"></polygon>
+														<polygon fill="<?php echo esc_attr( $unit['color'] ); ?>" points="39.8831073 34.0075742 33.8973849 16.4451669 28.292219 0 11.4849602 0 0 33.6972732 0 40.5423322 7.50677148 40.5423322 18.044656 9.27646911 21.7321309 9.27646911 32.2696231 40.5423322 39.8831073 40.5423322"></polygon>
 													</g>
 												</g>
 											</g>
@@ -56,11 +56,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php endif; ?>
 								</div>
 								<?php if ( $unit['title'] ) : ?>
-									<div class="unit-title"><?php echo $unit['title']; ?></div>
+								<div class="unit-title"><?php echo esc_html( $unit['title'] ); ?></div>
 								<?php endif; ?>
 								<?php if ( $unit['link'] ) : ?>
 									<div class="link">
-										<a href="<?php echo $unit['link']['url']; ?>" target="<?php echo $unit['link']['target']; ?>"><?php echo $unit['link']['title']; ?></a>
+									<a href="<?php echo esc_url( $unit['link']['url'] ); ?>" target="<?php echo esc_attr( $unit['link']['target'] ); ?>">
+<?php echo esc_html( $unit['link']['title'] ); ?></a>
 									</div>
 								<?php endif; ?>
 							</div>
