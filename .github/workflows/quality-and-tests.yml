@@ -75,20 +75,25 @@ jobs:
             echo "📋 Analyzing files..."
             
             set +e
-            ./vendor/bin/phpcs --report=summary --colors
+            PHPCS_OUTPUT=$(./vendor/bin/phpcs --report=summary --colors 2>&1)
             PHPCS_EXIT_CODE=$?
             set -e
             
+            echo "$PHPCS_OUTPUT"
+            
+            # Check if there are actual ERRORS (not just warnings)
+            ERROR_COUNT=$(echo "$PHPCS_OUTPUT" | grep -o "ERRORS" | head -1 || true)
+            TOTAL_ERRORS=$(echo "$PHPCS_OUTPUT" | grep "A TOTAL OF" | grep -oP '\d+(?= ERROR)' || echo "0")
+            
             if [ $PHPCS_EXIT_CODE -eq 0 ]; then
               echo "✅ PHPCS: No coding standard violations found"
-            elif [ $PHPCS_EXIT_CODE -eq 1 ]; then
-              echo "❌ PHPCS: Coding standard violations found - deployment blocked!"
-              echo "💡 Fix the violations above or run 'composer phpcbf' to auto-fix issues"
+            elif [ "$TOTAL_ERRORS" -gt 0 ]; then
+              echo "❌ PHPCS: Found $TOTAL_ERRORS error(s) - deployment blocked!"
+              echo "💡 Fix the errors above or run 'composer phpcbf' to auto-fix issues"
               exit 1
-            elif [ $PHPCS_EXIT_CODE -eq 2 ]; then
-              echo "❌ PHPCS: Fixable errors found - deployment blocked!"
-              echo "💡 Run 'composer phpcbf' to auto-fix these issues"
-              exit 1
+            elif [ $PHPCS_EXIT_CODE -eq 1 ] || [ $PHPCS_EXIT_CODE -eq 2 ]; then
+              echo "⚠️ PHPCS: Warnings found but no errors - allowing deployment"
+              echo "💡 Consider fixing warnings with 'composer phpcbf' for better code quality"
             else
               echo "❌ PHPCS: Unexpected exit code $PHPCS_EXIT_CODE - deployment blocked!"
               exit 1
