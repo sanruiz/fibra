@@ -29,20 +29,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$preFilter = isset( $_GET['category'] ) ? $_GET['category'] : null;
+$pre_filter = isset( $_GET['category'] ) ? $_GET['category'] : null;
 ?>
 
 <?php if ( get_query_var( 'soma_block_content' )['main_category'] && get_query_var( 'soma_block_content' )['posts_per_page'] ) : ?>
 <section class="portfolio-partial-8f3f8b style-<?php echo esc_attr( get_query_var( 'soma_block_content' )['style'] ); ?>" data-main-category="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>" data-posts-per-page="<?php echo esc_attr( get_query_var( 'soma_block_content' )['posts_per_page'] ); ?>" data-lang="<?php echo esc_attr( wpm_get_language() ); ?>">
 	<div class="container">
 		<div class="filters desk">
-			<div class="filter all <?php echo $preFilter ? '' : 'active'; ?>" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>"><?php echo ( wpm_get_language() === 'en' ) ? 'All' : 'Todos'; ?></div>
+			<div class="filter all <?php echo $pre_filter ? '' : 'active'; ?>" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>"><?php echo ( wpm_get_language() === 'en' ) ? 'All' : 'Todos'; ?></div>
 			<?php if ( get_query_var( 'soma_block_content' )['filters'] ) : ?>
 				<?php foreach ( get_query_var( 'soma_block_content' )['filters'] as $key => $item ) : ?>
-					<?php $filterInfo = get_term( $item ); ?>
-					<?php if ( ( $filterInfo->count ) > 0 ) : ?>
-					<div class="filter <?php echo ( $filterInfo->slug === $preFilter ) ? 'active' : ''; ?>" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>, <?php echo esc_attr( $item ); ?>">
-							<?php echo esc_html( $filterInfo->name ); ?>
+					<?php $filter_info = get_term( $item ); ?>
+					<?php if ( ( $filter_info->count ) > 0 ) : ?>
+					<div class="filter <?php echo ( $filter_info->slug === $pre_filter ) ? 'active' : ''; ?>" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>, <?php echo esc_attr( $item ); ?>">
+							<?php echo esc_html( $filter_info->name ); ?>
 						</div>
 					<?php endif; ?>
 				<?php endforeach; ?>

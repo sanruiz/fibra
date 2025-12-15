@@ -39,10 +39,10 @@ function printEvent( $id ) {
 	$formated_end_date  = $content['end_date'] ? soma_translate_date( wp_date( 'M j, Y', $content['end_date'] ), 'short' ) : null;
 	$formated_date      = $formated_end_date ? $formated_init_date . ' - ' . $formated_end_date : $formated_init_date;
 
-	$mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es'];
+	$main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es'];
 
-	if ( $mainFile ) {
-		$link = $mainFile ? "<a target='_BLANK' href='{$mainFile['url']}'>{$content['file_label']}{$arrow}</a>" : '';
+	if ( $main_file ) {
+		$link = $main_file ? "<a target='_BLANK' href='{$main_file['url']}'>{$content['file_label']}{$arrow}</a>" : '';
 
 		$output = "<div class='event'>" .
 			"<div class='label'>{$content['label']}</div>" .
@@ -77,7 +77,7 @@ if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
 		}
 	}
 } else {
-	$eventsQuery = get_posts(
+	$events_query = get_posts(
 		array(
 			'numberposts' => -1,
 			'post_type'   => 'events',
@@ -87,9 +87,9 @@ if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
 			'orderby'     => 'meta_value',
 		)
 	);
-	if ( $eventsQuery ) {
+	if ( $events_query ) {
 		$counter = 1;
-		foreach ( $eventsQuery as $key => $item ) {
+		foreach ( $events_query as $key => $item ) {
 			if ( $counter <= 4 ) {
 				$content = get_field( 'event_info', $item->ID );
 				if ( ( (int) $content['init_date'] + 86400 ) > (int) current_time( 'timestamp' ) || ( (int) $content['end_date'] + 86400 ) > (int) current_time( 'timestamp' ) ) {
