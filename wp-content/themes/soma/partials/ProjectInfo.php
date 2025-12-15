@@ -35,12 +35,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="content">
 			<div class="description">
 				<?php if ( get_query_var( 'soma_block_content' )['column_1'] ) : ?>
-					<p><?php echo esc_html( get_query_var( 'soma_block_content' )['column_1'] ); ?></p>
+				<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['column_1'] ); ?></p>
 				<?php endif; ?>
 			</div>
 			<div class="info_1">
 				<?php if ( get_query_var( 'soma_block_content' )['column_2'] ) : ?>
-					<p><?php echo esc_html( get_query_var( 'soma_block_content' )['column_2'] ); ?></p>
+				<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['column_2'] ); ?></p>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['designed'] ) : ?>
 
@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php elseif ( get_query_var( 'soma_block_content' )['designed']['type'] === 'Text' ) : ?>
 								<div class="designed-by">
 									<p><br><?php echo ( wpm_get_language() === 'en' ) ? 'Designed by' : 'Diseñado por'; ?> <br></p>
-									<u><?php echo get_query_var( 'soma_block_content' )['designed']['designed_by']; ?></u> 
+								<u><?php echo esc_html( get_query_var( 'soma_block_content' )['designed']['designed_by'] ); ?></u> 
 								</div>
 						<?php else : ?>
 							
@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="info_2">
 				<?php if ( get_query_var( 'soma_block_content' )['column_3'] ) : ?>
-					<p><?php echo esc_html( get_query_var( 'soma_block_content' )['column_3'] ); ?></p>
+				<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['column_3'] ); ?></p>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['designed']['type'] === 'Link' ) : ?>   
 						<div class="designed-by">
