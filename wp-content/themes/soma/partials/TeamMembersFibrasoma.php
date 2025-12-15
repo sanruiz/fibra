@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								endif;
 							endforeach;
 						endif;
-			?>
+						?>
 
 						<div class="member <?php echo $info['hide_single_page'] ? 'single-page-hidden' : ''; ?>">
 						<a <?php echo $info['hide_single_page'] ? '' : 'href="' . esc_url( get_the_permalink( $item ) ) . '"'; ?>>

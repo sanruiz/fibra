@@ -82,7 +82,7 @@ class BlockRegistry {
 	 * @return void
 	 */
 	private function register_default_blocks(): void {
-		// Sliders // Sliders & Fullscreen Fullscreen.
+		// Sliders & Fullscreen.
 		$this->register_block( 'fullscreenSlider', 'fullscreen_slider_content', 'fullscreenSlider' );
 		$this->register_block( 'randomInfo', 'random_info_content', 'randomInfo' );
 		$this->register_block( 'randomInfoFullscreen', 'random_info_fullscreen_content', 'randomInfoFullscreen' );
@@ -92,7 +92,7 @@ class BlockRegistry {
 		$this->register_block( 'BusinessUnits2', 'business_units_2_content', 'BusinessUnits2' );
 		$this->register_block( 'BusinessUnitsContact', 'business_units_contact_content', 'BusinessUnitsContact' );
 
-		// Text // Text & Content Blocks Content Blocks.
+		// Text & Content Blocks.
 		$this->register_block( 'Bigtext_Image', 'bigtext_image_content', 'Bigtext_Image' );
 		$this->register_block( 'Logo_TwoColumnsText', 'logo_twocolumnstext_content', 'Logo_TwoColumnsText' );
 		$this->register_block( 'Phrase', 'phrase_content', 'Phrase' );
@@ -102,7 +102,7 @@ class BlockRegistry {
 		$this->register_block( 'FeaturedText', 'featured_text_content', 'FeaturedText' );
 		$this->register_block( 'TextSlider', 'text_slider_content', 'TextSlider' );
 
-		// Lists // Lists & Grids Grids.
+		// Lists & Grids.
 		$this->register_block( 'NewsList', 'news_list_content', 'NewsList' );
 		$this->register_block( 'CareersList', 'careers_list_content', 'CareersList' );
 		$this->register_block( 'TeamMembers', 'team_members_content', 'TeamMembers' );
@@ -125,7 +125,7 @@ class BlockRegistry {
 		$this->register_block( 'Art', 'art_content', 'Art' );
 		$this->register_block( 'Initiatives', 'initiatives_content', 'Initiatives' );
 
-		// Contact // Contact & Info Info.
+		// Contact & Info.
 		$this->register_block( 'ContactInfo', 'contact_info_content', 'ContactInfo' );
 		$this->register_block( 'Contact', 'contact_content', 'Contact' );
 		$this->register_block( 'ContactHeader', 'contact_header_content', 'ContactHeader' );
@@ -138,7 +138,7 @@ class BlockRegistry {
 		$this->register_block( 'FibrasomaHeader', 'fibrasoma_header_content', 'FibrasomaHeader' );
 		$this->register_block( 'FibrasomaHomeEvents', 'fibrasoma_home_events_content', 'FibrasomaHomeEvents' );
 
-		// Documents // Documents & Reports Reports.
+		// Documents & Reports.
 		$this->register_block( 'Documents', 'documents_list_content', 'Documents' );
 		$this->register_block( 'Report', 'report_content', 'Report' );
 		$this->register_block( 'AnnualReports', 'annual_reports_content', 'AnnualReports' );
