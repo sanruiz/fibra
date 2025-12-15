@@ -29,11 +29,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 ?>
-<section class="documents-partial-15af9d style-<?php echo get_query_var( 'soma_block_content' )['style']; ?>" 
-	data-order-by-date="<?php echo get_query_var( 'soma_block_content' )['order_by_custom_date'] ? 1 : 0; ?>" 
-	data-category="<?php echo get_query_var( 'soma_block_content' )['category']; ?>" 
-	data-posts-per-page="<?php echo get_query_var( 'soma_block_content' )['posts_per_page']; ?>" 
-	data-lang="<?php echo wpm_get_language(); ?>"
+<section class="documents-partial-15af9d style-<?php echo esc_attr( get_query_var( 'soma_block_content' )['style'] ); ?>" 
+	data-order-by-date="<?php echo esc_attr( get_query_var( 'soma_block_content' )['order_by_custom_date'] ? 1 : 0 ); ?>" 
+	data-category="<?php echo esc_attr( get_query_var( 'soma_block_content' )['category'] ); ?>" 
+	data-posts-per-page="<?php echo esc_attr( get_query_var( 'soma_block_content' )['posts_per_page'] ); ?>" 
+	data-lang="<?php echo esc_attr( wpm_get_language() ); ?>"
 	>
 	<div class="container">
 		<div class="content">

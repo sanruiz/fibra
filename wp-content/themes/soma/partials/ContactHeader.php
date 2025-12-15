@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="content">
 			<div class="text">
 				<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
-					<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+					<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></p>
 				<?php endif; ?>
 			</div>
 			<div class="info">
@@ -43,11 +43,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php foreach ( get_query_var( 'soma_block_content' )['info'] as $key => $item ) : ?>
 						<div class="item">
 							<?php if ( $item['label'] ) : ?>
-								<p><?php echo $item['label']; ?></p>
-							<?php endif; ?>
-							<?php if ( $item['link'] ) : ?>
-								<a href="<?php echo $item['link']['url']; ?>" target="<?php echo $item['link']['target']; ?>">
-									<?php echo $item['link']['title']; ?>
+							<p><?php echo esc_html( $item['label'] ); ?></p>
+						<?php endif; ?>
+						<?php if ( $item['link'] ) : ?>
+							<a href="<?php echo esc_url( $item['link']['url'] ); ?>" target="<?php echo esc_attr( $item['link']['target'] ); ?>">
+								<?php echo esc_html( $item['link']['title'] ); ?>
 								</a>
 							<?php endif; ?>
 						</div>
