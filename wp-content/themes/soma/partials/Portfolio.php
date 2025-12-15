@@ -35,12 +35,12 @@ $preFilter = isset( $_GET['category'] ) ? $_GET['category'] : null;
 <section class="portfolio-partial-8f3f8b style-<?php echo get_query_var( 'soma_block_content' )['style']; ?>" data-main-category="<?php echo get_query_var( 'soma_block_content' )['main_category']; ?>" data-posts-per-page="<?php echo get_query_var( 'soma_block_content' )['posts_per_page']; ?>" data-lang="<?php echo wpm_get_language(); ?>">
 	<div class="container">
 		<div class="filters desk">
-			<div class="filter all <?php echo $preFilter ? '' : 'active'; ?>" data-filters="<?php echo get_query_var( 'soma_block_content' )['main_category']; ?>"><?php echo ( wpm_get_language() == 'en' ) ? 'All' : 'Todos'; ?></div>
+			<div class="filter all <?php echo $preFilter ? '' : 'active'; ?>" data-filters="<?php echo get_query_var( 'soma_block_content' )['main_category']; ?>"><?php echo ( wpm_get_language() === 'en' ) ? 'All' : 'Todos'; ?></div>
 			<?php if ( get_query_var( 'soma_block_content' )['filters'] ) : ?>
 				<?php foreach ( get_query_var( 'soma_block_content' )['filters'] as $key => $item ) : ?>
 					<?php $filterInfo = get_term( $item ); ?>
 					<?php if ( ( $filterInfo->count ) > 0 ) : ?>
-						<div class="filter <?php echo ( $filterInfo->slug == $preFilter ) ? 'active' : ''; ?>" data-filters="<?php echo get_query_var( 'soma_block_content' )['main_category']; ?>, <?php echo $item; ?>">
+					<div class="filter <?php echo ( $filterInfo->slug === $preFilter ) ? 'active' : ''; ?>" data-filters="<?php echo get_query_var( 'soma_block_content' )['main_category']; ?>, <?php echo $item; ?>">
 							<?php echo $filterInfo->name; ?>
 						</div>
 					<?php endif; ?>
@@ -64,7 +64,7 @@ $preFilter = isset( $_GET['category'] ) ? $_GET['category'] : null;
 							</g>
 						</g>
 					</svg>
-					<span><?php echo ( wpm_get_language() == 'en' ) ? 'List View' : 'Vista Lista'; ?></span>
+					<span><?php echo ( wpm_get_language() === 'en' ) ? 'List View' : 'Vista Lista'; ?></span>
 				</div>
 				<div class="grid">
 					<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -83,7 +83,7 @@ $preFilter = isset( $_GET['category'] ) ? $_GET['category'] : null;
 							</g>
 						</g>
 					</svg>
-					<span><?php echo ( wpm_get_language() == 'en' ) ? 'Grid View' : 'Vista Cuadrícula'; ?></span>
+					<span><?php echo ( wpm_get_language() === 'en' ) ? 'Grid View' : 'Vista Cuadrícula'; ?></span>
 				</div>
 			</div>
 		</div>

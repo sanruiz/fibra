@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="fullscreenslider-partial-09e45b">
 	<div class="slider">
 		<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
-			<?php if ( $item['type'] == 'image' && $item['image'] ) : ?>
+			<?php if ( $item['type'] === 'image' && $item['image'] ) : ?>
 				<div class="item image-item">
 					<img src="<?php echo $item['image']['url']; ?>" alt="<?php echo $item['image']['alt']; ?>">
 					<div class="container">
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				</div>
 			<?php endif; ?>
-			<?php if ( $item['type'] == 'video' && $item['vimeo_id'] ) : ?>
+			<?php if ( $item['type'] === 'video' && $item['vimeo_id'] ) : ?>
 				<div class="item video-item">
 					<div class="vimeo-player" data-video-id="<?php echo $item['vimeo_id']; ?>"></div>
 					<div class="container">

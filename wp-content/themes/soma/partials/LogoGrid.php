@@ -57,7 +57,7 @@ $( document ).ready(function() {
 	var parts = pathname .split("/");
 	var last_part = parts[parts.length-2];
 
-	if (last_part == "soma-brands") {
+	if (last_part === "soma-brands") {
 		$('img').css("cursor", "pointer");
 	}
 });

@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							$categories = '';
 						if ( $terms ) :
 							foreach ( $terms as $key_term => $term ) :
-								if ( $key_term == 0 ) :
+								if ( $key_term === 0 ) :
 									$categories .= $term->name;
 									else :
 										$categories .= ', ' . $term->name;

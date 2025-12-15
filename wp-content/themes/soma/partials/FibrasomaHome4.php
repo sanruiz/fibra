@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if ( get_query_var( 'soma_block_content' )['press_releases'] == 'latest' ) {
+if ( get_query_var( 'soma_block_content' )['press_releases'] === 'latest' ) {
 	$args  = [
 		'numberposts' => 3,
 		'post_type'   => 'documents-reports',
@@ -90,7 +90,7 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[0]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[0]->ID ); ?>
 
-					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
+				<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 					<?php if ( $mainFile ) : ?>
 						<div class="item">
 							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
@@ -123,7 +123,7 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[1]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[1]->ID ); ?>
 
-					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
+				<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 					<?php if ( $mainFile ) : ?>
 						<div class="item">
 							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
@@ -154,7 +154,7 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[2]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[2]->ID ); ?>
 
-					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
+				<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 					<?php if ( $mainFile ) : ?>
 						<div class="item">
 							<a href="<?php echo $mainFile['url']; ?>" target="_blank">

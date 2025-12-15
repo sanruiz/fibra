@@ -47,7 +47,7 @@ $header_options = get_field( 'header_content', 'options' );
 					<?php echo $city ? $city . '. ' : ''; ?>
 					<?php if ( $terms ) : ?>
 						<?php foreach ( $terms as $key => $term ) : ?>
-							<?php if ( $term->slug != 'soma_real_estate' && $term->slug != 'soma_construction' && $term->slug != 'fibrasoma' ) : ?>
+						<?php if ( $term->slug !== 'soma_real_estate' && $term->slug !== 'soma_construction' && $term->slug !== 'fibrasoma' ) : ?>
 								<?php echo $term->name . '. '; ?>
 							<?php endif; ?>
 						<?php endforeach; ?>

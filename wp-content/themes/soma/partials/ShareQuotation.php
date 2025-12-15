@@ -58,12 +58,12 @@ $arrow = '
 			<div class="title">
 				<?php echo get_query_var( 'soma_block_content' )['title'] ? "<h3>{get_query_var('soma_block_content')['title']}</h3>" : ''; ?>
 			</div>
-			<?php if ( get_query_var( 'soma_block_content' )['file'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() == 'en' ) : ?>
+		<?php if ( get_query_var( 'soma_block_content' )['file'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'en' ) : ?>
 				<a class="desk" href="<?php echo get_query_var( 'soma_block_content' )['file']['url']; ?>" target="_blank">
 					<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
 				</a>
 			<?php endif; ?>
-			<?php if ( get_query_var( 'soma_block_content' )['file_es'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() == 'es' ) : ?>
+		<?php if ( get_query_var( 'soma_block_content' )['file_es'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'es' ) : ?>
 				<a class="desk" href="<?php echo get_query_var( 'soma_block_content' )['file_es']['url']; ?>" target="_blank">
 					<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
 				</a>
@@ -92,7 +92,7 @@ $arrow = '
 					<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
 				</a>
 			<?php endif; ?>
-			<?php if ( get_query_var( 'soma_block_content' )['file_es'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() == 'es' ) : ?>
+		<?php if ( get_query_var( 'soma_block_content' )['file_es'] && get_query_var( 'soma_block_content' )['file_label'] && wpm_get_language() === 'es' ) : ?>
 				<a class="mobile" href="<?php echo get_query_var( 'soma_block_content' )['file_es']['url']; ?>" target="_blank">
 					<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
 				</a>

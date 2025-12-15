@@ -49,10 +49,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="text">
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 					<div class="title">
-						<?php if ( get_query_var( 'soma_block_content' )['font_size'] == 'normal' ) : ?>
+					<?php if ( get_query_var( 'soma_block_content' )['font_size'] === 'normal' ) : ?>
 							<h2><?php echo get_query_var( 'soma_block_content' )['title']; ?></h2>
 						<?php endif; ?>
-						<?php if ( get_query_var( 'soma_block_content' )['font_size'] == 'small' ) : ?>
+					<?php if ( get_query_var( 'soma_block_content' )['font_size'] === 'small' ) : ?>
 							<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
 						<?php endif; ?>
 					</div>

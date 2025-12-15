@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	
 	function deploy(element) {
-		if ($(element).text().trim() == "Read more") {
+		if ($(element).text().trim() === "Read more") {
 			$(element).text("Read less");
 			$(element).parent().parent().find('.box-text-item').removeClass("boxtext-H");
 		}

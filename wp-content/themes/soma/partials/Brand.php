@@ -105,7 +105,7 @@ $iditem = preg_replace( '/[^A-Za-z0-9\-]/', '', $iditem );
 
 	
 	function deploy(element) {
-		if ($(element).text().trim() == "Read more") {
+		if ($(element).text().trim() === "Read more") {
 			$(element).text("Read less");
 			$(element).parent().parent().find('.boxtext').removeClass("boxtext-H");
 		}
