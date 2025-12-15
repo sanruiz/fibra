@@ -36,19 +36,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
 			<?php if ( $item['type'] === 'image' && $item['image'] ) : ?>
 				<div class="item image-item">
-					<img src="<?php echo $item['image']['url']; ?>" alt="<?php echo $item['image']['alt']; ?>">
-					<div class="container">
-						<div class="title"><?php echo $item['title']; ?></div>
-						<div class="text"><?php echo $item['text']; ?></div>
+				<img src="<?php echo esc_url( $item['image']['url'] ); ?>" alt="<?php echo esc_attr( $item['image']['alt'] ); ?>">
+				<div class="container">
+					<div class="title"><?php echo esc_html( $item['title'] ); ?></div>
+					<div class="text"><?php echo wp_kses_post( $item['text'] ); ?></div>
 					</div>
 				</div>
 			<?php endif; ?>
 			<?php if ( $item['type'] === 'video' && $item['vimeo_id'] ) : ?>
 				<div class="item video-item">
-					<div class="vimeo-player" data-video-id="<?php echo $item['vimeo_id']; ?>"></div>
-					<div class="container">
-						<div class="title"><?php echo $item['title']; ?></div>
-						<div class="text"><?php echo $item['text']; ?></div>
+				<div class="vimeo-player" data-video-id="<?php echo esc_attr( $item['vimeo_id'] ); ?>"></div>
+				<div class="container">
+					<div class="title"><?php echo esc_html( $item['title'] ); ?></div>
+					<div class="text"><?php echo wp_kses_post( $item['text'] ); ?></div>
 					</div>
 				</div>
 			<?php endif; ?>
