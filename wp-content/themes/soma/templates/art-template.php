@@ -1,12 +1,14 @@
 <?php
 /**
  *
+ *
+ * @package Soma
  * Template Name: Art
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
 get_header();
 
 global $pageBuilder;
@@ -21,8 +23,8 @@ $art_content = get_field( 'art_content' );
 
 	<section class="art-title-section">
 		<div class="container">
-			<h2><?php echo get_the_title(); ?></h2>
-			<p><?php echo $art_content['subtitle']; ?></p>
+			<h2><?php echo esc_html( get_the_title() ); ?></h2>
+			<p><?php echo esc_html( $art_content['subtitle'] ); ?></p>
 		</div>
 		<script>
 			$('#menu-main-menu .menu-item.art').addClass('current-menu-item');

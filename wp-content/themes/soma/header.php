@@ -28,8 +28,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<meta http-equiv="pragma" content="no-cache" />
 	<?php wp_head(); ?>
 	<script>
-	const _dittoURI_ = "<?php echo get_template_directory_uri(); ?>",
-			_dittoURL_ = "<?php echo get_site_url(); ?>";
+	const _dittoURI_ = "<?php echo esc_url( get_template_directory_uri() ); ?>",
+			_dittoURL_ = "<?php echo esc_url( get_site_url() ); ?>";
 	</script>
 </head>
 
@@ -37,6 +37,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div id="page"> <!-- +Page container -->
 
-	<?php echo get_template_part( 'partials/SearchPanel' ); ?>
+	<?php get_template_part( 'partials/SearchPanel' ); ?>
 
-	<?php echo get_template_part( 'partials/Navbar' ); ?>
+	<?php get_template_part( 'partials/Navbar' ); ?>

@@ -17,7 +17,7 @@ $header_options = get_field( 'header_content', 'options' );
 
 <?php get_template_part( 'partials/BreadCrumb' ); ?>
 
-<main id="ditto-single" page-slug="<?php echo $post->post_name; ?>" data-header-style="<?php echo $header_options['style']; ?>">
+<main id="ditto-single" page-slug="<?php echo esc_attr( $post->post_name ); ?>" data-header-style="<?php echo esc_attr( $header_options['style'] ); ?>">
 
 	<?php if ( get_post_type() === 'news' ) : ?>
 
@@ -47,7 +47,7 @@ $header_options = get_field( 'header_content', 'options' );
 					<?php echo $city ? $city . '. ' : ''; ?>
 					<?php if ( $terms ) : ?>
 						<?php foreach ( $terms as $key => $term ) : ?>
-						<?php if ( $term->slug !== 'soma_real_estate' && $term->slug !== 'soma_construction' && $term->slug !== 'fibrasoma' ) : ?>
+							<?php if ( $term->slug !== 'soma_real_estate' && $term->slug !== 'soma_construction' && $term->slug !== 'fibrasoma' ) : ?>
 								<?php echo $term->name . '. '; ?>
 							<?php endif; ?>
 						<?php endforeach; ?>

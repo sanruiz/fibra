@@ -1,14 +1,16 @@
 <?php
 /**
  *
+ *
+ * @package Soma
  * Template Name: Under Development
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 get_header();
 ?>
-
 <style>
 	.navbar-partial-df27ae,
 	.searchpanel-partial-1749fc,
@@ -30,7 +32,7 @@ get_header();
 
 <main id="under-development-template-e38d51">
 	<div class="content">
-		<img src="<?php echo get_template_directory_uri(); ?>/images/soma_white.svg" alt="Soma Logo" width="300px">
+		<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/soma_white.svg" alt="Soma Logo" width="300px">
 	</div>
 </main>
 

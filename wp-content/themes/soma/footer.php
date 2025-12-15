@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-	<?php echo get_template_part( 'partials/Footer' ); ?>
+	<?php get_template_part( 'partials/Footer' ); ?>
 
 </div> <!-- -Page container -->
 
