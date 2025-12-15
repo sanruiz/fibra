@@ -63,7 +63,7 @@ $iditem = preg_replace( '/[^A-Za-z0-9\-]/', '', $iditem );
 					<?php endif; ?>
 					<?php if ( get_query_var( 'soma_block_content' )['description'] ) : ?>
 						<div class="description">
-							<p><?php echo esc_html( get_query_var( 'soma_block_content' )['description'] ); ?></p>
+							<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['description'] ); ?></p>
 						</div>
 					<?php endif; ?>
 					<?php if ( get_query_var( 'soma_block_content' )['categories'] ) : ?>

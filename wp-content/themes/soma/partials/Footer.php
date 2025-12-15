@@ -54,7 +54,7 @@ $data = get_field( 'footer_content', 'options' );
 			</div>
 			<div class="row">
 				<div class="location">
-					<?php echo esc_html( $data['location_text'] ); ?>
+					<?php echo wp_kses_post( $data['location_text'] ); ?>
 				</div>
 				<div class="nav">
 					<div class="nav-container">

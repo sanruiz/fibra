@@ -53,31 +53,30 @@ $arrow = '
 	<div class="container">
 		<div class="content">
 			<div class="image">
-				<h3><?php echo get_the_title( get_query_var( 'soma_block_content' )['report'] ); ?></h3>
+			<h3><?php echo esc_html( get_the_title( get_query_var( 'soma_block_content' )['report'] ) ); ?></h3>
 				<?php if ( $featured_image ) : ?>
-					<img src="<?php echo $featured_image; ?>" alt="Featured image">
+				<img src="<?php echo esc_url( $featured_image ); ?>" alt="Featured image">
 				<?php endif; ?>
 			</div>
 			<div class="text">
 				<div class="title">
-					<h3><?php echo get_the_title( get_query_var( 'soma_block_content' )['report'] ); ?></h3>
+					<h3><?php echo esc_html( get_the_title( get_query_var( 'soma_block_content' )['report'] ) ); ?></h3>
 				</div>
 				<?php if ( $content['description'] ) : ?>
 					<div class="description">
-						<p><?php echo $content['description']; ?></p>
+					<p><?php echo wp_kses_post( $content['description'] ); ?></p>
 					</div>
 				<?php endif; ?>
-
 				<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 				<?php if ( $mainFile ) : ?>
 					<div class="link">
-						<a href="<?php echo $mainFile['url']; ?>" target="_blank">
-							<?php echo $content['label'] . $arrow; ?>
+					<a href="<?php echo esc_url( $mainFile['url'] ); ?>" target="_blank">
+						<?php echo esc_html( $content['label'] ) . wp_kses_post( $arrow ); ?>
 						</a>
 						<?php if ( $content['has_additional_files'] && $content['additional_files'] ) : ?>
 							<?php foreach ( $content['additional_files'] as $key => $file ) : ?>
 								<?php $extraFile = ( wpm_get_language() === 'en' ) ? $file['file'] : $file['file_es']; ?>
-								<a href="<?php echo $extraFile['url']; ?>" target="_blank"><?php echo $file['label'] . $arrow; ?></a>
+							<a href="<?php echo esc_url( $extraFile['url'] ); ?>" target="_blank"><?php echo esc_html( $file['label'] ) . wp_kses_post( $arrow ); ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>

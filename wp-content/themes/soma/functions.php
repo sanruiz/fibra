@@ -29,20 +29,6 @@ if ( class_exists( 'Soma\Core\Theme' ) ) {
 	\Soma\Core\Theme::instance();
 }
 
-/**
- * Legacy Theme Includes (Temporary - Pending Migration)
- *
- * These files are being phased out as components are migrated to PSR-4.
- * Migrated to PSR-4:
- * - theme-config.php → Migrated in Phase 5 (\Soma\Assets, \Soma\Navigation, \Soma\Admin)
- * - post-types.php → Migrated in Phase 2 (\Soma\PostTypes\Loader)
- * - endpoints.php → Migrated in Phase 2 (\Soma\API\Loader)
- * - cf7-validations.php → Migrated in Phase 2 (\Soma\CF7\Loader)
- * - taxonomies.php → Migrated in Phase 2.5 (\Soma\Taxonomies\Loader)
- */
-// All legacy files have been migrated to PSR-4 architecture.
-// The $soma_theme array is intentionally left empty for reference.
-
 // // Clear any existing scheduled events
 // wp_clear_scheduled_hook('update_stock_data_event');
 
