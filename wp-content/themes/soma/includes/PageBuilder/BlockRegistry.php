@@ -82,7 +82,7 @@ class BlockRegistry {
 	 * @return void
 	 */
 	private function register_default_blocks(): void {
-		// Sliders // Sliders & Fullscreen Fullscreen.
+		// Sliders & Fullscreen.
 		$this->register_block( 'fullscreenSlider', 'fullscreen_slider_content', 'fullscreenSlider' );
 		$this->register_block( 'randomInfo', 'random_info_content', 'randomInfo' );
 		$this->register_block( 'randomInfoFullscreen', 'random_info_fullscreen_content', 'randomInfoFullscreen' );
