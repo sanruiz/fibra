@@ -110,7 +110,7 @@ jobs:
             echo "📋 Analyzing code for type errors and bugs..."
             
             set +e
-            ./vendor/bin/phpstan analyse --error-format=table --no-progress
+            ./vendor/bin/phpstan analyse --error-format=table --no-progress --memory-limit=1G
             PHPSTAN_EXIT_CODE=$?
             set -e
             
