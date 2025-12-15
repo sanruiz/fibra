@@ -58,27 +58,27 @@ $logo = '
 		<div class="content">
 			<?php foreach ( $businessunits as $key => $item ) : ?>
 				<?php $businessunit_info = get_field( 'business_unit_data', $item ); ?>
-				<div class="item business_unit_<?php echo $item; ?>">
+				<div class="item business_unit_<?php echo esc_attr( $item ); ?>">
 					<style>
-						.businessunits2-partial-adb816 .business_unit_<?php echo $item; ?> .logo .color {
-							fill: <?php echo $businessunit_info['color']; ?>;
+						.businessunits2-partial-adb816 .business_unit_<?php echo esc_attr( $item ); ?> .logo .color {
+							fill: <?php echo esc_attr( $businessunit_info['color'] ); ?>;
 						}
 						@media (min-width: 1025px) {
-							.businessunits2-partial-adb816 .business_unit_<?php echo $item; ?>:hover {
-								border-top: 5px solid <?php echo $businessunit_info['color']; ?>;
+							.businessunits2-partial-adb816 .business_unit_<?php echo esc_attr( $item ); ?>:hover {
+								border-top: 5px solid <?php echo esc_attr( $businessunit_info['color'] ); ?>;
 								margin-top: -4px;
 							}
 						}
 					</style>
-					<a href="<?php echo get_the_permalink( $item ); ?>">
+					<a href="<?php echo esc_url( get_the_permalink( $item ) ); ?>">
 						<div class="item-content">
 							<div class="logo">
-								<?php echo $logo; ?>
+								<?php echo wp_kses_post( $logo ); ?>
 							</div>
 							<div class="text">
-								<h3 class="title"><u><?php echo get_the_title( $item ); ?></u></h3>
+								<h3 class="title"><u><?php echo esc_html( get_the_title( $item ) ); ?></u></h3>
 								<?php if ( $businessunit_info['short_description'] ) : ?>
-									<h3><?php echo $businessunit_info['short_description']; ?></h3>
+									<h3><?php echo esc_html( $businessunit_info['short_description'] ); ?></h3>
 								<?php endif; ?>
 								<svg width="46px" height="43px" viewBox="0 0 46 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
