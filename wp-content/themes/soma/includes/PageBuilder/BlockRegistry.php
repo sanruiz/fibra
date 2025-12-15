@@ -125,7 +125,7 @@ class BlockRegistry {
 		$this->register_block( 'Art', 'art_content', 'Art' );
 		$this->register_block( 'Initiatives', 'initiatives_content', 'Initiatives' );
 
-		// Contact // Contact & Info Info.
+		// Contact & Info.
 		$this->register_block( 'ContactInfo', 'contact_info_content', 'ContactInfo' );
 		$this->register_block( 'Contact', 'contact_content', 'Contact' );
 		$this->register_block( 'ContactHeader', 'contact_header_content', 'ContactHeader' );
