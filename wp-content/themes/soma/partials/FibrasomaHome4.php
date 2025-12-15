@@ -69,19 +69,19 @@ $arrow = '
 			<div class="text">
 				<?php if ( get_query_var( 'soma_block_content' )['number'] ) : ?>
 					<div class="number">
-						<h2><?php echo get_query_var( 'soma_block_content' )['number']; ?></h2>
+					<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['number'] ); ?></h2>
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 					<div class="title">
-						<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 					</div>
 				<?php endif; ?>
 			</div>
 			<div class="link">
 				<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
-					<a class="underline-text" href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
-						<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+				<a class="underline-text" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['link']['url'] ); ?>" target="<?php echo esc_attr( get_query_var( 'soma_block_content' )['link']['target'] ); ?>">
+					<?php echo esc_html( get_query_var( 'soma_block_content' )['link']['title'] ); ?>
 					</a>
 				<?php endif; ?>
 			</div>
@@ -93,24 +93,24 @@ $arrow = '
 					<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 					<?php if ( $mainFile ) : ?>
 						<div class="item">
-							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
-								<?php if ( $featured_image ) : ?>
-									<div class="image">
-										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+						<a href="<?php echo esc_url( $mainFile['url'] ); ?>" target="_blank">
+							<?php if ( $featured_image ) : ?>
+								<div class="image">
+									<img src="<?php echo esc_url( $featured_image ); ?>" alt="Featured Image">
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
 									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
-										<?php echo soma_translate_date( $formated_date ); ?>
-									</div>
-								<?php endif; ?>
-								<div class="press-title">
-									<?php echo get_the_title( $press[0]->ID ); ?>
+									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
+								</div>
+							<?php endif; ?>
+							<div class="press-title">
+								<?php echo esc_html( get_the_title( $press[0]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
-										<span><?php echo $content['label'] . $arrow; ?></span>
+									<span><?php echo esc_html( $content['label'] ) . $arrow; ?></span>
 									</div>
 								<?php endif; ?>
 							</a>
@@ -126,24 +126,24 @@ $arrow = '
 					<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 					<?php if ( $mainFile ) : ?>
 						<div class="item">
-							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
-								<?php if ( $featured_image ) : ?>
-									<div class="image">
-										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+						<a href="<?php echo esc_url( $mainFile['url'] ); ?>" target="_blank">
+							<?php if ( $featured_image ) : ?>
+								<div class="image">
+									<img src="<?php echo esc_url( $featured_image ); ?>" alt="Featured Image">
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
 									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
-										<?php echo soma_translate_date( $formated_date ); ?>
-									</div>
-								<?php endif; ?>
-								<div class="press-title">
-									<?php echo get_the_title( $press[1]->ID ); ?>
+									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
+								</div>
+							<?php endif; ?>
+							<div class="press-title">
+								<?php echo esc_html( get_the_title( $press[1]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
-										<span><?php echo $content['label'] . $arrow; ?></span>
+									<span><?php echo esc_html( $content['label'] ) . $arrow; ?></span>
 									</div>
 								<?php endif; ?>
 							</a>
@@ -166,11 +166,11 @@ $arrow = '
 								<?php if ( $content['date'] ) : ?>
 									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
-										<?php echo soma_translate_date( $formated_date ); ?>
-									</div>
-								<?php endif; ?>
-								<div class="press-title">
-									<?php echo get_the_title( $press[2]->ID ); ?>
+									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
+								</div>
+							<?php endif; ?>
+							<div class="press-title">
+								<?php echo esc_html( get_the_title( $press[2]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
