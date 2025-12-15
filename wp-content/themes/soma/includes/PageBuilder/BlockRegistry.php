@@ -92,7 +92,7 @@ class BlockRegistry {
 		$this->register_block( 'BusinessUnits2', 'business_units_2_content', 'BusinessUnits2' );
 		$this->register_block( 'BusinessUnitsContact', 'business_units_contact_content', 'BusinessUnitsContact' );
 
-		// Text // Text & Content Blocks Content Blocks.
+		// Text & Content Blocks.
 		$this->register_block( 'Bigtext_Image', 'bigtext_image_content', 'Bigtext_Image' );
 		$this->register_block( 'Logo_TwoColumnsText', 'logo_twocolumnstext_content', 'Logo_TwoColumnsText' );
 		$this->register_block( 'Phrase', 'phrase_content', 'Phrase' );
