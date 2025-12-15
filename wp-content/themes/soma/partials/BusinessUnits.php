@@ -23,11 +23,12 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-// Get block data from query vars (v3.0+)
+// Get block data from query vars (v3.0+).
 $block_counter = get_query_var( 'soma_block_counter' );
 $block_content = get_query_var( 'soma_block_content' );
 $block_layout  = get_query_var( 'soma_block_layout' );

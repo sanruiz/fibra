@@ -87,12 +87,12 @@ class Loader implements LoadableInterface {
 	 * @return void
 	 */
 	public function init(): void {
-		// Register hooks for cache invalidation
+		// Register hooks for cache invalidation.
 		add_action( 'save_post', $this->invalidate_cache_on_save( ... ) );
 		add_action( 'acf/save_post', $this->invalidate_cache_on_acf_save( ... ), 20 );
 
-		// Optional: Enable block caching (disabled by default)
-		// $this->renderer->enable_caching( true, 3600 );
+		// Optional: Enable block caching (disabled by default).
+		// $this->renderer->enable_caching( true, 3600 );.
 
 		if ( function_exists( 'soma_log_info' ) ) {
 			soma_log_info(
@@ -134,17 +134,17 @@ class Loader implements LoadableInterface {
 	 * @return void
 	 */
 	private function invalidate_cache_on_save( int $post_id ): void {
-		// Skip autosaves
+		// Skip autosaves.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 
-		// Skip revisions
+		// Skip revisions.
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
 
-		// Invalidate all page builder caches for this post
+		// Invalidate all page builder caches for this post.
 		$this->renderer->invalidate_cache();
 
 		if ( function_exists( 'soma_log_debug' ) ) {
@@ -162,7 +162,7 @@ class Loader implements LoadableInterface {
 	 * @return void
 	 */
 	private function invalidate_cache_on_acf_save( $post_id ): void {
-		// Only process numeric post IDs (not options pages)
+		// Only process numeric post IDs (not options pages).
 		if ( ! is_numeric( $post_id ) ) {
 			return;
 		}

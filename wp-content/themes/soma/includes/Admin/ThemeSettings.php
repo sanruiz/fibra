@@ -72,7 +72,7 @@ class ThemeSettings {
 			return;
 		}
 
-		// Main options page
+		// Main options page.
 		acf_add_options_page(
 			array(
 				'page_title' => __( 'Theme Settings', 'soma' ),
@@ -83,7 +83,7 @@ class ThemeSettings {
 			)
 		);
 
-		// Header subpage
+		// Header subpage.
 		acf_add_options_sub_page(
 			array(
 				'page_title'  => __( 'Header', 'soma' ),
@@ -92,7 +92,7 @@ class ThemeSettings {
 			)
 		);
 
-		// Footer subpage
+		// Footer subpage.
 		acf_add_options_sub_page(
 			array(
 				'page_title'  => __( 'Footer', 'soma' ),

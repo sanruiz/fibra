@@ -181,7 +181,7 @@ class Cache {
 		$invalidated = 0;
 
 		foreach ( $tags as $tag ) {
-			// Support both CacheTag enums and string tags
+			// Support both CacheTag enums and string tags.
 			$tag_value = \is_string( $tag ) ? $tag : $tag->value();
 			if ( ! isset( $tag_index[ $tag_value ] ) ) {
 				continue;
