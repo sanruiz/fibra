@@ -166,7 +166,9 @@ jobs:
         run: |
           cd ${{ env.THEME_PATH }}
           if [ -f "tests/bin/install-wp-tests.sh" ]; then
-            echo "y" | bash tests/bin/install-wp-tests.sh wordpress_test root password 127.0.0.1:3306 latest
+            echo "🏗️ Installing WordPress test suite..."
+            bash tests/bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 latest
+            echo "✅ WordPress test environment installed successfully"
           else
             echo "⚠️ WordPress test installation script not found - skipping"
           fi
