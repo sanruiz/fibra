@@ -1,7 +1,8 @@
 <?php
 /**
+ * 404 Error Page Template.
  *
- * Default 404.
+ * @package Soma
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +18,7 @@ $content = get_field( 'error_404_content', 'options' );
 	<section>
 		<div class="container">
 			<div class="content">
-				<?php echo $content; ?>
+				<?php echo wp_kses_post( $content ); ?>
 			</div>
 		</div>
 	</section>

@@ -1,7 +1,8 @@
 <?php
 /**
+ * Index Template.
  *
- * Default index.
+ * @package Soma
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

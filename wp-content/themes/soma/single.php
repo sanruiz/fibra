@@ -1,7 +1,8 @@
 <?php
 /**
+ * Single Post Template.
  *
- * Default single.
+ * @package Soma
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

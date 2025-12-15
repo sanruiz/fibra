@@ -1,7 +1,8 @@
 <?php
 /**
+ * Footer Template.
  *
- * Footer template.
+ * @package Soma
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -1,7 +1,8 @@
 <?php
 /**
+ * Header Template.
  *
- * Header.
+ * @package Soma
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

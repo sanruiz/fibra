@@ -1,7 +1,8 @@
 <?php
 /**
+ * Search Template.
  *
- * Default search page.
+ * @package Soma
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

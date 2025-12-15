@@ -1,7 +1,8 @@
 <?php
 /**
+ * Archive Template.
  *
- * Default archive.
+ * @package Soma
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
