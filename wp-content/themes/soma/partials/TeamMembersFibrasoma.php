@@ -35,12 +35,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="content">
 			<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 				<div class="title">
-					<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 				</div>
 			<?php endif; ?>
 			<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
 				<div class="text">
-					<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+					<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></p>
 				</div>
 			<?php endif; ?>
 			<?php if ( get_query_var( 'soma_block_content' )['team'] ) : ?>
@@ -62,9 +62,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 						?>
 
 						<div class="member <?php echo $info['hide_single_page'] ? 'single-page-hidden' : ''; ?>">
-							<a <?php echo $info['hide_single_page'] ? '' : 'href="' . get_the_permalink( $item ) . '"'; ?>>
-								<h3><?php echo get_the_title( $item ); ?></h3>
-								<span class="categories"><?php echo $categories; ?></span>
+						<a <?php echo $info['hide_single_page'] ? '' : 'href="' . esc_url( get_the_permalink( $item ) ) . '"'; ?>>
+							<h3><?php echo esc_html( get_the_title( $item ) ); ?></h3>
+							<span class="categories"><?php echo esc_html( $categories ); ?></span>
 							</a>
 						</div>
 					<?php endforeach; ?>

@@ -60,8 +60,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php endif; ?>
 								<?php if ( $unit['link'] ) : ?>
 									<div class="link">
-									<a href="<?php echo esc_url( $unit['link']['url'] ); ?>" target="<?php echo esc_attr( $unit['link']['target'] ); ?>">
-<?php echo esc_html( $unit['link']['title'] ); ?></a>
+										<a href="<?php echo esc_url( $unit['link']['url'] ); ?>" target="<?php echo esc_attr( $unit['link']['target'] ); ?>">
+											<?php echo esc_html( $unit['link']['title'] ); ?>
+										</a>
 									</div>
 								<?php endif; ?>
 							</div>

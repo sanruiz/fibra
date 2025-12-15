@@ -30,20 +30,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<section class="phrase-partial-3feb8a style-<?php echo get_query_var( 'soma_block_content' )['style']; ?>">
+<section class="phrase-partial-3feb8a style-<?php echo esc_attr( get_query_var( 'soma_block_content' )['style'] ); ?>">
 	<div class="container">
 		<div class="content">
 			<?php if ( get_query_var( 'soma_block_content' )['style'] === 'withimage' ) : ?>
 				<div class="image">
 					<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
-						<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+						<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 			<div class="phrase">
-				<h4><?php echo get_query_var( 'soma_block_content' )['phrase']; ?></h4>
+				<h4><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['phrase'] ); ?></h4>
 				<?php if ( get_query_var( 'soma_block_content' )['name'] ) : ?>
-					<div class="name"><?php echo get_query_var( 'soma_block_content' )['name']; ?></div>
+					<div class="name"><?php echo esc_html( get_query_var( 'soma_block_content' )['name'] ); ?></div>
 				<?php endif; ?>
 			</div>
 		</div>

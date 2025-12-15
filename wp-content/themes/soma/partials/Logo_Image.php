@@ -47,20 +47,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="text">
 				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
 					<div class="image">
-						<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+						<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 					<div class="title">
-						<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+						<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
 					<div class="two-columns">
-						<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+						<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></p>
 					</div>
 					<div class="one-columns">
-						<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+						<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></p>
 					</div>
 				<?php endif; ?>
 			</div>
