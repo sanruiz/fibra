@@ -30,13 +30,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 $art = get_posts(
-	[
+	array(
 		'post_type'  => 'page',
 		'fields'     => 'ids',
 		'nopaging'   => true,
 		'meta_key'   => '_wp_page_template',
 		'meta_value' => 'templates/art-template.php',
-	]
+	)
 );
 ?>
 

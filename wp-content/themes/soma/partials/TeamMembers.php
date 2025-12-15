@@ -28,21 +28,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$args = [
+$args = array(
 	'numberposts' => -1,
 	'post_type'   => 'team-members',
 	'post_status' => array( 'publish' ),
 	'order'       => $params['order'] ? $params['order'] : 'DESC',
-];
+);
 
 if ( get_query_var( 'soma_block_content' )['category'] ) {
-	$args['tax_query'] = [
-		[
+	$args['tax_query'] = array(
+		array(
 			'taxonomy' => 'team-members-taxonomy',
 			'field'    => 'id',
 			'terms'    => get_query_var( 'soma_block_content' )['category']->term_id,
-		],
-	];
+		),
+	);
 }
 
 $members = get_posts( $args );

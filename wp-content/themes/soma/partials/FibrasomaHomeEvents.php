@@ -58,7 +58,7 @@ function printEvent( $id ) {
 	return $output;
 }
 
-$events = [];
+$events = array();
 
 if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
 	if ( get_query_var( 'soma_block_content' )['events'] && wpm_get_language() === 'en' ) {
@@ -77,14 +77,14 @@ if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
 	}
 } else {
 	$eventsQuery = get_posts(
-		[
+		array(
 			'numberposts' => -1,
 			'post_type'   => 'events',
 			'post_status' => array( 'publish' ),
 			'order'       => 'ASC',
 			'meta_key'    => 'event_info_init_date',
 			'orderby'     => 'meta_value',
-		]
+		)
 	);
 	if ( $eventsQuery ) {
 		$counter = 1;

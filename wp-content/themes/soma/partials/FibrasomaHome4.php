@@ -29,19 +29,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 if ( get_query_var( 'soma_block_content' )['press_releases'] === 'latest' ) {
-	$args  = [
+	$args  = array(
 		'numberposts' => 3,
 		'post_type'   => 'documents-reports',
 		'post_status' => array( 'publish' ),
 		'order'       => 'DESC',
-		'tax_query'   => [
-			[
+		'tax_query'   => array(
+			array(
 				'taxonomy' => 'documents-taxonomy',
 				'field'    => 'slug',
 				'terms'    => 'press_releases',
-			],
-		],
-	];
+			),
+		),
+	);
 	$press = get_posts( $args );
 } else {
 	$press[0] = get_query_var( 'soma_block_content' )['items'][0]['press'] ? get_query_var( 'soma_block_content' )['items'][0]['press'] : null;

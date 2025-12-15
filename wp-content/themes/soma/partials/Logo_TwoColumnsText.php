@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php if ( get_query_var( 'soma_block_content' )['font_size'] === 'normal' ) : ?>
 						<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h2>
 					<?php endif; ?>
-				<?php if ( get_query_var( 'soma_block_content' )['font_size'] === 'small' ) : ?>
+					<?php if ( get_query_var( 'soma_block_content' )['font_size'] === 'small' ) : ?>
 						<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 						<?php endif; ?>
 					</div>

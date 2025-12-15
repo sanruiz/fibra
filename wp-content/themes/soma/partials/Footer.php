@@ -61,12 +61,12 @@ $data = get_field( 'footer_content', 'options' );
 						<?php if ( $data['style'] === 'fibrasoma' ) : ?>
 							<?php
 								wp_nav_menu(
-									[
+									array(
 										'menu'           => 'fibrasoma_footer',
 										'theme_location' => 'fibrasoma_footer',
 										'container'      => 'div',
 										'menu_class'     => 'fibrasoma-list',
-									]
+									)
 								);
 							?>
 						<?php else : ?>
@@ -74,12 +74,12 @@ $data = get_field( 'footer_content', 'options' );
 								<div class="title"><?php echo wpm_get_language() === 'es' ? 'Redes' : 'Social'; ?></div>
 								<?php
 									wp_nav_menu(
-										[
+										array(
 											'menu'       => 'social',
 											'theme_location' => 'social',
 											'container'  => 'div',
 											'menu_class' => 'social-list',
-										]
+										)
 									);
 								?>
 							</div>
@@ -87,12 +87,12 @@ $data = get_field( 'footer_content', 'options' );
 								<div class="title"><?php echo wpm_get_language() === 'es' ? 'Unidades de Negocio' : 'Business Units'; ?></div>
 								<?php
 									wp_nav_menu(
-										[
+										array(
 											'menu'       => 'business_units',
 											'theme_location' => 'business_units',
 											'container'  => 'div',
 											'menu_class' => 'business-list',
-										]
+										)
 									);
 								?>
 							</div>

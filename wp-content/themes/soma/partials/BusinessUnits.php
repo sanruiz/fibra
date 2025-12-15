@@ -33,13 +33,13 @@ $block_content = get_query_var( 'soma_block_content' );
 $block_layout  = get_query_var( 'soma_block_layout' );
 
 $businessunits = get_posts(
-	[
+	array(
 		'post_type'  => 'page',
 		'fields'     => 'ids',
 		'nopaging'   => true,
 		'meta_key'   => '_wp_page_template',
 		'meta_value' => 'templates/business-unit-template.php',
-	]
+	)
 );
 
 $svg = '

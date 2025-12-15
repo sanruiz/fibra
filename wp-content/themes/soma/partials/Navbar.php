@@ -122,12 +122,12 @@ $header_options = get_field( 'header_content', 'options' );
 				<div class="main-menu-container">
 					<?php
 						wp_nav_menu(
-							[
+							array(
 								'menu'           => 'main_menu',
 								'theme_location' => 'main_menu',
 								'container'      => 'div',
 								'menu_class'     => 'main-menu-list',
-							]
+							)
 						);
 						?>
 				</div>

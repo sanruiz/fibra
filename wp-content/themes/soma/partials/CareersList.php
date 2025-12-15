@@ -28,12 +28,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$args    = [
+$args    = array(
 	'numberposts' => -1,
 	'post_type'   => 'careers',
 	'post_status' => array( 'publish' ),
 	'order'       => $params['order'] ? $params['order'] : 'DESC',
-];
+);
 $careers = get_posts( $args );
 
 ?>
