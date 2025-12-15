@@ -72,7 +72,7 @@ $arrow = '
 					<?php foreach ( get_query_var( 'soma_block_content' )['documents'] as $key => $item ) : ?>
 						<?php $content = get_field( 'document_content', $item ); ?>
 
-				<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+						<?php $mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
 						<?php if ( $mainFile ) : ?>
 							<div class="item">
 								<a href="<?php echo $mainFile['url']; ?>" target="_blank">

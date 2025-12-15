@@ -76,7 +76,7 @@ $arrow = '
 						</a>
 						<?php if ( $content['has_additional_files'] && $content['additional_files'] ) : ?>
 							<?php foreach ( $content['additional_files'] as $key => $file ) : ?>
-						<?php $extraFile = ( wpm_get_language() === 'en' ) ? $file['file'] : $file['file_es']; ?>
+								<?php $extraFile = ( wpm_get_language() === 'en' ) ? $file['file'] : $file['file_es']; ?>
 								<a href="<?php echo $extraFile['url']; ?>" target="_blank"><?php echo $file['label'] . $arrow; ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
