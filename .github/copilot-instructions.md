@@ -28,6 +28,227 @@
 
 **Exception**: User-facing content in WordPress (Spanish for FibraSOMA website visitors)
 
+## 🔒 WordPress Security: Output Escaping (CRITICAL)
+
+**ALL dynamic output in PHP templates MUST be escaped** to prevent XSS vulnerabilities. PHPCS enforces `WordPress.Security.EscapeOutput` standard.
+
+### Core Escaping Functions
+
+#### 1. **esc_html()** - Plain Text Output
+Escapes ALL HTML to entities. Use for plain text that should NOT contain HTML.
+
+```php
+// ✅ CORRECT - Plain text
+<h1><?php echo esc_html( $title ); ?></h1>
+<span><?php echo esc_html( $name ); ?></span>
+<p><?php echo esc_html( get_the_title() ); ?></p>
+
+// ❌ WRONG - Unescaped
+<h1><?php echo $title; ?></h1>
+<span><?php echo get_the_title(); ?></span>
+```
+
+#### 2. **esc_url()** - URL Sanitization
+Sanitizes and validates URLs. Use for ALL href and src attributes.
+
+```php
+// ✅ CORRECT - URLs
+<a href="<?php echo esc_url( $link['url'] ); ?>">Link</a>
+<img src="<?php echo esc_url( $image['url'] ); ?>" alt="">
+<iframe src="<?php echo esc_url( $video_url ); ?>"></iframe>
+
+// ❌ WRONG - Unescaped URLs
+<a href="<?php echo $link['url']; ?>">Link</a>
+<img src="<?php echo $image['url']; ?>" alt="">
+```
+
+#### 3. **esc_attr()** - HTML Attributes
+Escapes for HTML attributes (class, id, data-*, style, alt, etc.).
+
+```php
+// ✅ CORRECT - Attributes
+<div class="<?php echo esc_attr( $class_name ); ?>">
+<img alt="<?php echo esc_attr( $image['alt'] ); ?>">
+<a target="<?php echo esc_attr( $link['target'] ); ?>">
+<div style="background-color: <?php echo esc_attr( $color ); ?>">
+<div id="<?php echo esc_attr( $block_id ); ?>">
+
+// ❌ WRONG - Unescaped attributes
+<div class="<?php echo $class_name; ?>">
+<img alt="<?php echo $image['alt']; ?>">
+```
+
+#### 4. **wp_kses_post()** - Rich HTML Content
+Allows safe HTML tags (p, span, br, strong, em, ul, li, etc.). Use for content that should display HTML formatting.
+
+```php
+// ✅ CORRECT - Rich content with HTML
+<div class="description">
+    <?php echo wp_kses_post( $description ); ?>
+</div>
+<div class="content">
+    <?php echo wp_kses_post( get_query_var('soma_block_content')['text'] ); ?>
+</div>
+
+// Allows: <p>, <span>, <br>, <strong>, <em>, <a>, <ul>, <li>, etc.
+// Strips: <script>, <iframe>, <object>, unsafe attributes
+```
+
+#### 5. **wp_kses()** - Custom Allowed Tags
+For fine-grained control over allowed HTML tags.
+
+```php
+// ✅ CORRECT - Custom allowed tags
+$allowed_svg = array(
+    'svg' => array('class' => true, 'width' => true, 'height' => true),
+    'path' => array('d' => true, 'fill' => true),
+    'g' => array('fill' => true),
+);
+echo wp_kses( $svg_content, $allowed_svg );
+```
+
+### **CRITICAL: apply_filters() vs wp_kses_post()**
+
+#### ❌ **apply_filters('the_content') - NOT RECOGNIZED BY PHPCS**
+
+```php
+// ❌ WRONG - PHPCS does NOT recognize apply_filters as escaping
+<div class="column">
+    <?php echo apply_filters('the_content', $block_content['column_1']); ?>
+</div>
+
+// Result: WordPress.Security.EscapeOutput.OutputNotEscaped error
+// Even though WordPress core uses it, PHPCS flags it as unsafe
+```
+
+**Why it fails:**
+- PHPCS only recognizes specific escaping functions (esc_html, esc_url, wp_kses_post, etc.)
+- apply_filters() can execute arbitrary callbacks, not guaranteed to escape
+- Cannot be whitelisted without compromising security standards
+
+#### ✅ **wp_kses_post() - PHPCS COMPLIANT**
+
+```php
+// ✅ CORRECT - PHPCS recognizes wp_kses_post
+<div class="column">
+    <?php echo wp_kses_post( $block_content['column_1'] ); ?>
+</div>
+
+// Result: No PHPCS errors
+// Still allows HTML formatting (p, span, br, strong, em, etc.)
+// Strips unsafe tags (script, iframe, object)
+```
+
+**Migration pattern:**
+```php
+// OLD (v2.x - PHPCS error)
+echo apply_filters('the_content', $content);
+
+// NEW (v3.0+ - PHPCS compliant)
+echo wp_kses_post( $content );
+```
+
+### Common Patterns in SOMA Theme
+
+#### ACF Flexible Content Blocks (partials/)
+```php
+<?php
+// Get block data via WordPress query vars (v3.0+)
+$block_content = get_query_var('soma_block_content');
+$block_counter = get_query_var('soma_block_counter');
+?>
+
+<!-- Plain text fields -->
+<h2><?php echo esc_html( $block_content['title'] ); ?></h2>
+<h4><?php echo esc_html( $block_content['subtitle'] ); ?></h4>
+
+<!-- Rich content (WYSIWYG fields) -->
+<div class="description">
+    <?php echo wp_kses_post( $block_content['description'] ); ?>
+</div>
+
+<!-- Images -->
+<img src="<?php echo esc_url( $block_content['image']['url'] ); ?>" 
+     alt="<?php echo esc_attr( $block_content['image']['alt'] ); ?>">
+
+<!-- Links -->
+<a href="<?php echo esc_url( $block_content['link']['url'] ); ?>" 
+   target="<?php echo esc_attr( $block_content['link']['target'] ); ?>">
+    <?php echo esc_html( $block_content['link']['title'] ); ?>
+</a>
+
+<!-- Dynamic CSS -->
+<div style="background-color: <?php echo esc_attr( $block_content['bg_color'] ); ?>">
+
+<!-- SVG inline content (hardcoded, safe) -->
+<?php
+$arrow = '<svg>...</svg>'; // Hardcoded SVG
+echo esc_html( $label ) . wp_kses_post( $arrow );
+?>
+```
+
+#### WordPress Functions
+```php
+// get_the_title() - ALWAYS escape
+<h3><?php echo esc_html( get_the_title() ); ?></h3>
+
+// get_permalink() - Use esc_url
+<a href="<?php echo esc_url( get_permalink() ); ?>">Read more</a>
+
+// get_the_post_thumbnail_url() - Use esc_url
+<img src="<?php echo esc_url( get_the_post_thumbnail_url() ); ?>" alt="">
+
+// get_the_excerpt() - Use wp_kses_post (may contain HTML)
+<div class="excerpt">
+    <?php echo wp_kses_post( get_the_excerpt() ); ?>
+</div>
+```
+
+### When to Use Each Function
+
+| Function | Use Case | Example |
+|----------|----------|---------|
+| **esc_html()** | Plain text, titles, names, labels | `<h1><?php echo esc_html($title); ?></h1>` |
+| **esc_url()** | URLs (href, src) | `<a href="<?php echo esc_url($url); ?>">` |
+| **esc_attr()** | HTML attributes (class, id, data-*, style, alt) | `<div class="<?php echo esc_attr($class); ?>">` |
+| **wp_kses_post()** | Rich HTML content (WYSIWYG, descriptions) | `<?php echo wp_kses_post($content); ?>` |
+| **wp_kses()** | Custom allowed tags (SVG, specific HTML) | `<?php echo wp_kses($svg, $allowed); ?>` |
+
+### ❌ Common Mistakes to Avoid
+
+```php
+// ❌ WRONG - No escaping
+echo $title;
+echo get_the_title();
+echo $image['url'];
+
+// ❌ WRONG - Wrong function for content type
+echo esc_html( $wysiwyg_content ); // Strips HTML, breaks formatting
+echo wp_kses_post( $url ); // Wrong, use esc_url()
+
+// ❌ WRONG - Using apply_filters for escaping
+echo apply_filters('the_content', $content); // PHPCS error
+
+// ✅ CORRECT - Proper escaping
+echo esc_html( $title );
+echo esc_html( get_the_title() );
+echo esc_url( $image['url'] );
+echo wp_kses_post( $wysiwyg_content );
+```
+
+### PHPCS Validation
+
+All code must pass `WordPress.Security.EscapeOutput` sniff:
+
+```bash
+# Check for unescaped output
+vendor/bin/phpcs partials/ --sniffs=WordPress.Security.EscapeOutput
+
+# Should show 0 errors for OutputNotEscaped
+```
+
+**Zero tolerance policy**: No unescaped output allowed in production code.
+
 ## Project Context
 
 This is an **8-week WordPress website development project** for FibraSOMA's corporate website using the newly modernized SOMA v3.0.0 theme.
