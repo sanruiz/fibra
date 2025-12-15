@@ -1,9 +1,8 @@
 <?php
 /**
- *
+ * Single Team Member Partial
  *
  * @package Soma
- * Single Team Member Partial
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

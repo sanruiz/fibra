@@ -1,9 +1,8 @@
 <?php
 /**
- *
+ * Template Name: Business Unit
  *
  * @package Soma
- * Template Name: Business Unit
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

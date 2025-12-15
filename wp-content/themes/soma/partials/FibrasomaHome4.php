@@ -101,7 +101,7 @@ $arrow = '
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
-									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<?php $formated_date = wp_date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
 									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
 								</div>
@@ -134,7 +134,7 @@ $arrow = '
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
-									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<?php $formated_date = wp_date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
 									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
 								</div>
@@ -165,7 +165,7 @@ $arrow = '
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
-									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<?php $formated_date = wp_date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
 									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
 								</div>

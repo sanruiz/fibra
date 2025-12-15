@@ -1,9 +1,8 @@
 <?php
 /**
- *
+ * Template Name: Soma Landing
  *
  * @package Soma
- * Template Name: Soma Landing
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -1,9 +1,8 @@
 <?php
 /**
- *
+ * Template Name: Navigation Sidebar
  *
  * @package Soma
- * Template Name: Navigation Sidebar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

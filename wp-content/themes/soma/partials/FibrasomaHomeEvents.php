@@ -35,8 +35,8 @@ function printEvent( $id ) {
 	$calendar = '<svg width="34px" height="33px" viewBox="0 0 34 33"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-529.000000, -338.000000)"><g transform="translate(530.000000, 338.936000)"><polygon stroke="#000000" stroke-width="1.21196244" points="24.037255 30.4801685 0.201993739 30.4801685 0.201993739 3.00901994 32.1170045 3.00901994 32.1170045 22.1984252"></polygon><polygon fill="#000000" points="6.26180592 14.010003 9.71024304 14.010003 9.71024304 12.523329 6.26180592 12.523329"></polygon><polygon fill="#000000" points="14.6372743 14.010003 18.0861154 14.010003 18.0861154 12.523329 14.6372743 12.523329"></polygon><polygon fill="#000000" points="23.0127427 14.010003 26.4611798 14.010003 26.4611798 12.523329 23.0127427 12.523329"></polygon><polygon fill="#000000" points="6.26180592 18.4070027 9.71024304 18.4070027 9.71024304 16.9207327 6.26180592 16.9207327"></polygon><polygon fill="#000000" points="14.6372743 18.4070027 18.0861154 18.4070027 18.0861154 16.9207327 14.6372743 16.9207327"></polygon><polygon fill="#000000" points="23.0127427 18.4070027 26.4611798 18.4070027 26.4611798 16.9207327 23.0127427 16.9207327"></polygon><polygon fill="#000000" points="6.26180592 22.8044064 9.71024304 22.8044064 9.71024304 21.3177325 6.26180592 21.3177325"></polygon><polygon fill="#000000" points="14.6372743 22.8044064 18.0861154 22.8044064 18.0861154 21.3177325 14.6372743 21.3177325"></polygon><polygon fill="#000000" points="6.26180592 1.48639113 9.71024304 1.48639113 9.71024304 0.000121196244 6.26180592 0.000121196244"></polygon><polygon fill="#000000" points="14.6368703 1.48639113 18.0857114 1.48639113 18.0857114 0.000121196244 14.6368703 0.000121196244"></polygon><polygon fill="#000000" points="23.0127427 1.48639113 26.4611798 1.48639113 26.4611798 0.000121196244 23.0127427 0.000121196244"></polygon></g></g></g></svg>';
 
 	$content            = get_field( 'event_info', $id );
-	$formated_init_date = $content['end_date'] ? soma_translate_date( date( 'M j, Y', $content['init_date'] ), 'short' ) : soma_translate_date( date( 'M j, Y', $content['init_date'] ) );
-	$formated_end_date  = $content['end_date'] ? soma_translate_date( date( 'M j, Y', $content['end_date'] ), 'short' ) : null;
+	$formated_init_date = $content['end_date'] ? soma_translate_date( wp_date( 'M j, Y', $content['init_date'] ), 'short' ) : soma_translate_date( wp_date( 'M j, Y', $content['init_date'] ) );
+	$formated_end_date  = $content['end_date'] ? soma_translate_date( wp_date( 'M j, Y', $content['end_date'] ), 'short' ) : null;
 	$formated_date      = $formated_end_date ? $formated_init_date . ' - ' . $formated_end_date : $formated_init_date;
 
 	$mainFile = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es'];
@@ -92,7 +92,7 @@ if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
 		foreach ( $eventsQuery as $key => $item ) {
 			if ( $counter <= 4 ) {
 				$content = get_field( 'event_info', $item->ID );
-				if ( ( (int) $content['init_date'] + 86400 ) > (int) date( 'U' ) || ( (int) $content['end_date'] + 86400 ) > (int) date( 'U' ) ) {
+				if ( ( (int) $content['init_date'] + 86400 ) > (int) current_time( 'timestamp' ) || ( (int) $content['end_date'] + 86400 ) > (int) current_time( 'timestamp' ) ) {
 					$events[] = $item->ID;
 					++$counter;
 				}

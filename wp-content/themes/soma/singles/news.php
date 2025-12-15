@@ -1,9 +1,8 @@
 <?php
 /**
- *
+ * Single News Partial
  *
  * @package Soma
- * Single News Partial
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

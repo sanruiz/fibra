@@ -1,9 +1,8 @@
 <?php
 /**
- *
+ * Single Careers Partial
  *
  * @package Soma
- * Single careers Partial
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

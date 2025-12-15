@@ -1,9 +1,8 @@
 <?php
 /**
- *
+ * Template Name: Art
  *
  * @package Soma
- * Template Name: Art
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
