@@ -44,15 +44,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 			<div class="title">
-				<h2><?php echo get_query_var( 'soma_block_content' )['title']; ?></h2>
+				<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h2>
 			</div>
 		<?php endif; ?>
 		<div class="data">
 			<?php $wall = ( count( get_query_var( 'soma_block_content' )['data'] ) < 6 ) ? count( get_query_var( 'soma_block_content' )['data'] ) : 6; ?>
 			<?php for ( $i = 1; $i <= $wall; $i++ ) : ?>
 				<div class="item">
-					<div class="value"><?php echo get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['value']; ?></div>
-					<div class="label"><?php echo get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['label']; ?></div>
+					<div class="value"><?php echo esc_html( get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['value'] ); ?></div>
+					<div class="label"><?php echo esc_html( get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['label'] ); ?></div>
 				</div>
 			<?php endfor ?>
 		</div>

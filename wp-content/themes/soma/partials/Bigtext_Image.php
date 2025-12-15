@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="content">
 			<div class="text">
-				<h3><?php echo get_query_var( 'soma_block_content' )['text']; ?></h3>
+				<h3><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></h3>
 			</div>
 			<div class="image">
 				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
-					<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+					<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 				<?php endif; ?>
 			</div>
 		</div>

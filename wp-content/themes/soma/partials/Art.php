@@ -47,14 +47,14 @@ $art = get_posts(
 			<?php foreach ( $art as $key => $item ) : ?>
 				<?php $thumb = get_the_post_thumbnail_url( $item ); ?>
 				<div class="item">
-					<a href="<?php echo get_the_permalink( $item ); ?>">
+					<a href="<?php echo esc_url( get_the_permalink( $item ) ); ?>">
 						<?php if ( $thumb ) : ?>
 							<div class="image">
-								<img src="<?php echo $thumb; ?>" alt="Art Thumbnail">
+								<img src="<?php echo esc_url( $thumb ); ?>" alt="Art Thumbnail">
 							</div>
 						<?php endif; ?>
 						<div class="title">
-							<h3><?php echo get_the_title( $item ); ?></h3>
+							<h3><?php echo esc_html( get_the_title( $item ) ); ?></h3>
 						</div>
 					</a>
 				</div>

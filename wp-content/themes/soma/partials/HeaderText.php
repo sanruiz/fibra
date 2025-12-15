@@ -34,13 +34,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="content">
 			<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
-				<h2><?php echo get_query_var( 'soma_block_content' )['title']; ?></h2>
+				<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h2>
 			<?php endif; ?>
 			<?php if ( get_query_var( 'soma_block_content' )['subtitle'] ) : ?>
-				<h4><?php echo get_query_var( 'soma_block_content' )['subtitle']; ?></h4>
+				<h4><?php echo esc_html( get_query_var( 'soma_block_content' )['subtitle'] ); ?></h4>
 			<?php endif; ?>
 			<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
-				<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+				<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></p>
 			<?php endif; ?>
 		</div>
 	</div>

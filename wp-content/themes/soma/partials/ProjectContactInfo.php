@@ -29,17 +29,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 ?>
-<section class="projectcontactinfo-partial-36c8d9 <?php echo get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : ''; ?>">
+<section class="projectcontactinfo-partial-36c8d9 <?php echo esc_attr( get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : '' ); ?>">
 	<div class="container">
 		<div class="content">
 			<div class="column">
-				<?php echo get_query_var( 'soma_block_content' )['column_1']; ?>
+				<?php echo wp_kses_post( get_query_var( 'soma_block_content' )['column_1'] ); ?>
 			</div>
 			<div class="column">
-				<?php echo get_query_var( 'soma_block_content' )['column_2']; ?>
+				<?php echo wp_kses_post( get_query_var( 'soma_block_content' )['column_2'] ); ?>
 			</div>
 			<div class="column">
-				<?php echo get_query_var( 'soma_block_content' )['column_3']; ?>
+				<?php echo wp_kses_post( get_query_var( 'soma_block_content' )['column_3'] ); ?>
 			</div>
 		</div>
 	</div>

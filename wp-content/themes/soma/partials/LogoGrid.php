@@ -43,8 +43,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$idlogo = do_shortcode( "[wpm_translate]{$idlogo}[/wpm_translate]" );
 					$idlogo = preg_replace( '/[^A-Za-z0-9\-]/', '', $idlogo );
 				?>
-				<div class="item" onclick="scrolltoelement('<?php echo $idlogo; ?>',this)">
-					<img src="<?php echo $item['url']; ?>" alt="<?php echo $item['alt']; ?>">
+				<div class="item" onclick="scrolltoelement('<?php echo esc_attr( $idlogo ); ?>',this)">
+					<img src="<?php echo esc_url( $item['url'] ); ?>" alt="<?php echo esc_attr( $item['alt'] ); ?>">
 				</div>
 			<?php endforeach; ?>
 		</div>

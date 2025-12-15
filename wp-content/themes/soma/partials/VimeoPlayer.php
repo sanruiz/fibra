@@ -31,12 +31,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 $cover = get_query_var( 'soma_block_content' )['cover'] ? get_query_var( 'soma_block_content' )['cover']['url'] : '';
 ?>
 
-<section class="vimeoplayer-partial-8e5131 <?php echo get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : ''; ?>" data-video-id="<?php echo get_query_var( 'soma_block_content' )['vimeo_id']; ?>" data-cover="<?php echo $cover; ?>">
+<section class="vimeoplayer-partial-8e5131 <?php echo esc_attr( get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : '' ); ?>" data-video-id="<?php echo esc_attr( get_query_var( 'soma_block_content' )['vimeo_id'] ); ?>" data-cover="<?php echo esc_attr( $cover ); ?>">
 	<div class="container">
 		<div class="content"></div>
 		<?php if ( get_query_var( 'soma_block_content' )['label'] ) : ?>
 			<div class="label">
-				<?php echo get_query_var( 'soma_block_content' )['label']; ?>
+				<?php echo esc_html( get_query_var( 'soma_block_content' )['label'] ); ?>
 			</div>
 		<?php endif; ?>
 	</div>
