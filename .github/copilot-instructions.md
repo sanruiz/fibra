@@ -249,6 +249,45 @@ vendor/bin/phpcs partials/ --sniffs=WordPress.Security.EscapeOutput
 
 **Zero tolerance policy**: No unescaped output allowed in production code.
 
+## ⚠️ CRITICAL: Pre-Push Quality Validation
+
+**ALWAYS run quality checks BEFORE pushing to remote repository:**
+
+```bash
+# Run BOTH quality checks before git push
+cd wp-content/themes/soma
+
+# 1. PHPCS - WordPress Coding Standards (REQUIRED)
+./vendor/bin/phpcs
+# Must pass with 0 errors
+
+# 2. PHPStan - Static Analysis Level 6+ (REQUIRED)
+./vendor/bin/phpstan analyse --memory-limit=1G
+# Must pass with 0 errors
+
+# If both pass, then push:
+git push origin <branch-name>
+```
+
+**WHY**: These validations run in CI/CD and will block deployment if they fail. Running locally before push:
+- ✅ Prevents failed CI runs (saves time)
+- ✅ Catches issues early (faster feedback)
+- ✅ Avoids "fix commit spam" (cleaner git history)
+- ✅ Ensures code quality standards (professional codebase)
+
+**Auto-fix available**:
+```bash
+# PHPCS can auto-fix many issues
+./vendor/bin/phpcbf
+
+# Then verify fixes
+./vendor/bin/phpcs
+```
+
+**When to skip**: NEVER. Quality gates are REQUIRED for all commits that will be pushed.
+
+**Note**: This validation is ONLY required before `git push`, NOT before `git commit`. You can commit locally without running checks, but MUST validate before pushing to remote.
+
 ## ⚠️ CRITICAL: Language Policy
 
 **ALL project files MUST be written in ENGLISH:**
