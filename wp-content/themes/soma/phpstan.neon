@@ -13,14 +13,6 @@ parameters:
         # ACF functions (plugin dependency - no official PHPStan support)
         - '#Function get_field not found#'
         - '#Function acf_add_options_sub_page not found#'
-        # CF7 stub limitation: get_instance() typed as null but returns instance in runtime
-        # Keeping defensive null check in code despite PHPStan warning
-        -
-            message: '#Negated boolean expression is always true#'
-            path: includes/CF7/Validations.php
-        -
-            message: '#Unreachable statement - code above always terminates#'
-            path: includes/CF7/Validations.php
         # Action callbacks don't need return types
         - '#Action callback returns .* but should not return anything#'
         # Allow missing array value types

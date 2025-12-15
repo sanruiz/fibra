@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48cfb975fb003a6b590c0dc183ff237b",
+    "content-hash": "1b11e5aa8020077f8fbebd1d61c233c5",
     "packages": [],
     "packages-dev": [
         {
@@ -212,28 +212,33 @@
         },
         {
             "name": "miguelcolmenares/cf7-stubs",
-            "version": "v6.1.3",
+            "version": "v6.1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/miguelcolmenares/cf7-stubs.git",
-                "reference": "e2e05ac3eca93549032777226a3f669dfa2ba06a"
+                "reference": "1a0d292777bac9ef15cc385e07f026fc521e7024"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miguelcolmenares/cf7-stubs/zipball/e2e05ac3eca93549032777226a3f669dfa2ba06a",
-                "reference": "e2e05ac3eca93549032777226a3f669dfa2ba06a",
+                "url": "https://api.github.com/repos/miguelcolmenares/cf7-stubs/zipball/1a0d292777bac9ef15cc385e07f026fc521e7024",
+                "reference": "1a0d292777bac9ef15cc385e07f026fc521e7024",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "nikic/php-parser": "^4.18",
+                "nikic/php-parser": "^4.18 || ^5.0",
                 "php-stubs/generator": "^0.8.3",
                 "php-stubs/wordpress-stubs": "^6.7",
-                "phpstan/phpstan": "^1.10"
+                "phpstan/phpstan": "^1.10 || ^2.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -256,9 +261,9 @@
             ],
             "support": {
                 "issues": "https://github.com/miguelcolmenares/cf7-stubs/issues",
-                "source": "https://github.com/miguelcolmenares/cf7-stubs/tree/v6.1.3"
+                "source": "https://github.com/miguelcolmenares/cf7-stubs/tree/v6.1.3.1"
             },
-            "time": "2025-11-17T05:17:55+00:00"
+            "time": "2025-12-15T17:10:29+00:00"
         },
         {
             "name": "myclabs/deep-copy",
