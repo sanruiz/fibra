@@ -37,7 +37,7 @@ if($('.sharequotation-partial-7baa8d').length > 0)      ShareQuotationInit( $('.
 if($('.events-partial-e5e1bb').length > 0)              eventsHandler( $('.events-partial-e5e1bb') );
 
 // Dark Mode
-if($('main > section.dark-style:last-of-type').length == 1) $('main').addClass('latest-block-is-dark');
+if($('main > section.dark-style:last-of-type').length === 1) $('main').addClass('latest-block-is-dark');
 
 
 // console.info(`

@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -43,8 +44,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$idlogo = do_shortcode( "[wpm_translate]{$idlogo}[/wpm_translate]" );
 					$idlogo = preg_replace( '/[^A-Za-z0-9\-]/', '', $idlogo );
 				?>
-				<div class="item" onclick="scrolltoelement('<?php echo $idlogo; ?>',this)">
-					<img src="<?php echo $item['url']; ?>" alt="<?php echo $item['alt']; ?>">
+				<div class="item" onclick="scrolltoelement('<?php echo esc_attr( $idlogo ); ?>',this)">
+					<img src="<?php echo esc_url( $item['url'] ); ?>" alt="<?php echo esc_attr( $item['alt'] ); ?>">
 				</div>
 			<?php endforeach; ?>
 		</div>
@@ -57,7 +58,7 @@ $( document ).ready(function() {
 	var parts = pathname .split("/");
 	var last_part = parts[parts.length-2];
 
-	if (last_part == "soma-brands") {
+	if (last_part === "soma-brands") {
 		$('img').css("cursor", "pointer");
 	}
 });

@@ -426,7 +426,7 @@ class Footer extends WidgetBase {
 								<?php echo do_shortcode( $settings['newsletter_form'] ); ?>
 							<?php endif; ?>
 							<div class="success-form" style="display: none;">
-								<?php echo esc_html( $settings['success_message'] ); ?>
+								<?php echo wp_kses_post( $settings['success_message'] ); ?>
 							</div>
 						</div>
 					</div>

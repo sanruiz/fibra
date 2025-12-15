@@ -1,1 +1,9 @@
-<?php // Silence is golden.
+<?php
+/**
+ * Index file
+ *
+ * Silence is golden.
+ *
+ * @package Soma
+ * @since 3.0.0
+ */

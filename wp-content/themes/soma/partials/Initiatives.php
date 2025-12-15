@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -35,19 +36,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 			<div class="main-title">
-				<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+				<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 			</div>
 		<?php endif; ?>
 		<div class="content">
 			<?php foreach ( get_query_var( 'soma_block_content' )['initiatives'] as $key => $item ) : ?>
 				<?php if ( $item['title'] && $item['image'] && $item['pdf'] ) : ?>
 					<div class="item">
-						<a href="<?php echo $item['pdf']['url']; ?>" target="_blank">
+						<a href="<?php echo esc_url( $item['pdf']['url'] ); ?>" target="_blank">
 							<div class="image">
-								<img src="<?php echo $item['image']['url']; ?>" alt="<?php echo $item['image']['alt']; ?>">
+								<img src="<?php echo esc_url( $item['image']['url'] ); ?>" alt="<?php echo esc_attr( $item['image']['alt'] ); ?>">
 							</div>
 							<div class="title">
-								<h3><?php echo $item['title']; ?></h3>
+								<h3><?php echo esc_html( $item['title'] ); ?></h3>
 							</div>
 						</a>
 					</div>

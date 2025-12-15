@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -31,11 +32,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
-<section class="text-partial-4ad1f2 <?php echo get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : ''; ?>">
+<section class="text-partial-4ad1f2 <?php echo esc_attr( get_query_var( 'soma_block_content' )['dark_style'] ? 'dark-style' : '' ); ?>">
 	<div class="container">
 		<div class="content">
-			<div id="content" onload="countLines();" class="box-content columns-<?php echo get_query_var( 'soma_block_content' )['columns']; ?> justify-<?php echo get_query_var( 'soma_block_content' )['justify']; ?> font-size-<?php echo get_query_var( 'soma_block_content' )['font_size']; ?>">
-				<?php echo get_query_var( 'soma_block_content' )['text']; ?>
+			<div id="content" onload="countLines();" class="box-content columns-<?php echo esc_attr( get_query_var( 'soma_block_content' )['columns'] ); ?> justify-<?php echo esc_attr( get_query_var( 'soma_block_content' )['justify'] ); ?> font-size-<?php echo esc_attr( get_query_var( 'soma_block_content' )['font_size'] ); ?>">
+				<?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?>
 			</div>
 			<div class="read" onclick="deploy(this)" >
 				Read more
@@ -59,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	
 	function deploy(element) {
-		if ($(element).text().trim() == "Read more") {
+		if ($(element).text().trim() === "Read more") {
 			$(element).text("Read less");
 			$(element).parent().parent().find('.box-content').removeClass("boxtextcontent-H");
 		}

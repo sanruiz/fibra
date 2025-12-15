@@ -1,12 +1,13 @@
 <?php
 /**
- *
  * Single Team Member Partial
+ *
+ * @package Soma
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
 $info  = get_field( 'team_member_info' );
 $image = get_the_post_thumbnail_url()
 ?>
@@ -27,12 +28,12 @@ $image = get_the_post_thumbnail_url()
 							</g>
 						</svg>
 					</div>
-					<h3><?php echo $info['featured_text']; ?></h3>
+					<h3><?php echo esc_html( $info['featured_text'] ); ?></h3>
 				</div>
 			</div> -->
 			<div class="title">
-				<h3 class="member-name"><?php echo get_the_title(); ?></h3>
-				<h3 class="member-title"><?php echo $info['title']; ?></h3>
+				<h3 class="member-name"><?php echo esc_html( get_the_title() ); ?></h3>
+				<h3 class="member-title"><?php echo esc_html( $info['title'] ); ?></h3>
 				<svg width="106px" height="109px" viewBox="0 0 106 109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 						<g transform="translate(-79.000000, -668.000000)">
@@ -45,7 +46,7 @@ $image = get_the_post_thumbnail_url()
 			</div>
 			<div class="featured-image">
 				<?php if ( $image ) : ?>
-					<img src="<?php echo $image; ?>" alt="Featured image">
+					<img src="<?php echo esc_url( $image ); ?>" alt="Featured image">
 				<?php endif; ?>
 			</div>
 			<div class="featured-text movil">
@@ -60,11 +61,11 @@ $image = get_the_post_thumbnail_url()
 						</g>
 					</svg>
 				</div>
-				<h3><?php echo $info['featured_text']; ?></h3>
+				<h3><?php echo esc_html( $info['featured_text'] ); ?></h3>
 			</div>
 			<div class="body">
 				<div class="body-content">
-					<?php echo $info['body']; ?>
+					<?php echo wp_kses_post( $info['body'] ); ?>
 				</div>
 			</div>
 		</div>

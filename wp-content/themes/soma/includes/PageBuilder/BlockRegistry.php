@@ -82,17 +82,17 @@ class BlockRegistry {
 	 * @return void
 	 */
 	private function register_default_blocks(): void {
-		// Sliders & Fullscreen
+		// Sliders & Fullscreen.
 		$this->register_block( 'fullscreenSlider', 'fullscreen_slider_content', 'fullscreenSlider' );
 		$this->register_block( 'randomInfo', 'random_info_content', 'randomInfo' );
 		$this->register_block( 'randomInfoFullscreen', 'random_info_fullscreen_content', 'randomInfoFullscreen' );
 
-		// Business Units
+		// Business Units.
 		$this->register_block( 'BusinessUnits', 'business_units_content', 'BusinessUnits' );
 		$this->register_block( 'BusinessUnits2', 'business_units_2_content', 'BusinessUnits2' );
 		$this->register_block( 'BusinessUnitsContact', 'business_units_contact_content', 'BusinessUnitsContact' );
 
-		// Text & Content Blocks
+		// Text & Content Blocks.
 		$this->register_block( 'Bigtext_Image', 'bigtext_image_content', 'Bigtext_Image' );
 		$this->register_block( 'Logo_TwoColumnsText', 'logo_twocolumnstext_content', 'Logo_TwoColumnsText' );
 		$this->register_block( 'Phrase', 'phrase_content', 'Phrase' );
@@ -102,21 +102,21 @@ class BlockRegistry {
 		$this->register_block( 'FeaturedText', 'featured_text_content', 'FeaturedText' );
 		$this->register_block( 'TextSlider', 'text_slider_content', 'TextSlider' );
 
-		// Lists & Grids
+		// Lists & Grids.
 		$this->register_block( 'NewsList', 'news_list_content', 'NewsList' );
 		$this->register_block( 'CareersList', 'careers_list_content', 'CareersList' );
 		$this->register_block( 'TeamMembers', 'team_members_content', 'TeamMembers' );
 		$this->register_block( 'TeamMembersFibrasoma', 'team_members_fibrasoma_content', 'TeamMembersFibrasoma' );
 		$this->register_block( 'LogoGrid', 'logo_grid_content', 'LogoGrid' );
 
-		// Media
+		// Media.
 		$this->register_block( 'VimeoPlayer', 'vimeo_player_content', 'VimeoPlayer' );
 		$this->register_block( 'Logo_Image', 'logo_image_content', 'Logo_Image' );
 		$this->register_block( 'TwoImages', 'two_images_content', 'TwoImages' );
 		$this->register_block( 'Image_Text', 'image_text_content', 'Image_Text' );
 		$this->register_block( 'Image', 'image_content', 'Image' );
 
-		// Special Features
+		// Special Features.
 		$this->register_block( 'Timeline', 'timeline_content', 'Timeline' );
 		$this->register_block( 'Brand', 'brand_content', 'Brand' );
 		$this->register_block( 'Portfolio', 'portfolio_content', 'Portfolio' );
@@ -125,12 +125,12 @@ class BlockRegistry {
 		$this->register_block( 'Art', 'art_content', 'Art' );
 		$this->register_block( 'Initiatives', 'initiatives_content', 'Initiatives' );
 
-		// Contact & Info
+		// Contact & Info.
 		$this->register_block( 'ContactInfo', 'contact_info_content', 'ContactInfo' );
 		$this->register_block( 'Contact', 'contact_content', 'Contact' );
 		$this->register_block( 'ContactHeader', 'contact_header_content', 'ContactHeader' );
 
-		// Fibrasoma Specific
+		// Fibrasoma Specific.
 		$this->register_block( 'FibrasomaHome1', 'fibrasoma_home_1_content', 'FibrasomaHome1' );
 		$this->register_block( 'FibrasomaHome2', 'fibrasoma_home_2_content', 'FibrasomaHome2' );
 		$this->register_block( 'FibrasomaHome3', 'fibrasoma_home_3_content', 'FibrasomaHome3' );
@@ -138,19 +138,19 @@ class BlockRegistry {
 		$this->register_block( 'FibrasomaHeader', 'fibrasoma_header_content', 'FibrasomaHeader' );
 		$this->register_block( 'FibrasomaHomeEvents', 'fibrasoma_home_events_content', 'FibrasomaHomeEvents' );
 
-		// Documents & Reports
+		// Documents & Reports.
 		$this->register_block( 'Documents', 'documents_list_content', 'Documents' );
 		$this->register_block( 'Report', 'report_content', 'Report' );
 		$this->register_block( 'AnnualReports', 'annual_reports_content', 'AnnualReports' );
 		$this->register_block( 'AnalystCoverage', 'analyst_coverage_content', 'AnalystCoverage' );
 
-		// Financial
+		// Financial.
 		$this->register_block( 'ShareQuotation', 'share_quotation_content', 'ShareQuotation' );
 
-		// Events
+		// Events.
 		$this->register_block( 'Events', 'events_content', 'Events' );
 
-		// Utilities
+		// Utilities.
 		$this->register_block( 'Redirect', 'redirect_content', 'Redirect' );
 		$this->register_block( 'CustomKeywords', 'custom_keywords_content', 'CustomKeywords' );
 	}

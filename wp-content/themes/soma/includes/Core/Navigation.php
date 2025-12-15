@@ -69,7 +69,7 @@ class Navigation implements LoadableInterface {
 	 * @return int Priority (lower = earlier)
 	 */
 	public function get_priority(): int {
-		return 8; // Load early, before most components
+		return 8; // Load early, before most components.
 	}
 
 	/**

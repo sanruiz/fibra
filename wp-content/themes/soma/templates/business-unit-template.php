@@ -1,15 +1,16 @@
 <?php
 /**
- *
  * Template Name: Business Unit
+ *
+ * @package Soma
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 get_header();
-
-global $pageBuilder;
-$pageBuilder = get_field( 'soma_blocks' );
+global $page_builder;
+$page_builder = get_field( 'soma_blocks' );
 
 $bussiness_unit_data = get_field( 'business_unit_data' );
 ?>
@@ -18,7 +19,7 @@ $bussiness_unit_data = get_field( 'business_unit_data' );
 
 <section class="bussiness-units-header">
 	<div class="container">
-		<div class="content" style="background-color: <?php echo $bussiness_unit_data['color']; ?>">
+		<div class="content" style="background-color: <?php echo esc_attr( $bussiness_unit_data['color'] ); ?>">
 			<svg width="148px" height="150px" viewBox="0 0 148 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 				<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 					<g transform="translate(-1153.000000, -453.000000)">

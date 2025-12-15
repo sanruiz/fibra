@@ -161,6 +161,14 @@ class Validations {
 			return $message;
 		}
 
+		/**
+		 * Inform PHPStan that after null check, $submission is WPCF7_Submission instance.
+		 *
+		 * Stub limitation: get_instance() is typed as returning null, but returns instance in runtime.
+		 *
+		 * @var \WPCF7_Submission $submission
+		 */
+
 		$posted_data = $submission->get_posted_data();
 
 		if ( ! isset( $posted_data['fname'], $posted_data['email'], $posted_data['message'] ) ) {

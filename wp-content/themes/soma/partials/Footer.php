@@ -20,6 +20,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -27,22 +28,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 $data = get_field( 'footer_content', 'options' );
 ?>
 
-<section class="footer-partial-c90350 style-<?php echo $data['style']; ?>">
+<section class="footer-partial-c90350 style-<?php echo esc_attr( $data['style'] ); ?>">
 	<div class="container">
 		<div class="content">
 			<div class="row">
 				<div class="logo">
 					<?php if ( $data['logo'] ) : ?>
-						<a href="<?php echo get_site_url(); ?>">
-							<img src="<?php echo $data['logo']['url']; ?>" alt="<?php echo $data['logo']['alt']; ?>">
+						<a href="<?php echo esc_url( get_site_url() ); ?>">
+							<img src="<?php echo esc_url( $data['logo']['url'] ); ?>" alt="<?php echo esc_attr( $data['logo']['alt'] ); ?>">
 						</a>
 					<?php endif; ?>
 					<div class="logo_subtext">
-						<?php echo $data['logo_subtext']; ?>
+						<?php echo esc_html( $data['logo_subtext'] ); ?>
 					</div>
 				</div>
 				<div class="location mobile-copy">
-					<?php echo $data['location_text']; ?>
+					<?php echo esc_html( $data['location_text'] ); ?>
 				</div>
 				<div class="newsletter">
 					<?php echo do_shortcode( $data['newsletter_form_shortcode'] ); ?>
@@ -54,45 +55,45 @@ $data = get_field( 'footer_content', 'options' );
 			</div>
 			<div class="row">
 				<div class="location">
-					<?php echo $data['location_text']; ?>
+					<?php echo wp_kses_post( $data['location_text'] ); ?>
 				</div>
 				<div class="nav">
 					<div class="nav-container">
-						<?php if ( $data['style'] == 'fibrasoma' ) : ?>
+						<?php if ( $data['style'] === 'fibrasoma' ) : ?>
 							<?php
 								wp_nav_menu(
-									[
+									array(
 										'menu'           => 'fibrasoma_footer',
 										'theme_location' => 'fibrasoma_footer',
 										'container'      => 'div',
 										'menu_class'     => 'fibrasoma-list',
-									]
+									)
 								);
 							?>
 						<?php else : ?>
 							<div class="nav-list">
-								<div class="title"><?php echo wpm_get_language() == 'es' ? 'Redes' : 'Social'; ?></div>
+								<div class="title"><?php echo wpm_get_language() === 'es' ? 'Redes' : 'Social'; ?></div>
 								<?php
 									wp_nav_menu(
-										[
+										array(
 											'menu'       => 'social',
 											'theme_location' => 'social',
 											'container'  => 'div',
 											'menu_class' => 'social-list',
-										]
+										)
 									);
 								?>
 							</div>
 							<div class="nav-list">
-								<div class="title"><?php echo wpm_get_language() == 'es' ? 'Unidades de Negocio' : 'Business Units'; ?></div>
+								<div class="title"><?php echo wpm_get_language() === 'es' ? 'Unidades de Negocio' : 'Business Units'; ?></div>
 								<?php
 									wp_nav_menu(
-										[
+										array(
 											'menu'       => 'business_units',
 											'theme_location' => 'business_units',
 											'container'  => 'div',
 											'menu_class' => 'business-list',
-										]
+										)
 									);
 								?>
 							</div>
@@ -101,13 +102,13 @@ $data = get_field( 'footer_content', 'options' );
 				</div>
 			</div>
 			<div class="row">
-				<div class="copyright"><?php echo $data['copyright']; ?></div>
+				<div class="copyright"><?php echo esc_html( $data['copyright'] ); ?></div>
 				<div class="credits">
 					<?php if ( $data['credits'] ) : ?>
-						<a href="<?php echo $data['credits']['url']; ?>" target="<?php echo $data['credits']['target']; ?>"><?php echo $data['credits']['title']; ?></a>
+						<a href="<?php echo esc_url( $data['credits']['url'] ); ?>" target="<?php echo esc_attr( $data['credits']['target'] ); ?>"><?php echo esc_html( $data['credits']['title'] ); ?></a>
 					<?php endif; ?>
 					<?php if ( $data['privacy_policy'] ) : ?>
-						<a href="<?php echo $data['privacy_policy']['url']; ?>" target="<?php echo $data['privacy_policy']['target']; ?>"><?php echo $data['privacy_policy']['title']; ?></a>
+						<a href="<?php echo esc_url( $data['privacy_policy']['url'] ); ?>" target="<?php echo esc_attr( $data['privacy_policy']['target'] ); ?>"><?php echo esc_html( $data['privacy_policy']['title'] ); ?></a>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -124,7 +125,7 @@ $data = get_field( 'footer_content', 'options' );
 				
 				$('.wpcf7-not-valid-tip').each(function() {
 					jQuery('#btn-arrow').addClass('noempty');
-					if ($(this).text() == "Email address entered is not valid, DNS resolution failed." ||  jQuery(this).text() == "The email value is not valid." ||  jQuery(this).text() == "The e-mail address entered is invalid." || jQuery(this).text() == "La dirección de correo electrónico que has introducido no es válida.") {
+				if ($(this).text() === "Email address entered is not valid, DNS resolution failed." ||  jQuery(this).text() === "The email value is not valid." ||  jQuery(this).text() === "The e-mail address entered is invalid." || jQuery(this).text() === "La dirección de correo electrónico que has introducido no es válida.") {
 						$(this).show();
 						$(this).text('Inavalid email');
 					}

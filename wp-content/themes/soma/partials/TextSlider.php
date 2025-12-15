@@ -23,12 +23,18 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-
-function addZero( $num ) {
+/**
+ * Add leading zero to numbers less than 10.
+ *
+ * @param int|string $num Number to format.
+ * @return string Number with leading zero if needed.
+ */
+function add_zero( $num ) {
 	if ( $num < 10 ) {
 		$num = '0' . $num;
 	}
@@ -37,21 +43,21 @@ function addZero( $num ) {
 ?>
 
 <?php if ( get_query_var( 'soma_block_content' )['slides'] ) : ?>
-<section class="textslider-partial-8bf200" <?php echo get_query_var( 'soma_block_content' )['autoplay'] ? 'data-autoplay="1"' : 'data-autoplay="0"'; ?> data-autoplay-speed="<?php echo get_query_var( 'soma_block_content' )['autoplay_speed']; ?>">
+<section class="textslider-partial-8bf200" <?php echo get_query_var( 'soma_block_content' )['autoplay'] ? 'data-autoplay="1"' : 'data-autoplay="0"'; ?> data-autoplay-speed="<?php echo esc_attr( get_query_var( 'soma_block_content' )['autoplay_speed'] ); ?>">
 	<div class="container">
 		<div class="content">
 			<div class="selector">
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 					<div class="title" onClick="$(this).toggleClass('closed')">
-						<?php echo get_query_var( 'soma_block_content' )['title']; ?>
+						<?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?>
 						<span class="close-button"></span>
 					</div>
 				<?php endif; ?>
 				<div class="list">
 					<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
 						<?php if ( $item['label'] ) : ?>
-							<div class="item" data-slide="<?php echo $key; ?>">
-								<?php echo $item['label']; ?>
+							<div class="item" data-slide="<?php echo esc_attr( $key ); ?>">
+								<?php echo esc_html( $item['label'] ); ?>
 							</div>
 						<?php endif; ?>
 					<?php endforeach; ?>
@@ -61,12 +67,12 @@ function addZero( $num ) {
 				<?php foreach ( get_query_var( 'soma_block_content' )['slides'] as $key => $item ) : ?>
 					<?php if ( $item ) : ?>
 						<div class="item">
-							<h2><?php echo addZero( $key + 1 ); ?></h2>
+							<h2><?php echo esc_html( add_zero( $key + 1 ) ); ?></h2>
 							<?php if ( $item['title'] ) : ?>
-								<h3><?php echo $item['title']; ?></h3>
+							<h3><?php echo esc_html( $item['title'] ); ?></h3>
 							<?php endif; ?>
 							<?php if ( $item['text'] ) : ?>
-								<p><?php echo $item['text']; ?></p>
+							<p><?php echo wp_kses_post( $item['text'] ); ?></p>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>

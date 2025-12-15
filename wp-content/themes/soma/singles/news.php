@@ -1,12 +1,13 @@
 <?php
 /**
- *
  * Single News Partial
+ *
+ * @package Soma
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
 $info           = get_field( 'news_content' );
 $featured_image = get_the_post_thumbnail_url();
 ?>
@@ -15,35 +16,35 @@ $featured_image = get_the_post_thumbnail_url();
 	<div class="container">
 		<div class="content">
 			<div class="title">
-				<h3><?php echo get_the_title(); ?></h3>
+				<h3><?php echo esc_html( get_the_title() ); ?></h3>
 				<div class="date">
 					<?php if ( $info['date'] ) : ?>
 						<?php $date = DateTime::createFromFormat( 'U', $info['date'] ); ?>
-						<?php echo $date->format( 'F j, Y' ); ?>
+						<?php echo esc_html( $date->format( 'F j, Y' ) ); ?>
 					<?php endif; ?>
 					<?php if ( $info['author'] ) : ?>
-						&nbsp;—&nbsp;<?php echo $info['author']; ?>
+						&nbsp;—&nbsp;<?php echo esc_html( $info['author'] ); ?>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="featured-image">
 				<?php if ( $featured_image ) : ?>
-					<img src="<?php echo $featured_image; ?>" alt="Featured image">
+					<img src="<?php echo esc_url( $featured_image ); ?>" alt="Featured image">
 				<?php endif; ?>
 			</div>
 			<div class="featured-text">
 				<?php if ( $info['featured_text'] ) : ?>
-					<h3><?php echo $info['featured_text']; ?></h3>
+					<h3><?php echo esc_html( $info['featured_text'] ); ?></h3>
 				<?php endif; ?>
 			</div>
 			<div class="body">
 				<?php if ( $info['body'] ) : ?>
-					<div class="text"><?php echo $info['body']; ?></div>
+					<div class="text"><?php echo wp_kses_post( $info['body'] ); ?></div>
 				<?php endif; ?>
 				<?php if ( $info['link'] ) : ?>
 					<div class="link">
-						<a href="<?php echo $info['link']['url']; ?>" target="<?php echo $info['link']['target']; ?>">
-							<?php echo $info['link']['title']; ?>
+						<a href="<?php echo esc_url( $info['link']['url'] ); ?>" target="<?php echo esc_attr( $info['link']['target'] ); ?>">
+							<?php echo esc_html( $info['link']['title'] ); ?>
 							<svg width="17px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 									<g transform="translate(-733.000000, -553.000000)">

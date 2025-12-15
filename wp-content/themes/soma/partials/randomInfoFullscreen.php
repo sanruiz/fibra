@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -42,15 +43,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 
 	<div class="image">
-		<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+		<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 	</div>
 
 	<?php $wall = ( count( get_query_var( 'soma_block_content' )['data'] ) < 4 ) ? count( get_query_var( 'soma_block_content' )['data'] ) : 4; ?>
 	<div class="data-container">
 		<?php for ( $i = 1; $i <= $wall; $i++ ) : ?>
 			<div class="item">
-				<div class="value"><?php echo get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['value']; ?></div>
-				<div class="label"><?php echo get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['label']; ?></div>
+				<div class="value"><?php echo esc_html( get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['value'] ); ?></div>
+				<div class="label"><?php echo esc_html( get_query_var( 'soma_block_content' )['data'][ ( $i - 1 ) ]['label'] ); ?></div>
 			</div>
 		<?php endfor ?>
 	</div>

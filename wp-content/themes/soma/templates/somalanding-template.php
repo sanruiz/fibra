@@ -1,13 +1,14 @@
 <?php
 /**
- *
  * Template Name: Soma Landing
+ *
+ * @package Soma
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 get_header();
-
 $content = get_field( 'soma_landing_content' );
 
 ?>
@@ -23,7 +24,7 @@ $content = get_field( 'soma_landing_content' );
 <main id="somalanding-template-11512d">
 	<div class="container">
 		<div class="landing-header">
-			<img src="<?php echo get_template_directory_uri(); ?>/images/landing_logo.svg" alt="Landing Logo">
+			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/landing_logo.svg" alt="Landing Logo">
 		</div>
 		<div class="landing-body">
 			<div class="logo">
@@ -40,12 +41,12 @@ $content = get_field( 'soma_landing_content' );
 			<div class="content">
 				<?php if ( $content['title'] ) : ?>
 					<div class="title">
-						<h2><?php echo $content['title']; ?></h2>
+					<h2><?php echo esc_html( $content['title'] ); ?></h2>
 					</div>
 				<?php endif; ?>
 				<?php if ( $content['subtitle'] ) : ?>
 					<div class="subtitle">
-						<h3><?php echo $content['subtitle']; ?></h3>
+					<h3><?php echo esc_html( $content['subtitle'] ); ?></h3>
 					</div>
 				<?php endif; ?>
 				<?php if ( $content['form_shortcode'] ) : ?>

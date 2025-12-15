@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 global $post;
-global $pageBuilder;
-$pageBuilder    = get_field( 'soma_blocks' );
+global $page_builder;
+$page_builder   = get_field( 'soma_blocks' );
 $header_options = get_field( 'header_content', 'options' );
 ?>
 
@@ -21,7 +21,7 @@ $header_options = get_field( 'header_content', 'options' );
 	<?php get_template_part( 'partials/BreadCrumb' ); ?>
 <?php endif; ?>
 
-<main id="ditto-page" page-slug="<?php echo $post->post_name; ?>" data-header-style="<?php echo $header_options['style']; ?>">
+<main id="ditto-page" page-slug="<?php echo esc_attr( $post->post_name ); ?>" data-header-style="<?php echo esc_attr( $header_options['style'] ); ?>">
 	<?php get_template_part( 'page-builder' ); ?>
 </main>
 

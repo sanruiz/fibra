@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -33,25 +34,25 @@ $data = get_query_var( 'soma_block_content' );
 $post_per_page   = $data['posts_per_page'] ? "data-posts-per-page='{$data['posts_per_page']}'" : '';
 $infinite_scroll = $data['infinite_scroll'] ? "data-infinite-scroll='{$data['infinite_scroll']}'" : '';
 
-$formatedPostList = $data['post_list'] ? json_encode( $data['post_list'] ) : '';
-$post_list        = $data['post_list'] ? "data-post-list='{$formatedPostList}'" : '';
+$formated_post_list = $data['post_list'] ? wp_json_encode( $data['post_list'] ) : '';
+$post_list          = $data['post_list'] ? "data-post-list='{$formated_post_list}'" : '';
 
 $props = "{$post_per_page} {$infinite_scroll} {$post_list}";
 ?>
 
-<section class="newslist-partial-afa6f9 <?php echo ( $data['style'] == 'white' ) ? 'news-white' : 'news-black'; ?>" <?php echo $props; ?> data-lang="<?php echo wpm_get_language(); ?>">
+<section class="newslist-partial-afa6f9 <?php echo esc_attr( ( $data['style'] === 'white' ) ? 'news-white' : 'news-black' ); ?>" <?php echo esc_attr( $props ); ?> data-lang="<?php echo esc_attr( wpm_get_language() ); ?>">
 	<div class="container">
 		<div class="title-container">
 			<div class="title">
-				<?php if ( $data['title_size'] == 'big' ) : ?>
-					<h2><?php echo $data['title']; ?></h2>
+				<?php if ( $data['title_size'] === 'big' ) : ?>
+					<h2><?php echo esc_html( $data['title'] ); ?></h2>
 				<?php else : ?>
-					<h3><?php echo $data['title']; ?></h3> 
+					<h3><?php echo esc_html( $data['title'] ); ?></h3> 
 				<?php endif; ?>
 			</div>
 			<div class="link">
 				<?php if ( $data['link'] ) : ?>
-					<a href="<?php echo $data['link']['url']; ?>" target="<?php echo $data['link']['target']; ?>"><?php echo $data['link']['title']; ?></a>
+					<a href="<?php echo esc_url( $data['link']['url'] ); ?>" target="<?php echo esc_attr( $data['link']['target'] ); ?>"><?php echo esc_html( $data['link']['title'] ); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>

@@ -23,6 +23,7 @@
     },
     "require-dev": {
         "damian-elenbaas/elementor-stubs": "^3.31",
+        "miguelcolmenares/cf7-stubs": "^6.1.3.1",
         "php-stubs/acf-pro-stubs": "^6.5",
         "php-stubs/wordpress-seo-stubs": "^20.5",
         "php-stubs/wordpress-stubs": "^6.6",

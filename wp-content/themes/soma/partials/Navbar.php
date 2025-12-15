@@ -20,6 +20,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -28,14 +29,14 @@ $logo           = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), '
 $header_options = get_field( 'header_content', 'options' );
 ?>
 
-<section class="navbar-partial-df27ae style-<?php echo $header_options['style']; ?>">
-	<?php if ( $header_options['style'] == 'fibrasoma' ) : ?>
+<section class="navbar-partial-df27ae style-<?php echo esc_attr( $header_options['style'] ); ?>">
+	<?php if ( $header_options['style'] === 'fibrasoma' ) : ?>
 		<div class="fibrasoma-top-bar-container">
 			<div class="container">
 				<div class="top-bar fibrasoma-top-bar">
 					<?php if ( $header_options['top_bar_link'] ) : ?>
 						<div class="top-bar-link">
-							<a href="<?php echo $header_options['top_bar_link']['url']; ?>" target="<?php echo $header_options['top_bar_link']['target']; ?>">
+							<a href="<?php echo esc_url( $header_options['top_bar_link']['url'] ); ?>" target="<?php echo esc_attr( $header_options['top_bar_link']['target'] ); ?>">
 								<svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 										<g transform="translate(-63.000000, -13.000000)">
@@ -47,7 +48,7 @@ $header_options = get_field( 'header_content', 'options' );
 										</g>
 									</g>
 								</svg>
-								<?php echo $header_options['top_bar_link']['title']; ?>
+								<?php echo esc_html( $header_options['top_bar_link']['title'] ); ?>
 							</a>
 						</div>
 					<?php endif; ?>
@@ -80,9 +81,9 @@ $header_options = get_field( 'header_content', 'options' );
 	<div class="container">
 		<div class="content">
 			<div class="logo">
-				<a href="<?php echo get_site_url(); ?>">
+				<a href="<?php echo esc_url( get_site_url() ); ?>">
 					<?php if ( has_custom_logo() ) : ?>
-						<img src="<?php echo $logo; ?>" alt="SOMA Logo">
+						<img src="<?php echo esc_url( $logo ); ?>" alt="SOMA Logo">
 					<?php else : ?>
 						<?php bloginfo( 'name' ); ?>
 					<?php endif; ?>
@@ -122,12 +123,12 @@ $header_options = get_field( 'header_content', 'options' );
 				<div class="main-menu-container">
 					<?php
 						wp_nav_menu(
-							[
+							array(
 								'menu'           => 'main_menu',
 								'theme_location' => 'main_menu',
 								'container'      => 'div',
 								'menu_class'     => 'main-menu-list',
-							]
+							)
 						);
 						?>
 				</div>

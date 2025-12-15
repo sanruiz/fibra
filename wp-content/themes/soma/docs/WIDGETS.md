@@ -890,7 +890,7 @@ $args['post_status'] = 'publish';
 ### Support
 
 - **GitHub Issues**: https://github.com/sanruiz/fibra/issues
-- **Project Board**: https://github.com/users/miguelcolmenares/projects/1
+- **Project Board**: https://github.com/users/sanruiz/projects/4
 
 ---
 

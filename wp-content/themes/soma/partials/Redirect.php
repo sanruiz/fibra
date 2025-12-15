@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -31,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <section class="redirect-partial-39759a">
 	<?php if ( get_query_var( 'soma_block_content' )['redirect_to'] ) : ?>
-		<meta http-equiv="refresh" content="0; url=<?php echo get_the_permalink( get_query_var( 'soma_block_content' )['redirect_to'] ); ?>">
+		<meta http-equiv="refresh" content="0; url=<?php echo esc_url( get_the_permalink( get_query_var( 'soma_block_content' )['redirect_to'] ) ); ?>">
 	<?php endif; ?>
 </section>
 					

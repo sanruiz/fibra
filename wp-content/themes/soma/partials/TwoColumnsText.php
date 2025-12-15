@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -34,23 +35,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="content">
 			<?php if ( get_query_var( 'soma_block_content' )['logo'] ) : ?>
 				<div class="logo">
-					<img src="<?php echo get_query_var( 'soma_block_content' )['logo']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['logo']['alt']; ?>">
+					<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['logo']['alt'] ); ?>">
 				</div>
 			<?php endif; ?>
 			<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 				<div class="title">
-					<?php echo get_query_var( 'soma_block_content' )['title']; ?>
+					<?php echo wp_kses_post( get_query_var( 'soma_block_content' )['title'] ); ?>
 				</div>
 			<?php endif; ?>
 			<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
 				<div class="text">
-					<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+					<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></p>
 				</div>
 			<?php endif; ?>
 			<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
 				<div class="link">
-					<a href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
-						<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+					<a href="<?php echo esc_url( get_query_var( 'soma_block_content' )['link']['url'] ); ?>" target="<?php echo esc_attr( get_query_var( 'soma_block_content' )['link']['target'] ); ?>">
+						<?php echo esc_html( get_query_var( 'soma_block_content' )['link']['title'] ); ?>
 					</a>
 				</div>
 			<?php endif; ?>

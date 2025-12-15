@@ -23,17 +23,18 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 
-$args    = [
+$args    = array(
 	'numberposts' => -1,
 	'post_type'   => 'careers',
 	'post_status' => array( 'publish' ),
 	'order'       => $params['order'] ? $params['order'] : 'DESC',
-];
+);
 $careers = get_posts( $args );
 
 ?>
@@ -42,22 +43,22 @@ $careers = get_posts( $args );
 		<div class="content">
 			<div class="title-container">
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
-					<h2><?php echo get_query_var( 'soma_block_content' )['title']; ?></h2>
+					<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h2>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['text'] ) : ?>
-					<p><?php echo get_query_var( 'soma_block_content' )['text']; ?></p>
+					<p><?php echo wp_kses_post( get_query_var( 'soma_block_content' )['text'] ); ?></p>
 				<?php endif; ?>
 			</div>
 			<?php if ( $careers ) : ?>
 				<?php foreach ( $careers as $key => $item ) : ?>
 					<?php $info = get_field( 'careers_info', $item->ID ); ?> 
-					<a href="<?php echo get_the_permalink( $item->ID ); ?>">
+					<a href="<?php echo esc_url( get_the_permalink( $item->ID ) ); ?>">
 						<div class="careers-item">
 							<div class="careers-title">
-								<h3><?php echo get_the_title( $item->ID ); ?></h3>
+								<h3><?php echo esc_html( get_the_title( $item->ID ) ); ?></h3>
 							</div>
 							<div class="careers-city">
-								<h3><?php echo $info['city']; ?></h3>
+								<h3><?php echo esc_html( $info['city'] ); ?></h3>
 								<div class="arrow">
 									<svg xmlns="http://www.w3.org/2000/svg" width="45.007" height="41.776" viewBox="0 0 45.007 41.776">
 										<g id="Group_2_Copy_15" data-name="Group 2 Copy 15" transform="translate(0.903 42.004) rotate(-90)">

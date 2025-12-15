@@ -322,7 +322,7 @@ class BusinessUnits extends WidgetBase {
 				<?php endif; ?>
 			</div>
 
-			<div class="content" data-total="<?php echo esc_attr( $max_items ); ?>">
+		<div class="content" data-total="<?php echo esc_attr( (string) $max_items ); ?>">
 				<?php for ( $i = 0; $i < $max_items; $i++ ) : ?>
 					<?php if ( isset( $business_units[ $i ] ) ) : ?>
 						<?php

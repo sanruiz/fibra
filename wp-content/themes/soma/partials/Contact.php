@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -36,13 +37,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="content">
 			<div class="image">
 				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
-					<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+					<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 				<?php endif; ?>
 			</div>
 			<div class="form">
 				<?php echo do_shortcode( get_query_var( 'soma_block_content' )['form_shortcode'] ); ?>
 				<div class="thankyou-message" style="display: none">
-					<?php echo get_query_var( 'soma_block_content' )['thank_you_message']; ?>
+					<?php echo wp_kses_post( get_query_var( 'soma_block_content' )['thank_you_message'] ); ?>
 				</div>
 			</div>
 		</div>

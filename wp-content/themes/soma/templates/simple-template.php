@@ -1,8 +1,10 @@
 <?php
 /**
- *
  * Template Name: Simple
+ *
+ * @package Soma
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -11,7 +13,7 @@ get_header();
 <main id="simple-template-ee30ff">
 	<section>
 		<div class="container">
-			<?php echo get_the_content(); ?>
+			<?php echo wp_kses_post( get_the_content() ); ?>
 		</div>
 	</section>
 </main>

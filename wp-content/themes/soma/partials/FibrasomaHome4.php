@@ -23,25 +23,26 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 
-if ( get_query_var( 'soma_block_content' )['press_releases'] == 'latest' ) {
-	$args  = [
+if ( get_query_var( 'soma_block_content' )['press_releases'] === 'latest' ) {
+	$args  = array(
 		'numberposts' => 3,
 		'post_type'   => 'documents-reports',
 		'post_status' => array( 'publish' ),
 		'order'       => 'DESC',
-		'tax_query'   => [
-			[
+		'tax_query'   => array(
+			array(
 				'taxonomy' => 'documents-taxonomy',
 				'field'    => 'slug',
 				'terms'    => 'press_releases',
-			],
-		],
-	];
+			),
+		),
+	);
 	$press = get_posts( $args );
 } else {
 	$press[0] = get_query_var( 'soma_block_content' )['items'][0]['press'] ? get_query_var( 'soma_block_content' )['items'][0]['press'] : null;
@@ -69,19 +70,19 @@ $arrow = '
 			<div class="text">
 				<?php if ( get_query_var( 'soma_block_content' )['number'] ) : ?>
 					<div class="number">
-						<h2><?php echo get_query_var( 'soma_block_content' )['number']; ?></h2>
+					<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['number'] ); ?></h2>
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 					<div class="title">
-						<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 					</div>
 				<?php endif; ?>
 			</div>
 			<div class="link">
 				<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
-					<a class="underline-text" href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
-						<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+				<a class="underline-text" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['link']['url'] ); ?>" target="<?php echo esc_attr( get_query_var( 'soma_block_content' )['link']['target'] ); ?>">
+					<?php echo esc_html( get_query_var( 'soma_block_content' )['link']['title'] ); ?>
 					</a>
 				<?php endif; ?>
 			</div>
@@ -90,27 +91,27 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[0]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[0]->ID ); ?>
 
-					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
-					<?php if ( $mainFile ) : ?>
-						<div class="item">
-							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
-								<?php if ( $featured_image ) : ?>
-									<div class="image">
-										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+					<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php if ( $main_file ) : ?>
+					<div class="item">
+					<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">
+							<?php if ( $featured_image ) : ?>
+								<div class="image">
+									<img src="<?php echo esc_url( $featured_image ); ?>" alt="Featured Image">
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
-									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<?php $formated_date = wp_date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
-										<?php echo soma_translate_date( $formated_date ); ?>
-									</div>
-								<?php endif; ?>
-								<div class="press-title">
-									<?php echo get_the_title( $press[0]->ID ); ?>
+									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
+								</div>
+							<?php endif; ?>
+							<div class="press-title">
+								<?php echo wp_kses_post( get_the_title( $press[0]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
-										<span><?php echo $content['label'] . $arrow; ?></span>
+									<span><?php echo wp_kses_post( esc_html( $content['label'] ) . $arrow ); ?></span>
 									</div>
 								<?php endif; ?>
 							</a>
@@ -123,27 +124,27 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[1]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[1]->ID ); ?>
 
-					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
-					<?php if ( $mainFile ) : ?>
-						<div class="item">
-							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
-								<?php if ( $featured_image ) : ?>
-									<div class="image">
-										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+					<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php if ( $main_file ) : ?>
+					<div class="item">
+					<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">
+							<?php if ( $featured_image ) : ?>
+								<div class="image">
+									<img src="<?php echo esc_url( $featured_image ); ?>" alt="Featured Image">
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
-									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<?php $formated_date = wp_date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
-										<?php echo soma_translate_date( $formated_date ); ?>
-									</div>
-								<?php endif; ?>
-								<div class="press-title">
-									<?php echo get_the_title( $press[1]->ID ); ?>
+									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
+								</div>
+							<?php endif; ?>
+							<div class="press-title">
+								<?php echo wp_kses_post( get_the_title( $press[1]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
-										<span><?php echo $content['label'] . $arrow; ?></span>
+									<span><?php echo wp_kses_post( esc_html( $content['label'] ) . $arrow ); ?></span>
 									</div>
 								<?php endif; ?>
 							</a>
@@ -154,27 +155,27 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[2]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[2]->ID ); ?>
 
-					<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
-					<?php if ( $mainFile ) : ?>
-						<div class="item">
-							<a href="<?php echo $mainFile['url']; ?>" target="_blank">
+					<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php if ( $main_file ) : ?>
+					<div class="item">
+						<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">
 								<?php if ( $featured_image ) : ?>
 									<div class="image">
-										<img src="<?php echo $featured_image; ?>" alt="Featured Image">
+										<img src="<?php echo esc_url( $featured_image ); ?>" alt="Featured Image">
 									</div>
 								<?php endif; ?>
 								<?php if ( $content['date'] ) : ?>
-									<?php $formated_date = date( 'F j, Y', $content['date'] ); ?>
+									<?php $formated_date = wp_date( 'F j, Y', $content['date'] ); ?>
 									<div class="date">
-										<?php echo soma_translate_date( $formated_date ); ?>
-									</div>
-								<?php endif; ?>
-								<div class="press-title">
-									<?php echo get_the_title( $press[2]->ID ); ?>
+									<?php echo esc_html( soma_translate_date( $formated_date ) ); ?>
+								</div>
+							<?php endif; ?>
+							<div class="press-title">
+								<?php echo wp_kses_post( get_the_title( $press[2]->ID ) ); ?>
 								</div>
 								<?php if ( $content['label'] ) : ?>
 									<div class="label">
-										<span><?php echo $content['label'] . $arrow; ?></span>
+										<span><?php echo wp_kses_post( $content['label'] . $arrow ); ?></span>
 									</div>
 								<?php endif; ?>
 							</a>

@@ -108,10 +108,10 @@ class CacheInvalidationManager {
 	 *
 	 * @param int      $post_id Post ID.
 	 * @param \WP_Post $post Post object.
-	 * @param bool     $update Whether this is an update.
+	 * @param bool     $_update Whether this is an update (unused, required by hook).
 	 * @return void
 	 */
-	public function on_post_save( int $post_id, \WP_Post $post, bool $update ): void {
+	public function on_post_save( int $post_id, \WP_Post $post, bool $_update ): void {
 		// Skip autosaves and revisions.
 		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
 			return;
@@ -150,12 +150,12 @@ class CacheInvalidationManager {
 	/**
 	 * Handle term change event
 	 *
-	 * @param int    $term_id Term ID.
-	 * @param int    $tt_id Term taxonomy ID.
-	 * @param string $taxonomy Taxonomy slug.
+	 * @param int    $_term_id Term ID (unused, required by hook).
+	 * @param int    $_tt_id Term taxonomy ID (unused, required by hook).
+	 * @param string $_taxonomy Taxonomy slug (unused, required by hook).
 	 * @return void
 	 */
-	public function on_term_change( int $term_id, int $tt_id, string $taxonomy ): void {
+	public function on_term_change( int $_term_id, int $_tt_id, string $_taxonomy ): void {
 		// Invalidate post type caches for taxonomies.
 		$this->cache->invalidate_tags( array( CacheTag::POST_TYPES ) );
 	}
@@ -164,11 +164,11 @@ class CacheInvalidationManager {
 	 * Handle option change event
 	 *
 	 * @param string $option Option name.
-	 * @param mixed  $old_value Old value.
-	 * @param mixed  $new_value New value.
+	 * @param mixed  $_old_value Old value (unused, required by hook).
+	 * @param mixed  $_new_value New value (unused, required by hook).
 	 * @return void
 	 */
-	public function on_option_change( string $option, $old_value, $new_value ): void {
+	public function on_option_change( string $option, $_old_value, $_new_value ): void {
 		// Check if it's an ACF options page.
 		if ( str_starts_with( $option, 'options_' ) ) {
 			$this->cache->invalidate_tags( array( CacheTag::OPTIONS ) );
@@ -178,30 +178,30 @@ class CacheInvalidationManager {
 	/**
 	 * Handle menu update event
 	 *
-	 * @param int $menu_id Menu ID.
+	 * @param int $_menu_id Menu ID (unused, required by hook).
 	 * @return void
 	 */
-	public function on_menu_update( int $menu_id ): void {
+	public function on_menu_update( int $_menu_id ): void {
 		$this->cache->invalidate_tags( array( CacheTag::NAVIGATION ) );
 	}
 
 	/**
 	 * Handle widgets update event
 	 *
-	 * @param mixed $old_value Old sidebars value.
+	 * @param mixed $_old_value Old sidebars value (unused, required by hook).
 	 * @return void
 	 */
-	public function on_widgets_update( $old_value ): void {
+	public function on_widgets_update( $_old_value ): void {
 		$this->cache->invalidate_tags( array( CacheTag::WIDGETS ) );
 	}
 
 	/**
 	 * Handle customizer save event
 	 *
-	 * @param \WP_Customize_Manager $manager Customizer manager.
+	 * @param \WP_Customize_Manager $_manager Customizer manager (unused, required by hook).
 	 * @return void
 	 */
-	public function on_customizer_save( \WP_Customize_Manager $manager ): void {
+	public function on_customizer_save( \WP_Customize_Manager $_manager ): void {
 		// Invalidate all cache on customizer save.
 		$this->cache->flush();
 

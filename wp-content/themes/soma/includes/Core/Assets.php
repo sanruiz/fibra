@@ -78,7 +78,7 @@ class Assets implements LoadableInterface {
 		add_action( 'wp_enqueue_scripts', $this->enqueue_scripts( ... ) );
 		add_action( 'login_enqueue_scripts', $this->login_styles( ... ) );
 
-		// Deregister default jQuery and use latest version
+		// Deregister default jQuery and use latest version.
 		if ( ! is_admin() ) {
 			add_action( 'wp_enqueue_scripts', $this->use_latest_jquery( ... ), 1 );
 		}
@@ -90,7 +90,7 @@ class Assets implements LoadableInterface {
 	 * @return int Priority (lower = earlier)
 	 */
 	public function get_priority(): int {
-		return 5; // Load very early, before most components
+		return 5; // Load very early, before most components.
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Assets implements LoadableInterface {
 	public function enqueue_scripts(): void {
 		$theme_uri = get_template_directory_uri();
 
-		// CSS Variables - Load FIRST (highest priority)
+		// CSS Variables - Load FIRST (highest priority).
 		wp_enqueue_style(
 			'soma-variables',
 			$theme_uri . '/assets/css/variables.css',
@@ -129,7 +129,7 @@ class Assets implements LoadableInterface {
 			$this->version
 		);
 
-		// Core styles
+		// Core styles.
 		wp_enqueue_style(
 			'core',
 			$theme_uri . '/style.css',
@@ -143,7 +143,7 @@ class Assets implements LoadableInterface {
 			$this->legacy_version
 		);
 
-		// Scripts
+		// Scripts.
 		wp_enqueue_script(
 			'main-scripts',
 			$theme_uri . '/js/main.bundle.js',

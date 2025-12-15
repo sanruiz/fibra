@@ -87,7 +87,7 @@ class StockData {
 	 * Initialize stock data fetcher
 	 */
 	private function init(): void {
-		// Schedule cron event
+		// Schedule cron event.
 		if ( ! wp_next_scheduled( 'update_stock_data_event' ) ) {
 			wp_schedule_event( time(), 'three_hours', 'update_stock_data_event' );
 		}

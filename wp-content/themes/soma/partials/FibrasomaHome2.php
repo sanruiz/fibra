@@ -23,6 +23,7 @@
  * @see \Soma\PageBuilder\BlockRenderer
  * @see \Soma\PageBuilder\BlockRegistry
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -48,39 +49,39 @@ $arrow = '
 			<div class="text">
 				<?php if ( get_query_var( 'soma_block_content' )['number'] ) : ?>
 					<div class="number">
-						<h2><?php echo get_query_var( 'soma_block_content' )['number']; ?></h2>
+					<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['number'] ); ?></h2>
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 					<div class="title">
-						<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 					</div>
 				<?php endif; ?>
-				<?php $extraFile = ( wpm_get_language() == 'en' ) ? get_query_var( 'soma_block_content' )['file'] : get_query_var( 'soma_block_content' )['file_es']; ?>
-				<?php if ( $extraFile && get_query_var( 'soma_block_content' )['file_label'] ) : ?>
-					<a class="extra-file" href="<?php echo $extraFile['url']; ?>" target="_blank">
-						<?php echo get_query_var( 'soma_block_content' )['file_label'] . $arrow; ?>
+			<?php $extra_file = ( wpm_get_language() === 'en' ) ? get_query_var( 'soma_block_content' )['file'] : get_query_var( 'soma_block_content' )['file_es']; ?>
+			<?php if ( $extra_file && get_query_var( 'soma_block_content' )['file_label'] ) : ?>
+			<a class="extra-file" href="<?php echo esc_url( $extra_file['url'] ); ?>" target="_blank">
+					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . wp_kses_post( $arrow ); ?>
 					</a>
 				<?php endif; ?>
 			</div>
 			<div class="image">
 				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
-					<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+				<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['documents'] ) : ?>
-					<div class="documents <?php echo ( count( get_query_var( 'soma_block_content' )['documents'] ) > 1 ) ? '' : 'separator-hidden'; ?>">
+				<div class="documents <?php echo esc_attr( ( count( get_query_var( 'soma_block_content' )['documents'] ) > 1 ) ? '' : 'separator-hidden' ); ?>">
 					<?php foreach ( get_query_var( 'soma_block_content' )['documents'] as $key => $item ) : ?>
 						<?php $content = get_field( 'document_content', $item ); ?>
 
-						<?php $mainFile = ( wpm_get_language() == 'en' ) ? $content['file'] : $content['file_es']; ?>
-						<?php if ( $mainFile ) : ?>
-							<div class="item">
-								<a href="<?php echo $mainFile['url']; ?>" target="_blank">
-									<div class="file-title">
-										<span><?php echo get_the_title( $item ) . $arrow; ?></span>
-									</div>
-									<div class="label">
-										<?php echo $content['label']; ?>
+						<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+						<?php if ( $main_file ) : ?>
+						<div class="item">
+						<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">
+								<div class="file-title">
+								<span><?php echo esc_html( get_the_title( $item ) ) . wp_kses_post( $arrow ); ?></span>
+								</div>
+								<div class="label">
+									<?php echo esc_html( $content['label'] ); ?>
 									</div>
 								</a>
 							</div>

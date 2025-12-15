@@ -164,7 +164,7 @@ class PageBuilderTestPage {
 			),
 		);
 
-		// Test specific blocks
+		// Test specific blocks.
 		$test_blocks = array( 'BusinessUnits', 'fullscreenSlider', 'Portfolio', 'NewsList', 'TeamMembers' );
 		foreach ( $test_blocks as $block ) {
 			$results[] = array(
@@ -246,7 +246,7 @@ class PageBuilderTestPage {
 
 		$results = array();
 
-		// Test null blocks
+		// Test null blocks.
 		ob_start();
 		$renderer->render( null );
 		ob_get_clean();
@@ -256,7 +256,7 @@ class PageBuilderTestPage {
 			'message' => 'Handles null gracefully',
 		);
 
-		// Test empty array
+		// Test empty array.
 		ob_start();
 		$renderer->render( array() );
 		ob_get_clean();
@@ -266,7 +266,7 @@ class PageBuilderTestPage {
 			'message' => 'Handles empty array gracefully',
 		);
 
-		// Test invalid block
+		// Test invalid block.
 		ob_start();
 		$renderer->render( array( array( 'invalid' => 'block' ) ) );
 		ob_get_clean();
@@ -276,16 +276,16 @@ class PageBuilderTestPage {
 			'message' => 'Handles invalid block structure',
 		);
 
-		// Get stats
+		// Get stats.
 		$stats     = $renderer->get_stats();
 		$results[] = array(
 			'name'    => 'Renderer Statistics',
 			'status'  => 'pass',
 			'message' => sprintf(
 				'Rendered: %d, Cached: %d, Errors: %d',
-				$stats['blocks_rendered'],
-				$stats['blocks_cached'],
-				$stats['errors']
+				$stats['blocks_rendered'] ?? 0,
+				$stats['blocks_cached'] ?? 0,
+				$stats['errors'] ?? 0
 			),
 		);
 
@@ -399,7 +399,7 @@ class PageBuilderTestPage {
 		$total_failed = 0;
 		$total_warned = 0;
 
-		// Count totals
+		// Count totals.
 		foreach ( $tests as $test ) {
 			foreach ( $test['results'] as $result ) {
 				if ( $result['status'] === 'pass' ) {
@@ -412,21 +412,21 @@ class PageBuilderTestPage {
 			}
 		}
 
-		// Summary stats
+		// Summary stats.
 		?>
 		<div class="soma-test-summary">
 			<h2>Test Summary</h2>
 			<div class="soma-test-stats">
 				<div class="soma-test-stat">
-					<div class="soma-test-stat-number" style="color: #46b450;"><?php echo esc_html( $total_passed ); ?></div>
+					<div class="soma-test-stat-number" style="color: #46b450;"><?php echo esc_html( (string) $total_passed ); ?></div>
 					<div class="soma-test-stat-label">Passed</div>
 				</div>
 				<div class="soma-test-stat">
-					<div class="soma-test-stat-number" style="color: #ffb900;"><?php echo esc_html( $total_warned ); ?></div>
+					<div class="soma-test-stat-number" style="color: #ffb900;"><?php echo esc_html( (string) $total_warned ); ?></div>
 					<div class="soma-test-stat-label">Warnings</div>
 				</div>
 				<div class="soma-test-stat">
-					<div class="soma-test-stat-number" style="color: #dc3232;"><?php echo esc_html( $total_failed ); ?></div>
+					<div class="soma-test-stat-number" style="color: #dc3232;"><?php echo esc_html( (string) $total_failed ); ?></div>
 					<div class="soma-test-stat-label">Failed</div>
 				</div>
 			</div>
