@@ -36,12 +36,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="text">
 				<?php if ( get_query_var( 'soma_block_content' )['number'] ) : ?>
 					<div class="number">
-						<h2><?php echo get_query_var( 'soma_block_content' )['number']; ?></h2>
+					<h2><?php echo esc_html( get_query_var( 'soma_block_content' )['number'] ); ?></h2>
 					</div>
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['title'] ) : ?>
 					<div class="title">
-						<h3><?php echo get_query_var( 'soma_block_content' )['title']; ?></h3>
+					<h3><?php echo esc_html( get_query_var( 'soma_block_content' )['title'] ); ?></h3>
 					</div>
 				<?php endif; ?>
 			</div>
@@ -51,8 +51,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php foreach ( get_query_var( 'soma_block_content' )['list'] as $key => $item ) : ?>
 						<?php if ( $item['link'] ) : ?>
 							<div class="item">
-								<a href="<?php echo $item['link']['url']; ?>" target="<?php echo $item['link']['target']; ?>" data-item="<?php echo $key; ?>">
-									<?php echo $item['link']['title']; ?>
+							<a href="<?php echo esc_url( $item['link']['url'] ); ?>" target="<?php echo esc_attr( $item['link']['target'] ); ?>" data-item="<?php echo esc_attr( $key ); ?>">
+								<?php echo esc_html( $item['link']['title'] ); ?>
 								</a>
 							</div>
 						<?php endif; ?>
@@ -62,21 +62,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="link">
 				<?php if ( get_query_var( 'soma_block_content' )['link'] ) : ?>
-					<a class="underline-text" href="<?php echo get_query_var( 'soma_block_content' )['link']['url']; ?>" target="<?php echo get_query_var( 'soma_block_content' )['link']['target']; ?>">
-						<?php echo get_query_var( 'soma_block_content' )['link']['title']; ?>
+				<a class="underline-text" href="<?php echo esc_url( get_query_var( 'soma_block_content' )['link']['url'] ); ?>" target="<?php echo esc_attr( get_query_var( 'soma_block_content' )['link']['target'] ); ?>">
+					<?php echo esc_html( get_query_var( 'soma_block_content' )['link']['title'] ); ?>
 					</a>
 				<?php endif; ?>
 			</div>
 
 			<div class="image">
 				<?php if ( get_query_var( 'soma_block_content' )['image'] ) : ?>
-					<img src="<?php echo get_query_var( 'soma_block_content' )['image']['url']; ?>" alt="<?php echo get_query_var( 'soma_block_content' )['image']['alt']; ?>">
+				<img src="<?php echo esc_url( get_query_var( 'soma_block_content' )['image']['url'] ); ?>" alt="<?php echo esc_attr( get_query_var( 'soma_block_content' )['image']['alt'] ); ?>">
 				<?php endif; ?>
 				<?php if ( get_query_var( 'soma_block_content' )['list'] ) : ?>
 					<?php foreach ( get_query_var( 'soma_block_content' )['list'] as $key => $item ) : ?>
 						<?php if ( $item['image'] ) : ?>
-							<div class="link-image"  data-item="<?php echo $key; ?>">
-								<img src="<?php echo $item['image']['url']; ?>" alt="<?php echo $item['image']['alt']; ?>">
+						<div class="link-image"  data-item="<?php echo esc_attr( $key ); ?>">
+							<img src="<?php echo esc_url( $item['image']['url'] ); ?>" alt="<?php echo esc_attr( $item['image']['alt'] ); ?>">
 							</div>
 						<?php endif; ?>
 					<?php endforeach; ?>
