@@ -6,7 +6,7 @@
 **WordPress Theme**: SOMA v3.0.0 ✅ (Fully Modernized)  
 **Development Timeline**: 8 weeks remaining (Dec 16, 2025 - Jan 30, 2026)  
 **Current Phase**: Week 2 - Home Page Development  
-**Project Management**: GitHub Projects @ https://github.com/users/miguelcolmenares/projects/1
+**Project Management**: GitHub Projects @ https://github.com/users/sanruiz/projects/4
 
 ## ⚠️ CRITICAL: Language Policy
 
@@ -415,7 +415,7 @@ on:
 - **4 project columns**: Backlog, Todo, In Progress, Done
 
 ### View Project
-- **Project Board**: https://github.com/users/miguelcolmenares/projects/1
+- **Project Board**: https://github.com/users/sanruiz/projects/4
 - **Issues**: https://github.com/sanruiz/fibra/issues
 - **Milestones**: https://github.com/sanruiz/fibra/milestones
 
