@@ -354,3 +354,142 @@ composer phpstan        # Static analysis Level 6
 - ✅ 8 Elementor widgets with ACF integration
 - ✅ 53 ACF blocks via PageBuilder
 - ✅ 108 tests, PHPCS clean, PHPStan Level 6
+
+---
+
+## 🏷️ GitHub Labels Inventory
+
+### Available Labels (33 total)
+
+**Workflow & Development:**
+- `enhancement` (a2eeef) - New feature or request
+- `bug` (d73a4a) - Something isn't working
+- `automation` (5319E7) - Automated processes, scripts, tooling
+- `cicd` (0052CC) - CI/CD, workflows, automation, deployment
+- `code-quality` (BFD4F2) - Code quality, PHPCS, PHPStan, linting
+- `testing` (1D76DB) - Unit tests, integration tests, test coverage
+- `security` (EE0701) - Security issues, vulnerabilities, XSS, SQL injection
+- `documentation` (0075ca) - Improvements or additions to documentation
+
+**Areas & Components:**
+- `frontend` (D4C5F9) - Desarrollo frontend
+- `backend` (C5DEF5) - Desarrollo backend
+- `contenido` (FEF2C0) - Contenido y copy
+- `diseño` (FFD3B6) - Diseño y UI/UX
+- `qa` (BFD4F2) - Quality Assurance
+- `performance` (D4C5F9) - Performance y optimización
+- `seo` (C2E0C6) - SEO y posicionamiento
+- `header` (C5DEF5) - Componente Header
+- `footer` (C5DEF5) - Componente Footer
+
+**Project Timeline (Semanas 1-9):**
+- `semana-1` (0E8A16) - Semana 1: Alistamiento + Modernización Theme
+- `semana-2` (1D76DB) - Semana 2: Estructura General
+- `semana-3` (5319E7) - Semana 3: Páginas Corporativas
+- `semana-4` (D93F0B) - Semana 4-5: Inversionistas
+- `semana-5` (D93F0B) - Semana 4-5: Inversionistas
+- `semana-6` (FBCA04) - Semana 6: Portafolio
+- `semana-7` (006B75) - Semana 7: ASG
+- `semana-8` (C2E0C6) - Semana 8: Noticias
+- `semana-9` (E99695) - Semana 9: QA y Deploy
+
+**Priority:**
+- `alta-prioridad` (B60205) - Prioridad alta - crítico
+- `media-prioridad` (FBCA04) - Prioridad media
+- `baja-prioridad` (0E8A16) - Prioridad baja
+
+**Status:**
+- `question` (d876e3) - Further information is requested
+- `duplicate` (cfd3d7) - This issue or pull request already exists
+- `invalid` (e4e669) - This doesn't seem right
+- `wontfix` (ffffff) - This will not be worked on
+- `help wanted` (008672) - Extra attention is needed
+- `good first issue` (7057ff) - Good for newcomers
+
+### Label Usage Guide
+
+**For new Issues and PRs:**
+
+1. **Work type** (Required):
+   - `enhancement` - New features
+   - `bug` - Bug fixes
+   - `documentation` - Documentation
+   - `automation` - Scripts, tooling
+
+2. **Technical area** (Recommended):
+   - `backend` - PHP, WordPress, database
+   - `frontend` - HTML, CSS, JavaScript
+   - `cicd` - Workflows, deployment
+   - `code-quality` - PHPCS, PHPStan
+   - `testing` - Unit/integration tests
+   - `security` - Vulnerabilities, XSS
+
+3. **Project phase** (Required):
+   - `semana-1` to `semana-9` based on milestone
+
+4. **Priority** (Recommended):
+   - `alta-prioridad` - Critical, blocking
+   - `media-prioridad` - Important
+   - `baja-prioridad` - Nice to have
+
+**Example label combinations:**
+```bash
+# Feature issue (week 2, high priority):
+gh issue create --label "enhancement,frontend,semana-2,alta-prioridad"
+
+# Bug issue (backend, high priority):
+gh issue create --label "bug,backend,security,alta-prioridad"
+
+# Code quality PR:
+gh pr create --label "code-quality,backend,testing,semana-1"
+```
+
+### Creating Missing Labels
+
+**If you need a label that doesn't exist:**
+
+```bash
+# 1. Create new label
+gh label create "label-name" \
+  --description "Clear description of purpose" \
+  --color "HEXCOLOR" | cat
+
+# Suggested colors:
+# - Red (EE0701): Security, critical
+# - Blue (0052CC): CI/CD, automation
+# - Green (0E8A16): Success, completed
+# - Yellow (FBCA04): Warning, medium priority
+# - Purple (5319E7): Features, new functionality
+# - Gray (BFD4F2): Quality, documentation
+
+# 2. Add to issue/PR
+gh issue edit NUMBER --add-label "label-name" | cat
+gh pr edit NUMBER --add-label "label-name" | cat
+
+# 3. Update this inventory in copilot-instructions.md
+```
+
+**Complete workflow for new issues:**
+
+```bash
+# Step 1: Check available labels
+gh label list | cat
+
+# Step 2: Create missing labels if needed
+gh label create "my-new-label" --description "..." --color "..." | cat
+
+# Step 3: Create issue with appropriate labels
+gh issue create \
+  --title "feat: My new feature" \
+  --body "Description..." \
+  --label "enhancement,backend,semana-2,alta-prioridad" | cat
+
+# Step 4: Add additional labels later if needed
+gh issue edit NUMBER --add-label "testing,code-quality" | cat
+```
+
+**⚠️ IMPORTANT:**
+- Always use `| cat` at the end of `gh` commands to avoid pagination
+- Update this inventory when you create new labels
+- Use consistent labels between related issues and their PRs
+- Labels facilitate filtering in GitHub Projects and searches
