@@ -35,10 +35,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="content">
 			<div class="filters">
-				<div class="mobile-title" onclick="$(this).toggleClass('open')"><?php echo ( wpm_get_language() === 'en' ) ? 'Filter by Month' : 'Filtrar por mes'; ?> <span></span></div>
+				<div class="mobile-title" onclick="$(this).toggleClass('open')"><?php esc_html_e( 'Filter by Month', 'soma' ); ?> <span></span></div>
 				<div class="list">
 					<!-- Ajax -->
-					<div class="item active" data-filter="all"><?php echo ( wpm_get_language() === 'en' ) ? 'See All' : 'Ver Todos'; ?></div>
+					<div class="item active" data-filter="all"><?php esc_html_e( 'See All', 'soma' ); ?></div>
 				</div>
 			</div>
 			<div class="events">

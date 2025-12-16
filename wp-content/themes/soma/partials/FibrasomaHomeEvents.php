@@ -44,7 +44,7 @@ function print_event( $id ) {
 	$formated_end_date  = $content['end_date'] ? soma_translate_date( wp_date( 'M j, Y', $content['end_date'] ), 'short' ) : null;
 	$formated_date      = $formated_end_date ? $formated_init_date . ' - ' . $formated_end_date : $formated_init_date;
 
-	$main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es'];
+	$main_file = soma_get_i18n_field( $content, 'file' );
 
 	if ( $main_file ) {
 		$link = $main_file ? "<a target='_BLANK' href='{$main_file['url']}'>{$content['file_label']}{$arrow}</a>" : '';
@@ -67,15 +67,9 @@ function print_event( $id ) {
 $events = array();
 
 if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
-	if ( get_query_var( 'soma_block_content' )['events'] && wpm_get_language() === 'en' ) {
-		foreach ( get_query_var( 'soma_block_content' )['events'] as $key => $event ) {
-			if ( $event ) {
-				$events[] = $event['event']->ID;
-			}
-		}
-	}
-	if ( get_query_var( 'soma_block_content' )['events_es'] && wpm_get_language() === 'es' ) {
-		foreach ( get_query_var( 'soma_block_content' )['events_es'] as $key => $event ) {
+	$selected_events = soma_get_i18n_field( get_query_var( 'soma_block_content' ), 'events' );
+	if ( $selected_events ) {
+		foreach ( $selected_events as $key => $event ) {
 			if ( $event ) {
 				$events[] = $event['event']->ID;
 			}
