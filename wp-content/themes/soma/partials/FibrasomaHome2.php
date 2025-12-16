@@ -60,7 +60,7 @@ $arrow = '
 			<?php $extra_file = ( wpm_get_language() === 'en' ) ? get_query_var( 'soma_block_content' )['file'] : get_query_var( 'soma_block_content' )['file_es']; ?>
 			<?php if ( $extra_file && get_query_var( 'soma_block_content' )['file_label'] ) : ?>
 			<a class="extra-file" href="<?php echo esc_url( $extra_file['url'] ); ?>" target="_blank">
-					<?php echo esc_html( get_query_var( 'soma_block_content' )['file_label'] ) . wp_kses_post( $arrow ); ?>
+					<?php echo wp_kses_post( get_query_var( 'soma_block_content' )['file_label'] ) . wp_kses_post( $arrow ); ?>
 					</a>
 				<?php endif; ?>
 			</div>
