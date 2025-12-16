@@ -430,10 +430,10 @@ composer validate     # Run all quality checks
 
 ### 👥 Contributors
 
-- **Architecture & Development**: SOMA Development Team
+- **Architecture & Development**: Miguel Colmenares
 - **Original Theme**: [PIPE:CODE](https://pipe-code.github.io/)
-- **Testing & QA**: SOMA Development Team
-- **Documentation**: SOMA Development Team
+- **Testing & QA**: Miguel Colmenares
+- **Documentation**: Miguel Colmenares
 
 ---
 
@@ -500,5 +500,5 @@ This project follows [Semantic Versioning](https://semver.org/):
 ---
 
 **SOMA Theme** - © 2020-2025 All Rights Reserved  
-**Developed by**: SOMA Development Team  
+**Developed by**: Miguel Colmenares  
 **Original Theme**: [PIPE:CODE](https://pipe-code.github.io/)

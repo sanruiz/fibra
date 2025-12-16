@@ -609,4 +609,4 @@ git tag release-3.0.1  # Wrong format
 **Document Version**: 1.0  
 **Last Updated**: December 14, 2025  
 **Workflow Version**: 1.0.0  
-**Maintainer**: SOMA Development Team
+**Maintainer**: Miguel Colmenares

@@ -1,12 +1,20 @@
 # GitHub Copilot Instructions for FibraSOMA Project
 
-## 🚀 Project Status: Website Development
+## Project Context
+
+This is an **8-week WordPress website development project** for FibraSOMA's corporate website using the newly modernized SOMA v3.0.0 theme.
+
+**Repository**: `sanruiz/fibra` (default branch: main)  
+**Theme**: `wp-content/themes/soma/` (PSR-4, PHP 8.1+, Elementor integrated)  
+**Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
+
+## 🚀 Project Status
 
 **Website Project**: FibraSOMA (Real Estate Investment Trust)  
 **WordPress Theme**: SOMA v3.0.0 ✅ (Fully Modernized)  
-**Development Timeline**: 8 weeks remaining (Dec 16, 2025 - Jan 30, 2026)  
-**Current Phase**: Week 2 - Home Page Development  
 **Project Management**: GitHub Projects @ https://github.com/users/sanruiz/projects/4
+
+**Current status**: Check GitHub Projects board for current milestone and progress
 
 ## ⚠️ CRITICAL: Language Policy
 
@@ -41,37 +49,26 @@ For **language-specific conventions and quality standards**, see:
   - Quality gates (PHPCBF, PHPStan Level 6+)
   - Common PHPCS errors and fixes
 
+- **Documentation & Language Policy** (all docs, comments, commits): `.github/instructions/documentation-language.instructions.md`
+  - English-only policy for technical content
+  - Markdown best practices and structure
+  - Writing style guide (tone, voice, examples)
+  - Commit message standards (Conventional Commits)
+  - Pull Request templates and descriptions
+  - Code commenting conventions (PHP, JS, CSS)
+  - Translation and i18n guidelines
+
+- **GitHub Workflow** (all GitHub operations): `.github/instructions/github-workflow.instructions.md`
+  - Branch management (feature, fix, week-N)
+  - Issue and PR management
+  - Labels and milestones
+  - GitHub CLI commands (ALWAYS use `| cat`)
+  - Release and deployment flow
+  - CI/CD workflows
+
 **Note**: Path-specific instructions take precedence over general guidelines for their respective file types.
 
 ---
-
-## ⚠️ CRITICAL: Language Policy
-
-**ALL project files MUST be written in ENGLISH:**
-
-- ✅ **Documentation** (`.md` files) - English only
-- ✅ **GitHub Actions Workflows** (`.yml` files) - English comments and descriptions
-- ✅ **Scripts** (`.sh`, `.php`, etc.) - English comments and output messages
-- ✅ **Code comments** - English only
-- ✅ **Commit messages** - English only
-- ✅ **PR descriptions** - English only
-- ✅ **Issue descriptions** - English only
-
-**Rationale**: 
-- Professional international standard
-- Better integration with development tools
-- Accessibility for global team members
-- Consistency with SOMA v3.0.0 codebase (fully in English)
-
-**Exception**: User-facing content in WordPress (Spanish for FibraSOMA website visitors)
-
-## Project Context
-
-This is an **8-week WordPress website development project** for FibraSOMA's corporate website using the newly modernized SOMA v3.0.0 theme.
-
-**Repository**: `sanruiz/fibra` (default branch: main)  
-**Theme**: `wp-content/themes/soma/` (PSR-4, PHP 8.1+, Elementor integrated)  
-**Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
 
 ## 📁 Repository Structure
 
@@ -106,150 +103,57 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 - ✅ Workflows: `.github/workflows/` (root)
 - ✅ Deployment scripts: `.github/scripts/` (root)
 - ✅ Copilot instructions: `.github/copilot-instructions.md` (root)
+- ✅ Workflow instructions: `.github/instructions/github-workflow.instructions.md`
 
-## 🔀 Branching Strategy
+## 🚀 CI/CD Workflows (Summary)
 
-**IMPORTANT**: Each milestone/week MUST be developed in a separate branch, NOT directly in main.
+**For detailed workflow instructions, see** `.github/instructions/github-workflow.instructions.md`
 
-### Branch Naming Convention
-- **Week branches**: `week-N` (e.g., `week-2`, `week-3`, etc.)
-- **Feature branches**: `feature/description` (e.g., `feature/hero-section`)
-- **Fix branches**: `fix/description` (e.g., `fix/navbar-mobile`)
+### Quick Reference
 
-### Workflow
-1. **Create branch from main**: 
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout -b week-N
-   ```
+**Continuous Integration** (`quality-and-tests.yml`):
+- Triggers: Push to main/week-*, PRs
+- Duration: ~3-5 minutes
+- Jobs: PHPCS, PHPStan, PHPUnit, Frontend Build
+- Purpose: Validate code quality before merge
 
-2. **Work on the branch**: Make all commits for the milestone/week
-
-3. **Create Pull Request**: When work is complete, create PR to main
-   ```bash
-   git push -u origin week-N
-   gh pr create --title "Week N: [Description]" --base main | cat
-   ```
-
-4. **Close Milestone**: After creating the PR, close the corresponding milestone
-   ```bash
-   # Close milestone for Week N
-   gh api repos/sanruiz/fibra/milestones/{milestone_number} -X PATCH -f state=closed | cat
-   # Or use the GitHub web interface
-   ```
-
-5. **Merge to main**: After review and approval, merge the PR
-
-6. **Never commit directly to main**: All changes must go through PRs
-
-### GitHub CLI Commands for PRs
-- **ALWAYS append `| cat`** to `gh` commands to prevent terminal pagination
-- Examples:
-  - `gh pr create --title "Week 2: Home Page" --base main | cat`
-  - `gh pr list | cat`
-  - `gh pr view 55 | cat`
-  - `gh pr merge 55 --squash | cat`
-
-## 🚀 CI/CD Workflows
-
-### Two-Workflow Architecture
-
-SOMA uses a **modern CI/CD architecture** separating Continuous Integration from Continuous Deployment:
-
-#### Workflow 1: Quality & Tests (CI) - `quality-and-tests.yml`
-- **Purpose**: Fast feedback on code quality and tests
-- **Triggers**: 
-  - Push to branches: `main`, `develop`, `week-*`
-  - Pull requests to: `main`, `develop`
-  - Manual dispatch
-- **Duration**: ~3-5 minutes
-- **Jobs** (run in parallel):
-  1. Code Quality (PHPCS, PHPStan, PHPCBF auto-fix)
-  2. PHP Tests (PHPUnit 108 tests with MySQL)
-  3. Frontend Build (Webpack production)
-  4. CI Summary (always runs)
-- **Does NOT**: Create releases or deploy to production
-- **Purpose**: Validate code changes before release
-
-#### Workflow 2: Release & Deploy (CD) - `release-and-deploy.yml`
-- **Purpose**: Build, release, and deploy to production
-- **Triggers**:
-  - Version tags: `v*` (e.g., v3.0.0, v3.0.1)
-  - Manual dispatch (with version input)
-- **Duration**: ~5-8 minutes
-- **Jobs** (sequential):
-  1. Wait for CI (verifies quality-and-tests.yml passed)
-  2. Build & Release (create GitHub release + ZIP package)
-  3. Deploy (SFTP upload to production)
-- **Prerequisite**: CI workflow MUST pass first
-- **Deployment Flow**:
-  1. Push code → CI runs (quality gates)
-  2. Create tag v3.0.X → CD checks CI status
-  3. If CI passed → Proceeds with release + deploy
-  4. If CI failed → Blocks deployment
-
-### Benefits of Separation
-- ✅ **Faster Feedback**: CI runs on every push (~3-5 min vs ~10-15 min)
-- ✅ **Cost Efficiency**: Avoid running release/deploy unnecessarily
-- ✅ **Clear Intent**: CI for validation, CD for releases only
-- ✅ **Better Control**: Can require CI as status check for PRs
-- ✅ **Easier Debugging**: Smaller, focused workflows
-
-### Workflow Triggers (IMPORTANT)
-
-**CI Workflow** (`quality-and-tests.yml`):
-```yaml
-on:
-  push:
-    branches: [main, develop, week-*]  # Runs on push
-  pull_request:
-    branches: [main, develop]          # Runs on PR
-  workflow_dispatch:                   # Manual trigger
-```
-
-**CD Workflow** (`release-and-deploy.yml`):
-```yaml
-on:
-  push:
-    tags: [v*]              # ONLY runs on version tags
-  workflow_dispatch:        # Manual trigger
-```
-
-**CRITICAL**: 
-- CI runs on **every push** to validate quality
-- CD runs **ONLY on release tags** to deploy
-- Pushing to main no longer triggers full deployment
-- Create tag (git tag v3.0.1) to trigger deployment
+**Continuous Deployment** (`release-and-deploy.yml`):
+- Triggers: Tags `v*`, manual dispatch
+- Duration: ~5-8 minutes  
+- Jobs: Wait for CI → Build & Release → Deploy
+- Purpose: Automated releases and deployment
 
 ## 📊 GitHub Project Organization
 
-### Issues & Milestones
-- **54 total issues**: 1 closed (theme modernization), 53 for website development
-- **8 milestones**: Week 2 through Week 9
-- **28 labels**: weeks, types, priorities, components
-- **4 project columns**: Backlog, Todo, In Progress, Done
+**For complete workflow details**, see `.github/instructions/github-workflow.instructions.md`
 
 ### View Project
 - **Project Board**: https://github.com/users/sanruiz/projects/4
 - **Issues**: https://github.com/sanruiz/fibra/issues
 - **Milestones**: https://github.com/sanruiz/fibra/milestones
 
-## 📋 Website Development Plan (Weeks 2-9)
+### Quick Commands
+```bash
+# View issues and PRs (always use | cat)
+gh issue list | cat
+gh pr list | cat
 
-- **Week 2**: Home page sections (hero, business units, portfolio showcase, news feed)
-- **Week 3**: Corporate pages (About Us, Portfolio Archive, Team Members)
-- **Weeks 4-5**: Investor Relations section (reports, presentations, financial data)
-- **Week 6**: Individual project templates with galleries and technical specs
-- **Week 7**: ESG/ASG section (sustainability initiatives, corporate governance)
-- **Week 8**: News system (archive, categories, individual articles)
-- **Week 9**: Contact forms, final QA, performance optimization, launch
+# Create issue with labels
+gh issue create --label "enhancement,frontend,semana-2,alta-prioridad" | cat
+
+# View labels
+gh label list | cat
+```
+
+## 📋 Website Development Plan
+
+**Full development plan**: Check GitHub Projects milestones for detailed weekly breakdown and current status.
 
 ## 🎯 SOMA v3.0.0 Theme - Completed ✅
 
 **Version**: 3.0.0 (Released December 12, 2025)  
 **Migration**: v2.0.7 → v3.0.0 complete  
-**Documentation**: 5,800+ lines across 8 major docs
+**Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
 
 ---
 
@@ -510,148 +414,18 @@ composer phpstan        # Static analysis Level 6
 **Key Features v3.0.0:**
 - ✅ PSR-4 architecture with `Soma\` namespace
 - ✅ PHP 8.1+ (enums, match, first-class callables)
-- ✅ 24 helper functions (`soma_*` prefix)
+- ✅ Global helper functions (`soma_*` prefix)
 - ✅ PSR-3 logging to `wp-content/uploads/soma-logs/`
 - ✅ Tag-based caching with auto-invalidation
-- ✅ 8 Elementor widgets with ACF integration
-- ✅ 53 ACF blocks via PageBuilder
-- ✅ 108 tests, PHPCS clean, PHPStan Level 6
+- ✅ Elementor widgets with ACF integration
+- ✅ ACF flexible content blocks via PageBuilder
+- ✅ Comprehensive test coverage, PHPCS clean, PHPStan Level 6+
 
 ---
 
-## 🏷️ GitHub Labels Inventory
+## 🏷️ GitHub Labels & Project Organization
 
-### Available Labels (33 total)
+**For complete label inventory, usage guidelines, and GitHub workflow**, see:  
+`.github/instructions/github-workflow.instructions.md`
 
-**Workflow & Development:**
-- `enhancement` (a2eeef) - New feature or request
-- `bug` (d73a4a) - Something isn't working
-- `automation` (5319E7) - Automated processes, scripts, tooling
-- `cicd` (0052CC) - CI/CD, workflows, automation, deployment
-- `code-quality` (BFD4F2) - Code quality, PHPCS, PHPStan, linting
-- `testing` (1D76DB) - Unit tests, integration tests, test coverage
-- `security` (EE0701) - Security issues, vulnerabilities, XSS, SQL injection
-- `documentation` (0075ca) - Improvements or additions to documentation
-
-**Areas & Components:**
-- `frontend` (D4C5F9) - Desarrollo frontend
-- `backend` (C5DEF5) - Desarrollo backend
-- `contenido` (FEF2C0) - Contenido y copy
-- `diseño` (FFD3B6) - Diseño y UI/UX
-- `qa` (BFD4F2) - Quality Assurance
-- `performance` (D4C5F9) - Performance y optimización
-- `seo` (C2E0C6) - SEO y posicionamiento
-- `header` (C5DEF5) - Componente Header
-- `footer` (C5DEF5) - Componente Footer
-
-**Project Timeline (Semanas 1-9):**
-- `semana-1` (0E8A16) - Semana 1: Alistamiento + Modernización Theme
-- `semana-2` (1D76DB) - Semana 2: Estructura General
-- `semana-3` (5319E7) - Semana 3: Páginas Corporativas
-- `semana-4` (D93F0B) - Semana 4-5: Inversionistas
-- `semana-5` (D93F0B) - Semana 4-5: Inversionistas
-- `semana-6` (FBCA04) - Semana 6: Portafolio
-- `semana-7` (006B75) - Semana 7: ASG
-- `semana-8` (C2E0C6) - Semana 8: Noticias
-- `semana-9` (E99695) - Semana 9: QA y Deploy
-
-**Priority:**
-- `alta-prioridad` (B60205) - Prioridad alta - crítico
-- `media-prioridad` (FBCA04) - Prioridad media
-- `baja-prioridad` (0E8A16) - Prioridad baja
-
-**Status:**
-- `question` (d876e3) - Further information is requested
-- `duplicate` (cfd3d7) - This issue or pull request already exists
-- `invalid` (e4e669) - This doesn't seem right
-- `wontfix` (ffffff) - This will not be worked on
-- `help wanted` (008672) - Extra attention is needed
-- `good first issue` (7057ff) - Good for newcomers
-
-### Label Usage Guide
-
-**For new Issues and PRs:**
-
-1. **Work type** (Required):
-   - `enhancement` - New features
-   - `bug` - Bug fixes
-   - `documentation` - Documentation
-   - `automation` - Scripts, tooling
-
-2. **Technical area** (Recommended):
-   - `backend` - PHP, WordPress, database
-   - `frontend` - HTML, CSS, JavaScript
-   - `cicd` - Workflows, deployment
-   - `code-quality` - PHPCS, PHPStan
-   - `testing` - Unit/integration tests
-   - `security` - Vulnerabilities, XSS
-
-3. **Project phase** (Required):
-   - `semana-1` to `semana-9` based on milestone
-
-4. **Priority** (Recommended):
-   - `alta-prioridad` - Critical, blocking
-   - `media-prioridad` - Important
-   - `baja-prioridad` - Nice to have
-
-**Example label combinations:**
-```bash
-# Feature issue (week 2, high priority):
-gh issue create --label "enhancement,frontend,semana-2,alta-prioridad"
-
-# Bug issue (backend, high priority):
-gh issue create --label "bug,backend,security,alta-prioridad"
-
-# Code quality PR:
-gh pr create --label "code-quality,backend,testing,semana-1"
-```
-
-### Creating Missing Labels
-
-**If you need a label that doesn't exist:**
-
-```bash
-# 1. Create new label
-gh label create "label-name" \
-  --description "Clear description of purpose" \
-  --color "HEXCOLOR" | cat
-
-# Suggested colors:
-# - Red (EE0701): Security, critical
-# - Blue (0052CC): CI/CD, automation
-# - Green (0E8A16): Success, completed
-# - Yellow (FBCA04): Warning, medium priority
-# - Purple (5319E7): Features, new functionality
-# - Gray (BFD4F2): Quality, documentation
-
-# 2. Add to issue/PR
-gh issue edit NUMBER --add-label "label-name" | cat
-gh pr edit NUMBER --add-label "label-name" | cat
-
-# 3. Update this inventory in copilot-instructions.md
-```
-
-**Complete workflow for new issues:**
-
-```bash
-# Step 1: Check available labels
-gh label list | cat
-
-# Step 2: Create missing labels if needed
-gh label create "my-new-label" --description "..." --color "..." | cat
-
-# Step 3: Create issue with appropriate labels
-gh issue create \
-  --title "feat: My new feature" \
-  --body "Description..." \
-  --label "enhancement,backend,semana-2,alta-prioridad" | cat
-
-# Step 4: Add additional labels later if needed
-gh issue edit NUMBER --add-label "testing,code-quality" | cat
-```
-
-**⚠️ IMPORTANT:**
-- Always use `| cat` at the end of `gh` commands to avoid pagination
-- Update this inventory when you create new labels
-- Use consistent labels between related issues and their PRs
-- Labels facilitate filtering in GitHub Projects and searches
+**Quick reference**: Use `gh label list | cat` to see current labels

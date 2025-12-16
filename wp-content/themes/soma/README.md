@@ -250,11 +250,13 @@ soma/
 SOMA v3.0 includes comprehensive test coverage with PHPUnit.
 
 **Quick test run:**
+
 ```bash
 composer test
 ```
 
 **Detailed testing:**
+
 ```bash
 # Unit tests (24 for PostTypes, 39 for Taxonomies, etc.)
 vendor/bin/phpunit --testsuite unit --testdox
@@ -367,6 +369,7 @@ interface LoadableInterface {
 ```
 
 **Priority System:**
+
 - 10: Core utilities (Logger, Cache) - loaded first
 - 15: Taxonomies
 - 20: Post Types
@@ -455,6 +458,7 @@ If you're running SOMA v2.0.7 or earlier, see the **[Migration Guide](docs/MIGRA
 - ✅ Troubleshooting common issues
 
 **Critical Breaking Change:**
+
 ```php
 // ❌ OLD (v2.0.7) - NO LONGER WORKS
 global $pageBlock;
@@ -510,7 +514,7 @@ This theme is proprietary software developed for SOMA. Unauthorized copying, mod
 
 ### Development Team
 
-- **Architecture & Modernization:** SOMA Development Team
+- **Architecture & Modernization:** Miguel Colmenares
 - **Original Theme:** [PIPE:CODE](https://pipe-code.github.io/)
 - **Testing Infrastructure:** PHPUnit community
 - **Quality Tools:** WordPress Coding Standards, PHPStan
