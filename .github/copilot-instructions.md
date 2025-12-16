@@ -38,6 +38,94 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 
 ---
 
+## ⚠️ MANDATORY: GitHub Workflow Pre-Flight Checklist
+
+**CRITICAL**: Before ANY git commit, push, or branch operation, you MUST verify:
+
+### ✅ Branch Rules (STRICTLY ENFORCED)
+
+**NEVER commit directly to these branches:**
+- ❌ `main` (default branch - only via merged PRs)
+- ❌ `week-*` (milestone branches - only via merged PRs)
+- ❌ `develop` (development branch - only via merged PRs)
+
+**ALWAYS work on feature branches:**
+- ✅ Create feature branch from current milestone (`week-N`)
+- ✅ Use naming convention: `feature/`, `fix/`, `chore/`, `refactor/`
+- ✅ Example: `feature/hero-section`, `fix/navbar-mobile`
+
+### ✅ Git Operation Checklist
+
+**Before EVERY commit, verify:**
+1. **Check current branch**: `git branch | grep "^\*"`
+   - Must show a feature branch (NOT week-*, NOT main)
+2. **If on wrong branch**: Create feature branch FIRST
+   ```bash
+   git checkout week-N
+   git checkout -b feature/description
+   ```
+3. **Then commit**: Use conventional commits format
+4. **Before push - Run quality gates locally**:
+   ```bash
+   # Required: Pass ALL quality checks before pushing
+   composer quality-check  # Runs phpcs + phpstan + tests (all must pass)
+   # Or run individually:
+   composer phpcs        # WordPress Coding Standards (must pass)
+   composer phpstan      # Static analysis Level 6+ (0 critical errors)
+   composer test         # PHPUnit tests (all passing)
+   npm run prod          # Frontend build (if modified CSS/JS)
+   ```
+   **Why**: Prevent wasting GitHub Actions resources on avoidable failures
+5. **Then push**: `git push -u origin feature/description`
+6. **Then create PR**: Target `week-N` branch (NOT main)
+
+### ✅ Pull Request Rules
+
+**When creating PRs:**
+- Base branch: `week-N` (current milestone)
+- Never target `main` directly during milestone work
+- Use labels: `enhancement`, `semana-N`, `frontend`/`backend`, priority
+- Reference issues: `Closes #N`, `Relates to #N`
+
+### ✅ GitHub CLI Rules
+
+**ALWAYS append `| cat` to `gh` commands:**
+```bash
+gh issue list | cat          # ✅ Correct
+gh issue list                # ❌ Will hang
+
+gh pr view 42 | cat          # ✅ Correct
+gh pr view 42                # ❌ Will hang
+```
+
+### 🔄 Common Workflow Scenarios
+
+**Scenario 1: Starting new feature**
+```bash
+git checkout week-2
+git pull origin week-2
+git checkout -b feature/my-feature
+# ... make changes ...
+git add .
+git commit -m "feat: add new feature"
+git push -u origin feature/my-feature
+gh pr create --base week-2 --label "enhancement,semana-2" | cat
+```
+
+**Scenario 2: If you find yourself on week-* or main**
+```bash
+# STOP - Do NOT commit
+# Check staged changes
+git status
+# Create feature branch
+git checkout -b feature/description
+# Now you can commit
+```
+
+**See complete workflow guide**: `.github/instructions/github-workflow.instructions.md`
+
+---
+
 ## 📋 Path-Specific Instructions
 
 The following instruction files apply automatically based on file type. VS Code will load them when working with matching files.
