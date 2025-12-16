@@ -27,10 +27,12 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
  *
  * @since 3.1.0
  */
-function soma_load_textdomain(): void {
-	load_theme_textdomain( 'soma', get_template_directory() . '/languages' );
+if ( ! function_exists( 'soma_load_textdomain' ) ) {
+	function soma_load_textdomain(): void {
+		load_theme_textdomain( 'soma', get_template_directory() . '/languages' );
+	}
+	add_action( 'after_setup_theme', 'soma_load_textdomain' );
 }
-add_action( 'after_setup_theme', 'soma_load_textdomain' );
 
 /**
  * Initialize Theme (PSR-4 Architecture)
