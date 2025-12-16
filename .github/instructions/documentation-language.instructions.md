@@ -1,3 +1,9 @@
+---
+description: Documentation standards and language policy for all project files
+name: Documentation & Language Policy
+applyTo: "**"
+---
+
 # Documentation and Language Policy Instructions
 
 **Applies to**: All documentation files, code comments, commit messages, and project communication  
