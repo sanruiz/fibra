@@ -54,10 +54,10 @@ $arrow = '
 			</div>
 			<div class="template-content">
 				<?php
-				// Elementor support - required for Elementor editor to work
+				// Elementor support - required for Elementor editor to work.
 				the_content();
-				
-				// ACF Flexible Content - only render if not using Elementor
+
+				// ACF Flexible Content - only render if not using Elementor.
 				if ( ! did_action( 'elementor/loaded' ) || ! \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
 					get_template_part( 'page-builder' );
 				}
