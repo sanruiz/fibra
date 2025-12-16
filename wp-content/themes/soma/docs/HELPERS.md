@@ -1070,4 +1070,4 @@ wp_enqueue_style('custom', soma_asset_url('css/custom.css'));
 **Document Version**: 1.0  
 **Last Updated**: December 12, 2025  
 **Total Functions**: 24  
-**Maintainer**: SOMA Development Team
+**Maintainer**: Miguel Colmenares

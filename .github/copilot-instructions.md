@@ -41,6 +41,14 @@ For **language-specific conventions and quality standards**, see:
   - Quality gates (PHPCBF, PHPStan Level 6+)
   - Common PHPCS errors and fixes
 
+- **GitHub Workflow** (all GitHub operations): `.github/instructions/github-workflow.instructions.md`
+  - Branch management (feature, fix, week-N)
+  - Issue and PR management
+  - Labels and milestones
+  - GitHub CLI commands (ALWAYS use `| cat`)
+  - Release and deployment flow
+  - CI/CD workflows
+
 **Note**: Path-specific instructions take precedence over general guidelines for their respective file types.
 
 ---
@@ -106,121 +114,25 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 - ✅ Workflows: `.github/workflows/` (root)
 - ✅ Deployment scripts: `.github/scripts/` (root)
 - ✅ Copilot instructions: `.github/copilot-instructions.md` (root)
+- ✅ Workflow instructions: `.github/instructions/github-workflow.instructions.md`
 
-## 🔀 Branching Strategy
+## 🚀 CI/CD Workflows (Summary)
 
-**IMPORTANT**: Each milestone/week MUST be developed in a separate branch, NOT directly in main.
+**For detailed workflow instructions, see** `.github/instructions/github-workflow.instructions.md`
 
-### Branch Naming Convention
-- **Week branches**: `week-N` (e.g., `week-2`, `week-3`, etc.)
-- **Feature branches**: `feature/description` (e.g., `feature/hero-section`)
-- **Fix branches**: `fix/description` (e.g., `fix/navbar-mobile`)
+### Quick Reference
 
-### Workflow
-1. **Create branch from main**: 
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout -b week-N
-   ```
+**Continuous Integration** (`quality-and-tests.yml`):
+- Triggers: Push to main/week-*, PRs
+- Duration: ~3-5 minutes
+- Jobs: PHPCS, PHPStan, PHPUnit, Frontend Build
+- Purpose: Validate code quality before merge
 
-2. **Work on the branch**: Make all commits for the milestone/week
-
-3. **Create Pull Request**: When work is complete, create PR to main
-   ```bash
-   git push -u origin week-N
-   gh pr create --title "Week N: [Description]" --base main | cat
-   ```
-
-4. **Close Milestone**: After creating the PR, close the corresponding milestone
-   ```bash
-   # Close milestone for Week N
-   gh api repos/sanruiz/fibra/milestones/{milestone_number} -X PATCH -f state=closed | cat
-   # Or use the GitHub web interface
-   ```
-
-5. **Merge to main**: After review and approval, merge the PR
-
-6. **Never commit directly to main**: All changes must go through PRs
-
-### GitHub CLI Commands for PRs
-- **ALWAYS append `| cat`** to `gh` commands to prevent terminal pagination
-- Examples:
-  - `gh pr create --title "Week 2: Home Page" --base main | cat`
-  - `gh pr list | cat`
-  - `gh pr view 55 | cat`
-  - `gh pr merge 55 --squash | cat`
-
-## 🚀 CI/CD Workflows
-
-### Two-Workflow Architecture
-
-SOMA uses a **modern CI/CD architecture** separating Continuous Integration from Continuous Deployment:
-
-#### Workflow 1: Quality & Tests (CI) - `quality-and-tests.yml`
-- **Purpose**: Fast feedback on code quality and tests
-- **Triggers**: 
-  - Push to branches: `main`, `develop`, `week-*`
-  - Pull requests to: `main`, `develop`
-  - Manual dispatch
-- **Duration**: ~3-5 minutes
-- **Jobs** (run in parallel):
-  1. Code Quality (PHPCS, PHPStan, PHPCBF auto-fix)
-  2. PHP Tests (PHPUnit 108 tests with MySQL)
-  3. Frontend Build (Webpack production)
-  4. CI Summary (always runs)
-- **Does NOT**: Create releases or deploy to production
-- **Purpose**: Validate code changes before release
-
-#### Workflow 2: Release & Deploy (CD) - `release-and-deploy.yml`
-- **Purpose**: Build, release, and deploy to production
-- **Triggers**:
-  - Version tags: `v*` (e.g., v3.0.0, v3.0.1)
-  - Manual dispatch (with version input)
-- **Duration**: ~5-8 minutes
-- **Jobs** (sequential):
-  1. Wait for CI (verifies quality-and-tests.yml passed)
-  2. Build & Release (create GitHub release + ZIP package)
-  3. Deploy (SFTP upload to production)
-- **Prerequisite**: CI workflow MUST pass first
-- **Deployment Flow**:
-  1. Push code → CI runs (quality gates)
-  2. Create tag v3.0.X → CD checks CI status
-  3. If CI passed → Proceeds with release + deploy
-  4. If CI failed → Blocks deployment
-
-### Benefits of Separation
-- ✅ **Faster Feedback**: CI runs on every push (~3-5 min vs ~10-15 min)
-- ✅ **Cost Efficiency**: Avoid running release/deploy unnecessarily
-- ✅ **Clear Intent**: CI for validation, CD for releases only
-- ✅ **Better Control**: Can require CI as status check for PRs
-- ✅ **Easier Debugging**: Smaller, focused workflows
-
-### Workflow Triggers (IMPORTANT)
-
-**CI Workflow** (`quality-and-tests.yml`):
-```yaml
-on:
-  push:
-    branches: [main, develop, week-*]  # Runs on push
-  pull_request:
-    branches: [main, develop]          # Runs on PR
-  workflow_dispatch:                   # Manual trigger
-```
-
-**CD Workflow** (`release-and-deploy.yml`):
-```yaml
-on:
-  push:
-    tags: [v*]              # ONLY runs on version tags
-  workflow_dispatch:        # Manual trigger
-```
-
-**CRITICAL**: 
-- CI runs on **every push** to validate quality
-- CD runs **ONLY on release tags** to deploy
-- Pushing to main no longer triggers full deployment
-- Create tag (git tag v3.0.1) to trigger deployment
+**Continuous Deployment** (`release-and-deploy.yml`):
+- Triggers: Tags `v*`, manual dispatch
+- Duration: ~5-8 minutes  
+- Jobs: Wait for CI → Build & Release → Deploy
+- Purpose: Automated releases and deployment
 
 ## 📊 GitHub Project Organization
 
@@ -519,7 +431,10 @@ composer phpstan        # Static analysis Level 6
 
 ---
 
-## 🏷️ GitHub Labels Inventory
+## 🏷️ GitHub Labels & Project Organization
+
+**For detailed GitHub workflow, branch management, and release process**, see:  
+`.github/instructions/github-workflow.instructions.md`
 
 ### Available Labels (33 total)
 

@@ -1544,6 +1544,6 @@ tail -f wp-content/debug.log
 **Document Version**: 1.0  
 **Last Updated**: December 12, 2025  
 **Theme Version**: v2.0.7 → v3.0.0  
-**Maintainer**: SOMA Development Team
+**Maintainer**: Miguel Colmenares
 
 Good luck with your migration! 🚀

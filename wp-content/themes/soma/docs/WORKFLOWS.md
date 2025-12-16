@@ -279,4 +279,4 @@ gh run view <run-id> --job=<job-id> --log
 
 **Document Version**: 1.0  
 **Last Updated**: December 14, 2025  
-**Maintainer**: SOMA Development Team
+**Maintainer**: Miguel Colmenares
