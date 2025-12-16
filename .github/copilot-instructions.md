@@ -40,33 +40,14 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 
 ## 📋 Path-Specific Instructions
 
-For **language-specific conventions and quality standards**, see:
+The following instruction files apply automatically based on file type. VS Code will load them when working with matching files.
 
-- **PHP Files** (`**/*.php`): `.github/instructions/php.instructions.md`
-  - WordPress Coding Standards (PHPCS)
-  - Security escaping patterns (esc_html, esc_url, wp_kses_post)
-  - SOMA theme architecture and PSR-4 conventions
-  - Quality gates (PHPCBF, PHPStan Level 6+)
-  - Common PHPCS errors and fixes
+**Available instruction files:**
+- `.github/instructions/php.instructions.md` → PHP files (`**/*.php`)
+- `.github/instructions/documentation-language.instructions.md` → Documentation and language policy
+- `.github/instructions/github-workflow.instructions.md` → GitHub operations and workflow
 
-- **Documentation & Language Policy** (all docs, comments, commits): `.github/instructions/documentation-language.instructions.md`
-  - English-only policy for technical content
-  - Markdown best practices and structure
-  - Writing style guide (tone, voice, examples)
-  - Commit message standards (Conventional Commits)
-  - Pull Request templates and descriptions
-  - Code commenting conventions (PHP, JS, CSS)
-  - Translation and i18n guidelines
-
-- **GitHub Workflow** (all GitHub operations): `.github/instructions/github-workflow.instructions.md`
-  - Branch management (feature, fix, week-N)
-  - Issue and PR management
-  - Labels and milestones
-  - GitHub CLI commands (ALWAYS use `| cat`)
-  - Release and deployment flow
-  - CI/CD workflows
-
-**Note**: Path-specific instructions take precedence over general guidelines for their respective file types.
+**Note**: These files use YAML frontmatter with `applyTo` patterns and are automatically detected by VS Code.
 
 ---
 

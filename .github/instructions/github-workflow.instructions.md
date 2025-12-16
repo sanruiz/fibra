@@ -1,3 +1,9 @@
+---
+description: GitHub workflow standards including branch management, PRs, issues, and releases
+name: GitHub Workflow
+applyTo: "**"
+---
+
 # GitHub Workflow Instructions for FibraSOMA Project
 
 **Applies to**: All GitHub operations, branch management, issues, PRs, releases, and deployments  
