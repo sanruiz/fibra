@@ -1,0 +1,94 @@
+# Copyright (C) 2025 Santiago Ramirez
+# This file is distributed under the same license as the SOMA theme.
+msgid ""
+msgstr ""
+"Project-Id-Version: SOMA 3.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/soma\n"
+"Last-Translator: Santiago Ramirez\n"
+"Language-Team: Spanish <es@li.org>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-12-16T05:10:07+00:00\n"
+"PO-Revision-Date: 2025-12-16 05:30:00+0000\n"
+"X-Generator: Manual\n"
+"X-Domain: soma\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: partials/AnnualReports.php:42
+msgid "Filter by Year"
+msgstr "Filtrar por año"
+
+#: partials/AnnualReports.php:47
+#: partials/Events.php:41
+msgid "See All"
+msgstr "Ver Todos"
+
+#: partials/SearchPanel.php:41
+msgid "Search"
+msgstr "Buscar"
+
+#: partials/Portfolio.php:39
+#: partials/Portfolio.php:101
+msgid "All"
+msgstr "Todos"
+
+#: partials/Portfolio.php:68
+msgid "List View"
+msgstr "Vista Lista"
+
+#: partials/Portfolio.php:87
+msgid "Grid View"
+msgstr "Vista Cuadrícula"
+
+#: partials/Portfolio.php:92
+msgid "View All"
+msgstr "Ver Todos"
+
+#: partials/ProjectInfo.php:50
+#: partials/ProjectInfo.php:59
+#: partials/ProjectInfo.php:73
+#: partials/ProjectInfo.php:81
+msgid "Designed by"
+msgstr "Diseñado por"
+
+#: partials/Events.php:38
+msgid "Filter by Month"
+msgstr "Filtrar por mes"
+
+#: partials/Footer.php:75
+#: includes/Elementor/Widgets/Footer.php:455
+msgid "Social"
+msgstr "Redes"
+
+#: partials/Footer.php:88
+#: includes/Elementor/Widgets/Footer.php:469
+msgid "Business Units"
+msgstr "Unidades de Negocio"
+
+#: includes/Core/Enums/PostType.php:48
+#: includes/Elementor/Widgets/Portfolio.php:41
+#: includes/PostTypes/Types/Portfolio.php:98
+#: includes/Utils/Enums/CacheTag.php:61
+msgid "Portfolio"
+msgstr "Portafolio"
+
+#: includes/Core/Enums/PostType.php:49
+#: includes/Core/Enums/PostType.php:65
+#: includes/PostTypes/Types/News.php:97
+#: includes/Utils/Enums/CacheTag.php:62
+msgid "News"
+msgstr "Noticias"
+
+#: includes/Core/Enums/PostType.php:50
+#: includes/PostTypes/Types/Careers.php:97
+msgid "Careers"
+msgstr "Carreras"
+
+#: includes/Core/Enums/PostType.php:51
+#: includes/Core/Enums/PostType.php:67
+#: includes/Elementor/Widgets/TeamMembers.php:40
+#: includes/PostTypes/Types/TeamMembers.php:99
+msgid "Team Members"
+msgstr "Miembros del Equipo"

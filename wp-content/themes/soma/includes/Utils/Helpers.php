@@ -455,3 +455,40 @@ function translateDate( string $str_date, ?string $format = null ): string {
 function soma_get_stock_data(): ?array {
 	return \Soma\Admin\StockData::get_stock_data();
 }
+
+// =============================================================================
+// i18n Helpers
+// =============================================================================
+
+/**
+ * Get ACF field value with language-specific fallback.
+ *
+ * Automatically selects language-specific field variant based on current language.
+ * Falls back to default field if language variant doesn't exist.
+ *
+ * @since 3.1.0
+ *
+ * @param array  $content ACF content array.
+ * @param string $field   Base field name (without language suffix).
+ * @return mixed Field value in current language, or default field value, or empty string.
+ *
+ * @example
+ * // ACF fields: 'file' (English) and 'file_es' (Spanish)
+ * $file = soma_get_i18n_field( $content, 'file' );
+ * // Returns $content['file'] if English, $content['file_es'] if Spanish
+ *
+ * @example
+ * // With events array
+ * $events = soma_get_i18n_field( get_query_var('soma_block_content'), 'events' );
+ * // Returns events_es array if Spanish, events array if English
+ */
+function soma_get_i18n_field( array $content, string $field ) {
+	// Get current language (default to 'en' if WP Multilang not active).
+	$lang = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
+
+	// Build language-specific field name (e.g., 'file_es').
+	$lang_field = $lang === 'es' ? "{$field}_es" : $field;
+
+	// Return language-specific field, fall back to default field, or empty string.
+	return $content[ $lang_field ] ?? $content[ $field ] ?? '';
+}

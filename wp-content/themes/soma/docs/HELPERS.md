@@ -1,8 +1,8 @@
 # SOMA Theme v3.0 - Helper Functions API
 
 **Version**: 3.0.0  
-**Last Updated**: December 12, 2025  
-**Total Functions**: 24 helper functions
+**Last Updated**: December 15, 2025  
+**Total Functions**: 25 helper functions
 
 ---
 
@@ -40,7 +40,7 @@ SOMA v3.0 provides 24 global helper functions with the `soma_` prefix for common
 - **Templates**: 2 functions (template loading)
 - **ACF**: 2 functions (flexible content)
 - **Utilities**: 4 functions (theme helpers)
-- **Translation**: 2 functions (i18n support)
+- **Translation**: 3 functions (i18n support)
 - **Stock Data**: 1 function (stock information)
 
 ---
@@ -800,6 +800,58 @@ echo soma_translate_date($date, 'short'); // "Dic 12, 2025"
 - Apr → Abr
 - Aug → Ago
 - Dec → Dic
+
+---
+
+### soma_get_i18n_field()
+
+Get internationalized ACF field value based on current language.
+
+**Syntax:**
+```php
+soma_get_i18n_field( array $data, string $field_name ): mixed
+```
+
+**Parameters:**
+- `$data` (array) - ACF field data array containing base and localized fields
+- `$field_name` (string) - Base field name (e.g., 'file', 'events')
+
+**Returns:** Field value for current language or base field value as fallback
+
+**Description:**
+Automatically selects the appropriate field based on WP Multilang language:
+- **Spanish (`es`)**: Returns `{$field_name}_es` if exists
+- **English/Default**: Returns `{$field_name}`
+- **Fallback**: If localized field doesn't exist, returns base field
+
+**Example:**
+```php
+// ACF structure:
+// $content = [
+//     'file' => ['url' => 'document-en.pdf'],
+//     'file_es' => ['url' => 'documento-es.pdf'],
+// ];
+
+// Get file based on language
+$file = soma_get_i18n_field($content, 'file');
+// Returns: file_es if Spanish, file if English
+
+// Usage with conditionals BEFORE (deprecated):
+$file = (wpm_get_language() === 'en') ? $content['file'] : $content['file_es'];
+
+// Usage with helper AFTER (recommended):
+$file = soma_get_i18n_field($content, 'file');
+```
+
+**Use Cases:**
+- ACF file fields with English/Spanish versions
+- Events arrays with language-specific content
+- Any ACF data with `_es` suffix fields
+
+**Dependencies:**
+- WP Multilang plugin (optional - gracefully degrades if not available)
+
+**Since:** v3.0.0
 
 ---
 

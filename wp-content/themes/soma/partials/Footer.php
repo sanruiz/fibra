@@ -72,7 +72,7 @@ $data = get_field( 'footer_content', 'options' );
 							?>
 						<?php else : ?>
 							<div class="nav-list">
-								<div class="title"><?php echo wpm_get_language() === 'es' ? 'Redes' : 'Social'; ?></div>
+								<div class="title"><?php esc_html_e( 'Social', 'soma' ); ?></div>
 								<?php
 									wp_nav_menu(
 										array(
@@ -85,7 +85,7 @@ $data = get_field( 'footer_content', 'options' );
 								?>
 							</div>
 							<div class="nav-list">
-								<div class="title"><?php echo wpm_get_language() === 'es' ? 'Unidades de Negocio' : 'Business Units'; ?></div>
+								<div class="title"><?php esc_html_e( 'Business Units', 'soma' ); ?></div>
 								<?php
 									wp_nav_menu(
 										array(

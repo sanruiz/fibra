@@ -39,12 +39,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container">
 		<div class="content">
 			<div class="year-list">
-				<div class="mobile-title"><?php echo ( wpm_get_language() === 'en' ) ? 'Filter by Year' : 'Filtrar por año'; ?> <span></span></div>
+				<div class="mobile-title"><?php esc_html_e( 'Filter by Year', 'soma' ); ?> <span></span></div>
 				<div class="years">
 					<!-- Ajax -->
 				</div>
 				<div class="all">
-					<a><?php echo ( wpm_get_language() === 'en' ) ? 'See All' : 'Ver Todos'; ?></a>
+					<a><?php esc_html_e( 'See All', 'soma' ); ?></a>
 				</div>
 			</div>
 			<div class="documents">

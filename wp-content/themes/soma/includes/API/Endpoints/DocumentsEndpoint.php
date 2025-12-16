@@ -231,10 +231,9 @@ final class DocumentsEndpoint {
 		}
 
 		$formatted_files = array();
-		$current_lang    = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
 
 		foreach ( $content['additional_files'] as $key => $file ) {
-			$file_content = ( $current_lang === 'en' ) ? $file['file'] : $file['file_es'];
+			$file_content = soma_get_i18n_field( $file, 'file' );
 
 			$formatted_files[ $key ] = array(
 				'label' => $file['label'],
@@ -258,8 +257,7 @@ final class DocumentsEndpoint {
 	 * @return array|null Formatted file.
 	 */
 	private function format_main_file( array $content ): ?array {
-		$current_lang = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
-		$main_file    = ( $current_lang === 'en' ) ? $content['file'] : $content['file_es'];
+		$main_file = soma_get_i18n_field( $content, 'file' );
 
 		if ( ! $main_file ) {
 			return null;

@@ -19,6 +19,14 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 
 ### ✨ Added
 
+#### Internationalization (i18n) System
+- **WordPress i18n Standard** - Full compliance with WordPress internationalization best practices
+- **Translation Helper Function** - `soma_get_i18n_field()` for ACF field internationalization with language variants
+- **Translation Files** - Complete Spanish (es_ES) translation with .pot template, .po source, and .mo compiled files
+- **17 UI Strings** - All user-facing strings use WordPress i18n functions (__(), _e(), esc_html__(), etc.)
+- **ACF Field Pattern** - Unified helper function for conditional field loading (file/file_es, events/events_es)
+- **i18n Documentation** - Complete internationalization guide in `docs/INTERNATIONALIZATION.md`
+
 #### Architecture & Infrastructure
 - **PSR-4 Autoloading** - Complete namespace structure with `Soma\` base namespace
 - **Composer Integration** - Modern dependency management with autoloader
@@ -33,14 +41,14 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **LogLevel Enum** (`Soma\Utils\Enums\LogLevel`) - 8 PSR-3 log levels with severity system
 - **CacheTag Enum** (`Soma\Utils\Enums\CacheTag`) - Type-safe cache tag identifiers
 
-#### Helper Functions System (24+ functions)
+#### Helper Functions System (25 functions)
 - **Logger Helpers (9)** - `soma_log_emergency()`, `soma_log_alert()`, `soma_log_critical()`, `soma_log_error()`, `soma_log_warning()`, `soma_log_notice()`, `soma_log_info()`, `soma_log_debug()`, `soma_get_logger()`
 - **Cache Helpers (6)** - `soma_cache_get()`, `soma_cache_set()`, `soma_cache_remember()`, `soma_cache_invalidate_tags()`, `soma_cache_flush()`, `soma_get_cache()`
 - **Post Type Helpers (4)** - `soma_get_portfolio_items()`, `soma_get_news_items()`, `soma_get_careers_items()`, `soma_get_team_members()`
 - **Template Helpers (2)** - `soma_get_template_part()`, `soma_load_partial()`
 - **ACF Helpers (2)** - `soma_get_flexible_content()`, `soma_render_flexible_content()`
 - **Utility Helpers (4)** - `soma_is_dev()`, `soma_get_version()`, `soma_sanitize_class()`, `soma_asset_url()`
-- **Translation Helpers (2)** - `soma_translate_date()`, `translateDate()` (deprecated alias)
+- **Translation Helpers (3)** - `soma_translate_date()`, `soma_get_i18n_field()`, `translateDate()` (deprecated alias)
 - **Stock Data (1)** - `soma_get_stock_data()`
 
 #### Caching System
@@ -425,6 +433,7 @@ composer validate     # Run all quality checks
 - **Widgets Reference**: [docs/WIDGETS.md](docs/WIDGETS.md)
 - **Helper Functions**: [docs/HELPERS.md](docs/HELPERS.md)
 - **Testing Guide**: [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md)
+- **Internationalization**: [docs/INTERNATIONALIZATION.md](docs/INTERNATIONALIZATION.md)
 
 ---
 

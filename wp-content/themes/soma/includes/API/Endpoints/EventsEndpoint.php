@@ -199,8 +199,7 @@ final class EventsEndpoint {
 	 * @return array|null Formatted file.
 	 */
 	private function format_file( array $content ): ?array {
-		$current_lang = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
-		$main_file    = ( $current_lang === 'en' ) ? $content['file'] : $content['file_es'];
+		$main_file = soma_get_i18n_field( $content, 'file' );
 
 		if ( ! $main_file ) {
 			return null;
