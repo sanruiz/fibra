@@ -65,8 +65,17 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
    git checkout -b feature/description
    ```
 3. **Then commit**: Use conventional commits format
-4. **Then push**: `git push -u origin feature/description`
-5. **Then create PR**: Target `week-N` branch (NOT main)
+4. **Before push - Run quality gates locally**:
+   ```bash
+   # Required: Pass ALL quality checks before pushing
+   composer phpcs        # WordPress Coding Standards (must pass)
+   composer phpstan      # Static analysis Level 6+ (0 critical errors)
+   composer test         # PHPUnit tests (all passing)
+   npm run prod          # Frontend build (if modified CSS/JS)
+   ```
+   **Why**: Prevent wasting GitHub Actions resources on avoidable failures
+5. **Then push**: `git push -u origin feature/description`
+6. **Then create PR**: Target `week-N` branch (NOT main)
 
 ### ✅ Pull Request Rules
 

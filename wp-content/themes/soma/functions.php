@@ -19,15 +19,15 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
-/**
- * Load Theme Text Domain for Translations
- *
- * Enables internationalization support for the theme.
- * Translations should be placed in the /languages directory.
- *
- * @since 3.1.0
- */
 if ( ! function_exists( 'soma_load_textdomain' ) ) {
+	/**
+	 * Load Theme Text Domain
+	 *
+	 * Enables internationalization support for the theme.
+	 * Translations should be placed in the /languages directory.
+	 *
+	 * @since 3.1.0
+	 */
 	function soma_load_textdomain(): void {
 		load_theme_textdomain( 'soma', get_template_directory() . '/languages' );
 	}
