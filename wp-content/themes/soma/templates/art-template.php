@@ -35,7 +35,7 @@ $art_content = get_field( 'art_content' );
 	the_content();
 
 	// ACF Flexible Content - only render if not using Elementor.
-	if ( ! did_action( 'elementor/loaded' ) || ! \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
+	if ( ! did_action( 'elementor/loaded' ) && ! \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
 		get_template_part( 'page-builder' );
 	}
 	?>

@@ -41,7 +41,7 @@ $bussiness_unit_data = get_field( 'business_unit_data' );
 	the_content();
 
 	// ACF Flexible Content - only render if not using Elementor.
-	if ( ! did_action( 'elementor/loaded' ) || ! \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
+	if ( ! did_action( 'elementor/loaded' ) && ! \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
 		get_template_part( 'page-builder' );
 	}
 	?>
