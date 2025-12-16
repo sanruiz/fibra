@@ -68,6 +68,8 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 4. **Before push - Run quality gates locally**:
    ```bash
    # Required: Pass ALL quality checks before pushing
+   composer quality-check  # Runs phpcs + phpstan + tests (all must pass)
+   # Or run individually:
    composer phpcs        # WordPress Coding Standards (must pass)
    composer phpstan      # Static analysis Level 6+ (0 critical errors)
    composer test         # PHPUnit tests (all passing)
