@@ -36,7 +36,15 @@ $bussiness_unit_data = get_field( 'business_unit_data' );
 </section>
 
 <main id="business-unit-template-332fce">
-	<?php get_template_part( 'page-builder' ); ?>
+	<?php
+	// Elementor support - required for Elementor editor to work.
+	the_content();
+
+	// ACF Flexible Content - only render if not using Elementor.
+	if ( ! did_action( 'elementor/loaded' ) && ! \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
+		get_template_part( 'page-builder' );
+	}
+	?>
 </main>
 
 <?php get_footer(); ?>
