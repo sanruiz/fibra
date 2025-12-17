@@ -7,6 +7,97 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.0] - 2025-12-16
+
+### Week 2 Release - Elementor Support & CI/CD Enhancements
+
+This release adds full Elementor support to base WordPress templates, enabling visual page building alongside ACF flexible content. Also includes CI/CD workflow improvements and code quality enhancements.
+
+---
+
+### ✨ Added
+
+#### Elementor Integration
+- **Full Template Support** - `single.php`, `page.php`, and `index.php` now support Elementor editor
+- **Dedicated Elementor Template** - New `elementor-template.php` for pages built entirely with Elementor
+- **Conditional Rendering** - Automatically detects Elementor content vs ACF blocks
+- **Backward Compatible** - Existing ACF flexible content continues to work seamlessly
+
+#### CI/CD & Automation
+- **Quality Checks for PRs** - `quality-and-tests.yml` now runs on PRs to `week-*` branches
+- **GitHub Workflow Documentation** - Comprehensive guide in `.github/instructions/github-workflow.instructions.md`
+- **Custom Instructions System** - YAML frontmatter support for path-specific coding standards
+
+#### Developer Experience
+- **i18n Helper Enhancement** - `soma_get_i18n_field()` for unified language-specific field handling
+- **API Language Support** - REST endpoints use helper for consistent multilingual field access
+- **WordPress Coding Standards** - Fixed 644 PHPCS errors, improved code quality
+
+---
+
+### 🔄 Changed
+
+#### Template Architecture
+- **Base Templates Enhanced** - All main templates check for Elementor before rendering ACF blocks
+- **Content Function** - Reverted `the_content()` to dedicated Elementor template instead of modifying core templates
+- **Template Hierarchy** - Added Elementor template to WordPress template hierarchy
+
+#### Code Quality
+- **PHPUnit Configuration** - Fixed textdomain redeclaration warnings in test suite
+- **API Endpoints** - Migrated language conditionals to use `soma_get_i18n_field()` helper
+- **Workflow Improvements** - Enhanced CI/CD reliability and test coverage
+
+---
+
+### 🐛 Fixed
+
+#### Testing
+- **PHPUnit Warnings** - Resolved textdomain redeclaration issues in test bootstrap
+- **WordPress Test Suite** - Properly configured for Local by Flywheel environment
+
+#### Code Standards
+- **PHPCS Compliance** - Fixed 644 coding standard violations
+- **Type Safety** - Improved type hints and documentation across codebase
+
+---
+
+### 📦 Files Changed
+
+#### Added
+- `.github/instructions/github-workflow.instructions.md` - GitHub workflow standards
+- `.github/instructions/documentation-language.instructions.md` - Updated with YAML frontmatter
+- `elementor-template.php` - Dedicated Elementor page template
+
+#### Modified
+- `single.php` - Added Elementor support check
+- `page.php` - Added Elementor support check
+- `index.php` - Added Elementor support check
+- `includes/API/Endpoints/*.php` - Migrated to `soma_get_i18n_field()` helper
+- `.github/workflows/quality-and-tests.yml` - Extended to PR triggers on `week-*` branches
+
+---
+
+### 📊 Quality Metrics
+
+- **PHPCS Errors**: 644 → 0 ✅
+- **PHPUnit Tests**: 108 passing (355 assertions) ✅
+- **PHPStan Level**: 6-8 compliance ✅
+- **CI/CD**: Automated quality gates active ✅
+
+---
+
+### 🚀 Deployment
+
+This version enables:
+- Visual page building with Elementor widgets (8 custom widgets available)
+- Mixed content approach (ACF blocks + Elementor sections on same site)
+- Improved developer workflow with automated quality checks
+- Production-ready multilingual API endpoints
+
+**Migration**: No breaking changes. Existing pages continue to use ACF flexible content. New pages can choose Elementor template from page attributes.
+
+---
+
 ## [3.0.0] - 2025-12-12
 
 ### 🚀 Major Release - Complete Theme Modernization
