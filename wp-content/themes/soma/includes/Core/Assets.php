@@ -30,7 +30,7 @@ class Assets implements LoadableInterface {
 	 *
 	 * @var string
 	 */
-	private string $version = '3.0.0';
+	private string $version = '3.1.0';
 
 	/**
 	 * Legacy stylesheet version
