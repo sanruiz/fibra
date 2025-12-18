@@ -24,6 +24,11 @@ on:
                 description: "Version number (e.g., 3.1.1)"
                 required: false
 
+# Permissions needed for creating releases and deployments
+permissions:
+    contents: write
+    deployments: write
+
 env:
     NODE_VERSION: "18"
     PHP_VERSION: "8.1"
