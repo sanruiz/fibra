@@ -457,7 +457,7 @@ jobs:
                   
                   sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
                     ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/wp-content/themes
+                    cd public_html/fibrasoma.group/wp-content/themes
                     rename soma ${BACKUP_NAME}
                     mkdir soma
                     quit
@@ -471,40 +471,42 @@ jobs:
                   
                   sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
                     ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/wp-content/themes
+                    cd public_html/fibrasoma.group/wp-content/themes
                     put ./release/${{ needs.build-and-release.outputs.zip_file }}
                     quit
                   EOF
                   
                   echo "✅ ZIP uploaded"
 
-            - name: 📤 Upload extraction script
-              run: |
-                  echo "📤 Uploading extraction script..."
-                  
-                  # Upload the extraction script from repo
-                  sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
-                    ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/wp-content/themes
-                    put .github/scripts/soma-extractor.php extract.php
-                    quit
-                  EOF
-                  
-                  echo "✅ Extraction script uploaded"
-
-            - name: 📊 Deployment summary
+            - name:  Deployment summary
               run: |
                   echo "## 🚀 Deployment Complete" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
                   echo "**Version**: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
                   echo "**ZIP**: ${{ needs.build-and-release.outputs.zip_file }}" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
-                  echo "1. Visit: https://${{ secrets.SITE_DOMAIN }}/wp-content/themes/extract.php" >> $GITHUB_STEP_SUMMARY
-                  echo "2. Or extract via cPanel File Manager" >> $GITHUB_STEP_SUMMARY
-                  echo "3. Verify version in WordPress Admin" >> $GITHUB_STEP_SUMMARY
+                  echo "### ⚠️ Manual Extraction Required" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "✅ Files uploaded successfully!" >> $GITHUB_STEP_SUMMARY
+                  echo "The theme ZIP has been uploaded to the server. Please extract it manually:" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Option 1: cPanel File Manager**" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Login to cPanel" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Navigate to: \`public_html/fibrasoma.group/wp-content/themes/\`" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Right-click on \`${{ needs.build-and-release.outputs.zip_file }}\`" >> $GITHUB_STEP_SUMMARY
+                  echo "4. Select 'Extract'" >> $GITHUB_STEP_SUMMARY
+                  echo "5. Confirm extraction" >> $GITHUB_STEP_SUMMARY
+                  echo "6. Delete ZIP file after extraction" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Option 2: FTP/SFTP Client**" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Download ZIP from server" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Extract locally" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Upload extracted \`soma/\` folder" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Verification:**" >> $GITHUB_STEP_SUMMARY
+                  echo "- Visit WordPress Admin → Appearance → Themes" >> $GITHUB_STEP_SUMMARY
+                  echo "- Verify theme version: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "✅ ZIP uploaded successfully to server!" >> $GITHUB_STEP_SUMMARY
 
     # ============================================================================
     # FINAL SUMMARY
