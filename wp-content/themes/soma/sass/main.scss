@@ -21,6 +21,7 @@
 //     font-display: swap;
 // }
 
+// Google Fonts import (kept as @import for external resources)
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 $f1: 'Roboto', sans-serif;
@@ -35,15 +36,15 @@ $t-landscape: 'max-width: 1024px';
 $t-portrait: 'max-width: 991px';
 $mobile: 'max-width: 767px';
 
-// Packages
+// Packages (kept as @import for node_modules compatibility)
 @import '~normalize.css';
 @import '~slick-carousel/slick/slick';
 
-// Main Styles
+// Main Styles (kept as @import to avoid breaking changes with variable sharing)
 @import './general';
 
 // Ditto include zone (don't delete anything below)
-// #DittoPartials
+// #DittoPartials (kept as @import for compatibility)
 @import "./partials/CareersList";
 @import "./partials/AnalystCoverage";
 @import "./partials/FibrasomaHomeEvents";

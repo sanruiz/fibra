@@ -14,7 +14,15 @@ module.exports = {
                 use: [ // Cambiado de 'loader' a 'use'
                     MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'sass-loader'
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sassOptions: {
+                                quietDeps: true, // Suppress deprecation warnings from dependencies
+                                silenceDeprecations: ['import', 'legacy-js-api'] // Silence specific deprecation warnings
+                            }
+                        }
+                    }
                 ]
             },
             {
