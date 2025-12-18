@@ -457,7 +457,7 @@ jobs:
                   
                   sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
                     ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/wp-content/themes
+                    cd public_html/fibrasoma.group/wp-content/themes
                     rename soma ${BACKUP_NAME}
                     mkdir soma
                     quit
@@ -471,7 +471,7 @@ jobs:
                   
                   sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
                     ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/wp-content/themes
+                    cd public_html/fibrasoma.group/wp-content/themes
                     put ./release/${{ needs.build-and-release.outputs.zip_file }}
                     quit
                   EOF
@@ -485,7 +485,7 @@ jobs:
                   # Upload the extraction script from repo
                   sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
                     ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/wp-content/themes
+                    cd public_html/fibrasoma.group/wp-content/themes
                     put .github/scripts/soma-extractor.php extract.php
                     quit
                   EOF
