@@ -7,6 +7,118 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.1] - 2025-12-18
+
+### CI/CD Pipeline Unification & Race Condition Fix
+
+This patch release fixes a critical race condition in the CI/CD pipeline that caused deployment failures in v3.1.0. The solution unifies previously separate workflows into a single, sequential pipeline eliminating timing issues.
+
+---
+
+### 🐛 Fixed
+
+#### CI/CD Architecture
+- **Race Condition Eliminated** - Unified `ci-cd.yml` replaces separate `quality-and-tests.yml` and `release-and-deploy.yml` workflows
+- **Sequential Execution** - Stage 2 (Build & Release) waits for Stage 1 (Quality Gates) completion via `needs:` keyword
+- **Deployment Reliability** - Stage 3 (Deploy) executes only after successful release creation
+- **Cross-Workflow Timing Issues** - Removed unreliable wait-for-ci job that attempted to coordinate separate workflows
+- **3 Failed Deployments** - Resolved v3.1.0 deployment failures (Run IDs: 20291546501, 20291554549, 20291578219)
+
+---
+
+### ✨ Added
+
+#### Workflow Architecture
+- **Unified CI/CD Pipeline** - Single `.github/workflows/ci-cd.yml` (546 lines) with 3-stage architecture
+- **Stage 1: Quality Gates** (parallel execution, always runs)
+  - `code-quality`: PHPCS strict + PHPStan Level 6+ (~27s)
+  - `php-tests`: PHPUnit 108 tests with MySQL (~1m9s)
+  - `frontend-build`: npm production build (~20s)
+- **Stage 2: Build & Release** (conditional on tags, sequential after Stage 1)
+  - Creates production ZIP package
+  - Generates GitHub release
+  - Uploads build artifact
+  - Only runs when tag pushed (v*)
+- **Stage 3: Deploy to Production** (conditional on Stage 2 success)
+  - SFTP upload to fibrasoma.com
+  - Automatic theme backup
+  - Server-side extraction
+- **Stage 4: Pipeline Summary** (always runs, reports all stage results)
+
+#### Documentation
+- **Comprehensive CI/CD Guide** - New `docs/workflows/CI_CD.md` (600+ lines)
+  - Architecture overview with visual flow diagram
+  - Detailed job descriptions for all stages
+  - 4 execution flow scenarios
+  - Troubleshooting guide with solutions
+  - Migration information from old workflows
+- **Updated Main Index** - `docs/WORKFLOWS.md` reflects unified architecture
+- **Deprecated Old Docs** - `QUALITY_AND_TESTS.md` and `RELEASE_AND_DEPLOY.md` marked deprecated with migration notices
+
+---
+
+### 🔄 Changed
+
+#### Workflow Files
+- **Replaced**: `.github/workflows/quality-and-tests.yml` (302 lines, deleted)
+- **Replaced**: `.github/workflows/release-and-deploy.yml` (357 lines, deleted)
+- **Created**: `.github/workflows/ci-cd.yml` (546 lines, unified pipeline)
+
+#### Execution Flow
+- **OLD**: Separate workflows triggered simultaneously on tag push → race condition → wait-for-ci job → deployment failures
+- **NEW**: Single workflow with guaranteed sequential stages → no race conditions → reliable deployment
+
+---
+
+### 📦 Files Changed
+
+#### Created
+- `.github/workflows/ci-cd.yml` - Unified CI/CD pipeline (546 lines)
+- `docs/workflows/CI_CD.md` - Comprehensive workflow documentation (600+ lines)
+
+#### Modified
+- `docs/WORKFLOWS.md` - Updated with unified architecture, new quick start, troubleshooting
+- `docs/workflows/QUALITY_AND_TESTS.md` - Added deprecation notice and migration guide
+- `docs/workflows/RELEASE_AND_DEPLOY.md` - Added deprecation notice and migration guide
+
+#### Deleted
+- `.github/workflows/quality-and-tests.yml` - Merged into ci-cd.yml
+- `.github/workflows/release-and-deploy.yml` - Merged into ci-cd.yml
+
+---
+
+### 📊 Quality Metrics
+
+- **CI Validation**: PR #73 passed all Stage 1 checks (code-quality 27s, php-tests 1m9s, frontend-build 20s)
+- **PHPCS**: 0 errors (WordPress Coding Standards compliant)
+- **PHPStan**: Level 6+ compliance (0 critical errors)
+- **PHPUnit**: 108 tests passing (355 assertions)
+- **Architecture**: Race condition eliminated via unified workflow design
+
+---
+
+### 🔗 Related Issues
+
+- **Issue #72**: [fix: Unify CI/CD workflows to prevent race conditions during releases](https://github.com/sanruiz/fibra/issues/72) - Closed
+- **PR #73**: [fix: Unify CI/CD workflows into single pipeline](https://github.com/sanruiz/fibra/pull/73) - Merged to week-2
+
+---
+
+### 🚀 Deployment
+
+This patch release is specifically designed to test and validate the unified CI/CD pipeline. When the v3.1.1 tag is pushed:
+
+1. **Stage 1** executes immediately (quality gates in parallel)
+2. **Stage 2** executes after Stage 1 success (builds release package)
+3. **Stage 3** executes after Stage 2 success (deploys to production)
+4. **Summary** reports complete pipeline results
+
+**Expected outcome**: Successful deployment to fibrasoma.com without race conditions or timing issues.
+
+**Migration**: No changes to theme code. This release only affects the deployment pipeline architecture.
+
+---
+
 ## [3.1.0] - 2025-12-16
 
 ### Week 2 Release - Elementor Support & CI/CD Enhancements
