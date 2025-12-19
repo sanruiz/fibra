@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.2] - 2025-12-18
+
+### Asset Versioning Fix
+
+This patch release fixes asset versioning to use a single source of truth from `style.css`, eliminating hardcoded version strings and ensuring proper cache busting.
+
+---
+
+### 🐛 Fixed
+
+#### Asset Versioning
+- **Outdated Version Numbers** - Assets were loading with version 2.0.7 instead of current version
+- **Browser Caching Issues** - New styles not appearing due to old version numbers in query strings
+- **Hardcoded Versions** - Eliminated hardcoded `$version` and `$legacy_version` properties
+- **Version Mismatch** - Theme had multiple conflicting version definitions
+
+### 🔄 Changed
+
+#### Single Source of Truth Pattern
+- **Assets.php** - Now reads version from `style.css` header using `wp_get_theme()->get('Version')` in constructor
+- **Theme.php** - `get_version()` method uses `wp_get_theme()->get('Version')` instead of hardcoded constant
+- **Removed** - `VERSION` constant from Theme.php
+- **Removed** - `$legacy_version` property (was hardcoded to 2.0.7)
+- **Simplified** - Future version updates only require changing `style.css` header
+
+### 📦 Files Changed
+
+#### Modified
+- `wp-content/themes/soma/includes/Core/Assets.php` - Dynamic version loading
+- `wp-content/themes/soma/includes/Core/Theme.php` - Removed hardcoded constant
+
+---
+
+### 🔗 Related Issues
+
+- **Issue #76**: [fix: Asset versioning showing outdated 2.0.7 instead of current 3.1.1](https://github.com/sanruiz/fibra/issues/76) - Closed
+- **PR #77**: [fix: Use wp_get_theme()->get('Version') as single source of truth](https://github.com/sanruiz/fibra/pull/77) - Merged to week-2
+
+---
+
 ## [3.1.1] - 2025-12-18
 
 ### CI/CD Pipeline Unification & Race Condition Fix
