@@ -12,6 +12,96 @@ applyTo: "**"
 
 ---
 
+## 🔒 Git Hooks Setup (REQUIRED)
+
+### Installation
+
+**CRITICAL**: Install Git hooks immediately after cloning the repository to enforce branch protection.
+
+```bash
+# Run once after cloning
+chmod +x install-hooks.sh
+./install-hooks.sh
+```
+
+### What Git Hooks Do
+
+The pre-commit hook enforces the GitFlow workflow by:
+
+- ✅ **Blocking direct commits** to protected branches (`main`, `week-*`, `develop`)
+- ✅ **Enforcing PR workflow** - All work must be done on feature/fix/hotfix branches
+- ✅ **Showing helpful messages** - Displays correct workflow if you try to commit to wrong branch
+- ✅ **Preventing accidents** - Catches mistakes before they reach the remote repository
+
+### Protected Branches
+
+The hook blocks commits to:
+
+- `main` - Production branch (only via PR from week-*)
+- `week-*` - Sprint branches (only via PR from feature/fix)
+- `develop` - Legacy branch (deprecated, kept for safety)
+
+### Allowed Branches
+
+You can commit directly to:
+
+- `feature/*` - New features
+- `fix/*` - Bug fixes
+- `hotfix/*` - Emergency production fixes
+- `chore/*` - Maintenance tasks
+- `refactor/*` - Code refactoring
+- `release/*` - Release preparation
+
+### Example: Hook in Action
+
+```bash
+# ❌ Trying to commit to protected branch
+$ git checkout main
+$ git commit -m "feat: some change"
+
+🚫 ════════════════════════════════════════════════════════════
+   COMMIT BLOCKED: Cannot commit directly to 'main'
+════════════════════════════════════════════════════════════
+
+❌ The 'main' branch is protected and requires Pull Requests.
+
+📋 Correct workflow:
+   1. Create feature branch from week-N:
+      git checkout week-2
+      git checkout -b feature/your-feature
+
+   2. Make changes and commit
+
+   3. Create PR to week-N (NOT main):
+      gh pr create --base week-2 --title 'feat: Your feature' | cat
+```
+
+### Troubleshooting
+
+**Hook not working?**
+```bash
+# Re-run installation
+./install-hooks.sh
+
+# Verify hook is executable
+ls -la .git/hooks/pre-commit
+# Should show: -rwxr-xr-x (executable)
+
+# Test hook manually
+.git/hooks/pre-commit
+```
+
+**Need to bypass hook temporarily?**
+```bash
+# NOT RECOMMENDED - Only for emergencies
+git commit --no-verify -m "message"
+
+# Better: Switch to correct branch
+git checkout -b feature/fix
+```
+
+---
+
 ## 🌳 Branch Management
 
 ### Branch Naming Conventions

@@ -4,6 +4,8 @@
 # Excepto estos archivos/directorios
 !.gitignore
 !.github/
+!.githooks/
+!install-hooks.sh
 !wp-content/
 
 # Dentro de wp-content, ignorar todo

@@ -79,25 +79,45 @@ This workflow **unifies** the entire CI/CD pipeline into a single file to preven
 
 ## Workflow Triggers
 
-### 1. Push to Branches
+### Git Workflow Strategy (GitFlow with Weekly Sprints)
+
+**Branch Structure:**
+- **main**: Production-ready code only, receives PRs from week-* at sprint end
+- **week-N**: Sprint branches (e.g., week-2, week-3), receive PRs from feature/fix
+- **feature/**, **fix/**: Issue-specific development branches
+
+**Development Flow:**
+1. Issue created → create feature/fix-X branch
+2. Development → PR to week-N → merge (closes issue)
+3. Sprint ends → PR week-N to main → merge
+4. Release → tag v* from main → GitHub Release → deploy to production
+
+**CI/CD Behavior:**
+- **Quality Gates (Stage 1)**: Run on push to week-*, PRs to main/week-*
+- **Build & Release (Stage 2)**: ONLY on v* tags pushed from main branch
+- **Deploy (Stage 3)**: ONLY after successful release from main branch
+
+---
+
+### 1. Push to Sprint Branches
 
 ```yaml
 on:
   push:
     branches:
-      - main
-      - develop
-      - 'week-*'
+      - 'week-*'  # CI only for sprint branches
 ```
 
-**When**: Any push to main, develop, or week-* branches  
+**When**: Any push to week-* branches  
 **What runs**: Only Stage 1 (Quality Gates)  
-**Purpose**: Validate code changes before merge
+**Purpose**: Validate code changes during sprint development
 
 **Example:**
 ```bash
 git push origin week-2
 # Triggers: code-quality + php-tests + frontend-build
+# Does NOT trigger release or deploy
+```
 # Does NOT trigger: build-and-release or deploy
 ```
 
@@ -109,46 +129,73 @@ git push origin week-2
 on:
   pull_request:
     branches:
-      - main
-      - develop
-      - 'week-*'
+      - main      # PRs to main (from week-* at sprint end)
+      - 'week-*'  # PRs to sprint branches (from feature/fix)
 ```
 
-**When**: PR opened or updated  
+**When**: PR opened/updated to main or week-* branches  
 **What runs**: Only Stage 1 (Quality Gates)  
-**Purpose**: Block merge if quality gates fail
+**Purpose**: Validate changes before merging, block merge if quality gates fail
 
 **Example:**
 ```bash
+# Feature to sprint branch
 gh pr create --base week-2 --title "feat: Add hero section" | cat
-# Triggers: code-quality + php-tests + frontend-build
+
+# Sprint to main (release preparation)
+gh pr create --base main --head week-2 --title "Week 2: Sprint completion" | cat
+
+# Both trigger quality gates
 # PR cannot merge if any job fails
 ```
 
 ---
 
-### 3. Version Tags
+### 3. Version Tags (Production Releases)
 
 ```yaml
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*'  # Release only when tag pushed from main
 ```
 
-**When**: Version tag pushed (v3.0.0, v3.1.0, etc.)  
-**What runs**: ALL stages (Quality → Build/Release → Deploy)  
-**Purpose**: Complete release and deployment pipeline
+**When**: Version tag pushed (e.g., v3.1.2)  
+**What runs**: ALL stages (Quality Gates → Build & Release → Deploy)  
+**Purpose**: Create GitHub release and deploy to production  
+**CRITICAL**: Tags MUST be pushed from `main` branch to trigger release/deploy
 
-**Example:**
+**Example (from main - triggers release):**
 ```bash
-git tag -a v3.1.1 -m "Release v3.1.1"
-git push origin v3.1.1
-# Triggers: ALL STAGES
-# 1. Quality gates (parallel)
-# 2. Build & Release (after quality)
-# 3. Deploy (after release)
+# Correct: Tag from main branch (production release)
+git checkout main
+git pull origin main
+git tag -a v3.1.2 -m "Release v3.1.2: Bug fixes"
+git push origin v3.1.2
+
+# Triggers ALL stages:
+# 1. Quality Gates (parallel) - ~2min
+# 2. Build & Release (creates soma-v3.1.2.zip, GitHub release) - ~1min
+# 3. Deploy to Production (SFTP upload, backup, extract) - ~2min
 ```
+
+**Example (from week-* - quality checks only):**
+```bash
+# Tag from sprint branch (for testing/milestones)
+git checkout week-2
+git tag -a v3.1.2-sprint -m "Week 2 completion"
+git push origin v3.1.2-sprint
+
+# Triggers ONLY Quality Gates
+# Does NOT create GitHub release
+# Does NOT deploy to production
+```
+
+**Why this restriction?**
+- ✅ Ensures only stable, reviewed code reaches production
+- ✅ main always reflects production state
+- ✅ Sprint branches can still be tagged for milestones without deploying
+- ✅ Prevents accidental production deployments from development branches
 
 **Critical**: This trigger now executes stages sequentially within ONE workflow, eliminating race conditions.
 

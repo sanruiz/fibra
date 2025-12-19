@@ -38,33 +38,76 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 
 ---
 
-## ⚠️ MANDATORY: GitHub Workflow Pre-Flight Checklist
+## ⚠️ MANDATORY: GitHub Workflow - GitFlow with Weekly Sprints
 
-**CRITICAL**: Before ANY git commit, push, or branch operation, you MUST verify:
+**CRITICAL**: This project follows a strict GitFlow workflow with weekly sprints.
 
-### ✅ Branch Rules (STRICTLY ENFORCED)
+### 🌳 Branch Strategy
 
-**NEVER commit directly to these branches:**
-- ❌ `main` (default branch - only via merged PRs)
-- ❌ `week-*` (milestone branches - only via merged PRs)
-- ❌ `develop` (development branch - only via merged PRs)
+**Production Branch:**
+- `main` - Production-ready code ONLY
+  - ❌ NEVER commit directly
+  - ✅ Only receives PRs from `week-*` at sprint end
+  - ✅ Tags (`v*`) pushed ONLY from main
+  - ✅ Releases and deploys ONLY from main
 
-**ALWAYS work on feature branches:**
-- ✅ Create feature branch from current milestone (`week-N`)
-- ✅ Use naming convention: `feature/`, `fix/`, `chore/`, `refactor/`
-- ✅ Example: `feature/hero-section`, `fix/navbar-mobile`
+**Sprint Branches:**
+- `week-*` - Sprint development branches (e.g., week-2, week-3)
+  - ❌ NEVER commit directly
+  - ✅ Receives PRs from `feature/`, `fix/` branches
+  - ✅ Merged to `main` at sprint end
+  - ⚠️ Tags from week-* run quality checks but DON'T deploy
+
+**Development Branches:**
+- `feature/*` - New features from issues (e.g., `feature/hero-section`)
+- `fix/*` - Bug fixes from issues (e.g., `fix/navbar-mobile`)
+- `hotfix/*` - Emergency production fixes (e.g., `hotfix/security-patch`)
+- `chore/*`, `refactor/*` - Maintenance tasks
+
+**Deprecated:**
+- `develop` - No longer used (removed from CI/CD triggers)
+
+### 🔒 Git Hooks Setup (REQUIRED)
+
+**Install Git hooks on first clone to enforce branch protection:**
+
+```bash
+# Run once after cloning the repository
+chmod +x install-hooks.sh
+./install-hooks.sh
+```
+
+**What the hooks do:**
+- ✅ **pre-commit**: Blocks direct commits to `main`, `week-*`, and `develop`
+- ✅ **Enforces workflow**: All work must be done on `feature/fix/hotfix` branches
+- ✅ **Helpful messages**: Shows correct workflow if you try to commit to protected branch
+
+**Protected branches:**
+- `main` - Production (only via PR from week-*)
+- `week-*` - Sprints (only via PR from feature/fix)
+- `develop` - Legacy (deprecated)
+
+**Allowed branches:**
+- `feature/*`, `fix/*`, `hotfix/*`, `chore/*`, `refactor/*`, `release/*`
+
+If you accidentally try to commit to a protected branch, the hook will:
+1. Block the commit
+2. Show which branch is protected
+3. Display the correct workflow to follow
 
 ### ✅ Git Operation Checklist
 
 **Before EVERY commit, verify:**
 1. **Check current branch**: `git branch | grep "^\*"`
    - Must show a feature branch (NOT week-*, NOT main)
+   - **Git hook will block commits to protected branches**
 2. **If on wrong branch**: Create feature branch FIRST
    ```bash
    git checkout week-N
    git checkout -b feature/description
    ```
 3. **Then commit**: Use conventional commits format
+   - **Hook automatically validates branch before commit**
 4. **Before push - Run quality gates locally**:
    ```bash
    # Required: Pass ALL quality checks before pushing
@@ -98,7 +141,126 @@ gh pr view 42 | cat          # ✅ Correct
 gh pr view 42                # ❌ Will hang
 ```
 
-### 🔄 Common Workflow Scenarios
+### � Release Workflow Checklist
+
+**Standard Release (from week-* to main):**
+
+```bash
+# 1. Ensure all sprint features merged to week-N
+gh pr list --base week-N | cat  # Should be empty
+
+# 2. Verify quality gates pass
+cd wp-content/themes/soma
+composer phpcs && composer phpstan && composer test
+npm run prod
+
+# 3. Create release branch from week-N
+git checkout week-N
+git pull origin week-N
+git checkout -b release/vX.Y.Z
+
+# 4. Update version files
+# - wp-content/themes/soma/style.css: Version: X.Y.Z
+# - wp-content/themes/soma/CHANGELOG.md: Add release notes
+
+# 5. Commit version bump
+git add style.css CHANGELOG.md
+git commit -m "chore: Prepare release vX.Y.Z"
+
+# 6. Create PR to week-N
+git push -u origin release/vX.Y.Z
+gh pr create --base week-N --title "Release vX.Y.Z" | cat
+
+# 7. After PR approval, merge to week-N
+gh pr merge NUMBER --squash --delete-branch | cat
+
+# 8. Create PR from week-N to main
+gh pr create --base main --head week-N --title "Week N: Sprint completion" | cat
+
+# 9. After approval, merge to main
+gh pr merge NUMBER --squash | cat
+
+# 10. Checkout main and create tag
+git checkout main
+git pull origin main
+git tag -a vX.Y.Z -m "Release vX.Y.Z: Description"
+
+# 11. Push tag (triggers CI/CD → Release → Deploy)
+git push origin vX.Y.Z
+
+# 12. Monitor workflow
+gh run watch
+gh release view vX.Y.Z | cat
+```
+
+**Expected CI/CD Flow:**
+1. ✅ Stage 1: Quality Gates (code-quality, php-tests, frontend-build) ~2min
+2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release) ~1min
+3. ✅ Stage 3: Deploy to Production (SFTP upload, backup, extract) ~2min
+4. ✅ Total: ~5-6 minutes
+
+---
+
+### 🚨 Hotfix Workflow (Emergency Production Fix)
+
+**When**: Critical bug in production needs immediate fix
+
+```bash
+# 1. Create hotfix branch from main (NOT week-*)
+git checkout main
+git pull origin main
+git checkout -b hotfix/critical-issue
+
+# 2. Apply fix and test
+# ... fix code ...
+composer test
+npm run prod
+
+# 3. Commit fix
+git add .
+git commit -m "fix: Critical security vulnerability"
+
+# 4. Push and create PR to main (emergency approval)
+git push -u origin hotfix/critical-issue
+gh pr create --base main --title "HOTFIX: Critical issue" \
+  --label "bug,alta-prioridad,hotfix" | cat
+
+# 5. After emergency approval, merge
+gh pr merge NUMBER --squash | cat
+
+# 6. Create patch release tag
+git checkout main
+git pull origin main
+
+# Update version (patch): 3.1.2 → 3.1.3
+# Edit style.css and CHANGELOG.md
+
+git add style.css CHANGELOG.md
+git commit -m "chore: Hotfix release v3.1.3"
+git push origin main
+
+git tag -a v3.1.3 -m "Hotfix v3.1.3: Critical security patch"
+git push origin v3.1.3
+
+# 7. Monitor deployment
+gh run watch
+
+# 8. Backport to current sprint (if needed)
+git checkout week-N
+git cherry-pick COMMIT_SHA
+git push origin week-N
+```
+
+**Key Differences:**
+- Branch from `main` (not week-*)
+- PR directly to `main`
+- Emergency approval process
+- Patch version increment (X.Y.Z → X.Y.Z+1)
+- Backport to sprint branch after deploy
+
+---
+
+### �🔄 Common Workflow Scenarios
 
 **Scenario 1: Starting new feature**
 ```bash
