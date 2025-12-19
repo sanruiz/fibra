@@ -1,0 +1,60 @@
+# CodeQL Configuration for SOMA Theme
+#
+# This configuration file customizes CodeQL scanning to:
+# - Focus on theme-specific code (wp-content/themes/soma)
+# - Ignore third-party code (WordPress core, plugins, vendor, node_modules)
+# - Enable comprehensive security queries
+
+name: "SOMA CodeQL Configuration"
+
+# Query suites to run
+queries:
+  # Security-focused queries (high-confidence security issues)
+  - uses: security-extended
+  
+  # Additional security and quality queries
+  # Includes more in-depth analysis for security vulnerabilities
+  - uses: security-and-quality
+
+# Paths to exclude from analysis
+paths-ignore:
+  # WordPress core files (not part of theme)
+  - 'wp-admin/**'
+  - 'wp-includes/**'
+  - '*.php'  # WordPress core PHP files in root
+  
+  # Third-party plugins
+  - 'wp-content/plugins/**'
+  
+  # User uploads (media files, not code)
+  - 'wp-content/uploads/**'
+  
+  # WordPress upgrade files
+  - 'wp-content/upgrade/**'
+  
+  # Dependency directories
+  - 'node_modules/**'
+  - 'vendor/**'
+  - 'wp-content/themes/soma/node_modules/**'
+  - 'wp-content/themes/soma/vendor/**'
+  
+  # Build artifacts
+  - 'wp-content/themes/soma/js/main.bundle.js'
+  - 'wp-content/themes/soma/css/main.bundle.css'
+  
+  # Test files (analyzed separately)
+  - 'wp-content/themes/soma/tests/**'
+  
+  # ACF JSON (data files, not code)
+  - 'wp-content/themes/soma/acf-json/**'
+
+# Paths to explicitly include (focus on theme code)
+paths:
+  # Theme source code
+  - 'wp-content/themes/soma/**'
+  
+  # GitHub Actions workflows (security critical)
+  - '.github/workflows/**'
+  
+  # Git hooks (security critical)
+  - '.githooks/**'
