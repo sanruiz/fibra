@@ -126,6 +126,10 @@ cd wp-content/themes/
 git clone <repository-url> soma
 cd soma
 
+# Install Git hooks (REQUIRED - protects branches)
+chmod +x ../../install-hooks.sh
+../../install-hooks.sh
+
 # Install PHP dependencies
 composer install --no-dev --optimize-autoloader
 

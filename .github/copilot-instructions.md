@@ -67,17 +67,47 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 **Deprecated:**
 - `develop` - No longer used (removed from CI/CD triggers)
 
+### 🔒 Git Hooks Setup (REQUIRED)
+
+**Install Git hooks on first clone to enforce branch protection:**
+
+```bash
+# Run once after cloning the repository
+chmod +x install-hooks.sh
+./install-hooks.sh
+```
+
+**What the hooks do:**
+- ✅ **pre-commit**: Blocks direct commits to `main`, `week-*`, and `develop`
+- ✅ **Enforces workflow**: All work must be done on `feature/fix/hotfix` branches
+- ✅ **Helpful messages**: Shows correct workflow if you try to commit to protected branch
+
+**Protected branches:**
+- `main` - Production (only via PR from week-*)
+- `week-*` - Sprints (only via PR from feature/fix)
+- `develop` - Legacy (deprecated)
+
+**Allowed branches:**
+- `feature/*`, `fix/*`, `hotfix/*`, `chore/*`, `refactor/*`, `release/*`
+
+If you accidentally try to commit to a protected branch, the hook will:
+1. Block the commit
+2. Show which branch is protected
+3. Display the correct workflow to follow
+
 ### ✅ Git Operation Checklist
 
 **Before EVERY commit, verify:**
 1. **Check current branch**: `git branch | grep "^\*"`
    - Must show a feature branch (NOT week-*, NOT main)
+   - **Git hook will block commits to protected branches**
 2. **If on wrong branch**: Create feature branch FIRST
    ```bash
    git checkout week-N
    git checkout -b feature/description
    ```
 3. **Then commit**: Use conventional commits format
+   - **Hook automatically validates branch before commit**
 4. **Before push - Run quality gates locally**:
    ```bash
    # Required: Pass ALL quality checks before pushing
