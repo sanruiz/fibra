@@ -26,13 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Theme {
 
 	/**
-	 * Theme version
-	 *
-	 * @var string
-	 */
-	public const VERSION = '3.1.0';
-
-	/**
 	 * Singleton instance
 	 *
 	 * @var Theme|null
@@ -165,7 +158,7 @@ class Theme {
 	 * @return string
 	 */
 	public function get_version(): string {
-		return self::VERSION;
+		return wp_get_theme()->get( 'Version' );
 	}
 
 	/**
