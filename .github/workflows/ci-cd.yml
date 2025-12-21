@@ -468,22 +468,7 @@ jobs:
                   ssh-keyscan -H ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
                   chmod 644 ~/.ssh/known_hosts
 
-            - name: 🗑️ Create backup on server
-              run: |
-                  echo "🗑️ Creating backup..."
-                  BACKUP_NAME="soma-backup-$(date +%Y%m%d-%H%M%S)"
-                  
-                  sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
-                    ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/fibrasoma.group/wp-content/themes
-                    rename soma ${BACKUP_NAME}
-                    mkdir soma
-                    quit
-                  EOF
-                  
-                  echo "✅ Backup: ${BACKUP_NAME}"
-
-            - name: 📤 Upload theme ZIP
+            - name: � Upload theme ZIP
               run: |
                   echo "📤 Uploading ZIP..."
                   
@@ -494,37 +479,37 @@ jobs:
                     quit
                   EOF
                   
-                  echo "✅ ZIP uploaded"
+                  echo "✅ ZIP uploaded successfully"
 
-            - name:  Deployment summary
+            - name: 📋 Deployment summary
               run: |
                   echo "## 🚀 Deployment Complete" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
                   echo "**Version**: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
                   echo "**ZIP**: ${{ needs.build-and-release.outputs.zip_file }}" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "### ⚠️ Manual Extraction Required" >> $GITHUB_STEP_SUMMARY
+                  echo "### ⚠️ Manual Steps Required" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "The theme ZIP has been uploaded to the server. Please extract it manually:" >> $GITHUB_STEP_SUMMARY
+                  echo "The theme ZIP has been uploaded. **Follow these steps in order:**" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "**Option 1: cPanel File Manager**" >> $GITHUB_STEP_SUMMARY
-                  echo "1. Login to cPanel" >> $GITHUB_STEP_SUMMARY
+                  echo "#### 1️⃣ Backup Current Theme (via cPanel)" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Login to cPanel File Manager" >> $GITHUB_STEP_SUMMARY
                   echo "2. Navigate to: \`public_html/fibrasoma.group/wp-content/themes/\`" >> $GITHUB_STEP_SUMMARY
-                  echo "3. Right-click on \`${{ needs.build-and-release.outputs.zip_file }}\`" >> $GITHUB_STEP_SUMMARY
-                  echo "4. Select 'Extract'" >> $GITHUB_STEP_SUMMARY
-                  echo "5. Confirm extraction" >> $GITHUB_STEP_SUMMARY
-                  echo "6. Delete ZIP file after extraction" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Right-click on \`soma\` folder → Compress → ZIP Archive" >> $GITHUB_STEP_SUMMARY
+                  echo "4. Rename to: \`soma-backup-\$(date +%Y%m%d-%H%M%S).zip\`" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "**Option 2: FTP/SFTP Client**" >> $GITHUB_STEP_SUMMARY
-                  echo "1. Download ZIP from server" >> $GITHUB_STEP_SUMMARY
-                  echo "2. Extract locally" >> $GITHUB_STEP_SUMMARY
-                  echo "3. Upload extracted \`soma/\` folder" >> $GITHUB_STEP_SUMMARY
+                  echo "#### 2️⃣ Extract New Theme" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Delete the current \`soma\` folder (backup created in step 1)" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Right-click on \`${{ needs.build-and-release.outputs.zip_file }}\`" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Select 'Extract'" >> $GITHUB_STEP_SUMMARY
+                  echo "4. Verify new \`soma\` folder created" >> $GITHUB_STEP_SUMMARY
+                  echo "5. Delete the ZIP file" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
                   echo "**Verification:**" >> $GITHUB_STEP_SUMMARY
                   echo "- Visit WordPress Admin → Appearance → Themes" >> $GITHUB_STEP_SUMMARY
                   echo "- Verify theme version: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "✅ ZIP uploaded successfully to server!" >> $GITHUB_STEP_SUMMARY
+                  echo "✅ ZIP uploaded successfully - ready for manual extraction!" >> $GITHUB_STEP_SUMMARY
 
     # ============================================================================
     # FINAL SUMMARY
