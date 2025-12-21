@@ -112,6 +112,7 @@ feature/description → New features (e.g., feature/hero-section)
 fix/description     → Bug fixes (e.g., fix/navbar-mobile)
 chore/description   → Maintenance tasks (e.g., chore/update-deps)
 hotfix/description  → Emergency fixes (e.g., hotfix/security-patch)
+release/vX.Y.Z      → Release preparation (e.g., release/v3.1.3)
 ```
 
 ### Branch Hierarchy
