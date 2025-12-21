@@ -12,7 +12,6 @@
 namespace Soma\Elementor;
 
 use Soma\Core\Interfaces\LoadableInterface;
-use Elementor\Plugin as ElementorPlugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

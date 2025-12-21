@@ -30,14 +30,7 @@ class Assets implements LoadableInterface {
 	 *
 	 * @var string
 	 */
-	private string $version = '3.0.0';
-
-	/**
-	 * Legacy stylesheet version
-	 *
-	 * @var string
-	 */
-	private string $legacy_version = '2.0.7';
+	private string $version;
 
 	/**
 	 * Get singleton instance
@@ -54,7 +47,10 @@ class Assets implements LoadableInterface {
 	/**
 	 * Private constructor
 	 */
-	private function __construct() {}
+	private function __construct() {
+		// Get version from style.css (single source of truth).
+		$this->version = wp_get_theme()->get( 'Version' );
+	}
 
 	/**
 	 * Prevent cloning
@@ -110,7 +106,7 @@ class Assets implements LoadableInterface {
 	 */
 	public function add_custom_version_to_stylesheet( string $src ): string {
 		if ( strpos( $src, 'style.css' ) !== false ) {
-			$src = add_query_arg( 'ver', $this->legacy_version, $src );
+			$src = add_query_arg( 'ver', $this->version, $src );
 		}
 		return $src;
 	}
@@ -140,7 +136,7 @@ class Assets implements LoadableInterface {
 			'main-styles',
 			$theme_uri . '/css/main.bundle.css',
 			array( 'soma-variables' ),
-			$this->legacy_version
+			$this->version
 		);
 
 		// Scripts.
@@ -148,7 +144,7 @@ class Assets implements LoadableInterface {
 			'main-scripts',
 			$theme_uri . '/js/main.bundle.js',
 			array( 'jquery' ),
-			$this->legacy_version,
+			$this->version,
 			true
 		);
 	}

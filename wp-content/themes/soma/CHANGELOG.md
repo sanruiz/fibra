@@ -7,6 +7,302 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.3] - 2025-12-21
+
+### Elementor Styles Fix & Security Enhancements
+
+This patch release fixes Elementor widget style conflicts and adds important security and workflow improvements.
+
+---
+
+### 🐛 Fixed
+
+#### Elementor Styles
+- **Global Styles Override** - Simplified exclusion selectors to prevent global typography from affecting Elementor widgets
+- **CSS Specificity** - Changed from complex `:not()` with multiple conditions to simple `:not(.elementor a)` pattern
+- **Widget Styling** - Elementor widgets now maintain their specific styles without interference from theme globals
+
+### ✨ Added
+
+#### Security & CI/CD
+- **CodeQL Security Analysis** - Automated code scanning for security vulnerabilities
+- **Git Hooks** - Pre-commit hooks to enforce branch protection and prevent direct commits to protected branches
+- **Branch Protection** - Blocks commits to `main`, `week-*`, and `develop` branches
+- **Workflow Restrictions** - Releases and deploys now restricted to `main` branch only
+
+### 🔄 Changed
+
+#### Workflow Improvements
+- **Release Process** - Enforced GitFlow: only tags from `main` trigger releases and deployments
+- **Branch Strategy** - Documented sprint-based workflow with `week-*` branches
+- **Quality Gates** - CI runs on all PRs to `week-*` and `main` branches
+
+### 📦 Files Changed
+
+#### Modified
+- `wp-content/themes/soma/sass/_general.scss` - Simplified Elementor exclusion selectors
+- `.github/workflows/ci-cd.yml` - Added main branch restriction for releases
+- `.github/workflows/codeql.yml` - New security scanning workflow
+
+#### Added
+- `install-hooks.sh` - Git hooks installation script
+- `.git/hooks/pre-commit` - Branch protection enforcement
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #79**: [Restrict releases and deploys to main branch only](https://github.com/sanruiz/fibra/issues/79) - Closed (duplicate of #80)
+- **Issue #80**: [Restrict releases and deploys to main branch only](https://github.com/sanruiz/fibra/issues/80) - Closed
+- **PR #81**: [Restrict releases to main and add Git hooks](https://github.com/sanruiz/fibra/pull/81) - Merged
+- **PR #82**: [Add CodeQL security analysis workflow](https://github.com/sanruiz/fibra/pull/82) - Merged
+- **PR #83**: [Simplify Elementor exclusion in global styles](https://github.com/sanruiz/fibra/pull/83) - Merged
+
+---
+
+## [3.1.2] - 2025-12-18
+
+### Asset Versioning Fix
+
+This patch release fixes asset versioning to use a single source of truth from `style.css`, eliminating hardcoded version strings and ensuring proper cache busting.
+
+---
+
+### 🐛 Fixed
+
+#### Asset Versioning
+- **Outdated Version Numbers** - Assets were loading with version 2.0.7 instead of current version
+- **Browser Caching Issues** - New styles not appearing due to old version numbers in query strings
+- **Hardcoded Versions** - Eliminated hardcoded `$version` and `$legacy_version` properties
+- **Version Mismatch** - Theme had multiple conflicting version definitions
+
+### 🔄 Changed
+
+#### Single Source of Truth Pattern
+- **Assets.php** - Now reads version from `style.css` header using `wp_get_theme()->get('Version')` in constructor
+- **Theme.php** - `get_version()` method uses `wp_get_theme()->get('Version')` instead of hardcoded constant
+- **Removed** - `VERSION` constant from Theme.php
+- **Removed** - `$legacy_version` property (was hardcoded to 2.0.7)
+- **Simplified** - Future version updates only require changing `style.css` header
+
+### 📦 Files Changed
+
+#### Modified
+- `wp-content/themes/soma/includes/Core/Assets.php` - Dynamic version loading
+- `wp-content/themes/soma/includes/Core/Theme.php` - Removed hardcoded constant
+
+---
+
+### 🔗 Related Issues
+
+- **Issue #76**: [fix: Asset versioning showing outdated 2.0.7 instead of current 3.1.1](https://github.com/sanruiz/fibra/issues/76) - Closed
+- **PR #77**: [fix: Use wp_get_theme()->get('Version') as single source of truth](https://github.com/sanruiz/fibra/pull/77) - Merged to week-2
+
+---
+
+## [3.1.1] - 2025-12-18
+
+### CI/CD Pipeline Unification & Race Condition Fix
+
+This patch release fixes a critical race condition in the CI/CD pipeline that caused deployment failures in v3.1.0. The solution unifies previously separate workflows into a single, sequential pipeline eliminating timing issues.
+
+---
+
+### 🐛 Fixed
+
+#### CI/CD Architecture
+- **Race Condition Eliminated** - Unified `ci-cd.yml` replaces separate `quality-and-tests.yml` and `release-and-deploy.yml` workflows
+- **Sequential Execution** - Stage 2 (Build & Release) waits for Stage 1 (Quality Gates) completion via `needs:` keyword
+- **Deployment Reliability** - Stage 3 (Deploy) executes only after successful release creation
+- **Cross-Workflow Timing Issues** - Removed unreliable wait-for-ci job that attempted to coordinate separate workflows
+- **3 Failed Deployments** - Resolved v3.1.0 deployment failures (Run IDs: 20291546501, 20291554549, 20291578219)
+
+---
+
+### ✨ Added
+
+#### Workflow Architecture
+- **Unified CI/CD Pipeline** - Single `.github/workflows/ci-cd.yml` (546 lines) with 3-stage architecture
+- **Stage 1: Quality Gates** (parallel execution, always runs)
+  - `code-quality`: PHPCS strict + PHPStan Level 6+ (~27s)
+  - `php-tests`: PHPUnit 108 tests with MySQL (~1m9s)
+  - `frontend-build`: npm production build (~20s)
+- **Stage 2: Build & Release** (conditional on tags, sequential after Stage 1)
+  - Creates production ZIP package
+  - Generates GitHub release
+  - Uploads build artifact
+  - Only runs when tag pushed (v*)
+- **Stage 3: Deploy to Production** (conditional on Stage 2 success)
+  - SFTP upload to fibrasoma.com
+  - Automatic theme backup
+  - Server-side extraction
+- **Stage 4: Pipeline Summary** (always runs, reports all stage results)
+
+#### Documentation
+- **Comprehensive CI/CD Guide** - New `docs/workflows/CI_CD.md` (600+ lines)
+  - Architecture overview with visual flow diagram
+  - Detailed job descriptions for all stages
+  - 4 execution flow scenarios
+  - Troubleshooting guide with solutions
+  - Migration information from old workflows
+- **Updated Main Index** - `docs/WORKFLOWS.md` reflects unified architecture
+- **Deprecated Old Docs** - `QUALITY_AND_TESTS.md` and `RELEASE_AND_DEPLOY.md` marked deprecated with migration notices
+
+---
+
+### 🔄 Changed
+
+#### Workflow Files
+- **Replaced**: `.github/workflows/quality-and-tests.yml` (302 lines, deleted)
+- **Replaced**: `.github/workflows/release-and-deploy.yml` (357 lines, deleted)
+- **Created**: `.github/workflows/ci-cd.yml` (546 lines, unified pipeline)
+
+#### Execution Flow
+- **OLD**: Separate workflows triggered simultaneously on tag push → race condition → wait-for-ci job → deployment failures
+- **NEW**: Single workflow with guaranteed sequential stages → no race conditions → reliable deployment
+
+---
+
+### 📦 Files Changed
+
+#### Created
+- `.github/workflows/ci-cd.yml` - Unified CI/CD pipeline (546 lines)
+- `docs/workflows/CI_CD.md` - Comprehensive workflow documentation (600+ lines)
+
+#### Modified
+- `docs/WORKFLOWS.md` - Updated with unified architecture, new quick start, troubleshooting
+- `docs/workflows/QUALITY_AND_TESTS.md` - Added deprecation notice and migration guide
+- `docs/workflows/RELEASE_AND_DEPLOY.md` - Added deprecation notice and migration guide
+
+#### Deleted
+- `.github/workflows/quality-and-tests.yml` - Merged into ci-cd.yml
+- `.github/workflows/release-and-deploy.yml` - Merged into ci-cd.yml
+
+---
+
+### 📊 Quality Metrics
+
+- **CI Validation**: PR #73 passed all Stage 1 checks (code-quality 27s, php-tests 1m9s, frontend-build 20s)
+- **PHPCS**: 0 errors (WordPress Coding Standards compliant)
+- **PHPStan**: Level 6+ compliance (0 critical errors)
+- **PHPUnit**: 108 tests passing (355 assertions)
+- **Architecture**: Race condition eliminated via unified workflow design
+
+---
+
+### 🔗 Related Issues
+
+- **Issue #72**: [fix: Unify CI/CD workflows to prevent race conditions during releases](https://github.com/sanruiz/fibra/issues/72) - Closed
+- **PR #73**: [fix: Unify CI/CD workflows into single pipeline](https://github.com/sanruiz/fibra/pull/73) - Merged to week-2
+
+---
+
+### 🚀 Deployment
+
+This patch release is specifically designed to test and validate the unified CI/CD pipeline. When the v3.1.1 tag is pushed:
+
+1. **Stage 1** executes immediately (quality gates in parallel)
+2. **Stage 2** executes after Stage 1 success (builds release package)
+3. **Stage 3** executes after Stage 2 success (deploys to production)
+4. **Summary** reports complete pipeline results
+
+**Expected outcome**: Successful deployment to fibrasoma.com without race conditions or timing issues.
+
+**Migration**: No changes to theme code. This release only affects the deployment pipeline architecture.
+
+---
+
+## [3.1.0] - 2025-12-16
+
+### Week 2 Release - Elementor Support & CI/CD Enhancements
+
+This release adds full Elementor support to base WordPress templates, enabling visual page building alongside ACF flexible content. Also includes CI/CD workflow improvements and code quality enhancements.
+
+---
+
+### ✨ Added
+
+#### Elementor Integration
+- **Full Template Support** - `single.php`, `page.php`, and `index.php` now support Elementor editor
+- **Dedicated Elementor Template** - New `elementor-template.php` for pages built entirely with Elementor
+- **Conditional Rendering** - Automatically detects Elementor content vs ACF blocks
+- **Backward Compatible** - Existing ACF flexible content continues to work seamlessly
+
+#### CI/CD & Automation
+- **Quality Checks for PRs** - `quality-and-tests.yml` now runs on PRs to `week-*` branches
+- **GitHub Workflow Documentation** - Comprehensive guide in `.github/instructions/github-workflow.instructions.md`
+- **Custom Instructions System** - YAML frontmatter support for path-specific coding standards
+
+#### Developer Experience
+- **i18n Helper Enhancement** - `soma_get_i18n_field()` for unified language-specific field handling
+- **API Language Support** - REST endpoints use helper for consistent multilingual field access
+- **WordPress Coding Standards** - Fixed 644 PHPCS errors, improved code quality
+
+---
+
+### 🔄 Changed
+
+#### Template Architecture
+- **Base Templates Enhanced** - All main templates check for Elementor before rendering ACF blocks
+- **Content Function** - Reverted `the_content()` to dedicated Elementor template instead of modifying core templates
+- **Template Hierarchy** - Added Elementor template to WordPress template hierarchy
+
+#### Code Quality
+- **PHPUnit Configuration** - Fixed textdomain redeclaration warnings in test suite
+- **API Endpoints** - Migrated language conditionals to use `soma_get_i18n_field()` helper
+- **Workflow Improvements** - Enhanced CI/CD reliability and test coverage
+
+---
+
+### 🐛 Fixed
+
+#### Testing
+- **PHPUnit Warnings** - Resolved textdomain redeclaration issues in test bootstrap
+- **WordPress Test Suite** - Properly configured for Local by Flywheel environment
+
+#### Code Standards
+- **PHPCS Compliance** - Fixed 644 coding standard violations
+- **Type Safety** - Improved type hints and documentation across codebase
+
+---
+
+### 📦 Files Changed
+
+#### Added
+- `.github/instructions/github-workflow.instructions.md` - GitHub workflow standards
+- `.github/instructions/documentation-language.instructions.md` - Updated with YAML frontmatter
+- `elementor-template.php` - Dedicated Elementor page template
+
+#### Modified
+- `single.php` - Added Elementor support check
+- `page.php` - Added Elementor support check
+- `index.php` - Added Elementor support check
+- `includes/API/Endpoints/*.php` - Migrated to `soma_get_i18n_field()` helper
+- `.github/workflows/quality-and-tests.yml` - Extended to PR triggers on `week-*` branches
+
+---
+
+### 📊 Quality Metrics
+
+- **PHPCS Errors**: 644 → 0 ✅
+- **PHPUnit Tests**: 108 passing (355 assertions) ✅
+- **PHPStan Level**: 6-8 compliance ✅
+- **CI/CD**: Automated quality gates active ✅
+
+---
+
+### 🚀 Deployment
+
+This version enables:
+- Visual page building with Elementor widgets (8 custom widgets available)
+- Mixed content approach (ACF blocks + Elementor sections on same site)
+- Improved developer workflow with automated quality checks
+- Production-ready multilingual API endpoints
+
+**Migration**: No breaking changes. Existing pages continue to use ACF flexible content. New pages can choose Elementor template from page attributes.
+
+---
+
 ## [3.0.0] - 2025-12-12
 
 ### 🚀 Major Release - Complete Theme Modernization
@@ -18,6 +314,14 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 ---
 
 ### ✨ Added
+
+#### Internationalization (i18n) System
+- **WordPress i18n Standard** - Full compliance with WordPress internationalization best practices
+- **Translation Helper Function** - `soma_get_i18n_field()` for ACF field internationalization with language variants
+- **Translation Files** - Complete Spanish (es_ES) translation with .pot template, .po source, and .mo compiled files
+- **17 UI Strings** - All user-facing strings use WordPress i18n functions (__(), _e(), esc_html__(), etc.)
+- **ACF Field Pattern** - Unified helper function for conditional field loading (file/file_es, events/events_es)
+- **i18n Documentation** - Complete internationalization guide in `docs/INTERNATIONALIZATION.md`
 
 #### Architecture & Infrastructure
 - **PSR-4 Autoloading** - Complete namespace structure with `Soma\` base namespace
@@ -33,14 +337,14 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **LogLevel Enum** (`Soma\Utils\Enums\LogLevel`) - 8 PSR-3 log levels with severity system
 - **CacheTag Enum** (`Soma\Utils\Enums\CacheTag`) - Type-safe cache tag identifiers
 
-#### Helper Functions System (24+ functions)
+#### Helper Functions System (25 functions)
 - **Logger Helpers (9)** - `soma_log_emergency()`, `soma_log_alert()`, `soma_log_critical()`, `soma_log_error()`, `soma_log_warning()`, `soma_log_notice()`, `soma_log_info()`, `soma_log_debug()`, `soma_get_logger()`
 - **Cache Helpers (6)** - `soma_cache_get()`, `soma_cache_set()`, `soma_cache_remember()`, `soma_cache_invalidate_tags()`, `soma_cache_flush()`, `soma_get_cache()`
 - **Post Type Helpers (4)** - `soma_get_portfolio_items()`, `soma_get_news_items()`, `soma_get_careers_items()`, `soma_get_team_members()`
 - **Template Helpers (2)** - `soma_get_template_part()`, `soma_load_partial()`
 - **ACF Helpers (2)** - `soma_get_flexible_content()`, `soma_render_flexible_content()`
 - **Utility Helpers (4)** - `soma_is_dev()`, `soma_get_version()`, `soma_sanitize_class()`, `soma_asset_url()`
-- **Translation Helpers (2)** - `soma_translate_date()`, `translateDate()` (deprecated alias)
+- **Translation Helpers (3)** - `soma_translate_date()`, `soma_get_i18n_field()`, `translateDate()` (deprecated alias)
 - **Stock Data (1)** - `soma_get_stock_data()`
 
 #### Caching System
@@ -425,15 +729,16 @@ composer validate     # Run all quality checks
 - **Widgets Reference**: [docs/WIDGETS.md](docs/WIDGETS.md)
 - **Helper Functions**: [docs/HELPERS.md](docs/HELPERS.md)
 - **Testing Guide**: [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md)
+- **Internationalization**: [docs/INTERNATIONALIZATION.md](docs/INTERNATIONALIZATION.md)
 
 ---
 
 ### 👥 Contributors
 
-- **Architecture & Development**: SOMA Development Team
+- **Architecture & Development**: Miguel Colmenares
 - **Original Theme**: [PIPE:CODE](https://pipe-code.github.io/)
-- **Testing & QA**: SOMA Development Team
-- **Documentation**: SOMA Development Team
+- **Testing & QA**: Miguel Colmenares
+- **Documentation**: Miguel Colmenares
 
 ---
 
@@ -500,5 +805,5 @@ This project follows [Semantic Versioning](https://semver.org/):
 ---
 
 **SOMA Theme** - © 2020-2025 All Rights Reserved  
-**Developed by**: SOMA Development Team  
+**Developed by**: Miguel Colmenares  
 **Original Theme**: [PIPE:CODE](https://pipe-code.github.io/)

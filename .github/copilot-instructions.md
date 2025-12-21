@@ -1,313 +1,5 @@
 # GitHub Copilot Instructions for FibraSOMA Project
 
-## 🚀 Project Status: Website Development
-
-**Website Project**: FibraSOMA (Real Estate Investment Trust)  
-**WordPress Theme**: SOMA v3.0.0 ✅ (Fully Modernized)  
-**Development Timeline**: 8 weeks remaining (Dec 16, 2025 - Jan 30, 2026)  
-**Current Phase**: Week 2 - Home Page Development  
-**Project Management**: GitHub Projects @ https://github.com/users/sanruiz/projects/4
-
-## ⚠️ CRITICAL: Language Policy
-
-**ALL project files MUST be written in ENGLISH:**
-
-- ✅ **Documentation** (`.md` files) - English only
-- ✅ **GitHub Actions Workflows** (`.yml` files) - English comments and descriptions
-- ✅ **Scripts** (`.sh`, `.php`, etc.) - English comments and output messages
-- ✅ **Code comments** - English only
-- ✅ **Commit messages** - English only
-- ✅ **PR descriptions** - English only
-- ✅ **Issue descriptions** - English only
-
-**Rationale**: 
-- Professional international standard
-- Better integration with development tools
-- Accessibility for global team members
-- Consistency with SOMA v3.0.0 codebase (fully in English)
-
-**Exception**: User-facing content in WordPress (Spanish for FibraSOMA website visitors)
-
-## 🔒 WordPress Security: Output Escaping (CRITICAL)
-
-**ALL dynamic output in PHP templates MUST be escaped** to prevent XSS vulnerabilities. PHPCS enforces `WordPress.Security.EscapeOutput` standard.
-
-### Core Escaping Functions
-
-#### 1. **esc_html()** - Plain Text Output
-Escapes ALL HTML to entities. Use for plain text that should NOT contain HTML.
-
-```php
-// ✅ CORRECT - Plain text
-<h1><?php echo esc_html( $title ); ?></h1>
-<span><?php echo esc_html( $name ); ?></span>
-<p><?php echo esc_html( get_the_title() ); ?></p>
-
-// ❌ WRONG - Unescaped
-<h1><?php echo $title; ?></h1>
-<span><?php echo get_the_title(); ?></span>
-```
-
-#### 2. **esc_url()** - URL Sanitization
-Sanitizes and validates URLs. Use for ALL href and src attributes.
-
-```php
-// ✅ CORRECT - URLs
-<a href="<?php echo esc_url( $link['url'] ); ?>">Link</a>
-<img src="<?php echo esc_url( $image['url'] ); ?>" alt="">
-<iframe src="<?php echo esc_url( $video_url ); ?>"></iframe>
-
-// ❌ WRONG - Unescaped URLs
-<a href="<?php echo $link['url']; ?>">Link</a>
-<img src="<?php echo $image['url']; ?>" alt="">
-```
-
-#### 3. **esc_attr()** - HTML Attributes
-Escapes for HTML attributes (class, id, data-*, style, alt, etc.).
-
-```php
-// ✅ CORRECT - Attributes
-<div class="<?php echo esc_attr( $class_name ); ?>">
-<img alt="<?php echo esc_attr( $image['alt'] ); ?>">
-<a target="<?php echo esc_attr( $link['target'] ); ?>">
-<div style="background-color: <?php echo esc_attr( $color ); ?>">
-<div id="<?php echo esc_attr( $block_id ); ?>">
-
-// ❌ WRONG - Unescaped attributes
-<div class="<?php echo $class_name; ?>">
-<img alt="<?php echo $image['alt']; ?>">
-```
-
-#### 4. **wp_kses_post()** - Rich HTML Content
-Allows safe HTML tags (p, span, br, strong, em, ul, li, etc.). Use for content that should display HTML formatting.
-
-```php
-// ✅ CORRECT - Rich content with HTML
-<div class="description">
-    <?php echo wp_kses_post( $description ); ?>
-</div>
-<div class="content">
-    <?php echo wp_kses_post( get_query_var('soma_block_content')['text'] ); ?>
-</div>
-
-// Allows: <p>, <span>, <br>, <strong>, <em>, <a>, <ul>, <li>, etc.
-// Strips: <script>, <iframe>, <object>, unsafe attributes
-```
-
-#### 5. **wp_kses()** - Custom Allowed Tags
-For fine-grained control over allowed HTML tags.
-
-```php
-// ✅ CORRECT - Custom allowed tags
-$allowed_svg = array(
-    'svg' => array('class' => true, 'width' => true, 'height' => true),
-    'path' => array('d' => true, 'fill' => true),
-    'g' => array('fill' => true),
-);
-echo wp_kses( $svg_content, $allowed_svg );
-```
-
-### **CRITICAL: apply_filters() vs wp_kses_post()**
-
-#### ❌ **apply_filters('the_content') - NOT RECOGNIZED BY PHPCS**
-
-```php
-// ❌ WRONG - PHPCS does NOT recognize apply_filters as escaping
-<div class="column">
-    <?php echo apply_filters('the_content', $block_content['column_1']); ?>
-</div>
-
-// Result: WordPress.Security.EscapeOutput.OutputNotEscaped error
-// Even though WordPress core uses it, PHPCS flags it as unsafe
-```
-
-**Why it fails:**
-- PHPCS only recognizes specific escaping functions (esc_html, esc_url, wp_kses_post, etc.)
-- apply_filters() can execute arbitrary callbacks, not guaranteed to escape
-- Cannot be whitelisted without compromising security standards
-
-#### ✅ **wp_kses_post() - PHPCS COMPLIANT**
-
-```php
-// ✅ CORRECT - PHPCS recognizes wp_kses_post
-<div class="column">
-    <?php echo wp_kses_post( $block_content['column_1'] ); ?>
-</div>
-
-// Result: No PHPCS errors
-// Still allows HTML formatting (p, span, br, strong, em, etc.)
-// Strips unsafe tags (script, iframe, object)
-```
-
-**Migration pattern:**
-```php
-// OLD (v2.x - PHPCS error)
-echo apply_filters('the_content', $content);
-
-// NEW (v3.0+ - PHPCS compliant)
-echo wp_kses_post( $content );
-```
-
-### Common Patterns in SOMA Theme
-
-#### ACF Flexible Content Blocks (partials/)
-```php
-<?php
-// Get block data via WordPress query vars (v3.0+)
-$block_content = get_query_var('soma_block_content');
-$block_counter = get_query_var('soma_block_counter');
-?>
-
-<!-- Plain text fields -->
-<h2><?php echo esc_html( $block_content['title'] ); ?></h2>
-<h4><?php echo esc_html( $block_content['subtitle'] ); ?></h4>
-
-<!-- Rich content (WYSIWYG fields) -->
-<div class="description">
-    <?php echo wp_kses_post( $block_content['description'] ); ?>
-</div>
-
-<!-- Images -->
-<img src="<?php echo esc_url( $block_content['image']['url'] ); ?>" 
-     alt="<?php echo esc_attr( $block_content['image']['alt'] ); ?>">
-
-<!-- Links -->
-<a href="<?php echo esc_url( $block_content['link']['url'] ); ?>" 
-   target="<?php echo esc_attr( $block_content['link']['target'] ); ?>">
-    <?php echo esc_html( $block_content['link']['title'] ); ?>
-</a>
-
-<!-- Dynamic CSS -->
-<div style="background-color: <?php echo esc_attr( $block_content['bg_color'] ); ?>">
-
-<!-- SVG inline content (hardcoded, safe) -->
-<?php
-$arrow = '<svg>...</svg>'; // Hardcoded SVG
-echo esc_html( $label ) . wp_kses_post( $arrow );
-?>
-```
-
-#### WordPress Functions
-```php
-// get_the_title() - ALWAYS escape
-<h3><?php echo esc_html( get_the_title() ); ?></h3>
-
-// get_permalink() - Use esc_url
-<a href="<?php echo esc_url( get_permalink() ); ?>">Read more</a>
-
-// get_the_post_thumbnail_url() - Use esc_url
-<img src="<?php echo esc_url( get_the_post_thumbnail_url() ); ?>" alt="">
-
-// get_the_excerpt() - Use wp_kses_post (may contain HTML)
-<div class="excerpt">
-    <?php echo wp_kses_post( get_the_excerpt() ); ?>
-</div>
-```
-
-### When to Use Each Function
-
-| Function | Use Case | Example |
-|----------|----------|---------|
-| **esc_html()** | Plain text, titles, names, labels | `<h1><?php echo esc_html($title); ?></h1>` |
-| **esc_url()** | URLs (href, src) | `<a href="<?php echo esc_url($url); ?>">` |
-| **esc_attr()** | HTML attributes (class, id, data-*, style, alt) | `<div class="<?php echo esc_attr($class); ?>">` |
-| **wp_kses_post()** | Rich HTML content (WYSIWYG, descriptions) | `<?php echo wp_kses_post($content); ?>` |
-| **wp_kses()** | Custom allowed tags (SVG, specific HTML) | `<?php echo wp_kses($svg, $allowed); ?>` |
-
-### ❌ Common Mistakes to Avoid
-
-```php
-// ❌ WRONG - No escaping
-echo $title;
-echo get_the_title();
-echo $image['url'];
-
-// ❌ WRONG - Wrong function for content type
-echo esc_html( $wysiwyg_content ); // Strips HTML, breaks formatting
-echo wp_kses_post( $url ); // Wrong, use esc_url()
-
-// ❌ WRONG - Using apply_filters for escaping
-echo apply_filters('the_content', $content); // PHPCS error
-
-// ✅ CORRECT - Proper escaping
-echo esc_html( $title );
-echo esc_html( get_the_title() );
-echo esc_url( $image['url'] );
-echo wp_kses_post( $wysiwyg_content );
-```
-
-### PHPCS Validation
-
-All code must pass `WordPress.Security.EscapeOutput` sniff:
-
-```bash
-# Check for unescaped output
-vendor/bin/phpcs partials/ --sniffs=WordPress.Security.EscapeOutput
-
-# Should show 0 errors for OutputNotEscaped
-```
-
-**Zero tolerance policy**: No unescaped output allowed in production code.
-
-## ⚠️ CRITICAL: Pre-Push Quality Validation
-
-**ALWAYS run quality checks BEFORE pushing to remote repository:**
-
-```bash
-# Run BOTH quality checks before git push
-cd wp-content/themes/soma
-
-# 1. PHPCS - WordPress Coding Standards (REQUIRED)
-./vendor/bin/phpcs
-# Must pass with 0 errors
-
-# 2. PHPStan - Static Analysis Level 6+ (REQUIRED)
-./vendor/bin/phpstan analyse --memory-limit=1G
-# Must pass with 0 errors
-
-# If both pass, then push:
-git push origin <branch-name>
-```
-
-**WHY**: These validations run in CI/CD and will block deployment if they fail. Running locally before push:
-- ✅ Prevents failed CI runs (saves time)
-- ✅ Catches issues early (faster feedback)
-- ✅ Avoids "fix commit spam" (cleaner git history)
-- ✅ Ensures code quality standards (professional codebase)
-
-**Auto-fix available**:
-```bash
-# PHPCS can auto-fix many issues
-./vendor/bin/phpcbf
-
-# Then verify fixes
-./vendor/bin/phpcs
-```
-
-**When to skip**: NEVER. Quality gates are REQUIRED for all commits that will be pushed.
-
-**Note**: This validation is ONLY required before `git push`, NOT before `git commit`. You can commit locally without running checks, but MUST validate before pushing to remote.
-
-## ⚠️ CRITICAL: Language Policy
-
-**ALL project files MUST be written in ENGLISH:**
-
-- ✅ **Documentation** (`.md` files) - English only
-- ✅ **GitHub Actions Workflows** (`.yml` files) - English comments and descriptions
-- ✅ **Scripts** (`.sh`, `.php`, etc.) - English comments and output messages
-- ✅ **Code comments** - English only
-- ✅ **Commit messages** - English only
-- ✅ **PR descriptions** - English only
-- ✅ **Issue descriptions** - English only
-
-**Rationale**: 
-- Professional international standard
-- Better integration with development tools
-- Accessibility for global team members
-- Consistency with SOMA v3.0.0 codebase (fully in English)
-
-**Exception**: User-facing content in WordPress (Spanish for FibraSOMA website visitors)
-
 ## Project Context
 
 This is an **8-week WordPress website development project** for FibraSOMA's corporate website using the newly modernized SOMA v3.0.0 theme.
@@ -315,6 +7,300 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 **Repository**: `sanruiz/fibra` (default branch: main)  
 **Theme**: `wp-content/themes/soma/` (PSR-4, PHP 8.1+, Elementor integrated)  
 **Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
+
+## 🚀 Project Status
+
+**Website Project**: FibraSOMA (Real Estate Investment Trust)  
+**WordPress Theme**: SOMA v3.0.0 ✅ (Fully Modernized)  
+**Project Management**: GitHub Projects @ https://github.com/users/sanruiz/projects/4
+
+**Current status**: Check GitHub Projects board for current milestone and progress
+
+## ⚠️ CRITICAL: Language Policy
+
+**ALL project files MUST be written in ENGLISH:**
+
+- ✅ **Documentation** (`.md` files) - English only
+- ✅ **GitHub Actions Workflows** (`.yml` files) - English comments and descriptions
+- ✅ **Scripts** (`.sh`, `.php`, etc.) - English comments and output messages
+- ✅ **Code comments** - English only
+- ✅ **Commit messages** - English only
+- ✅ **PR descriptions** - English only
+- ✅ **Issue descriptions** - English only
+
+**Rationale**: 
+- Professional international standard
+- Better integration with development tools
+- Accessibility for global team members
+- Consistency with SOMA v3.0.0 codebase (fully in English)
+
+**Exception**: User-facing content in WordPress (Spanish for FibraSOMA website visitors)
+
+---
+
+## ⚠️ MANDATORY: GitHub Workflow - GitFlow with Weekly Sprints
+
+**CRITICAL**: This project follows a strict GitFlow workflow with weekly sprints.
+
+### 🌳 Branch Strategy
+
+**Production Branch:**
+- `main` - Production-ready code ONLY
+  - ❌ NEVER commit directly
+  - ✅ Only receives PRs from `week-*` at sprint end
+  - ✅ Tags (`v*`) pushed ONLY from main
+  - ✅ Releases and deploys ONLY from main
+
+**Sprint Branches:**
+- `week-*` - Sprint development branches (e.g., week-2, week-3)
+  - ❌ NEVER commit directly
+  - ✅ Receives PRs from `feature/`, `fix/` branches
+  - ✅ Merged to `main` at sprint end
+  - ⚠️ Tags from week-* run quality checks but DON'T deploy
+
+**Development Branches:**
+- `feature/*` - New features from issues (e.g., `feature/hero-section`)
+- `fix/*` - Bug fixes from issues (e.g., `fix/navbar-mobile`)
+- `hotfix/*` - Emergency production fixes (e.g., `hotfix/security-patch`)
+- `chore/*`, `refactor/*` - Maintenance tasks
+
+**Deprecated:**
+- `develop` - No longer used (removed from CI/CD triggers)
+
+### 🔒 Git Hooks Setup (REQUIRED)
+
+**Install Git hooks on first clone to enforce branch protection:**
+
+```bash
+# Run once after cloning the repository
+chmod +x install-hooks.sh
+./install-hooks.sh
+```
+
+**What the hooks do:**
+- ✅ **pre-commit**: Blocks direct commits to `main`, `week-*`, `release/*`, and `develop`
+- ✅ **Enforces workflow**: All work must be done on `feature/fix/hotfix` branches
+- ✅ **Helpful messages**: Shows correct workflow if you try to commit to protected branch
+
+**Protected branches:**
+- `main` - Production (only via PR from week-*)
+- `week-*` - Sprints (only via PR from feature/fix)
+- `release/*` - Release preparation (only version bump, CHANGELOG, critical fixes)
+- `develop` - Legacy (deprecated)
+
+**Allowed branches:**
+- `feature/*`, `fix/*`, `hotfix/*`, `chore/*`, `refactor/*`
+
+If you accidentally try to commit to a protected branch, the hook will:
+1. Block the commit
+2. Show which branch is protected
+3. Display the correct workflow to follow
+
+### ✅ Git Operation Checklist
+
+**Before EVERY commit, verify:**
+1. **Check current branch**: `git branch | grep "^\*"`
+   - Must show a feature branch (NOT week-*, NOT main, NOT release/*)
+   - **Git hook will block commits to protected branches**
+2. **If on wrong branch**: Create feature branch FIRST
+   ```bash
+   git checkout week-N
+   git checkout -b feature/description
+   ```
+3. **Then commit**: Use conventional commits format
+   - **Hook automatically validates branch before commit**
+4. **Before push - Run quality gates locally**:
+   ```bash
+   # Required: Pass ALL quality checks before pushing
+   composer quality-check  # Runs phpcs + phpstan + tests (all must pass)
+   # Or run individually:
+   composer phpcs        # WordPress Coding Standards (must pass)
+   composer phpstan      # Static analysis Level 6+ (0 critical errors)
+   composer test         # PHPUnit tests (all passing)
+   npm run prod          # Frontend build (if modified CSS/JS)
+   ```
+   **Why**: Prevent wasting GitHub Actions resources on avoidable failures
+5. **Then push**: `git push -u origin feature/description`
+6. **Then create PR**: Target `week-N` branch (NOT main)
+
+### ✅ Pull Request Rules
+
+**When creating PRs:**
+- Base branch: `week-N` (current milestone)
+- Never target `main` directly during milestone work
+- Use labels: `enhancement`, `semana-N`, `frontend`/`backend`, priority
+- Reference issues: `Closes #N`, `Relates to #N`
+
+### ✅ GitHub CLI Rules
+
+**ALWAYS append `| cat` to `gh` commands:**
+```bash
+gh issue list | cat          # ✅ Correct
+gh issue list                # ❌ Will hang
+
+gh pr view 42 | cat          # ✅ Correct
+gh pr view 42                # ❌ Will hang
+```
+
+### � Release Workflow Checklist
+
+**Standard Release (from week-* to main):**
+
+```bash
+# 1. Ensure all sprint features merged to week-N
+gh pr list --base week-N | cat  # Should be empty
+
+# 2. Verify quality gates pass
+cd wp-content/themes/soma
+composer phpcs && composer phpstan && composer test
+npm run prod
+
+# 3. Create release branch from week-N
+git checkout week-N
+git pull origin week-N
+git checkout -b release/vX.Y.Z
+
+# 4. Update version files
+# - wp-content/themes/soma/style.css: Version: X.Y.Z
+# - wp-content/themes/soma/CHANGELOG.md: Add release notes
+
+# 5. Commit version bump
+git add style.css CHANGELOG.md
+git commit -m "chore: Prepare release vX.Y.Z"
+
+# 6. Create PR to week-N
+git push -u origin release/vX.Y.Z
+gh pr create --base week-N --title "Release vX.Y.Z" | cat
+
+# 7. After PR approval, merge to week-N
+gh pr merge NUMBER --squash --delete-branch | cat
+
+# 8. Create PR from week-N to main
+gh pr create --base main --head week-N --title "Week N: Sprint completion" | cat
+
+# 9. After approval, merge to main
+gh pr merge NUMBER --squash | cat
+
+# 10. Checkout main and create tag
+git checkout main
+git pull origin main
+git tag -a vX.Y.Z -m "Release vX.Y.Z: Description"
+
+# 11. Push tag (triggers CI/CD → Release → Deploy)
+git push origin vX.Y.Z
+
+# 12. Monitor workflow
+gh run watch
+gh release view vX.Y.Z | cat
+```
+
+**Expected CI/CD Flow:**
+1. ✅ Stage 1: Quality Gates (code-quality, php-tests, frontend-build) ~2min
+2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release) ~1min
+3. ✅ Stage 3: Deploy to Production (SFTP upload, backup, extract) ~2min
+4. ✅ Total: ~5-6 minutes
+
+---
+
+### 🚨 Hotfix Workflow (Emergency Production Fix)
+
+**When**: Critical bug in production needs immediate fix
+
+```bash
+# 1. Create hotfix branch from main (NOT week-*)
+git checkout main
+git pull origin main
+git checkout -b hotfix/critical-issue
+
+# 2. Apply fix and test
+# ... fix code ...
+composer test
+npm run prod
+
+# 3. Commit fix
+git add .
+git commit -m "fix: Critical security vulnerability"
+
+# 4. Push and create PR to main (emergency approval)
+git push -u origin hotfix/critical-issue
+gh pr create --base main --title "HOTFIX: Critical issue" \
+  --label "bug,alta-prioridad,hotfix" | cat
+
+# 5. After emergency approval, merge
+gh pr merge NUMBER --squash | cat
+
+# 6. Create patch release tag
+git checkout main
+git pull origin main
+
+# Update version (patch): 3.1.2 → 3.1.3
+# Edit style.css and CHANGELOG.md
+
+git add style.css CHANGELOG.md
+git commit -m "chore: Hotfix release v3.1.3"
+git push origin main
+
+git tag -a v3.1.3 -m "Hotfix v3.1.3: Critical security patch"
+git push origin v3.1.3
+
+# 7. Monitor deployment
+gh run watch
+
+# 8. Backport to current sprint (if needed)
+git checkout week-N
+git cherry-pick COMMIT_SHA
+git push origin week-N
+```
+
+**Key Differences:**
+- Branch from `main` (not week-*)
+- PR directly to `main`
+- Emergency approval process
+- Patch version increment (X.Y.Z → X.Y.Z+1)
+- Backport to sprint branch after deploy
+
+---
+
+### �🔄 Common Workflow Scenarios
+
+**Scenario 1: Starting new feature**
+```bash
+git checkout week-2
+git pull origin week-2
+git checkout -b feature/my-feature
+# ... make changes ...
+git add .
+git commit -m "feat: add new feature"
+git push -u origin feature/my-feature
+gh pr create --base week-2 --label "enhancement,semana-2" | cat
+```
+
+**Scenario 2: If you find yourself on week-* or main**
+```bash
+# STOP - Do NOT commit
+# Check staged changes
+git status
+# Create feature branch
+git checkout -b feature/description
+# Now you can commit
+```
+
+**See complete workflow guide**: `.github/instructions/github-workflow.instructions.md`
+
+---
+
+## 📋 Path-Specific Instructions
+
+The following instruction files apply automatically based on file type. VS Code will load them when working with matching files.
+
+**Available instruction files:**
+- `.github/instructions/php.instructions.md` → PHP files (`**/*.php`)
+- `.github/instructions/documentation-language.instructions.md` → Documentation and language policy
+- `.github/instructions/github-workflow.instructions.md` → GitHub operations and workflow
+
+**Note**: These files use YAML frontmatter with `applyTo` patterns and are automatically detected by VS Code.
+
+---
 
 ## 📁 Repository Structure
 
@@ -349,150 +335,57 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 - ✅ Workflows: `.github/workflows/` (root)
 - ✅ Deployment scripts: `.github/scripts/` (root)
 - ✅ Copilot instructions: `.github/copilot-instructions.md` (root)
+- ✅ Workflow instructions: `.github/instructions/github-workflow.instructions.md`
 
-## 🔀 Branching Strategy
+## 🚀 CI/CD Workflows (Summary)
 
-**IMPORTANT**: Each milestone/week MUST be developed in a separate branch, NOT directly in main.
+**For detailed workflow instructions, see** `.github/instructions/github-workflow.instructions.md`
 
-### Branch Naming Convention
-- **Week branches**: `week-N` (e.g., `week-2`, `week-3`, etc.)
-- **Feature branches**: `feature/description` (e.g., `feature/hero-section`)
-- **Fix branches**: `fix/description` (e.g., `fix/navbar-mobile`)
+### Quick Reference
 
-### Workflow
-1. **Create branch from main**: 
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout -b week-N
-   ```
+**Continuous Integration** (`quality-and-tests.yml`):
+- Triggers: Push to main/week-*, PRs
+- Duration: ~3-5 minutes
+- Jobs: PHPCS, PHPStan, PHPUnit, Frontend Build
+- Purpose: Validate code quality before merge
 
-2. **Work on the branch**: Make all commits for the milestone/week
-
-3. **Create Pull Request**: When work is complete, create PR to main
-   ```bash
-   git push -u origin week-N
-   gh pr create --title "Week N: [Description]" --base main | cat
-   ```
-
-4. **Close Milestone**: After creating the PR, close the corresponding milestone
-   ```bash
-   # Close milestone for Week N
-   gh api repos/sanruiz/fibra/milestones/{milestone_number} -X PATCH -f state=closed | cat
-   # Or use the GitHub web interface
-   ```
-
-5. **Merge to main**: After review and approval, merge the PR
-
-6. **Never commit directly to main**: All changes must go through PRs
-
-### GitHub CLI Commands for PRs
-- **ALWAYS append `| cat`** to `gh` commands to prevent terminal pagination
-- Examples:
-  - `gh pr create --title "Week 2: Home Page" --base main | cat`
-  - `gh pr list | cat`
-  - `gh pr view 55 | cat`
-  - `gh pr merge 55 --squash | cat`
-
-## 🚀 CI/CD Workflows
-
-### Two-Workflow Architecture
-
-SOMA uses a **modern CI/CD architecture** separating Continuous Integration from Continuous Deployment:
-
-#### Workflow 1: Quality & Tests (CI) - `quality-and-tests.yml`
-- **Purpose**: Fast feedback on code quality and tests
-- **Triggers**: 
-  - Push to branches: `main`, `develop`, `week-*`
-  - Pull requests to: `main`, `develop`
-  - Manual dispatch
-- **Duration**: ~3-5 minutes
-- **Jobs** (run in parallel):
-  1. Code Quality (PHPCS, PHPStan, PHPCBF auto-fix)
-  2. PHP Tests (PHPUnit 108 tests with MySQL)
-  3. Frontend Build (Webpack production)
-  4. CI Summary (always runs)
-- **Does NOT**: Create releases or deploy to production
-- **Purpose**: Validate code changes before release
-
-#### Workflow 2: Release & Deploy (CD) - `release-and-deploy.yml`
-- **Purpose**: Build, release, and deploy to production
-- **Triggers**:
-  - Version tags: `v*` (e.g., v3.0.0, v3.0.1)
-  - Manual dispatch (with version input)
-- **Duration**: ~5-8 minutes
-- **Jobs** (sequential):
-  1. Wait for CI (verifies quality-and-tests.yml passed)
-  2. Build & Release (create GitHub release + ZIP package)
-  3. Deploy (SFTP upload to production)
-- **Prerequisite**: CI workflow MUST pass first
-- **Deployment Flow**:
-  1. Push code → CI runs (quality gates)
-  2. Create tag v3.0.X → CD checks CI status
-  3. If CI passed → Proceeds with release + deploy
-  4. If CI failed → Blocks deployment
-
-### Benefits of Separation
-- ✅ **Faster Feedback**: CI runs on every push (~3-5 min vs ~10-15 min)
-- ✅ **Cost Efficiency**: Avoid running release/deploy unnecessarily
-- ✅ **Clear Intent**: CI for validation, CD for releases only
-- ✅ **Better Control**: Can require CI as status check for PRs
-- ✅ **Easier Debugging**: Smaller, focused workflows
-
-### Workflow Triggers (IMPORTANT)
-
-**CI Workflow** (`quality-and-tests.yml`):
-```yaml
-on:
-  push:
-    branches: [main, develop, week-*]  # Runs on push
-  pull_request:
-    branches: [main, develop]          # Runs on PR
-  workflow_dispatch:                   # Manual trigger
-```
-
-**CD Workflow** (`release-and-deploy.yml`):
-```yaml
-on:
-  push:
-    tags: [v*]              # ONLY runs on version tags
-  workflow_dispatch:        # Manual trigger
-```
-
-**CRITICAL**: 
-- CI runs on **every push** to validate quality
-- CD runs **ONLY on release tags** to deploy
-- Pushing to main no longer triggers full deployment
-- Create tag (git tag v3.0.1) to trigger deployment
+**Continuous Deployment** (`release-and-deploy.yml`):
+- Triggers: Tags `v*`, manual dispatch
+- Duration: ~5-8 minutes  
+- Jobs: Wait for CI → Build & Release → Deploy
+- Purpose: Automated releases and deployment
 
 ## 📊 GitHub Project Organization
 
-### Issues & Milestones
-- **54 total issues**: 1 closed (theme modernization), 53 for website development
-- **8 milestones**: Week 2 through Week 9
-- **28 labels**: weeks, types, priorities, components
-- **4 project columns**: Backlog, Todo, In Progress, Done
+**For complete workflow details**, see `.github/instructions/github-workflow.instructions.md`
 
 ### View Project
 - **Project Board**: https://github.com/users/sanruiz/projects/4
 - **Issues**: https://github.com/sanruiz/fibra/issues
 - **Milestones**: https://github.com/sanruiz/fibra/milestones
 
-## 📋 Website Development Plan (Weeks 2-9)
+### Quick Commands
+```bash
+# View issues and PRs (always use | cat)
+gh issue list | cat
+gh pr list | cat
 
-- **Week 2**: Home page sections (hero, business units, portfolio showcase, news feed)
-- **Week 3**: Corporate pages (About Us, Portfolio Archive, Team Members)
-- **Weeks 4-5**: Investor Relations section (reports, presentations, financial data)
-- **Week 6**: Individual project templates with galleries and technical specs
-- **Week 7**: ESG/ASG section (sustainability initiatives, corporate governance)
-- **Week 8**: News system (archive, categories, individual articles)
-- **Week 9**: Contact forms, final QA, performance optimization, launch
+# Create issue with labels
+gh issue create --label "enhancement,frontend,semana-2,alta-prioridad" | cat
+
+# View labels
+gh label list | cat
+```
+
+## 📋 Website Development Plan
+
+**Full development plan**: Check GitHub Projects milestones for detailed weekly breakdown and current status.
 
 ## 🎯 SOMA v3.0.0 Theme - Completed ✅
 
 **Version**: 3.0.0 (Released December 12, 2025)  
 **Migration**: v2.0.7 → v3.0.0 complete  
-**Documentation**: 5,800+ lines across 8 major docs
+**Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
 
 ---
 
@@ -753,148 +646,18 @@ composer phpstan        # Static analysis Level 6
 **Key Features v3.0.0:**
 - ✅ PSR-4 architecture with `Soma\` namespace
 - ✅ PHP 8.1+ (enums, match, first-class callables)
-- ✅ 24 helper functions (`soma_*` prefix)
+- ✅ Global helper functions (`soma_*` prefix)
 - ✅ PSR-3 logging to `wp-content/uploads/soma-logs/`
 - ✅ Tag-based caching with auto-invalidation
-- ✅ 8 Elementor widgets with ACF integration
-- ✅ 53 ACF blocks via PageBuilder
-- ✅ 108 tests, PHPCS clean, PHPStan Level 6
+- ✅ Elementor widgets with ACF integration
+- ✅ ACF flexible content blocks via PageBuilder
+- ✅ Comprehensive test coverage, PHPCS clean, PHPStan Level 6+
 
 ---
 
-## 🏷️ GitHub Labels Inventory
+## 🏷️ GitHub Labels & Project Organization
 
-### Available Labels (33 total)
+**For complete label inventory, usage guidelines, and GitHub workflow**, see:  
+`.github/instructions/github-workflow.instructions.md`
 
-**Workflow & Development:**
-- `enhancement` (a2eeef) - New feature or request
-- `bug` (d73a4a) - Something isn't working
-- `automation` (5319E7) - Automated processes, scripts, tooling
-- `cicd` (0052CC) - CI/CD, workflows, automation, deployment
-- `code-quality` (BFD4F2) - Code quality, PHPCS, PHPStan, linting
-- `testing` (1D76DB) - Unit tests, integration tests, test coverage
-- `security` (EE0701) - Security issues, vulnerabilities, XSS, SQL injection
-- `documentation` (0075ca) - Improvements or additions to documentation
-
-**Areas & Components:**
-- `frontend` (D4C5F9) - Desarrollo frontend
-- `backend` (C5DEF5) - Desarrollo backend
-- `contenido` (FEF2C0) - Contenido y copy
-- `diseño` (FFD3B6) - Diseño y UI/UX
-- `qa` (BFD4F2) - Quality Assurance
-- `performance` (D4C5F9) - Performance y optimización
-- `seo` (C2E0C6) - SEO y posicionamiento
-- `header` (C5DEF5) - Componente Header
-- `footer` (C5DEF5) - Componente Footer
-
-**Project Timeline (Semanas 1-9):**
-- `semana-1` (0E8A16) - Semana 1: Alistamiento + Modernización Theme
-- `semana-2` (1D76DB) - Semana 2: Estructura General
-- `semana-3` (5319E7) - Semana 3: Páginas Corporativas
-- `semana-4` (D93F0B) - Semana 4-5: Inversionistas
-- `semana-5` (D93F0B) - Semana 4-5: Inversionistas
-- `semana-6` (FBCA04) - Semana 6: Portafolio
-- `semana-7` (006B75) - Semana 7: ASG
-- `semana-8` (C2E0C6) - Semana 8: Noticias
-- `semana-9` (E99695) - Semana 9: QA y Deploy
-
-**Priority:**
-- `alta-prioridad` (B60205) - Prioridad alta - crítico
-- `media-prioridad` (FBCA04) - Prioridad media
-- `baja-prioridad` (0E8A16) - Prioridad baja
-
-**Status:**
-- `question` (d876e3) - Further information is requested
-- `duplicate` (cfd3d7) - This issue or pull request already exists
-- `invalid` (e4e669) - This doesn't seem right
-- `wontfix` (ffffff) - This will not be worked on
-- `help wanted` (008672) - Extra attention is needed
-- `good first issue` (7057ff) - Good for newcomers
-
-### Label Usage Guide
-
-**For new Issues and PRs:**
-
-1. **Work type** (Required):
-   - `enhancement` - New features
-   - `bug` - Bug fixes
-   - `documentation` - Documentation
-   - `automation` - Scripts, tooling
-
-2. **Technical area** (Recommended):
-   - `backend` - PHP, WordPress, database
-   - `frontend` - HTML, CSS, JavaScript
-   - `cicd` - Workflows, deployment
-   - `code-quality` - PHPCS, PHPStan
-   - `testing` - Unit/integration tests
-   - `security` - Vulnerabilities, XSS
-
-3. **Project phase** (Required):
-   - `semana-1` to `semana-9` based on milestone
-
-4. **Priority** (Recommended):
-   - `alta-prioridad` - Critical, blocking
-   - `media-prioridad` - Important
-   - `baja-prioridad` - Nice to have
-
-**Example label combinations:**
-```bash
-# Feature issue (week 2, high priority):
-gh issue create --label "enhancement,frontend,semana-2,alta-prioridad"
-
-# Bug issue (backend, high priority):
-gh issue create --label "bug,backend,security,alta-prioridad"
-
-# Code quality PR:
-gh pr create --label "code-quality,backend,testing,semana-1"
-```
-
-### Creating Missing Labels
-
-**If you need a label that doesn't exist:**
-
-```bash
-# 1. Create new label
-gh label create "label-name" \
-  --description "Clear description of purpose" \
-  --color "HEXCOLOR" | cat
-
-# Suggested colors:
-# - Red (EE0701): Security, critical
-# - Blue (0052CC): CI/CD, automation
-# - Green (0E8A16): Success, completed
-# - Yellow (FBCA04): Warning, medium priority
-# - Purple (5319E7): Features, new functionality
-# - Gray (BFD4F2): Quality, documentation
-
-# 2. Add to issue/PR
-gh issue edit NUMBER --add-label "label-name" | cat
-gh pr edit NUMBER --add-label "label-name" | cat
-
-# 3. Update this inventory in copilot-instructions.md
-```
-
-**Complete workflow for new issues:**
-
-```bash
-# Step 1: Check available labels
-gh label list | cat
-
-# Step 2: Create missing labels if needed
-gh label create "my-new-label" --description "..." --color "..." | cat
-
-# Step 3: Create issue with appropriate labels
-gh issue create \
-  --title "feat: My new feature" \
-  --body "Description..." \
-  --label "enhancement,backend,semana-2,alta-prioridad" | cat
-
-# Step 4: Add additional labels later if needed
-gh issue edit NUMBER --add-label "testing,code-quality" | cat
-```
-
-**⚠️ IMPORTANT:**
-- Always use `| cat` at the end of `gh` commands to avoid pagination
-- Update this inventory when you create new labels
-- Use consistent labels between related issues and their PRs
-- Labels facilitate filtering in GitHub Projects and searches
+**Quick reference**: Use `gh label list | cat` to see current labels

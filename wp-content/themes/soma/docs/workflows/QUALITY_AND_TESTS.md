@@ -1,4 +1,61 @@
-# SOMA CI - Quality & Tests Workflow
+# ⚠️ DEPRECATED: SOMA CI - Quality & Tests Workflow
+
+> **IMPORTANT**: This workflow has been deprecated as of December 18, 2025.  
+> **Replacement**: See [CI_CD.md](CI_CD.md) for the unified ci-cd.yml workflow.  
+> **Reason**: Merged with release-and-deploy.yml to eliminate race conditions.
+
+---
+
+**Previous File**: `.github/workflows/quality-and-tests.yml` (DELETED)  
+**Current File**: `.github/workflows/ci-cd.yml` (Stage 1: Quality Gates)  
+**Migration Date**: December 18, 2025  
+**Status**: ❌ Workflow file deleted, functionality migrated to ci-cd.yml
+
+---
+
+## Migration Notice
+
+This documentation is preserved for historical reference. All functionality from this workflow has been migrated to the **unified ci-cd.yml workflow**.
+
+### What Changed
+
+**OLD Architecture (v3.1.0 and earlier):**
+- Separate `quality-and-tests.yml` workflow
+- Ran independently from `release-and-deploy.yml`
+- **Problem**: Race condition when both workflows triggered simultaneously
+
+**NEW Architecture (v3.1.1+):**
+- Unified `ci-cd.yml` workflow
+- Stage 1 contains all quality gate jobs (code-quality, php-tests, frontend-build)
+- Stage 2 (build-and-release) depends on Stage 1 via `needs:` keyword
+- **Solution**: Guaranteed sequential execution, no race conditions
+
+### Where to Find This Functionality Now
+
+All jobs from this workflow are now in `.github/workflows/ci-cd.yml` **Stage 1**:
+
+| Old Job (quality-and-tests.yml) | New Location (ci-cd.yml) | Status |
+|----------------------------------|--------------------------|--------|
+| `code-quality` | Stage 1: `code-quality` job | ✅ Migrated |
+| `php-tests` | Stage 1: `php-tests` job | ✅ Migrated |
+| `frontend-build` | Stage 1: `frontend-build` job | ✅ Migrated |
+| `ci-summary` | Final: `ci-cd-summary` job | ✅ Migrated (merged with CD summary) |
+
+### Documentation Update
+
+**For current workflow documentation, see:**
+- **[CI_CD.md](CI_CD.md)** - Complete unified workflow documentation
+- **[WORKFLOWS.md](../WORKFLOWS.md)** - Main workflow index
+
+---
+
+## Historical Documentation (Preserved Below)
+
+The following documentation describes the workflow as it existed before migration to ci-cd.yml. It is preserved for historical reference and understanding the previous architecture.
+
+---
+
+# SOMA CI - Quality & Tests Workflow (Historical)
 
 **File**: `.github/workflows/quality-and-tests.yml`  
 **Purpose**: Continuous Integration - Code quality analysis and automated testing  
@@ -453,4 +510,4 @@ jobs:
 **Document Version**: 1.0  
 **Last Updated**: December 14, 2025  
 **Workflow Version**: 1.0  
-**Maintainer**: SOMA Development Team
+**Maintainer**: Miguel Colmenares

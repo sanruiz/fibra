@@ -1,0 +1,78 @@
+# CodeQL Security Analysis Workflow
+#
+# This workflow performs automated security scanning of the codebase using GitHub's CodeQL.
+# It analyzes GitHub Actions workflows and JavaScript/TypeScript code for security vulnerabilities.
+#
+# Note: CodeQL does not support PHP directly. For PHP security scanning, consider using
+# PHPCS with WordPress security rules (already implemented in ci-cd.yml).
+#
+# For more information, see:
+# - https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql
+
+name: "CodeQL Security Analysis"
+
+on:
+  push:
+    branches: 
+      - "main"
+      - "week-*"  # Analyze sprint branches for early security detection
+  
+  pull_request:
+    branches: 
+      - "main"
+      - "week-*"  # Scan PRs before merge
+  
+  schedule:
+    # Run security scan every Monday at 12:28 UTC
+    - cron: '28 12 * * 1'
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    
+    permissions:
+      # Required for all workflows
+      security-events: write
+      
+      # Required to fetch internal or private CodeQL packs
+      packages: read
+      
+      # Required for workflows in private repositories
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Analyze GitHub Actions workflows (.github/workflows/*.yml)
+          - language: actions
+            build-mode: none
+          
+          # Analyze JavaScript/TypeScript code
+          # Covers: webpack bundles, npm packages, theme JS files
+          - language: javascript-typescript
+            build-mode: none
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Initialize CodeQL tools for scanning
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          
+          # Use custom configuration file for SOMA-specific settings
+          # This includes security-extended + security-and-quality queries
+          # and path exclusions for third-party code
+          config-file: ./.github/codeql/codeql-config.yml
+
+      # Perform CodeQL Analysis
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{matrix.language}}"

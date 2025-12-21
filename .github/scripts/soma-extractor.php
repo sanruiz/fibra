@@ -11,7 +11,7 @@
  * 3. Visit: https://yourdomain.com/wp-content/themes/soma-extractor.php?zip=soma-v3.0.0.zip
  * 
  * @version 1.0
- * @author SOMA Development Team
+ * @author Miguel Colmenares
  */
 
 // Configuration

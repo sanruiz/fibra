@@ -1090,4 +1090,4 @@ npm run dev
 
 **Document Version**: 1.0  
 **Last Updated**: December 12, 2025  
-**Maintainer**: SOMA Development Team
+**Maintainer**: Miguel Colmenares

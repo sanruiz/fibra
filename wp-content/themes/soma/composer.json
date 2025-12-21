@@ -53,7 +53,7 @@
         "phpcs": "phpcs",
         "phpcbf": "phpcbf",
         "phpstan": "phpstan analyse --memory-limit=1G",
-        "validate": [
+        "quality-check": [
             "@phpcs",
             "@phpstan",
             "@test"

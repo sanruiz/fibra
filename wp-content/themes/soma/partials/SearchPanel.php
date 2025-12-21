@@ -38,7 +38,7 @@ $header_options = get_field( 'header_content', 'options' );
 		<div class="title"><?php echo esc_html( $header_options['search_title'] ); ?></div>
 		<div class="search-form">
 			<form>
-				<input id="theFieldID" type="text" autofocus="autofocus" placeholder="<?php echo ( wpm_get_language() === 'en' ) ? 'Search' : 'Buscar'; ?>">
+				<input id="theFieldID" type="text" autofocus="autofocus" placeholder="<?php esc_attr_e( 'Search', 'soma' ); ?>">
 			</form>
 			<div class="close-button">
 				<svg width="32px" height="31px" viewBox="0 0 32 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

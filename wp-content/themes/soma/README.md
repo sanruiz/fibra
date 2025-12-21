@@ -126,6 +126,10 @@ cd wp-content/themes/
 git clone <repository-url> soma
 cd soma
 
+# Install Git hooks (REQUIRED - protects branches)
+chmod +x ../../install-hooks.sh
+../../install-hooks.sh
+
 # Install PHP dependencies
 composer install --no-dev --optimize-autoloader
 
@@ -250,11 +254,13 @@ soma/
 SOMA v3.0 includes comprehensive test coverage with PHPUnit.
 
 **Quick test run:**
+
 ```bash
 composer test
 ```
 
 **Detailed testing:**
+
 ```bash
 # Unit tests (24 for PostTypes, 39 for Taxonomies, etc.)
 vendor/bin/phpunit --testsuite unit --testdox
@@ -367,6 +373,7 @@ interface LoadableInterface {
 ```
 
 **Priority System:**
+
 - 10: Core utilities (Logger, Cache) - loaded first
 - 15: Taxonomies
 - 20: Post Types
@@ -427,9 +434,10 @@ Comprehensive documentation available in the `docs/` directory:
 | **[MIGRATION_PLAN.md](docs/MIGRATION_PLAN.md)** | 1,000+ | Modernization plan |
 | **[ARCHITECTURE_VISION.md](docs/ARCHITECTURE_VISION.md)** | 800+ | Architecture overview |
 | **[TESTING_GUIDE.md](docs/TESTING_GUIDE.md)** | 337 | Testing documentation |
+| **[INTERNATIONALIZATION.md](docs/INTERNATIONALIZATION.md)** | 500+ | i18n guide and best practices |
 | **Phase Completion Docs** | 2,000+ | Detailed phase reports |
 
-**Total Documentation:** 5,000+ lines
+**Total Documentation:** 5,500+ lines
 
 ### Quick Links
 
@@ -438,6 +446,7 @@ Comprehensive documentation available in the `docs/` directory:
 - **Helper Functions:** [HELPERS.md § Usage Examples](docs/HELPERS.md#usage-examples)
 - **Upgrading from v2:** [MIGRATION_FROM_V2.md](docs/MIGRATION_FROM_V2.md)
 - **Testing Guide:** [TESTING_GUIDE.md](docs/TESTING_GUIDE.md)
+- **Internationalization:** [INTERNATIONALIZATION.md](docs/INTERNATIONALIZATION.md)
 
 ---
 
@@ -455,6 +464,7 @@ If you're running SOMA v2.0.7 or earlier, see the **[Migration Guide](docs/MIGRA
 - ✅ Troubleshooting common issues
 
 **Critical Breaking Change:**
+
 ```php
 // ❌ OLD (v2.0.7) - NO LONGER WORKS
 global $pageBlock;
@@ -510,7 +520,7 @@ This theme is proprietary software developed for SOMA. Unauthorized copying, mod
 
 ### Development Team
 
-- **Architecture & Modernization:** SOMA Development Team
+- **Architecture & Modernization:** Miguel Colmenares
 - **Original Theme:** [PIPE:CODE](https://pipe-code.github.io/)
 - **Testing Infrastructure:** PHPUnit community
 - **Quality Tools:** WordPress Coding Standards, PHPStan

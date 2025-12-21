@@ -91,7 +91,7 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[0]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[0]->ID ); ?>
 
-					<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php $main_file = soma_get_i18n_field( $content, 'file' ); ?>
 					<?php if ( $main_file ) : ?>
 					<div class="item">
 					<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">
@@ -124,7 +124,7 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[1]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[1]->ID ); ?>
 
-					<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php $main_file = soma_get_i18n_field( $content, 'file' ); ?>
 					<?php if ( $main_file ) : ?>
 					<div class="item">
 					<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">
@@ -155,7 +155,7 @@ $arrow = '
 					<?php $content = get_field( 'document_content', $press[2]->ID ); ?>
 					<?php $featured_image = get_the_post_thumbnail_url( $press[2]->ID ); ?>
 
-					<?php $main_file = ( wpm_get_language() === 'en' ) ? $content['file'] : $content['file_es']; ?>
+					<?php $main_file = soma_get_i18n_field( $content, 'file' ); ?>
 					<?php if ( $main_file ) : ?>
 					<div class="item">
 						<a href="<?php echo esc_url( $main_file['url'] ); ?>" target="_blank">

@@ -897,4 +897,4 @@ $args['post_status'] = 'publish';
 **Document Version**: 1.0  
 **Last Updated**: December 12, 2025  
 **Widgets Count**: 8  
-**Maintainer**: SOMA Development Team
+**Maintainer**: Miguel Colmenares

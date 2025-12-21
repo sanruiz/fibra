@@ -5572,6 +5572,11 @@
                 "param": "post_template",
                 "operator": "!=",
                 "value": "templates\/under-development-template.php"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "templates\/elementor-template.php"
             }
         ],
         [

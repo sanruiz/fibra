@@ -398,7 +398,7 @@ If you suspect a secret has been compromised:
 
 **Document Version**: 1.0  
 **Last Updated**: December 14, 2025  
-**Maintainer**: SOMA Development Team  
+**Maintainer**: Miguel Colmenares  
 **Security Classification**: INTERNAL ONLY - DO NOT SHARE PUBLICLY
 
 ---

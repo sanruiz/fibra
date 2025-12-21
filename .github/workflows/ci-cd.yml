@@ -1,0 +1,555 @@
+name: SOMA CI/CD - Unified Pipeline
+
+# ============================================================================
+# Git Workflow Strategy (GitFlow with Weekly Sprints)
+# ============================================================================
+# 
+# Branch Structure:
+#   - main: Production-ready code, receives PRs from week-* at sprint end
+#   - week-*: Sprint branches (e.g., week-2, week-3), receive PRs from feature/fix
+#   - feature/*: Feature development branches from issues
+#   - fix/*: Bug fix branches from issues
+#
+# Development Flow:
+#   1. Issue created → feature/fix-X branch created
+#   2. Development → PR to week-N → Merge (closes issue)
+#   3. Sprint ends → PR week-N to main → Merge
+#   4. Release → Tag v* from main → GitHub Release → Deploy to production
+#
+# CI/CD Triggers:
+#   - Stage 1 (Quality Gates): Runs on push to week-*, PRs to main/week-*
+#   - Stage 2 (Build & Release): ONLY on v* tags pushed from main branch
+#   - Stage 3 (Deploy): ONLY after successful release from main branch
+#
+# ============================================================================
+
+on:
+    push:
+        branches:
+            - "week-*"  # CI only for sprint branches
+        tags:
+            - "v*"      # Release only when tag pushed from main
+    pull_request:
+        branches:
+            - main      # PRs to main (from week-* at sprint end)
+            - "week-*"  # PRs to sprint branches (from feature/fix)
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Version number (e.g., 3.1.1)"
+                required: false
+
+# Permissions needed for creating releases and deployments
+permissions:
+    contents: write
+    deployments: write
+
+env:
+    NODE_VERSION: "18"
+    PHP_VERSION: "8.1"
+    THEME_PATH: "wp-content/themes/soma"
+
+jobs:
+    # ============================================================================
+    # STAGE 1: QUALITY GATES (Parallel Execution)
+    # Always runs on all pushes/PRs/tags
+    # ============================================================================
+
+    code-quality:
+        name: 🔍 Code Quality (PHPCS, PHPStan)
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🐘 Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
+                  coverage: none
+
+            - name: 📦 Cache Composer dependencies
+              uses: actions/cache@v4
+              with:
+                  path: ${{ env.THEME_PATH }}/vendor
+                  key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
+
+            - name: 🎼 Install Composer dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader
+
+            - name: 🔧 PHPCBF - Auto-fix Minor Issues
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if command -v ./vendor/bin/phpcbf &> /dev/null; then
+                    echo "🔧 Running PHP Code Beautifier..."
+                    
+                    set +e
+                    ./vendor/bin/phpcbf || true
+                    set -e
+                    
+                    echo "✅ PHPCBF completed"
+                  fi
+
+            - name: 🔍 PHPCS - WordPress Coding Standards
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if command -v ./vendor/bin/phpcs &> /dev/null; then
+                    echo "🔍 Running PHPCS..."
+                    
+                    set +e
+                    PHPCS_OUTPUT=$(./vendor/bin/phpcs --report=summary --colors 2>&1)
+                    PHPCS_EXIT_CODE=$?
+                    set -e
+                    
+                    echo "$PHPCS_OUTPUT"
+                    
+                    TOTAL_ERRORS=$(echo "$PHPCS_OUTPUT" | grep "A TOTAL OF" | grep -oP '\d+(?= ERROR)' || echo "0")
+                    
+                    if [ $PHPCS_EXIT_CODE -eq 0 ]; then
+                      echo "✅ PHPCS: No violations found"
+                    elif [ "$TOTAL_ERRORS" -gt 0 ]; then
+                      echo "❌ PHPCS: Found $TOTAL_ERRORS error(s)"
+                      exit 1
+                    else
+                      echo "⚠️ PHPCS: Warnings found but no errors"
+                    fi
+                  fi
+
+            - name: 🔍 PHPStan - Static Analysis Level 6+
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if command -v ./vendor/bin/phpstan &> /dev/null && [ -f "phpstan.neon" ]; then
+                    echo "🔍 Running PHPStan Level 6+..."
+                    
+                    set +e
+                    ./vendor/bin/phpstan analyse --error-format=table --no-progress --memory-limit=1G
+                    PHPSTAN_EXIT_CODE=$?
+                    set -e
+                    
+                    if [ $PHPSTAN_EXIT_CODE -eq 0 ]; then
+                      echo "✅ PHPStan: No errors found"
+                    else
+                      echo "❌ PHPStan: Errors found"
+                      exit 1
+                    fi
+                  fi
+
+    php-tests:
+        name: 🧪 PHP Tests (PHPUnit)
+        runs-on: ubuntu-latest
+
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: password
+                    MYSQL_DATABASE: wordpress_test
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🐘 Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
+                  coverage: xdebug
+
+            - name: 📦 Cache Composer dependencies
+              uses: actions/cache@v4
+              with:
+                  path: ${{ env.THEME_PATH }}/vendor
+                  key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
+
+            - name: 🎼 Install Composer dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader
+
+            - name: 📦 Install SVN
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y subversion
+
+            - name: 🏗️ Setup WordPress Test Environment
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if [ -f "tests/bin/install-wp-tests.sh" ]; then
+                    echo "🏗️ Installing WordPress test suite..."
+                    bash tests/bin/install-wp-tests.sh wordpress_test root password 127.0.0.1 latest
+                    echo "✅ WordPress test environment ready"
+                  fi
+              env:
+                  WP_TESTS_DIR: /tmp/wordpress-tests-lib
+                  WP_CORE_DIR: /tmp/wordpress/
+
+            - name: 🔗 Setup Theme Symlink
+              run: |
+                  if [ -d "/tmp/wordpress" ]; then
+                    echo "🔗 Creating theme symlink..."
+                    mkdir -p /tmp/wordpress/wp-content/themes/
+                    rm -rf /tmp/wordpress/wp-content/themes/soma
+                    ln -sf "$(pwd)/${{ env.THEME_PATH }}" /tmp/wordpress/wp-content/themes/soma
+                    echo "✅ Theme symlink created"
+                  fi
+
+            - name: 🧪 Run PHPUnit Tests
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if command -v ./vendor/bin/phpunit &> /dev/null && [ -f "phpunit.xml" ]; then
+                    echo "🧪 Running PHPUnit tests..."
+                    echo "📋 Expected: 108 tests, 355 assertions"
+                    
+                    set +e
+                    ./vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+                    PHPUNIT_EXIT_CODE=$?
+                    set -e
+                    
+                    if [ $PHPUNIT_EXIT_CODE -eq 0 ]; then
+                      echo "✅ PHPUnit: All tests passed"
+                    else
+                      echo "❌ PHPUnit: Tests failed"
+                      exit 1
+                    fi
+                  fi
+              env:
+                  WP_TESTS_DIR: /tmp/wordpress-tests-lib
+                  WP_CORE_DIR: /tmp/wordpress/
+
+            - name: 📊 Upload coverage
+              uses: codecov/codecov-action@v4
+              if: always()
+              with:
+                  files: ${{ env.THEME_PATH }}/coverage.xml
+                  flags: phpunit
+                  name: soma-phpunit-coverage
+              continue-on-error: true
+
+    frontend-build:
+        name: 🎨 Frontend Build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🟢 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+
+            - name: 📦 Cache Node modules
+              uses: actions/cache@v4
+              with:
+                  path: ${{ env.THEME_PATH }}/node_modules
+                  key: npm-${{ hashFiles(format('{0}/package-lock.json', env.THEME_PATH)) }}
+
+            - name: 📦 Install dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  npm install
+
+            - name: 🏗️ Build production assets
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  echo "🏗️ Building production assets..."
+                  npm run prod
+                  echo "✅ Assets built successfully"
+
+            - name: ✅ Verify build outputs
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if [ -f "css/main.bundle.css" ] && [ -f "js/main.bundle.js" ]; then
+                    echo "✅ Build outputs verified:"
+                    ls -lh css/main.bundle.css js/main.bundle.js
+                  else
+                    echo "❌ Build outputs not found"
+                    exit 1
+                  fi
+
+    # ============================================================================
+    # STAGE 2: BUILD & RELEASE (Sequential, only on tags from main)
+    # Runs ONLY when version tags (v*) are pushed from main branch
+    # This ensures production releases only come from stable main branch
+    # ============================================================================
+
+    build-and-release:
+        name: 📦 Build & Release
+        runs-on: ubuntu-latest
+        needs: [code-quality, php-tests, frontend-build]
+        # Only create releases from main branch with version tags
+        # Tags pushed from week-* branches will run quality gates but NOT release
+        if: (startsWith(github.ref, 'refs/tags/v') && github.event.base_ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+
+        outputs:
+            version: ${{ steps.version.outputs.version }}
+            tag: ${{ steps.version.outputs.tag }}
+            zip_file: ${{ steps.package.outputs.zip_file }}
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🐘 Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  extensions: mbstring, xml, ctype, json, tokenizer, intl
+                  coverage: none
+
+            - name: 🟢 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+
+            - name: 📦 Install PHP dependencies (production)
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  composer install --no-interaction --no-dev --optimize-autoloader
+
+            - name: 📦 Install Node dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  npm install
+
+            - name: 📊 Extract version
+              id: version
+              run: |
+                  if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.version }}" ]; then
+                    VERSION="${{ github.event.inputs.version }}"
+                  elif [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+                    VERSION=${GITHUB_REF#refs/tags/v}
+                  else
+                    VERSION="dev-${GITHUB_SHA::7}"
+                  fi
+                  
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+                  echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+                  echo "✅ Version: $VERSION"
+
+            - name: 🏗️ Build production assets
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  echo "🏗️ Building production assets..."
+                  npm run prod
+                  echo "✅ Assets built"
+
+            - name: 📦 Create release package
+              id: package
+              run: |
+                  echo "📦 Creating release package..."
+                  
+                  VERSION="${{ steps.version.outputs.version }}"
+                  RELEASE_DIR="releases"
+                  ZIP_NAME="soma-v${VERSION}.zip"
+                  
+                  mkdir -p "$RELEASE_DIR"
+                  cd "${{ env.THEME_PATH }}"
+                  
+                  # Create production ZIP (exclude dev files)
+                  zip -r "../../../${RELEASE_DIR}/${ZIP_NAME}" . \
+                    -x "*.git*" \
+                    -x "*node_modules/*" \
+                    -x "*tests/*" \
+                    -x "*docs/*" \
+                    -x "*scripts/*" \
+                    -x "*.phpunit*" \
+                    -x "*coverage/*" \
+                    -x "*.log" \
+                    -x "*vendor/phpunit/*" \
+                    -x "*vendor/squizlabs/*" \
+                    -x "*vendor/wp-coding-standards/*" \
+                    -x "*vendor/phpstan/*" \
+                    -x "package-lock.json" \
+                    -x "composer.lock" \
+                    -x "phpcs.xml*" \
+                    -x "phpstan.neon*" \
+                    -x "phpunit.xml*" \
+                    -x "webpack.config.js" \
+                    -x ".editorconfig" \
+                    -x "README.md"
+                  
+                  cd ../../..
+                  
+                  ZIP_SIZE=$(du -h "${RELEASE_DIR}/${ZIP_NAME}" | cut -f1)
+                  echo "📊 Package size: ${ZIP_SIZE}"
+                  
+                  echo "zip_file=${ZIP_NAME}" >> $GITHUB_OUTPUT
+                  echo "✅ Package created: ${ZIP_NAME}"
+
+            - name: 📝 Generate release notes
+              id: release_notes
+              run: |
+                  VERSION="${{ steps.version.outputs.version }}"
+                  CHANGELOG_FILE="${{ env.THEME_PATH }}/CHANGELOG.md"
+                  
+                  if [ -f "$CHANGELOG_FILE" ]; then
+                    echo "📝 Extracting from CHANGELOG.md..."
+                    awk "/^## \[${VERSION}\]/,/^## \[/" "$CHANGELOG_FILE" | sed '$d' > release_notes.md
+                    
+                    if [ ! -s release_notes.md ]; then
+                      echo "## SOMA Theme v${VERSION}" > release_notes.md
+                      echo "" >> release_notes.md
+                      echo "See CHANGELOG.md for details." >> release_notes.md
+                    fi
+                  else
+                    echo "## SOMA Theme v${VERSION}" > release_notes.md
+                    echo "" >> release_notes.md
+                    echo "### What's New" >> release_notes.md
+                    echo "- PSR-4 architecture with modern PHP 8.1+" >> release_notes.md
+                    echo "- 8 Elementor widgets" >> release_notes.md
+                    echo "- Advanced caching and logging" >> release_notes.md
+                    echo "- 108 PHPUnit tests" >> release_notes.md
+                  fi
+
+            - name: 🚀 Create GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ steps.version.outputs.tag }}
+                  name: SOMA Theme v${{ steps.version.outputs.version }}
+                  body_path: release_notes.md
+                  files: releases/${{ steps.package.outputs.zip_file }}
+                  draft: false
+                  prerelease: false
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: 📤 Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: soma-release-${{ steps.version.outputs.version }}
+                  path: releases/${{ steps.package.outputs.zip_file }}
+                  retention-days: 90
+
+    # ============================================================================
+    # STAGE 3: DEPLOY TO PRODUCTION (Sequential, only after release)
+    # Runs only after successful build-and-release
+    # ============================================================================
+
+    deploy:
+        name: 🚀 Deploy to Production
+        runs-on: ubuntu-latest
+        needs: build-and-release
+        if: success()
+
+        environment:
+            name: production
+
+        steps:
+            - name: 📥 Checkout code (for scripts)
+              uses: actions/checkout@v4
+
+            - name: 📥 Download release artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: soma-release-${{ needs.build-and-release.outputs.version }}
+                  path: ./release
+
+            - name: 🔐 Setup SSH key
+              run: |
+                  mkdir -p ~/.ssh
+                  echo "${{ secrets.SFTP_SSH_KEY }}" | base64 -d > ~/.ssh/soma_key
+                  chmod 600 ~/.ssh/soma_key
+                  
+                  if ! ssh-keygen -l -f ~/.ssh/soma_key > /dev/null 2>&1; then
+                    echo "❌ SSH key validation failed"
+                    exit 1
+                  fi
+                  
+                  echo "✅ SSH key configured"
+                  ssh-keyscan -H ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
+                  chmod 644 ~/.ssh/known_hosts
+
+            - name: � Upload theme ZIP
+              run: |
+                  echo "📤 Uploading ZIP..."
+                  
+                  sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
+                    ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
+                    cd public_html/fibrasoma.group/wp-content/themes
+                    put ./release/${{ needs.build-and-release.outputs.zip_file }}
+                    quit
+                  EOF
+                  
+                  echo "✅ ZIP uploaded successfully"
+
+            - name: 📋 Deployment summary
+              run: |
+                  echo "## 🚀 Deployment Complete" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Version**: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**ZIP**: ${{ needs.build-and-release.outputs.zip_file }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "### ⚠️ Manual Steps Required" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "The theme ZIP has been uploaded. **Follow these steps in order:**" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "#### 1️⃣ Backup Current Theme (via cPanel)" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Login to cPanel File Manager" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Navigate to: \`public_html/fibrasoma.group/wp-content/themes/\`" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Right-click on \`soma\` folder → Compress → ZIP Archive" >> $GITHUB_STEP_SUMMARY
+                  echo "4. Rename to: \`soma-backup-\$(date +%Y%m%d-%H%M%S).zip\`" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "#### 2️⃣ Extract New Theme" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Delete the current \`soma\` folder (backup created in step 1)" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Right-click on \`${{ needs.build-and-release.outputs.zip_file }}\`" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Select 'Extract'" >> $GITHUB_STEP_SUMMARY
+                  echo "4. Verify new \`soma\` folder created" >> $GITHUB_STEP_SUMMARY
+                  echo "5. Delete the ZIP file" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Verification:**" >> $GITHUB_STEP_SUMMARY
+                  echo "- Visit WordPress Admin → Appearance → Themes" >> $GITHUB_STEP_SUMMARY
+                  echo "- Verify theme version: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "✅ ZIP uploaded successfully - ready for manual extraction!" >> $GITHUB_STEP_SUMMARY
+
+    # ============================================================================
+    # FINAL SUMMARY
+    # ============================================================================
+
+    ci-cd-summary:
+        name: 📊 Pipeline Summary
+        runs-on: ubuntu-latest
+        needs: [code-quality, php-tests, frontend-build, build-and-release, deploy]
+        if: always()
+
+        steps:
+            - name: 📊 Generate summary
+              run: |
+                  echo "## 🎯 CI/CD Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Ref**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "### Stage Results" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🔍 Code Quality: ${{ needs.code-quality.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🧪 PHP Tests: ${{ needs.php-tests.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🎨 Frontend Build: ${{ needs.frontend-build.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 📦 Build & Release: ${{ needs.build-and-release.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🚀 Deploy: ${{ needs.deploy.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  
+                  if [ "${{ needs.code-quality.result }}" == "success" ] && \
+                     [ "${{ needs.php-tests.result }}" == "success" ] && \
+                     [ "${{ needs.frontend-build.result }}" == "success" ]; then
+                    echo "✅ **Quality gates passed!**" >> $GITHUB_STEP_SUMMARY
+                    
+                    if [ "${{ needs.build-and-release.result }}" == "success" ]; then
+                      echo "✅ **Release created!**" >> $GITHUB_STEP_SUMMARY
+                      
+                      if [ "${{ needs.deploy.result }}" == "success" ]; then
+                        echo "✅ **Deployed to production!**" >> $GITHUB_STEP_SUMMARY
+                      fi
+                    fi
+                  else
+                    echo "❌ **Quality gates failed - review errors above**" >> $GITHUB_STEP_SUMMARY
+                  fi

@@ -48,7 +48,7 @@ $arrow = '
 					?>
 				<?php if ( $header_options['navigation_sidebar_template_file']['label'] && $header_options['navigation_sidebar_template_file']['file'] ) : ?>
 					<a class="extra-file" href="<?php echo esc_url( $header_options['navigation_sidebar_template_file']['file']['url'] ); ?>" target="_blank">
-						<?php echo esc_html( $header_options['navigation_sidebar_template_file']['label'] ) . wp_kses_post( $arrow ); ?>
+						<?php echo wp_kses_post( $header_options['navigation_sidebar_template_file']['label'] ) . wp_kses_post( $arrow ); ?>
 					</a>
 				<?php endif; ?>
 			</div>

@@ -1,4 +1,89 @@
-# Release and Deploy Workflow
+# ⚠️ DEPRECATED: Release and Deploy Workflow
+
+> **IMPORTANT**: This workflow has been deprecated as of December 18, 2025.  
+> **Replacement**: See [CI_CD.md](CI_CD.md) for the unified ci-cd.yml workflow.  
+> **Reason**: Merged with quality-and-tests.yml to eliminate race conditions.
+
+---
+
+**Previous File**: `.github/workflows/release-and-deploy.yml` (DELETED)  
+**Current File**: `.github/workflows/ci-cd.yml` (Stages 2 & 3: Build/Release & Deploy)  
+**Migration Date**: December 18, 2025  
+**Status**: ❌ Workflow file deleted, functionality migrated to ci-cd.yml
+
+---
+
+## Migration Notice
+
+This documentation is preserved for historical reference. All functionality from this workflow has been migrated to the **unified ci-cd.yml workflow**.
+
+### What Changed
+
+**OLD Architecture (v3.1.0 and earlier):**
+- Separate `release-and-deploy.yml` workflow
+- `wait-for-ci` job checked if `quality-and-tests.yml` completed
+- **Problem**: Race condition when tag triggered both workflows simultaneously
+- **Result**: `wait-for-ci` found `quality-and-tests.yml` still running, failed deployment
+
+**NEW Architecture (v3.1.1+):**
+- Unified `ci-cd.yml` workflow
+- Stage 2 (build-and-release) has `needs: [code-quality, php-tests, frontend-build]`
+- Stage 3 (deploy) has `needs: build-and-release`
+- **Solution**: GitHub Actions `needs:` keyword creates guaranteed sequential execution
+- **Result**: No race conditions possible (single workflow file)
+
+### Where to Find This Functionality Now
+
+All jobs from this workflow are now in `.github/workflows/ci-cd.yml` **Stages 2 & 3**:
+
+| Old Job (release-and-deploy.yml) | New Location (ci-cd.yml) | Status |
+|-----------------------------------|--------------------------|--------|
+| `wait-for-ci` | **REMOVED** (replaced by `needs:` dependencies) | ✅ No longer needed |
+| `build-and-release` | Stage 2: `build-and-release` job | ✅ Migrated |
+| `deploy` | Stage 3: `deploy` job | ✅ Migrated |
+
+### Documentation Update
+
+**For current workflow documentation, see:**
+- **[CI_CD.md](CI_CD.md)** - Complete unified workflow documentation
+- **[WORKFLOWS.md](../WORKFLOWS.md)** - Main workflow index
+
+### Key Architectural Change
+
+**Race Condition Eliminated:**
+
+The old architecture used GitHub API to check workflow status:
+```yaml
+# OLD (release-and-deploy.yml) - RACE CONDITION
+jobs:
+  wait-for-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for CI workflow
+        run: |
+          # Check if quality-and-tests.yml completed
+          # Problem: Both workflows start simultaneously!
+```
+
+The new architecture uses `needs:` keyword for guaranteed order:
+```yaml
+# NEW (ci-cd.yml) - NO RACE CONDITION
+jobs:
+  build-and-release:
+    needs: [code-quality, php-tests, frontend-build]  # Waits for Stage 1
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+```
+
+---
+
+## Historical Documentation (Preserved Below)
+
+The following documentation describes the workflow as it existed before migration to ci-cd.yml. It is preserved for historical reference and understanding the previous architecture.
+
+---
+
+# Release and Deploy Workflow (Historical)
 
 **Workflow File**: `.github/workflows/release-and-deploy.yml`  
 **Purpose**: Complete CI/CD pipeline for automated testing, building, and deployment  
@@ -609,4 +694,4 @@ git tag release-3.0.1  # Wrong format
 **Document Version**: 1.0  
 **Last Updated**: December 14, 2025  
 **Workflow Version**: 1.0.0  
-**Maintainer**: SOMA Development Team
+**Maintainer**: Miguel Colmenares
