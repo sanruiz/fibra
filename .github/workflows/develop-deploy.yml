@@ -1,0 +1,538 @@
+name: SOMA Develop - Auto Deploy
+
+# ============================================================================
+# Development Environment Workflow
+# ============================================================================
+#
+# Purpose: Automatic deployment to development environment for testing
+# Trigger: Push to develop branch (no tags required)
+# Environment: develop (SSH connection)
+#
+# Development Flow:
+#   1. Feature branches (feature/*, fix/*) → PR to week-N
+#   2. Week-N branches → PR to develop (for testing)
+#   3. Develop → automatic quality checks + deploy to DEV server
+#   4. After validation → week-N → PR to main (for production)
+#
+# Difference from production (ci-cd.yml):
+#   - No release/tag required - deploys on every push
+#   - Uses SSH with password authentication (not SFTP with keys)
+#   - Automatic extraction on server (no manual steps)
+#   - Separate environment: develop
+#
+# ============================================================================
+
+on:
+    push:
+        branches:
+            - develop  # Auto-deploy when pushing to develop
+    workflow_dispatch:  # Allow manual trigger
+
+# Permissions for deployments
+permissions:
+    contents: read
+    deployments: write
+
+env:
+    NODE_VERSION: "18"
+    PHP_VERSION: "8.1"
+    THEME_PATH: "wp-content/themes/soma"
+
+jobs:
+    # ============================================================================
+    # STAGE 1: QUALITY GATES (Parallel Execution)
+    # Same as production - ensure code quality before deployment
+    # ============================================================================
+
+    code-quality:
+        name: 🔍 Code Quality (PHPCS, PHPStan)
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🐘 Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
+                  coverage: none
+
+            - name: 📦 Cache Composer dependencies
+              uses: actions/cache@v4
+              with:
+                  path: ${{ env.THEME_PATH }}/vendor
+                  key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
+
+            - name: 🎼 Install Composer dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader
+
+            - name: 🔧 PHPCBF - Auto-fix Minor Issues
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if command -v ./vendor/bin/phpcbf &> /dev/null; then
+                    echo "🔧 Running PHP Code Beautifier..."
+                    
+                    set +e
+                    ./vendor/bin/phpcbf || true
+                    set -e
+                    
+                    echo "✅ PHPCBF completed"
+                  fi
+
+            - name: 🔍 PHPCS - WordPress Coding Standards
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if command -v ./vendor/bin/phpcs &> /dev/null; then
+                    echo "🔍 Running PHPCS..."
+                    
+                    set +e
+                    PHPCS_OUTPUT=$(./vendor/bin/phpcs --report=summary --colors 2>&1)
+                    PHPCS_EXIT_CODE=$?
+                    set -e
+                    
+                    echo "$PHPCS_OUTPUT"
+                    
+                    TOTAL_ERRORS=$(echo "$PHPCS_OUTPUT" | grep "A TOTAL OF" | grep -oP '\d+(?= ERROR)' || echo "0")
+                    
+                    if [ $PHPCS_EXIT_CODE -eq 0 ]; then
+                      echo "✅ PHPCS: No violations found"
+                    elif [ "$TOTAL_ERRORS" -gt 0 ]; then
+                      echo "❌ PHPCS: Found $TOTAL_ERRORS error(s)"
+                      exit 1
+                    else
+                      echo "⚠️ PHPCS: Warnings found but no errors"
+                    fi
+                  fi
+
+            - name: 🔍 PHPStan - Static Analysis Level 6+
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if command -v ./vendor/bin/phpstan &> /dev/null && [ -f "phpstan.neon" ]; then
+                    echo "🔍 Running PHPStan Level 6+..."
+                    
+                    set +e
+                    ./vendor/bin/phpstan analyse --error-format=table --no-progress --memory-limit=1G
+                    PHPSTAN_EXIT_CODE=$?
+                    set -e
+                    
+                    if [ $PHPSTAN_EXIT_CODE -eq 0 ]; then
+                      echo "✅ PHPStan: No errors found"
+                    else
+                      echo "❌ PHPStan: Errors found"
+                      exit 1
+                    fi
+                  fi
+
+    php-tests:
+        name: 🧪 PHP Tests (PHPUnit)
+        runs-on: ubuntu-latest
+
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: password
+                    MYSQL_DATABASE: wordpress_test
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🐘 Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
+                  coverage: xdebug
+
+            - name: 📦 Cache Composer dependencies
+              uses: actions/cache@v4
+              with:
+                  path: ${{ env.THEME_PATH }}/vendor
+                  key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
+
+            - name: 🎼 Install Composer dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader
+
+            - name: 📦 Install SVN
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y subversion
+
+            - name: 🏗️ Setup WordPress Test Environment
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if [ -f "tests/bin/install-wp-tests.sh" ]; then
+                    echo "🏗️ Installing WordPress test suite..."
+                    bash tests/bin/install-wp-tests.sh wordpress_test root password 127.0.0.1 latest
+                    echo "✅ WordPress test environment ready"
+                  fi
+              env:
+                  WP_TESTS_DIR: /tmp/wordpress-tests-lib
+                  WP_CORE_DIR: /tmp/wordpress/
+
+            - name: 🔗 Setup Theme Symlink
+              run: |
+                  if [ -d "/tmp/wordpress" ]; then
+                    echo "🔗 Creating theme symlink..."
+                    mkdir -p /tmp/wordpress/wp-content/themes/
+                    rm -rf /tmp/wordpress/wp-content/themes/soma
+                    ln -sf "$(pwd)/${{ env.THEME_PATH }}" /tmp/wordpress/wp-content/themes/soma
+                    echo "✅ Theme symlink created"
+                  fi
+
+            - name: 🧪 Run PHPUnit Tests
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if command -v ./vendor/bin/phpunit &> /dev/null && [ -f "phpunit.xml" ]; then
+                    echo "🧪 Running PHPUnit tests..."
+                    echo "📋 Expected: 108 tests, 355 assertions"
+                    
+                    set +e
+                    ./vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+                    PHPUNIT_EXIT_CODE=$?
+                    set -e
+                    
+                    if [ $PHPUNIT_EXIT_CODE -eq 0 ]; then
+                      echo "✅ PHPUnit: All tests passed"
+                    else
+                      echo "❌ PHPUnit: Tests failed"
+                      exit 1
+                    fi
+                  fi
+              env:
+                  WP_TESTS_DIR: /tmp/wordpress-tests-lib
+                  WP_CORE_DIR: /tmp/wordpress/
+
+    frontend-build:
+        name: 🎨 Frontend Build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🟢 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+
+            - name: 📦 Cache Node modules
+              uses: actions/cache@v4
+              with:
+                  path: ${{ env.THEME_PATH }}/node_modules
+                  key: npm-${{ hashFiles(format('{0}/package-lock.json', env.THEME_PATH)) }}
+
+            - name: 📦 Install dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  npm install
+
+            - name: 🏗️ Build production assets
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  echo "🏗️ Building production assets..."
+                  npm run prod
+                  echo "✅ Assets built successfully"
+
+            - name: ✅ Verify build outputs
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  if [ -f "css/main.bundle.css" ] && [ -f "js/main.bundle.js" ]; then
+                    echo "✅ Build outputs verified:"
+                    ls -lh css/main.bundle.css js/main.bundle.js
+                  else
+                    echo "❌ Build outputs not found"
+                    exit 1
+                  fi
+
+    # ============================================================================
+    # STAGE 2: BUILD PACKAGE (Sequential, after quality gates pass)
+    # Creates deployment package without creating GitHub release
+    # ============================================================================
+
+    build-package:
+        name: 📦 Build Deployment Package
+        runs-on: ubuntu-latest
+        needs: [code-quality, php-tests, frontend-build]
+        if: success()
+
+        outputs:
+            version: ${{ steps.version.outputs.version }}
+            zip_file: ${{ steps.package.outputs.zip_file }}
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🐘 Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  extensions: mbstring, xml, ctype, json, tokenizer, intl
+                  coverage: none
+
+            - name: 🟢 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+
+            - name: 📦 Install PHP dependencies (production)
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  composer install --no-interaction --no-dev --optimize-autoloader
+
+            - name: 📦 Install Node dependencies
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  npm install
+
+            - name: 📊 Extract version
+              id: version
+              run: |
+                  # Use commit SHA for develop builds
+                  VERSION="dev-${GITHUB_SHA::7}"
+                  
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+                  echo "✅ Version: $VERSION (develop build)"
+
+            - name: 🏗️ Build production assets
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  echo "🏗️ Building production assets..."
+                  npm run prod
+                  echo "✅ Assets built"
+
+            - name: 📦 Create deployment package
+              id: package
+              run: |
+                  echo "📦 Creating deployment package..."
+                  
+                  VERSION="${{ steps.version.outputs.version }}"
+                  RELEASE_DIR="releases"
+                  ZIP_NAME="soma-${VERSION}.zip"
+                  
+                  mkdir -p "$RELEASE_DIR"
+                  cd "${{ env.THEME_PATH }}"
+                  
+                  # Create production ZIP (exclude dev files)
+                  zip -r "../../../${RELEASE_DIR}/${ZIP_NAME}" . \
+                    -x "*.git*" \
+                    -x "*node_modules/*" \
+                    -x "*tests/*" \
+                    -x "*docs/*" \
+                    -x "*scripts/*" \
+                    -x "*.phpunit*" \
+                    -x "*coverage/*" \
+                    -x "*.log" \
+                    -x "*vendor/phpunit/*" \
+                    -x "*vendor/squizlabs/*" \
+                    -x "*vendor/wp-coding-standards/*" \
+                    -x "*vendor/phpstan/*" \
+                    -x "package-lock.json" \
+                    -x "composer.lock" \
+                    -x "phpcs.xml*" \
+                    -x "phpstan.neon*" \
+                    -x "phpunit.xml*" \
+                    -x "webpack.config.js" \
+                    -x ".editorconfig" \
+                    -x "README.md"
+                  
+                  cd ../../..
+                  
+                  ZIP_SIZE=$(du -h "${RELEASE_DIR}/${ZIP_NAME}" | cut -f1)
+                  echo "📊 Package size: ${ZIP_SIZE}"
+                  
+                  echo "zip_file=${ZIP_NAME}" >> $GITHUB_OUTPUT
+                  echo "✅ Package created: ${ZIP_NAME}"
+
+            - name: 📤 Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: soma-develop-${{ steps.version.outputs.version }}
+                  path: releases/${{ steps.package.outputs.zip_file }}
+                  retention-days: 30
+
+    # ============================================================================
+    # STAGE 3: DEPLOY TO DEVELOPMENT SERVER (Sequential, SSH with password)
+    # ============================================================================
+
+    deploy-develop:
+        name: 🚀 Deploy to Development Server
+        runs-on: ubuntu-latest
+        needs: build-package
+        if: success()
+
+        environment:
+            name: develop
+
+        steps:
+            - name: 📥 Checkout code (for scripts)
+              uses: actions/checkout@v4
+
+            - name: 📥 Download deployment package
+              uses: actions/download-artifact@v4
+              with:
+                  name: soma-develop-${{ needs.build-package.outputs.version }}
+                  path: ./release
+
+            - name: 📦 Install sshpass for password authentication
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y sshpass
+
+            - name: 🔐 Test SSH connection
+              run: |
+                  echo "🔐 Testing SSH connection..."
+                  
+                  # Test SSH connection
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    ssh -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -p ${{ secrets.DEV_SSH_PORT }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }} \
+                        "echo 'SSH connection successful'" || {
+                    echo "❌ SSH connection failed"
+                    exit 1
+                  }
+                  
+                  echo "✅ SSH connection verified"
+
+            - name: 🗑️ Create backup on server
+              run: |
+                  echo "🗑️ Creating backup..."
+                  BACKUP_NAME="soma-backup-$(date +%Y%m%d-%H%M%S)"
+                  
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    ssh -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -p ${{ secrets.DEV_SSH_PORT }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }} \
+                        "cd wp-content/themes && \
+                         if [ -d 'soma' ]; then \
+                           mv soma ${BACKUP_NAME}; \
+                           echo 'Backup created: ${BACKUP_NAME}'; \
+                         else \
+                           echo 'No existing theme to backup'; \
+                         fi && \
+                         mkdir -p soma"
+                  
+                  echo "✅ Backup: ${BACKUP_NAME}"
+
+            - name: 📤 Upload theme ZIP
+              run: |
+                  echo "📤 Uploading ZIP to server..."
+                  
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    scp -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -P ${{ secrets.DEV_SSH_PORT }} \
+                        ./release/${{ needs.build-package.outputs.zip_file }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }}:wp-content/themes/
+                  
+                  echo "✅ ZIP uploaded"
+
+            - name: 📦 Extract theme on server
+              run: |
+                  echo "📦 Extracting theme..."
+                  
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    ssh -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -p ${{ secrets.DEV_SSH_PORT }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }} \
+                        "cd wp-content/themes && \
+                         unzip -o ${{ needs.build-package.outputs.zip_file }} -d soma/ && \
+                         rm ${{ needs.build-package.outputs.zip_file }} && \
+                         echo 'Theme extracted successfully'"
+                  
+                  echo "✅ Theme extracted"
+
+            - name: 🔧 Set permissions
+              run: |
+                  echo "🔧 Setting permissions..."
+                  
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    ssh -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -p ${{ secrets.DEV_SSH_PORT }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }} \
+                        "cd wp-content/themes/soma && \
+                         find . -type d -exec chmod 755 {} \; && \
+                         find . -type f -exec chmod 644 {} \; && \
+                         echo 'Permissions set'"
+                  
+                  echo "✅ Permissions configured"
+
+            - name: 📊 Deployment summary
+              run: |
+                  echo "## 🚀 Development Deployment Complete" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Environment**: develop" >> $GITHUB_STEP_SUMMARY
+                  echo "**Version**: ${{ needs.build-package.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "### ✅ Deployment Steps Completed" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Quality gates passed" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Theme package built" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Backup created on server" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Theme uploaded via SSH" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Theme extracted automatically" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Permissions configured" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "### 🔍 Next Steps" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Visit development site to verify deployment" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Test all functionality" >> $GITHUB_STEP_SUMMARY
+                  echo "3. When ready for production: merge to main and create release tag" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "✅ **Theme successfully deployed to development environment!**" >> $GITHUB_STEP_SUMMARY
+
+    # ============================================================================
+    # FINAL SUMMARY
+    # ============================================================================
+
+    develop-summary:
+        name: 📊 Develop Pipeline Summary
+        runs-on: ubuntu-latest
+        needs: [code-quality, php-tests, frontend-build, build-package, deploy-develop]
+        if: always()
+
+        steps:
+            - name: 📊 Generate summary
+              run: |
+                  echo "## 🎯 Development Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Branch**: develop" >> $GITHUB_STEP_SUMMARY
+                  echo "**Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Triggered by**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "### Stage Results" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🔍 Code Quality: ${{ needs.code-quality.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🧪 PHP Tests: ${{ needs.php-tests.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🎨 Frontend Build: ${{ needs.frontend-build.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 📦 Build Package: ${{ needs.build-package.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🚀 Deploy Develop: ${{ needs.deploy-develop.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  
+                  if [ "${{ needs.code-quality.result }}" == "success" ] && \
+                     [ "${{ needs.php-tests.result }}" == "success" ] && \
+                     [ "${{ needs.frontend-build.result }}" == "success" ] && \
+                     [ "${{ needs.build-package.result }}" == "success" ] && \
+                     [ "${{ needs.deploy-develop.result }}" == "success" ]; then
+                    echo "✅ **All stages completed successfully!**" >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "**Development environment is ready for testing** 🎉" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "❌ **Pipeline failed - review errors above**" >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "**Development deployment was not completed** ⚠️" >> $GITHUB_STEP_SUMMARY
+                  fi
