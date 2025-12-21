@@ -27,10 +27,10 @@ html.no-scroll body {
 }
 
 // Exclude Elementor elements from global styles to prevent overriding widget-specific styles
-body, 
-a:not(.elementor-widget a):not(.elementor-element a), 
-p:not(.elementor-widget p):not(.elementor-element p), 
-div:not(.elementor-widget div):not(.elementor-element div):not([class*="elementor"]) {
+body,
+a:not(.elementor a),
+p:not(.elementor p),
+div:not(.elementor div) {
     font-family: var(--soma-font-family-primary, $f1);
     color: var(--soma-color-text-primary, $c1);
     font-size: var(--soma-font-size-body, 20px);
