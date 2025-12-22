@@ -497,17 +497,6 @@ gh run view RUN_ID --job=deploy --log | cat
 gh run view RUN_ID --job=ci-cd-summary --log | cat
 ```
 
-**3. Test SFTP Secrets:**
-```bash
-# Test connection only
-gh workflow run test-sftp-secrets.yml -f test_type=connection | cat
-gh run watch
-
-# Test full upload cycle
-gh workflow run test-sftp-secrets.yml -f test_type=full | cat
-gh run watch
-```
-
 **4. Manual Workflow Trigger:**
 ```bash
 # Test workflow without creating tag
@@ -539,7 +528,6 @@ gh run watch
 - **[Testing Guide](TESTING_GUIDE.md)** - Testing infrastructure with PHPUnit, PHPCS, PHPStan
 - **[Migration Guide](MIGRATION_FROM_V2.md)** - Upgrading from v2.x to v3.x
 - **[CI/CD Workflow](workflows/CI_CD.md)** - Unified ci-cd.yml workflow documentation
-- **[SFTP Testing](workflows/TEST_SFTP_SECRETS.md)** - Test workflow for secret validation
 
 ---
 
