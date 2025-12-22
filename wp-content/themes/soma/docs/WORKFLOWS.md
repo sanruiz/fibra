@@ -110,11 +110,6 @@ When pushing a version tag (e.g., `v3.1.0`), BOTH workflows triggered simultaneo
 
 Before using any workflow, configure GitHub Secrets:
 
-```bash
-# See complete guide
-cat docs/GITHUB_SECRETS_SETUP.md
-```
-
 **Required Secrets:**
 - `SFTP_SSH_KEY` - Base64-encoded SSH private key
 - `SFTP_HOST` - Server IP address
@@ -534,7 +529,6 @@ gh run watch
 **Documentation:**
 - **[CI/CD Workflow](workflows/CI_CD.md)** - Complete unified workflow documentation
 - **[SFTP Testing](workflows/TEST_SFTP_SECRETS.md)** - Secret validation workflow
-- **[GitHub Secrets Setup](GITHUB_SECRETS_SETUP.md)** - Secret configuration guide
 - **[Testing Guide](TESTING_GUIDE.md)** - Testing infrastructure
 
 **Logs:**
@@ -553,7 +547,6 @@ gh run watch
 
 - **[Development Guide](DEVELOPMENT.md)** - Complete developer documentation with setup, architecture, patterns
 - **[Testing Guide](TESTING_GUIDE.md)** - Testing infrastructure with PHPUnit, PHPCS, PHPStan
-- **[GitHub Secrets Setup](GITHUB_SECRETS_SETUP.md)** - Detailed secret configuration guide
 - **[Migration Guide](MIGRATION_FROM_V2.md)** - Upgrading from v2.x to v3.x
 - **[CI/CD Workflow](workflows/CI_CD.md)** - Unified ci-cd.yml workflow documentation
 - **[SFTP Testing](workflows/TEST_SFTP_SECRETS.md)** - Test workflow for secret validation

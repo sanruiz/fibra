@@ -23,7 +23,7 @@ SOMA now supports **two deployment environments**:
 - **Purpose**: Live website for end users
 
 ### 2. **Development Environment** (New!)
-- **Workflow**: `.github/workflows/develop-deploy.yml` → [See Documentation](./.github/workflows/DEVELOP_SECRETS.md)
+- **Workflow**: `.github/workflows/develop-deploy.yml`
 - **Branch**: `develop`
 - **Trigger**: Push to develop (no tags required)
 - **Requires**: No releases - automatic deployment
@@ -34,7 +34,6 @@ SOMA now supports **two deployment environments**:
 
 **📖 For development environment setup and usage**, see:
 - **Workflow Details**: [develop-deploy.yml](../../.github/workflows/develop-deploy.yml)
-- **Secrets Configuration**: [DEVELOP_SECRETS.md](../../.github/workflows/DEVELOP_SECRETS.md)
 
 ---
 
@@ -564,8 +563,6 @@ env:
 | `SFTP_USER` | cPanel/SFTP username | `cpanelusername` |
 | `SITE_DOMAIN` | Production domain | `yourdomain.com` |
 
-**Setup Guide**: See `docs/GITHUB_SECRETS_SETUP.md`
-
 ---
 
 ## Monitoring & Debugging
@@ -859,14 +856,12 @@ git push origin v3.2.0
 
 ## Related Documentation
 
-- **GitHub Secrets Setup**: `docs/GITHUB_SECRETS_SETUP.md`
 - **Testing Guide**: `docs/TESTING_GUIDE.md`
 - **Development Guide**: `docs/DEVELOPMENT.md`
 - **Helper Functions**: `docs/HELPERS.md`
 
 ### Development Environment (New!)
 - **Develop Workflow**: `.github/workflows/develop-deploy.yml`
-- **Develop Secrets Setup**: `.github/workflows/DEVELOP_SECRETS.md` (complete SSH configuration guide)
 - **Environment Comparison**: See "Complete Development Flow" section above
 
 ### GitHub Workflows

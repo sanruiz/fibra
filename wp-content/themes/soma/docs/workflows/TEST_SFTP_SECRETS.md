@@ -455,7 +455,6 @@ gh run view <run-id> --log
 ## Related Documentation
 
 - **[Release and Deploy Workflow](RELEASE_AND_DEPLOY.md)** - Production deployment workflow
-- **[GitHub Secrets Setup](../GITHUB_SECRETS_SETUP.md)** - Complete secret configuration guide
 - **[Development Guide](../DEVELOPMENT.md)** - Local development workflow
 
 ---
