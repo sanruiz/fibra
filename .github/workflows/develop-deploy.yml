@@ -28,10 +28,10 @@ on:
             - develop  # Auto-deploy when pushing to develop
     workflow_dispatch:  # Allow manual trigger
 
-# Permissions for deployments
+# Permissions for reading code and tracking deployments
 permissions:
     contents: read
-    deployments: write
+    deployments: write  # Allows GitHub to track deployment history
 
 env:
     NODE_VERSION: "18"

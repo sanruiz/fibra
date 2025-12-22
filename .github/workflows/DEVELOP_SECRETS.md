@@ -11,7 +11,7 @@
 The development environment uses SSH with password authentication to deploy the SOMA theme automatically when changes are pushed to the `develop` branch.
 
 **Workflow File**: `.github/workflows/develop-deploy.yml`  
-**Environment**: `develop` (GitHub Environment)  
+**Secrets Type**: Repository secrets (with `DEV_` prefix)  
 **Deployment Method**: SSH with password authentication (sshpass)
 
 ---
@@ -20,7 +20,9 @@ The development environment uses SSH with password authentication to deploy the 
 
 Configure these secrets in your GitHub repository for the development environment deployment to work.
 
-**Location**: GitHub → Repository → Settings → Secrets and variables → Actions → Environments → `develop`
+**Location**: GitHub → Repository → Settings → Secrets and variables → Actions → **Repository secrets**
+
+> **Note**: We use repository secrets with `DEV_` prefix instead of environment secrets. This is simpler and works well since the workflow only triggers on the `develop` branch.
 
 ### 1. DEV_SSH_HOST
 - **Description**: IP address or hostname of the development server
@@ -52,24 +54,20 @@ Configure these secrets in your GitHub repository for the development environmen
 
 ## 🛠️ How to Configure Secrets
 
-### Step 1: Create Development Environment
+### Step 1: Navigate to Repository Secrets
 
 1. Go to **GitHub Repository** → **Settings**
-2. Navigate to **Environments** (left sidebar)
-3. Click **New environment**
-4. Name it: `develop`
-5. Click **Configure environment**
+2. Navigate to **Secrets and variables** → **Actions** (left sidebar)
+3. Click on **Repository secrets** tab
 
-### Step 2: Add Secrets to Environment
+### Step 2: Add Each Secret
 
 For each secret listed above:
 
-1. In the `develop` environment configuration
-2. Scroll to **Environment secrets**
-3. Click **Add secret**
-4. Enter **Name** (e.g., `DEV_SSH_HOST`)
-5. Enter **Value** (e.g., `192.168.1.100`)
-6. Click **Add secret**
+1. Click **New repository secret**
+2. Enter **Name** (e.g., `DEV_SSH_HOST`)
+3. Enter **Value** (e.g., `192.168.1.100`)
+4. Click **Add secret**
 
 **Repeat for all 4 secrets**:
 - `DEV_SSH_HOST`
