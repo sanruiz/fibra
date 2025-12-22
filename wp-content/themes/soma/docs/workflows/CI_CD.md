@@ -4,7 +4,36 @@
 **Purpose**: Unified CI/CD pipeline - Quality gates, Build, Release, and Deploy  
 **Triggers**: Push, Pull Requests, Tags (v*), Manual dispatch  
 **Duration**: 3-8 minutes (varies by stage)  
-**Version**: 1.0 (Unified from quality-and-tests.yml + release-and-deploy.yml)
+**Version**: 1.1 (Unified from quality-and-tests.yml + release-and-deploy.yml)
+
+---
+
+## 🌐 Multiple Environments
+
+SOMA now supports **two deployment environments**:
+
+### 1. **Production Environment** (This Document)
+- **Workflow**: `.github/workflows/ci-cd.yml` (this file)
+- **Branch**: `main`
+- **Trigger**: Version tags (`v*`)
+- **Requires**: GitHub Release creation
+- **Server**: fibrasoma.com (Production)
+- **Method**: SFTP with SSH key
+- **Extraction**: Manual (via cPanel)
+- **Purpose**: Live website for end users
+
+### 2. **Development Environment** (New!)
+- **Workflow**: `.github/workflows/develop-deploy.yml`
+- **Branch**: `develop`
+- **Trigger**: Push to develop (no tags required)
+- **Requires**: No releases - automatic deployment
+- **Server**: Development server (SSH)
+- **Method**: SSH with password authentication
+- **Extraction**: ✅ Automatic (unzip on server)
+- **Purpose**: Testing and validation before production
+
+**📖 For development environment setup and usage**, see:
+- **Workflow Details**: [develop-deploy.yml](../../.github/workflows/develop-deploy.yml)
 
 ---
 
@@ -534,8 +563,6 @@ env:
 | `SFTP_USER` | cPanel/SFTP username | `cpanelusername` |
 | `SITE_DOMAIN` | Production domain | `yourdomain.com` |
 
-**Setup Guide**: See `docs/GITHUB_SECRETS_SETUP.md`
-
 ---
 
 ## Monitoring & Debugging
@@ -729,26 +756,120 @@ npm run prod        # Fix: Check webpack config
 
 ### Deployment fails
 
-**Check:**
+---
+
+## 🔄 Complete Development Flow (Dev → Production)
+
+### Recommended Workflow with Both Environments
+
 ```bash
-# Test SFTP workflow
-gh workflow run test-sftp-secrets.yml | cat
+# 1. Feature Development (week-N branch)
+git checkout week-2
+git checkout -b feature/new-hero-section
+# ... work on feature ...
+git add .
+git commit -m "feat: Add new hero section"
+git push origin feature/new-hero-section
+
+# 2. PR to Sprint Branch
+gh pr create --base week-2 --title "feat: New hero section" | cat
+# ✅ Quality gates run automatically
+# After approval: merge PR
+
+# 3. Test on Development Environment
+git checkout develop
+git pull origin develop
+git merge week-2  # Merge latest week-N changes
+git push origin develop
+
+# ✅ TRIGGERS: develop-deploy.yml workflow
+# - Runs quality gates
+# - Builds package
+# - Deploys to DEV server automatically
+# - Test at: http://dev.fibrasoma.com
+
+# 4. Validate on Development
+# - Test all functionality
+# - Check responsive design
+# - Verify integrations
+# - Get stakeholder approval
+
+# 5. Prepare for Production (after dev validation)
+# Merge week-N to main when sprint complete
+gh pr create --base main --head week-2 --title "Week 2: Sprint completion" | cat
+# After approval: merge PR
+
+# 6. Create Production Release
+git checkout main
+git pull origin main
+git tag -a v3.2.0 -m "Release v3.2.0: Week 2 features"
+git push origin v3.2.0
+
+# ✅ TRIGGERS: ci-cd.yml workflow (production)
+# - Runs quality gates
+# - Creates GitHub Release
+# - Deploys to PRODUCTION server
+# - Live at: https://fibrasoma.com
 ```
+
+### Environment Comparison Table
+
+| Feature | Development | Production |
+|---------|-------------|------------|
+| **Workflow File** | `develop-deploy.yml` | `ci-cd.yml` |
+| **Trigger Branch** | `develop` | `main` (via tags) |
+| **Requires Tag** | ❌ No | ✅ Yes (`v*`) |
+| **Quality Gates** | ✅ Same as production | ✅ PHPCS, PHPStan, PHPUnit |
+| **GitHub Release** | ❌ No | ✅ Yes (with CHANGELOG) |
+| **Deployment Method** | SSH + password | SFTP + SSH key |
+| **Extraction** | ✅ Automatic (unzip) | ⚠️ Manual (cPanel) |
+| **Deployment Speed** | ~5 minutes | ~8 minutes |
+| **Purpose** | Testing & validation | Live production |
+| **URL** | dev.fibrasoma.com | fibrasoma.com |
+| **Rollback** | Easy (re-deploy) | Backup-based |
+
+### When to Use Each Environment
+
+**Use Development (`develop` branch) when:**
+- ✅ Testing new features before going live
+- ✅ Validating sprint work before production
+- ✅ Demonstrating features to stakeholders
+- ✅ Testing integrations with external services
+- ✅ Frequent deployments during development
+- ✅ Need quick rollback capabilities
+
+**Use Production (`main` branch + tags) when:**
+- ✅ Features validated and approved
+- ✅ Creating official releases
+- ✅ Deploying to end users
+- ✅ Semantic versioning required
+- ✅ CHANGELOG documentation needed
+- ✅ Long-term stable deployments
 
 ---
 
 ## Related Documentation
 
-- **GitHub Secrets Setup**: `docs/GITHUB_SECRETS_SETUP.md`
 - **Testing Guide**: `docs/TESTING_GUIDE.md`
 - **Development Guide**: `docs/DEVELOPMENT.md`
 - **Helper Functions**: `docs/HELPERS.md`
 
+### Development Environment (New!)
+- **Develop Workflow**: `.github/workflows/develop-deploy.yml`
+- **Environment Comparison**: See "Complete Development Flow" section above
+
+### GitHub Workflows
+- **GitHub Workflow Standards**: `.github/instructions/github-workflow.instructions.md`
+- **Deprecated Workflows**:
+  - `quality-and-tests.yml` (merged into ci-cd.yml)
+  - `release-and-deploy.yml` (merged into ci-cd.yml)
+
 ---
 
-**Document Version**: 1.0  
+**Document Version**: 1.1 (Added development environment documentation)  
 **Workflow Version**: 1.0 (Unified)  
-**Last Updated**: December 18, 2025  
+**Last Updated**: December 20, 2025  
 **Maintainer**: Miguel Colmenares  
-**Related Issue**: #72 - Unify CI/CD workflows to prevent race conditions
-
+**Related Issues**: 
+- #72 - Unify CI/CD workflows to prevent race conditions
+- Development environment implementation

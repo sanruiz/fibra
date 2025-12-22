@@ -8,6 +8,7 @@
 # Protected branches:
 #   - main: Production branch (only via PR from week-*)
 #   - week-*: Sprint branches (only via PR from feature/fix)
+#   - release/*: Release preparation (only for version bump, no development)
 #   - develop: Legacy branch (deprecated)
 #
 # Usage:

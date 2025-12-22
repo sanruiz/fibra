@@ -78,17 +78,18 @@ chmod +x install-hooks.sh
 ```
 
 **What the hooks do:**
-- ✅ **pre-commit**: Blocks direct commits to `main`, `week-*`, and `develop`
+- ✅ **pre-commit**: Blocks direct commits to `main`, `week-*`, `release/*`, and `develop`
 - ✅ **Enforces workflow**: All work must be done on `feature/fix/hotfix` branches
 - ✅ **Helpful messages**: Shows correct workflow if you try to commit to protected branch
 
 **Protected branches:**
 - `main` - Production (only via PR from week-*)
 - `week-*` - Sprints (only via PR from feature/fix)
+- `release/*` - Release preparation (only version bump, CHANGELOG, critical fixes)
 - `develop` - Legacy (deprecated)
 
 **Allowed branches:**
-- `feature/*`, `fix/*`, `hotfix/*`, `chore/*`, `refactor/*`, `release/*`
+- `feature/*`, `fix/*`, `hotfix/*`, `chore/*`, `refactor/*`
 
 If you accidentally try to commit to a protected branch, the hook will:
 1. Block the commit
@@ -99,7 +100,7 @@ If you accidentally try to commit to a protected branch, the hook will:
 
 **Before EVERY commit, verify:**
 1. **Check current branch**: `git branch | grep "^\*"`
-   - Must show a feature branch (NOT week-*, NOT main)
+   - Must show a feature branch (NOT week-*, NOT main, NOT release/*)
    - **Git hook will block commits to protected branches**
 2. **If on wrong branch**: Create feature branch FIRST
    ```bash
@@ -317,7 +318,6 @@ The following instruction files apply automatically based on file type. VS Code 
 - **Current Workflows**:
   - `.github/workflows/quality-and-tests.yml` - **CI**: Code quality and automated testing (runs on push/PR)
   - `.github/workflows/release-and-deploy.yml` - **CD**: Build, release, and deploy (runs on tags only)
-  - `.github/workflows/test-sftp-secrets.yml` - Manual SFTP validation
 
 ### Deployment Scripts (repository root)
 - **Location**: `.github/scripts/` (repository root)

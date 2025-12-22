@@ -1,48 +1,37 @@
-name: SOMA CI/CD - Unified Pipeline
+name: SOMA Develop - Auto Deploy
 
 # ============================================================================
-# Git Workflow Strategy (GitFlow with Weekly Sprints)
+# Development Environment Workflow
 # ============================================================================
-# 
-# Branch Structure:
-#   - main: Production-ready code, receives PRs from week-* at sprint end
-#   - week-*: Sprint branches (e.g., week-2, week-3), receive PRs from feature/fix
-#   - feature/*: Feature development branches from issues
-#   - fix/*: Bug fix branches from issues
+#
+# Purpose: Automatic deployment to development environment for testing
+# Trigger: Push to develop branch (no tags required)
+# Environment: develop (SSH connection)
 #
 # Development Flow:
-#   1. Issue created → feature/fix-X branch created
-#   2. Development → PR to week-N → Merge (closes issue)
-#   3. Sprint ends → PR week-N to main → Merge
-#   4. Release → Tag v* from main → GitHub Release → Deploy to production
+#   1. Feature branches (feature/*, fix/*) → PR to week-N
+#   2. Week-N branches → PR to develop (for testing)
+#   3. Develop → automatic quality checks + deploy to DEV server
+#   4. After validation → week-N → PR to main (for production)
 #
-# CI/CD Triggers:
-#   - Stage 1 (Quality Gates): Runs on push to week-*, PRs to main/week-*
-#   - Stage 2 (Build & Release): ONLY on v* tags pushed from main branch
-#   - Stage 3 (Deploy): ONLY after successful release from main branch
+# Difference from production (ci-cd.yml):
+#   - No release/tag required - deploys on every push
+#   - Uses SSH with password authentication (not SFTP with keys)
+#   - Automatic extraction on server (no manual steps)
+#   - Separate environment: develop
 #
 # ============================================================================
 
 on:
     push:
         branches:
-            - "week-*"  # CI only for sprint branches
-        tags:
-            - "v*"      # Release only when tag pushed from main
-    pull_request:
-        branches:
-            - main      # PRs to main (from week-* at sprint end)
-            - "week-*"  # PRs to sprint branches (from feature/fix)
-    workflow_dispatch:
-        inputs:
-            version:
-                description: "Version number (e.g., 3.1.1)"
-                required: false
+            - develop  # Auto-deploy when pushing to develop
+    workflow_dispatch:  # Allow manual trigger
 
-# Permissions needed for creating releases and deployments
+# Permissions for reading code and tracking deployments
 permissions:
-    contents: write
-    deployments: write
+    contents: read
+    deployments: write  # Allows GitHub to track deployment history
 
 env:
     NODE_VERSION: "18"
@@ -52,7 +41,7 @@ env:
 jobs:
     # ============================================================================
     # STAGE 1: QUALITY GATES (Parallel Execution)
-    # Always runs on all pushes/PRs/tags
+    # Same as production - ensure code quality before deployment
     # ============================================================================
 
     code-quality:
@@ -61,7 +50,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@v2
@@ -71,7 +60,7 @@ jobs:
                   coverage: none
 
             - name: 📦 Cache Composer dependencies
-              uses: actions/cache@v5
+              uses: actions/cache@v4
               with:
                   path: ${{ env.THEME_PATH }}/vendor
                   key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
@@ -154,7 +143,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@v2
@@ -164,7 +153,7 @@ jobs:
                   coverage: xdebug
 
             - name: 📦 Cache Composer dependencies
-              uses: actions/cache@v5
+              uses: actions/cache@v4
               with:
                   path: ${{ env.THEME_PATH }}/vendor
                   key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
@@ -224,30 +213,21 @@ jobs:
                   WP_TESTS_DIR: /tmp/wordpress-tests-lib
                   WP_CORE_DIR: /tmp/wordpress/
 
-            - name: 📊 Upload coverage
-              uses: codecov/codecov-action@v5
-              if: always()
-              with:
-                  files: ${{ env.THEME_PATH }}/coverage.xml
-                  flags: phpunit
-                  name: soma-phpunit-coverage
-              continue-on-error: true
-
     frontend-build:
         name: 🎨 Frontend Build
         runs-on: ubuntu-latest
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
             - name: 📦 Cache Node modules
-              uses: actions/cache@v5
+              uses: actions/cache@v4
               with:
                   path: ${{ env.THEME_PATH }}/node_modules
                   key: npm-${{ hashFiles(format('{0}/package-lock.json', env.THEME_PATH)) }}
@@ -276,27 +256,23 @@ jobs:
                   fi
 
     # ============================================================================
-    # STAGE 2: BUILD & RELEASE (Sequential, only on tags from main)
-    # Runs ONLY when version tags (v*) are pushed from main branch
-    # This ensures production releases only come from stable main branch
+    # STAGE 2: BUILD PACKAGE (Sequential, after quality gates pass)
+    # Creates deployment package without creating GitHub release
     # ============================================================================
 
-    build-and-release:
-        name: 📦 Build & Release
+    build-package:
+        name: 📦 Build Deployment Package
         runs-on: ubuntu-latest
         needs: [code-quality, php-tests, frontend-build]
-        # Only create releases from version tags (v*)
-        # Assumes tags are created from main branch per GitFlow workflow
-        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+        if: success()
 
         outputs:
             version: ${{ steps.version.outputs.version }}
-            tag: ${{ steps.version.outputs.tag }}
             zip_file: ${{ steps.package.outputs.zip_file }}
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@v2
@@ -306,7 +282,7 @@ jobs:
                   coverage: none
 
             - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
@@ -323,17 +299,11 @@ jobs:
             - name: 📊 Extract version
               id: version
               run: |
-                  if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.version }}" ]; then
-                    VERSION="${{ github.event.inputs.version }}"
-                  elif [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-                    VERSION=${GITHUB_REF#refs/tags/v}
-                  else
-                    VERSION="dev-${GITHUB_SHA::7}"
-                  fi
+                  # Use commit SHA for develop builds
+                  VERSION="dev-${GITHUB_SHA::7}"
                   
                   echo "version=$VERSION" >> $GITHUB_OUTPUT
-                  echo "tag=v$VERSION" >> $GITHUB_OUTPUT
-                  echo "✅ Version: $VERSION"
+                  echo "✅ Version: $VERSION (develop build)"
 
             - name: 🏗️ Build production assets
               run: |
@@ -342,14 +312,14 @@ jobs:
                   npm run prod
                   echo "✅ Assets built"
 
-            - name: 📦 Create release package
+            - name: 📦 Create deployment package
               id: package
               run: |
-                  echo "📦 Creating release package..."
+                  echo "📦 Creating deployment package..."
                   
                   VERSION="${{ steps.version.outputs.version }}"
                   RELEASE_DIR="releases"
-                  ZIP_NAME="soma-v${VERSION}.zip"
+                  ZIP_NAME="soma-${VERSION}.zip"
                   
                   mkdir -p "$RELEASE_DIR"
                   cd "${{ env.THEME_PATH }}"
@@ -385,171 +355,184 @@ jobs:
                   echo "zip_file=${ZIP_NAME}" >> $GITHUB_OUTPUT
                   echo "✅ Package created: ${ZIP_NAME}"
 
-            - name: 📝 Generate release notes
-              id: release_notes
-              run: |
-                  VERSION="${{ steps.version.outputs.version }}"
-                  CHANGELOG_FILE="${{ env.THEME_PATH }}/CHANGELOG.md"
-                  
-                  if [ -f "$CHANGELOG_FILE" ]; then
-                    echo "📝 Extracting from CHANGELOG.md..."
-                    awk "/^## \[${VERSION}\]/,/^## \[/" "$CHANGELOG_FILE" | sed '$d' > release_notes.md
-                    
-                    if [ ! -s release_notes.md ]; then
-                      echo "## SOMA Theme v${VERSION}" > release_notes.md
-                      echo "" >> release_notes.md
-                      echo "See CHANGELOG.md for details." >> release_notes.md
-                    fi
-                  else
-                    echo "## SOMA Theme v${VERSION}" > release_notes.md
-                    echo "" >> release_notes.md
-                    echo "### What's New" >> release_notes.md
-                    echo "- PSR-4 architecture with modern PHP 8.1+" >> release_notes.md
-                    echo "- 8 Elementor widgets" >> release_notes.md
-                    echo "- Advanced caching and logging" >> release_notes.md
-                    echo "- 108 PHPUnit tests" >> release_notes.md
-                  fi
-
-            - name: 🚀 Create GitHub Release
-              uses: softprops/action-gh-release@v2
-              with:
-                  tag_name: ${{ steps.version.outputs.tag }}
-                  name: SOMA Theme v${{ steps.version.outputs.version }}
-                  body_path: release_notes.md
-                  files: releases/${{ steps.package.outputs.zip_file }}
-                  draft: false
-                  prerelease: false
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
             - name: 📤 Upload artifact
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@v4
               with:
-                  name: soma-release-${{ steps.version.outputs.version }}
+                  name: soma-develop-${{ steps.version.outputs.version }}
                   path: releases/${{ steps.package.outputs.zip_file }}
-                  retention-days: 90
+                  retention-days: 30
 
     # ============================================================================
-    # STAGE 3: DEPLOY TO PRODUCTION (Sequential, only after release)
-    # Runs only after successful build-and-release
+    # STAGE 3: DEPLOY TO DEVELOPMENT SERVER (Sequential, SSH with password)
     # ============================================================================
 
-    deploy:
-        name: 🚀 Deploy to Production
+    deploy-develop:
+        name: 🚀 Deploy to Development Server
         runs-on: ubuntu-latest
-        needs: build-and-release
+        needs: build-package
         if: success()
 
         environment:
-            name: production
+            name: develop
 
         steps:
             - name: 📥 Checkout code (for scripts)
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
-            - name: 📥 Download release artifact
-              uses: actions/download-artifact@v7
+            - name: 📥 Download deployment package
+              uses: actions/download-artifact@v4
               with:
-                  name: soma-release-${{ needs.build-and-release.outputs.version }}
+                  name: soma-develop-${{ needs.build-package.outputs.version }}
                   path: ./release
 
-            - name: 🔐 Setup SSH key
+            - name: 📦 Install sshpass for password authentication
               run: |
-                  mkdir -p ~/.ssh
-                  echo "${{ secrets.SFTP_SSH_KEY }}" | base64 -d > ~/.ssh/soma_key
-                  chmod 600 ~/.ssh/soma_key
+                  sudo apt-get update
+                  sudo apt-get install -y sshpass
+
+            - name: 🔐 Test SSH connection
+              run: |
+                  echo "🔐 Testing SSH connection..."
                   
-                  if ! ssh-keygen -l -f ~/.ssh/soma_key > /dev/null 2>&1; then
-                    echo "❌ SSH key validation failed"
+                  # Test SSH connection
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    ssh -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -p ${{ secrets.DEV_SSH_PORT }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }} \
+                        "echo 'SSH connection successful'" || {
+                    echo "❌ SSH connection failed"
                     exit 1
-                  fi
+                  }
                   
-                  echo "✅ SSH key configured"
-                  ssh-keyscan -H ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
-                  chmod 644 ~/.ssh/known_hosts
+                  echo "✅ SSH connection verified"
 
-            - name: � Upload theme ZIP
+            - name: 🗑️ Create backup on server
               run: |
-                  echo "📤 Uploading ZIP..."
+                  echo "🗑️ Creating backup..."
+                  BACKUP_NAME="soma-backup-$(date +%Y%m%d-%H%M%S)"
                   
-                  sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
-                    ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/fibrasoma.group/wp-content/themes
-                    put ./release/${{ needs.build-and-release.outputs.zip_file }}
-                    quit
-                  EOF
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    ssh -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -p ${{ secrets.DEV_SSH_PORT }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }} \
+                        "cd wp-content/themes && \
+                         if [ -d 'soma' ]; then \
+                           mv soma ${BACKUP_NAME}; \
+                           echo 'Backup created: ${BACKUP_NAME}'; \
+                         else \
+                           echo 'No existing theme to backup'; \
+                         fi && \
+                         mkdir -p soma"
                   
-                  echo "✅ ZIP uploaded successfully"
+                  echo "✅ Backup: ${BACKUP_NAME}"
 
-            - name: 📋 Deployment summary
+            - name: 📤 Upload theme ZIP
               run: |
-                  echo "## 🚀 Deployment Complete" >> $GITHUB_STEP_SUMMARY
+                  echo "📤 Uploading ZIP to server..."
+                  
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    scp -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -P ${{ secrets.DEV_SSH_PORT }} \
+                        ./release/${{ needs.build-package.outputs.zip_file }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }}:wp-content/themes/
+                  
+                  echo "✅ ZIP uploaded"
+
+            - name: 📦 Extract theme on server
+              run: |
+                  echo "📦 Extracting theme..."
+                  
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    ssh -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -p ${{ secrets.DEV_SSH_PORT }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }} \
+                        "cd wp-content/themes && \
+                         unzip -o ${{ needs.build-package.outputs.zip_file }} -d soma/ && \
+                         rm ${{ needs.build-package.outputs.zip_file }} && \
+                         echo 'Theme extracted successfully'"
+                  
+                  echo "✅ Theme extracted"
+
+            - name: 🔧 Set permissions
+              run: |
+                  echo "🔧 Setting permissions..."
+                  
+                  sshpass -p "${{ secrets.DEV_SSH_PASSWORD }}" \
+                    ssh -o StrictHostKeyChecking=no \
+                        -o UserKnownHostsFile=/dev/null \
+                        -p ${{ secrets.DEV_SSH_PORT }} \
+                        ${{ secrets.DEV_SSH_USER }}@${{ secrets.DEV_SSH_HOST }} \
+                        "cd wp-content/themes/soma && \
+                         find . -type d -exec chmod 755 {} \; && \
+                         find . -type f -exec chmod 644 {} \; && \
+                         echo 'Permissions set'"
+                  
+                  echo "✅ Permissions configured"
+
+            - name: 📊 Deployment summary
+              run: |
+                  echo "## 🚀 Development Deployment Complete" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "**Version**: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-                  echo "**ZIP**: ${{ needs.build-and-release.outputs.zip_file }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Environment**: develop" >> $GITHUB_STEP_SUMMARY
+                  echo "**Version**: ${{ needs.build-package.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "### ⚠️ Manual Steps Required" >> $GITHUB_STEP_SUMMARY
+                  echo "### ✅ Deployment Steps Completed" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Quality gates passed" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Theme package built" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Backup created on server" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Theme uploaded via SSH" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Theme extracted automatically" >> $GITHUB_STEP_SUMMARY
+                  echo "- ✅ Permissions configured" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "The theme ZIP has been uploaded. **Follow these steps in order:**" >> $GITHUB_STEP_SUMMARY
+                  echo "### 🔍 Next Steps" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Visit development site to verify deployment" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Test all functionality" >> $GITHUB_STEP_SUMMARY
+                  echo "3. When ready for production: merge to main and create release tag" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "#### 1️⃣ Backup Current Theme (via cPanel)" >> $GITHUB_STEP_SUMMARY
-                  echo "1. Login to cPanel File Manager" >> $GITHUB_STEP_SUMMARY
-                  echo "2. Navigate to: \`public_html/fibrasoma.group/wp-content/themes/\`" >> $GITHUB_STEP_SUMMARY
-                  echo "3. Right-click on \`soma\` folder → Compress → ZIP Archive" >> $GITHUB_STEP_SUMMARY
-                  echo "4. Rename to: \`soma-backup-\$(date +%Y%m%d-%H%M%S).zip\`" >> $GITHUB_STEP_SUMMARY
-                  echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "#### 2️⃣ Extract New Theme" >> $GITHUB_STEP_SUMMARY
-                  echo "1. Delete the current \`soma\` folder (backup created in step 1)" >> $GITHUB_STEP_SUMMARY
-                  echo "2. Right-click on \`${{ needs.build-and-release.outputs.zip_file }}\`" >> $GITHUB_STEP_SUMMARY
-                  echo "3. Select 'Extract'" >> $GITHUB_STEP_SUMMARY
-                  echo "4. Verify new \`soma\` folder created" >> $GITHUB_STEP_SUMMARY
-                  echo "5. Delete the ZIP file" >> $GITHUB_STEP_SUMMARY
-                  echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "**Verification:**" >> $GITHUB_STEP_SUMMARY
-                  echo "- Visit WordPress Admin → Appearance → Themes" >> $GITHUB_STEP_SUMMARY
-                  echo "- Verify theme version: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-                  echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "✅ ZIP uploaded successfully - ready for manual extraction!" >> $GITHUB_STEP_SUMMARY
+                  echo "✅ **Theme successfully deployed to development environment!**" >> $GITHUB_STEP_SUMMARY
 
     # ============================================================================
     # FINAL SUMMARY
     # ============================================================================
 
-    ci-cd-summary:
-        name: 📊 Pipeline Summary
+    develop-summary:
+        name: 📊 Develop Pipeline Summary
         runs-on: ubuntu-latest
-        needs: [code-quality, php-tests, frontend-build, build-and-release, deploy]
+        needs: [code-quality, php-tests, frontend-build, build-package, deploy-develop]
         if: always()
 
         steps:
             - name: 📊 Generate summary
               run: |
-                  echo "## 🎯 CI/CD Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+                  echo "## 🎯 Development Pipeline Summary" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "**Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
-                  echo "**Ref**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Branch**: develop" >> $GITHUB_STEP_SUMMARY
                   echo "**Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+                  echo "**Triggered by**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
                   echo "### Stage Results" >> $GITHUB_STEP_SUMMARY
                   echo "- 🔍 Code Quality: ${{ needs.code-quality.result }}" >> $GITHUB_STEP_SUMMARY
                   echo "- 🧪 PHP Tests: ${{ needs.php-tests.result }}" >> $GITHUB_STEP_SUMMARY
                   echo "- 🎨 Frontend Build: ${{ needs.frontend-build.result }}" >> $GITHUB_STEP_SUMMARY
-                  echo "- 📦 Build & Release: ${{ needs.build-and-release.result }}" >> $GITHUB_STEP_SUMMARY
-                  echo "- 🚀 Deploy: ${{ needs.deploy.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 📦 Build Package: ${{ needs.build-package.result }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- 🚀 Deploy Develop: ${{ needs.deploy-develop.result }}" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
                   
                   if [ "${{ needs.code-quality.result }}" == "success" ] && \
                      [ "${{ needs.php-tests.result }}" == "success" ] && \
-                     [ "${{ needs.frontend-build.result }}" == "success" ]; then
-                    echo "✅ **Quality gates passed!**" >> $GITHUB_STEP_SUMMARY
-                    
-                    if [ "${{ needs.build-and-release.result }}" == "success" ]; then
-                      echo "✅ **Release created!**" >> $GITHUB_STEP_SUMMARY
-                      
-                      if [ "${{ needs.deploy.result }}" == "success" ]; then
-                        echo "✅ **Deployed to production!**" >> $GITHUB_STEP_SUMMARY
-                      fi
-                    fi
+                     [ "${{ needs.frontend-build.result }}" == "success" ] && \
+                     [ "${{ needs.build-package.result }}" == "success" ] && \
+                     [ "${{ needs.deploy-develop.result }}" == "success" ]; then
+                    echo "✅ **All stages completed successfully!**" >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "**Development environment is ready for testing** 🎉" >> $GITHUB_STEP_SUMMARY
                   else
-                    echo "❌ **Quality gates failed - review errors above**" >> $GITHUB_STEP_SUMMARY
+                    echo "❌ **Pipeline failed - review errors above**" >> $GITHUB_STEP_SUMMARY
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "**Development deployment was not completed** ⚠️" >> $GITHUB_STEP_SUMMARY
                   fi

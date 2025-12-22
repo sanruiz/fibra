@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import slick from 'slick-carousel';
 import imagesLoaded from 'imagesloaded';
 
 const arrow = `

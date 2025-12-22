@@ -14,7 +14,6 @@ This directory contains documentation for all GitHub Actions workflows used in t
 | Workflow | File | Purpose | Trigger | Status |
 |----------|------|---------|---------|--------|
 | **[CI/CD Unified](workflows/CI_CD.md)** | `ci-cd.yml` | **CI/CD** - Quality gates, build, release, and deploy | Push, PR, Tags | ✅ Active |
-| **[Test SFTP Secrets](workflows/TEST_SFTP_SECRETS.md)** | `test-sftp-secrets.yml` | Validate GitHub Secrets and SFTP connectivity | Manual | ✅ Active |
 | ~~[Quality & Tests](workflows/QUALITY_AND_TESTS.md)~~ | ~~`quality-and-tests.yml`~~ | **DEPRECATED** - Replaced by ci-cd.yml | - | ❌ Removed |
 | ~~[Release & Deploy](workflows/RELEASE_AND_DEPLOY.md)~~ | ~~`release-and-deploy.yml`~~ | **DEPRECATED** - Replaced by ci-cd.yml | - | ❌ Removed |
 
@@ -110,11 +109,6 @@ When pushing a version tag (e.g., `v3.1.0`), BOTH workflows triggered simultaneo
 
 Before using any workflow, configure GitHub Secrets:
 
-```bash
-# See complete guide
-cat docs/GITHUB_SECRETS_SETUP.md
-```
-
 **Required Secrets:**
 - `SFTP_SSH_KEY` - Base64-encoded SSH private key
 - `SFTP_HOST` - Server IP address
@@ -131,9 +125,6 @@ Run the test workflow to validate secrets:
 2. Click "Run workflow"
 3. Select test type: connection / upload / full
 4. Click "Run workflow"
-
-# Or via GitHub CLI
-gh workflow run test-sftp-secrets.yml -f test_type=full | cat
 ```
 
 ### 3. Standard Release Workflow
@@ -419,9 +410,6 @@ gh run list --workflow=ci-cd.yml --limit 1 | cat
 # View failed job logs
 gh run view RUN_ID --log | cat
 
-# Test SFTP connectivity
-gh workflow run test-sftp-secrets.yml -f test_type=full | cat
-
 # Check specific stage
 gh run view RUN_ID --job=code-quality --log | cat    # Quality gates
 gh run view RUN_ID --job=build-and-release --log | cat  # Release
@@ -447,7 +435,6 @@ gh run view RUN_ID --job=deploy --log | cat         # Deployment
 - ✅ Run `composer phpstan` before pushing (Level 6+ with 0 critical errors)
 - ✅ Run `composer test` before pushing (108/108 tests must pass)
 - ✅ Run `npm run prod` before pushing (build must succeed)
-- ✅ Use `test-sftp-secrets.yml` workflow to validate secrets
 - ✅ Monitor ci-cd.yml workflow logs after push
 
 ### Security
@@ -457,7 +444,6 @@ gh run view RUN_ID --job=deploy --log | cat         # Deployment
 - ✅ Rotate SSH keys every 6-12 months
 - ✅ Use environment protection for production
 - ✅ Review workflow permissions regularly
-- ✅ Test secrets with `test-sftp-secrets.yml` after rotation
 
 ### Workflow Management
 
@@ -477,12 +463,12 @@ gh run view RUN_ID --job=deploy --log | cat         # Deployment
 |-------|---------|----------|---------------|
 | **Stage 1 fails** | Quality gates don't pass | Run locally: `composer phpcs`, `composer phpstan`, `composer test`, `npm run prod` | [CI_CD.md § Troubleshooting](workflows/CI_CD.md#troubleshooting) |
 | **Stage 2 doesn't run** | Build/release skipped | Check tag format `v3.1.1`, verify pushed with `git push origin v3.1.1` | [CI_CD.md § Triggers](workflows/CI_CD.md#triggers) |
-| **Stage 3 fails** | Deployment errors | Test secrets with `test-sftp-secrets.yml`, check server access | [TEST_SFTP_SECRETS.md](workflows/TEST_SFTP_SECRETS.md) |
+| **Stage 3 fails** | Deployment errors | Check server access and verify GitHub Secrets configuration | [CI_CD.md § Deploy](workflows/CI_CD.md#stage-3-deploy-to-production) |
 | **PHPCS errors** | Code standards violations | Run `composer phpcbf` to auto-fix, then `composer phpcs` to verify | [CI_CD.md § Code Quality](workflows/CI_CD.md#code-quality-job) |
 | **PHPStan errors** | Type hint issues | Fix type hints and docblocks, ensure proper @param/@return annotations | [CI_CD.md § Code Quality](workflows/CI_CD.md#code-quality-job) |
 | **PHPUnit failures** | Tests not passing | Check error messages, run locally with `composer test --testdox` | [CI_CD.md § PHP Tests](workflows/CI_CD.md#php-tests-job) |
 | **Frontend build fails** | npm/webpack errors | Delete `node_modules`, run `npm install`, then `npm run prod` | [CI_CD.md § Frontend Build](workflows/CI_CD.md#frontend-build-job) |
-| **SFTP upload fails** | Network/auth issues | Verify secrets correct, test with `test-sftp-secrets.yml -f test_type=full` | [TEST_SFTP_SECRETS.md § Troubleshooting](workflows/TEST_SFTP_SECRETS.md#troubleshooting) |
+| **SFTP upload fails** | Network/auth issues | Verify GitHub Secrets (SFTP_SSH_KEY, SFTP_HOST, SFTP_USER) are correct | [CI_CD.md § Secrets](workflows/CI_CD.md#required-github-secrets) |
 | **Version mismatch** | Wrong version deployed | Ensure `style.css` version matches tag, update before creating tag | [CI_CD.md § Version Extraction](workflows/CI_CD.md#version-extraction) |
 | **Release notes missing** | Empty GitHub release | Update `CHANGELOG.md` with version section before tagging | [CI_CD.md § Release Notes](workflows/CI_CD.md#release-notes-generation) |
 
@@ -511,17 +497,6 @@ gh run view RUN_ID --job=deploy --log | cat
 gh run view RUN_ID --job=ci-cd-summary --log | cat
 ```
 
-**3. Test SFTP Secrets:**
-```bash
-# Test connection only
-gh workflow run test-sftp-secrets.yml -f test_type=connection | cat
-gh run watch
-
-# Test full upload cycle
-gh workflow run test-sftp-secrets.yml -f test_type=full | cat
-gh run watch
-```
-
 **4. Manual Workflow Trigger:**
 ```bash
 # Test workflow without creating tag
@@ -533,8 +508,6 @@ gh run watch
 
 **Documentation:**
 - **[CI/CD Workflow](workflows/CI_CD.md)** - Complete unified workflow documentation
-- **[SFTP Testing](workflows/TEST_SFTP_SECRETS.md)** - Secret validation workflow
-- **[GitHub Secrets Setup](GITHUB_SECRETS_SETUP.md)** - Secret configuration guide
 - **[Testing Guide](TESTING_GUIDE.md)** - Testing infrastructure
 
 **Logs:**
@@ -553,10 +526,8 @@ gh run watch
 
 - **[Development Guide](DEVELOPMENT.md)** - Complete developer documentation with setup, architecture, patterns
 - **[Testing Guide](TESTING_GUIDE.md)** - Testing infrastructure with PHPUnit, PHPCS, PHPStan
-- **[GitHub Secrets Setup](GITHUB_SECRETS_SETUP.md)** - Detailed secret configuration guide
 - **[Migration Guide](MIGRATION_FROM_V2.md)** - Upgrading from v2.x to v3.x
 - **[CI/CD Workflow](workflows/CI_CD.md)** - Unified ci-cd.yml workflow documentation
-- **[SFTP Testing](workflows/TEST_SFTP_SECRETS.md)** - Test workflow for secret validation
 
 ---
 

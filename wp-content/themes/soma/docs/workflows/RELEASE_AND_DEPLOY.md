@@ -179,8 +179,6 @@ This workflow automates the complete lifecycle of the SOMA WordPress theme from 
 | `SFTP_USER` | `your_cpanel_user` | cPanel/SFTP username |
 | `SITE_DOMAIN` | `yourdomain.com` | Site domain for verification |
 
-See [../GITHUB_SECRETS_SETUP.md](../GITHUB_SECRETS_SETUP.md) for detailed setup instructions.
-
 ### Workflow Permissions
 
 ```yaml
@@ -521,12 +519,6 @@ git push
 
 **Solutions:**
 
-**Test secrets:**
-```bash
-# Run test workflow first
-gh workflow run test-sftp-secrets.yml -f test_type=connection
-```
-
 **Verify SSH key:**
 - Check key is properly Base64-encoded
 - Verify key format (starts with `LS0tLS1CRUdJTi...`)
@@ -684,8 +676,6 @@ git tag release-3.0.1  # Wrong format
 
 ## Related Documentation
 
-- **[Test SFTP Secrets Workflow](TEST_SFTP_SECRETS.md)** - Validate configuration before deployment
-- **[GitHub Secrets Setup](../GITHUB_SECRETS_SETUP.md)** - Secret configuration guide
 - **[Development Guide](../DEVELOPMENT.md)** - Local development workflow
 - **[Testing Guide](../TESTING_GUIDE.md)** - Testing infrastructure
 
