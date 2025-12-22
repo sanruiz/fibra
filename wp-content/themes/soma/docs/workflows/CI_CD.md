@@ -756,12 +756,6 @@ npm run prod        # Fix: Check webpack config
 
 ### Deployment fails
 
-**Check:**
-```bash
-# Test SFTP workflow
-gh workflow run test-sftp-secrets.yml | cat
-```
-
 ---
 
 ## 🔄 Complete Development Flow (Dev → Production)
