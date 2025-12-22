@@ -500,7 +500,6 @@ jobs:
 ## Related Documentation
 
 - **Release & Deploy Workflow**: [RELEASE_AND_DEPLOY.md](RELEASE_AND_DEPLOY.md)
-- **SFTP Secrets Testing**: [TEST_SFTP_SECRETS.md](TEST_SFTP_SECRETS.md)
 - **Main Workflows Guide**: [../WORKFLOWS.md](../WORKFLOWS.md)
 - **Development Guide**: [../DEVELOPMENT.md](../DEVELOPMENT.md)
 - **Testing Guide**: [../TESTING_GUIDE.md](../TESTING_GUIDE.md)
