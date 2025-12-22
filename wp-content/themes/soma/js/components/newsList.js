@@ -113,8 +113,8 @@ const newsListHandler = (containers) => {
         if(args.post_list) {
             args.post_list.map(item => {
                 loader.addClass('loaded');
-                getNews({'lang': args.lang, 'id': item}, res => { content.append( mewsItem(res.data[0]) ) });
-            })
+                getNews({ 'lang': args.lang, 'id': item }, res => { content.append(mewsItem(res.data[0])) });
+            });
         } else {
             getNews(args, res => {
                 if(res.data) {
