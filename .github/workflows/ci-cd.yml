@@ -61,17 +61,17 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 🐘 Setup PHP
-              uses: shivammathur/setup-php@v2
+              uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
               with:
                   php-version: ${{ env.PHP_VERSION }}
                   extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
                   coverage: none
 
             - name: 📦 Cache Composer dependencies
-              uses: actions/cache@v5
+              uses: actions/cache@v4
               with:
                   path: ${{ env.THEME_PATH }}/vendor
                   key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
@@ -154,17 +154,17 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 🐘 Setup PHP
-              uses: shivammathur/setup-php@v2
+              uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
               with:
                   php-version: ${{ env.PHP_VERSION }}
                   extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
                   coverage: xdebug
 
             - name: 📦 Cache Composer dependencies
-              uses: actions/cache@v5
+              uses: actions/cache@v4
               with:
                   path: ${{ env.THEME_PATH }}/vendor
                   key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
@@ -225,7 +225,7 @@ jobs:
                   WP_CORE_DIR: /tmp/wordpress/
 
             - name: 📊 Upload coverage
-              uses: codecov/codecov-action@v5
+              uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
               if: always()
               with:
                   files: ${{ env.THEME_PATH }}/coverage.xml
@@ -239,15 +239,15 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
             - name: 📦 Cache Node modules
-              uses: actions/cache@v5
+              uses: actions/cache@v4
               with:
                   path: ${{ env.THEME_PATH }}/node_modules
                   key: npm-${{ hashFiles(format('{0}/package-lock.json', env.THEME_PATH)) }}
@@ -296,17 +296,17 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 🐘 Setup PHP
-              uses: shivammathur/setup-php@v2
+              uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
               with:
                   php-version: ${{ env.PHP_VERSION }}
                   extensions: mbstring, xml, ctype, json, tokenizer, intl
                   coverage: none
 
             - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
@@ -411,7 +411,7 @@ jobs:
                   fi
 
             - name: 🚀 Create GitHub Release
-              uses: softprops/action-gh-release@v2
+              uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
               with:
                   tag_name: ${{ steps.version.outputs.tag }}
                   name: SOMA Theme v${{ steps.version.outputs.version }}
@@ -423,7 +423,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 📤 Upload artifact
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@v4
               with:
                   name: soma-release-${{ steps.version.outputs.version }}
                   path: releases/${{ steps.package.outputs.zip_file }}
@@ -445,10 +445,10 @@ jobs:
 
         steps:
             - name: 📥 Checkout code (for scripts)
-              uses: actions/checkout@v6
+              uses: actions/checkout@v4
 
             - name: 📥 Download release artifact
-              uses: actions/download-artifact@v7
+              uses: actions/download-artifact@v4
               with:
                   name: soma-release-${{ needs.build-and-release.outputs.version }}
                   path: ./release
