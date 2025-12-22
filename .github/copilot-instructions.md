@@ -318,7 +318,6 @@ The following instruction files apply automatically based on file type. VS Code 
 - **Current Workflows**:
   - `.github/workflows/quality-and-tests.yml` - **CI**: Code quality and automated testing (runs on push/PR)
   - `.github/workflows/release-and-deploy.yml` - **CD**: Build, release, and deploy (runs on tags only)
-  - `.github/workflows/test-sftp-secrets.yml` - Manual SFTP validation
 
 ### Deployment Scripts (repository root)
 - **Location**: `.github/scripts/` (repository root)
