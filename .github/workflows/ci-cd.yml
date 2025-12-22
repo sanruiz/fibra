@@ -61,7 +61,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@v2
@@ -71,7 +71,7 @@ jobs:
                   coverage: none
 
             - name: 📦 Cache Composer dependencies
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: ${{ env.THEME_PATH }}/vendor
                   key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
@@ -154,7 +154,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@v2
@@ -164,7 +164,7 @@ jobs:
                   coverage: xdebug
 
             - name: 📦 Cache Composer dependencies
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: ${{ env.THEME_PATH }}/vendor
                   key: composer-${{ hashFiles(format('{0}/composer.lock', env.THEME_PATH)) }}
@@ -225,7 +225,7 @@ jobs:
                   WP_CORE_DIR: /tmp/wordpress/
 
             - name: 📊 Upload coverage
-              uses: codecov/codecov-action@v4
+              uses: codecov/codecov-action@v5
               if: always()
               with:
                   files: ${{ env.THEME_PATH }}/coverage.xml
@@ -239,15 +239,15 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
             - name: 📦 Cache Node modules
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: ${{ env.THEME_PATH }}/node_modules
                   key: npm-${{ hashFiles(format('{0}/package-lock.json', env.THEME_PATH)) }}
@@ -285,9 +285,9 @@ jobs:
         name: 📦 Build & Release
         runs-on: ubuntu-latest
         needs: [code-quality, php-tests, frontend-build]
-        # Only create releases from main branch with version tags
-        # Tags pushed from week-* branches will run quality gates but NOT release
-        if: (startsWith(github.ref, 'refs/tags/v') && github.event.base_ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+        # Only create releases from version tags (v*)
+        # Assumes tags are created from main branch per GitFlow workflow
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
 
         outputs:
             version: ${{ steps.version.outputs.version }}
@@ -296,7 +296,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@v2
@@ -306,7 +306,7 @@ jobs:
                   coverage: none
 
             - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
@@ -423,7 +423,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 📤 Upload artifact
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v6
               with:
                   name: soma-release-${{ steps.version.outputs.version }}
                   path: releases/${{ steps.package.outputs.zip_file }}
@@ -445,10 +445,10 @@ jobs:
 
         steps:
             - name: 📥 Checkout code (for scripts)
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 📥 Download release artifact
-              uses: actions/download-artifact@v4
+              uses: actions/download-artifact@v7
               with:
                   name: soma-release-${{ needs.build-and-release.outputs.version }}
                   path: ./release
@@ -468,22 +468,7 @@ jobs:
                   ssh-keyscan -H ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
                   chmod 644 ~/.ssh/known_hosts
 
-            - name: 🗑️ Create backup on server
-              run: |
-                  echo "🗑️ Creating backup..."
-                  BACKUP_NAME="soma-backup-$(date +%Y%m%d-%H%M%S)"
-                  
-                  sftp -i ~/.ssh/soma_key -o StrictHostKeyChecking=no \
-                    ${{ secrets.SFTP_USER }}@${{ secrets.SFTP_HOST }} << EOF
-                    cd public_html/fibrasoma.group/wp-content/themes
-                    rename soma ${BACKUP_NAME}
-                    mkdir soma
-                    quit
-                  EOF
-                  
-                  echo "✅ Backup: ${BACKUP_NAME}"
-
-            - name: 📤 Upload theme ZIP
+            - name: � Upload theme ZIP
               run: |
                   echo "📤 Uploading ZIP..."
                   
@@ -494,37 +479,37 @@ jobs:
                     quit
                   EOF
                   
-                  echo "✅ ZIP uploaded"
+                  echo "✅ ZIP uploaded successfully"
 
-            - name:  Deployment summary
+            - name: 📋 Deployment summary
               run: |
                   echo "## 🚀 Deployment Complete" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
                   echo "**Version**: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
                   echo "**ZIP**: ${{ needs.build-and-release.outputs.zip_file }}" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "### ⚠️ Manual Extraction Required" >> $GITHUB_STEP_SUMMARY
+                  echo "### ⚠️ Manual Steps Required" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "The theme ZIP has been uploaded to the server. Please extract it manually:" >> $GITHUB_STEP_SUMMARY
+                  echo "The theme ZIP has been uploaded. **Follow these steps in order:**" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "**Option 1: cPanel File Manager**" >> $GITHUB_STEP_SUMMARY
-                  echo "1. Login to cPanel" >> $GITHUB_STEP_SUMMARY
+                  echo "#### 1️⃣ Backup Current Theme (via cPanel)" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Login to cPanel File Manager" >> $GITHUB_STEP_SUMMARY
                   echo "2. Navigate to: \`public_html/fibrasoma.group/wp-content/themes/\`" >> $GITHUB_STEP_SUMMARY
-                  echo "3. Right-click on \`${{ needs.build-and-release.outputs.zip_file }}\`" >> $GITHUB_STEP_SUMMARY
-                  echo "4. Select 'Extract'" >> $GITHUB_STEP_SUMMARY
-                  echo "5. Confirm extraction" >> $GITHUB_STEP_SUMMARY
-                  echo "6. Delete ZIP file after extraction" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Right-click on \`soma\` folder → Compress → ZIP Archive" >> $GITHUB_STEP_SUMMARY
+                  echo "4. Rename to: \`soma-backup-\$(date +%Y%m%d-%H%M%S).zip\`" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "**Option 2: FTP/SFTP Client**" >> $GITHUB_STEP_SUMMARY
-                  echo "1. Download ZIP from server" >> $GITHUB_STEP_SUMMARY
-                  echo "2. Extract locally" >> $GITHUB_STEP_SUMMARY
-                  echo "3. Upload extracted \`soma/\` folder" >> $GITHUB_STEP_SUMMARY
+                  echo "#### 2️⃣ Extract New Theme" >> $GITHUB_STEP_SUMMARY
+                  echo "1. Delete the current \`soma\` folder (backup created in step 1)" >> $GITHUB_STEP_SUMMARY
+                  echo "2. Right-click on \`${{ needs.build-and-release.outputs.zip_file }}\`" >> $GITHUB_STEP_SUMMARY
+                  echo "3. Select 'Extract'" >> $GITHUB_STEP_SUMMARY
+                  echo "4. Verify new \`soma\` folder created" >> $GITHUB_STEP_SUMMARY
+                  echo "5. Delete the ZIP file" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
                   echo "**Verification:**" >> $GITHUB_STEP_SUMMARY
                   echo "- Visit WordPress Admin → Appearance → Themes" >> $GITHUB_STEP_SUMMARY
                   echo "- Verify theme version: ${{ needs.build-and-release.outputs.version }}" >> $GITHUB_STEP_SUMMARY
                   echo "" >> $GITHUB_STEP_SUMMARY
-                  echo "✅ ZIP uploaded successfully to server!" >> $GITHUB_STEP_SUMMARY
+                  echo "✅ ZIP uploaded successfully - ready for manual extraction!" >> $GITHUB_STEP_SUMMARY
 
     # ============================================================================
     # FINAL SUMMARY

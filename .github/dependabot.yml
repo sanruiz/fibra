@@ -1,0 +1,64 @@
+version: 2
+updates:
+  # Composer dependencies (PHP)
+  - package-ecosystem: "composer"
+    directory: "/wp-content/themes/soma"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Mexico_City"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "composer"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    versioning-strategy: "increase"
+
+  # npm dependencies (JavaScript)
+  - package-ecosystem: "npm"
+    directory: "/wp-content/themes/soma"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Mexico_City"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "media-prioridad"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    versioning-strategy: "increase"
+    ignore:
+      # Ignorar webpack 6 hasta verificar compatibilidad
+      - dependency-name: "webpack"
+        versions: ["6.x"]
+      # Ignorar Node.js legacy OpenSSL dependencies
+      - dependency-name: "node-sass"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Mexico_City"
+    open-pull-requests-limit: 3
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automation"
+      - "baja-prioridad"
+    commit-message:
+      prefix: "chore(ci)"
+      include: "scope"

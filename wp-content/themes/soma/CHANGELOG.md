@@ -7,6 +7,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.3] - 2025-12-21
+
+### Elementor Styles Fix & Security Enhancements
+
+This patch release fixes Elementor widget style conflicts and adds important security and workflow improvements.
+
+---
+
+### 🐛 Fixed
+
+#### Elementor Styles
+- **Global Styles Override** - Simplified exclusion selectors to prevent global typography from affecting Elementor widgets
+- **CSS Specificity** - Changed from complex `:not()` with multiple conditions to simple `:not(.elementor a)` pattern
+- **Widget Styling** - Elementor widgets now maintain their specific styles without interference from theme globals
+
+### ✨ Added
+
+#### Security & CI/CD
+- **CodeQL Security Analysis** - Automated code scanning for security vulnerabilities
+- **Git Hooks** - Pre-commit hooks to enforce branch protection and prevent direct commits to protected branches
+- **Branch Protection** - Blocks commits to `main`, `week-*`, and `develop` branches
+- **Workflow Restrictions** - Releases and deploys now restricted to `main` branch only
+
+### 🔄 Changed
+
+#### Workflow Improvements
+- **Release Process** - Enforced GitFlow: only tags from `main` trigger releases and deployments
+- **Branch Strategy** - Documented sprint-based workflow with `week-*` branches
+- **Quality Gates** - CI runs on all PRs to `week-*` and `main` branches
+
+### 📦 Files Changed
+
+#### Modified
+- `wp-content/themes/soma/sass/_general.scss` - Simplified Elementor exclusion selectors
+- `.github/workflows/ci-cd.yml` - Added main branch restriction for releases
+- `.github/workflows/codeql.yml` - New security scanning workflow
+
+#### Added
+- `install-hooks.sh` - Git hooks installation script
+- `.git/hooks/pre-commit` - Branch protection enforcement
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #79**: [Restrict releases and deploys to main branch only](https://github.com/sanruiz/fibra/issues/79) - Closed (duplicate of #80)
+- **Issue #80**: [Restrict releases and deploys to main branch only](https://github.com/sanruiz/fibra/issues/80) - Closed
+- **PR #81**: [Restrict releases to main and add Git hooks](https://github.com/sanruiz/fibra/pull/81) - Merged
+- **PR #82**: [Add CodeQL security analysis workflow](https://github.com/sanruiz/fibra/pull/82) - Merged
+- **PR #83**: [Simplify Elementor exclusion in global styles](https://github.com/sanruiz/fibra/pull/83) - Merged
+
+---
+
 ## [3.1.2] - 2025-12-18
 
 ### Asset Versioning Fix
