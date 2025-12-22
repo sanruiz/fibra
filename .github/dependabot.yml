@@ -37,9 +37,9 @@ updates:
       include: "scope"
     versioning-strategy: "increase"
     ignore:
-      # Ignorar webpack 4 (requiere refactorización mayor)
+      # Ignorar webpack 6 hasta verificar compatibilidad
       - dependency-name: "webpack"
-        versions: ["5.x", "6.x"]
+        versions: ["6.x"]
       # Ignorar Node.js legacy OpenSSL dependencies
       - dependency-name: "node-sass"
         update-types: ["version-update:semver-major"]
