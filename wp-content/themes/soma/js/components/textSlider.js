@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import slick from 'slick-carousel';
 
 const textSliderHandler = (containers) => {
     containers.each((key, el) => {

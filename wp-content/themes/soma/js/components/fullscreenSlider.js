@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import Player from '@vimeo/player';
-import slick from 'slick-carousel';
 import imagesLoaded from 'imagesloaded';
 
 const play_button = `
