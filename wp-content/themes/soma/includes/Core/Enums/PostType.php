@@ -27,7 +27,7 @@ enum PostType: string {
 	case PORTFOLIO    = 'portfolio';
 	case NEWS         = 'news';
 	case CAREERS      = 'careers';
-	case TEAM_MEMBERS = 'team_members';
+	case TEAM_MEMBERS = 'team-members';
 
 	/**
 	 * Get the post type value
