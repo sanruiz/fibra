@@ -70,6 +70,36 @@ This release adds two new Elementor widgets (StockPrice and Documents) and inclu
 
 ---
 
+## [3.1.4] - 2025-12-29
+
+### Team Members Post Type Slug Fix
+
+This patch release restores backward compatibility for the team-members post type.
+
+---
+
+### 🐛 Fixed
+
+#### Post Type Slug
+- **team-members Post Type** - Restored original hyphenated slug `'team-members'` (was incorrectly changed to `'team_members'` during v3.0.0 refactoring)
+- **Backward Compatibility** - Existing Team Members posts created before v3.0.0 are now accessible again
+- **Database Consistency** - Post type slug now matches existing database records
+
+### 📦 Files Changed
+
+#### Modified
+- `wp-content/themes/soma/includes/Core/Enums/PostType.php` - Changed `TEAM_MEMBERS` enum value from `'team_members'` to `'team-members'`
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #119**: [fix: team-members post type slug broken after v3.0.0 refactoring](https://github.com/sanruiz/fibra/issues/119) - Closed
+- **PR #120**: [fix: Restore team-members post type slug for backward compatibility](https://github.com/sanruiz/fibra/pull/120) - Merged
+- **PR #121**: [Week 4: Team Members Post Type Fix](https://github.com/sanruiz/fibra/pull/121) - Merged
+
+---
+
 ## [3.1.3] - 2025-12-21
 
 ### Elementor Styles Fix & Security Enhancements
