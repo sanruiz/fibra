@@ -398,11 +398,11 @@ function soma_asset_url( string $path ): string {
  * @return string Translated date string.
  */
 function soma_translate_date( string $str_date, ?string $format = null ): string {
-	if ( ! function_exists( 'wpm_get_language' ) || wpm_get_language() !== 'es' ) {
+	if ( ! function_exists( 'wpm_get_language' ) || 'es' !== wpm_get_language() ) {
 		return $str_date;
 	}
 
-	if ( $format === 'short' ) {
+	if ( 'short' === $format ) {
 		// Short month names.
 		$translations = array(
 			'Jan' => 'Ene',
@@ -487,8 +487,190 @@ function soma_get_i18n_field( array $content, string $field ) {
 	$lang = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
 
 	// Build language-specific field name (e.g., 'file_es').
-	$lang_field = $lang === 'es' ? "{$field}_es" : $field;
+	$lang_field = 'es' === $lang ? "{$field}_es" : $field;
 
 	// Return language-specific field, fall back to default field, or empty string.
 	return $content[ $lang_field ] ?? $content[ $field ] ?? '';
+}
+
+// =============================================================================
+// Breadcrumb Helpers
+// =============================================================================
+
+/**
+ * Get breadcrumb navigation items
+ *
+ * Generates breadcrumb trail for current page context including:
+ * - Home page link
+ * - Single posts with post type archive parent
+ * - Post type archives
+ * - Pages with parent hierarchy
+ * - Taxonomy terms with parent hierarchy
+ * - Search results
+ * - 404 pages
+ *
+ * @since 3.1.7
+ *
+ * @return array<int, array<string, mixed>> Array of breadcrumb items with keys:
+ *                                           - 'name' (string): Display text
+ *                                           - 'url' (string): Link URL
+ *                                           - 'is_current' (bool): Whether this is the current page
+ *
+ * @example
+ * $breadcrumbs = soma_get_breadcrumb_items();
+ * foreach ( $breadcrumbs as $item ) {
+ *     if ( $item['is_current'] ) {
+ *         echo esc_html( $item['name'] );
+ *     } else {
+ *         echo '<a href="' . esc_url( $item['url'] ) . '">' . esc_html( $item['name'] ) . '</a>';
+ *     }
+ * }
+ */
+function soma_get_breadcrumb_items(): array {
+	$breadcrumbs = array();
+
+	// Always start with Home.
+	$breadcrumbs[] = array(
+		'name'       => __( 'Home', 'soma' ),
+		'url'        => home_url( '/' ),
+		'is_current' => is_front_page(),
+	);
+
+	// Return early if we're on the home page.
+	if ( is_front_page() ) {
+		return $breadcrumbs;
+	}
+
+	// Single Post (any post type).
+	if ( is_singular() ) {
+		$post = get_queried_object();
+
+		// Add post type archive as parent for non-page post types.
+		if ( 'post' !== $post->post_type && 'page' !== $post->post_type ) {
+			$post_type_obj = get_post_type_object( $post->post_type );
+
+			if ( $post_type_obj && $post_type_obj->has_archive ) {
+				$breadcrumbs[] = array(
+					'name'       => $post_type_obj->labels->name,
+					'url'        => get_post_type_archive_link( $post->post_type ),
+					'is_current' => false,
+				);
+			}
+		}
+
+		// Add page hierarchy for pages.
+		if ( 'page' === $post->post_type ) {
+			if ( $post->post_parent ) {
+				$parent_ids = array_reverse( get_post_ancestors( $post->ID ) );
+				foreach ( $parent_ids as $parent_id ) {
+					$breadcrumbs[] = array(
+						'name'       => get_the_title( $parent_id ),
+						'url'        => get_permalink( $parent_id ),
+						'is_current' => false,
+					);
+				}
+			}
+		}
+
+		// Add current post/page.
+		$breadcrumbs[] = array(
+			'name'       => get_the_title( $post->ID ),
+			'url'        => get_permalink( $post->ID ),
+			'is_current' => true,
+		);
+
+		return $breadcrumbs;
+	}
+
+	// Post Type Archive.
+	if ( is_post_type_archive() ) {
+		$post_type_obj = get_queried_object();
+
+		if ( $post_type_obj ) {
+			$breadcrumbs[] = array(
+				'name'       => $post_type_obj->labels->name,
+				'url'        => get_post_type_archive_link( $post_type_obj->name ),
+				'is_current' => true,
+			);
+		}
+
+		return $breadcrumbs;
+	}
+
+	// Taxonomy (Category, Tag, Custom Taxonomy).
+	if ( is_tax() || is_category() || is_tag() ) {
+		$term = get_queried_object();
+
+		// Add parent terms for hierarchical taxonomies.
+		if ( $term && $term->parent && is_taxonomy_hierarchical( $term->taxonomy ) ) {
+			$parent_ids = array_reverse( get_ancestors( $term->term_id, $term->taxonomy ) );
+			foreach ( $parent_ids as $parent_id ) {
+				$parent_term = get_term( $parent_id, $term->taxonomy );
+				if ( $parent_term && ! is_wp_error( $parent_term ) ) {
+					$breadcrumbs[] = array(
+						'name'       => $parent_term->name,
+						'url'        => get_term_link( $parent_term ),
+						'is_current' => false,
+					);
+				}
+			}
+		}
+
+		// Add current term.
+		if ( $term ) {
+			$breadcrumbs[] = array(
+				'name'       => $term->name,
+				'url'        => get_term_link( $term ),
+				'is_current' => true,
+			);
+		}
+
+		return $breadcrumbs;
+	}
+
+	// Search Results.
+	if ( is_search() ) {
+		$breadcrumbs[] = array(
+			'name'       => sprintf(
+				/* translators: %s: search query */
+				__( 'Search results for: %s', 'soma' ),
+				get_search_query()
+			),
+			'url'        => get_search_link(),
+			'is_current' => true,
+		);
+
+		return $breadcrumbs;
+	}
+
+	// 404 Page.
+	if ( is_404() ) {
+		$breadcrumbs[] = array(
+			'name'       => __( 'Page Not Found', 'soma' ),
+			'url'        => '',
+			'is_current' => true,
+		);
+
+		return $breadcrumbs;
+	}
+
+	// Default (Blog page, date archives, author archives).
+	if ( is_home() ) {
+		$page_for_posts = get_option( 'page_for_posts' );
+		if ( $page_for_posts ) {
+			$breadcrumbs[] = array(
+				'name'       => get_the_title( $page_for_posts ),
+				'url'        => get_permalink( $page_for_posts ),
+				'is_current' => true,
+			);
+		} else {
+			$breadcrumbs[] = array(
+				'name'       => __( 'Blog', 'soma' ),
+				'url'        => home_url( '/blog/' ),
+				'is_current' => true,
+			);
+		}
+	}
+
+	return $breadcrumbs;
 }

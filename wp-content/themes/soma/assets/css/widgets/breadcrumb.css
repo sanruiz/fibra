@@ -1,0 +1,49 @@
+/**
+ * SOMA Breadcrumb Widget Styles
+ *
+ * Basic styling for breadcrumb navigation widget.
+ * Most styling should be controlled through Elementor controls.
+ *
+ * @package    Soma
+ * @subpackage Assets/CSS
+ * @since      3.1.7
+ */
+
+.soma-breadcrumb {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: var(--soma-spacing-sm, 0.5rem) 0;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+.soma-breadcrumb > span {
+	display: inline-flex;
+	align-items: center;
+}
+
+.soma-breadcrumb a {
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.soma-breadcrumb a:hover {
+	text-decoration: underline;
+}
+
+.soma-breadcrumb .current {
+	font-weight: 500;
+}
+
+.soma-breadcrumb .separator {
+	opacity: 0.6;
+	user-select: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.soma-breadcrumb {
+		font-size: 0.8125rem;
+	}
+}
