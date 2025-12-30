@@ -32,6 +32,22 @@ class DocumentsWidgetTest extends TestCase {
 	private string $widget_class = \Soma\Elementor\Widgets\Documents::class;
 
 	/**
+	 * Check if Elementor is available before running tests
+	 *
+	 * Since the Documents widget extends Elementor\Widget_Base,
+	 * we need Elementor to be available to even load the class.
+	 */
+	public static function setUpBeforeClass(): void {
+		parent::setUpBeforeClass();
+
+		// Check if Elementor Widget_Base class exists
+		// This is required because our widget extends it via WidgetBase.
+		if ( ! class_exists( '\Elementor\Widget_Base' ) ) {
+			self::markTestSkipped( 'Elementor Widget_Base class is not available. Skipping unit tests.' );
+		}
+	}
+
+	/**
 	 * Test widget class exists
 	 */
 	public function test_class_exists(): void {
