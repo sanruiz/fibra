@@ -90,7 +90,7 @@ class LoaderTest extends WP_UnitTestCase {
 		$widgets = $this->loader->get_widgets();
 
 		$this->assertIsArray( $widgets );
-		$this->assertCount( 8, $widgets );
+		$this->assertCount( 9, $widgets );
 
 		$expected_widgets = [
 			'Navbar',
@@ -101,6 +101,7 @@ class LoaderTest extends WP_UnitTestCase {
 			'NewsList',
 			'Portfolio',
 			'ContactForm',
+			'StockPrice',
 		];
 
 		foreach ( $expected_widgets as $widget_name ) {
@@ -159,6 +160,7 @@ class LoaderTest extends WP_UnitTestCase {
 			'soma-news-list',
 			'soma-portfolio',
 			'soma-contact-form',
+			'soma-stock-price',
 		];
 
 		foreach ( $expected_styles as $handle ) {
@@ -182,6 +184,7 @@ class LoaderTest extends WP_UnitTestCase {
 			'news-list.css',
 			'portfolio.css',
 			'contact-form.css',
+			'stock-price.css',
 		];
 
 		$assets_dir = get_template_directory() . '/assets/css/widgets/';
@@ -213,11 +216,11 @@ class LoaderTest extends WP_UnitTestCase {
 		// Get new widget count.
 		$new_count = count( $widgets_manager->get_widget_types() );
 
-		// Should have registered 8 new widgets.
+		// Should have registered 9 new widgets.
 		$this->assertSame(
-			8,
+			9,
 			$new_count - $initial_count,
-			'Should register 8 Soma widgets'
+			'Should register 9 Soma widgets'
 		);
 	}
 
