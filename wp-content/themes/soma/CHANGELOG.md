@@ -7,6 +7,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.5] - 2025-12-29
+
+### Week 4 Release - New Elementor Widgets & Bug Fixes
+
+This release adds two new Elementor widgets (StockPrice and Documents) and includes important bug fixes and refactoring improvements.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widgets
+- **Documents Widget** - Display documents from `documents-reports` CPT in responsive grid layout with i18n support for bilingual file downloads (#128)
+- **StockPrice Widget** - Display current stock price from cached stock data with configurable styling (#126)
+
+#### Documentation
+- **Manual Issue Closure Note** - Added documentation about manual issue closure for non-default branch merges (#125)
+
+### 🐛 Fixed
+
+#### Cron & Scheduling
+- **Stock Data Cron** - Register cron schedule before using it in StockData endpoint (#124)
+
+#### Post Types
+- **Team Members Slug** - Restored `team-members` post type slug for backward compatibility (#120)
+
+### 🔄 Changed
+
+#### Code Quality
+- **StockDataEndpoint Refactor** - Use `soma_get_stock_data()` helper instead of direct transient access (#127)
+
+### 📦 Files Changed
+
+#### Added
+- `includes/Elementor/Widgets/Documents.php` - Documents grid widget (485 lines)
+- `includes/Elementor/Widgets/StockPrice.php` - Stock price display widget
+- `assets/css/widgets/documents.css` - Documents widget styles (148 lines)
+- `assets/css/widgets/stock-price.css` - Stock price widget styles
+- `tests/Integration/Elementor/DocumentsWidgetTest.php` - 17 integration tests
+- `tests/Integration/Elementor/StockPriceWidgetTest.php` - Integration tests
+
+#### Modified
+- `includes/Elementor/Loader.php` - Register new widgets
+- `includes/Core/Theme.php` - Loader registration order fix
+- `includes/API/Endpoints/StockDataEndpoint.php` - Use helper function
+- `includes/PostTypes/Types/TeamMembers.php` - Restore slug
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include new widgets
+- `docs/WIDGETS.md` - Widget development workflow documentation
+- `.github/copilot-instructions.md` - Elementor widget development section
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #14**: [Sección de Documentos Relevantes](https://github.com/sanruiz/fibra/issues/14) - Closed
+- **PR #128**: [feat: Add Documents Elementor widget](https://github.com/sanruiz/fibra/pull/128) - Merged
+- **PR #127**: [refactor: Use soma_get_stock_data() helper](https://github.com/sanruiz/fibra/pull/127) - Merged
+- **PR #126**: [feat: Add StockPrice Elementor widget](https://github.com/sanruiz/fibra/pull/126) - Merged
+- **PR #125**: [docs: Add note about manual issue closure](https://github.com/sanruiz/fibra/pull/125) - Merged
+- **PR #124**: [fix: Register cron schedule](https://github.com/sanruiz/fibra/pull/124) - Merged
+- **PR #120**: [fix: Restore team-members post type slug](https://github.com/sanruiz/fibra/pull/120) - Merged
+
+---
+
 ## [3.1.3] - 2025-12-21
 
 ### Elementor Styles Fix & Security Enhancements
