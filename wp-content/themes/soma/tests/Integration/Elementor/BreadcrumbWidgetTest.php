@@ -36,6 +36,11 @@ class BreadcrumbWidgetTest extends WP_UnitTestCase {
 	 */
 	public function set_up(): void {
 		parent::set_up();
+
+		if ( ! class_exists( '\Elementor\Plugin' ) ) {
+			$this->markTestSkipped( 'Elementor plugin is not active' );
+		}
+
 		$this->widget = new Breadcrumb();
 	}
 
