@@ -37,6 +37,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'ContactForm'   => \Soma\Elementor\Widgets\ContactForm::class,
 		'StockPrice'    => \Soma\Elementor\Widgets\StockPrice::class,
 		'Documents'     => \Soma\Elementor\Widgets\Documents::class,
+		'Breadcrumb'    => \Soma\Elementor\Widgets\Breadcrumb::class,
 	];
 
 	/**
@@ -55,6 +56,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'ContactForm'   => 'soma-contact-form',
 		'StockPrice'    => 'soma-stock-price',
 		'Documents'     => 'soma-documents',
+		'Breadcrumb'    => 'soma-breadcrumb',
 	];
 
 	/**
