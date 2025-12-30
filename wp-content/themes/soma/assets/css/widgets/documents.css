@@ -1,0 +1,148 @@
+/**
+ * Documents Widget Styles
+ * 
+ * Elementor widget for documents/reports grid.
+ * 
+ * @package Soma
+ * @since 3.0.0
+ */
+
+/* Container */
+.soma-documents {
+	width: 100%;
+}
+
+/* Grid */
+.soma-documents .documents-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 30px;
+}
+
+/* Document item card */
+.soma-documents .document-item {
+	position: relative;
+	overflow: hidden;
+	border-radius: 8px;
+	background-color: var(--soma-bg-white, #fff);
+	transition: all 0.3s ease;
+}
+
+.soma-documents .document-item:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Image container */
+.soma-documents .document-image {
+	position: relative;
+	width: 100%;
+	height: 350px;
+	overflow: hidden;
+}
+
+.soma-documents .document-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+}
+
+.soma-documents .document-item:hover .document-image img {
+	transform: scale(1.05);
+}
+
+/* Content area */
+.soma-documents .document-content {
+	padding: 20px;
+}
+
+/* Title */
+.soma-documents .document-title {
+	font-family: var(--soma-font-primary, 'Neue Haas Unica Pro', sans-serif);
+	font-size: 34px;
+	font-weight: 400;
+	line-height: 1.2;
+	margin: 0 0 15px;
+	color: var(--soma-primary, #000);
+}
+
+/* Download link */
+.soma-documents .document-download {
+	display: inline-flex;
+	align-items: center;
+	font-family: var(--soma-font-primary, 'Neue Haas Unica Pro', sans-serif);
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--soma-primary, #000);
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.soma-documents .document-download:hover {
+	color: var(--soma-primary-hover, #333);
+	text-decoration: underline;
+}
+
+/* Arrow icon after download link */
+.soma-documents .document-download::after {
+	content: '→';
+	margin-left: 8px;
+	transition: transform 0.3s ease;
+}
+
+.soma-documents .document-download:hover::after {
+	transform: translateX(4px);
+}
+
+/* No documents message */
+.soma-documents .no-documents {
+	text-align: center;
+	padding: 40px;
+	color: var(--soma-text-secondary, #666);
+	font-style: italic;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+	.soma-documents .documents-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	
+	.soma-documents .document-title {
+		font-size: 28px;
+	}
+}
+
+@media (max-width: 768px) {
+	.soma-documents .documents-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+	}
+	
+	.soma-documents .document-image {
+		height: 280px;
+	}
+	
+	.soma-documents .document-title {
+		font-size: 24px;
+	}
+	
+	.soma-documents .document-content {
+		padding: 15px;
+	}
+}
+
+@media (max-width: 480px) {
+	.soma-documents .documents-grid {
+		grid-template-columns: 1fr;
+	}
+	
+	.soma-documents .document-image {
+		height: 300px;
+	}
+	
+	.soma-documents .document-title {
+		font-size: 22px;
+	}
+}

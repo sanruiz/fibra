@@ -6,7 +6,7 @@
  *
  * @package Soma
  * @subpackage Elementor\Widgets
- * @since 3.0.0
+ * @since 3.1.5
  */
 
 namespace Soma\Elementor\Widgets;
