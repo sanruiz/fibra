@@ -435,10 +435,11 @@ class Documents extends WidgetBase {
 		);
 
 		// Filter documents to only include those with valid files.
-		$valid_documents = array();
+		$valid_documents       = array();
+		$valid_documents_count = 0;
 
 		if ( $documents->have_posts() ) {
-			while ( $documents->have_posts() && count( $valid_documents ) < $limit ) {
+			while ( $documents->have_posts() && $valid_documents_count < $limit ) {
 				$documents->the_post();
 				$post_id = get_the_ID();
 				$content = get_field( 'document_content', $post_id );
@@ -459,6 +460,7 @@ class Documents extends WidgetBase {
 						) : null,
 						'file_url'  => $file['url'],
 					);
+					++$valid_documents_count;
 				}
 			}
 			wp_reset_postdata();
