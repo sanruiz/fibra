@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the SOMA theme.
 msgid ""
 msgstr ""
-"Project-Id-Version: SOMA 3.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/soma\n"
+"Project-Id-Version: SOMA 3.1.3\n"
+"Report-Msgid-Bugs-To: https://github.com/sanruiz/fibra/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-16T05:19:12+00:00\n"
+"POT-Creation-Date: 2025-12-30T04:14:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: soma\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "https://github.com/sanruiz"
 msgstr ""
 
-#: includes/Admin/StockData.php:108
+#: includes/Admin/StockData.php:115
 msgid "Every 3 Hours"
 msgstr ""
 
@@ -173,6 +173,7 @@ msgid "Navigation Sidebar Template"
 msgstr ""
 
 #: includes/Elementor/Base/WidgetBase.php:216
+#: includes/Elementor/Widgets/Documents.php:287
 msgid "Border Radius"
 msgstr ""
 
@@ -187,22 +188,26 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: includes/Elementor/Loader.php:165
+#: includes/Elementor/Loader.php:168
 msgid "Soma"
 msgstr ""
 
 #. translators: 1: Plugin name 2: Elementor
-#: includes/Elementor/Loader.php:287
+#: includes/Elementor/Loader.php:290
 #, php-format
 msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be installed and activated for full functionality."
 msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:81
+#: includes/Elementor/Widgets/Documents.php:138
+#: includes/Elementor/Widgets/StockPrice.php:81
 msgid "Content"
 msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:88
 #: includes/Elementor/Widgets/BusinessUnits.php:132
+#: includes/Elementor/Widgets/Documents.php:112
+#: includes/Elementor/Widgets/Documents.php:302
 #: includes/Elementor/Widgets/Services.php:98
 #: includes/Elementor/Widgets/Services.php:316
 msgid "Title"
@@ -213,7 +218,9 @@ msgid "Maximum Items"
 msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:109
+#: includes/Elementor/Widgets/Documents.php:178
 #: includes/Elementor/Widgets/Services.php:151
+#: includes/Elementor/Widgets/StockPrice.php:89
 msgid "Layout"
 msgstr ""
 
@@ -228,21 +235,31 @@ msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:139
 #: includes/Elementor/Widgets/BusinessUnits.php:230
+#: includes/Elementor/Widgets/Documents.php:311
+#: includes/Elementor/Widgets/Documents.php:374
 #: includes/Elementor/Widgets/Footer.php:343
 #: includes/Elementor/Widgets/Navbar.php:308
 #: includes/Elementor/Widgets/Services.php:323
 #: includes/Elementor/Widgets/Services.php:368
+#: includes/Elementor/Widgets/StockPrice.php:183
+#: includes/Elementor/Widgets/StockPrice.php:215
 msgid "Typography"
 msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:143
+#: includes/Elementor/Widgets/Documents.php:322
+#: includes/Elementor/Widgets/Documents.php:385
 #: includes/Elementor/Widgets/Services.php:327
 #: includes/Elementor/Widgets/Services.php:372
+#: includes/Elementor/Widgets/StockPrice.php:170
+#: includes/Elementor/Widgets/StockPrice.php:202
 msgid "Color"
 msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:159
+#: includes/Elementor/Widgets/Documents.php:205
 #: includes/Elementor/Widgets/Services.php:180
+#: includes/Elementor/Widgets/StockPrice.php:128
 msgid "Gap"
 msgstr ""
 
@@ -251,11 +268,13 @@ msgid "Items"
 msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:193
+#: includes/Elementor/Widgets/Documents.php:248
 #: includes/Elementor/Widgets/Services.php:223
 msgid "Border"
 msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:194
+#: includes/Elementor/Widgets/Documents.php:249
 #: includes/Elementor/Widgets/Services.php:224
 msgid "Box Shadow"
 msgstr ""
@@ -283,6 +302,116 @@ msgstr ""
 
 #: includes/Elementor/Widgets/ContactForm.php:102
 msgid "Please select a contact form."
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:48
+msgid "Documents"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:89
+#: includes/Elementor/Widgets/NewsList.php:72
+#: includes/Elementor/Widgets/Portfolio.php:71
+#: includes/Elementor/Widgets/TeamMembers.php:71
+msgid "Query"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:96
+msgid "Number of Documents"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:107
+msgid "Order By"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:111
+msgid "Date"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:113
+msgid "Menu Order"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:114
+msgid "Modified Date"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:122
+msgid "Order"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:126
+msgid "Descending"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:127
+msgid "Ascending"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:145
+msgid "Title HTML Tag"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:165
+msgid "Download Link Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:167
+msgid "Download Document"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:168
+msgid "Enter download link text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:185
+#: includes/Elementor/Widgets/Services.php:158
+msgid "Columns"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:241
+#: includes/Elementor/Widgets/Services.php:216
+msgid "Card"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:246
+#: includes/Elementor/Widgets/Footer.php:289
+#: includes/Elementor/Widgets/Navbar.php:258
+#: includes/Elementor/Widgets/Services.php:221
+msgid "Background"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:247
+#: includes/Elementor/Widgets/Footer.php:290
+#: includes/Elementor/Widgets/Navbar.php:262
+#: includes/Elementor/Widgets/Services.php:222
+msgid "Padding"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:257
+msgid "Image"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:265
+#: includes/Elementor/Widgets/Navbar.php:276
+msgid "Height"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:336
+#: includes/Elementor/Widgets/Services.php:287
+#: includes/Elementor/Widgets/Services.php:332
+msgid "Spacing"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:365
+msgid "Download Link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:399
+msgid "Hover Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:480
+msgid "No documents found."
 msgstr ""
 
 #: includes/Elementor/Widgets/Footer.php:81
@@ -388,18 +517,6 @@ msgstr ""
 
 #: includes/Elementor/Widgets/Footer.php:284
 msgid "Container"
-msgstr ""
-
-#: includes/Elementor/Widgets/Footer.php:289
-#: includes/Elementor/Widgets/Navbar.php:258
-#: includes/Elementor/Widgets/Services.php:221
-msgid "Background"
-msgstr ""
-
-#: includes/Elementor/Widgets/Footer.php:290
-#: includes/Elementor/Widgets/Navbar.php:262
-#: includes/Elementor/Widgets/Services.php:222
-msgid "Padding"
 msgstr ""
 
 #: includes/Elementor/Widgets/Footer.php:306
@@ -539,10 +656,6 @@ msgstr ""
 msgid "https://your-link.com"
 msgstr ""
 
-#: includes/Elementor/Widgets/Navbar.php:276
-msgid "Height"
-msgstr ""
-
 #: includes/Elementor/Widgets/Navbar.php:301
 msgid "Menu Items"
 msgstr ""
@@ -561,12 +674,6 @@ msgstr ""
 
 #: includes/Elementor/Widgets/NewsList.php:42
 msgid "News List"
-msgstr ""
-
-#: includes/Elementor/Widgets/NewsList.php:72
-#: includes/Elementor/Widgets/Portfolio.php:71
-#: includes/Elementor/Widgets/TeamMembers.php:71
-msgid "Query"
 msgstr ""
 
 #: includes/Elementor/Widgets/NewsList.php:79
@@ -638,21 +745,48 @@ msgstr ""
 msgid "Description for service 3"
 msgstr ""
 
-#: includes/Elementor/Widgets/Services.php:158
-msgid "Columns"
-msgstr ""
-
-#: includes/Elementor/Widgets/Services.php:216
-msgid "Card"
-msgstr ""
-
 #: includes/Elementor/Widgets/Services.php:261
 msgid "Size"
 msgstr ""
 
-#: includes/Elementor/Widgets/Services.php:287
-#: includes/Elementor/Widgets/Services.php:332
-msgid "Spacing"
+#: includes/Elementor/Widgets/StockPrice.php:45
+msgid "Stock Price"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:93
+msgid "Horizontal"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:94
+msgid "Vertical"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:102
+msgid "Alignment"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:106
+msgid "Left"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:110
+msgid "Center"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:114
+msgid "Right"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:162
+msgid "Label"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:194
+msgid "Price"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:250
+msgid "Current Price"
 msgstr ""
 
 #: includes/Elementor/Widgets/TeamMembers.php:120

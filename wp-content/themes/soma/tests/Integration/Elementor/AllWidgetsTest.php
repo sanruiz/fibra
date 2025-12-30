@@ -35,6 +35,8 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'NewsList'      => \Soma\Elementor\Widgets\NewsList::class,
 		'Portfolio'     => \Soma\Elementor\Widgets\Portfolio::class,
 		'ContactForm'   => \Soma\Elementor\Widgets\ContactForm::class,
+		'StockPrice'    => \Soma\Elementor\Widgets\StockPrice::class,
+		'Documents'     => \Soma\Elementor\Widgets\Documents::class,
 	];
 
 	/**
@@ -51,6 +53,8 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'NewsList'      => 'soma-news-list',
 		'Portfolio'     => 'soma-portfolio',
 		'ContactForm'   => 'soma-contact-form',
+		'StockPrice'    => 'soma-stock-price',
+		'Documents'     => 'soma-documents',
 	];
 
 	/**
@@ -212,6 +216,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 			'NewsList'      => 'news-list.css',
 			'Portfolio'     => 'portfolio.css',
 			'ContactForm'   => 'contact-form.css',
+			'StockPrice'    => 'stock-price.css',
 		];
 
 		$assets_dir = get_template_directory() . '/assets/css/widgets/';
@@ -246,6 +251,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 			'NewsList'      => 'soma-news-list',
 			'Portfolio'     => 'soma-portfolio',
 			'ContactForm'   => 'soma-contact-form',
+			'StockPrice'    => 'soma-stock-price',
 		];
 
 		foreach ( $this->widget_classes as $name => $class ) {

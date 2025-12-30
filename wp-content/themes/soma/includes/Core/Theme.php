@@ -134,6 +134,12 @@ class Theme {
 		// Register Page Builder (priority 25) - ACF flexible content system.
 		$this->loader->register( \Soma\PageBuilder\Loader::instance() );
 
+		// Register Elementor widgets (priority 30) - visual page builder integration.
+		$this->loader->register( \Soma\Elementor\Loader::instance() );
+
+		// Register CF7 validations (priority 30) - Contact Form 7 integration.
+		$this->loader->register( \Soma\CF7\Loader::instance() );
+
 		// Register REST API Endpoints (priority 35).
 		$this->loader->register( \Soma\API\Loader::instance() );
 

@@ -117,7 +117,7 @@ final class StockDataEndpoint {
 	 * @return WP_REST_Response|WP_Error Response data or error.
 	 */
 	private function handle( WP_REST_Request $_request ) {
-		$stock_data = get_option( 'stock_data' );
+		$stock_data = soma_get_stock_data();
 
 		if ( ! $stock_data ) {
 			return new WP_Error(

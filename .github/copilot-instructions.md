@@ -599,6 +599,67 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
   - `gh pr list | cat`
 - This ensures commands complete immediately without user interaction
 
+## 🎨 Elementor Widget Development Workflow
+
+**When creating a new Elementor widget, follow this complete workflow:**
+
+### Step-by-Step Checklist
+
+1. **Create Widget Class** - `includes/Elementor/Widgets/{WidgetName}.php`
+   - Extend `Soma\Elementor\Base\WidgetBase`
+   - Implement: `get_name()`, `get_title()`, `get_icon()`, `get_style_depends()`
+   - Add controls in `register_controls()`
+   - Render output in `render()`
+
+2. **Create CSS File** - `assets/css/widgets/{widget-name}.css`
+   - Use CSS variables (`--soma-*`) for consistency
+   - Follow responsive design patterns
+
+3. **Register Widget** - `includes/Elementor/Loader.php`
+   ```php
+   \Elementor\Plugin::instance()->widgets_manager->register(
+       new Widgets\{WidgetName}()
+   );
+   ```
+
+4. **Enqueue CSS** - In widget class `get_style_depends()` or `functions.php`
+
+5. **Create Unit Tests** - `tests/Unit/Elementor/{WidgetName}WidgetTest.php`
+   - Test class structure with ReflectionClass
+   - Test required methods exist
+   - Test return types and visibility
+
+6. **Create Integration Tests** - `tests/Integration/Elementor/{WidgetName}WidgetTest.php`
+   - Test widget name, title, icon
+   - Test categories contain 'soma'
+   - Test style dependencies
+   - Test rendering output
+
+7. **Update AllWidgetsTest** - `tests/Integration/Elementor/AllWidgetsTest.php`
+   ```php
+   // Add to $widget_classes array
+   '{WidgetName}' => \Soma\Elementor\Widgets\{WidgetName}::class,
+   
+   // Add to $widget_names array
+   '{WidgetName}' => 'soma-{widget-name}',
+   ```
+
+8. **Regenerate Translations** - From theme root:
+   ```bash
+   wp i18n make-pot . languages/soma.pot --domain=soma --exclude=node_modules,vendor,tests
+   wp i18n update-po languages/soma.pot languages/
+   wp i18n make-mo languages/
+   ```
+
+9. **Quality Gates** - Run before commit:
+   ```bash
+   php -l includes/Elementor/Widgets/{WidgetName}.php  # Syntax check
+   vendor/bin/phpcs includes/Elementor/Widgets/{WidgetName}.php  # Coding standards
+   vendor/bin/phpstan analyse includes/Elementor/Widgets/  # Static analysis
+   ```
+
+**See:** [WIDGETS.md](../wp-content/themes/soma/docs/WIDGETS.md) for detailed widget development guide
+
 ## Common Pitfalls
 - **Don't use `locate_template()`** in this codebase—use `get_template_part()`
 - **Webpack requires legacy OpenSSL flag** for Node.js (see `package.json` scripts)

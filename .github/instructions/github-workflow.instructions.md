@@ -265,6 +265,22 @@ Implement hero section with:
 7. After all issues done → Close milestone
 ```
 
+**⚠️ IMPORTANT: Auto-Close Only Works on Default Branch**
+
+GitHub only auto-closes issues (via "Closes #N", "Fixes #N") when PRs are merged to the **default branch** (`main`).
+
+When merging PRs to sprint branches (`week-*`), issues will **NOT** auto-close even if the commit message includes "Closes #N".
+
+**Always verify and manually close issues after merging to `week-*` branches:**
+
+```bash
+# After merging PR to week-N, check if issue is still open
+gh issue view NUMBER | cat
+
+# If still open, close manually with context
+gh issue close NUMBER --comment "Fixed in PR #XX (merged to week-N). Will be deployed with Week N release." | cat
+```
+
 ### Issue Commands
 
 ```bash
