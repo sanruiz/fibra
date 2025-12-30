@@ -29,9 +29,6 @@ This release adds two new Elementor widgets (StockPrice and Documents) and inclu
 #### Cron & Scheduling
 - **Stock Data Cron** - Register cron schedule before using it in StockData endpoint (#124)
 
-#### Post Types
-- **Team Members Slug** - Restored `team-members` post type slug for backward compatibility (#120)
-
 ### 🔄 Changed
 
 #### Code Quality
@@ -51,7 +48,6 @@ This release adds two new Elementor widgets (StockPrice and Documents) and inclu
 - `includes/Elementor/Loader.php` - Register new widgets
 - `includes/Core/Theme.php` - Loader registration order fix
 - `includes/API/Endpoints/StockDataEndpoint.php` - Use helper function
-- `includes/PostTypes/Types/TeamMembers.php` - Restore slug
 - `tests/Integration/Elementor/AllWidgetsTest.php` - Include new widgets
 - `docs/WIDGETS.md` - Widget development workflow documentation
 - `.github/copilot-instructions.md` - Elementor widget development section
@@ -66,7 +62,6 @@ This release adds two new Elementor widgets (StockPrice and Documents) and inclu
 - **PR #126**: [feat: Add StockPrice Elementor widget](https://github.com/sanruiz/fibra/pull/126) - Merged
 - **PR #125**: [docs: Add note about manual issue closure](https://github.com/sanruiz/fibra/pull/125) - Merged
 - **PR #124**: [fix: Register cron schedule](https://github.com/sanruiz/fibra/pull/124) - Merged
-- **PR #120**: [fix: Restore team-members post type slug](https://github.com/sanruiz/fibra/pull/120) - Merged
 
 ---
 
