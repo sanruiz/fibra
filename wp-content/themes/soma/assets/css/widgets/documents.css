@@ -23,14 +23,12 @@
 .soma-documents .document-item {
 	position: relative;
 	overflow: hidden;
-	border-radius: 8px;
 	background-color: var(--soma-bg-white, #fff);
 	transition: all 0.3s ease;
 }
 
 .soma-documents .document-item:hover {
 	transform: translateY(-5px);
-	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* Image container */
@@ -75,24 +73,12 @@
 	font-size: 16px;
 	font-weight: 500;
 	color: var(--soma-primary, #000);
-	text-decoration: none;
+	text-decoration: underline;
 	transition: color 0.3s ease;
 }
 
 .soma-documents .document-download:hover {
 	color: var(--soma-primary-hover, #333);
-	text-decoration: underline;
-}
-
-/* Arrow icon after download link */
-.soma-documents .document-download::after {
-	content: '→';
-	margin-left: 8px;
-	transition: transform 0.3s ease;
-}
-
-.soma-documents .document-download:hover::after {
-	transform: translateX(4px);
 }
 
 /* No documents message */

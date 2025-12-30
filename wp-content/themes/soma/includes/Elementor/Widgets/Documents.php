@@ -410,71 +410,90 @@ class Documents extends WidgetBase {
 	/**
 	 * Render widget output
 	 *
+	 * Only displays documents that have a valid file attached.
+	 * Queries extra posts to ensure the configured limit is met.
+	 *
 	 * @return void
 	 */
 	protected function render(): void {
 		$settings = $this->get_settings_for_display();
 
+		$limit         = (int) $settings['posts_per_page'];
+		$title_tag     = $settings['title_tag'];
+		$download_text = $settings['download_text'];
+
+		// Query extra posts to account for documents without files.
+		// We fetch 3x the limit to have enough buffer.
 		$documents = new \WP_Query(
 			array(
 				'post_type'      => 'documents-reports',
-				'posts_per_page' => $settings['posts_per_page'],
+				'posts_per_page' => $limit * 3,
 				'orderby'        => $settings['orderby'],
 				'order'          => $settings['order'],
 				'post_status'    => 'publish',
 			)
 		);
 
-		$title_tag     = $settings['title_tag'];
-		$download_text = $settings['download_text'];
+		// Filter documents to only include those with valid files.
+		$valid_documents       = array();
+		$valid_documents_count = 0;
+
+		if ( $documents->have_posts() ) {
+			while ( $documents->have_posts() && $valid_documents_count < $limit ) {
+				$documents->the_post();
+				$post_id = get_the_ID();
+				$content = get_field( 'document_content', $post_id );
+				$file    = $content ? \soma_get_i18n_field( $content, 'file' ) : null;
+
+				// Only include documents with valid file URL.
+				if ( ! empty( $file['url'] ) ) {
+					$valid_documents[] = array(
+						'id'        => $post_id,
+						'title'     => get_the_title(),
+						'thumbnail' => has_post_thumbnail() ? get_the_post_thumbnail(
+							$post_id,
+							'medium',
+							array(
+								'loading' => 'lazy',
+								'alt'     => get_the_title(),
+							)
+						) : null,
+						'file_url'  => $file['url'],
+					);
+					++$valid_documents_count;
+				}
+			}
+			wp_reset_postdata();
+		}
 
 		?>
 		<div class="soma-documents">
-			<?php if ( $documents->have_posts() ) : ?>
+			<?php if ( ! empty( $valid_documents ) ) : ?>
 				<div class="documents-grid">
-					<?php
-					while ( $documents->have_posts() ) :
-						$documents->the_post();
-						$post_id = get_the_ID();
-						$content = get_field( 'document_content', $post_id );
-						$file    = $content ? \soma_get_i18n_field( $content, 'file' ) : null;
-						?>
+					<?php foreach ( $valid_documents as $doc ) : ?>
 						<article class="document-item">
-							<?php if ( has_post_thumbnail() ) : ?>
+							<?php if ( $doc['thumbnail'] ) : ?>
 								<div class="document-image">
-									<?php
-									the_post_thumbnail(
-										'medium',
-										array(
-											'loading' => 'lazy',
-											'alt'     => get_the_title(),
-										)
-									);
-									?>
+									<?php echo wp_kses_post( $doc['thumbnail'] ); ?>
 								</div>
 							<?php endif; ?>
 
 							<div class="document-content">
 								<<?php echo esc_html( $title_tag ); ?> class="document-title">
-									<?php the_title(); ?>
+									<?php echo esc_html( $doc['title'] ); ?>
 								</<?php echo esc_html( $title_tag ); ?>>
 
-								<?php if ( ! empty( $file['url'] ) ) : ?>
-									<a
-										href="<?php echo esc_url( $file['url'] ); ?>"
-										class="document-download"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										<?php echo esc_html( $download_text ); ?>
-									</a>
-								<?php endif; ?>
+								<a
+									href="<?php echo esc_url( $doc['file_url'] ); ?>"
+									class="document-download"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<?php echo esc_html( $download_text ); ?>
+								</a>
 							</div>
 						</article>
-						<?php
-					endwhile;
-					wp_reset_postdata();
-					?>
+					<?php endforeach; ?>
 				</div>
 			<?php else : ?>
 				<p class="no-documents"><?php esc_html_e( 'No documents found.', 'soma' ); ?></p>
