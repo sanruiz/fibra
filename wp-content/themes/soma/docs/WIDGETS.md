@@ -753,6 +753,151 @@ wp_register_style(
 );
 ```
 
+**5. Create Unit Tests:**
+
+Create `tests/Unit/Elementor/MyWidgetTest.php`:
+
+```php
+<?php
+namespace Soma\Tests\Unit\Elementor;
+
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+
+/**
+ * @group unit
+ * @group elementor
+ * @group widgets
+ */
+class MyWidgetTest extends TestCase {
+
+    private string $widget_class = \Soma\Elementor\Widgets\MyWidget::class;
+
+    public function test_class_exists(): void {
+        $this->assertTrue( class_exists( $this->widget_class ) );
+    }
+
+    public function test_extends_widget_base(): void {
+        $reflection = new ReflectionClass( $this->widget_class );
+        $parent     = $reflection->getParentClass();
+        $this->assertSame( 'Soma\Elementor\Base\WidgetBase', $parent->getName() );
+    }
+
+    public function test_has_required_methods(): void {
+        $reflection = new ReflectionClass( $this->widget_class );
+        $methods    = array( 'get_name', 'get_title', 'get_icon', 'get_style_depends', 'register_controls', 'render' );
+
+        foreach ( $methods as $method ) {
+            $this->assertTrue( $reflection->hasMethod( $method ) );
+        }
+    }
+}
+```
+
+**6. Create Integration Tests:**
+
+Create `tests/Integration/Elementor/MyWidgetTest.php`:
+
+```php
+<?php
+namespace Soma\Tests\Integration\Elementor;
+
+use Soma\Elementor\Widgets\MyWidget;
+use WP_UnitTestCase;
+
+/**
+ * @group integration
+ * @group elementor
+ * @group widgets
+ */
+class MyWidgetTest extends WP_UnitTestCase {
+
+    private ?MyWidget $widget = null;
+
+    public function set_up(): void {
+        parent::set_up();
+        $this->widget = new MyWidget();
+    }
+
+    public function tear_down(): void {
+        $this->widget = null;
+        parent::tear_down();
+    }
+
+    public function test_widget_name(): void {
+        $this->assertSame( 'soma-my-widget', $this->widget->get_name() );
+    }
+
+    public function test_widget_title(): void {
+        $this->assertSame( 'My Widget', $this->widget->get_title() );
+    }
+
+    public function test_widget_icon(): void {
+        $this->assertNotEmpty( $this->widget->get_icon() );
+    }
+
+    public function test_widget_categories(): void {
+        $this->assertContains( 'soma', $this->widget->get_categories() );
+    }
+
+    public function test_style_depends(): void {
+        $this->assertContains( 'soma-my-widget', $this->widget->get_style_depends() );
+    }
+}
+```
+
+**7. Update AllWidgetsTest.php:**
+
+Add the widget to `tests/Integration/Elementor/AllWidgetsTest.php`:
+
+```php
+// In $widget_classes array
+'MyWidget' => \Soma\Elementor\Widgets\MyWidget::class,
+
+// In $widget_names array
+'MyWidget' => 'soma-my-widget',
+```
+
+**8. Regenerate Translation Files:**
+
+After adding translatable strings, regenerate translation files:
+
+```bash
+# From theme root directory
+cd wp-content/themes/soma
+
+# Generate .pot template
+wp i18n make-pot . languages/soma.pot --domain=soma --exclude=node_modules,vendor,tests
+
+# Update existing .po files
+wp i18n update-po languages/soma.pot languages/
+
+# Compile .mo files
+wp i18n make-mo languages/
+```
+
+**See also:** [INTERNATIONALIZATION.md](INTERNATIONALIZATION.md) for translation best practices.
+
+---
+
+### Widget Development Checklist
+
+Use this checklist when creating a new Elementor widget:
+
+- [ ] **Widget Class** - `includes/Elementor/Widgets/{WidgetName}.php`
+- [ ] **CSS File** - `assets/css/widgets/{widget-name}.css`
+- [ ] **Register in Loader** - Add to `includes/Elementor/Loader.php`
+- [ ] **Enqueue CSS** - Register style in `functions.php` or widget
+- [ ] **Unit Tests** - `tests/Unit/Elementor/{WidgetName}WidgetTest.php`
+- [ ] **Integration Tests** - `tests/Integration/Elementor/{WidgetName}WidgetTest.php`
+- [ ] **Update AllWidgetsTest** - Add to widget arrays
+- [ ] **Translations** - Regenerate `.pot`, `.po`, `.mo` files
+- [ ] **PHPCS** - Run `vendor/bin/phpcs` on new files
+- [ ] **PHPStan** - Run `vendor/bin/phpstan analyse`
+- [ ] **Documentation** - Update widget catalog if public API
+
+---
+
 ### Widget Best Practices
 
 1. **Always use CSS variables** for colors and spacing

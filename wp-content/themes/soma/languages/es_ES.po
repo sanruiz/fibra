@@ -1,17 +1,15 @@
-# Copyright (C) 2025 Santiago Ramirez
-# This file is distributed under the same license as the SOMA theme.
 msgid ""
 msgstr ""
 "Project-Id-Version: SOMA 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/soma\n"
 "Last-Translator: Santiago Ramirez\n"
 "Language-Team: Spanish <es@li.org>\n"
-"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-12-16T05:10:07+00:00\n"
 "PO-Revision-Date: 2025-12-16 05:30:00+0000\n"
+"Language: es_ES\n"
 "X-Generator: Manual\n"
 "X-Domain: soma\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -29,6 +27,7 @@ msgstr "Ver Todos"
 msgid "Search"
 msgstr "Buscar"
 
+#: includes/Elementor/Base/WidgetBase.php:319
 #: partials/Portfolio.php:39
 #: partials/Portfolio.php:101
 msgid "All"
@@ -57,13 +56,19 @@ msgstr "Diseñado por"
 msgid "Filter by Month"
 msgstr "Filtrar por mes"
 
-#: partials/Footer.php:75
+#: includes/Core/Navigation.php:90
 #: includes/Elementor/Widgets/Footer.php:455
+#: includes/Elementor/Widgets/Navbar.php:105
+#: partials/Footer.php:75
 msgid "Social"
 msgstr "Redes"
 
-#: partials/Footer.php:88
+#: includes/Core/Navigation.php:91
+#: includes/Elementor/Widgets/BusinessUnits.php:40
+#: includes/Elementor/Widgets/BusinessUnits.php:90
 #: includes/Elementor/Widgets/Footer.php:469
+#: includes/Elementor/Widgets/Navbar.php:106
+#: partials/Footer.php:88
 msgid "Business Units"
 msgstr "Unidades de Negocio"
 
@@ -82,13 +87,868 @@ msgid "News"
 msgstr "Noticias"
 
 #: includes/Core/Enums/PostType.php:50
+#: includes/Core/Enums/PostType.php:66
 #: includes/PostTypes/Types/Careers.php:97
+#: includes/Utils/Enums/CacheTag.php:63
 msgid "Careers"
 msgstr "Carreras"
 
 #: includes/Core/Enums/PostType.php:51
 #: includes/Core/Enums/PostType.php:67
-#: includes/Elementor/Widgets/TeamMembers.php:40
-#: includes/PostTypes/Types/TeamMembers.php:99
+#: includes/Elementor/Widgets/TeamMembers.php:41
+#: includes/PostTypes/Types/TeamMembers.php:97
+#: includes/Utils/Enums/CacheTag.php:64
 msgid "Team Members"
 msgstr "Miembros del Equipo"
+
+#. Theme Name of the theme
+#: style.css
+msgid "SOMA"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://github.com/sanruiz/fibra"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Modern WordPress theme with PSR-4 architecture, ACF flexible content, and Elementor integration."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Santiago Ramirez"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://github.com/sanruiz"
+msgstr ""
+
+#: includes/Admin/StockData.php:115
+msgid "Every 3 Hours"
+msgstr ""
+
+#: includes/Admin/ThemeSettings.php:78
+#: includes/Admin/ThemeSettings.php:79
+msgid "Theme Settings"
+msgstr ""
+
+#: includes/Admin/ThemeSettings.php:89
+#: includes/Admin/ThemeSettings.php:90
+msgid "Header"
+msgstr ""
+
+#: includes/Admin/ThemeSettings.php:98
+#: includes/Admin/ThemeSettings.php:99
+#: includes/Elementor/Widgets/Footer.php:40
+msgid "Footer"
+msgstr ""
+
+#: includes/Admin/ThemeSettings.php:107
+#: includes/Admin/ThemeSettings.php:108
+msgid "404 Error"
+msgstr ""
+
+#: includes/API/Endpoints/StockDataEndpoint.php:125
+msgid "No stock data available"
+msgstr ""
+
+#: includes/CF7/Validations.php:120
+msgid "Must contain letters only"
+msgstr ""
+
+#: includes/CF7/Validations.php:145
+#: includes/CF7/Validations.php:190
+msgid "Invalid email address"
+msgstr ""
+
+#: includes/CF7/Validations.php:180
+msgid "* Required fields missing"
+msgstr ""
+
+#: includes/CF7/Validations.php:185
+msgid "Name must contain letters only"
+msgstr ""
+
+#: includes/Core/Enums/PostType.php:64
+msgid "Portfolio Items"
+msgstr ""
+
+#: includes/Core/Enums/Taxonomy.php:47
+msgid "Team Member Categories"
+msgstr ""
+
+#: includes/Core/Enums/Taxonomy.php:48
+msgid "Portfolio Categories"
+msgstr ""
+
+#: includes/Core/Enums/Taxonomy.php:49
+msgid "Document Categories"
+msgstr ""
+
+#: includes/Core/Enums/Taxonomy.php:62
+msgid "Team Member Category"
+msgstr ""
+
+#: includes/Core/Enums/Taxonomy.php:63
+msgid "Portfolio Category"
+msgstr ""
+
+#: includes/Core/Enums/Taxonomy.php:64
+msgid "Document Category"
+msgstr ""
+
+#: includes/Core/Navigation.php:89
+#: includes/Elementor/Widgets/Navbar.php:104
+msgid "Main Menu"
+msgstr ""
+
+#: includes/Core/Navigation.php:92
+#: includes/Elementor/Widgets/Navbar.php:107
+msgid "Fibrasoma Footer"
+msgstr ""
+
+#: includes/Core/Navigation.php:93
+msgid "Navigation Sidebar Template"
+msgstr ""
+
+#: includes/Elementor/Base/WidgetBase.php:216
+#: includes/Elementor/Widgets/Documents.php:287
+msgid "Border Radius"
+msgstr ""
+
+#: includes/Elementor/Base/WidgetBase.php:280
+#: includes/Elementor/Widgets/Navbar.php:90
+msgid "Select Menu"
+msgstr ""
+
+#: includes/Elementor/Loader.php:168
+msgid "Soma"
+msgstr ""
+
+#. translators: 1: Plugin name 2: Elementor
+#: includes/Elementor/Loader.php:290
+#, php-format
+msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be installed and activated for full functionality."
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:81
+#: includes/Elementor/Widgets/Documents.php:138
+#: includes/Elementor/Widgets/StockPrice.php:81
+msgid "Content"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:88
+#: includes/Elementor/Widgets/BusinessUnits.php:132
+#: includes/Elementor/Widgets/Documents.php:112
+#: includes/Elementor/Widgets/Documents.php:302
+#: includes/Elementor/Widgets/Services.php:98
+#: includes/Elementor/Widgets/Services.php:316
+msgid "Title"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:97
+msgid "Maximum Items"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:109
+#: includes/Elementor/Widgets/Documents.php:178
+#: includes/Elementor/Widgets/Services.php:151
+#: includes/Elementor/Widgets/StockPrice.php:89
+msgid "Layout"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:112
+#: includes/Elementor/Widgets/BusinessUnits.php:151
+msgid "Grid"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:113
+msgid "List"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:139
+#: includes/Elementor/Widgets/BusinessUnits.php:230
+#: includes/Elementor/Widgets/Documents.php:311
+#: includes/Elementor/Widgets/Documents.php:374
+#: includes/Elementor/Widgets/Footer.php:343
+#: includes/Elementor/Widgets/Navbar.php:308
+#: includes/Elementor/Widgets/Services.php:323
+#: includes/Elementor/Widgets/Services.php:368
+#: includes/Elementor/Widgets/StockPrice.php:183
+#: includes/Elementor/Widgets/StockPrice.php:215
+msgid "Typography"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:143
+#: includes/Elementor/Widgets/Documents.php:322
+#: includes/Elementor/Widgets/Documents.php:385
+#: includes/Elementor/Widgets/Services.php:327
+#: includes/Elementor/Widgets/Services.php:372
+#: includes/Elementor/Widgets/StockPrice.php:170
+#: includes/Elementor/Widgets/StockPrice.php:202
+msgid "Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:159
+#: includes/Elementor/Widgets/Documents.php:205
+#: includes/Elementor/Widgets/Services.php:180
+#: includes/Elementor/Widgets/StockPrice.php:128
+msgid "Gap"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:188
+msgid "Items"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:193
+#: includes/Elementor/Widgets/Documents.php:248
+#: includes/Elementor/Widgets/Services.php:223
+msgid "Border"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:194
+#: includes/Elementor/Widgets/Documents.php:249
+#: includes/Elementor/Widgets/Services.php:224
+msgid "Box Shadow"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:199
+#: includes/Elementor/Widgets/Services.php:229
+msgid "Hover Transition"
+msgstr ""
+
+#: includes/Elementor/Widgets/BusinessUnits.php:223
+msgid "Labels"
+msgstr ""
+
+#: includes/Elementor/Widgets/ContactForm.php:43
+msgid "Contact Form"
+msgstr ""
+
+#: includes/Elementor/Widgets/ContactForm.php:73
+msgid "Form"
+msgstr ""
+
+#: includes/Elementor/Widgets/ContactForm.php:82
+msgid "Select Form"
+msgstr ""
+
+#: includes/Elementor/Widgets/ContactForm.php:102
+msgid "Please select a contact form."
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:48
+msgid "Documents"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:89
+#: includes/Elementor/Widgets/NewsList.php:72
+#: includes/Elementor/Widgets/Portfolio.php:71
+#: includes/Elementor/Widgets/TeamMembers.php:71
+msgid "Query"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:96
+msgid "Number of Documents"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:107
+msgid "Order By"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:111
+msgid "Date"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:113
+msgid "Menu Order"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:114
+msgid "Modified Date"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:122
+msgid "Order"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:126
+msgid "Descending"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:127
+msgid "Ascending"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:145
+msgid "Title HTML Tag"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:165
+msgid "Download Link Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:167
+msgid "Download Document"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:168
+msgid "Enter download link text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:185
+#: includes/Elementor/Widgets/Services.php:158
+msgid "Columns"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:241
+#: includes/Elementor/Widgets/Services.php:216
+msgid "Card"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:246
+#: includes/Elementor/Widgets/Footer.php:289
+#: includes/Elementor/Widgets/Navbar.php:258
+#: includes/Elementor/Widgets/Services.php:221
+msgid "Background"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:247
+#: includes/Elementor/Widgets/Footer.php:290
+#: includes/Elementor/Widgets/Navbar.php:262
+#: includes/Elementor/Widgets/Services.php:222
+msgid "Padding"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:257
+msgid "Image"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:265
+#: includes/Elementor/Widgets/Navbar.php:276
+msgid "Height"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:336
+#: includes/Elementor/Widgets/Services.php:287
+#: includes/Elementor/Widgets/Services.php:332
+msgid "Spacing"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:365
+msgid "Download Link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:399
+msgid "Hover Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Documents.php:480
+msgid "No documents found."
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:81
+#: includes/Elementor/Widgets/Navbar.php:203
+msgid "Style Variant"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:88
+msgid "Footer Style"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:91
+msgid "Default (Social + Business Units)"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:92
+msgid "Fibrasoma (Single Menu)"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:104
+#: includes/Elementor/Widgets/Footer.php:298
+#: includes/Elementor/Widgets/Navbar.php:120
+#: includes/Elementor/Widgets/Navbar.php:384
+msgid "Logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:111
+msgid "Use ACF Logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:120
+#: includes/Elementor/Widgets/Navbar.php:155
+msgid "Custom Logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:131
+msgid "Logo Subtext"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:134
+msgid "Enter subtext below logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:144
+msgid "Newsletter"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:151
+msgid "Contact Form 7 Shortcode"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:155
+msgid "Enter the CF7 shortcode for newsletter subscription"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:162
+msgid "Success Message"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:164
+msgid "Thank you for subscribing."
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:174
+msgid "Location"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:181
+msgid "Location Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:193
+msgid "Navigation Menus"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:200
+msgid "Fibrasoma Menu"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:213
+msgid "Social Menu"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:226
+msgid "Business Units Menu"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:242
+msgid "Footer Bottom"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:249
+msgid "Copyright Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:258
+msgid "Credits Link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:266
+msgid "Privacy Policy Link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:284
+msgid "Container"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:306
+#: includes/Elementor/Widgets/Navbar.php:395
+msgid "Width"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:331
+msgid "Subtext Typography"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:335
+msgid "Subtext Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:350
+msgid "Menu Title Typography"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:356
+msgid "Menu Item Typography"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:362
+msgid "Copyright Typography"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:372
+msgid "Colors"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:377
+#: includes/Elementor/Widgets/Navbar.php:350
+#: includes/Elementor/Widgets/Navbar.php:368
+msgid "Text Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:378
+msgid "Link Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:379
+msgid "Link Hover Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:496
+msgid "Credits"
+msgstr ""
+
+#: includes/Elementor/Widgets/Footer.php:502
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:45
+#: includes/Elementor/Widgets/Navbar.php:253
+msgid "Navbar"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:82
+msgid "Menu"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:100
+msgid "Theme Location"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:103
+msgid "Select Location"
+msgstr ""
+
+#. Template Name of the theme
+#: includes/Elementor/Widgets/Navbar.php:108
+msgid "Navigation Sidebar"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:128
+msgid "Show Logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:130
+#: includes/Elementor/Widgets/Navbar.php:181
+#: includes/Elementor/Widgets/Navbar.php:193
+msgid "Show"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:131
+#: includes/Elementor/Widgets/Navbar.php:182
+#: includes/Elementor/Widgets/Navbar.php:194
+msgid "Hide"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:140
+msgid "Use Theme Customizer Logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:142
+msgid "Yes"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:143
+msgid "No"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:171
+msgid "Features"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:179
+msgid "Show Search Button"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:191
+msgid "Show Language Switcher"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:206
+msgid "Default"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:207
+msgid "Fibrasoma"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:216
+msgid "Top Bar Link Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:219
+msgid "Link text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:229
+msgid "Top Bar Link URL"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:231
+msgid "https://your-link.com"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:301
+msgid "Menu Items"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:315
+msgid "Item Spacing"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:344
+msgid "Normal"
+msgstr ""
+
+#: includes/Elementor/Widgets/Navbar.php:362
+msgid "Hover"
+msgstr ""
+
+#: includes/Elementor/Widgets/NewsList.php:42
+msgid "News List"
+msgstr ""
+
+#: includes/Elementor/Widgets/NewsList.php:79
+#: includes/Elementor/Widgets/Portfolio.php:78
+#: includes/Elementor/Widgets/TeamMembers.php:78
+msgid "Posts Per Page"
+msgstr ""
+
+#: includes/Elementor/Widgets/NewsList.php:122
+msgid "No news found."
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:120
+msgid "No portfolio items found."
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:40
+#: includes/Elementor/Widgets/Services.php:81
+msgid "Services"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:90
+#: includes/Elementor/Widgets/Services.php:253
+msgid "Icon"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:100
+msgid "Service Title"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:107
+#: includes/Elementor/Widgets/Services.php:361
+msgid "Description"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:109
+msgid "Service description goes here."
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:116
+msgid "Link"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:124
+msgid "Services List"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:129
+msgid "Service 1"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:130
+msgid "Description for service 1"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:133
+msgid "Service 2"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:134
+msgid "Description for service 2"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:137
+msgid "Service 3"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:138
+msgid "Description for service 3"
+msgstr ""
+
+#: includes/Elementor/Widgets/Services.php:261
+msgid "Size"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:45
+msgid "Stock Price"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:93
+msgid "Horizontal"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:94
+msgid "Vertical"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:102
+msgid "Alignment"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:106
+msgid "Left"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:110
+msgid "Center"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:114
+msgid "Right"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:162
+msgid "Label"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:194
+msgid "Price"
+msgstr ""
+
+#: includes/Elementor/Widgets/StockPrice.php:250
+msgid "Current Price"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMembers.php:120
+msgid "No team members found."
+msgstr ""
+
+#: includes/PostTypes/Types/Careers.php:98
+msgid "Career"
+msgstr ""
+
+#: includes/PostTypes/Types/Documents.php:96
+msgid "Documents & Reports"
+msgstr ""
+
+#: includes/PostTypes/Types/Documents.php:97
+msgid "Document"
+msgstr ""
+
+#: includes/PostTypes/Types/Events.php:96
+msgid "Events"
+msgstr ""
+
+#: includes/PostTypes/Types/Events.php:97
+msgid "Event"
+msgstr ""
+
+#: includes/PostTypes/Types/News.php:98
+msgid "News Article"
+msgstr ""
+
+#: includes/PostTypes/Types/Portfolio.php:99
+msgid "Project"
+msgstr ""
+
+#: includes/PostTypes/Types/TeamMembers.php:98
+msgid "Team Member"
+msgstr ""
+
+#: includes/Utils/Enums/CacheTag.php:56
+msgid "Post Types"
+msgstr ""
+
+#: includes/Utils/Enums/CacheTag.php:57
+msgid "Custom Fields"
+msgstr ""
+
+#: includes/Utils/Enums/CacheTag.php:58
+msgid "REST API"
+msgstr ""
+
+#: includes/Utils/Enums/CacheTag.php:59
+msgid "Widgets"
+msgstr ""
+
+#: includes/Utils/Enums/CacheTag.php:60
+msgid "Page Builder"
+msgstr ""
+
+#: includes/Utils/Enums/CacheTag.php:65
+msgid "Navigation"
+msgstr ""
+
+#: includes/Utils/Enums/CacheTag.php:66
+msgid "Options"
+msgstr ""
+
+#: includes/Utils/Enums/CacheTag.php:67
+msgid "Templates"
+msgstr ""
+
+#: includes/Utils/Enums/LogLevel.php:53
+msgid "Emergency"
+msgstr ""
+
+#: includes/Utils/Enums/LogLevel.php:54
+msgid "Alert"
+msgstr ""
+
+#: includes/Utils/Enums/LogLevel.php:55
+msgid "Critical"
+msgstr ""
+
+#: includes/Utils/Enums/LogLevel.php:56
+msgid "Error"
+msgstr ""
+
+#: includes/Utils/Enums/LogLevel.php:57
+msgid "Warning"
+msgstr ""
+
+#: includes/Utils/Enums/LogLevel.php:58
+msgid "Notice"
+msgstr ""
+
+#: includes/Utils/Enums/LogLevel.php:59
+msgid "Info"
+msgstr ""
+
+#: includes/Utils/Enums/LogLevel.php:60
+msgid "Debug"
+msgstr ""
+
+#: includes/Utils/Loader.php:125
+msgid "Once Daily (Soma)"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Art"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Business Unit"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Elementor Page"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Simple"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Soma Landing"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Under Development"
+msgstr ""
