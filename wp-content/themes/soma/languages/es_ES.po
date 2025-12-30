@@ -114,7 +114,7 @@ msgstr ""
 #. Description of the theme
 #: style.css
 msgid "Modern WordPress theme with PSR-4 architecture, ACF flexible content, and Elementor integration."
-msgstr ""
+msgstr "Tema moderno de WordPress con arquitectura PSR-4, contenido flexible ACF e integración con Elementor."
 
 #. Author of the theme
 #: style.css
@@ -128,117 +128,117 @@ msgstr ""
 
 #: includes/Admin/StockData.php:115
 msgid "Every 3 Hours"
-msgstr ""
+msgstr "Cada 3 Horas"
 
 #: includes/Admin/ThemeSettings.php:78
 #: includes/Admin/ThemeSettings.php:79
 msgid "Theme Settings"
-msgstr ""
+msgstr "Configuración del Tema"
 
 #: includes/Admin/ThemeSettings.php:89
 #: includes/Admin/ThemeSettings.php:90
 msgid "Header"
-msgstr ""
+msgstr "Encabezado"
 
 #: includes/Admin/ThemeSettings.php:98
 #: includes/Admin/ThemeSettings.php:99
 #: includes/Elementor/Widgets/Footer.php:40
 msgid "Footer"
-msgstr ""
+msgstr "Pie de Página"
 
 #: includes/Admin/ThemeSettings.php:107
 #: includes/Admin/ThemeSettings.php:108
 msgid "404 Error"
-msgstr ""
+msgstr "Error 404"
 
 #: includes/API/Endpoints/StockDataEndpoint.php:125
 msgid "No stock data available"
-msgstr ""
+msgstr "No hay datos de cotización disponibles"
 
 #: includes/CF7/Validations.php:120
 msgid "Must contain letters only"
-msgstr ""
+msgstr "Debe contener solo letras"
 
 #: includes/CF7/Validations.php:145
 #: includes/CF7/Validations.php:190
 msgid "Invalid email address"
-msgstr ""
+msgstr "Dirección de correo inválida"
 
 #: includes/CF7/Validations.php:180
 msgid "* Required fields missing"
-msgstr ""
+msgstr "* Faltan campos requeridos"
 
 #: includes/CF7/Validations.php:185
 msgid "Name must contain letters only"
-msgstr ""
+msgstr "El nombre debe contener solo letras"
 
 #: includes/Core/Enums/PostType.php:64
 msgid "Portfolio Items"
-msgstr ""
+msgstr "Elementos del Portafolio"
 
 #: includes/Core/Enums/Taxonomy.php:47
 msgid "Team Member Categories"
-msgstr ""
+msgstr "Categorías de Miembros del Equipo"
 
 #: includes/Core/Enums/Taxonomy.php:48
 msgid "Portfolio Categories"
-msgstr ""
+msgstr "Categorías del Portafolio"
 
 #: includes/Core/Enums/Taxonomy.php:49
 msgid "Document Categories"
-msgstr ""
+msgstr "Categorías de Documentos"
 
 #: includes/Core/Enums/Taxonomy.php:62
 msgid "Team Member Category"
-msgstr ""
+msgstr "Categoría de Miembro del Equipo"
 
 #: includes/Core/Enums/Taxonomy.php:63
 msgid "Portfolio Category"
-msgstr ""
+msgstr "Categoría del Portafolio"
 
 #: includes/Core/Enums/Taxonomy.php:64
 msgid "Document Category"
-msgstr ""
+msgstr "Categoría de Documento"
 
 #: includes/Core/Navigation.php:89
 #: includes/Elementor/Widgets/Navbar.php:104
 msgid "Main Menu"
-msgstr ""
+msgstr "Menú Principal"
 
 #: includes/Core/Navigation.php:92
 #: includes/Elementor/Widgets/Navbar.php:107
 msgid "Fibrasoma Footer"
-msgstr ""
+msgstr "Pie de Página Fibrasoma"
 
 #: includes/Core/Navigation.php:93
 msgid "Navigation Sidebar Template"
-msgstr ""
+msgstr "Plantilla de Barra Lateral de Navegación"
 
 #: includes/Elementor/Base/WidgetBase.php:216
 #: includes/Elementor/Widgets/Documents.php:287
 msgid "Border Radius"
-msgstr ""
+msgstr "Radio de Borde"
 
 #: includes/Elementor/Base/WidgetBase.php:280
 #: includes/Elementor/Widgets/Navbar.php:90
 msgid "Select Menu"
-msgstr ""
+msgstr "Seleccionar Menú"
 
 #: includes/Elementor/Loader.php:168
 msgid "Soma"
-msgstr ""
+msgstr "Soma"
 
 #. translators: 1: Plugin name 2: Elementor
 #: includes/Elementor/Loader.php:290
 #, php-format
 msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be installed and activated for full functionality."
-msgstr ""
+msgstr "<strong>%1$s</strong> requiere que el plugin <strong>%2$s</strong> esté instalado y activado para su funcionalidad completa."
 
 #: includes/Elementor/Widgets/BusinessUnits.php:81
 #: includes/Elementor/Widgets/Documents.php:138
 #: includes/Elementor/Widgets/StockPrice.php:81
 msgid "Content"
-msgstr ""
+msgstr "Contenido"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:88
 #: includes/Elementor/Widgets/BusinessUnits.php:132
@@ -247,27 +247,27 @@ msgstr ""
 #: includes/Elementor/Widgets/Services.php:98
 #: includes/Elementor/Widgets/Services.php:316
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:97
 msgid "Maximum Items"
-msgstr ""
+msgstr "Elementos Máximos"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:109
 #: includes/Elementor/Widgets/Documents.php:178
 #: includes/Elementor/Widgets/Services.php:151
 #: includes/Elementor/Widgets/StockPrice.php:89
 msgid "Layout"
-msgstr ""
+msgstr "Diseño"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:112
 #: includes/Elementor/Widgets/BusinessUnits.php:151
 msgid "Grid"
-msgstr ""
+msgstr "Cuadrícula"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:113
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:139
 #: includes/Elementor/Widgets/BusinessUnits.php:230
@@ -280,7 +280,7 @@ msgstr ""
 #: includes/Elementor/Widgets/StockPrice.php:183
 #: includes/Elementor/Widgets/StockPrice.php:215
 msgid "Typography"
-msgstr ""
+msgstr "Tipografía"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:143
 #: includes/Elementor/Widgets/Documents.php:322
@@ -290,665 +290,665 @@ msgstr ""
 #: includes/Elementor/Widgets/StockPrice.php:170
 #: includes/Elementor/Widgets/StockPrice.php:202
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:159
 #: includes/Elementor/Widgets/Documents.php:205
 #: includes/Elementor/Widgets/Services.php:180
 #: includes/Elementor/Widgets/StockPrice.php:128
 msgid "Gap"
-msgstr ""
+msgstr "Espacio"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:188
 msgid "Items"
-msgstr ""
+msgstr "Elementos"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:193
 #: includes/Elementor/Widgets/Documents.php:248
 #: includes/Elementor/Widgets/Services.php:223
 msgid "Border"
-msgstr ""
+msgstr "Borde"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:194
 #: includes/Elementor/Widgets/Documents.php:249
 #: includes/Elementor/Widgets/Services.php:224
 msgid "Box Shadow"
-msgstr ""
+msgstr "Sombra"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:199
 #: includes/Elementor/Widgets/Services.php:229
 msgid "Hover Transition"
-msgstr ""
+msgstr "Transición al Pasar"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:223
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 #: includes/Elementor/Widgets/ContactForm.php:43
 msgid "Contact Form"
-msgstr ""
+msgstr "Formulario de Contacto"
 
 #: includes/Elementor/Widgets/ContactForm.php:73
 msgid "Form"
-msgstr ""
+msgstr "Formulario"
 
 #: includes/Elementor/Widgets/ContactForm.php:82
 msgid "Select Form"
-msgstr ""
+msgstr "Seleccionar Formulario"
 
 #: includes/Elementor/Widgets/ContactForm.php:102
 msgid "Please select a contact form."
-msgstr ""
+msgstr "Por favor selecciona un formulario de contacto."
 
 #: includes/Elementor/Widgets/Documents.php:48
 msgid "Documents"
-msgstr ""
+msgstr "Documentos"
 
 #: includes/Elementor/Widgets/Documents.php:89
 #: includes/Elementor/Widgets/NewsList.php:72
 #: includes/Elementor/Widgets/Portfolio.php:71
 #: includes/Elementor/Widgets/TeamMembers.php:71
 msgid "Query"
-msgstr ""
+msgstr "Consulta"
 
 #: includes/Elementor/Widgets/Documents.php:96
 msgid "Number of Documents"
-msgstr ""
+msgstr "Número de Documentos"
 
 #: includes/Elementor/Widgets/Documents.php:107
 msgid "Order By"
-msgstr ""
+msgstr "Ordenar Por"
 
 #: includes/Elementor/Widgets/Documents.php:111
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: includes/Elementor/Widgets/Documents.php:113
 msgid "Menu Order"
-msgstr ""
+msgstr "Orden del Menú"
 
 #: includes/Elementor/Widgets/Documents.php:114
 msgid "Modified Date"
-msgstr ""
+msgstr "Fecha de Modificación"
 
 #: includes/Elementor/Widgets/Documents.php:122
 msgid "Order"
-msgstr ""
+msgstr "Orden"
 
 #: includes/Elementor/Widgets/Documents.php:126
 msgid "Descending"
-msgstr ""
+msgstr "Descendente"
 
 #: includes/Elementor/Widgets/Documents.php:127
 msgid "Ascending"
-msgstr ""
+msgstr "Ascendente"
 
 #: includes/Elementor/Widgets/Documents.php:145
 msgid "Title HTML Tag"
-msgstr ""
+msgstr "Etiqueta HTML del Título"
 
 #: includes/Elementor/Widgets/Documents.php:165
 msgid "Download Link Text"
-msgstr ""
+msgstr "Texto del Enlace de Descarga"
 
 #: includes/Elementor/Widgets/Documents.php:167
 msgid "Download Document"
-msgstr ""
+msgstr "Descargar Documento"
 
 #: includes/Elementor/Widgets/Documents.php:168
 msgid "Enter download link text"
-msgstr ""
+msgstr "Ingresa el texto del enlace de descarga"
 
 #: includes/Elementor/Widgets/Documents.php:185
 #: includes/Elementor/Widgets/Services.php:158
 msgid "Columns"
-msgstr ""
+msgstr "Columnas"
 
 #: includes/Elementor/Widgets/Documents.php:241
 #: includes/Elementor/Widgets/Services.php:216
 msgid "Card"
-msgstr ""
+msgstr "Tarjeta"
 
 #: includes/Elementor/Widgets/Documents.php:246
 #: includes/Elementor/Widgets/Footer.php:289
 #: includes/Elementor/Widgets/Navbar.php:258
 #: includes/Elementor/Widgets/Services.php:221
 msgid "Background"
-msgstr ""
+msgstr "Fondo"
 
 #: includes/Elementor/Widgets/Documents.php:247
 #: includes/Elementor/Widgets/Footer.php:290
 #: includes/Elementor/Widgets/Navbar.php:262
 #: includes/Elementor/Widgets/Services.php:222
 msgid "Padding"
-msgstr ""
+msgstr "Relleno"
 
 #: includes/Elementor/Widgets/Documents.php:257
 msgid "Image"
-msgstr ""
+msgstr "Imagen"
 
 #: includes/Elementor/Widgets/Documents.php:265
 #: includes/Elementor/Widgets/Navbar.php:276
 msgid "Height"
-msgstr ""
+msgstr "Altura"
 
 #: includes/Elementor/Widgets/Documents.php:336
 #: includes/Elementor/Widgets/Services.php:287
 #: includes/Elementor/Widgets/Services.php:332
 msgid "Spacing"
-msgstr ""
+msgstr "Espaciado"
 
 #: includes/Elementor/Widgets/Documents.php:365
 msgid "Download Link"
-msgstr ""
+msgstr "Enlace de Descarga"
 
 #: includes/Elementor/Widgets/Documents.php:399
 msgid "Hover Color"
-msgstr ""
+msgstr "Color al Pasar"
 
 #: includes/Elementor/Widgets/Documents.php:480
 msgid "No documents found."
-msgstr ""
+msgstr "No se encontraron documentos."
 
 #: includes/Elementor/Widgets/Footer.php:81
 #: includes/Elementor/Widgets/Navbar.php:203
 msgid "Style Variant"
-msgstr ""
+msgstr "Variante de Estilo"
 
 #: includes/Elementor/Widgets/Footer.php:88
 msgid "Footer Style"
-msgstr ""
+msgstr "Estilo del Pie de Página"
 
 #: includes/Elementor/Widgets/Footer.php:91
 msgid "Default (Social + Business Units)"
-msgstr ""
+msgstr "Predeterminado (Redes + Unidades de Negocio)"
 
 #: includes/Elementor/Widgets/Footer.php:92
 msgid "Fibrasoma (Single Menu)"
-msgstr ""
+msgstr "Fibrasoma (Menú Único)"
 
 #: includes/Elementor/Widgets/Footer.php:104
 #: includes/Elementor/Widgets/Footer.php:298
 #: includes/Elementor/Widgets/Navbar.php:120
 #: includes/Elementor/Widgets/Navbar.php:384
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: includes/Elementor/Widgets/Footer.php:111
 msgid "Use ACF Logo"
-msgstr ""
+msgstr "Usar Logo de ACF"
 
 #: includes/Elementor/Widgets/Footer.php:120
 #: includes/Elementor/Widgets/Navbar.php:155
 msgid "Custom Logo"
-msgstr ""
+msgstr "Logo Personalizado"
 
 #: includes/Elementor/Widgets/Footer.php:131
 msgid "Logo Subtext"
-msgstr ""
+msgstr "Subtexto del Logo"
 
 #: includes/Elementor/Widgets/Footer.php:134
 msgid "Enter subtext below logo"
-msgstr ""
+msgstr "Ingresa el subtexto debajo del logo"
 
 #: includes/Elementor/Widgets/Footer.php:144
 msgid "Newsletter"
-msgstr ""
+msgstr "Boletín"
 
 #: includes/Elementor/Widgets/Footer.php:151
 msgid "Contact Form 7 Shortcode"
-msgstr ""
+msgstr "Shortcode de Contact Form 7"
 
 #: includes/Elementor/Widgets/Footer.php:155
 msgid "Enter the CF7 shortcode for newsletter subscription"
-msgstr ""
+msgstr "Ingresa el shortcode de CF7 para suscripción al boletín"
 
 #: includes/Elementor/Widgets/Footer.php:162
 msgid "Success Message"
-msgstr ""
+msgstr "Mensaje de Éxito"
 
 #: includes/Elementor/Widgets/Footer.php:164
 msgid "Thank you for subscribing."
-msgstr ""
+msgstr "Gracias por suscribirte."
 
 #: includes/Elementor/Widgets/Footer.php:174
 msgid "Location"
-msgstr ""
+msgstr "Ubicación"
 
 #: includes/Elementor/Widgets/Footer.php:181
 msgid "Location Text"
-msgstr ""
+msgstr "Texto de Ubicación"
 
 #: includes/Elementor/Widgets/Footer.php:193
 msgid "Navigation Menus"
-msgstr ""
+msgstr "Menús de Navegación"
 
 #: includes/Elementor/Widgets/Footer.php:200
 msgid "Fibrasoma Menu"
-msgstr ""
+msgstr "Menú Fibrasoma"
 
 #: includes/Elementor/Widgets/Footer.php:213
 msgid "Social Menu"
-msgstr ""
+msgstr "Menú de Redes Sociales"
 
 #: includes/Elementor/Widgets/Footer.php:226
 msgid "Business Units Menu"
-msgstr ""
+msgstr "Menú de Unidades de Negocio"
 
 #: includes/Elementor/Widgets/Footer.php:242
 msgid "Footer Bottom"
-msgstr ""
+msgstr "Parte Inferior del Pie"
 
 #: includes/Elementor/Widgets/Footer.php:249
 msgid "Copyright Text"
-msgstr ""
+msgstr "Texto de Derechos de Autor"
 
 #: includes/Elementor/Widgets/Footer.php:258
 msgid "Credits Link"
-msgstr ""
+msgstr "Enlace de Créditos"
 
 #: includes/Elementor/Widgets/Footer.php:266
 msgid "Privacy Policy Link"
-msgstr ""
+msgstr "Enlace de Política de Privacidad"
 
 #: includes/Elementor/Widgets/Footer.php:284
 msgid "Container"
-msgstr ""
+msgstr "Contenedor"
 
 #: includes/Elementor/Widgets/Footer.php:306
 #: includes/Elementor/Widgets/Navbar.php:395
 msgid "Width"
-msgstr ""
+msgstr "Ancho"
 
 #: includes/Elementor/Widgets/Footer.php:331
 msgid "Subtext Typography"
-msgstr ""
+msgstr "Tipografía del Subtexto"
 
 #: includes/Elementor/Widgets/Footer.php:335
 msgid "Subtext Color"
-msgstr ""
+msgstr "Color del Subtexto"
 
 #: includes/Elementor/Widgets/Footer.php:350
 msgid "Menu Title Typography"
-msgstr ""
+msgstr "Tipografía del Título del Menú"
 
 #: includes/Elementor/Widgets/Footer.php:356
 msgid "Menu Item Typography"
-msgstr ""
+msgstr "Tipografía del Elemento del Menú"
 
 #: includes/Elementor/Widgets/Footer.php:362
 msgid "Copyright Typography"
-msgstr ""
+msgstr "Tipografía del Copyright"
 
 #: includes/Elementor/Widgets/Footer.php:372
 msgid "Colors"
-msgstr ""
+msgstr "Colores"
 
 #: includes/Elementor/Widgets/Footer.php:377
 #: includes/Elementor/Widgets/Navbar.php:350
 #: includes/Elementor/Widgets/Navbar.php:368
 msgid "Text Color"
-msgstr ""
+msgstr "Color del Texto"
 
 #: includes/Elementor/Widgets/Footer.php:378
 msgid "Link Color"
-msgstr ""
+msgstr "Color del Enlace"
 
 #: includes/Elementor/Widgets/Footer.php:379
 msgid "Link Hover Color"
-msgstr ""
+msgstr "Color del Enlace al Pasar"
 
 #: includes/Elementor/Widgets/Footer.php:496
 msgid "Credits"
-msgstr ""
+msgstr "Créditos"
 
 #: includes/Elementor/Widgets/Footer.php:502
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Política de Privacidad"
 
 #: includes/Elementor/Widgets/Navbar.php:45
 #: includes/Elementor/Widgets/Navbar.php:253
 msgid "Navbar"
-msgstr ""
+msgstr "Barra de Navegación"
 
 #: includes/Elementor/Widgets/Navbar.php:82
 msgid "Menu"
-msgstr ""
+msgstr "Menú"
 
 #: includes/Elementor/Widgets/Navbar.php:100
 msgid "Theme Location"
-msgstr ""
+msgstr "Ubicación del Tema"
 
 #: includes/Elementor/Widgets/Navbar.php:103
 msgid "Select Location"
-msgstr ""
+msgstr "Seleccionar Ubicación"
 
 #. Template Name of the theme
 #: includes/Elementor/Widgets/Navbar.php:108
 msgid "Navigation Sidebar"
-msgstr ""
+msgstr "Barra Lateral de Navegación"
 
 #: includes/Elementor/Widgets/Navbar.php:128
 msgid "Show Logo"
-msgstr ""
+msgstr "Mostrar Logo"
 
 #: includes/Elementor/Widgets/Navbar.php:130
 #: includes/Elementor/Widgets/Navbar.php:181
 #: includes/Elementor/Widgets/Navbar.php:193
 msgid "Show"
-msgstr ""
+msgstr "Mostrar"
 
 #: includes/Elementor/Widgets/Navbar.php:131
 #: includes/Elementor/Widgets/Navbar.php:182
 #: includes/Elementor/Widgets/Navbar.php:194
 msgid "Hide"
-msgstr ""
+msgstr "Ocultar"
 
 #: includes/Elementor/Widgets/Navbar.php:140
 msgid "Use Theme Customizer Logo"
-msgstr ""
+msgstr "Usar Logo del Personalizador del Tema"
 
 #: includes/Elementor/Widgets/Navbar.php:142
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: includes/Elementor/Widgets/Navbar.php:143
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: includes/Elementor/Widgets/Navbar.php:171
 msgid "Features"
-msgstr ""
+msgstr "Características"
 
 #: includes/Elementor/Widgets/Navbar.php:179
 msgid "Show Search Button"
-msgstr ""
+msgstr "Mostrar Botón de Búsqueda"
 
 #: includes/Elementor/Widgets/Navbar.php:191
 msgid "Show Language Switcher"
-msgstr ""
+msgstr "Mostrar Selector de Idioma"
 
 #: includes/Elementor/Widgets/Navbar.php:206
 msgid "Default"
-msgstr ""
+msgstr "Predeterminado"
 
 #: includes/Elementor/Widgets/Navbar.php:207
 msgid "Fibrasoma"
-msgstr ""
+msgstr "Fibrasoma"
 
 #: includes/Elementor/Widgets/Navbar.php:216
 msgid "Top Bar Link Text"
-msgstr ""
+msgstr "Texto del Enlace de la Barra Superior"
 
 #: includes/Elementor/Widgets/Navbar.php:219
 msgid "Link text"
-msgstr ""
+msgstr "Texto del enlace"
 
 #: includes/Elementor/Widgets/Navbar.php:229
 msgid "Top Bar Link URL"
-msgstr ""
+msgstr "URL del Enlace de la Barra Superior"
 
 #: includes/Elementor/Widgets/Navbar.php:231
 msgid "https://your-link.com"
-msgstr ""
+msgstr "https://tu-enlace.com"
 
 #: includes/Elementor/Widgets/Navbar.php:301
 msgid "Menu Items"
-msgstr ""
+msgstr "Elementos del Menú"
 
 #: includes/Elementor/Widgets/Navbar.php:315
 msgid "Item Spacing"
-msgstr ""
+msgstr "Espaciado de Elementos"
 
 #: includes/Elementor/Widgets/Navbar.php:344
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: includes/Elementor/Widgets/Navbar.php:362
 msgid "Hover"
-msgstr ""
+msgstr "Al Pasar"
 
 #: includes/Elementor/Widgets/NewsList.php:42
 msgid "News List"
-msgstr ""
+msgstr "Lista de Noticias"
 
 #: includes/Elementor/Widgets/NewsList.php:79
 #: includes/Elementor/Widgets/Portfolio.php:78
 #: includes/Elementor/Widgets/TeamMembers.php:78
 msgid "Posts Per Page"
-msgstr ""
+msgstr "Publicaciones por Página"
 
 #: includes/Elementor/Widgets/NewsList.php:122
 msgid "No news found."
-msgstr ""
+msgstr "No se encontraron noticias."
 
 #: includes/Elementor/Widgets/Portfolio.php:120
 msgid "No portfolio items found."
-msgstr ""
+msgstr "No se encontraron elementos del portafolio."
 
 #: includes/Elementor/Widgets/Services.php:40
 #: includes/Elementor/Widgets/Services.php:81
 msgid "Services"
-msgstr ""
+msgstr "Servicios"
 
 #: includes/Elementor/Widgets/Services.php:90
 #: includes/Elementor/Widgets/Services.php:253
 msgid "Icon"
-msgstr ""
+msgstr "Ícono"
 
 #: includes/Elementor/Widgets/Services.php:100
 msgid "Service Title"
-msgstr ""
+msgstr "Título del Servicio"
 
 #: includes/Elementor/Widgets/Services.php:107
 #: includes/Elementor/Widgets/Services.php:361
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: includes/Elementor/Widgets/Services.php:109
 msgid "Service description goes here."
-msgstr ""
+msgstr "La descripción del servicio va aquí."
 
 #: includes/Elementor/Widgets/Services.php:116
 msgid "Link"
-msgstr ""
+msgstr "Enlace"
 
 #: includes/Elementor/Widgets/Services.php:124
 msgid "Services List"
-msgstr ""
+msgstr "Lista de Servicios"
 
 #: includes/Elementor/Widgets/Services.php:129
 msgid "Service 1"
-msgstr ""
+msgstr "Servicio 1"
 
 #: includes/Elementor/Widgets/Services.php:130
 msgid "Description for service 1"
-msgstr ""
+msgstr "Descripción del servicio 1"
 
 #: includes/Elementor/Widgets/Services.php:133
 msgid "Service 2"
-msgstr ""
+msgstr "Servicio 2"
 
 #: includes/Elementor/Widgets/Services.php:134
 msgid "Description for service 2"
-msgstr ""
+msgstr "Descripción del servicio 2"
 
 #: includes/Elementor/Widgets/Services.php:137
 msgid "Service 3"
-msgstr ""
+msgstr "Servicio 3"
 
 #: includes/Elementor/Widgets/Services.php:138
 msgid "Description for service 3"
-msgstr ""
+msgstr "Descripción del servicio 3"
 
 #: includes/Elementor/Widgets/Services.php:261
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: includes/Elementor/Widgets/StockPrice.php:45
 msgid "Stock Price"
-msgstr ""
+msgstr "Precio de la Acción"
 
 #: includes/Elementor/Widgets/StockPrice.php:93
 msgid "Horizontal"
-msgstr ""
+msgstr "Horizontal"
 
 #: includes/Elementor/Widgets/StockPrice.php:94
 msgid "Vertical"
-msgstr ""
+msgstr "Vertical"
 
 #: includes/Elementor/Widgets/StockPrice.php:102
 msgid "Alignment"
-msgstr ""
+msgstr "Alineación"
 
 #: includes/Elementor/Widgets/StockPrice.php:106
 msgid "Left"
-msgstr ""
+msgstr "Izquierda"
 
 #: includes/Elementor/Widgets/StockPrice.php:110
 msgid "Center"
-msgstr ""
+msgstr "Centro"
 
 #: includes/Elementor/Widgets/StockPrice.php:114
 msgid "Right"
-msgstr ""
+msgstr "Derecha"
 
 #: includes/Elementor/Widgets/StockPrice.php:162
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: includes/Elementor/Widgets/StockPrice.php:194
 msgid "Price"
-msgstr ""
+msgstr "Precio"
 
 #: includes/Elementor/Widgets/StockPrice.php:250
 msgid "Current Price"
-msgstr ""
+msgstr "Precio Actual"
 
 #: includes/Elementor/Widgets/TeamMembers.php:120
 msgid "No team members found."
-msgstr ""
+msgstr "No se encontraron miembros del equipo."
 
 #: includes/PostTypes/Types/Careers.php:98
 msgid "Career"
-msgstr ""
+msgstr "Empleo"
 
 #: includes/PostTypes/Types/Documents.php:96
 msgid "Documents & Reports"
-msgstr ""
+msgstr "Documentos e Informes"
 
 #: includes/PostTypes/Types/Documents.php:97
 msgid "Document"
-msgstr ""
+msgstr "Documento"
 
 #: includes/PostTypes/Types/Events.php:96
 msgid "Events"
-msgstr ""
+msgstr "Eventos"
 
 #: includes/PostTypes/Types/Events.php:97
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: includes/PostTypes/Types/News.php:98
 msgid "News Article"
-msgstr ""
+msgstr "Artículo de Noticias"
 
 #: includes/PostTypes/Types/Portfolio.php:99
 msgid "Project"
-msgstr ""
+msgstr "Proyecto"
 
 #: includes/PostTypes/Types/TeamMembers.php:98
 msgid "Team Member"
-msgstr ""
+msgstr "Miembro del Equipo"
 
 #: includes/Utils/Enums/CacheTag.php:56
 msgid "Post Types"
-msgstr ""
+msgstr "Tipos de Publicación"
 
 #: includes/Utils/Enums/CacheTag.php:57
 msgid "Custom Fields"
-msgstr ""
+msgstr "Campos Personalizados"
 
 #: includes/Utils/Enums/CacheTag.php:58
 msgid "REST API"
-msgstr ""
+msgstr "API REST"
 
 #: includes/Utils/Enums/CacheTag.php:59
 msgid "Widgets"
-msgstr ""
+msgstr "Widgets"
 
 #: includes/Utils/Enums/CacheTag.php:60
 msgid "Page Builder"
-msgstr ""
+msgstr "Constructor de Páginas"
 
 #: includes/Utils/Enums/CacheTag.php:65
 msgid "Navigation"
-msgstr ""
+msgstr "Navegación"
 
 #: includes/Utils/Enums/CacheTag.php:66
 msgid "Options"
-msgstr ""
+msgstr "Opciones"
 
 #: includes/Utils/Enums/CacheTag.php:67
 msgid "Templates"
-msgstr ""
+msgstr "Plantillas"
 
 #: includes/Utils/Enums/LogLevel.php:53
 msgid "Emergency"
-msgstr ""
+msgstr "Emergencia"
 
 #: includes/Utils/Enums/LogLevel.php:54
 msgid "Alert"
-msgstr ""
+msgstr "Alerta"
 
 #: includes/Utils/Enums/LogLevel.php:55
 msgid "Critical"
-msgstr ""
+msgstr "Crítico"
 
 #: includes/Utils/Enums/LogLevel.php:56
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: includes/Utils/Enums/LogLevel.php:57
 msgid "Warning"
-msgstr ""
+msgstr "Advertencia"
 
 #: includes/Utils/Enums/LogLevel.php:58
 msgid "Notice"
-msgstr ""
+msgstr "Aviso"
 
 #: includes/Utils/Enums/LogLevel.php:59
 msgid "Info"
-msgstr ""
+msgstr "Información"
 
 #: includes/Utils/Enums/LogLevel.php:60
 msgid "Debug"
-msgstr ""
+msgstr "Depuración"
 
 #: includes/Utils/Loader.php:125
 msgid "Once Daily (Soma)"
-msgstr ""
+msgstr "Una vez al día (Soma)"
 
 #. Template Name of the theme
 msgid "Art"
-msgstr ""
+msgstr "Arte"
 
 #. Template Name of the theme
 msgid "Business Unit"
-msgstr ""
+msgstr "Unidad de Negocio"
 
 #. Template Name of the theme
 msgid "Elementor Page"
-msgstr ""
+msgstr "Página Elementor"
 
 #. Template Name of the theme
 msgid "Simple"
-msgstr ""
+msgstr "Simple"
 
 #. Template Name of the theme
 msgid "Soma Landing"
-msgstr ""
+msgstr "Landing Soma"
 
 #. Template Name of the theme
 msgid "Under Development"
-msgstr ""
+msgstr "En Desarrollo"
