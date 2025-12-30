@@ -88,14 +88,18 @@ class StockData {
 	 */
 	private function init(): void {
 		// Register custom cron schedule FIRST (before using it).
-		add_filter( 'cron_schedules', $this->custom_cron_schedules( ... ) );
+		add_filter( 'cron_schedules', array( $this, 'custom_cron_schedules' ) );
 
 		// Register the cron action handler.
-		add_action( 'update_stock_data_event', $this->fetch_stock_data( ... ) );
+		add_action( 'update_stock_data_event', array( $this, 'fetch_stock_data' ) );
 
 		// Schedule cron event (only if not already scheduled).
 		if ( ! wp_next_scheduled( 'update_stock_data_event' ) ) {
-			wp_schedule_event( time(), 'three_hours', 'update_stock_data_event' );
+			// Use deterministic start time (next 3-hour boundary) for consistent execution.
+			$now       = current_time( 'timestamp' );
+			$interval  = 3 * HOUR_IN_SECONDS;
+			$first_run = $now - ( $now % $interval ) + $interval;
+			wp_schedule_event( $first_run, 'three_hours', 'update_stock_data_event' );
 		}
 	}
 
