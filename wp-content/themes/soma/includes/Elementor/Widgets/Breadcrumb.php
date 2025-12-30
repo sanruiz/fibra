@@ -12,11 +12,11 @@
 
 namespace Soma\Elementor\Widgets;
 
-use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
-use Elementor\Group_Control_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
+use Elementor\Group_Control_Typography;
+use Soma\Elementor\Base\WidgetBase;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 3.1.7
  */
-class Breadcrumb extends Widget_Base {
+class Breadcrumb extends WidgetBase {
 
 	/**
 	 * Get widget name
