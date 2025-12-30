@@ -51,6 +51,7 @@ class Loader implements LoadableInterface {
 		'ContactForm'   => Widgets\ContactForm::class,
 		'StockPrice'    => Widgets\StockPrice::class,
 		'Documents'     => Widgets\Documents::class,
+		'Breadcrumb'    => Widgets\Breadcrumb::class,
 	);
 
 	/**
@@ -69,6 +70,7 @@ class Loader implements LoadableInterface {
 		'soma-contact-form'   => 'contact-form.css',
 		'soma-stock-price'    => 'stock-price.css',
 		'soma-documents'      => 'documents.css',
+		'soma-breadcrumb'     => 'breadcrumb.css',
 	);
 
 	/**
