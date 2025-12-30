@@ -226,8 +226,8 @@ class StockPrice extends WidgetBase {
 	protected function render(): void {
 		$settings = $this->get_settings_for_display();
 
-		// Get stock data from WordPress options.
-		$stock_data = get_option( 'stock_data' );
+		// Get stock data using theme helper function.
+		$stock_data = soma_get_stock_data();
 
 		// Default values if no data available.
 		$price    = 0;
@@ -235,7 +235,7 @@ class StockPrice extends WidgetBase {
 
 		if ( is_array( $stock_data ) ) {
 			$price    = isset( $stock_data['price'] ) ? floatval( $stock_data['price'] ) : 0;
-			$currency = isset( $stock_data['currency'] ) ? $stock_data['currency'] : 'MXN';
+			$currency = isset( $stock_data['currency'] ) ? sanitize_text_field( (string) $stock_data['currency'] ) : 'MXN';
 		}
 
 		// Format price with currency symbol.
