@@ -87,13 +87,16 @@ class StockData {
 	 * Initialize stock data fetcher
 	 */
 	private function init(): void {
-		// Schedule cron event.
+		// Register custom cron schedule FIRST (before using it).
+		add_filter( 'cron_schedules', $this->custom_cron_schedules( ... ) );
+
+		// Register the cron action handler.
+		add_action( 'update_stock_data_event', $this->fetch_stock_data( ... ) );
+
+		// Schedule cron event (only if not already scheduled).
 		if ( ! wp_next_scheduled( 'update_stock_data_event' ) ) {
 			wp_schedule_event( time(), 'three_hours', 'update_stock_data_event' );
 		}
-
-		add_action( 'update_stock_data_event', $this->fetch_stock_data( ... ) );
-		add_filter( 'cron_schedules', $this->custom_cron_schedules( ... ) );
 	}
 
 	/**
