@@ -7,6 +7,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.6] - 2025-12-30
+
+### Week 4 Patch - Spanish Translations & Documents Widget Improvements
+
+This patch release completes Spanish translations for all theme components and improves the Documents widget layout.
+
+---
+
+### ✨ Added
+
+#### Internationalization (i18n)
+- **Complete Spanish Translations** - Added 170+ Spanish translations covering all theme components
+- **Elementor Widgets** - All 10 widget titles, descriptions, and controls translated
+- **PostType Enum** - Labels for Portfolio, News, Careers, Team Members, Events, Documents
+- **CacheTag Enum** - Cache tag descriptions translated
+- **LogLevel Enum** - All 8 PSR-3 log level labels translated
+- **Template Names** - Page templates translated (Business Unit, Navigation Sidebar, Elementor)
+- **UI Controls** - All Elementor control labels, placeholders, and descriptions
+
+### 🐛 Fixed
+
+#### Code Quality
+- **PHPCS Compliance** - Fixed `count()` inside while loop in Documents widget (moved to variable before loop)
+
+### 🔄 Changed
+
+#### Documents Widget
+- **Layout Improvements** - Enhanced grid layout for better document display
+- **Responsive Styles** - Improved mobile responsiveness for document cards
+
+### 📦 Files Changed
+
+#### Modified
+- `languages/es_ES.po` - Added 170+ Spanish translations
+- `languages/es_ES.mo` - Compiled binary translation file
+- `includes/Elementor/Widgets/Documents.php` - PHPCS fix and layout improvements
+- `assets/css/widgets/documents.css` - Responsive style improvements
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #131**: [fix: Add Spanish translations and improve Documents widget](https://github.com/sanruiz/fibra/pull/131) - Merged
+
+---
+
 ## [3.1.5] - 2025-12-29
 
 ### Week 4 Release - New Elementor Widgets & Bug Fixes
