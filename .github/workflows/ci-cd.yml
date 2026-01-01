@@ -61,7 +61,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
@@ -154,7 +154,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
@@ -239,7 +239,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🟢 Setup Node.js
               uses: actions/setup-node@v4
@@ -296,7 +296,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
@@ -445,7 +445,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code (for scripts)
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 📥 Download release artifact
               uses: actions/download-artifact@v4
