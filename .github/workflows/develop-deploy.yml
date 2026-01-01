@@ -356,7 +356,7 @@ jobs:
                   echo "✅ Package created: ${ZIP_NAME}"
 
             - name: 📤 Upload artifact
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v6
               with:
                   name: soma-develop-${{ steps.version.outputs.version }}
                   path: releases/${{ steps.package.outputs.zip_file }}
