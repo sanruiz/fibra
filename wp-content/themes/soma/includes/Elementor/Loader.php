@@ -74,12 +74,24 @@ class Loader implements LoadableInterface {
 	);
 
 	/**
+	 * Widget scripts registry
+	 *
+	 * @var array<string, array{file: string, deps: array<int, string>}> Widget script handles, files, and dependencies
+	 */
+	private array $widget_scripts = array(
+		'soma-portfolio' => array(
+			'file' => 'portfolio.js',
+			'deps' => array( 'jquery' ),
+		),
+	);
+
+	/**
 	 * Get singleton instance
 	 *
 	 * @return Loader
 	 */
 	public static function instance(): Loader {
-		if ( self::$instance === null ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -119,6 +131,9 @@ class Loader implements LoadableInterface {
 
 		// Register widget styles.
 		add_action( 'elementor/frontend/after_register_styles', $this->register_styles( ... ) );
+
+		// Register widget scripts.
+		add_action( 'elementor/frontend/after_register_scripts', $this->register_scripts( ... ) );
 
 		// Register widgets.
 		add_action( 'elementor/widgets/register', $this->register_widgets( ... ) );
@@ -223,6 +238,60 @@ class Loader implements LoadableInterface {
 			'Registered Elementor widget styles',
 			array(
 				'total'      => \count( $this->widget_styles ),
+				'registered' => $registered_count,
+			)
+		);
+	}
+
+	/**
+	 * Register widget scripts
+	 *
+	 * Registers (not enqueues) widget JavaScript files.
+	 * Elementor will enqueue them only when widgets are used.
+	 */
+	public function register_scripts(): void {
+		$registered_count = 0;
+		$theme_uri        = get_template_directory_uri();
+		$theme_version    = wp_get_theme()->get( 'Version' );
+
+		foreach ( $this->widget_scripts as $handle => $script_data ) {
+			$file_path = get_template_directory() . '/assets/js/widgets/' . $script_data['file'];
+
+			if ( ! file_exists( $file_path ) ) {
+				\soma_log_warning(
+					'Widget script file not found',
+					array(
+						'handle'   => $handle,
+						'filename' => $script_data['file'],
+						'path'     => $file_path,
+					)
+				);
+				continue;
+			}
+
+			wp_register_script(
+				$handle,
+				$theme_uri . '/assets/js/widgets/' . $script_data['file'],
+				$script_data['deps'],
+				$theme_version,
+				true
+			);
+
+			++$registered_count;
+
+			\soma_log_debug(
+				'Registered widget script',
+				array(
+					'handle' => $handle,
+					'file'   => $script_data['file'],
+				)
+			);
+		}
+
+		\soma_log_info(
+			'Registered Elementor widget scripts',
+			array(
+				'total'      => \count( $this->widget_scripts ),
 				'registered' => $registered_count,
 			)
 		);

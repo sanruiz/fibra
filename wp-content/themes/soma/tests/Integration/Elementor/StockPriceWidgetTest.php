@@ -207,7 +207,6 @@ class StockPriceWidgetTest extends WP_UnitTestCase {
 	public function test_format_price_method(): void {
 		$reflection = new \ReflectionClass( $this->widget );
 		$method     = $reflection->getMethod( 'format_price' );
-		$method->setAccessible( true );
 
 		// Test MXN currency.
 		$formatted = $method->invoke( $this->widget, 55.50, 'MXN' );
