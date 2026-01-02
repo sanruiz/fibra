@@ -1,243 +1,358 @@
 /**
  * Portfolio Widget Styles
- * 
- * Elementor widget for portfolio grid.
- * 
+ *
+ * Elementor widget styles for the Portfolio component.
+ * Supports list-view and grid-view modes.
+ *
  * @package Soma
- * @since 3.0.0
+ * @since 3.1.8
  */
 
 /* Container */
-.soma-portfolio {
-	padding: 50px 0;
+.soma-portfolio-widget {
+	position: relative;
 }
 
-/* Grid */
-.soma-portfolio .portfolio-grid {
+.soma-portfolio-widget .container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Filters Bar */
+.soma-portfolio-widget .portfolio-filters {
+	display: flex;
+	align-items: center;
+	border-top: 1px solid var(--soma-color-border-light);
+	padding: 20px 0;
+}
+
+.soma-portfolio-widget .portfolio-filters .filters-list {
+	display: flex;
+	align-items: center;
+	gap: var(--soma-spacing-25);
+}
+
+.soma-portfolio-widget .portfolio-filters.desk {
+	display: flex;
+}
+
+.soma-portfolio-widget .portfolio-filters.movil {
+	display: none;
+}
+
+.soma-portfolio-widget .portfolio-filters .filter {
+	cursor: pointer;
+	font-size: var(--soma-font-size-tiny);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	transition: var(--soma-transition-base);
+	color: var(--soma-color-text-secondary);
+}
+
+.soma-portfolio-widget .portfolio-filters .filter:hover,
+.soma-portfolio-widget .portfolio-filters .filter.active {
+	color: var(--soma-color-primary);
+}
+
+/* View Mode Toggle */
+.soma-portfolio-widget .view-mode {
+	display: flex;
+	margin-left: auto;
+	gap: 20px;
+}
+
+.soma-portfolio-widget .view-mode > div {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	opacity: 0.5;
+	transition: var(--soma-transition-base);
+}
+
+.soma-portfolio-widget .view-mode > div:hover,
+.soma-portfolio-widget .view-mode > div.current-view {
+	opacity: 1;
+}
+
+.soma-portfolio-widget .view-mode span {
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.soma-portfolio-widget .view-mode svg {
+	width: 20px;
+	height: 20px;
+}
+
+/* Projects Container - List View */
+.soma-portfolio-widget .projects.list-view .project {
+	display: grid;
+	grid-template-columns: 33% 66%;
+	gap: var(--soma-spacing-md);
+	padding: var(--soma-spacing-md) 0;
+	text-decoration: none;
+	transition: var(--soma-transition-base);
+}
+
+.soma-portfolio-widget .projects.list-view .project:last-child {
+	border-bottom: none;
+}
+
+.soma-portfolio-widget .projects.list-view .project .info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.soma-portfolio-widget .projects.list-view .project .year {
+	font-size: var(--soma-font-size-h1);
+	font-weight: var(--soma-font-weight-normal);
+	margin-bottom: var(--soma-spacing-xs);
+	color: var(--soma-color-text-light);
+}
+
+.soma-portfolio-widget .projects.list-view .project .title h3 {
+	font-size: var(--soma-font-size-h6);
+	margin: 0 0 var(--soma-spacing-xs);
+	color: var(--soma-color-text-secondary);
+	transition: var(--soma-transition-base);
+}
+
+.soma-portfolio-widget .projects.list-view .project .city {
+	font-size: var(--soma-font-size-tiny);
+	color: var(--soma-color-text-secondary);
+}
+
+.soma-portfolio-widget .projects.list-view .project .image {
+	overflow: hidden;
+}
+
+.soma-portfolio-widget .projects.list-view .project .image img {
+	width: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+	aspect-ratio: 16/9;
+}
+
+.soma-portfolio-widget .projects.list-view .project:hover .image img {
+	transform: scale(1.1);
+}
+
+/* Projects Container - Grid View */
+.soma-portfolio-widget .projects.grid-view {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 30px;
+	gap: var(--soma-spacing-md);
+	padding: var(--soma-spacing-md) 0;
 }
 
-/* Portfolio item card */
-.soma-portfolio .portfolio-item {
-	position: relative;
+.soma-portfolio-widget .projects.grid-view .project {
+	display: block;
+	text-decoration: none;
+}
+
+.soma-portfolio-widget .projects.grid-view .project .info {
+	padding: var(--soma-spacing-15) 0;
+}
+
+.soma-portfolio-widget .projects.grid-view .project .year {
+	font-size: var(--soma-font-size-h1);
+	font-weight: var(--soma-font-weight-normal);
+	margin-bottom: var(--soma-spacing-5);
+	color: var(--soma-color-text-primary);
+}
+
+.soma-portfolio-widget .projects.grid-view .project .title h3 {
+	font-size: var(--soma-font-size-body);
+	margin: 0 0 var(--soma-spacing-5);
+	color: var(--soma-color-text-secondary);
+	transition: var(--soma-transition-base);
+}
+
+.soma-portfolio-widget .projects.grid-view .project .city {
+	font-size: var(--soma-font-size-tiny);
+	color: var(--soma-color-text-secondary);
+}
+
+.soma-portfolio-widget .projects.grid-view .project .image {
 	overflow: hidden;
-	border-radius: 8px;
-	background-color: var(--soma-bg-light, #f5f5f5);
-	transition: all 0.3s ease;
+	aspect-ratio: 16/9;
 }
 
-.soma-portfolio .portfolio-item:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Image wrapper */
-.soma-portfolio .portfolio-item .image-wrapper {
-	position: relative;
-	width: 100%;
-	padding-top: 75%; /* 4:3 aspect ratio */
-	overflow: hidden;
-}
-
-.soma-portfolio .portfolio-item .image-wrapper img {
-	position: absolute;
-	top: 0;
-	left: 0;
+.soma-portfolio-widget .projects.grid-view .project .image img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	transition: transform 0.5s ease, filter 0.3s ease;
+	transition: transform 0.5s ease;
 }
 
-.soma-portfolio .portfolio-item:hover .image-wrapper img {
+.soma-portfolio-widget .projects.grid-view .project:hover .image img {
 	transform: scale(1.1);
-	filter: brightness(0.8);
 }
 
-/* Overlay */
-.soma-portfolio .portfolio-item .overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	padding: 30px;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-}
-
-.soma-portfolio .portfolio-item:hover .overlay {
-	opacity: 1;
-}
-
-/* Title */
-.soma-portfolio .portfolio-item h3 {
-	font-size: 22px;
-	font-weight: 600;
-	color: var(--soma-text-light, #ffffff);
-	margin: 0 0 8px;
-	line-height: 1.3;
-	transform: translateY(20px);
-	transition: transform 0.3s ease 0.1s;
-}
-
-.soma-portfolio .portfolio-item:hover h3 {
-	transform: translateY(0);
-}
-
-/* Category/Type */
-.soma-portfolio .portfolio-item .category {
-	font-size: 14px;
-	color: var(--soma-text-light, #ffffff);
-	opacity: 0.9;
-	margin-bottom: 15px;
-	transform: translateY(20px);
-	transition: transform 0.3s ease 0.15s;
-}
-
-.soma-portfolio .portfolio-item:hover .category {
-	transform: translateY(0);
-}
-
-/* View project link */
-.soma-portfolio .portfolio-item .view-project {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	color: var(--soma-text-light, #ffffff);
-	text-decoration: none;
-	font-size: 14px;
-	font-weight: 600;
-	padding: 8px 16px;
-	background-color: var(--soma-primary, #0066cc);
-	border-radius: 4px;
-	align-self: flex-start;
-	transform: translateY(20px);
-	opacity: 0;
-	transition: all 0.3s ease 0.2s;
-}
-
-.soma-portfolio .portfolio-item:hover .view-project {
-	transform: translateY(0);
-	opacity: 1;
-}
-
-.soma-portfolio .portfolio-item .view-project:hover {
-	background-color: var(--soma-primary-hover, #0052a3);
-}
-
-/* No items message */
-.soma-portfolio .no-portfolio {
+/* Loader */
+.soma-portfolio-widget .loader-container {
 	text-align: center;
-	padding: 60px 20px;
-	color: var(--soma-text-secondary, #666666);
-	font-size: 16px;
+	padding: var(--soma-spacing-lg) 0;
 }
 
-/* Filter buttons (if added in future) */
-.soma-portfolio .portfolio-filters {
+.soma-portfolio-widget .loader-container .loading {
+	display: none;
+	font-size: var(--soma-font-size-tiny);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--soma-color-text-secondary);
+}
+
+.soma-portfolio-widget.loading .loader-container .loading {
+	display: inline-block;
+}
+
+/* Style Variants */
+
+/* FibraSOMA (Dark) */
+.soma-portfolio-widget.style-fibrasoma {
+	background-color: var(--soma-color-bg-dark);
+	color: var(--soma-color-text-light);
+}
+
+.soma-portfolio-widget.style-fibrasoma .portfolio-filters {
+	border-top-color: var(--soma-color-border-dark);
+}
+
+.soma-portfolio-widget.style-fibrasoma .portfolio-filters .filter {
+	color: var(--soma-color-text-muted);
+}
+
+.soma-portfolio-widget.style-fibrasoma .portfolio-filters .filter:hover,
+.soma-portfolio-widget.style-fibrasoma .portfolio-filters .filter.active {
+	color: var(--soma-color-text-light);
+}
+
+.soma-portfolio-widget.style-fibrasoma .view-mode > div {
+	color: var(--soma-color-text-light);
+}
+
+.soma-portfolio-widget.style-fibrasoma .project .title h3 {
+	color: var(--soma-color-text-light);
+}
+
+.soma-portfolio-widget.style-fibrasoma .project .year {
+	color: var(--soma-color-text-light);
+}
+
+.soma-portfolio-widget.style-fibrasoma .project .city {
+	color: var(--soma-color-text-muted);
+}
+
+/* SOMA (Light) */
+.soma-portfolio-widget.style-soma {
+	background-color: var(--soma-color-bg-white);
+	color: var(--soma-color-text-primary);
+}
+
+/* Hide Year/City modifiers */
+.soma-portfolio-widget.hide-year .project .year {
+	display: none;
+}
+
+.soma-portfolio-widget.hide-city .project .city {
+	display: none;
+}
+
+/* Mobile Filters */
+.soma-portfolio-widget .portfolio-filters.movil .ViewAll {
 	display: flex;
-	justify-content: center;
-	gap: 15px;
-	margin-bottom: 40px;
-	flex-wrap: wrap;
-}
-
-.soma-portfolio .portfolio-filters button {
-	padding: 10px 20px;
-	background-color: transparent;
-	border: 1px solid var(--soma-border-light, #e0e0e0);
-	color: var(--soma-text-primary, #000000);
-	font-size: 14px;
-	font-weight: 500;
-	border-radius: 4px;
+	justify-content: space-between;
+	align-items: center;
+	padding: var(--soma-spacing-15);
 	cursor: pointer;
-	transition: all 0.3s ease;
+	background: var(--soma-color-bg-light);
 }
 
-.soma-portfolio .portfolio-filters button:hover,
-.soma-portfolio .portfolio-filters button.active {
-	background-color: var(--soma-primary, #0066cc);
-	color: var(--soma-text-light, #ffffff);
-	border-color: var(--soma-primary, #0066cc);
+.soma-portfolio-widget .portfolio-filters.movil .IteamView {
+	padding: 0 var(--soma-spacing-15);
+	background: var(--soma-color-bg-light);
 }
 
-/* Responsive: Tablet */
-@media screen and (max-width: 991px) {
-	.soma-portfolio .portfolio-grid {
+.soma-portfolio-widget .portfolio-filters.movil .IteamView .filter {
+	padding: var(--soma-spacing-xs) 0;
+	border-bottom: 1px solid var(--soma-color-border-light);
+}
+
+.soma-portfolio-widget .portfolio-filters.movil .IteamView .filter:last-child {
+	border-bottom: none;
+}
+
+.soma-portfolio-widget.style-fibrasoma .portfolio-filters.movil .ViewAll,
+.soma-portfolio-widget.style-fibrasoma .portfolio-filters.movil .IteamView {
+	background: var(--soma-color-primary-light);
+}
+
+.soma-portfolio-widget.style-fibrasoma .portfolio-filters.movil .IteamView .filter {
+	border-bottom-color: var(--soma-color-border-dark);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+	.soma-portfolio-widget .projects.grid-view {
 		grid-template-columns: repeat(2, 1fr);
-		gap: 25px;
-	}
-
-	.soma-portfolio .portfolio-item h3 {
-		font-size: 20px;
-	}
-
-	.soma-portfolio .portfolio-item .overlay {
-		padding: 25px;
 	}
 }
 
-/* Responsive: Mobile */
-@media screen and (max-width: 767px) {
-	.soma-portfolio {
-		padding: 30px 0;
+@media (max-width: 768px) {
+	.soma-portfolio-widget .portfolio-filters.desk {
+		display: none;
 	}
 
-	.soma-portfolio .portfolio-grid {
+	.soma-portfolio-widget .portfolio-filters.movil {
+		display: block;
+	}
+
+	.soma-portfolio-widget .projects.list-view .project {
 		grid-template-columns: 1fr;
-		gap: 20px;
 	}
 
-	.soma-portfolio .portfolio-item .image-wrapper {
-		padding-top: 66.67%; /* 3:2 aspect ratio on mobile */
+	.soma-portfolio-widget .projects.list-view .project .image {
+		order: -1;
 	}
 
-	.soma-portfolio .portfolio-item h3 {
-		font-size: 18px;
+	.soma-portfolio-widget .projects.list-view .project .image img {
+		height: 250px;
 	}
 
-	.soma-portfolio .portfolio-item .overlay {
-		padding: 20px;
-	}
-
-	.soma-portfolio .portfolio-filters {
-		margin-bottom: 30px;
-	}
-
-	.soma-portfolio .portfolio-filters button {
-		font-size: 13px;
-		padding: 8px 16px;
+	.soma-portfolio-widget .projects.grid-view {
+		grid-template-columns: 1fr;
 	}
 }
 
-/* Masonry variant (if layout control added) */
-.soma-portfolio.layout-masonry .portfolio-grid {
-	grid-auto-rows: 250px;
+/* Animation */
+.soma-portfolio-widget .project {
+	animation: fadeInUp 0.5s ease forwards;
+	opacity: 0;
 }
 
-.soma-portfolio.layout-masonry .portfolio-item:nth-child(3n+1) {
-	grid-row: span 2;
-}
-
-@media screen and (max-width: 991px) {
-	.soma-portfolio.layout-masonry .portfolio-grid {
-		grid-auto-rows: 200px;
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }
 
-@media screen and (max-width: 767px) {
-	.soma-portfolio.layout-masonry .portfolio-grid {
-		grid-auto-rows: auto;
-	}
-
-	.soma-portfolio.layout-masonry .portfolio-item:nth-child(3n+1) {
-		grid-row: span 1;
-	}
-}
+.soma-portfolio-widget .project:nth-child(1) { animation-delay: 0s; }
+.soma-portfolio-widget .project:nth-child(2) { animation-delay: 0.05s; }
+.soma-portfolio-widget .project:nth-child(3) { animation-delay: 0.1s; }
+.soma-portfolio-widget .project:nth-child(4) { animation-delay: 0.15s; }
+.soma-portfolio-widget .project:nth-child(5) { animation-delay: 0.2s; }
+.soma-portfolio-widget .project:nth-child(6) { animation-delay: 0.25s; }
+.soma-portfolio-widget .project:nth-child(7) { animation-delay: 0.3s; }
+.soma-portfolio-widget .project:nth-child(8) { animation-delay: 0.35s; }
+.soma-portfolio-widget .project:nth-child(9) { animation-delay: 0.4s; }
+.soma-portfolio-widget .project:nth-child(10) { animation-delay: 0.45s; }
