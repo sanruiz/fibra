@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Week 4 Patch - Enhanced Portfolio Widget
 
-This patch release completes the Portfolio Elementor widget with dynamic category filtering and improved layout controls.
+This release completes the Portfolio Elementor widget with dynamic category filtering and improved layout controls.
 
 ---
 
@@ -61,6 +61,55 @@ This patch release completes the Portfolio Elementor widget with dynamic categor
 
 - **Issue #17**: [Widgets para la sección de portafolio de la home y su template](https://github.com/sanruiz/fibra/issues/17) - Closed
 - **PR #140**: [feat(elementor): Enhance Portfolio widget with dynamic filters](https://github.com/sanruiz/fibra/pull/140) - Merged
+
+---
+
+## [3.1.7] - 2025-12-30
+
+### Week 4 Feature - Breadcrumb Navigation Widget
+
+This release adds a new Breadcrumb Elementor widget for content page navigation.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+- **Breadcrumb Widget** - Clean navigation breadcrumb widget for content pages (#134)
+  - Uses Global_Colors and Global_Typography from Elementor Site Kit
+  - Customizable separator (text or icon)
+  - Home icon option with configurable icon
+  - Current page highlighting
+  - Responsive container max-width control
+  - Full typography and color controls for all elements
+
+#### Helper Functions
+- **`soma_get_breadcrumb_items()`** - Flexible breadcrumb generation helper function
+  - Supports hierarchical pages and custom post types
+  - Returns array of breadcrumb items with title and URL
+  - Handles parent page traversal automatically
+
+### 📦 Files Changed
+
+#### Added
+- `includes/Elementor/Widgets/Breadcrumb.php` - Breadcrumb widget (425 lines)
+- `assets/css/widgets/breadcrumb.css` - Widget styles (49 lines)
+- `tests/Integration/Elementor/BreadcrumbWidgetTest.php` - 15 integration tests
+
+#### Modified
+- `includes/Elementor/Loader.php` - Register Breadcrumb widget
+- `includes/Utils/Helpers.php` - Added `soma_get_breadcrumb_items()` function
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include Breadcrumb widget
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #134**: [feat: Add Breadcrumb Elementor widget](https://github.com/sanruiz/fibra/pull/134) - Merged to week-4
+- **PR #135**: [Week 4: Breadcrumb Widget & Documents Improvements](https://github.com/sanruiz/fibra/pull/135) - Merged to main
+- **Issue #17**: [Página Portafolio (Vista General)](https://github.com/sanruiz/fibra/issues/17) - Closed
+- **Issue #18**: [Página Equipo](https://github.com/sanruiz/fibra/issues/18) - Closed
+- **Issue #19**: [Páginas Administrador Interno / Historia / Diferenciadores](https://github.com/sanruiz/fibra/issues/19) - Closed
 
 ---
 

@@ -61,7 +61,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
@@ -154,7 +154,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
@@ -239,7 +239,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🟢 Setup Node.js
               uses: actions/setup-node@v4
@@ -296,7 +296,7 @@ jobs:
 
         steps:
             - name: 📥 Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
               uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
@@ -423,7 +423,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 📤 Upload artifact
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v6
               with:
                   name: soma-release-${{ steps.version.outputs.version }}
                   path: releases/${{ steps.package.outputs.zip_file }}
@@ -445,10 +445,10 @@ jobs:
 
         steps:
             - name: 📥 Checkout code (for scripts)
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: 📥 Download release artifact
-              uses: actions/download-artifact@v4
+              uses: actions/download-artifact@v7
               with:
                   name: soma-release-${{ needs.build-and-release.outputs.version }}
                   path: ./release
