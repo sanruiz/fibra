@@ -7,6 +7,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Complete Spanish Translations
+
+This patch release adds complete Spanish translations for all new Elementor widgets from Week 4.
+
+---
+
+### 🌐 Translations
+
+#### Breadcrumb Widget (11 strings)
+- `SOMA Breadcrumb` → `Migas de Pan SOMA`
+- `Breadcrumb Settings` → `Configuración de Migas de Pan`
+- `Separator` → `Separador`
+- `Show Home` → `Mostrar Inicio`
+- `Show Current Page` → `Mostrar Página Actual`
+- `Style` → `Estilo`
+- `Current Page Color` → `Color de la Página Actual`
+- `Separator Color` → `Color del Separador`
+- `Home` → `Inicio`
+- `Breadcrumb Navigation` → `Navegación de Migas de Pan`
+
+#### Portfolio Widget (28 strings)
+- `Main Category` → `Categoría Principal`
+- `Filter Categories` → `Filtrar Categorías`
+- `Initial Posts` → `Publicaciones Iniciales`
+- `Year` → `Año`
+- `Display` → `Visualización`
+- `Default View` → `Vista Predeterminada`
+- `Show Filters` → `Mostrar Filtros`
+- `Show View Toggle` → `Mostrar Cambio de Vista`
+- `Show Year` → `Mostrar Año`
+- `Show City` → `Mostrar Ciudad`
+- `FibraSOMA (Dark)` → `FibraSOMA (Oscuro)`
+- `SOMA (Light)` → `SOMA (Claro)`
+- `"All" Filter Text` → `Texto del Filtro "Todos"`
+- `List View Text` → `Texto de Vista Lista`
+- `Grid View Text` → `Texto de Vista Cuadrícula`
+- `Loading Text` → `Texto de Carga`
+- `Loading more` → `Cargando más`
+- `Background Color` → `Color de Fondo`
+- `Filters` → `Filtros`
+- `Active Color` → `Color Activo`
+- `Border Color` → `Color del Borde`
+- `City` → `Ciudad`
+- `Hover Zoom Scale` → `Escala de Zoom al Pasar`
+- `Transition Duration` → `Duración de la Transición`
+- `View Toggle` → `Cambio de Vista`
+
+#### Helper Functions (3 strings)
+- `Search results for: %s` → `Resultados de búsqueda para: %s`
+- `Page Not Found` → `Página No Encontrada`
+- `Blog` → `Blog`
+
+### 📦 Files Changed
+
+#### Modified
+- `languages/soma.pot` - Updated translation template with all extractable strings
+- `languages/es_ES.po` - Added 42 new Spanish translations
+- `languages/es_ES.mo` - Recompiled binary translation file
+
+---
+
 ## [3.1.8] - 2025-12-31
 
 ### Week 4 Patch - Enhanced Portfolio Widget
