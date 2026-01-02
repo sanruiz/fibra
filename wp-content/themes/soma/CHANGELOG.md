@@ -7,6 +7,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.8] - 2025-12-31
+
+### Week 4 Patch - Enhanced Portfolio Widget
+
+This release completes the Portfolio Elementor widget with dynamic category filtering and improved layout controls.
+
+---
+
+### ✨ Added
+
+#### Portfolio Widget Enhancements
+- **Dynamic Category Filters** - Portfolio widget now displays interactive category filter buttons that filter content via AJAX (Issue #17)
+- **Filter Position Control** - New Elementor control to position filters left, center, or right
+- **Filter Spacing Control** - New control to adjust spacing between filter buttons using CSS `gap`
+- **Active Filter Styling** - Configurable colors for active/hover filter states
+- **AJAX Category Loading** - Categories loaded dynamically from REST API (`/wp-json/soma/portfolio?include_categories=true`)
+- **Portfolio Widget Tests** - 17 integration tests covering widget controls, rendering, and API integration
+
+#### REST API Improvements
+- **Portfolio Categories** - New `include_categories=true` parameter returns available portfolio categories
+- **Category Filtering** - Filter portfolio items by category slug via `category` parameter
+- **Fibrasoma Exclusion** - Fibrasoma category automatically excluded from public category lists
+
+### 🔄 Changed
+
+#### CSS & Styling
+- **Filter Layout** - Changed from `margin-right` to `gap` for filter spacing (better flexbox support)
+- **Font Family** - Updated to "Neue Haas Unica Pro" in CSS variables
+- **Responsive Filters** - Improved mobile responsiveness for filter buttons
+
+#### Code Quality
+- **PHPCS Compliance** - Fixed unsanitized `$_GET` input in Portfolio widget with proper `sanitize_text_field()`
+- **Test Cleanup** - Removed deprecated `setAccessible(true)` call in StockPriceWidgetTest
+
+### 📦 Files Changed
+
+#### Added
+- `assets/js/widgets/portfolio.js` - Client-side AJAX filtering logic
+- `tests/Integration/Elementor/PortfolioWidgetTest.php` - 17 integration tests
+
+#### Modified
+- `includes/Elementor/Widgets/Portfolio.php` - Dynamic filters, AJAX loading, new controls
+- `includes/API/Endpoints/PortfolioEndpoint.php` - Category filtering support
+- `assets/css/widgets/portfolio.css` - Flexbox layout with gap, improved responsive
+- `assets/css/variables.css` - Font family update
+- `includes/Elementor/Loader.php` - AJAX action registration
+- `tests/Integration/Elementor/StockPriceWidgetTest.php` - Removed deprecated method
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #17**: [Widgets para la sección de portafolio de la home y su template](https://github.com/sanruiz/fibra/issues/17) - Closed
+- **PR #140**: [feat(elementor): Enhance Portfolio widget with dynamic filters](https://github.com/sanruiz/fibra/pull/140) - Merged
+
+---
+
 ## [3.1.7] - 2025-12-30
 
 ### Week 4 Feature - Breadcrumb Navigation Widget

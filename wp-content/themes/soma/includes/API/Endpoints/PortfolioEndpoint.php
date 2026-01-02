@@ -123,7 +123,17 @@ final class PortfolioEndpoint {
 			'order'       => $params['order'] ?? 'DESC',
 		);
 
-		if ( isset( $params['categories'] ) && $params['categories'] ) {
+		// Filter by category slug if provided.
+		if ( isset( $params['category'] ) && $params['category'] && 'all' !== $params['category'] ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'portfolio-taxonomy',
+					'field'    => 'slug',
+					'terms'    => sanitize_text_field( $params['category'] ),
+				),
+			);
+		} elseif ( isset( $params['categories'] ) && $params['categories'] ) {
+			// Legacy support for category IDs.
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'portfolio-taxonomy',
@@ -168,11 +178,61 @@ final class PortfolioEndpoint {
 		$years = array_column( $formatted_posts, 'year' );
 		array_multisort( $years, SORT_DESC, $formatted_posts );
 
-		return array(
+		// Get available categories (child categories only, exclude parent "Fibrasoma").
+		$categories           = $this->get_available_categories();
+		$include_categories   = isset( $params['include_categories'] ) && 'true' === $params['include_categories'];
+
+		$response = array(
 			'status' => 'success',
 			'total'  => $total,
 			'count'  => \count( $formatted_posts ),
 			'data'   => $formatted_posts,
 		);
+
+		// Include categories only if requested or on initial load.
+		if ( $include_categories ) {
+			$response['categories'] = $categories;
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Get available portfolio categories (excludes main "Fibrasoma" category).
+	 *
+	 * @return array Array of category data.
+	 */
+	private function get_available_categories(): array {
+		$categories = array();
+
+		// Get all portfolio taxonomy terms that have posts.
+		$terms = get_terms(
+			array(
+				'taxonomy'   => 'portfolio-taxonomy',
+				'hide_empty' => true,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
+			return $categories;
+		}
+
+		foreach ( $terms as $term ) {
+			// Skip the main "Fibrasoma" category (it represents "All" projects).
+			if ( 'fibrasoma' === $term->slug ) {
+				continue;
+			}
+
+			$categories[] = array(
+				'id'    => $term->term_id,
+				'name'  => $term->name,
+				'slug'  => $term->slug,
+				'count' => $term->count,
+			);
+		}
+
+		return $categories;
 	}
 }
