@@ -49,11 +49,6 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		// Initialize REST API server.
-		global $wp_rest_server;
-		$this->server = $wp_rest_server = new WP_REST_Server();
-		do_action( 'rest_api_init' );
-
 		// Clean up stock data option.
 		delete_option( 'stock_data' );
 
@@ -69,6 +64,7 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 		}
 
 		// Mock ACF options for Stock Data configuration.
+		// These must be set BEFORE resetting singletons so StockData can load config.
 		update_option( 'options_stock_symbol', 'SOMA21.MX' );
 		update_option( 'options_stock_api_endpoint', 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes' );
 		update_option( 'options_stock_api_key', $api_key );
@@ -77,6 +73,17 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 		// Reset singleton instances for fresh tests.
 		$this->reset_singleton( StockData::class );
 		$this->reset_singleton( StockDataEndpoint::class );
+
+		// Initialize REST API server.
+		global $wp_rest_server;
+		$this->server = $wp_rest_server = new WP_REST_Server();
+
+		// Instantiate StockDataEndpoint BEFORE calling rest_api_init.
+		// This hooks its register() method to rest_api_init action.
+		StockDataEndpoint::instance();
+
+		// Now fire rest_api_init to register all routes.
+		do_action( 'rest_api_init' );
 	}
 
 	/**

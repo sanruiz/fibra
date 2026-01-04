@@ -107,22 +107,43 @@ class StockData {
 	}
 
 	/**
-	 * Load configuration from ACF options
+	 * Load configuration from ACF options or WordPress options fallback.
+	 *
+	 * Uses ACF get_field() when available, with fallback to direct WordPress
+	 * options (options_* prefix) for testing environments without ACF.
 	 */
 	private function load_config(): void {
-		if ( ! function_exists( 'get_field' ) ) {
-			return;
-		}
-
-		$symbol       = get_field( 'stock_symbol', 'option' );
-		$api_endpoint = get_field( 'stock_api_endpoint', 'option' );
-		$api_key      = get_field( 'stock_api_key', 'option' );
-		$api_host     = get_field( 'stock_api_host', 'option' );
+		// Try ACF first, then fall back to WordPress options.
+		$symbol       = $this->get_option_value( 'stock_symbol' );
+		$api_endpoint = $this->get_option_value( 'stock_api_endpoint' );
+		$api_key      = $this->get_option_value( 'stock_api_key' );
+		$api_host     = $this->get_option_value( 'stock_api_host' );
 
 		$this->symbol       = ! empty( $symbol ) ? $symbol : 'SOMA21.MX';
 		$this->api_endpoint = ! empty( $api_endpoint ) ? $api_endpoint : 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes';
 		$this->api_key      = ! empty( $api_key ) ? $api_key : '';
 		$this->api_host     = ! empty( $api_host ) ? $api_host : 'apidojo-yahoo-finance-v1.p.rapidapi.com';
+	}
+
+	/**
+	 * Get option value from ACF or WordPress options fallback.
+	 *
+	 * @param string $field_name The field name without prefix.
+	 * @return mixed The option value or empty string.
+	 */
+	private function get_option_value( string $field_name ) {
+		// Try ACF get_field first (production environment).
+		if ( function_exists( 'get_field' ) ) {
+			$value = get_field( $field_name, 'option' );
+			if ( ! empty( $value ) ) {
+				return $value;
+			}
+		}
+
+		// Fall back to WordPress options (testing environment).
+		// ACF stores options with 'options_' prefix.
+		$option_value = get_option( 'options_' . $field_name );
+		return ! empty( $option_value ) ? $option_value : '';
 	}
 
 	/**
