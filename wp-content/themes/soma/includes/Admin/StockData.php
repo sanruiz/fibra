@@ -130,8 +130,13 @@ class StockData {
 			return;
 		}
 
-		// Inline styles.
-		wp_add_inline_style( 'acf-input', $this->get_admin_inline_styles() );
+		// Enqueue external styles.
+		wp_enqueue_style(
+			'soma-stock-data-admin',
+			get_template_directory_uri() . '/assets/css/admin/stock-data.css',
+			array(),
+			wp_get_theme()->get( 'Version' )
+		);
 
 		// Enqueue the external script.
 		wp_enqueue_script(
@@ -161,45 +166,6 @@ class StockData {
 				),
 			)
 		);
-	}
-
-	/**
-	 * Get inline CSS for admin status display.
-	 *
-	 * @return string CSS code.
-	 */
-	private function get_admin_inline_styles(): string {
-		return '
-			.soma-stock-status-wrapper {
-				background: #f9f9f9;
-				border: 1px solid #ddd;
-				border-radius: 4px;
-				padding: 15px;
-				margin: 10px 0;
-			}
-			.soma-stock-status-info {
-				margin-bottom: 15px;
-			}
-			.soma-stock-status-info p {
-				margin: 5px 0;
-			}
-			.soma-status-success {
-				color: #46b450;
-			}
-			.soma-status-error {
-				color: #dc3232;
-			}
-			.soma-status-warning {
-				color: #ffb900;
-			}
-			.soma-status-message {
-				font-style: italic;
-				font-size: 13px;
-			}
-			.soma-test-api-btn {
-				margin-top: 10px !important;
-			}
-		';
 	}
 
 	/**
