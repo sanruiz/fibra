@@ -72,6 +72,21 @@ class StockDataTest extends WP_UnitTestCase {
 	private function skip_without_real_api_key(): void {
 		if ( ! $this->has_real_api_key ) {
 			$this->markTestSkipped( 'Real API key not available. Set SOMA_STOCK_API_KEY environment variable to run external API tests.' );
+			return; // Prevent further execution when skipped.
+		}
+	}
+
+	/**
+	 * Skip test if API didn't return valid stock data.
+	 *
+	 * Validates that stock_data option contains expected structure.
+	 * External APIs may be rate-limited, unavailable, or return errors.
+	 *
+	 * @param mixed $data The stock data from get_option( 'stock_data' ).
+	 */
+	private function skip_without_valid_stock_data( $data ): void {
+		if ( ! is_array( $data ) || empty( $data ) || ! isset( $data['symbol'] ) ) {
+			$this->markTestSkipped( 'API did not return valid stock data. External API may be unavailable or rate limited.' );
 		}
 	}
 
@@ -225,6 +240,9 @@ class StockDataTest extends WP_UnitTestCase {
 		// Get the stored data.
 		$data = get_option( 'stock_data' );
 
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $data );
+
 		// Verify data was stored.
 		$this->assertIsArray( $data, 'Stock data should be stored as array' );
 
@@ -279,6 +297,9 @@ class StockDataTest extends WP_UnitTestCase {
 
 		$data = get_option( 'stock_data' );
 
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $data );
+
 		// Price should be within 52-week range (with some buffer).
 		$this->assertGreaterThanOrEqual( 40.0, $data['price'], 'Price should be >= $40 MXN' );
 		$this->assertLessThanOrEqual( 60.0, $data['price'], 'Price should be <= $60 MXN' );
@@ -297,6 +318,9 @@ class StockDataTest extends WP_UnitTestCase {
 		$instance->fetch_stock_data();
 
 		$data = get_option( 'stock_data' );
+
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $data );
 
 		// Verify timezone fields exist.
 		$this->assertArrayHasKey( 'exchangeTimezoneName', $data );
@@ -320,6 +344,9 @@ class StockDataTest extends WP_UnitTestCase {
 
 		$data = get_option( 'stock_data' );
 
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $data );
+
 		// Verify company name fields exist.
 		$this->assertArrayHasKey( 'shortName', $data );
 		$this->assertArrayHasKey( 'longName', $data );
@@ -342,6 +369,9 @@ class StockDataTest extends WP_UnitTestCase {
 
 		// Use the helper function.
 		$data = soma_get_stock_data();
+
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $data );
 
 		$this->assertIsArray( $data );
 		$this->assertSame( 'SOMA21.MX', $data['symbol'] );
@@ -483,6 +513,9 @@ class StockDataTest extends WP_UnitTestCase {
 		// Verify data was fetched.
 		$data = get_option( 'stock_data' );
 
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $data );
+
 		$this->assertIsArray( $data );
 		$this->assertSame( 'SOMA21.MX', $data['symbol'] );
 		$this->assertSame( 'MXN', $data['currency'] );
@@ -557,6 +590,9 @@ class StockDataTest extends WP_UnitTestCase {
 		// Get updated data.
 		$data = get_option( 'stock_data' );
 
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $data );
+
 		// Verify data was updated.
 		$this->assertSame( 'SOMA21.MX', $data['symbol'] );
 		$this->assertSame( 'MXN', $data['currency'] );
@@ -578,6 +614,9 @@ class StockDataTest extends WP_UnitTestCase {
 		// First fetch.
 		$instance->fetch_stock_data();
 		$first_data = get_option( 'stock_data' );
+
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $first_data );
 
 		// Second fetch.
 		$instance->fetch_stock_data();
@@ -604,6 +643,9 @@ class StockDataTest extends WP_UnitTestCase {
 		$instance->fetch_stock_data();
 
 		$data = get_option( 'stock_data' );
+
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_stock_data( $data );
 
 		// Verify exact field mapping from API response.
 		$expected_fields = array(

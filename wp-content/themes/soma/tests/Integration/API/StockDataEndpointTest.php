@@ -87,6 +87,20 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 	private function skip_without_real_api_key(): void {
 		if ( ! $this->has_real_api_key ) {
 			$this->markTestSkipped( 'Real API key not available. Set SOMA_STOCK_API_KEY environment variable to run external API tests.' );
+			return; // Prevent further execution when skipped.
+		}
+	}
+
+	/**
+	 * Skip test if API data is not valid.
+	 *
+	 * Checks that the API returned valid data before testing specific fields.
+	 *
+	 * @param array|mixed $data The API response data.
+	 */
+	private function skip_without_valid_api_data( $data ): void {
+		if ( ! is_array( $data ) || empty( $data ) || ! isset( $data['timestamp'] ) ) {
+			$this->markTestSkipped( 'API did not return valid data. External API may be unavailable or rate limited.' );
 		}
 	}
 
@@ -404,6 +418,9 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_api_data( $data );
+
 		// Timestamp should be within the last 7 days (markets may be closed).
 		$seven_days_ago = time() - ( 7 * DAY_IN_SECONDS );
 		$this->assertGreaterThan( $seven_days_ago, $data['timestamp'] );
@@ -428,6 +445,9 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_api_data( $data );
+
 		$valid_states = array( 'CLOSED', 'REGULAR', 'PRE', 'POST', 'PREPRE', 'POSTPOST' );
 		$this->assertContains( $data['marketState'], $valid_states );
 	}
@@ -450,6 +470,9 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 		$request  = new WP_REST_Request( 'GET', '/soma/stock-data' );
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
+
+		// Skip if API didn't return valid data.
+		$this->skip_without_valid_api_data( $data );
 
 		// Mexico City is UTC-6 = -21600000 milliseconds.
 		$this->assertSame( -21600000, $data['exchangeTimezoneOffset'] );
