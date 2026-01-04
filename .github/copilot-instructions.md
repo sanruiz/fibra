@@ -465,6 +465,7 @@ The following instruction files apply automatically based on file type. VS Code 
 
 **Available instruction files:**
 - `.github/instructions/php.instructions.md` → PHP files (`**/*.php`)
+- `.github/instructions/elementor-widgets.instructions.md` → Elementor widgets (`**/Elementor/Widgets/**/*.php`)
 - `.github/instructions/documentation-language.instructions.md` → Documentation and language policy
 - `.github/instructions/github-workflow.instructions.md` → GitHub operations and workflow
 
