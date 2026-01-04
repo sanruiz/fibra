@@ -122,15 +122,16 @@ class StockDataTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test cron schedule is registered
+	 * Test cron schedules are registered
 	 */
 	public function test_cron_schedule_is_registered(): void {
 		StockData::instance();
 
 		$schedules = wp_get_schedules();
 
-		$this->assertArrayHasKey( 'three_hours', $schedules );
-		$this->assertSame( 3 * HOUR_IN_SECONDS, $schedules['three_hours']['interval'] );
+		// Default interval is 3 hours.
+		$this->assertArrayHasKey( 'soma_every_3_hours', $schedules );
+		$this->assertSame( 3 * HOUR_IN_SECONDS, $schedules['soma_every_3_hours']['interval'] );
 	}
 
 	/**
@@ -146,15 +147,20 @@ class StockDataTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test custom_cron_schedules adds three_hours interval
+	 * Test custom_cron_schedules adds configurable intervals
 	 */
 	public function test_custom_cron_schedules_adds_interval(): void {
 		$instance  = StockData::instance();
 		$schedules = $instance->custom_cron_schedules( array() );
 
-		$this->assertArrayHasKey( 'three_hours', $schedules );
-		$this->assertSame( 3 * HOUR_IN_SECONDS, $schedules['three_hours']['interval'] );
-		$this->assertArrayHasKey( 'display', $schedules['three_hours'] );
+		// All configurable intervals should be registered.
+		$this->assertArrayHasKey( 'soma_every_1_hours', $schedules );
+		$this->assertArrayHasKey( 'soma_every_3_hours', $schedules );
+		$this->assertArrayHasKey( 'soma_every_6_hours', $schedules );
+		$this->assertArrayHasKey( 'soma_every_12_hours', $schedules );
+		$this->assertArrayHasKey( 'soma_every_24_hours', $schedules );
+		$this->assertSame( 3 * HOUR_IN_SECONDS, $schedules['soma_every_3_hours']['interval'] );
+		$this->assertArrayHasKey( 'display', $schedules['soma_every_3_hours'] );
 	}
 
 	/**
@@ -171,7 +177,7 @@ class StockDataTest extends WP_UnitTestCase {
 		$schedules = $instance->custom_cron_schedules( $existing );
 
 		$this->assertArrayHasKey( 'daily', $schedules );
-		$this->assertArrayHasKey( 'three_hours', $schedules );
+		$this->assertArrayHasKey( 'soma_every_3_hours', $schedules );
 	}
 
 	/**
@@ -418,23 +424,23 @@ class StockDataTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test cron interval is 3 hours (10800 seconds)
+	 * Test cron interval is correct for 3-hour schedule (10800 seconds)
 	 */
 	public function test_cron_interval_is_three_hours(): void {
 		StockData::instance();
 
 		$schedules = wp_get_schedules();
 
-		$this->assertSame( 10800, $schedules['three_hours']['interval'] );
+		$this->assertSame( 10800, $schedules['soma_every_3_hours']['interval'] );
 	}
 
 	/**
 	 * Test cron event uses correct recurrence schedule
 	 */
-	public function test_cron_event_uses_three_hours_schedule(): void {
+	public function test_cron_event_uses_configured_schedule(): void {
 		StockData::instance();
 
-		$cron      = _get_cron_array();
+		$cron       = _get_cron_array();
 		$recurrence = null;
 
 		foreach ( $cron as $timestamp => $hooks ) {
@@ -444,7 +450,8 @@ class StockDataTest extends WP_UnitTestCase {
 			}
 		}
 
-		$this->assertSame( 'three_hours', $recurrence );
+		// Default interval is 3 hours.
+		$this->assertSame( 'soma_every_3_hours', $recurrence );
 	}
 
 	/**
@@ -544,9 +551,9 @@ class StockDataTest extends WP_UnitTestCase {
 		// Initialize the singleton (this should register schedule first, then event).
 		StockData::instance();
 
-		// Verify schedule exists.
+		// Verify schedule exists (default is 3 hours).
 		$schedules = wp_get_schedules();
-		$this->assertArrayHasKey( 'three_hours', $schedules );
+		$this->assertArrayHasKey( 'soma_every_3_hours', $schedules );
 
 		// Verify event is scheduled with the correct recurrence.
 		$cron       = _get_cron_array();
@@ -562,7 +569,7 @@ class StockDataTest extends WP_UnitTestCase {
 		}
 
 		$this->assertTrue( $found, 'Cron event should be scheduled' );
-		$this->assertSame( 'three_hours', $recurrence, 'Cron should use three_hours schedule' );
+		$this->assertSame( 'soma_every_3_hours', $recurrence, 'Cron should use soma_every_3_hours schedule' );
 	}
 
 	/**

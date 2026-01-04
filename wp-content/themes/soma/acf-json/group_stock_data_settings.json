@@ -78,6 +78,54 @@
             "placeholder": "api-host.example.com",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_stock_update_interval",
+            "label": "Update Interval",
+            "name": "stock_update_interval",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "How often to fetch stock data from the API",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "1": "Every 1 hour",
+                "2": "Every 2 hours",
+                "3": "Every 3 hours",
+                "6": "Every 6 hours",
+                "12": "Every 12 hours",
+                "24": "Every 24 hours"
+            },
+            "default_value": "3",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_stock_status_display",
+            "label": "API Status & Testing",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": "stock-data-status-wrapper"
+            },
+            "message": "<div id='soma-stock-data-status'>Loading status...</div>",
+            "new_lines": "",
+            "esc_html": 0
         }
     ],
     "location": [
