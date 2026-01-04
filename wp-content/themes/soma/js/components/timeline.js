@@ -19,6 +19,8 @@ const arrow = `
 const timelineHandler = (containers) => {
     containers.each((key, el) => {
         imagesLoaded(el, () => {
+            const hasAutoplay = $(el).data('autoplay') ? true : false;
+            const autoplaySpeed = ($(el).data('autoplay') && $(el).data('speed')) ? $(el).data('speed') : 3000;
             $(el).find('.timeline-slider').slick({
                 centerMode: true,
                 centerPadding: '19.55vw',
@@ -28,8 +30,8 @@ const timelineHandler = (containers) => {
                 nextArrow: `<button class="slick-arrow next-arrow">${arrow}</button>`,
                 asNavFor: '.dot-container',
                 focusOnSelect: true,
-                autoplay: $(el).data('autoplay') ? true : false,
-                autoplay: ($(el).data('autoplay') && $(el).data('speed')) ? $(el).data('speed') : 0
+                autoplay: hasAutoplay,
+                autoplaySpeed: autoplaySpeed
             });
             $(el).find('.timeline-captions').slick({
                 fade: true,
