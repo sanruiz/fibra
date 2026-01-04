@@ -126,6 +126,7 @@ class DocumentsWidgetTest extends WP_UnitTestCase {
 		$this->assertNotEmpty( $controls, 'Widget should have controls registered' );
 
 		// Verify specific controls exist.
+		$this->assertArrayHasKey( 'category', $controls, 'Widget should have category control' );
 		$this->assertArrayHasKey( 'posts_per_page', $controls, 'Widget should have posts_per_page control' );
 		$this->assertArrayHasKey( 'orderby', $controls, 'Widget should have orderby control' );
 		$this->assertArrayHasKey( 'order', $controls, 'Widget should have order control' );
@@ -307,6 +308,32 @@ class DocumentsWidgetTest extends WP_UnitTestCase {
 		$this->assertArrayHasKey( 'image_height', $controls );
 		$this->assertArrayHasKey( 'title_color', $controls );
 		$this->assertArrayHasKey( 'download_color', $controls );
+	}
+
+	/**
+	 * Test get_document_categories method exists and returns array
+	 */
+	public function test_get_document_categories_returns_array(): void {
+		$reflection = new \ReflectionClass( $this->widget );
+		$method     = $reflection->getMethod( 'get_document_categories' );
+
+		$result = $method->invoke( $this->widget );
+
+		$this->assertIsArray( $result, 'get_document_categories should return an array' );
+	}
+
+	/**
+	 * Test category control uses SELECT2 type
+	 */
+	public function test_category_control_is_select2(): void {
+		$reflection = new \ReflectionClass( $this->widget );
+		$method     = $reflection->getMethod( 'register_controls' );
+		$method->invoke( $this->widget );
+
+		$controls = $this->widget->get_controls();
+
+		$this->assertArrayHasKey( 'category', $controls );
+		$this->assertSame( 'select2', $controls['category']['type'], 'Category control should be SELECT2 type' );
 	}
 
 	/**

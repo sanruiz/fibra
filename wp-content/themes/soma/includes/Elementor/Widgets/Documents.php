@@ -77,6 +77,29 @@ class Documents extends WidgetBase {
 	}
 
 	/**
+	 * Get documents taxonomy terms as options
+	 *
+	 * @return array<int|string, string>
+	 */
+	private function get_document_categories(): array {
+		$terms   = get_terms(
+			array(
+				'taxonomy'   => 'documents-taxonomy',
+				'hide_empty' => false,
+			)
+		);
+		$options = array();
+
+		if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$options[ $term->term_id ] = $term->name;
+			}
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Register content controls
 	 *
 	 * @return void
@@ -87,6 +110,17 @@ class Documents extends WidgetBase {
 			'section_query',
 			array(
 				'label' => __( 'Query', 'soma' ),
+			)
+		);
+
+		$this->add_control(
+			'category',
+			array(
+				'label'       => __( 'Category', 'soma' ),
+				'type'        => Controls_Manager::SELECT2,
+				'options'     => $this->get_document_categories(),
+				'label_block' => true,
+				'description' => __( 'Select a category to filter documents. Leave empty to show all.', 'soma' ),
 			)
 		);
 
@@ -421,18 +455,31 @@ class Documents extends WidgetBase {
 		$limit         = (int) $settings['posts_per_page'];
 		$title_tag     = $settings['title_tag'];
 		$download_text = $settings['download_text'];
+		$category      = ! empty( $settings['category'] ) ? (int) $settings['category'] : 0;
+
+		// Build query arguments.
+		$query_args = array(
+			'post_type'      => 'documents-reports',
+			'posts_per_page' => $limit * 3,
+			'orderby'        => $settings['orderby'],
+			'order'          => $settings['order'],
+			'post_status'    => 'publish',
+		);
+
+		// Add category filter if selected.
+		if ( $category > 0 ) {
+			$query_args['tax_query'] = array(
+				array(
+					'taxonomy' => 'documents-taxonomy',
+					'field'    => 'term_id',
+					'terms'    => $category,
+				),
+			);
+		}
 
 		// Query extra posts to account for documents without files.
 		// We fetch 3x the limit to have enough buffer.
-		$documents = new \WP_Query(
-			array(
-				'post_type'      => 'documents-reports',
-				'posts_per_page' => $limit * 3,
-				'orderby'        => $settings['orderby'],
-				'order'          => $settings['order'],
-				'post_status'    => 'publish',
-			)
-		);
+		$documents = new \WP_Query( $query_args );
 
 		// Filter documents to only include those with valid files.
 		$valid_documents       = array();
