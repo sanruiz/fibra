@@ -44,9 +44,6 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 - `includes/Elementor/Widgets/TeamMembers.php` - Modular single-category design with Elementor defaults
 - `assets/css/widgets/team-members.css` - Full SOMA CSS variables integration
 
----
-
-## [3.1.9] - 2025-01-03
 
 ### Complete Spanish Translations
 
