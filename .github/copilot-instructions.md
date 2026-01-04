@@ -169,7 +169,150 @@ gh pr view 42 | cat          # ✅ Correct
 gh pr view 42                # ❌ Will hang
 ```
 
-### � Release Workflow Checklist
+### 📝 Responding to PR Review Comments
+
+When the PR has review comments from Copilot Code Review or other reviewers, use these commands to list and respond to them:
+
+**List all review comments with their IDs and file locations:**
+```bash
+gh api repos/sanruiz/fibra/pulls/<pr-number>/comments --jq '.[] | "ID: \(.id) | File: \(.path):\(.line // .original_line)"' | cat
+```
+
+**Get full details of a specific comment:**
+```bash
+gh api repos/sanruiz/fibra/pulls/<pr-number>/comments --jq '.[] | select(.id == <comment-id>)' | cat
+```
+
+**Get all commits in the PR (needed for commit_id when replying):**
+```bash
+gh api repos/sanruiz/fibra/pulls/<pr-number>/commits --jq '.[].sha' | cat
+```
+
+**Reply to a review comment (use the LATEST commit SHA from the PR):**
+```bash
+gh api repos/sanruiz/fibra/pulls/<pr-number>/comments -X POST --input - <<EOF | cat
+{
+  "body": "Fixed in commit <short-sha>. <description of the fix>",
+  "commit_id": "<full-40-char-commit-sha-from-pr>",
+  "path": "<file-path-from-comment>",
+  "line": <line-number-from-comment>,
+  "in_reply_to": <original-comment-id>
+}
+EOF
+```
+
+**Important Notes for Replying to Review Comments:**
+- The `commit_id` MUST be a full 40-character SHA that belongs to the PR (use the commits endpoint to get valid SHAs)
+- The `in_reply_to` field links your reply to the original comment thread
+- The `path` and `line` should match the original comment's location
+- Always pipe to `| cat` to avoid paging issues
+
+**Example Workflow (REST API):**
+```bash
+# 1. Get comment IDs
+gh api repos/sanruiz/fibra/pulls/150/comments --jq '.[] | "ID: \(.id) | File: \(.path):\(.original_line)"' | cat
+
+# 2. Get valid commit SHA from PR
+gh api repos/sanruiz/fibra/pulls/150/commits --jq '.[].sha' | cat
+# Output: 2c714cbb93edfbf923c70d29815974ce9f00e91b (use the latest one)
+
+# 3. Reply to comment
+gh api repos/sanruiz/fibra/pulls/150/comments -X POST --input - <<EOF | cat
+{
+  "body": "Fixed in commit 85e5d7f. Added check_ajax_referer() for CSRF protection.",
+  "commit_id": "2c714cbb93edfbf923c70d29815974ce9f00e91b",
+  "path": "includes/Admin/StockData.php",
+  "line": 270,
+  "in_reply_to": 2659078318
+}
+EOF
+```
+
+### 📝 Using GraphQL API for Review Threads (Recommended)
+
+The GraphQL API provides better access to review threads and is more reliable for replying to Copilot Code Review comments:
+
+**Get all review thread IDs with their comments:**
+```bash
+gh api graphql -f query='
+query {
+  repository(owner: "sanruiz", name: "fibra") {
+    pullRequest(number: <pr-number>) {
+      reviewThreads(first: 20) {
+        nodes {
+          id
+          path
+          isResolved
+          comments(first: 1) {
+            nodes {
+              id
+              body
+            }
+          }
+        }
+      }
+    }
+  }
+}' | cat
+```
+
+**Reply to a specific review thread using GraphQL:**
+```bash
+gh api graphql -f query='
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDONqY9Pc6XXXXXXX",
+    body: "Fixed in commit abc1234. Description of the fix."
+  }) {
+    comment {
+      id
+      body
+    }
+  }
+}' | cat
+```
+
+**Why GraphQL over REST API:**
+- Review thread IDs (`PRRT_...`) are more reliable for Copilot Code Review comments
+- No need to provide `commit_id`, `path`, or `line` - the thread ID handles all context
+- Simpler mutation structure for replies
+- Better support for multi-line review comments
+
+**Example GraphQL Workflow:**
+```bash
+# 1. Get all review thread IDs
+gh api graphql -f query='
+query {
+  repository(owner: "sanruiz", name: "fibra") {
+    pullRequest(number: 150) {
+      reviewThreads(first: 20) {
+        nodes {
+          id
+          path
+          comments(first: 1) {
+            nodes {
+              body
+            }
+          }
+        }
+      }
+    }
+  }
+}' | cat
+
+# 2. Reply to each thread (repeat for each thread ID)
+gh api graphql -f query='
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDONqY9Pc6ABC123",
+    body: "Fixed in commit abc1234. Added proper validation."
+  }) {
+    comment { id }
+  }
+}' | cat
+```
+
+### 🚀 Release Workflow Checklist
 
 **Standard Release (from week-* to main):**
 
@@ -506,9 +649,126 @@ npm run prod   # Production build (minified)
 
 ## WordPress-Specific Conventions
 
-**Security:** All PHP files start with:
+### Security: ABSPATH Check
+
+All PHP files start with:
 ```php
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
+```
+
+### Security: Nonce Validation (MANDATORY)
+
+**ALWAYS validate nonces in AJAX handlers and form submissions.** Nonces protect against CSRF attacks.
+
+**Creating nonces:**
+```php
+// In PHP (for forms)
+wp_nonce_field( 'action_name', 'nonce_field_name' );
+
+// In PHP (for URLs)
+$url = wp_nonce_url( $url, 'action_name' );
+
+// In PHP (for JavaScript via wp_localize_script)
+wp_localize_script( 'handle', 'myAjax', array(
+    'nonce' => wp_create_nonce( 'my_ajax_nonce' ),
+    'ajaxurl' => admin_url( 'admin-ajax.php' ),
+));
+```
+
+**Verifying nonces (REQUIRED in every AJAX handler):**
+```php
+// For AJAX handlers - use check_ajax_referer()
+public function ajax_handler(): void {
+    // ✅ ALWAYS verify nonce FIRST
+    check_ajax_referer( 'my_ajax_nonce', 'nonce' );
+    
+    // Then check capabilities
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Unauthorized', 403 );
+        return;
+    }
+    
+    // Now process the request...
+    wp_send_json_success( $data );
+}
+
+// For form submissions - use wp_verify_nonce()
+if ( ! wp_verify_nonce( $_POST['nonce_field_name'], 'action_name' ) ) {
+    wp_die( 'Security check failed' );
+}
+```
+
+**❌ NEVER process AJAX without nonce verification:**
+```php
+// ❌ BAD - No nonce check
+public function ajax_handler(): void {
+    $data = $_POST['data']; // Vulnerable to CSRF!
+    // ...
+}
+
+// ✅ GOOD - Nonce verified first
+public function ajax_handler(): void {
+    check_ajax_referer( 'my_nonce', 'nonce' ); // Dies if invalid
+    $data = sanitize_text_field( $_POST['data'] );
+    // ...
+}
+```
+
+### Security: Output Escaping (MANDATORY)
+
+**Always escape output to prevent XSS attacks.** WordPress provides context-specific escaping functions:
+
+| Function | Use Case | Example |
+|----------|----------|---------|
+| `esc_html()` | HTML content (strips tags) | `<p><?php echo esc_html( $text ); ?></p>` |
+| `esc_attr()` | HTML attributes | `<div class="<?php echo esc_attr( $class ); ?>">` |
+| `esc_url()` | URLs (href, src) | `<a href="<?php echo esc_url( $link ); ?>">` |
+| `esc_js()` | Inline JavaScript | `onclick="doSomething('<?php echo esc_js( $val ); ?>')"` |
+| `esc_textarea()` | Textarea content | `<textarea><?php echo esc_textarea( $content ); ?></textarea>` |
+| `wp_kses_post()` | Allow safe HTML | `<?php echo wp_kses_post( $html_content ); ?>` |
+
+**Escaping with Localization (combined functions):**
+```php
+// These combine escaping + translation
+esc_html__( 'Text', 'soma' );   // Returns escaped translated string
+esc_html_e( 'Text', 'soma' );   // Echoes escaped translated string
+esc_attr__( 'Text', 'soma' );   // Returns escaped for attribute
+esc_attr_e( 'Text', 'soma' );   // Echoes escaped for attribute
+```
+
+**❌ NEVER echo unescaped data:**
+```php
+// ❌ BAD - XSS vulnerability
+echo $user_input;
+echo $_GET['search'];
+
+// ✅ GOOD - Properly escaped
+echo esc_html( $user_input );
+echo esc_html( sanitize_text_field( $_GET['search'] ) );
+```
+
+**Escape Late Principle:** Always escape at the point of output, not before:
+```php
+// ❌ Not ideal - escaped too early
+$title = esc_html( get_the_title() );
+// ... more code ...
+echo $title;
+
+// ✅ Better - escape at output
+$title = get_the_title();
+// ... more code ...
+echo esc_html( $title );
+```
+
+### Security: Input Sanitization
+
+**Always sanitize user input before using or storing:**
+```php
+$text = sanitize_text_field( $_POST['field'] );
+$email = sanitize_email( $_POST['email'] );
+$url = esc_url_raw( $_POST['url'] );  // For database storage
+$int = absint( $_POST['number'] );     // Positive integer
+$key = sanitize_key( $_POST['key'] );  // Lowercase alphanumeric
 ```
 
 **Template inclusion:** Use `get_template_part()`, not `include()`:
