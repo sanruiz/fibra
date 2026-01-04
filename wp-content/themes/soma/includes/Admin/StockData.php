@@ -329,20 +329,40 @@ class StockData {
 	/**
 	 * Add custom cron schedules based on configured interval.
 	 *
+	 * WordPress PHPCS cannot detect interval values when they are computed dynamically.
+	 * All intervals here are >= 1 hour (3600 seconds), which is well above the
+	 * recommended minimum of 15 minutes (900 seconds) for cron schedules.
+	 *
 	 * @param array $schedules Existing schedules.
 	 * @return array Modified schedules.
 	 */
 	public function custom_cron_schedules( array $schedules ): array {
-		// Add schedules for all supported intervals.
-		$intervals = array( 1, 2, 3, 6, 12, 24 );
-		foreach ( $intervals as $hours ) {
-			$key               = 'soma_every_' . $hours . '_hours';
-			$schedules[ $key ] = array(
-				'interval' => $hours * HOUR_IN_SECONDS,
-				/* translators: %d: number of hours */
-				'display'  => sprintf( __( 'Every %d Hour(s)', 'soma' ), $hours ),
-			);
-		}
+		// All intervals are >= 1 hour (3600s), well above the 15-minute minimum.
+		// phpcs:ignore WordPress.WP.CronInterval.ChangeDetected -- Minimum interval is 1 hour (3600 seconds).
+		$schedules['soma_every_1_hours']  = array(
+			'interval' => 1 * HOUR_IN_SECONDS,
+			'display'  => __( 'Every 1 Hour(s)', 'soma' ),
+		);
+		$schedules['soma_every_2_hours']  = array(
+			'interval' => 2 * HOUR_IN_SECONDS,
+			'display'  => __( 'Every 2 Hour(s)', 'soma' ),
+		);
+		$schedules['soma_every_3_hours']  = array(
+			'interval' => 3 * HOUR_IN_SECONDS,
+			'display'  => __( 'Every 3 Hour(s)', 'soma' ),
+		);
+		$schedules['soma_every_6_hours']  = array(
+			'interval' => 6 * HOUR_IN_SECONDS,
+			'display'  => __( 'Every 6 Hour(s)', 'soma' ),
+		);
+		$schedules['soma_every_12_hours'] = array(
+			'interval' => 12 * HOUR_IN_SECONDS,
+			'display'  => __( 'Every 12 Hour(s)', 'soma' ),
+		);
+		$schedules['soma_every_24_hours'] = array(
+			'interval' => 24 * HOUR_IN_SECONDS,
+			'display'  => __( 'Every 24 Hour(s)', 'soma' ),
+		);
 		return $schedules;
 	}
 
