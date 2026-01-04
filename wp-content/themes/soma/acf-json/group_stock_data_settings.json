@@ -1,0 +1,102 @@
+{
+    "key": "group_stock_data_settings",
+    "title": "Stock Data Settings",
+    "fields": [
+        {
+            "key": "field_stock_symbol",
+            "label": "Stock Symbol",
+            "name": "stock_symbol",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The stock ticker symbol (e.g., SOMA21.MX)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "SOMA21.MX",
+            "maxlength": "",
+            "placeholder": "SOMA21.MX",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_stock_api_endpoint",
+            "label": "API Endpoint",
+            "name": "stock_api_endpoint",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Yahoo Finance API endpoint URL",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes",
+            "placeholder": "https://api.example.com/endpoint"
+        },
+        {
+            "key": "field_stock_api_key",
+            "label": "API Key",
+            "name": "stock_api_key",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "RapidAPI key for Yahoo Finance API. Keep this value secure.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Your API key",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_stock_api_host",
+            "label": "API Host",
+            "name": "stock_api_host",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "RapidAPI host header value",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "apidojo-yahoo-finance-v1.p.rapidapi.com",
+            "maxlength": "",
+            "placeholder": "api-host.example.com",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-stock-data"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Configuration settings for the Stock Data API integration",
+    "show_in_rest": 0,
+    "modified": 1735948800
+}

@@ -28,28 +28,28 @@ class StockData {
 	 *
 	 * @var string
 	 */
-	private string $symbol = 'SOMA21.MX';
+	private string $symbol = '';
 
 	/**
 	 * API endpoint
 	 *
 	 * @var string
 	 */
-	private string $api_endpoint = 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes';
+	private string $api_endpoint = '';
 
 	/**
 	 * API key
 	 *
 	 * @var string
 	 */
-	private string $api_key = 'fcea2b884fmshd2599170d0a0089p1d0897jsnd0b613f3fb0f';
+	private string $api_key = '';
 
 	/**
 	 * API host
 	 *
 	 * @var string
 	 */
-	private string $api_host = 'apidojo-yahoo-finance-v1.p.rapidapi.com';
+	private string $api_host = '';
 
 	/**
 	 * Get singleton instance
@@ -87,6 +87,9 @@ class StockData {
 	 * Initialize stock data fetcher
 	 */
 	private function init(): void {
+		// Load configuration from ACF options.
+		$this->load_config();
+
 		// Register custom cron schedule FIRST (before using it).
 		add_filter( 'cron_schedules', array( $this, 'custom_cron_schedules' ) );
 
@@ -101,6 +104,55 @@ class StockData {
 			$first_run = $now - ( $now % $interval ) + $interval;
 			wp_schedule_event( $first_run, 'three_hours', 'update_stock_data_event' );
 		}
+	}
+
+	/**
+	 * Load configuration from ACF options or WordPress options fallback.
+	 *
+	 * Uses ACF get_field() when available, with fallback to direct WordPress
+	 * options (options_* prefix) for testing environments without ACF.
+	 */
+	private function load_config(): void {
+		// Try ACF first, then fall back to WordPress options.
+		$symbol       = $this->get_option_value( 'stock_symbol' );
+		$api_endpoint = $this->get_option_value( 'stock_api_endpoint' );
+		$api_key      = $this->get_option_value( 'stock_api_key' );
+		$api_host     = $this->get_option_value( 'stock_api_host' );
+
+		$this->symbol       = ! empty( $symbol ) ? $symbol : 'SOMA21.MX';
+		$this->api_endpoint = ! empty( $api_endpoint ) ? $api_endpoint : 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes';
+		$this->api_key      = ! empty( $api_key ) ? $api_key : '';
+		$this->api_host     = ! empty( $api_host ) ? $api_host : 'apidojo-yahoo-finance-v1.p.rapidapi.com';
+	}
+
+	/**
+	 * Get option value from ACF or WordPress options fallback.
+	 *
+	 * @param string $field_name The field name without prefix.
+	 * @return string The option value or empty string.
+	 */
+	private function get_option_value( string $field_name ): string {
+		// Try ACF get_field first (production environment).
+		if ( function_exists( 'get_field' ) ) {
+			$value = get_field( $field_name, 'option' );
+			if ( ! empty( $value ) ) {
+				return (string) $value;
+			}
+		}
+
+		// Fall back to WordPress options (testing environment).
+		// ACF stores options with 'options_' prefix.
+		$option_value = get_option( 'options_' . $field_name );
+		return ! empty( $option_value ) ? (string) $option_value : '';
+	}
+
+	/**
+	 * Check if API is configured
+	 *
+	 * @return bool True if API key is configured.
+	 */
+	public function is_configured(): bool {
+		return ! empty( $this->api_key );
 	}
 
 	/**
@@ -121,6 +173,15 @@ class StockData {
 	 * Fetch stock data from Yahoo Finance API
 	 */
 	public function fetch_stock_data(): void {
+		// Reload config to ensure we have latest values.
+		$this->load_config();
+
+		// Skip if API is not configured.
+		if ( ! $this->is_configured() ) {
+			soma_log_warning( 'Stock data API not configured. Please add API key in Theme Settings > Stock Data.' );
+			return;
+		}
+
 		$response = wp_remote_get(
 			add_query_arg(
 				array(

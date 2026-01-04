@@ -576,6 +576,44 @@ git checkout -b release/v3.0.1
 
 #### Phase 2: Update CHANGELOG.md
 
+**IMPORTANT: Handle [Unreleased] Section**
+
+The CHANGELOG.md may contain an `[Unreleased]` section with changes that haven't been assigned a version yet. During release preparation:
+
+1. **Find the `[Unreleased]` section** at the top of the changelog
+2. **Replace `[Unreleased]` with the new version number and date**:
+   - `## [Unreleased]` → `## [3.0.1] - 2025-12-20`
+3. **If no `[Unreleased]` section exists**, create a new version entry
+4. **Add a new empty `[Unreleased]` section** above the new version for future changes (optional)
+
+**Example transformation:**
+
+```markdown
+# Before release preparation:
+## [Unreleased]
+
+### Added
+- New feature X
+- New feature Y
+
+## [3.0.0] - 2025-12-15
+...
+
+# After release preparation (v3.0.1):
+## [Unreleased]
+
+## [3.0.1] - 2025-12-20
+
+### Added
+- New feature X
+- New feature Y
+
+## [3.0.0] - 2025-12-15
+...
+```
+
+**Standard entry format:**
+
 ```markdown
 ## [3.0.1] - 2025-12-20
 

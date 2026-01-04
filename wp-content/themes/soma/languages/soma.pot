@@ -1,15 +1,15 @@
-# Copyright (C) 2025 Santiago Ramirez
+# Copyright (C) 2026 Santiago Ramirez
 # This file is distributed under the same license as the SOMA theme.
 msgid ""
 msgstr ""
-"Project-Id-Version: SOMA 3.1.3\n"
-"Report-Msgid-Bugs-To: https://github.com/sanruiz/fibra/issues\n"
+"Project-Id-Version: SOMA 3.1.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/soma\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Spanish\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-30T04:14:15+00:00\n"
+"POT-Creation-Date: 2026-01-02T04:44:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: soma\n"
@@ -86,7 +86,7 @@ msgid "Name must contain letters only"
 msgstr ""
 
 #: includes/Core/Enums/PostType.php:48
-#: includes/Elementor/Widgets/Portfolio.php:41
+#: includes/Elementor/Widgets/Portfolio.php:51
 #: includes/PostTypes/Types/Portfolio.php:98
 #: includes/Utils/Enums/CacheTag.php:61
 msgid "Portfolio"
@@ -183,19 +183,144 @@ msgid "Select Menu"
 msgstr ""
 
 #: includes/Elementor/Base/WidgetBase.php:319
+#: includes/Elementor/Widgets/Portfolio.php:281
+#: includes/Elementor/Widgets/Portfolio.php:282
+#: includes/Elementor/Widgets/Portfolio.php:696
 #: partials/Portfolio.php:39
 #: partials/Portfolio.php:101
 msgid "All"
 msgstr ""
 
-#: includes/Elementor/Loader.php:168
+#: includes/Elementor/Loader.php:185
 msgid "Soma"
 msgstr ""
 
 #. translators: 1: Plugin name 2: Elementor
-#: includes/Elementor/Loader.php:290
+#: includes/Elementor/Loader.php:361
 #, php-format
 msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be installed and activated for full functionality."
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:49
+msgid "SOMA Breadcrumb"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:103
+msgid "Breadcrumb Settings"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:111
+msgid "Separator"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:114
+msgid "Character or text to separate breadcrumb items"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:121
+msgid "Show Home"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:123
+#: includes/Elementor/Widgets/Breadcrumb.php:135
+#: includes/Elementor/Widgets/Navbar.php:130
+#: includes/Elementor/Widgets/Navbar.php:181
+#: includes/Elementor/Widgets/Navbar.php:193
+msgid "Show"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:124
+#: includes/Elementor/Widgets/Breadcrumb.php:136
+#: includes/Elementor/Widgets/Navbar.php:131
+#: includes/Elementor/Widgets/Navbar.php:182
+#: includes/Elementor/Widgets/Navbar.php:194
+msgid "Hide"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:133
+msgid "Show Current Page"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:148
+msgid "Style"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:157
+#: includes/Elementor/Widgets/BusinessUnits.php:139
+#: includes/Elementor/Widgets/BusinessUnits.php:230
+#: includes/Elementor/Widgets/Documents.php:311
+#: includes/Elementor/Widgets/Documents.php:374
+#: includes/Elementor/Widgets/Footer.php:343
+#: includes/Elementor/Widgets/Navbar.php:308
+#: includes/Elementor/Widgets/Portfolio.php:381
+#: includes/Elementor/Widgets/Portfolio.php:464
+#: includes/Elementor/Widgets/Portfolio.php:501
+#: includes/Elementor/Widgets/Portfolio.php:555
+#: includes/Elementor/Widgets/Portfolio.php:651
+#: includes/Elementor/Widgets/Services.php:323
+#: includes/Elementor/Widgets/Services.php:368
+#: includes/Elementor/Widgets/StockPrice.php:183
+#: includes/Elementor/Widgets/StockPrice.php:215
+msgid "Typography"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:168
+#: includes/Elementor/Widgets/Footer.php:377
+#: includes/Elementor/Widgets/Navbar.php:350
+#: includes/Elementor/Widgets/Navbar.php:368
+msgid "Text Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:182
+#: includes/Elementor/Widgets/Footer.php:378
+msgid "Link Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:196
+#: includes/Elementor/Widgets/Footer.php:379
+msgid "Link Hover Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:207
+msgid "Current Page Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:221
+msgid "Separator Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:235
+#: includes/Elementor/Widgets/StockPrice.php:102
+msgid "Alignment"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:239
+#: includes/Elementor/Widgets/StockPrice.php:106
+msgid "Left"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:243
+#: includes/Elementor/Widgets/StockPrice.php:110
+msgid "Center"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:247
+#: includes/Elementor/Widgets/StockPrice.php:114
+msgid "Right"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:261
+#: includes/Elementor/Widgets/Navbar.php:315
+msgid "Item Spacing"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:298
+#: includes/Utils/Helpers.php:534
+msgid "Home"
+msgstr ""
+
+#: includes/Elementor/Widgets/Breadcrumb.php:336
+msgid "Breadcrumb Navigation"
 msgstr ""
 
 #: includes/Elementor/Widgets/BusinessUnits.php:81
@@ -208,6 +333,8 @@ msgstr ""
 #: includes/Elementor/Widgets/BusinessUnits.php:132
 #: includes/Elementor/Widgets/Documents.php:112
 #: includes/Elementor/Widgets/Documents.php:302
+#: includes/Elementor/Widgets/Portfolio.php:173
+#: includes/Elementor/Widgets/Portfolio.php:492
 #: includes/Elementor/Widgets/Services.php:98
 #: includes/Elementor/Widgets/Services.php:316
 msgid "Title"
@@ -233,22 +360,14 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: includes/Elementor/Widgets/BusinessUnits.php:139
-#: includes/Elementor/Widgets/BusinessUnits.php:230
-#: includes/Elementor/Widgets/Documents.php:311
-#: includes/Elementor/Widgets/Documents.php:374
-#: includes/Elementor/Widgets/Footer.php:343
-#: includes/Elementor/Widgets/Navbar.php:308
-#: includes/Elementor/Widgets/Services.php:323
-#: includes/Elementor/Widgets/Services.php:368
-#: includes/Elementor/Widgets/StockPrice.php:183
-#: includes/Elementor/Widgets/StockPrice.php:215
-msgid "Typography"
-msgstr ""
-
 #: includes/Elementor/Widgets/BusinessUnits.php:143
 #: includes/Elementor/Widgets/Documents.php:322
 #: includes/Elementor/Widgets/Documents.php:385
+#: includes/Elementor/Widgets/Portfolio.php:392
+#: includes/Elementor/Widgets/Portfolio.php:475
+#: includes/Elementor/Widgets/Portfolio.php:512
+#: includes/Elementor/Widgets/Portfolio.php:566
+#: includes/Elementor/Widgets/Portfolio.php:662
 #: includes/Elementor/Widgets/Services.php:327
 #: includes/Elementor/Widgets/Services.php:372
 #: includes/Elementor/Widgets/StockPrice.php:170
@@ -310,7 +429,7 @@ msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:89
 #: includes/Elementor/Widgets/NewsList.php:72
-#: includes/Elementor/Widgets/Portfolio.php:71
+#: includes/Elementor/Widgets/Portfolio.php:124
 #: includes/Elementor/Widgets/TeamMembers.php:71
 msgid "Query"
 msgstr ""
@@ -320,30 +439,37 @@ msgid "Number of Documents"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:107
+#: includes/Elementor/Widgets/Portfolio.php:166
 msgid "Order By"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:111
+#: includes/Elementor/Widgets/Portfolio.php:172
 msgid "Date"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:113
+#: includes/Elementor/Widgets/Portfolio.php:171
 msgid "Menu Order"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:114
+#: includes/Elementor/Widgets/Portfolio.php:174
 msgid "Modified Date"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:122
+#: includes/Elementor/Widgets/Portfolio.php:182
 msgid "Order"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:126
+#: includes/Elementor/Widgets/Portfolio.php:186
 msgid "Descending"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:127
+#: includes/Elementor/Widgets/Portfolio.php:187
 msgid "Ascending"
 msgstr ""
 
@@ -383,11 +509,13 @@ msgstr ""
 #: includes/Elementor/Widgets/Documents.php:247
 #: includes/Elementor/Widgets/Footer.php:290
 #: includes/Elementor/Widgets/Navbar.php:262
+#: includes/Elementor/Widgets/Portfolio.php:343
 #: includes/Elementor/Widgets/Services.php:222
 msgid "Padding"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:257
+#: includes/Elementor/Widgets/Portfolio.php:583
 msgid "Image"
 msgstr ""
 
@@ -397,6 +525,7 @@ msgid "Height"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:336
+#: includes/Elementor/Widgets/Portfolio.php:420
 #: includes/Elementor/Widgets/Services.php:287
 #: includes/Elementor/Widgets/Services.php:332
 msgid "Spacing"
@@ -407,15 +536,17 @@ msgid "Download Link"
 msgstr ""
 
 #: includes/Elementor/Widgets/Documents.php:399
+#: includes/Elementor/Widgets/Portfolio.php:526
 msgid "Hover Color"
 msgstr ""
 
-#: includes/Elementor/Widgets/Documents.php:480
+#: includes/Elementor/Widgets/Documents.php:499
 msgid "No documents found."
 msgstr ""
 
 #: includes/Elementor/Widgets/Footer.php:81
 #: includes/Elementor/Widgets/Navbar.php:203
+#: includes/Elementor/Widgets/Portfolio.php:266
 msgid "Style Variant"
 msgstr ""
 
@@ -516,6 +647,7 @@ msgid "Privacy Policy Link"
 msgstr ""
 
 #: includes/Elementor/Widgets/Footer.php:284
+#: includes/Elementor/Widgets/Portfolio.php:335
 msgid "Container"
 msgstr ""
 
@@ -546,20 +678,6 @@ msgstr ""
 
 #: includes/Elementor/Widgets/Footer.php:372
 msgid "Colors"
-msgstr ""
-
-#: includes/Elementor/Widgets/Footer.php:377
-#: includes/Elementor/Widgets/Navbar.php:350
-#: includes/Elementor/Widgets/Navbar.php:368
-msgid "Text Color"
-msgstr ""
-
-#: includes/Elementor/Widgets/Footer.php:378
-msgid "Link Color"
-msgstr ""
-
-#: includes/Elementor/Widgets/Footer.php:379
-msgid "Link Hover Color"
 msgstr ""
 
 #: includes/Elementor/Widgets/Footer.php:496
@@ -596,27 +714,23 @@ msgstr ""
 msgid "Show Logo"
 msgstr ""
 
-#: includes/Elementor/Widgets/Navbar.php:130
-#: includes/Elementor/Widgets/Navbar.php:181
-#: includes/Elementor/Widgets/Navbar.php:193
-msgid "Show"
-msgstr ""
-
-#: includes/Elementor/Widgets/Navbar.php:131
-#: includes/Elementor/Widgets/Navbar.php:182
-#: includes/Elementor/Widgets/Navbar.php:194
-msgid "Hide"
-msgstr ""
-
 #: includes/Elementor/Widgets/Navbar.php:140
 msgid "Use Theme Customizer Logo"
 msgstr ""
 
 #: includes/Elementor/Widgets/Navbar.php:142
+#: includes/Elementor/Widgets/Portfolio.php:220
+#: includes/Elementor/Widgets/Portfolio.php:232
+#: includes/Elementor/Widgets/Portfolio.php:244
+#: includes/Elementor/Widgets/Portfolio.php:256
 msgid "Yes"
 msgstr ""
 
 #: includes/Elementor/Widgets/Navbar.php:143
+#: includes/Elementor/Widgets/Portfolio.php:221
+#: includes/Elementor/Widgets/Portfolio.php:233
+#: includes/Elementor/Widgets/Portfolio.php:245
+#: includes/Elementor/Widgets/Portfolio.php:257
 msgid "No"
 msgstr ""
 
@@ -660,10 +774,6 @@ msgstr ""
 msgid "Menu Items"
 msgstr ""
 
-#: includes/Elementor/Widgets/Navbar.php:315
-msgid "Item Spacing"
-msgstr ""
-
 #: includes/Elementor/Widgets/Navbar.php:344
 msgid "Normal"
 msgstr ""
@@ -677,7 +787,6 @@ msgid "News List"
 msgstr ""
 
 #: includes/Elementor/Widgets/NewsList.php:79
-#: includes/Elementor/Widgets/Portfolio.php:78
 #: includes/Elementor/Widgets/TeamMembers.php:78
 msgid "Posts Per Page"
 msgstr ""
@@ -686,8 +795,137 @@ msgstr ""
 msgid "No news found."
 msgstr ""
 
-#: includes/Elementor/Widgets/Portfolio.php:120
-msgid "No portfolio items found."
+#: includes/Elementor/Widgets/Portfolio.php:131
+msgid "Main Category"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:135
+msgid "Select the main category to display. All portfolio items in this category will be shown."
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:142
+msgid "Filter Categories"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:147
+msgid "Select categories to show as filter buttons. Leave empty to hide filters."
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:154
+msgid "Initial Posts"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:159
+msgid "Number of posts to load initially and on each load more."
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:170
+#: includes/Elementor/Widgets/Portfolio.php:452
+msgid "Year"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:198
+msgid "Display"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:205
+msgid "Default View"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:209
+#: includes/Elementor/Widgets/Portfolio.php:294
+#: includes/Elementor/Widgets/Portfolio.php:697
+#: partials/Portfolio.php:68
+msgid "List View"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:210
+#: includes/Elementor/Widgets/Portfolio.php:306
+#: includes/Elementor/Widgets/Portfolio.php:698
+#: partials/Portfolio.php:87
+msgid "Grid View"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:218
+msgid "Show Filters"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:230
+msgid "Show View Toggle"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:242
+msgid "Show Year"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:254
+msgid "Show City"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:270
+msgid "FibraSOMA (Dark)"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:271
+msgid "SOMA (Light)"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:279
+msgid "\"All\" Filter Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:292
+msgid "List View Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:304
+msgid "Grid View Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:316
+msgid "Loading Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:318
+#: includes/Elementor/Widgets/Portfolio.php:699
+msgid "Loading more"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:355
+msgid "Background Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:369
+msgid "Filters"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:406
+msgid "Active Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:438
+msgid "Border Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:543
+msgid "City"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:591
+msgid "Hover Zoom Scale"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:613
+msgid "Transition Duration"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:639
+msgid "View Toggle"
+msgstr ""
+
+#: includes/Elementor/Widgets/Portfolio.php:794
+#: partials/Portfolio.php:92
+msgid "View All"
 msgstr ""
 
 #: includes/Elementor/Widgets/Services.php:40
@@ -759,22 +997,6 @@ msgstr ""
 
 #: includes/Elementor/Widgets/StockPrice.php:94
 msgid "Vertical"
-msgstr ""
-
-#: includes/Elementor/Widgets/StockPrice.php:102
-msgid "Alignment"
-msgstr ""
-
-#: includes/Elementor/Widgets/StockPrice.php:106
-msgid "Left"
-msgstr ""
-
-#: includes/Elementor/Widgets/StockPrice.php:110
-msgid "Center"
-msgstr ""
-
-#: includes/Elementor/Widgets/StockPrice.php:114
-msgid "Right"
 msgstr ""
 
 #: includes/Elementor/Widgets/StockPrice.php:162
@@ -889,6 +1111,20 @@ msgstr ""
 msgid "Debug"
 msgstr ""
 
+#. translators: %s: search query
+#: includes/Utils/Helpers.php:636
+#, php-format
+msgid "Search results for: %s"
+msgstr ""
+
+#: includes/Utils/Helpers.php:649
+msgid "Page Not Found"
+msgstr ""
+
+#: includes/Utils/Helpers.php:668
+msgid "Blog"
+msgstr ""
+
 #: includes/Utils/Loader.php:125
 msgid "Once Daily (Soma)"
 msgstr ""
@@ -904,18 +1140,6 @@ msgstr ""
 
 #: partials/Events.php:38
 msgid "Filter by Month"
-msgstr ""
-
-#: partials/Portfolio.php:68
-msgid "List View"
-msgstr ""
-
-#: partials/Portfolio.php:87
-msgid "Grid View"
-msgstr ""
-
-#: partials/Portfolio.php:92
-msgid "View All"
 msgstr ""
 
 #: partials/ProjectInfo.php:50

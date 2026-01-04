@@ -101,11 +101,21 @@ class ThemeSettings {
 			)
 		);
 
-		// 404 Error subpage
+		// 404 Error subpage.
 		acf_add_options_sub_page(
 			array(
 				'page_title'  => __( '404 Error', 'soma' ),
 				'menu_title'  => __( '404 Error', 'soma' ),
+				'parent_slug' => 'theme-settings',
+			)
+		);
+
+		// Stock Data subpage.
+		acf_add_options_sub_page(
+			array(
+				'page_title'  => __( 'Stock Data', 'soma' ),
+				'menu_title'  => __( 'Stock Data', 'soma' ),
+				'menu_slug'   => 'acf-options-stock-data',
 				'parent_slug' => 'theme-settings',
 			)
 		);
