@@ -505,12 +505,20 @@ class TeamMembers extends WidgetBase {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'name_typography',
-				'label'    => __( 'Typography', 'soma' ),
-				'global'   => array(
+				'name'           => 'name_typography',
+				'label'          => __( 'Typography', 'soma' ),
+				'global'         => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 				),
-				'selector' => '{{WRAPPER}} .team-member .member-name',
+				'selector'       => '{{WRAPPER}} .team-member .member-name',
+				'fields_options' => array(
+					'font_size' => array(
+						'default' => array(
+							'size' => 34,
+							'unit' => 'px',
+						),
+					),
+				),
 			)
 		);
 
@@ -519,11 +527,12 @@ class TeamMembers extends WidgetBase {
 			array(
 				'label'     => __( 'Color', 'soma' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#171717',
 				'global'    => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .team-member .member-name' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .team-member .member-name'   => 'color: {{VALUE}};',
 					'{{WRAPPER}} .team-member .member-name a' => 'color: {{VALUE}};',
 				),
 			)
@@ -598,12 +607,20 @@ class TeamMembers extends WidgetBase {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'position_typography',
-				'label'    => __( 'Typography', 'soma' ),
-				'global'   => array(
+				'name'           => 'position_typography',
+				'label'          => __( 'Typography', 'soma' ),
+				'global'         => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
 				),
-				'selector' => '{{WRAPPER}} .team-member .member-position',
+				'selector'       => '{{WRAPPER}} .team-member .member-position',
+				'fields_options' => array(
+					'font_size' => array(
+						'default' => array(
+							'size' => 20,
+							'unit' => 'px',
+						),
+					),
+				),
 			)
 		);
 
@@ -612,8 +629,9 @@ class TeamMembers extends WidgetBase {
 			array(
 				'label'     => __( 'Color', 'soma' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#171717',
 				'global'    => array(
-					'default' => Global_Colors::COLOR_SECONDARY,
+					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .team-member .member-position' => 'color: {{VALUE}};',
