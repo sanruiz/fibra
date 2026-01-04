@@ -191,12 +191,12 @@ msgstr "Miembros del Equipo"
 #. Theme Name of the theme
 #: style.css
 msgid "SOMA"
-msgstr ""
+msgstr "SOMA"
 
 #. Theme URI of the theme
 #: style.css
 msgid "https://github.com/sanruiz/fibra"
-msgstr ""
+msgstr "https://github.com/sanruiz/fibra"
 
 #. Description of the theme
 #: style.css
@@ -206,12 +206,12 @@ msgstr "Tema moderno de WordPress con arquitectura PSR-4, contenido flexible ACF
 #. Author of the theme
 #: style.css
 msgid "Santiago Ramirez"
-msgstr ""
+msgstr "Santiago Ramirez"
 
 #. Author URI of the theme
 #: style.css
 msgid "https://github.com/sanruiz"
-msgstr ""
+msgstr "https://github.com/sanruiz"
 
 #: includes/Admin/ThemeSettings.php:78
 #: includes/Admin/ThemeSettings.php:79
@@ -1111,178 +1111,178 @@ msgstr "En Desarrollo"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:49
 msgid "SOMA Breadcrumb"
-msgstr ""
+msgstr "Migas de Pan SOMA"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:103
 msgid "Breadcrumb Settings"
-msgstr ""
+msgstr "Configuración de Migas de Pan"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:111
 msgid "Separator"
-msgstr ""
+msgstr "Separador"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:114
 msgid "Character or text to separate breadcrumb items"
-msgstr ""
+msgstr "Carácter o texto para separar elementos de migas de pan"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:121
 msgid "Show Home"
-msgstr ""
+msgstr "Mostrar Inicio"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:133
 msgid "Show Current Page"
-msgstr ""
+msgstr "Mostrar Página Actual"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:148
 msgid "Style"
-msgstr ""
+msgstr "Estilo"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:207
 msgid "Current Page Color"
-msgstr ""
+msgstr "Color de Página Actual"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:221
 msgid "Separator Color"
-msgstr ""
+msgstr "Color del Separador"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:298
 #: includes/Utils/Helpers.php:534
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:336
 msgid "Breadcrumb Navigation"
-msgstr ""
+msgstr "Navegación de Migas de Pan"
 
 #: includes/Elementor/Widgets/Portfolio.php:131
 msgid "Main Category"
-msgstr ""
+msgstr "Categoría Principal"
 
 #: includes/Elementor/Widgets/Portfolio.php:135
 msgid "Select the main category to display. All portfolio items in this category will be shown."
-msgstr ""
+msgstr "Selecciona la categoría principal a mostrar. Se mostrarán todos los elementos del portafolio en esta categoría."
 
 #: includes/Elementor/Widgets/Portfolio.php:142
 msgid "Filter Categories"
-msgstr ""
+msgstr "Filtrar Categorías"
 
 #: includes/Elementor/Widgets/Portfolio.php:147
 msgid "Select categories to show as filter buttons. Leave empty to hide filters."
-msgstr ""
+msgstr "Selecciona categorías para mostrar como botones de filtro. Deja vacío para ocultar filtros."
 
 #: includes/Elementor/Widgets/Portfolio.php:154
 msgid "Initial Posts"
-msgstr ""
+msgstr "Publicaciones Iniciales"
 
 #: includes/Elementor/Widgets/Portfolio.php:159
 msgid "Number of posts to load initially and on each load more."
-msgstr ""
+msgstr "Número de publicaciones a cargar inicialmente y en cada carga adicional."
 
 #: includes/Elementor/Widgets/Portfolio.php:170
 #: includes/Elementor/Widgets/Portfolio.php:452
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: includes/Elementor/Widgets/Portfolio.php:198
 #: includes/Elementor/Widgets/TeamMembers.php:180
 msgid "Display"
-msgstr ""
+msgstr "Visualización"
 
 #: includes/Elementor/Widgets/Portfolio.php:205
 msgid "Default View"
-msgstr ""
+msgstr "Vista Predeterminada"
 
 #: includes/Elementor/Widgets/Portfolio.php:218
 msgid "Show Filters"
-msgstr ""
+msgstr "Mostrar Filtros"
 
 #: includes/Elementor/Widgets/Portfolio.php:230
 msgid "Show View Toggle"
-msgstr ""
+msgstr "Mostrar Cambio de Vista"
 
 #: includes/Elementor/Widgets/Portfolio.php:242
 msgid "Show Year"
-msgstr ""
+msgstr "Mostrar Año"
 
 #: includes/Elementor/Widgets/Portfolio.php:254
 msgid "Show City"
-msgstr ""
+msgstr "Mostrar Ciudad"
 
 #: includes/Elementor/Widgets/Portfolio.php:270
 msgid "FibraSOMA (Dark)"
-msgstr ""
+msgstr "FibraSOMA (Oscuro)"
 
 #: includes/Elementor/Widgets/Portfolio.php:271
 msgid "SOMA (Light)"
-msgstr ""
+msgstr "SOMA (Claro)"
 
 #: includes/Elementor/Widgets/Portfolio.php:279
 msgid "\"All\" Filter Text"
-msgstr ""
+msgstr "Texto del Filtro \"Todos\""
 
 #: includes/Elementor/Widgets/Portfolio.php:292
 msgid "List View Text"
-msgstr ""
+msgstr "Texto de Vista Lista"
 
 #: includes/Elementor/Widgets/Portfolio.php:304
 msgid "Grid View Text"
-msgstr ""
+msgstr "Texto de Vista Cuadrícula"
 
 #: includes/Elementor/Widgets/Portfolio.php:316
 msgid "Loading Text"
-msgstr ""
+msgstr "Texto de Carga"
 
 #: includes/Elementor/Widgets/Portfolio.php:318
 #: includes/Elementor/Widgets/Portfolio.php:699
 msgid "Loading more"
-msgstr ""
+msgstr "Cargando más"
 
 #: includes/Elementor/Widgets/Portfolio.php:355
 #: includes/Elementor/Widgets/TeamMembers.php:337
 msgid "Background Color"
-msgstr ""
+msgstr "Color de Fondo"
 
 #: includes/Elementor/Widgets/Portfolio.php:369
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: includes/Elementor/Widgets/Portfolio.php:406
 msgid "Active Color"
-msgstr ""
+msgstr "Color Activo"
 
 #: includes/Elementor/Widgets/Portfolio.php:438
 msgid "Border Color"
-msgstr ""
+msgstr "Color del Borde"
 
 #: includes/Elementor/Widgets/Portfolio.php:543
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: includes/Elementor/Widgets/Portfolio.php:591
 msgid "Hover Zoom Scale"
-msgstr ""
+msgstr "Escala de Zoom al Pasar"
 
 #: includes/Elementor/Widgets/Portfolio.php:613
 msgid "Transition Duration"
-msgstr ""
+msgstr "Duración de Transición"
 
 #: includes/Elementor/Widgets/Portfolio.php:639
 msgid "View Toggle"
-msgstr ""
+msgstr "Cambio de Vista"
 
 #. translators: %s: search query
 #: includes/Utils/Helpers.php:636
 #, php-format
 msgid "Search results for: %s"
-msgstr ""
+msgstr "Resultados de búsqueda para: %s"
 
 #: includes/Utils/Helpers.php:649
 msgid "Page Not Found"
-msgstr ""
+msgstr "Página No Encontrada"
 
 #: includes/Utils/Helpers.php:668
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: includes/Admin/StockData.php:157
 msgid "Test API Connection"
@@ -1408,4 +1408,4 @@ msgstr "Cargo"
 
 #: includes/Elementor/Widgets/Documents.php:123
 msgid "Select a category to filter documents. Leave empty to show all."
-msgstr ""
+msgstr "Selecciona una categoría para filtrar documentos. Deja vacío para mostrar todos."
