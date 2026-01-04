@@ -129,21 +129,21 @@ class StockData {
 	 * Get option value from ACF or WordPress options fallback.
 	 *
 	 * @param string $field_name The field name without prefix.
-	 * @return mixed The option value or empty string.
+	 * @return string The option value or empty string.
 	 */
-	private function get_option_value( string $field_name ) {
+	private function get_option_value( string $field_name ): string {
 		// Try ACF get_field first (production environment).
 		if ( function_exists( 'get_field' ) ) {
 			$value = get_field( $field_name, 'option' );
 			if ( ! empty( $value ) ) {
-				return $value;
+				return (string) $value;
 			}
 		}
 
 		// Fall back to WordPress options (testing environment).
 		// ACF stores options with 'options_' prefix.
 		$option_value = get_option( 'options_' . $field_name );
-		return ! empty( $option_value ) ? $option_value : '';
+		return ! empty( $option_value ) ? (string) $option_value : '';
 	}
 
 	/**
