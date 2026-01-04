@@ -338,7 +338,6 @@ class StockData {
 	 */
 	public function custom_cron_schedules( array $schedules ): array {
 		// All intervals are >= 1 hour (3600s), well above the 15-minute minimum.
-		// phpcs:ignore WordPress.WP.CronInterval.ChangeDetected -- Minimum interval is 1 hour (3600 seconds).
 		$schedules['soma_every_1_hours']  = array(
 			'interval' => 1 * HOUR_IN_SECONDS,
 			'display'  => __( 'Every 1 Hour(s)', 'soma' ),
