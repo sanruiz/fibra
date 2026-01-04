@@ -28,28 +28,28 @@ class StockData {
 	 *
 	 * @var string
 	 */
-	private string $symbol = 'SOMA21.MX';
+	private string $symbol = '';
 
 	/**
 	 * API endpoint
 	 *
 	 * @var string
 	 */
-	private string $api_endpoint = 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes';
+	private string $api_endpoint = '';
 
 	/**
 	 * API key
 	 *
 	 * @var string
 	 */
-	private string $api_key = 'fcea2b884fmshd2599170d0a0089p1d0897jsnd0b613f3fb0f';
+	private string $api_key = '';
 
 	/**
 	 * API host
 	 *
 	 * @var string
 	 */
-	private string $api_host = 'apidojo-yahoo-finance-v1.p.rapidapi.com';
+	private string $api_host = '';
 
 	/**
 	 * Get singleton instance
@@ -87,6 +87,9 @@ class StockData {
 	 * Initialize stock data fetcher
 	 */
 	private function init(): void {
+		// Load configuration from ACF options.
+		$this->load_config();
+
 		// Register custom cron schedule FIRST (before using it).
 		add_filter( 'cron_schedules', array( $this, 'custom_cron_schedules' ) );
 
@@ -101,6 +104,34 @@ class StockData {
 			$first_run = $now - ( $now % $interval ) + $interval;
 			wp_schedule_event( $first_run, 'three_hours', 'update_stock_data_event' );
 		}
+	}
+
+	/**
+	 * Load configuration from ACF options
+	 */
+	private function load_config(): void {
+		if ( ! function_exists( 'get_field' ) ) {
+			return;
+		}
+
+		$symbol       = get_field( 'stock_symbol', 'option' );
+		$api_endpoint = get_field( 'stock_api_endpoint', 'option' );
+		$api_key      = get_field( 'stock_api_key', 'option' );
+		$api_host     = get_field( 'stock_api_host', 'option' );
+
+		$this->symbol       = ! empty( $symbol ) ? $symbol : 'SOMA21.MX';
+		$this->api_endpoint = ! empty( $api_endpoint ) ? $api_endpoint : 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes';
+		$this->api_key      = ! empty( $api_key ) ? $api_key : '';
+		$this->api_host     = ! empty( $api_host ) ? $api_host : 'apidojo-yahoo-finance-v1.p.rapidapi.com';
+	}
+
+	/**
+	 * Check if API is configured
+	 *
+	 * @return bool True if API key is configured.
+	 */
+	public function is_configured(): bool {
+		return ! empty( $this->api_key );
 	}
 
 	/**
@@ -121,6 +152,15 @@ class StockData {
 	 * Fetch stock data from Yahoo Finance API
 	 */
 	public function fetch_stock_data(): void {
+		// Reload config to ensure we have latest values.
+		$this->load_config();
+
+		// Skip if API is not configured.
+		if ( ! $this->is_configured() ) {
+			soma_log_warning( 'Stock data API not configured. Please add API key in Theme Settings > Stock Data.' );
+			return;
+		}
+
 		$response = wp_remote_get(
 			add_query_arg(
 				array(
