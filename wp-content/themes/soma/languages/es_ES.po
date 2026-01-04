@@ -14,7 +14,6 @@ msgstr ""
 "X-Domain: soma\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. TeamMembers Widget - Query Section
 #: includes/Elementor/Widgets/TeamMembers.php:97
 msgid "All Categories"
 msgstr "Todas las Categorías"
@@ -31,7 +30,6 @@ msgstr "Número de Miembros"
 msgid "-1 to show all members."
 msgstr "-1 para mostrar todos los miembros."
 
-#. TeamMembers Widget - Display Section
 #: includes/Elementor/Widgets/TeamMembers.php:201
 msgid "Show Section Title"
 msgstr "Mostrar Título de Sección"
@@ -76,7 +74,6 @@ msgstr "Mostrar fotos en blanco y negro."
 msgid "No Members Text"
 msgstr "Texto Sin Miembros"
 
-#. TeamMembers Widget - Style Section
 #: includes/Elementor/Widgets/TeamMembers.php:462
 msgid "Aspect Ratio"
 msgstr "Relación de Aspecto"
@@ -184,7 +181,8 @@ msgstr "Carreras"
 
 #: includes/Core/Enums/PostType.php:51
 #: includes/Core/Enums/PostType.php:67
-#: includes/Elementor/Widgets/TeamMembers.php:41
+#: includes/Elementor/Widgets/TeamMembers.php:54
+#: includes/Elementor/Widgets/TeamMembers.php:727
 #: includes/PostTypes/Types/TeamMembers.php:97
 #: includes/Utils/Enums/CacheTag.php:64
 msgid "Team Members"
@@ -214,10 +212,6 @@ msgstr ""
 #: style.css
 msgid "https://github.com/sanruiz"
 msgstr ""
-
-#: includes/Admin/StockData.php:115
-msgid "Every 3 Hours"
-msgstr "Cada 3 Horas"
 
 #: includes/Admin/ThemeSettings.php:78
 #: includes/Admin/ThemeSettings.php:79
@@ -337,6 +331,7 @@ msgstr "Contenido"
 #: includes/Elementor/Widgets/Portfolio.php:492
 #: includes/Elementor/Widgets/Services.php:98
 #: includes/Elementor/Widgets/Services.php:316
+#: includes/Elementor/Widgets/TeamMembers.php:155
 msgid "Title"
 msgstr "Título"
 
@@ -353,6 +348,7 @@ msgstr "Diseño"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:112
 #: includes/Elementor/Widgets/BusinessUnits.php:151
+#: includes/Elementor/Widgets/TeamMembers.php:417
 msgid "Grid"
 msgstr "Cuadrícula"
 
@@ -376,6 +372,9 @@ msgstr "Lista"
 #: includes/Elementor/Widgets/Services.php:368
 #: includes/Elementor/Widgets/StockPrice.php:183
 #: includes/Elementor/Widgets/StockPrice.php:215
+#: includes/Elementor/Widgets/TeamMembers.php:363
+#: includes/Elementor/Widgets/TeamMembers.php:509
+#: includes/Elementor/Widgets/TeamMembers.php:611
 msgid "Typography"
 msgstr "Tipografía"
 
@@ -391,6 +390,9 @@ msgstr "Tipografía"
 #: includes/Elementor/Widgets/Services.php:372
 #: includes/Elementor/Widgets/StockPrice.php:170
 #: includes/Elementor/Widgets/StockPrice.php:202
+#: includes/Elementor/Widgets/TeamMembers.php:374
+#: includes/Elementor/Widgets/TeamMembers.php:528
+#: includes/Elementor/Widgets/TeamMembers.php:630
 msgid "Color"
 msgstr "Color"
 
@@ -398,6 +400,7 @@ msgstr "Color"
 #: includes/Elementor/Widgets/Documents.php:205
 #: includes/Elementor/Widgets/Services.php:180
 #: includes/Elementor/Widgets/StockPrice.php:128
+#: includes/Elementor/Widgets/TeamMembers.php:425
 msgid "Gap"
 msgstr "Espacio"
 
@@ -423,6 +426,7 @@ msgid "Hover Transition"
 msgstr "Transición al Pasar"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:223
+#: includes/Elementor/Widgets/TeamMembers.php:291
 msgid "Labels"
 msgstr "Etiquetas"
 
@@ -449,7 +453,7 @@ msgstr "Documentos"
 #: includes/Elementor/Widgets/Documents.php:89
 #: includes/Elementor/Widgets/NewsList.php:72
 #: includes/Elementor/Widgets/Portfolio.php:124
-#: includes/Elementor/Widgets/TeamMembers.php:71
+#: includes/Elementor/Widgets/TeamMembers.php:118
 msgid "Query"
 msgstr "Consulta"
 
@@ -459,36 +463,43 @@ msgstr "Número de Documentos"
 
 #: includes/Elementor/Widgets/Documents.php:107
 #: includes/Elementor/Widgets/Portfolio.php:166
+#: includes/Elementor/Widgets/TeamMembers.php:149
 msgid "Order By"
 msgstr "Ordenar Por"
 
 #: includes/Elementor/Widgets/Documents.php:111
 #: includes/Elementor/Widgets/Portfolio.php:172
+#: includes/Elementor/Widgets/TeamMembers.php:154
 msgid "Date"
 msgstr "Fecha"
 
 #: includes/Elementor/Widgets/Documents.php:113
 #: includes/Elementor/Widgets/Portfolio.php:171
+#: includes/Elementor/Widgets/TeamMembers.php:153
 msgid "Menu Order"
 msgstr "Orden del Menú"
 
 #: includes/Elementor/Widgets/Documents.php:114
 #: includes/Elementor/Widgets/Portfolio.php:174
+#: includes/Elementor/Widgets/TeamMembers.php:156
 msgid "Modified Date"
 msgstr "Fecha de Modificación"
 
 #: includes/Elementor/Widgets/Documents.php:122
 #: includes/Elementor/Widgets/Portfolio.php:182
+#: includes/Elementor/Widgets/TeamMembers.php:164
 msgid "Order"
 msgstr "Orden"
 
 #: includes/Elementor/Widgets/Documents.php:126
 #: includes/Elementor/Widgets/Portfolio.php:186
+#: includes/Elementor/Widgets/TeamMembers.php:169
 msgid "Descending"
 msgstr "Descendente"
 
 #: includes/Elementor/Widgets/Documents.php:127
 #: includes/Elementor/Widgets/Portfolio.php:187
+#: includes/Elementor/Widgets/TeamMembers.php:168
 msgid "Ascending"
 msgstr "Ascendente"
 
@@ -510,6 +521,7 @@ msgstr "Ingresa el texto del enlace de descarga"
 
 #: includes/Elementor/Widgets/Documents.php:185
 #: includes/Elementor/Widgets/Services.php:158
+#: includes/Elementor/Widgets/TeamMembers.php:187
 msgid "Columns"
 msgstr "Columnas"
 
@@ -530,11 +542,13 @@ msgstr "Fondo"
 #: includes/Elementor/Widgets/Navbar.php:262
 #: includes/Elementor/Widgets/Portfolio.php:343
 #: includes/Elementor/Widgets/Services.php:222
+#: includes/Elementor/Widgets/TeamMembers.php:325
 msgid "Padding"
 msgstr "Relleno"
 
 #: includes/Elementor/Widgets/Documents.php:257
 #: includes/Elementor/Widgets/Portfolio.php:583
+#: includes/Elementor/Widgets/TeamMembers.php:454
 msgid "Image"
 msgstr "Imagen"
 
@@ -668,6 +682,7 @@ msgstr "Enlace de Política de Privacidad"
 
 #: includes/Elementor/Widgets/Footer.php:284
 #: includes/Elementor/Widgets/Portfolio.php:335
+#: includes/Elementor/Widgets/TeamMembers.php:317
 msgid "Container"
 msgstr "Contenedor"
 
@@ -776,6 +791,11 @@ msgstr "Usar Logo del Personalizador del Tema"
 #: includes/Elementor/Widgets/Portfolio.php:232
 #: includes/Elementor/Widgets/Portfolio.php:244
 #: includes/Elementor/Widgets/Portfolio.php:256
+#: includes/Elementor/Widgets/TeamMembers.php:203
+#: includes/Elementor/Widgets/TeamMembers.php:252
+#: includes/Elementor/Widgets/TeamMembers.php:264
+#: includes/Elementor/Widgets/TeamMembers.php:277
+#: includes/Elementor/Widgets/TeamMembers.php:586
 msgid "Yes"
 msgstr "Sí"
 
@@ -784,6 +804,11 @@ msgstr "Sí"
 #: includes/Elementor/Widgets/Portfolio.php:233
 #: includes/Elementor/Widgets/Portfolio.php:245
 #: includes/Elementor/Widgets/Portfolio.php:257
+#: includes/Elementor/Widgets/TeamMembers.php:204
+#: includes/Elementor/Widgets/TeamMembers.php:253
+#: includes/Elementor/Widgets/TeamMembers.php:265
+#: includes/Elementor/Widgets/TeamMembers.php:278
+#: includes/Elementor/Widgets/TeamMembers.php:587
 msgid "No"
 msgstr "No"
 
@@ -845,7 +870,6 @@ msgid "News List"
 msgstr "Lista de Noticias"
 
 #: includes/Elementor/Widgets/NewsList.php:79
-#: includes/Elementor/Widgets/TeamMembers.php:78
 msgid "Posts Per Page"
 msgstr "Publicaciones por Página"
 
@@ -956,7 +980,6 @@ msgstr "Precio"
 msgid "Current Price"
 msgstr "Precio Actual"
 
-#: includes/Elementor/Widgets/TeamMembers.php:120
 #: includes/Elementor/Widgets/TeamMembers.php:300
 #: includes/Elementor/Widgets/TeamMembers.php:745
 msgid "No team members found."
@@ -1161,6 +1184,7 @@ msgid "Year"
 msgstr ""
 
 #: includes/Elementor/Widgets/Portfolio.php:198
+#: includes/Elementor/Widgets/TeamMembers.php:180
 msgid "Display"
 msgstr ""
 
@@ -1214,6 +1238,7 @@ msgid "Loading more"
 msgstr ""
 
 #: includes/Elementor/Widgets/Portfolio.php:355
+#: includes/Elementor/Widgets/TeamMembers.php:337
 msgid "Background Color"
 msgstr ""
 
@@ -1257,4 +1282,125 @@ msgstr ""
 
 #: includes/Utils/Helpers.php:668
 msgid "Blog"
+msgstr ""
+
+#: includes/Admin/StockData.php:152
+msgid "Test API Connection"
+msgstr "Probar Conexión API"
+
+#: includes/Admin/StockData.php:153
+msgid "Testing..."
+msgstr "Probando..."
+
+#: includes/Admin/StockData.php:154
+msgid "Request failed"
+msgstr "Solicitud fallida"
+
+#: includes/Admin/StockData.php:155
+msgid "Last Sync:"
+msgstr "Última Sincronización:"
+
+#: includes/Admin/StockData.php:156
+msgid "No sync has been performed yet."
+msgstr "No se ha realizado ninguna sincronización."
+
+#: includes/Admin/StockData.php:157
+msgid "Current Data:"
+msgstr "Datos Actuales:"
+
+#: includes/Admin/StockData.php:158
+msgid "Market Time:"
+msgstr "Hora del Mercado:"
+
+#: includes/Admin/StockData.php:159
+msgid "Next Scheduled Sync:"
+msgstr "Próxima Sincronización:"
+
+#: includes/Admin/StockData.php:160
+msgid "every"
+msgstr "cada"
+
+#: includes/Admin/StockData.php:343
+msgid "Every 1 Hour(s)"
+msgstr "Cada 1 Hora(s)"
+
+#: includes/Admin/StockData.php:347
+msgid "Every 2 Hour(s)"
+msgstr "Cada 2 Hora(s)"
+
+#: includes/Admin/StockData.php:351
+msgid "Every 3 Hour(s)"
+msgstr "Cada 3 Hora(s)"
+
+#: includes/Admin/StockData.php:355
+msgid "Every 6 Hour(s)"
+msgstr "Cada 6 Hora(s)"
+
+#: includes/Admin/StockData.php:359
+msgid "Every 12 Hour(s)"
+msgstr "Cada 12 Hora(s)"
+
+#: includes/Admin/StockData.php:363
+msgid "Every 24 Hour(s)"
+msgstr "Cada 24 Hora(s)"
+
+#: includes/Admin/StockData.php:381
+msgid "Stock data API not configured. Please add API key in Theme Settings > Stock Data."
+msgstr "API de datos bursátiles no configurada. Agregue la clave API en Configuración del Tema > Stock Data."
+
+#. translators: %s: error message
+#: includes/Admin/StockData.php:423
+#, php-format
+msgid "Failed to fetch stock data: %s"
+msgstr "Error al obtener datos bursátiles: %s"
+
+#. translators: 1: HTTP status code, 2: API endpoint URL
+#: includes/Admin/StockData.php:438
+#, php-format
+msgid "API returned HTTP %1$d error. Endpoint: %2$s"
+msgstr "La API devolvió error HTTP %1$d. Endpoint: %2$s"
+
+#: includes/Admin/StockData.php:460
+msgid "Stock data response is empty or invalid"
+msgstr "La respuesta de datos bursátiles está vacía o es inválida"
+
+#. translators: 1: stock symbol, 2: stock price
+#: includes/Admin/StockData.php:490
+#, php-format
+msgid "Stock data updated: %1$s = %2$s"
+msgstr "Datos bursátiles actualizados: %1$s = %2$s"
+
+#: includes/Admin/StockData.php:540
+#: includes/Admin/StockData.php:562
+msgid "Unauthorized"
+msgstr "No autorizado"
+
+#: includes/Admin/ThemeSettings.php:116
+#: includes/Admin/ThemeSettings.php:117
+msgid "Stock Data"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMembers.php:125
+msgid "Category"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMembers.php:351
+msgid "Section Title"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMembers.php:388
+msgid "Margin Bottom"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMembers.php:500
+msgid "Name"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMembers.php:558
+#: includes/Elementor/Widgets/TeamMembers.php:645
+msgid "Margin Top"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMembers.php:599
+msgid "Position"
 msgstr ""
