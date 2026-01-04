@@ -758,16 +758,19 @@ class TeamMembers extends WidgetBase {
 		<section class="<?php echo esc_attr( implode( ' ', $widget_classes ) ); ?>">
 			<div class="container">
 				<?php if ( $show_section_title ) : ?>
-					<<?php echo esc_html( $section_title_tag ); ?> class="section-title">
+					<<?php echo esc_attr( $section_title_tag ); ?> class="section-title">
 						<?php echo esc_html( $this->get_section_title( $settings ) ); ?>
-					</<?php echo esc_html( $section_title_tag ); ?>>
+					</<?php echo esc_attr( $section_title_tag ); ?>>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $members ) ) : ?>
 					<div class="team-grid columns-<?php echo esc_attr( $columns ); ?>">
 						<?php foreach ( $members as $member ) : ?>
 							<?php
-							$info         = get_field( 'team_member_info', $member->ID );
+							$info = get_field( 'team_member_info', $member->ID );
+							if ( ! is_array( $info ) ) {
+								$info = array();
+							}
 							$image_url    = get_the_post_thumbnail_url( $member->ID, 'large' );
 							$member_title = $info['title'] ?? '';
 							$hide_single  = ! empty( $info['hide_single_page'] );
@@ -775,7 +778,7 @@ class TeamMembers extends WidgetBase {
 							$profile_url  = $can_link ? get_permalink( $member->ID ) : '';
 							?>
 							<article class="team-member">
-								<div class="member-image <?php echo ! $image_url ? 'no-image' : ''; ?>">
+									<div class="member-image <?php echo esc_attr( ! $image_url ? 'no-image' : '' ); ?>">
 									<?php if ( $image_url ) : ?>
 										<img 
 											src="<?php echo esc_url( $image_url ); ?>" 
