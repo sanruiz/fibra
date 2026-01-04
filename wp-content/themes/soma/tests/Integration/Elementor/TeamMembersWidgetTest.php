@@ -50,6 +50,7 @@ class TeamMembersWidgetTest extends WP_UnitTestCase {
 
 		if ( ! class_exists( '\Elementor\Plugin' ) ) {
 			$this->markTestSkipped( 'Elementor plugin is not active' );
+			return; // Prevent further execution when skipped.
 		}
 
 		$this->widget = new TeamMembers();
