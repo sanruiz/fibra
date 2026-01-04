@@ -191,12 +191,12 @@ msgstr "Miembros del Equipo"
 #. Theme Name of the theme
 #: style.css
 msgid "SOMA"
-msgstr ""
+msgstr "SOMA"
 
 #. Theme URI of the theme
 #: style.css
 msgid "https://github.com/sanruiz/fibra"
-msgstr ""
+msgstr "https://github.com/sanruiz/fibra"
 
 #. Description of the theme
 #: style.css
@@ -206,12 +206,12 @@ msgstr "Tema moderno de WordPress con arquitectura PSR-4, contenido flexible ACF
 #. Author of the theme
 #: style.css
 msgid "Santiago Ramirez"
-msgstr ""
+msgstr "Santiago Ramirez"
 
 #. Author URI of the theme
 #: style.css
 msgid "https://github.com/sanruiz"
-msgstr ""
+msgstr "https://github.com/sanruiz"
 
 #: includes/Admin/ThemeSettings.php:78
 #: includes/Admin/ThemeSettings.php:79
@@ -298,7 +298,7 @@ msgid "Navigation Sidebar Template"
 msgstr "Plantilla de Barra Lateral de Navegación"
 
 #: includes/Elementor/Base/WidgetBase.php:216
-#: includes/Elementor/Widgets/Documents.php:287
+#: includes/Elementor/Widgets/Documents.php:321
 msgid "Border Radius"
 msgstr "Radio de Borde"
 
@@ -318,15 +318,15 @@ msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be install
 msgstr "<strong>%1$s</strong> requiere que el plugin <strong>%2$s</strong> esté instalado y activado para su funcionalidad completa."
 
 #: includes/Elementor/Widgets/BusinessUnits.php:81
-#: includes/Elementor/Widgets/Documents.php:138
+#: includes/Elementor/Widgets/Documents.php:172
 #: includes/Elementor/Widgets/StockPrice.php:81
 msgid "Content"
 msgstr "Contenido"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:88
 #: includes/Elementor/Widgets/BusinessUnits.php:132
-#: includes/Elementor/Widgets/Documents.php:112
-#: includes/Elementor/Widgets/Documents.php:302
+#: includes/Elementor/Widgets/Documents.php:146
+#: includes/Elementor/Widgets/Documents.php:336
 #: includes/Elementor/Widgets/Portfolio.php:173
 #: includes/Elementor/Widgets/Portfolio.php:492
 #: includes/Elementor/Widgets/Services.php:98
@@ -340,7 +340,7 @@ msgid "Maximum Items"
 msgstr "Elementos Máximos"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:109
-#: includes/Elementor/Widgets/Documents.php:178
+#: includes/Elementor/Widgets/Documents.php:212
 #: includes/Elementor/Widgets/Services.php:151
 #: includes/Elementor/Widgets/StockPrice.php:89
 msgid "Layout"
@@ -359,8 +359,8 @@ msgstr "Lista"
 #: includes/Elementor/Widgets/Breadcrumb.php:157
 #: includes/Elementor/Widgets/BusinessUnits.php:139
 #: includes/Elementor/Widgets/BusinessUnits.php:230
-#: includes/Elementor/Widgets/Documents.php:311
-#: includes/Elementor/Widgets/Documents.php:374
+#: includes/Elementor/Widgets/Documents.php:345
+#: includes/Elementor/Widgets/Documents.php:408
 #: includes/Elementor/Widgets/Footer.php:343
 #: includes/Elementor/Widgets/Navbar.php:308
 #: includes/Elementor/Widgets/Portfolio.php:381
@@ -379,8 +379,8 @@ msgid "Typography"
 msgstr "Tipografía"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:143
-#: includes/Elementor/Widgets/Documents.php:322
-#: includes/Elementor/Widgets/Documents.php:385
+#: includes/Elementor/Widgets/Documents.php:356
+#: includes/Elementor/Widgets/Documents.php:419
 #: includes/Elementor/Widgets/Portfolio.php:392
 #: includes/Elementor/Widgets/Portfolio.php:475
 #: includes/Elementor/Widgets/Portfolio.php:512
@@ -397,7 +397,7 @@ msgid "Color"
 msgstr "Color"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:159
-#: includes/Elementor/Widgets/Documents.php:205
+#: includes/Elementor/Widgets/Documents.php:239
 #: includes/Elementor/Widgets/Services.php:180
 #: includes/Elementor/Widgets/StockPrice.php:128
 #: includes/Elementor/Widgets/TeamMembers.php:425
@@ -409,13 +409,13 @@ msgid "Items"
 msgstr "Elementos"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:193
-#: includes/Elementor/Widgets/Documents.php:248
+#: includes/Elementor/Widgets/Documents.php:282
 #: includes/Elementor/Widgets/Services.php:223
 msgid "Border"
 msgstr "Borde"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:194
-#: includes/Elementor/Widgets/Documents.php:249
+#: includes/Elementor/Widgets/Documents.php:283
 #: includes/Elementor/Widgets/Services.php:224
 msgid "Box Shadow"
 msgstr "Sombra"
@@ -450,94 +450,94 @@ msgstr "Por favor selecciona un formulario de contacto."
 msgid "Documents"
 msgstr "Documentos"
 
-#: includes/Elementor/Widgets/Documents.php:89
+#: includes/Elementor/Widgets/Documents.php:112
 #: includes/Elementor/Widgets/NewsList.php:72
 #: includes/Elementor/Widgets/Portfolio.php:124
 #: includes/Elementor/Widgets/TeamMembers.php:118
 msgid "Query"
 msgstr "Consulta"
 
-#: includes/Elementor/Widgets/Documents.php:96
+#: includes/Elementor/Widgets/Documents.php:130
 msgid "Number of Documents"
 msgstr "Número de Documentos"
 
-#: includes/Elementor/Widgets/Documents.php:107
+#: includes/Elementor/Widgets/Documents.php:141
 #: includes/Elementor/Widgets/Portfolio.php:166
 #: includes/Elementor/Widgets/TeamMembers.php:149
 msgid "Order By"
 msgstr "Ordenar Por"
 
-#: includes/Elementor/Widgets/Documents.php:111
+#: includes/Elementor/Widgets/Documents.php:145
 #: includes/Elementor/Widgets/Portfolio.php:172
 #: includes/Elementor/Widgets/TeamMembers.php:154
 msgid "Date"
 msgstr "Fecha"
 
-#: includes/Elementor/Widgets/Documents.php:113
+#: includes/Elementor/Widgets/Documents.php:147
 #: includes/Elementor/Widgets/Portfolio.php:171
 #: includes/Elementor/Widgets/TeamMembers.php:153
 msgid "Menu Order"
 msgstr "Orden del Menú"
 
-#: includes/Elementor/Widgets/Documents.php:114
+#: includes/Elementor/Widgets/Documents.php:148
 #: includes/Elementor/Widgets/Portfolio.php:174
 #: includes/Elementor/Widgets/TeamMembers.php:156
 msgid "Modified Date"
 msgstr "Fecha de Modificación"
 
-#: includes/Elementor/Widgets/Documents.php:122
+#: includes/Elementor/Widgets/Documents.php:156
 #: includes/Elementor/Widgets/Portfolio.php:182
 #: includes/Elementor/Widgets/TeamMembers.php:164
 msgid "Order"
 msgstr "Orden"
 
-#: includes/Elementor/Widgets/Documents.php:126
+#: includes/Elementor/Widgets/Documents.php:160
 #: includes/Elementor/Widgets/Portfolio.php:186
 #: includes/Elementor/Widgets/TeamMembers.php:169
 msgid "Descending"
 msgstr "Descendente"
 
-#: includes/Elementor/Widgets/Documents.php:127
+#: includes/Elementor/Widgets/Documents.php:161
 #: includes/Elementor/Widgets/Portfolio.php:187
 #: includes/Elementor/Widgets/TeamMembers.php:168
 msgid "Ascending"
 msgstr "Ascendente"
 
-#: includes/Elementor/Widgets/Documents.php:145
+#: includes/Elementor/Widgets/Documents.php:179
 msgid "Title HTML Tag"
 msgstr "Etiqueta HTML del Título"
 
-#: includes/Elementor/Widgets/Documents.php:165
+#: includes/Elementor/Widgets/Documents.php:199
 msgid "Download Link Text"
 msgstr "Texto del Enlace de Descarga"
 
-#: includes/Elementor/Widgets/Documents.php:167
+#: includes/Elementor/Widgets/Documents.php:201
 msgid "Download Document"
 msgstr "Descargar Documento"
 
-#: includes/Elementor/Widgets/Documents.php:168
+#: includes/Elementor/Widgets/Documents.php:202
 msgid "Enter download link text"
 msgstr "Ingresa el texto del enlace de descarga"
 
-#: includes/Elementor/Widgets/Documents.php:185
+#: includes/Elementor/Widgets/Documents.php:219
 #: includes/Elementor/Widgets/Services.php:158
 #: includes/Elementor/Widgets/TeamMembers.php:187
 msgid "Columns"
 msgstr "Columnas"
 
-#: includes/Elementor/Widgets/Documents.php:241
+#: includes/Elementor/Widgets/Documents.php:275
 #: includes/Elementor/Widgets/Services.php:216
 msgid "Card"
 msgstr "Tarjeta"
 
-#: includes/Elementor/Widgets/Documents.php:246
+#: includes/Elementor/Widgets/Documents.php:280
 #: includes/Elementor/Widgets/Footer.php:289
 #: includes/Elementor/Widgets/Navbar.php:258
 #: includes/Elementor/Widgets/Services.php:221
 msgid "Background"
 msgstr "Fondo"
 
-#: includes/Elementor/Widgets/Documents.php:247
+#: includes/Elementor/Widgets/Documents.php:281
 #: includes/Elementor/Widgets/Footer.php:290
 #: includes/Elementor/Widgets/Navbar.php:262
 #: includes/Elementor/Widgets/Portfolio.php:343
@@ -546,35 +546,35 @@ msgstr "Fondo"
 msgid "Padding"
 msgstr "Relleno"
 
-#: includes/Elementor/Widgets/Documents.php:257
+#: includes/Elementor/Widgets/Documents.php:291
 #: includes/Elementor/Widgets/Portfolio.php:583
 #: includes/Elementor/Widgets/TeamMembers.php:454
 msgid "Image"
 msgstr "Imagen"
 
-#: includes/Elementor/Widgets/Documents.php:265
+#: includes/Elementor/Widgets/Documents.php:299
 #: includes/Elementor/Widgets/Navbar.php:276
 msgid "Height"
 msgstr "Altura"
 
-#: includes/Elementor/Widgets/Documents.php:336
+#: includes/Elementor/Widgets/Documents.php:370
 #: includes/Elementor/Widgets/Portfolio.php:420
 #: includes/Elementor/Widgets/Services.php:287
 #: includes/Elementor/Widgets/Services.php:332
 msgid "Spacing"
 msgstr "Espaciado"
 
-#: includes/Elementor/Widgets/Documents.php:365
+#: includes/Elementor/Widgets/Documents.php:399
 msgid "Download Link"
 msgstr "Enlace de Descarga"
 
-#: includes/Elementor/Widgets/Documents.php:399
+#: includes/Elementor/Widgets/Documents.php:433
 #: includes/Elementor/Widgets/Portfolio.php:526
 #: includes/Elementor/Widgets/TeamMembers.php:544
 msgid "Hover Color"
 msgstr "Color al Pasar"
 
-#: includes/Elementor/Widgets/Documents.php:499
+#: includes/Elementor/Widgets/Documents.php:546
 msgid "No documents found."
 msgstr "No se encontraron documentos."
 
@@ -1111,267 +1111,267 @@ msgstr "En Desarrollo"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:49
 msgid "SOMA Breadcrumb"
-msgstr ""
+msgstr "Migas de Pan SOMA"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:103
 msgid "Breadcrumb Settings"
-msgstr ""
+msgstr "Configuración de Migas de Pan"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:111
 msgid "Separator"
-msgstr ""
+msgstr "Separador"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:114
 msgid "Character or text to separate breadcrumb items"
-msgstr ""
+msgstr "Carácter o texto para separar elementos de migas de pan"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:121
 msgid "Show Home"
-msgstr ""
+msgstr "Mostrar Inicio"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:133
 msgid "Show Current Page"
-msgstr ""
+msgstr "Mostrar Página Actual"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:148
 msgid "Style"
-msgstr ""
+msgstr "Estilo"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:207
 msgid "Current Page Color"
-msgstr ""
+msgstr "Color de Página Actual"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:221
 msgid "Separator Color"
-msgstr ""
+msgstr "Color del Separador"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:298
 #: includes/Utils/Helpers.php:534
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:336
 msgid "Breadcrumb Navigation"
-msgstr ""
+msgstr "Navegación de Migas de Pan"
 
 #: includes/Elementor/Widgets/Portfolio.php:131
 msgid "Main Category"
-msgstr ""
+msgstr "Categoría Principal"
 
 #: includes/Elementor/Widgets/Portfolio.php:135
 msgid "Select the main category to display. All portfolio items in this category will be shown."
-msgstr ""
+msgstr "Selecciona la categoría principal a mostrar. Se mostrarán todos los elementos del portafolio en esta categoría."
 
 #: includes/Elementor/Widgets/Portfolio.php:142
 msgid "Filter Categories"
-msgstr ""
+msgstr "Filtrar Categorías"
 
 #: includes/Elementor/Widgets/Portfolio.php:147
 msgid "Select categories to show as filter buttons. Leave empty to hide filters."
-msgstr ""
+msgstr "Selecciona categorías para mostrar como botones de filtro. Deja vacío para ocultar filtros."
 
 #: includes/Elementor/Widgets/Portfolio.php:154
 msgid "Initial Posts"
-msgstr ""
+msgstr "Publicaciones Iniciales"
 
 #: includes/Elementor/Widgets/Portfolio.php:159
 msgid "Number of posts to load initially and on each load more."
-msgstr ""
+msgstr "Número de publicaciones a cargar inicialmente y en cada carga adicional."
 
 #: includes/Elementor/Widgets/Portfolio.php:170
 #: includes/Elementor/Widgets/Portfolio.php:452
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: includes/Elementor/Widgets/Portfolio.php:198
 #: includes/Elementor/Widgets/TeamMembers.php:180
 msgid "Display"
-msgstr ""
+msgstr "Visualización"
 
 #: includes/Elementor/Widgets/Portfolio.php:205
 msgid "Default View"
-msgstr ""
+msgstr "Vista Predeterminada"
 
 #: includes/Elementor/Widgets/Portfolio.php:218
 msgid "Show Filters"
-msgstr ""
+msgstr "Mostrar Filtros"
 
 #: includes/Elementor/Widgets/Portfolio.php:230
 msgid "Show View Toggle"
-msgstr ""
+msgstr "Mostrar Cambio de Vista"
 
 #: includes/Elementor/Widgets/Portfolio.php:242
 msgid "Show Year"
-msgstr ""
+msgstr "Mostrar Año"
 
 #: includes/Elementor/Widgets/Portfolio.php:254
 msgid "Show City"
-msgstr ""
+msgstr "Mostrar Ciudad"
 
 #: includes/Elementor/Widgets/Portfolio.php:270
 msgid "FibraSOMA (Dark)"
-msgstr ""
+msgstr "FibraSOMA (Oscuro)"
 
 #: includes/Elementor/Widgets/Portfolio.php:271
 msgid "SOMA (Light)"
-msgstr ""
+msgstr "SOMA (Claro)"
 
 #: includes/Elementor/Widgets/Portfolio.php:279
 msgid "\"All\" Filter Text"
-msgstr ""
+msgstr "Texto del Filtro \"Todos\""
 
 #: includes/Elementor/Widgets/Portfolio.php:292
 msgid "List View Text"
-msgstr ""
+msgstr "Texto de Vista Lista"
 
 #: includes/Elementor/Widgets/Portfolio.php:304
 msgid "Grid View Text"
-msgstr ""
+msgstr "Texto de Vista Cuadrícula"
 
 #: includes/Elementor/Widgets/Portfolio.php:316
 msgid "Loading Text"
-msgstr ""
+msgstr "Texto de Carga"
 
 #: includes/Elementor/Widgets/Portfolio.php:318
 #: includes/Elementor/Widgets/Portfolio.php:699
 msgid "Loading more"
-msgstr ""
+msgstr "Cargando más"
 
 #: includes/Elementor/Widgets/Portfolio.php:355
 #: includes/Elementor/Widgets/TeamMembers.php:337
 msgid "Background Color"
-msgstr ""
+msgstr "Color de Fondo"
 
 #: includes/Elementor/Widgets/Portfolio.php:369
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: includes/Elementor/Widgets/Portfolio.php:406
 msgid "Active Color"
-msgstr ""
+msgstr "Color Activo"
 
 #: includes/Elementor/Widgets/Portfolio.php:438
 msgid "Border Color"
-msgstr ""
+msgstr "Color del Borde"
 
 #: includes/Elementor/Widgets/Portfolio.php:543
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: includes/Elementor/Widgets/Portfolio.php:591
 msgid "Hover Zoom Scale"
-msgstr ""
+msgstr "Escala de Zoom al Pasar"
 
 #: includes/Elementor/Widgets/Portfolio.php:613
 msgid "Transition Duration"
-msgstr ""
+msgstr "Duración de Transición"
 
 #: includes/Elementor/Widgets/Portfolio.php:639
 msgid "View Toggle"
-msgstr ""
+msgstr "Cambio de Vista"
 
 #. translators: %s: search query
 #: includes/Utils/Helpers.php:636
 #, php-format
 msgid "Search results for: %s"
-msgstr ""
+msgstr "Resultados de búsqueda para: %s"
 
 #: includes/Utils/Helpers.php:649
 msgid "Page Not Found"
-msgstr ""
+msgstr "Página No Encontrada"
 
 #: includes/Utils/Helpers.php:668
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
-#: includes/Admin/StockData.php:152
+#: includes/Admin/StockData.php:157
 msgid "Test API Connection"
 msgstr "Probar Conexión API"
 
-#: includes/Admin/StockData.php:153
+#: includes/Admin/StockData.php:158
 msgid "Testing..."
 msgstr "Probando..."
 
-#: includes/Admin/StockData.php:154
+#: includes/Admin/StockData.php:159
 msgid "Request failed"
 msgstr "Solicitud fallida"
 
-#: includes/Admin/StockData.php:155
+#: includes/Admin/StockData.php:160
 msgid "Last Sync:"
 msgstr "Última Sincronización:"
 
-#: includes/Admin/StockData.php:156
+#: includes/Admin/StockData.php:161
 msgid "No sync has been performed yet."
 msgstr "No se ha realizado ninguna sincronización."
 
-#: includes/Admin/StockData.php:157
+#: includes/Admin/StockData.php:162
 msgid "Current Data:"
 msgstr "Datos Actuales:"
 
-#: includes/Admin/StockData.php:158
+#: includes/Admin/StockData.php:163
 msgid "Market Time:"
 msgstr "Hora del Mercado:"
 
-#: includes/Admin/StockData.php:159
+#: includes/Admin/StockData.php:164
 msgid "Next Scheduled Sync:"
 msgstr "Próxima Sincronización:"
 
-#: includes/Admin/StockData.php:160
+#: includes/Admin/StockData.php:165
 msgid "every"
 msgstr "cada"
 
-#: includes/Admin/StockData.php:343
+#: includes/Admin/StockData.php:309
 msgid "Every 1 Hour(s)"
 msgstr "Cada 1 Hora(s)"
 
-#: includes/Admin/StockData.php:347
+#: includes/Admin/StockData.php:313
 msgid "Every 2 Hour(s)"
 msgstr "Cada 2 Hora(s)"
 
-#: includes/Admin/StockData.php:351
+#: includes/Admin/StockData.php:317
 msgid "Every 3 Hour(s)"
 msgstr "Cada 3 Hora(s)"
 
-#: includes/Admin/StockData.php:355
+#: includes/Admin/StockData.php:321
 msgid "Every 6 Hour(s)"
 msgstr "Cada 6 Hora(s)"
 
-#: includes/Admin/StockData.php:359
+#: includes/Admin/StockData.php:325
 msgid "Every 12 Hour(s)"
 msgstr "Cada 12 Hora(s)"
 
-#: includes/Admin/StockData.php:363
+#: includes/Admin/StockData.php:329
 msgid "Every 24 Hour(s)"
 msgstr "Cada 24 Hora(s)"
 
-#: includes/Admin/StockData.php:381
+#: includes/Admin/StockData.php:347
 msgid "Stock data API not configured. Please add API key in Theme Settings > Stock Data."
 msgstr "API de datos bursátiles no configurada. Agregue la clave API en Configuración del Tema > Stock Data."
 
 #. translators: %s: error message
-#: includes/Admin/StockData.php:423
+#: includes/Admin/StockData.php:389
 #, php-format
 msgid "Failed to fetch stock data: %s"
 msgstr "Error al obtener datos bursátiles: %s"
 
 #. translators: 1: HTTP status code, 2: API endpoint URL
-#: includes/Admin/StockData.php:438
+#: includes/Admin/StockData.php:404
 #, php-format
 msgid "API returned HTTP %1$d error. Endpoint: %2$s"
 msgstr "La API devolvió error HTTP %1$d. Endpoint: %2$s"
 
-#: includes/Admin/StockData.php:460
+#: includes/Admin/StockData.php:426
 msgid "Stock data response is empty or invalid"
 msgstr "La respuesta de datos bursátiles está vacía o es inválida"
 
 #. translators: 1: stock symbol, 2: stock price
-#: includes/Admin/StockData.php:490
+#: includes/Admin/StockData.php:456
 #, php-format
 msgid "Stock data updated: %1$s = %2$s"
 msgstr "Datos bursátiles actualizados: %1$s = %2$s"
 
-#: includes/Admin/StockData.php:540
-#: includes/Admin/StockData.php:562
+#: includes/Admin/StockData.php:506
+#: includes/Admin/StockData.php:528
 msgid "Unauthorized"
 msgstr "No autorizado"
 
@@ -1380,6 +1380,7 @@ msgstr "No autorizado"
 msgid "Stock Data"
 msgstr "Datos Bursátiles"
 
+#: includes/Elementor/Widgets/Documents.php:119
 #: includes/Elementor/Widgets/TeamMembers.php:125
 msgid "Category"
 msgstr "Categoría"
@@ -1404,3 +1405,7 @@ msgstr "Margen Superior"
 #: includes/Elementor/Widgets/TeamMembers.php:599
 msgid "Position"
 msgstr "Cargo"
+
+#: includes/Elementor/Widgets/Documents.php:123
+msgid "Select a category to filter documents. Leave empty to show all."
+msgstr "Selecciona una categoría para filtrar documentos. Deja vacío para mostrar todos."
