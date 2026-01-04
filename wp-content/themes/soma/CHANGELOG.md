@@ -9,6 +9,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Week 4 - TeamMembers Widget Enhancements
+
+This release improves the TeamMembers Elementor widget with modular single-category design and SOMA CSS variables integration.
+
+---
+
+### ✨ Added
+
+#### TeamMembers Widget
+- **Modular Design** - Widget now accepts a single category per instance for flexible page layouts
+- **Integration Tests** - 18 tests covering widget structure, CSS variables, and responsive breakpoints
+- **Column Configuration** - Support for 2, 3, or 4 column layouts
+
+### 🔄 Changed
+
+#### CSS Variables Integration
+- **Typography** - Name and position use `--soma-font-size-h3`, `--soma-font-size-body`, `--soma-font-family-primary`
+- **Colors** - Text colors use `--soma-color-text-primary`, `--soma-color-text-secondary`
+- **Spacing** - Grid gaps and padding use `--soma-spacing-*` variables
+- **Transitions** - Animations use `--soma-transition-base`, `--soma-transition-slow`
+- **Layout** - Container uses `--soma-container-max-width`
+
+#### Responsive Breakpoints
+- **Tablet (991px)** - Uses `--soma-font-size-h5`, `--soma-font-size-body-mobile`
+- **Mobile (767px)** - Uses `--soma-font-size-h3-mobile`, `--soma-font-size-small`
+
+### 📦 Files Changed
+
+#### Added
+- `tests/Integration/Elementor/TeamMembersWidgetTest.php` - 18 integration tests
+
+#### Modified
+- `includes/Elementor/Widgets/TeamMembers.php` - Modular single-category design with Elementor defaults
+- `assets/css/widgets/team-members.css` - Full SOMA CSS variables integration
+
+
 ### Complete Spanish Translations
 
 This patch release adds complete Spanish translations for all new Elementor widgets from Week 4.
@@ -16,6 +52,28 @@ This patch release adds complete Spanish translations for all new Elementor widg
 ---
 
 ### 🌐 Translations
+
+#### TeamMembers Widget (20 strings)
+- `All Categories` → `Todas las Categorías`
+- `Number of Members` → `Número de Miembros`
+- `Show Section Title` → `Mostrar Título de Sección`
+- `Title Tag` → `Etiqueta de Título`
+- `Custom Title` → `Título Personalizado`
+- `Show Position` → `Mostrar Cargo`
+- `Link to Profile` → `Enlazar al Perfil`
+- `Grayscale Images` → `Imágenes en Escala de Grises`
+- `No Members Text` → `Texto Sin Miembros`
+- `Aspect Ratio` → `Relación de Aspecto`
+- `Placeholder Background` → `Fondo de Marcador de Posición`
+- `Underline on Hover` → `Subrayado al Pasar`
+- `Name Style` → `Estilo de Nombre`
+- `Position Style` → `Estilo de Cargo`
+- `Card Style` → `Estilo de Tarjeta`
+- `Grid Gap` → `Espacio de Cuadrícula`
+- `Card Padding` → `Relleno de Tarjeta`
+- `Border Radius` → `Radio de Borde`
+- `Order By` → `Ordenar Por`
+- `Order` → `Orden`
 
 #### Breadcrumb Widget (11 strings)
 - `SOMA Breadcrumb` → `Migas de Pan SOMA`
@@ -65,7 +123,7 @@ This patch release adds complete Spanish translations for all new Elementor widg
 
 #### Modified
 - `languages/soma.pot` - Updated translation template with all extractable strings
-- `languages/es_ES.po` - Added 42 new Spanish translations
+- `languages/es_ES.po` - Added 62 new Spanish translations
 - `languages/es_ES.mo` - Recompiled binary translation file
 
 ---

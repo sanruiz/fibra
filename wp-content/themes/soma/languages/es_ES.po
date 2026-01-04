@@ -14,6 +14,85 @@ msgstr ""
 "X-Domain: soma\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. TeamMembers Widget - Query Section
+#: includes/Elementor/Widgets/TeamMembers.php:97
+msgid "All Categories"
+msgstr "Todas las Categorías"
+
+#: includes/Elementor/Widgets/TeamMembers.php:130
+msgid "Select a category to display. Use multiple widget instances for different categories."
+msgstr "Selecciona una categoría para mostrar. Usa múltiples instancias del widget para diferentes categorías."
+
+#: includes/Elementor/Widgets/TeamMembers.php:137
+msgid "Number of Members"
+msgstr "Número de Miembros"
+
+#: includes/Elementor/Widgets/TeamMembers.php:142
+msgid "-1 to show all members."
+msgstr "-1 para mostrar todos los miembros."
+
+#. TeamMembers Widget - Display Section
+#: includes/Elementor/Widgets/TeamMembers.php:201
+msgid "Show Section Title"
+msgstr "Mostrar Título de Sección"
+
+#: includes/Elementor/Widgets/TeamMembers.php:207
+msgid "Display the category name as section title."
+msgstr "Mostrar el nombre de la categoría como título de sección."
+
+#: includes/Elementor/Widgets/TeamMembers.php:214
+msgid "Title Tag"
+msgstr "Etiqueta de Título"
+
+#: includes/Elementor/Widgets/TeamMembers.php:236
+msgid "Custom Title"
+msgstr "Título Personalizado"
+
+#: includes/Elementor/Widgets/TeamMembers.php:240
+msgid "Override category name with custom title."
+msgstr "Reemplazar el nombre de la categoría con un título personalizado."
+
+#: includes/Elementor/Widgets/TeamMembers.php:250
+msgid "Show Position"
+msgstr "Mostrar Cargo"
+
+#: includes/Elementor/Widgets/TeamMembers.php:262
+msgid "Link to Profile"
+msgstr "Enlazar al Perfil"
+
+#: includes/Elementor/Widgets/TeamMembers.php:268
+msgid "Link member name to profile page (if not hidden)."
+msgstr "Enlazar el nombre del miembro a su página de perfil (si no está oculto)."
+
+#: includes/Elementor/Widgets/TeamMembers.php:275
+msgid "Grayscale Images"
+msgstr "Imágenes en Escala de Grises"
+
+#: includes/Elementor/Widgets/TeamMembers.php:281
+msgid "Display photos in black and white."
+msgstr "Mostrar fotos en blanco y negro."
+
+#: includes/Elementor/Widgets/TeamMembers.php:298
+msgid "No Members Text"
+msgstr "Texto Sin Miembros"
+
+#. TeamMembers Widget - Style Section
+#: includes/Elementor/Widgets/TeamMembers.php:462
+msgid "Aspect Ratio"
+msgstr "Relación de Aspecto"
+
+#: includes/Elementor/Widgets/TeamMembers.php:478
+msgid "100% = Square, 120% = Portrait, 80% = Landscape"
+msgstr "100% = Cuadrado, 120% = Retrato, 80% = Paisaje"
+
+#: includes/Elementor/Widgets/TeamMembers.php:485
+msgid "Placeholder Background"
+msgstr "Fondo de Marcador de Posición"
+
+#: includes/Elementor/Widgets/TeamMembers.php:584
+msgid "Underline on Hover"
+msgstr "Subrayado al Pasar"
+
 #: partials/AnnualReports.php:42
 msgid "Filter by Year"
 msgstr "Filtrar por año"
@@ -477,6 +556,7 @@ msgstr "Enlace de Descarga"
 
 #: includes/Elementor/Widgets/Documents.php:399
 #: includes/Elementor/Widgets/Portfolio.php:526
+#: includes/Elementor/Widgets/TeamMembers.php:544
 msgid "Hover Color"
 msgstr "Color al Pasar"
 
@@ -877,6 +957,8 @@ msgid "Current Price"
 msgstr "Precio Actual"
 
 #: includes/Elementor/Widgets/TeamMembers.php:120
+#: includes/Elementor/Widgets/TeamMembers.php:300
+#: includes/Elementor/Widgets/TeamMembers.php:745
 msgid "No team members found."
 msgstr "No se encontraron miembros del equipo."
 
