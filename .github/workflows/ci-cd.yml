@@ -223,6 +223,7 @@ jobs:
               env:
                   WP_TESTS_DIR: /tmp/wordpress-tests-lib
                   WP_CORE_DIR: /tmp/wordpress/
+                  SOMA_STOCK_API_KEY: ${{ secrets.SOMA_STOCK_API_KEY }}
 
             - name: 📊 Upload coverage
               uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5

@@ -555,6 +555,30 @@ add_action( 'rest_api_init', $this->register(...) ); // ✅ Modern
 // NOT: add_action( 'rest_api_init', array( $this, 'register' ) ); // ❌ Old
 ```
 
+**ReflectionProperty (PHP 8.1+ - setAccessible() Deprecated):**
+In PHP 8.1+, `ReflectionProperty::setAccessible()` is deprecated and **no longer needed**. Private/protected properties are now accessible via `getValue()` and `setValue()` without calling `setAccessible(true)`.
+
+```php
+// ✅ CORRECT (PHP 8.1+)
+$reflection = new \ReflectionClass( ClassName::class );
+$property   = $reflection->getProperty( 'instance' );
+$property->setValue( null, null ); // Works without setAccessible()
+
+// ❌ DEPRECATED - Do NOT use
+$property->setAccessible( true ); // Deprecated in PHP 8.1+
+$property->setValue( null, null );
+```
+
+**Common use case - Reset singleton for testing:**
+```php
+private function reset_singleton( string $class_name ): void {
+    $reflection = new \ReflectionClass( $class_name );
+    $property   = $reflection->getProperty( 'instance' );
+    // Note: setAccessible() NOT needed in PHP 8.1+
+    $property->setValue( null, null );
+}
+```
+
 **LoadableInterface Pattern:**
 All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 - `init()`: Initialize the component
