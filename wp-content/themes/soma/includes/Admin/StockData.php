@@ -133,9 +133,34 @@ class StockData {
 		// Inline styles.
 		wp_add_inline_style( 'acf-input', $this->get_admin_inline_styles() );
 
-		// Inline script for the test button and status display.
-		$inline_script = $this->get_admin_inline_script();
-		wp_add_inline_script( 'jquery', $inline_script );
+		// Enqueue the external script.
+		wp_enqueue_script(
+			'soma-stock-data-admin',
+			get_template_directory_uri() . '/assets/js/admin/stock-data.js',
+			array( 'jquery' ),
+			wp_get_theme()->get( 'Version' ),
+			true
+		);
+
+		// Localize script with data and translations.
+		wp_localize_script(
+			'soma-stock-data-admin',
+			'somaStockData',
+			array(
+				'nonce' => wp_create_nonce( 'soma_stock_api_nonce' ),
+				'i18n'  => array(
+					'testButton'    => __( 'Test API Connection', 'soma' ),
+					'testing'       => __( 'Testing...', 'soma' ),
+					'requestFailed' => __( 'Request failed', 'soma' ),
+					'lastSync'      => __( 'Last Sync:', 'soma' ),
+					'noSync'        => __( 'No sync has been performed yet.', 'soma' ),
+					'currentData'   => __( 'Current Data:', 'soma' ),
+					'marketTime'    => __( 'Market Time:', 'soma' ),
+					'nextSync'      => __( 'Next Scheduled Sync:', 'soma' ),
+					'every'         => __( 'every', 'soma' ),
+				),
+			)
+		);
 	}
 
 	/**
@@ -175,110 +200,6 @@ class StockData {
 				margin-top: 10px !important;
 			}
 		';
-	}
-
-	/**
-	 * Get inline JavaScript for admin functionality.
-	 *
-	 * @return string JavaScript code.
-	 */
-	private function get_admin_inline_script(): string {
-		$nonce = wp_create_nonce( 'soma_stock_api_nonce' );
-
-		return "
-		jQuery(document).ready(function($) {
-			var statusContainer = $('#soma-stock-data-status');
-			if (!statusContainer.length) return;
-
-			// Build the UI
-			var html = '<div class=\"soma-stock-status-wrapper\">' +
-				'<div class=\"soma-stock-status-info\"></div>' +
-				'<button type=\"button\" class=\"button button-primary soma-test-api-btn\">" . esc_js( __( 'Test API Connection', 'soma' ) ) . "</button>' +
-				'</div>';
-			statusContainer.html(html);
-
-			var infoContainer = statusContainer.find('.soma-stock-status-info');
-			var testBtn = statusContainer.find('.soma-test-api-btn');
-
-			// Load initial status
-			loadStatus();
-
-			// Test button click handler
-			testBtn.on('click', function() {
-				testBtn.prop('disabled', true).text('" . esc_js( __( 'Testing...', 'soma' ) ) . "');
-				$.ajax({
-					url: ajaxurl,
-					type: 'POST',
-					data: {
-						action: 'soma_test_stock_api',
-						nonce: '{$nonce}'
-					},
-					success: function(response) {
-						if (response.success) {
-							showMessage('success', response.data.message);
-						} else {
-							showMessage('error', response.data.message);
-						}
-						loadStatus();
-					},
-					error: function() {
-						showMessage('error', '" . esc_js( __( 'Request failed', 'soma' ) ) . "');
-					},
-					complete: function() {
-						testBtn.prop('disabled', false).text('" . esc_js( __( 'Test API Connection', 'soma' ) ) . "');
-					}
-				});
-			});
-
-			function loadStatus() {
-				$.ajax({
-					url: ajaxurl,
-					type: 'POST',
-					data: {
-						action: 'soma_get_stock_status',
-						nonce: '{$nonce}'
-					},
-					success: function(response) {
-						if (response.success) {
-							renderStatus(response.data);
-						}
-					}
-				});
-			}
-
-			function renderStatus(data) {
-				var html = '';
-
-				if (data.sync_status) {
-					var statusClass = data.sync_status.success ? 'success' : 'error';
-					var statusIcon = data.sync_status.success ? '✓' : '✗';
-					html += '<p><strong>" . esc_js( __( 'Last Sync:', 'soma' ) ) . "</strong> ' + data.sync_status.datetime + ' <span class=\"soma-status-' + statusClass + '\">' + statusIcon + '</span></p>';
-					html += '<p class=\"soma-status-message soma-status-' + statusClass + '\">' + data.sync_status.message + '</p>';
-				} else {
-					html += '<p class=\"soma-status-warning\">" . esc_js( __( 'No sync has been performed yet.', 'soma' ) ) . "</p>';
-				}
-
-				if (data.stock_data) {
-					html += '<p><strong>" . esc_js( __( 'Current Data:', 'soma' ) ) . "</strong> ' + data.stock_data.symbol + ' = ' + parseFloat(data.stock_data.price).toFixed(2) + ' ' + data.stock_data.currency + '</p>';
-					var timestamp = new Date(data.stock_data.timestamp * 1000);
-					html += '<p><strong>" . esc_js( __( 'Market Time:', 'soma' ) ) . "</strong> ' + timestamp.toLocaleString() + '</p>';
-				}
-
-				if (data.next_run) {
-					html += '<p><strong>" . esc_js( __( 'Next Scheduled Sync:', 'soma' ) ) . "</strong> ' + data.next_run + ' UTC (" . esc_js( __( 'every', 'soma' ) ) . " ' + data.interval + 'h)</p>';
-				}
-
-				infoContainer.html(html);
-			}
-
-			function showMessage(type, message) {
-				var alertClass = type === 'success' ? 'notice-success' : 'notice-error';
-				var alert = $('<div class=\"notice ' + alertClass + ' is-dismissible\"><p>' + message + '</p></div>');
-				statusContainer.before(alert);
-				setTimeout(function() { alert.fadeOut(function() { $(this).remove(); }); }, 5000);
-			}
-		});
-		";
 	}
 
 	/**
