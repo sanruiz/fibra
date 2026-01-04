@@ -172,6 +172,56 @@ $this->add_control(
 );
 ```
 
+### Global Styles (Site Kit Integration)
+
+Use Elementor's Site Kit global colors and typography for consistency:
+
+```php
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
+use Elementor\Group_Control_Typography;
+
+// Color control with global default
+$this->add_control(
+    'title_color',
+    [
+        'label'     => esc_html__( 'Color', 'soma' ),
+        'type'      => Controls_Manager::COLOR,
+        'global'    => [
+            'default' => Global_Colors::COLOR_PRIMARY,
+        ],
+        'selectors' => [
+            '{{WRAPPER}} .element-title' => 'color: {{VALUE}};',
+        ],
+    ]
+);
+
+// Typography control with global default
+$this->add_group_control(
+    Group_Control_Typography::get_type(),
+    [
+        'name'     => 'title_typography',
+        'label'    => esc_html__( 'Typography', 'soma' ),
+        'global'   => [
+            'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+        ],
+        'selector' => '{{WRAPPER}} .element-title',
+    ]
+);
+```
+
+**Available Global Colors:**
+- `Global_Colors::COLOR_PRIMARY` - Primary brand color
+- `Global_Colors::COLOR_SECONDARY` - Secondary color
+- `Global_Colors::COLOR_TEXT` - Body text color
+- `Global_Colors::COLOR_ACCENT` - Accent/highlight color
+
+**Available Global Typography:**
+- `Global_Typography::TYPOGRAPHY_PRIMARY` - Headings
+- `Global_Typography::TYPOGRAPHY_SECONDARY` - Subheadings
+- `Global_Typography::TYPOGRAPHY_TEXT` - Body text
+- `Global_Typography::TYPOGRAPHY_ACCENT` - Accent text
+
 ### Control Sections
 
 ```php
