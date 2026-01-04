@@ -123,7 +123,34 @@ If you accidentally try to commit to a protected branch, the hook will:
 5. **Then push**: `git push -u origin feature/description`
 6. **Then create PR**: Target `week-N` branch (NOT main)
 
+### 📋 Post-PR Merge Checklist (MANDATORY)
+
+**After EVERY PR merge, complete these steps:**
+
+1. **Clean up branches** (local AND remote):
+   ```bash
+   git checkout week-N && git pull origin week-N
+   git branch -d feature/your-feature           # Delete local
+   git push origin --delete feature/your-feature # Delete remote
+   ```
+
+2. **Update related issue(s)** (issues do NOT auto-close on `week-*` branches):
+   ```bash
+   gh issue view ISSUE_NUMBER | cat              # Check status
+   gh issue comment ISSUE_NUMBER --body "✅ Completed in PR #XX" | cat
+   gh issue close ISSUE_NUMBER | cat             # Close the issue
+   ```
+
+**⚠️ DO NOT skip this checklist** - orphan branches and open issues create project management chaos.
+
 ### ✅ Pull Request Rules
+
+**🚨 MANDATORY: Run quality checks BEFORE creating any PR:**
+```bash
+cd wp-content/themes/soma
+composer phpcs && composer phpstan && composer test && npm run prod
+```
+If ANY check fails, fix issues BEFORE creating PR.
 
 **When creating PRs:**
 - Base branch: `week-N` (current milestone)

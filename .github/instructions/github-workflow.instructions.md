@@ -154,17 +154,26 @@ git checkout -b feature/hero-section
 git add .
 git commit -m "feat: Add hero section component"
 
-# 3. Push to remote
+# 3. ⚠️ MANDATORY: Run quality checks BEFORE pushing
+cd wp-content/themes/soma
+composer phpcs        # Must pass (0 errors)
+composer phpstan      # Must pass (Level 6+)
+composer test         # Must pass (all tests green)
+npm run prod          # Must pass (if CSS/JS modified)
+
+# 4. Push to remote (only after quality checks pass)
 git push -u origin feature/hero-section
 
-# 4. Create PR to week-2 (NOT main)
+# 5. Create PR to week-2 (NOT main)
 gh pr create --title "feat: Add hero section" \
   --base week-2 \
   --label "enhancement,week-2,frontend,alta-prioridad" | cat
 
-# 5. After PR merge, delete branch
-git branch -d feature/hero-section
-git push origin --delete feature/hero-section
+# 6. After PR merge, delete branch (LOCAL + REMOTE)
+git checkout week-2
+git pull origin week-2
+git branch -d feature/hero-section           # Delete local
+git push origin --delete feature/hero-section # Delete remote
 ```
 
 ### Milestone Branch Lifecycle
@@ -357,12 +366,30 @@ Closes milestone #2" \
 
 ### PR Review Checklist
 
+**🚨 CRITICAL: Run Quality Checks LOCALLY Before Creating PR**
+
+```bash
+# Navigate to theme directory
+cd wp-content/themes/soma
+
+# Run ALL quality checks (all must pass)
+composer phpcs        # WordPress Coding Standards - 0 errors required
+composer phpstan      # Static Analysis Level 6+ - 0 critical errors
+composer test         # PHPUnit - all 108+ tests must pass
+npm run prod          # Frontend build - must complete successfully
+```
+
+**⚠️ DO NOT CREATE PR IF ANY CHECK FAILS**  
+Failing to run local checks wastes CI/CD resources and delays the team.
+
+---
+
 **Before Creating PR:**
+- [ ] ✅ **PHPCS passes locally** (`composer phpcs` - 0 errors)
+- [ ] ✅ **PHPStan passes locally** (`composer phpstan` - 0 critical errors)
+- [ ] ✅ **All tests pass locally** (`composer test` - all green)
+- [ ] ✅ **Frontend builds locally** (`npm run prod` - no errors)
 - [ ] All commits follow conventional commits format
-- [ ] Code follows WordPress Coding Standards (PHPCS)
-- [ ] Static analysis passes (PHPStan Level 6+)
-- [ ] All tests passing (PHPUnit)
-- [ ] Frontend builds without errors
 - [ ] Documentation updated if needed
 
 **PR Description Must Include:**
@@ -392,12 +419,72 @@ gh pr diff 55 | cat
 # Check PR status (CI checks)
 gh pr checks 55 | cat
 
-# Merge PR (squash recommended)
+# Merge PR (squash recommended, auto-deletes remote branch)
 gh pr merge 55 --squash --delete-branch | cat
 
 # Close PR without merging
 gh pr close 55 --comment "Not needed anymore" | cat
 ```
+
+---
+
+## 📋 Post-PR Merge Checklist (MANDATORY)
+
+**After EVERY PR is merged, complete these steps:**
+
+### 1. Clean Up Branches (Local + Remote)
+
+```bash
+# Switch to base branch and update
+git checkout week-N
+git pull origin week-N
+
+# Delete local branch
+git branch -d feature/your-feature
+
+# Delete remote branch (if not auto-deleted by --delete-branch)
+git push origin --delete feature/your-feature
+
+# Prune stale remote-tracking branches
+git fetch --prune
+```
+
+### 2. Update Related Issue(s)
+
+**⚠️ CRITICAL: Issues do NOT auto-close when merging to `week-*` branches**
+
+```bash
+# Step 1: Check if issue is still open
+gh issue view ISSUE_NUMBER | cat
+
+# Step 2: Mark tasks as completed in issue body (if applicable)
+gh issue edit ISSUE_NUMBER --body "...updated body with [x] checkboxes..." | cat
+
+# Step 3: Add closing comment with PR reference
+gh issue comment ISSUE_NUMBER --body "✅ Completed in PR #XX (merged to week-N)." | cat
+
+# Step 4: Close the issue
+gh issue close ISSUE_NUMBER --comment "Implemented and merged. Will be deployed with Week N release." | cat
+```
+
+### 3. Quick Post-Merge Script
+
+```bash
+# One-liner for post-merge cleanup (replace values)
+BRANCH="feature/your-feature" && ISSUE=42 && PR=55 && \
+git checkout week-4 && git pull && \
+git branch -d $BRANCH && \
+git push origin --delete $BRANCH 2>/dev/null; \
+gh issue close $ISSUE --comment "✅ Completed in PR #$PR (merged to week-4). Deployed with next release." | cat
+```
+
+### Post-Merge Checklist
+
+- [ ] 🗑️ Local branch deleted (`git branch -d feature/...`)
+- [ ] 🗑️ Remote branch deleted (`git push origin --delete feature/...`)
+- [ ] ✅ Issue tasks marked as completed
+- [ ] 💬 Closing comment added to issue with PR reference
+- [ ] 🔒 Issue closed
 
 ---
 
@@ -1155,10 +1242,17 @@ gh run watch
 - ✅ Squash merge to keep main/week-N history clean
 
 **Quality:**
-- ✅ Run tests locally before pushing
+- ✅ **ALWAYS run `composer phpcs`, `composer phpstan`, `composer test` BEFORE pushing**
+- ✅ **NEVER create PR until all local quality checks pass**
 - ✅ Fix PHPCS/PHPStan errors before creating PR
 - ✅ Test responsive design on all breakpoints
 - ✅ Update documentation when needed
+
+**Post-Merge:**
+- ✅ Delete local branch after PR merge
+- ✅ Delete remote branch after PR merge (or use `--delete-branch`)
+- ✅ Update and close related issues with PR reference
+- ✅ Mark issue tasks as completed
 
 **GitHub CLI:**
 - ✅ Always append `| cat` to `gh` commands
