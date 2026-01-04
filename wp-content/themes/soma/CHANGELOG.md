@@ -9,18 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Week 4 - TeamMembers Widget Enhancements
+---
 
-This release improves the TeamMembers Elementor widget with modular single-category design and SOMA CSS variables integration.
+## [3.1.9] - 2025-01-03
+
+### Week 4 - TeamMembers Widget & StockData Refactor
+
+This release improves the TeamMembers Elementor widget with modular single-category design and SOMA CSS variables integration, plus refactors the StockData system to use ACF options.
 
 ---
 
 ### ✨ Added
 
 #### TeamMembers Widget
-- **Modular Design** - Widget now accepts a single category per instance for flexible page layouts
+- **Modular Design** - Widget now accepts a single category per instance for flexible page layouts (#145)
 - **Integration Tests** - 18 tests covering widget structure, CSS variables, and responsive breakpoints
 - **Column Configuration** - Support for 2, 3, or 4 column layouts
+
+#### StockData System
+- **ACF Options Integration** - Stock API credentials now stored in ACF options page (#147)
+- **WordPress Options Fallback** - Graceful fallback to WordPress options when ACF not available
+- **Comprehensive Tests** - 26 new tests for StockData admin class and REST endpoint
 
 ### 🔄 Changed
 
@@ -35,19 +44,25 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 - **Tablet (991px)** - Uses `--soma-font-size-h5`, `--soma-font-size-body-mobile`
 - **Mobile (767px)** - Uses `--soma-font-size-h3-mobile`, `--soma-font-size-small`
 
+#### StockData Refactor
+- **Configuration** - API credentials moved from hardcoded values to ACF options
+- **Type Safety** - Added explicit return type hints and casts
+
 ### 📦 Files Changed
 
 #### Added
 - `tests/Integration/Elementor/TeamMembersWidgetTest.php` - 18 integration tests
+- `tests/Integration/API/StockDataEndpointTest.php` - REST API tests
+- `tests/Integration/Admin/StockDataTest.php` - Admin integration tests
+- `tests/Unit/Admin/StockDataTest.php` - Unit tests
+- `acf-json/group_stock_data_settings.json` - ACF field group for stock settings
+- `local.env.example` - Environment variables example file
 
 #### Modified
 - `includes/Elementor/Widgets/TeamMembers.php` - Modular single-category design with Elementor defaults
 - `assets/css/widgets/team-members.css` - Full SOMA CSS variables integration
-
-
-### Complete Spanish Translations
-
-This patch release adds complete Spanish translations for all new Elementor widgets from Week 4.
+- `includes/Admin/StockData.php` - ACF options integration with WordPress fallback
+- `includes/Admin/ThemeSettings.php` - Stock data settings tab
 
 ---
 
@@ -119,12 +134,13 @@ This patch release adds complete Spanish translations for all new Elementor widg
 - `Page Not Found` → `Página No Encontrada`
 - `Blog` → `Blog`
 
-### 📦 Files Changed
+---
 
-#### Modified
-- `languages/soma.pot` - Updated translation template with all extractable strings
-- `languages/es_ES.po` - Added 62 new Spanish translations
-- `languages/es_ES.mo` - Recompiled binary translation file
+### 🔗 Related Issues & PRs
+
+- **PR #147**: [refactor: Move StockData API credentials to ACF options](https://github.com/sanruiz/fibra/pull/147) - Merged
+- **PR #145**: [feat(elementor): TeamMembers widget modular design with CSS variables](https://github.com/sanruiz/fibra/pull/145) - Merged
+- **PR #144**: [feat(i18n): Add complete Spanish translations for Week 4 widgets](https://github.com/sanruiz/fibra/pull/144) - Merged
 
 ---
 
