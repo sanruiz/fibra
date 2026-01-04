@@ -78,7 +78,7 @@ This release enhances the Stock Data admin panel with configurable sync interval
 
 ### 🔗 Related Issues & PRs
 
-- **PR #TBD**: [feat: Stock Data admin enhancements](https://github.com/sanruiz/fibra/pull/TBD) - Pending
+- **PR #150**: [feat: Stock Data admin enhancements](https://github.com/sanruiz/fibra/pull/150) - Merged
 
 ---
 
