@@ -1378,29 +1378,29 @@ msgstr "No autorizado"
 #: includes/Admin/ThemeSettings.php:116
 #: includes/Admin/ThemeSettings.php:117
 msgid "Stock Data"
-msgstr ""
+msgstr "Datos Bursátiles"
 
 #: includes/Elementor/Widgets/TeamMembers.php:125
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 #: includes/Elementor/Widgets/TeamMembers.php:351
 msgid "Section Title"
-msgstr ""
+msgstr "Título de Sección"
 
 #: includes/Elementor/Widgets/TeamMembers.php:388
 msgid "Margin Bottom"
-msgstr ""
+msgstr "Margen Inferior"
 
 #: includes/Elementor/Widgets/TeamMembers.php:500
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: includes/Elementor/Widgets/TeamMembers.php:558
 #: includes/Elementor/Widgets/TeamMembers.php:645
 msgid "Margin Top"
-msgstr ""
+msgstr "Margen Superior"
 
 #: includes/Elementor/Widgets/TeamMembers.php:599
 msgid "Position"
-msgstr ""
+msgstr "Cargo"

@@ -528,6 +528,9 @@ class StockData {
 			wp_send_json_error( array( 'message' => __( 'Unauthorized', 'soma' ) ), 403 );
 		}
 
+		// Verify nonce.
+		check_ajax_referer( 'soma_stock_api_nonce', 'nonce' );
+
 		$sync_status = self::get_sync_status();
 		$stock_data  = self::get_stock_data();
 		$next_run    = wp_next_scheduled( 'update_stock_data_event' );

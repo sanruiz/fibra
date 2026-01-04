@@ -35,8 +35,15 @@ This release enhances the Stock Data admin panel with configurable sync interval
 
 #### Code Quality Improvements
 - **External JavaScript** - Refactored inline JavaScript (~100 lines) to external `assets/js/admin/stock-data.js`
+- **External CSS** - Refactored inline CSS (~35 lines) to external `assets/css/admin/stock-data.css`
 - **Explicit Cron Intervals** - Changed from dynamic loop to explicit interval definitions for PHPCS compliance
 - **Removed Unnecessary Comments** - Cleaned up phpcs:ignore comment that was no longer needed
+
+### 🔒 Security
+
+- **CSRF Protection** - Added nonce verification (`check_ajax_referer`) to `ajax_get_status` AJAX handler
+- **XSS Prevention** - Added `escapeHtml()` function to sanitize external API data before DOM insertion
+- **Error Handling** - Improved error feedback in `loadStatus()` to match `testApiConnection()` pattern
 
 ### 🌐 Translations
 
@@ -62,14 +69,24 @@ This release enhances the Stock Data admin panel with configurable sync interval
 - `Stock data response empty/invalid` → `respuesta está vacía o es inválida`
 - `Stock data updated` → `Datos bursátiles actualizados`
 - `Unauthorized` → `No autorizado`
+- `Stock Data` → `Datos Bursátiles`
+
+#### TeamMembers Widget (6 strings)
+- `Category` → `Categoría`
+- `Section Title` → `Título de Sección`
+- `Margin Bottom` → `Margen Inferior`
+- `Name` → `Nombre`
+- `Margin Top` → `Margen Superior`
+- `Position` → `Cargo`
 
 ### 📦 Files Changed
 
 #### Added
 - `assets/js/admin/stock-data.js` - External JavaScript module for admin panel (150 lines)
+- `assets/css/admin/stock-data.css` - External CSS for admin panel
 
 #### Modified
-- `includes/Admin/StockData.php` - Sync interval control, test API button, status display, external JS enqueue
+- `includes/Admin/StockData.php` - Sync interval control, test API button, status display, external JS/CSS enqueue, CSRF protection
 - `languages/soma.pot` - Updated translation template
 - `languages/es_ES.po` - Spanish translations for new strings
 - `languages/es_ES.mo` - Compiled translation binary

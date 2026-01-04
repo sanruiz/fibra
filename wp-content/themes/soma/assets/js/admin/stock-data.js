@@ -126,9 +126,31 @@
 				success: function(response) {
 					if (response.success) {
 						self.renderStatus(response.data);
+					} else if (response && response.data && response.data.message) {
+						self.showMessage('error', response.data.message);
+					} else {
+						self.showMessage('error', self.config.i18n.requestFailed);
 					}
+				},
+				error: function() {
+					self.showMessage('error', self.config.i18n.requestFailed);
 				}
 			});
+		},
+
+		/**
+		 * Escape HTML entities to prevent XSS.
+		 *
+		 * @param {string} str String to escape.
+		 * @return {string} Escaped string.
+		 */
+		escapeHtml: function(str) {
+			if (typeof str !== 'string') {
+				return '';
+			}
+			var div = document.createElement('div');
+			div.appendChild(document.createTextNode(str));
+			return div.innerHTML;
 		},
 
 		/**
@@ -139,33 +161,41 @@
 		renderStatus: function(data) {
 			var html = '';
 			var i18n = this.config.i18n;
+			var self = this;
 
 			if (data.sync_status) {
 				var statusClass = data.sync_status.success ? 'success' : 'error';
 				var statusIcon = data.sync_status.success ? '✓' : '✗';
+				var datetime = self.escapeHtml(data.sync_status.datetime);
+				var message = self.escapeHtml(data.sync_status.message);
 
 				html += '<p><strong>' + i18n.lastSync + '</strong> ' +
-					data.sync_status.datetime +
+					datetime +
 					' <span class="soma-status-' + statusClass + '">' + statusIcon + '</span></p>';
 				html += '<p class="soma-status-message soma-status-' + statusClass + '">' +
-					data.sync_status.message + '</p>';
+					message + '</p>';
 			} else {
 				html += '<p class="soma-status-warning">' + i18n.noSync + '</p>';
 			}
 
 			if (data.stock_data) {
 				var price = parseFloat(data.stock_data.price).toFixed(2);
+				var symbol = self.escapeHtml(data.stock_data.symbol);
+				var currency = self.escapeHtml(data.stock_data.currency);
+
 				html += '<p><strong>' + i18n.currentData + '</strong> ' +
-					data.stock_data.symbol + ' = ' + price + ' ' + data.stock_data.currency + '</p>';
+					symbol + ' = ' + price + ' ' + currency + '</p>';
 
 				var timestamp = new Date(data.stock_data.timestamp * 1000);
 				html += '<p><strong>' + i18n.marketTime + '</strong> ' +
-					timestamp.toLocaleString() + '</p>';
+					self.escapeHtml(timestamp.toLocaleString()) + '</p>';
 			}
 
 			if (data.next_run) {
+				var nextRun = self.escapeHtml(data.next_run);
+				var interval = parseInt(data.interval, 10);
 				html += '<p><strong>' + i18n.nextSync + '</strong> ' +
-					data.next_run + ' UTC (' + i18n.every + ' ' + data.interval + 'h)</p>';
+					nextRun + ' UTC (' + i18n.every + ' ' + interval + 'h)</p>';
 			}
 
 			this.elements.infoContainer.html(html);
