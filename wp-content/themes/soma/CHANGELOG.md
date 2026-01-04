@@ -13,13 +13,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.1.10] - 2025-01-04
 
-### Week 4 Patch - Stock Data Admin Enhancements
+### Week 4 Patch - Stock Data Admin & Documents Widget Enhancements
 
-This release enhances the Stock Data admin panel with configurable sync intervals, API testing functionality, and improved code quality.
+This release enhances the Stock Data admin panel with configurable sync intervals, adds category filtering to the Documents widget, and completes Spanish translations for all Week 4 components.
 
 ---
 
 ### ✨ Added
+
+#### Documents Widget Category Filter
+- **Category Dropdown** - New Elementor control to filter documents by taxonomy category (#151)
+- **Dynamic Filtering** - Documents automatically filtered based on selected category
+- **Empty State Handling** - Shows all documents when no category selected
 
 #### Stock Data Admin Panel
 - **Configurable Sync Interval** - New dropdown to select stock data update frequency (1, 2, 3, 6, 12, or 24 hours)
@@ -30,6 +35,10 @@ This release enhances the Stock Data admin panel with configurable sync interval
 #### External JavaScript Module
 - **stock-data.js** - New external JavaScript file using IIFE module pattern
 - **wp_localize_script Integration** - Proper WordPress data passing (nonce, i18n strings, AJAX URL)
+
+#### Documentation
+- **Elementor Widgets Instructions** - New `.github/instructions/elementor-widgets.instructions.md` with complete widget development workflow
+- **Global Styles Examples** - Documentation for using `Global_Colors` and `Global_Typography` in Elementor widgets
 
 ### 🔄 Changed
 
@@ -79,16 +88,66 @@ This release enhances the Stock Data admin panel with configurable sync interval
 - `Margin Top` → `Margen Superior`
 - `Position` → `Cargo`
 
+#### Breadcrumb Widget (11 strings)
+- `SOMA Breadcrumb` → `Migas de Pan SOMA`
+- `Breadcrumb Settings` → `Configuración de Migas de Pan`
+- `Separator` → `Separador`
+- `Show Home` → `Mostrar Inicio`
+- `Show Current Page` → `Mostrar Página Actual`
+- `Style` → `Estilo`
+- `Current Page Color` → `Color de Página Actual`
+- `Separator Color` → `Color del Separador`
+- `Home` → `Inicio`
+- `Breadcrumb Navigation` → `Navegación de Migas de Pan`
+
+#### Portfolio Widget (28 strings)
+- `Main Category` → `Categoría Principal`
+- `Filter Categories` → `Filtrar Categorías`
+- `Initial Posts` → `Publicaciones Iniciales`
+- `Year` → `Año`
+- `Display` → `Visualización`
+- `Default View` → `Vista Predeterminada`
+- `Show Filters` → `Mostrar Filtros`
+- `Show View Toggle` → `Mostrar Cambio de Vista`
+- `Show Year` → `Mostrar Año`
+- `Show City` → `Mostrar Ciudad`
+- `FibraSOMA (Dark)` → `FibraSOMA (Oscuro)`
+- `SOMA (Light)` → `SOMA (Claro)`
+- `"All" Filter Text` → `Texto del Filtro "Todos"`
+- `List View Text` → `Texto de Vista Lista`
+- `Grid View Text` → `Texto de Vista Cuadrícula`
+- `Loading Text` → `Texto de Carga`
+- `Loading more` → `Cargando más`
+- `Background Color` → `Color de Fondo`
+- `Filters` → `Filtros`
+- `Active Color` → `Color Activo`
+- `Border Color` → `Color del Borde`
+- `City` → `Ciudad`
+- `Hover Zoom Scale` → `Escala de Zoom al Pasar`
+- `Transition Duration` → `Duración de Transición`
+- `View Toggle` → `Cambio de Vista`
+
+#### Documents Widget (1 string)
+- `Select a category to filter documents...` → `Selecciona una categoría para filtrar documentos...`
+
+#### Helper Functions (4 strings)
+- `Search results for: %s` → `Resultados de búsqueda para: %s`
+- `Page Not Found` → `Página No Encontrada`
+- `Blog` → `Blog`
+- `Home` → `Inicio`
+
 ### 📦 Files Changed
 
 #### Added
 - `assets/js/admin/stock-data.js` - External JavaScript module for admin panel (150 lines)
 - `assets/css/admin/stock-data.css` - External CSS for admin panel
+- `.github/instructions/elementor-widgets.instructions.md` - Elementor widget development workflow
 
 #### Modified
 - `includes/Admin/StockData.php` - Sync interval control, test API button, status display, external JS/CSS enqueue, CSRF protection
+- `includes/Elementor/Widgets/Documents.php` - Added category filter control
 - `languages/soma.pot` - Updated translation template
-- `languages/es_ES.po` - Spanish translations for new strings
+- `languages/es_ES.po` - Spanish translations (48 new strings)
 - `languages/es_ES.mo` - Compiled translation binary
 
 ---
@@ -96,6 +155,7 @@ This release enhances the Stock Data admin panel with configurable sync interval
 ### 🔗 Related Issues & PRs
 
 - **PR #150**: [feat: Stock Data admin enhancements](https://github.com/sanruiz/fibra/pull/150) - Merged
+- **PR #151**: [feat: Add category filter to Documents widget](https://github.com/sanruiz/fibra/pull/151) - Merged
 
 ---
 
