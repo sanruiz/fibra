@@ -1,13 +1,12 @@
 /**
  * Team Members Widget Styles
  *
- * Elementor widget for team members grid with category sections.
- * - Principals: 2-column layout with larger portrait cards
- * - Standard categories: 3-column layout
+ * Modular Elementor widget for team members grid.
+ * Use multiple widget instances for different categories/layouts.
  *
  * @package Soma
  * @since 3.0.0
- * @since 3.1.9 Added category sections and principals layout
+ * @since 3.1.9 Simplified modular design
  */
 
 /* Container */
@@ -21,12 +20,8 @@
 	padding: 0 20px;
 }
 
-/* Category sections */
-.category-section + .category-section {
-	margin-top: 80px;
-}
-
-.category-section .category-title {
+/* Section title */
+.soma-team-members .section-title {
 	font-size: 28px;
 	font-weight: 600;
 	margin: 0 0 40px;
@@ -125,15 +120,6 @@
 	margin-top: 8px;
 }
 
-/* Principals section - larger cards */
-.category-section.principals .team-member .member-name {
-	font-size: 22px;
-}
-
-.category-section.principals .team-member .member-position {
-	font-size: 16px;
-}
-
 /* No members message */
 .soma-team-members .no-members {
 	text-align: center;
@@ -143,11 +129,7 @@
 
 /* Responsive: Tablet */
 @media screen and (max-width: 991px) {
-	.category-section + .category-section {
-		margin-top: 60px;
-	}
-
-	.category-section .category-title {
+	.soma-team-members .section-title {
 		font-size: 24px;
 		margin-bottom: 30px;
 	}
@@ -156,12 +138,12 @@
 		gap: 30px;
 	}
 
-	/* Principals: 2 columns on tablet */
-	.category-section.principals .team-grid.columns-2 {
+	/* 2 columns stays 2 columns on tablet */
+	.team-grid.columns-2 {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	/* Standard: 2 columns on tablet */
+	/* 3 and 4 columns become 2 on tablet */
 	.team-grid.columns-3,
 	.team-grid.columns-4 {
 		grid-template-columns: repeat(2, 1fr);
@@ -170,19 +152,11 @@
 	.soma-team-members .team-member .member-name {
 		font-size: 16px;
 	}
-
-	.category-section.principals .team-member .member-name {
-		font-size: 18px;
-	}
 }
 
 /* Responsive: Mobile */
 @media screen and (max-width: 767px) {
-	.category-section + .category-section {
-		margin-top: 50px;
-	}
-
-	.category-section .category-title {
+	.soma-team-members .section-title {
 		font-size: 20px;
 		margin-bottom: 24px;
 	}
@@ -209,9 +183,5 @@
 
 	.soma-team-members .team-member .member-name {
 		font-size: 18px;
-	}
-
-	.category-section.principals .team-member .member-name {
-		font-size: 20px;
 	}
 }

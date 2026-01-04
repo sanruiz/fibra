@@ -2,14 +2,13 @@
 /**
  * Team Members Elementor Widget
  *
- * Displays team members grouped by category with different layouts.
- * - "Principals" category: 2-column large cards with portrait photos
- * - Other categories: 3-column standard grid
+ * Displays team members from a selected category in a configurable grid.
+ * Use multiple widget instances to show different categories with different layouts.
  *
  * @package Soma
  * @subpackage Elementor\Widgets
  * @since 3.0.0
- * @since 3.1.9 Refactored with category grouping and multiple layouts
+ * @since 3.1.9 Refactored to single-category modular design
  */
 
 namespace Soma\Elementor\Widgets;
@@ -27,11 +26,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Team Members widget class
  *
- * Queries team-members post type and displays them grouped by category with:
- * - Category section headers
- * - Special "Principals" layout (2 columns, larger cards)
- * - Standard layout for other categories (3 columns)
- * - B/W photos with placeholder support
+ * Modular widget that displays team members from a single category.
+ * Features:
+ * - Single category selection per widget instance
+ * - Configurable column count (2, 3, or 4)
+ * - Optional category title display
+ * - B/W photos with color on hover
  * - Responsive design
  */
 class TeamMembers extends WidgetBase {
@@ -94,7 +94,7 @@ class TeamMembers extends WidgetBase {
 				'hide_empty' => false,
 			)
 		);
-		$options = array();
+		$options = array( '' => __( 'All Categories', 'soma' ) );
 
 		if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
 			foreach ( $terms as $term ) {
@@ -120,38 +120,26 @@ class TeamMembers extends WidgetBase {
 		);
 
 		$this->add_control(
-			'categories',
+			'category',
 			array(
-				'label'       => __( 'Categories to Display', 'soma' ),
-				'type'        => Controls_Manager::SELECT2,
-				'options'     => $this->get_team_categories(),
-				'multiple'    => true,
-				'label_block' => true,
-				'description' => __( 'Select categories to display. Leave empty to show all.', 'soma' ),
-			)
-		);
-
-		$this->add_control(
-			'principals_category',
-			array(
-				'label'       => __( 'Principals Category', 'soma' ),
+				'label'       => __( 'Category', 'soma' ),
 				'type'        => Controls_Manager::SELECT,
-				'options'     => array( '' => __( 'None', 'soma' ) ) + $this->get_team_categories(),
+				'options'     => $this->get_team_categories(),
 				'default'     => '',
 				'label_block' => true,
-				'description' => __( 'Select the category to display with the "Principals" layout (2 columns, larger cards).', 'soma' ),
+				'description' => __( 'Select a category to display. Use multiple widget instances for different categories.', 'soma' ),
 			)
 		);
 
 		$this->add_control(
-			'posts_per_category',
+			'posts_per_page',
 			array(
-				'label'       => __( 'Members per Category', 'soma' ),
+				'label'       => __( 'Number of Members', 'soma' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => -1,
 				'min'         => -1,
 				'max'         => 50,
-				'description' => __( 'Number of members to show per category. -1 for all.', 'soma' ),
+				'description' => __( '-1 to show all members.', 'soma' ),
 			)
 		);
 
@@ -194,21 +182,36 @@ class TeamMembers extends WidgetBase {
 		);
 
 		$this->add_control(
-			'show_category_titles',
+			'columns',
 			array(
-				'label'        => __( 'Show Category Titles', 'soma' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'soma' ),
-				'label_off'    => __( 'No', 'soma' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
+				'label'   => __( 'Columns', 'soma' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => '3',
+				'options' => array(
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+				),
 			)
 		);
 
 		$this->add_control(
-			'category_title_tag',
+			'show_section_title',
 			array(
-				'label'     => __( 'Category Title Tag', 'soma' ),
+				'label'        => __( 'Show Section Title', 'soma' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'soma' ),
+				'label_off'    => __( 'No', 'soma' ),
+				'return_value' => 'yes',
+				'default'      => '',
+				'description'  => __( 'Display the category name as section title.', 'soma' ),
+			)
+		);
+
+		$this->add_control(
+			'section_title_tag',
+			array(
+				'label'     => __( 'Title Tag', 'soma' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h2',
 				'options'   => array(
@@ -222,7 +225,21 @@ class TeamMembers extends WidgetBase {
 					'span' => 'span',
 				),
 				'condition' => array(
-					'show_category_titles' => 'yes',
+					'show_section_title' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'custom_title',
+			array(
+				'label'       => __( 'Custom Title', 'soma' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'label_block' => true,
+				'description' => __( 'Override category name with custom title.', 'soma' ),
+				'condition'   => array(
+					'show_section_title' => 'yes',
 				),
 			)
 		);
@@ -248,7 +265,7 @@ class TeamMembers extends WidgetBase {
 				'label_off'    => __( 'No', 'soma' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-				'description'  => __( 'Link member name to their profile page (if not hidden).', 'soma' ),
+				'description'  => __( 'Link member name to profile page (if not hidden).', 'soma' ),
 			)
 		);
 
@@ -262,36 +279,6 @@ class TeamMembers extends WidgetBase {
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'description'  => __( 'Display photos in black and white.', 'soma' ),
-			)
-		);
-
-		$this->add_control(
-			'standard_columns',
-			array(
-				'label'   => __( 'Standard Grid Columns', 'soma' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => '3',
-				'options' => array(
-					'2' => '2',
-					'3' => '3',
-					'4' => '4',
-				),
-			)
-		);
-
-		$this->add_control(
-			'principals_columns',
-			array(
-				'label'     => __( 'Principals Grid Columns', 'soma' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => '2',
-				'options'   => array(
-					'2' => '2',
-					'3' => '3',
-				),
-				'condition' => array(
-					'principals_category!' => '',
-				),
 			)
 		);
 
@@ -357,14 +344,14 @@ class TeamMembers extends WidgetBase {
 
 		$this->end_controls_section();
 
-		// Category Title styles.
+		// Section Title styles.
 		$this->start_controls_section(
-			'section_style_category_title',
+			'section_style_title',
 			array(
-				'label'     => __( 'Category Title', 'soma' ),
+				'label'     => __( 'Section Title', 'soma' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
-					'show_category_titles' => 'yes',
+					'show_section_title' => 'yes',
 				),
 			)
 		);
@@ -372,17 +359,17 @@ class TeamMembers extends WidgetBase {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'category_title_typography',
+				'name'     => 'section_title_typography',
 				'label'    => __( 'Typography', 'soma' ),
 				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 				),
-				'selector' => '{{WRAPPER}} .category-section .category-title',
+				'selector' => '{{WRAPPER}} .soma-team-members .section-title',
 			)
 		);
 
 		$this->add_control(
-			'category_title_color',
+			'section_title_color',
 			array(
 				'label'     => __( 'Color', 'soma' ),
 				'type'      => Controls_Manager::COLOR,
@@ -390,13 +377,13 @@ class TeamMembers extends WidgetBase {
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .category-section .category-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .soma-team-members .section-title' => 'color: {{VALUE}};',
 				),
 			)
 		);
 
 		$this->add_responsive_control(
-			'category_title_margin',
+			'section_title_margin',
 			array(
 				'label'      => __( 'Margin Bottom', 'soma' ),
 				'type'       => Controls_Manager::SLIDER,
@@ -416,7 +403,7 @@ class TeamMembers extends WidgetBase {
 					'unit' => 'px',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .category-section .category-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .soma-team-members .section-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -458,32 +445,6 @@ class TeamMembers extends WidgetBase {
 			)
 		);
 
-		$this->add_responsive_control(
-			'section_spacing',
-			array(
-				'label'      => __( 'Section Spacing', 'soma' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'rem' ),
-				'range'      => array(
-					'px'  => array(
-						'min' => 0,
-						'max' => 150,
-					),
-					'rem' => array(
-						'min' => 0,
-						'max' => 10,
-					),
-				),
-				'default'    => array(
-					'size' => 80,
-					'unit' => 'px',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .category-section + .category-section' => 'margin-top: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
 		$this->end_controls_section();
 
 		// Image styles.
@@ -515,28 +476,6 @@ class TeamMembers extends WidgetBase {
 					'{{WRAPPER}} .team-member .member-image' => 'padding-top: {{SIZE}}{{UNIT}};',
 				),
 				'description' => __( '100% = Square, 120% = Portrait, 80% = Landscape', 'soma' ),
-			)
-		);
-
-		$this->add_responsive_control(
-			'principals_image_aspect_ratio',
-			array(
-				'label'      => __( 'Principals Aspect Ratio', 'soma' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( '%' ),
-				'range'      => array(
-					'%' => array(
-						'min' => 80,
-						'max' => 150,
-					),
-				),
-				'default'    => array(
-					'size' => 130,
-					'unit' => '%',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .category-section.principals .team-member .member-image' => 'padding-top: {{SIZE}}{{UNIT}};',
-				),
 			)
 		);
 
@@ -712,72 +651,62 @@ class TeamMembers extends WidgetBase {
 	}
 
 	/**
-	 * Get members grouped by category
+	 * Get team members based on settings
 	 *
 	 * @param array<string, mixed> $settings Widget settings.
-	 * @return array<string, array<string, mixed>>
+	 * @return array<int, \WP_Post>
 	 */
-	private function get_grouped_members( array $settings ): array {
-		$categories          = $settings['categories'] ?? array();
-		$principals_category = $settings['principals_category'] ?? '';
-		$posts_per_category  = (int) ( $settings['posts_per_category'] ?? -1 );
-		$orderby             = $settings['orderby'] ?? 'menu_order';
-		$order               = $settings['order'] ?? 'ASC';
+	private function get_members( array $settings ): array {
+		$category       = $settings['category'] ?? '';
+		$posts_per_page = (int) ( $settings['posts_per_page'] ?? -1 );
+		$orderby        = $settings['orderby'] ?? 'menu_order';
+		$order          = $settings['order'] ?? 'ASC';
 
-		$grouped = array();
+		$args = array(
+			'post_type'      => 'team-members',
+			'post_status'    => 'publish',
+			'posts_per_page' => $posts_per_page,
+			'orderby'        => $orderby,
+			'order'          => $order,
+		);
 
-		// Get all terms if no specific categories selected.
-		if ( empty( $categories ) ) {
-			$terms = get_terms(
+		// Filter by category if selected.
+		if ( ! empty( $category ) ) {
+			$args['tax_query'] = array(
 				array(
-					'taxonomy'   => 'team-members-taxonomy',
-					'hide_empty' => true,
-				)
-			);
-			if ( ! is_wp_error( $terms ) ) {
-				$categories = wp_list_pluck( $terms, 'slug' );
-			}
-		}
-
-		// Ensure principals category is first if set and included.
-		if ( ! empty( $principals_category ) && in_array( $principals_category, $categories, true ) ) {
-			$categories = array_diff( $categories, array( $principals_category ) );
-			array_unshift( $categories, $principals_category );
-		}
-
-		foreach ( $categories as $category_slug ) {
-			$term = get_term_by( 'slug', $category_slug, 'team-members-taxonomy' );
-			if ( ! $term ) {
-				continue;
-			}
-
-			$args = array(
-				'post_type'      => 'team-members',
-				'post_status'    => 'publish',
-				'posts_per_page' => $posts_per_category,
-				'orderby'        => $orderby,
-				'order'          => $order,
-				'tax_query'      => array(
-					array(
-						'taxonomy' => 'team-members-taxonomy',
-						'field'    => 'slug',
-						'terms'    => $category_slug,
-					),
+					'taxonomy' => 'team-members-taxonomy',
+					'field'    => 'slug',
+					'terms'    => $category,
 				),
 			);
+		}
 
-			$members = get_posts( $args );
+		return get_posts( $args );
+	}
 
-			if ( ! empty( $members ) ) {
-				$grouped[ $category_slug ] = array(
-					'term'         => $term,
-					'members'      => $members,
-					'is_principal' => ( $category_slug === $principals_category ),
-				);
+	/**
+	 * Get section title
+	 *
+	 * @param array<string, mixed> $settings Widget settings.
+	 * @return string
+	 */
+	private function get_section_title( array $settings ): string {
+		// Use custom title if provided.
+		$custom_title = $settings['custom_title'] ?? '';
+		if ( ! empty( $custom_title ) ) {
+			return $custom_title;
+		}
+
+		// Otherwise use category name.
+		$category = $settings['category'] ?? '';
+		if ( ! empty( $category ) ) {
+			$term = get_term_by( 'slug', $category, 'team-members-taxonomy' );
+			if ( $term ) {
+				return $term->name;
 			}
 		}
 
-		return $grouped;
+		return __( 'Team Members', 'soma' );
 	}
 
 	/**
@@ -788,17 +717,16 @@ class TeamMembers extends WidgetBase {
 	protected function render(): void {
 		$settings = $this->get_settings_for_display();
 
-		$show_category_titles = 'yes' === $settings['show_category_titles'];
-		$category_title_tag   = $settings['category_title_tag'] ?? 'h2';
-		$show_position        = 'yes' === $settings['show_position'];
-		$link_to_profile      = 'yes' === $settings['link_to_profile'];
-		$grayscale_images     = 'yes' === $settings['grayscale_images'];
-		$name_underline       = 'yes' === $settings['name_underline'];
-		$standard_columns     = $settings['standard_columns'] ?? '3';
-		$principals_columns   = $settings['principals_columns'] ?? '2';
-		$no_members_text      = $settings['no_members_text'] ?? __( 'No team members found.', 'soma' );
+		$show_section_title = 'yes' === $settings['show_section_title'];
+		$section_title_tag  = $settings['section_title_tag'] ?? 'h2';
+		$show_position      = 'yes' === $settings['show_position'];
+		$link_to_profile    = 'yes' === $settings['link_to_profile'];
+		$grayscale_images   = 'yes' === $settings['grayscale_images'];
+		$name_underline     = 'yes' === $settings['name_underline'];
+		$columns            = $settings['columns'] ?? '3';
+		$no_members_text    = $settings['no_members_text'] ?? __( 'No team members found.', 'soma' );
 
-		$grouped_members = $this->get_grouped_members( $settings );
+		$members = $this->get_members( $settings );
 
 		// Build widget classes.
 		$widget_classes = array( 'soma-team-members' );
@@ -811,65 +739,54 @@ class TeamMembers extends WidgetBase {
 		?>
 		<section class="<?php echo esc_attr( implode( ' ', $widget_classes ) ); ?>">
 			<div class="container">
-				<?php if ( ! empty( $grouped_members ) ) : ?>
-					<?php foreach ( $grouped_members as $category_slug => $group ) : ?>
-						<?php
-						$section_classes = array( 'category-section' );
-						if ( $group['is_principal'] ) {
-							$section_classes[] = 'principals';
-						}
-						$columns = $group['is_principal'] ? $principals_columns : $standard_columns;
-						?>
-						<div class="<?php echo esc_attr( implode( ' ', $section_classes ) ); ?>">
-							<?php if ( $show_category_titles ) : ?>
-								<<?php echo esc_html( $category_title_tag ); ?> class="category-title">
-									<?php echo esc_html( $group['term']->name ); ?>
-								</<?php echo esc_html( $category_title_tag ); ?>>
-							<?php endif; ?>
+				<?php if ( $show_section_title ) : ?>
+					<<?php echo esc_html( $section_title_tag ); ?> class="section-title">
+						<?php echo esc_html( $this->get_section_title( $settings ) ); ?>
+					</<?php echo esc_html( $section_title_tag ); ?>>
+				<?php endif; ?>
 
-							<div class="team-grid columns-<?php echo esc_attr( $columns ); ?>">
-								<?php foreach ( $group['members'] as $member ) : ?>
-									<?php
-									$info         = get_field( 'team_member_info', $member->ID );
-									$image_url    = get_the_post_thumbnail_url( $member->ID, 'large' );
-									$member_title = $info['title'] ?? '';
-									$hide_single  = ! empty( $info['hide_single_page'] );
-									$can_link     = $link_to_profile && ! $hide_single;
-									$profile_url  = $can_link ? get_permalink( $member->ID ) : '';
-									?>
-									<article class="team-member">
-										<div class="member-image <?php echo ! $image_url ? 'no-image' : ''; ?>">
-											<?php if ( $image_url ) : ?>
-												<img 
-													src="<?php echo esc_url( $image_url ); ?>" 
-													alt="<?php echo esc_attr( get_the_title( $member->ID ) ); ?>"
-													loading="lazy"
-												>
-											<?php endif; ?>
+				<?php if ( ! empty( $members ) ) : ?>
+					<div class="team-grid columns-<?php echo esc_attr( $columns ); ?>">
+						<?php foreach ( $members as $member ) : ?>
+							<?php
+							$info         = get_field( 'team_member_info', $member->ID );
+							$image_url    = get_the_post_thumbnail_url( $member->ID, 'large' );
+							$member_title = $info['title'] ?? '';
+							$hide_single  = ! empty( $info['hide_single_page'] );
+							$can_link     = $link_to_profile && ! $hide_single;
+							$profile_url  = $can_link ? get_permalink( $member->ID ) : '';
+							?>
+							<article class="team-member">
+								<div class="member-image <?php echo ! $image_url ? 'no-image' : ''; ?>">
+									<?php if ( $image_url ) : ?>
+										<img 
+											src="<?php echo esc_url( $image_url ); ?>" 
+											alt="<?php echo esc_attr( get_the_title( $member->ID ) ); ?>"
+											loading="lazy"
+										>
+									<?php endif; ?>
+								</div>
+
+								<div class="member-info">
+									<div class="member-name">
+										<?php if ( $can_link ) : ?>
+											<a href="<?php echo esc_url( $profile_url ); ?>">
+												<?php echo esc_html( get_the_title( $member->ID ) ); ?>
+											</a>
+										<?php else : ?>
+											<?php echo esc_html( get_the_title( $member->ID ) ); ?>
+										<?php endif; ?>
+									</div>
+
+									<?php if ( $show_position && $member_title ) : ?>
+										<div class="member-position">
+											<?php echo esc_html( $member_title ); ?>
 										</div>
-
-										<div class="member-info">
-											<div class="member-name">
-												<?php if ( $can_link ) : ?>
-													<a href="<?php echo esc_url( $profile_url ); ?>">
-														<?php echo esc_html( get_the_title( $member->ID ) ); ?>
-													</a>
-												<?php else : ?>
-													<?php echo esc_html( get_the_title( $member->ID ) ); ?>
-												<?php endif; ?>
-											</div>
-
-											<?php if ( $show_position && $member_title ) : ?>
-												<div class="member-position">
-													<?php echo esc_html( $member_title ); ?>
-												</div>
-											<?php endif; ?>
-										</div>
-									</article>
-								<?php endforeach; ?>
-							</div>
-						</div>
-					<?php endforeach; ?>
+									<?php endif; ?>
+								</div>
+							</article>
+						<?php endforeach; ?>
+					</div>
 				<?php else : ?>
 					<p class="no-members"><?php echo esc_html( $no_members_text ); ?></p>
 				<?php endif; ?>
