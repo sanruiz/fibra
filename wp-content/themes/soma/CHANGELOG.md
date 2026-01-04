@@ -53,6 +53,28 @@ This patch release adds complete Spanish translations for all new Elementor widg
 
 ### 🌐 Translations
 
+#### TeamMembers Widget (20 strings)
+- `All Categories` → `Todas las Categorías`
+- `Number of Members` → `Número de Miembros`
+- `Show Section Title` → `Mostrar Título de Sección`
+- `Title Tag` → `Etiqueta de Título`
+- `Custom Title` → `Título Personalizado`
+- `Show Position` → `Mostrar Cargo`
+- `Link to Profile` → `Enlazar al Perfil`
+- `Grayscale Images` → `Imágenes en Escala de Grises`
+- `No Members Text` → `Texto Sin Miembros`
+- `Aspect Ratio` → `Relación de Aspecto`
+- `Placeholder Background` → `Fondo de Marcador de Posición`
+- `Underline on Hover` → `Subrayado al Pasar`
+- `Name Style` → `Estilo de Nombre`
+- `Position Style` → `Estilo de Cargo`
+- `Card Style` → `Estilo de Tarjeta`
+- `Grid Gap` → `Espacio de Cuadrícula`
+- `Card Padding` → `Relleno de Tarjeta`
+- `Border Radius` → `Radio de Borde`
+- `Order By` → `Ordenar Por`
+- `Order` → `Orden`
+
 #### Breadcrumb Widget (11 strings)
 - `SOMA Breadcrumb` → `Migas de Pan SOMA`
 - `Breadcrumb Settings` → `Configuración de Migas de Pan`
@@ -101,7 +123,7 @@ This patch release adds complete Spanish translations for all new Elementor widg
 
 #### Modified
 - `languages/soma.pot` - Updated translation template with all extractable strings
-- `languages/es_ES.po` - Added 42 new Spanish translations
+- `languages/es_ES.po` - Added 62 new Spanish translations
 - `languages/es_ES.mo` - Recompiled binary translation file
 
 ---
