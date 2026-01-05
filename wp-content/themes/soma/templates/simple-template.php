@@ -2,6 +2,9 @@
 /**
  * Template Name: Simple
  *
+ * A simple template that renders the content with full HTML support.
+ * Uses the_content() to allow iframes, styles, and embedded content.
+ *
  * @package Soma
  */
 
@@ -13,7 +16,11 @@ get_header();
 <main id="simple-template-ee30ff">
 	<section>
 		<div class="container">
-			<?php echo wp_kses_post( get_the_content() ); ?>
+			<?php
+			// Use the_content() to properly render content with iframes, styles, and embeds.
+			// This applies WordPress content filters and respects user capabilities.
+			the_content();
+			?>
 		</div>
 	</section>
 </main>
