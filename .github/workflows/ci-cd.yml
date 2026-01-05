@@ -207,9 +207,10 @@ jobs:
                   if command -v ./vendor/bin/phpunit &> /dev/null && [ -f "phpunit.xml" ]; then
                     echo "🧪 Running PHPUnit tests..."
                     echo "📋 Expected: 108 tests, 355 assertions"
+                    echo "⏭️ Excluding: external-api (unreliable in CI)"
                     
                     set +e
-                    ./vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+                    ./vendor/bin/phpunit --verbose --exclude-group external-api --coverage-clover=coverage.xml
                     PHPUNIT_EXIT_CODE=$?
                     set -e
                     
