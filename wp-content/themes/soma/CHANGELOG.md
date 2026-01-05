@@ -48,6 +48,10 @@ This release enhances the Stock Data admin panel with configurable sync interval
 - **Explicit Cron Intervals** - Changed from dynamic loop to explicit interval definitions for PHPCS compliance
 - **Removed Unnecessary Comments** - Cleaned up phpcs:ignore comment that was no longer needed
 
+#### TeamMembers Widget
+- **Variable Naming Clarity** - Renamed `$member_title` to `$member_position` to better reflect ACF field purpose (#153)
+- **Field Mapping Documentation** - Added inline comments documenting image (Featured Image) and position (ACF `team_member_info.title`) field sources
+
 ### 🔒 Security
 
 - **CSRF Protection** - Added nonce verification (`check_ajax_referer`) to `ajax_get_status` AJAX handler
@@ -146,6 +150,7 @@ This release enhances the Stock Data admin panel with configurable sync interval
 #### Modified
 - `includes/Admin/StockData.php` - Sync interval control, test API button, status display, external JS/CSS enqueue, CSRF protection
 - `includes/Elementor/Widgets/Documents.php` - Added category filter control
+- `includes/Elementor/Widgets/TeamMembers.php` - Variable rename for clarity, field mapping documentation
 - `languages/soma.pot` - Updated translation template
 - `languages/es_ES.po` - Spanish translations (48 new strings)
 - `languages/es_ES.mo` - Compiled translation binary
@@ -156,6 +161,7 @@ This release enhances the Stock Data admin panel with configurable sync interval
 
 - **PR #150**: [feat: Stock Data admin enhancements](https://github.com/sanruiz/fibra/pull/150) - Merged
 - **PR #151**: [feat: Add category filter to Documents widget](https://github.com/sanruiz/fibra/pull/151) - Merged
+- **PR #153**: [fix: TeamMembers widget field mapping clarity](https://github.com/sanruiz/fibra/pull/153) - Merged
 
 ---
 

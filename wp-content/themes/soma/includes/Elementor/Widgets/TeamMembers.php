@@ -767,15 +767,18 @@ class TeamMembers extends WidgetBase {
 					<div class="team-grid columns-<?php echo esc_attr( $columns ); ?>">
 						<?php foreach ( $members as $member ) : ?>
 							<?php
+							// Get ACF team member info group.
 							$info = get_field( 'team_member_info', $member->ID );
 							if ( ! is_array( $info ) ) {
 								$info = array();
 							}
-							$image_url    = get_the_post_thumbnail_url( $member->ID, 'large' );
-							$member_title = $info['title'] ?? '';
-							$hide_single  = ! empty( $info['hide_single_page'] );
-							$can_link     = $link_to_profile && ! $hide_single;
-							$profile_url  = $can_link ? get_permalink( $member->ID ) : '';
+							// Image: Use WordPress Featured Image.
+							$image_url       = get_the_post_thumbnail_url( $member->ID, 'large' );
+							// Position: Use ACF field team_member_info.title (field_5f94478d81128).
+							$member_position = $info['title'] ?? '';
+							$hide_single     = ! empty( $info['hide_single_page'] );
+							$can_link        = $link_to_profile && ! $hide_single;
+							$profile_url     = $can_link ? get_permalink( $member->ID ) : '';
 							?>
 							<article class="team-member">
 									<div class="member-image <?php echo esc_attr( ! $image_url ? 'no-image' : '' ); ?>">
@@ -799,9 +802,9 @@ class TeamMembers extends WidgetBase {
 										<?php endif; ?>
 									</div>
 
-									<?php if ( $show_position && $member_title ) : ?>
+									<?php if ( $show_position && $member_position ) : ?>
 										<div class="member-position">
-											<?php echo esc_html( $member_title ); ?>
+											<?php echo esc_html( $member_position ); ?>
 										</div>
 									<?php endif; ?>
 								</div>
