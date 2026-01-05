@@ -1,0 +1,51 @@
+/**
+ * Stock Data Admin Styles
+ *
+ * Styles for the Stock Data settings page in WordPress admin.
+ *
+ * @package Soma
+ * @subpackage Admin
+ * @since 3.1.10
+ */
+
+/* Status Wrapper */
+.soma-stock-status-wrapper {
+	background: #f9f9f9;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 15px;
+	margin: 10px 0;
+}
+
+/* Status Info Section */
+.soma-stock-status-info {
+	margin-bottom: 15px;
+}
+
+.soma-stock-status-info p {
+	margin: 5px 0;
+}
+
+/* Status Colors */
+.soma-status-success {
+	color: #46b450;
+}
+
+.soma-status-error {
+	color: #dc3232;
+}
+
+.soma-status-warning {
+	color: #ffb900;
+}
+
+/* Status Message */
+.soma-status-message {
+	font-style: italic;
+	font-size: 13px;
+}
+
+/* Test API Button */
+.soma-test-api-btn {
+	margin-top: 10px !important;
+}

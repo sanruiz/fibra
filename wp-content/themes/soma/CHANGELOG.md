@@ -11,6 +11,160 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.10] - 2025-01-05
+
+### Week 4 Patch - Stock Data Admin & Documents Widget Enhancements
+
+This release enhances the Stock Data admin panel with configurable sync intervals, adds category filtering to the Documents widget, improves TeamMembers widget field mapping clarity, and completes Spanish translations for all Week 4 components.
+
+---
+
+### ✨ Added
+
+#### Documents Widget Category Filter
+- **Category Dropdown** - New Elementor control to filter documents by taxonomy category (#151)
+- **Dynamic Filtering** - Documents automatically filtered based on selected category
+- **Empty State Handling** - Shows all documents when no category selected
+
+#### Stock Data Admin Panel
+- **Configurable Sync Interval** - New dropdown to select stock data update frequency (1, 2, 3, 6, 12, or 24 hours)
+- **Test API Connection Button** - Quick button to test Yahoo Finance API connectivity without waiting for cron
+- **Sync Status Display** - Shows last sync time, current cached data, and next scheduled sync
+- **Real-time Feedback** - AJAX-powered status updates and API test results
+
+#### External JavaScript Module
+- **stock-data.js** - New external JavaScript file using IIFE module pattern
+- **wp_localize_script Integration** - Proper WordPress data passing (nonce, i18n strings, AJAX URL)
+
+#### Documentation
+- **Elementor Widgets Instructions** - New `.github/instructions/elementor-widgets.instructions.md` with complete widget development workflow
+- **Global Styles Examples** - Documentation for using `Global_Colors` and `Global_Typography` in Elementor widgets
+
+### 🔄 Changed
+
+#### Code Quality Improvements
+- **External JavaScript** - Refactored inline JavaScript (~100 lines) to external `assets/js/admin/stock-data.js`
+- **External CSS** - Refactored inline CSS (~35 lines) to external `assets/css/admin/stock-data.css`
+- **Explicit Cron Intervals** - Changed from dynamic loop to explicit interval definitions for PHPCS compliance
+- **Removed Unnecessary Comments** - Cleaned up phpcs:ignore comment that was no longer needed
+
+#### TeamMembers Widget
+- **Variable Naming Clarity** - Renamed `$member_title` to `$member_position` to better reflect ACF field purpose (#153)
+- **Field Mapping Documentation** - Added inline comments documenting image (Featured Image) and position (ACF `team_member_info.title`) field sources
+
+### 🔒 Security
+
+- **CSRF Protection** - Added nonce verification (`check_ajax_referer`) to `ajax_get_status` AJAX handler
+- **XSS Prevention** - Added `escapeHtml()` function to sanitize external API data before DOM insertion
+- **Error Handling** - Improved error feedback in `loadStatus()` to match `testApiConnection()` pattern
+
+### 🌐 Translations
+
+#### Stock Data Admin (22 strings)
+- `Test API Connection` → `Probar Conexión API`
+- `Testing...` → `Probando...`
+- `Request failed` → `Solicitud fallida`
+- `Last Sync:` → `Última Sincronización:`
+- `No sync has been performed yet.` → `No se ha realizado ninguna sincronización.`
+- `Current Data:` → `Datos Actuales:`
+- `Market Time:` → `Hora del Mercado:`
+- `Next Scheduled Sync:` → `Próxima Sincronización:`
+- `every` → `cada`
+- `Every 1 Hour` → `Cada 1 Hora`
+- `Every 2 Hours` → `Cada 2 Horas`
+- `Every 3 Hours` → `Cada 3 Horas`
+- `Every 6 Hours` → `Cada 6 Horas`
+- `Every 12 Hours` → `Cada 12 Horas`
+- `Every 24 Hours` → `Cada 24 Horas`
+- `Stock data API not configured` → `API de datos bursátiles no configurada`
+- `Failed to fetch stock data` → `Error al obtener datos bursátiles`
+- `API returned HTTP error` → `La API devolvió error HTTP`
+- `Stock data response empty/invalid` → `respuesta está vacía o es inválida`
+- `Stock data updated` → `Datos bursátiles actualizados`
+- `Unauthorized` → `No autorizado`
+- `Stock Data` → `Datos Bursátiles`
+
+#### TeamMembers Widget (6 strings)
+- `Category` → `Categoría`
+- `Section Title` → `Título de Sección`
+- `Margin Bottom` → `Margen Inferior`
+- `Name` → `Nombre`
+- `Margin Top` → `Margen Superior`
+- `Position` → `Cargo`
+
+#### Breadcrumb Widget (11 strings)
+- `SOMA Breadcrumb` → `Migas de Pan SOMA`
+- `Breadcrumb Settings` → `Configuración de Migas de Pan`
+- `Separator` → `Separador`
+- `Show Home` → `Mostrar Inicio`
+- `Show Current Page` → `Mostrar Página Actual`
+- `Style` → `Estilo`
+- `Current Page Color` → `Color de Página Actual`
+- `Separator Color` → `Color del Separador`
+- `Home` → `Inicio`
+- `Breadcrumb Navigation` → `Navegación de Migas de Pan`
+
+#### Portfolio Widget (28 strings)
+- `Main Category` → `Categoría Principal`
+- `Filter Categories` → `Filtrar Categorías`
+- `Initial Posts` → `Publicaciones Iniciales`
+- `Year` → `Año`
+- `Display` → `Visualización`
+- `Default View` → `Vista Predeterminada`
+- `Show Filters` → `Mostrar Filtros`
+- `Show View Toggle` → `Mostrar Cambio de Vista`
+- `Show Year` → `Mostrar Año`
+- `Show City` → `Mostrar Ciudad`
+- `FibraSOMA (Dark)` → `FibraSOMA (Oscuro)`
+- `SOMA (Light)` → `SOMA (Claro)`
+- `"All" Filter Text` → `Texto del Filtro "Todos"`
+- `List View Text` → `Texto de Vista Lista`
+- `Grid View Text` → `Texto de Vista Cuadrícula`
+- `Loading Text` → `Texto de Carga`
+- `Loading more` → `Cargando más`
+- `Background Color` → `Color de Fondo`
+- `Filters` → `Filtros`
+- `Active Color` → `Color Activo`
+- `Border Color` → `Color del Borde`
+- `City` → `Ciudad`
+- `Hover Zoom Scale` → `Escala de Zoom al Pasar`
+- `Transition Duration` → `Duración de Transición`
+- `View Toggle` → `Cambio de Vista`
+
+#### Documents Widget (1 string)
+- `Select a category to filter documents...` → `Selecciona una categoría para filtrar documentos...`
+
+#### Helper Functions (4 strings)
+- `Search results for: %s` → `Resultados de búsqueda para: %s`
+- `Page Not Found` → `Página No Encontrada`
+- `Blog` → `Blog`
+- `Home` → `Inicio`
+
+### 📦 Files Changed
+
+#### Added
+- `assets/js/admin/stock-data.js` - External JavaScript module for admin panel (150 lines)
+- `assets/css/admin/stock-data.css` - External CSS for admin panel
+- `.github/instructions/elementor-widgets.instructions.md` - Elementor widget development workflow
+
+#### Modified
+- `includes/Admin/StockData.php` - Sync interval control, test API button, status display, external JS/CSS enqueue, CSRF protection
+- `includes/Elementor/Widgets/Documents.php` - Added category filter control
+- `includes/Elementor/Widgets/TeamMembers.php` - Variable rename for clarity, field mapping documentation
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations (48 new strings)
+- `languages/es_ES.mo` - Compiled translation binary
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #150**: [feat: Stock Data admin enhancements](https://github.com/sanruiz/fibra/pull/150) - Merged
+- **PR #151**: [feat: Add category filter to Documents widget](https://github.com/sanruiz/fibra/pull/151) - Merged
+- **PR #153**: [fix: TeamMembers widget field mapping clarity](https://github.com/sanruiz/fibra/pull/153) - Merged
+
+---
+
 ## [3.1.9] - 2025-01-03
 
 ### Week 4 - TeamMembers Widget & StockData Refactor

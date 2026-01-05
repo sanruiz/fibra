@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { escapeHtml } from '../utils/helpers';
 
 const arrow = `
     <svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -14,7 +15,8 @@ const navbarHandler = (containers) => {
     containers.each((key, el) => {
         // Extra elements
         $(el).find('.menu-item-has-children').each((key, submenuParent) => {
-            $(submenuParent).find('> .sub-menu').prepend(`<div class="submenu-title">${arrow + $(submenuParent).find('> a').text()}</div>`)
+            const menuText = escapeHtml($(submenuParent).find('> a').text());
+            $(submenuParent).find('> .sub-menu').prepend(`<div class="submenu-title">${arrow}${menuText}</div>`);
             $(submenuParent).find('> a').append(arrow);
         });
 
