@@ -11,11 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [3.1.10] - 2025-01-04
+## [3.1.10] - 2025-01-05
 
 ### Week 4 Patch - Stock Data Admin & Documents Widget Enhancements
 
-This release enhances the Stock Data admin panel with configurable sync intervals, adds category filtering to the Documents widget, and completes Spanish translations for all Week 4 components.
+This release enhances the Stock Data admin panel with configurable sync intervals, adds category filtering to the Documents widget, improves TeamMembers widget field mapping clarity, and completes Spanish translations for all Week 4 components.
 
 ---
 
