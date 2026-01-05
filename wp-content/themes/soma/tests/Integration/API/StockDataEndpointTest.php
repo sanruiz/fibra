@@ -102,12 +102,19 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 	 * Skip test if API data is not valid.
 	 *
 	 * Checks that the API returned valid data before testing specific fields.
+	 * Valid data should have the correct symbol and currency from the API.
 	 *
 	 * @param array|mixed $data The API response data.
 	 */
 	private function skip_without_valid_api_data( $data ): void {
+		// Check basic structure.
 		if ( ! is_array( $data ) || empty( $data ) || ! isset( $data['timestamp'] ) ) {
 			$this->markTestSkipped( 'API did not return valid data. External API may be unavailable or rate limited.' );
+		}
+
+		// Check that data actually came from API (not placeholder/error data).
+		if ( ! isset( $data['symbol'] ) || 'SOMA21.MX' !== $data['symbol'] ) {
+			$this->markTestSkipped( 'API did not return expected stock symbol. External API may be unavailable or rate limited.' );
 		}
 	}
 
@@ -304,6 +311,12 @@ class StockDataEndpointTest extends WP_UnitTestCase {
 		// Fetch real data from Yahoo Finance.
 		$stock_instance = StockData::instance();
 		$stock_instance->fetch_stock_data();
+
+		// Skip if API didn't return valid data (external APIs may be unavailable).
+		$stock_data = get_option( 'stock_data' );
+		if ( ! is_array( $stock_data ) || empty( $stock_data ) || ! isset( $stock_data['symbol'] ) ) {
+			$this->markTestSkipped( 'API did not return valid stock data. External API may be unavailable or rate limited.' );
+		}
 
 		$request  = new WP_REST_Request( 'GET', '/soma/stock-data' );
 		$response = $this->server->dispatch( $request );
