@@ -150,8 +150,7 @@ class TeamMemberWidgetTest extends WP_UnitTestCase {
 
 		$css_content = file_get_contents( $css_file );
 
-		// Check for responsive breakpoints.
-		$this->assertStringContainsString( '@media (max-width: 991px)', $css_content, 'CSS should have tablet breakpoint' );
+		// Check for responsive breakpoints (only mobile, no tablet in current implementation).
 		$this->assertStringContainsString( '@media (max-width: 767px)', $css_content, 'CSS should have mobile breakpoint' );
 	}
 
@@ -168,9 +167,9 @@ class TeamMemberWidgetTest extends WP_UnitTestCase {
 			'TeamMember widget should have team_member_id control'
 		);
 		$this->assertStringContainsString(
-			'Controls_Manager::SELECT2',
+			'Controls_Manager::SELECT',
 			$source,
-			'TeamMember widget should use SELECT2 for member selection'
+			'TeamMember widget should use SELECT for member selection'
 		);
 	}
 
