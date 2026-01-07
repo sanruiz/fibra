@@ -206,11 +206,14 @@ jobs:
                   cd ${{ env.THEME_PATH }}
                   echo "🔌 Installing required plugins for tests..."
                   
-                  # Install ACF Pro
+                  # Install ACF Pro (optional - skip if not available in repo)
                   if [ -f "tests/bin/install-acf-for-tests.sh" ]; then
                     echo "📦 Installing Advanced Custom Fields PRO..."
-                    bash tests/bin/install-acf-for-tests.sh
-                    echo "✅ ACF PRO installed"
+                    if bash tests/bin/install-acf-for-tests.sh; then
+                      echo "✅ ACF PRO installed"
+                    else
+                      echo "⚠️ ACF PRO not available - tests will skip ACF-dependent features"
+                    fi
                   fi
                   
                   # Install Contact Form 7
@@ -227,7 +230,7 @@ jobs:
                     echo "✅ Elementor installed"
                   fi
                   
-                  echo "✅ All test plugins installed successfully"
+                  echo "✅ Plugin installation complete"
               env:
                   WP_TESTS_DIR: /tmp/wordpress-tests-lib
                   WP_CORE_DIR: /tmp/wordpress/
