@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Slick carousel errors now logged as warnings instead of crashing the script
   - Removed debug console.logs from `main.js` and `ShareQuotation.js`
 
+#### Footer Partial
+- **HTML Tags Visible on Mobile** - Fixed `<br>` tags showing as literal text instead of rendering (#159)
+  - Changed `logo_subtext` from `esc_html()` to `wp_kses_post()` to allow safe HTML
+  - Changed `copyright` from `esc_html()` to `wp_kses_post()` for consistency with Elementor widget
+
 ---
 
 ## [3.1.10] - 2025-01-05

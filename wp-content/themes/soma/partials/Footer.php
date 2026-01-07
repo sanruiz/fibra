@@ -39,11 +39,11 @@ $data = get_field( 'footer_content', 'options' );
 						</a>
 					<?php endif; ?>
 					<div class="logo_subtext">
-						<?php echo esc_html( $data['logo_subtext'] ); ?>
+						<?php echo wp_kses_post( $data['logo_subtext'] ); ?>
 					</div>
 				</div>
 				<div class="location mobile-copy">
-					<?php echo esc_html( $data['location_text'] ); ?>
+					<?php echo wp_kses_post( $data['location_text'] ); ?>
 				</div>
 				<div class="newsletter">
 					<?php echo do_shortcode( $data['newsletter_form_shortcode'] ); ?>
@@ -102,7 +102,7 @@ $data = get_field( 'footer_content', 'options' );
 				</div>
 			</div>
 			<div class="row">
-				<div class="copyright"><?php echo esc_html( $data['copyright'] ); ?></div>
+				<div class="copyright"><?php echo wp_kses_post( $data['copyright'] ); ?></div>
 				<div class="credits">
 					<?php if ( $data['credits'] ) : ?>
 						<a href="<?php echo esc_url( $data['credits']['url'] ); ?>" target="<?php echo esc_attr( $data['credits']['target'] ); ?>"><?php echo esc_html( $data['credits']['title'] ); ?></a>
