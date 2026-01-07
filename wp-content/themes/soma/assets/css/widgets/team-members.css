@@ -6,7 +6,7 @@
  *
  * @package Soma
  * @since 3.0.0
- * @since 3.1.9 Simplified modular design, CSS variables integration
+ * @since 3.1.9
  */
 
 /* Container */
@@ -76,22 +76,16 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	transition: transform var(--soma-transition-slow);
 }
 
 /* Grayscale effect */
 .soma-team-members.grayscale .team-member .member-image img {
 	filter: grayscale(100%);
-	transition: filter var(--soma-transition-base), transform var(--soma-transition-slow);
+	transition: filter var(--soma-transition-base);
 }
 
 .soma-team-members.grayscale .team-member:hover .member-image img {
 	filter: grayscale(0%);
-}
-
-/* Hover zoom */
-.soma-team-members .team-member:hover .member-image img {
-	transform: scale(1.05);
 }
 
 /* Member info */

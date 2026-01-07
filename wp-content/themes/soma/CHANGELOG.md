@@ -9,6 +9,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Week 4 Feature - TeamMember Elementor Widget
+
+This release adds a new TeamMember Elementor widget that replicates the team member single page functionality, enabling flexible integration of team member profiles into any page layout via Elementor.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+- **TeamMember Widget** - New Elementor widget for displaying individual team member profiles
+  - Replicates complete team-members single page structure and design
+  - Auto-detects team member from URL context when used in global templates (Header/Footer)
+  - Manual team member selection via Elementor control for custom layouts
+  - **Responsive 2-Column Flexbox Layout**:
+    - Left column: Name, Position, Featured Text (50% width, `padding-right: 15px`)
+    - Right column: Featured Image, Biography (50% width, `padding-left: 15px`, `margin-left: auto`)
+    - 50/50 split using `calc(100% * (6/12))`
+    - Container padding: `60px 0 140px` (desktop), `45px 0 80px` (mobile)
+    - Section margins: `70px` (desktop), `45px` (mobile)
+  - **Typography Controls**:
+    - Name styling with configurable margins
+    - Position/title styling
+    - Biography content with `18px` font-size, `25px` line-height
+  - **Image Handling**:
+    - Featured image with `max-width: 410px`
+    - Responsive behavior on mobile
+  - **Widget Independence**:
+    - Uses widget-specific class `soma-team-member`
+    - Completely independent of partial styles
+    - Future-proof for partial elimination
+
+### 📦 Files Changed
+
+#### Added
+- `includes/Elementor/Widgets/TeamMember.php` - New TeamMember widget (531 lines)
+- `assets/css/widgets/team-member.css` - Widget-specific styles with flexbox layout
+
+#### Modified
+- `wp-content/themes/soma/CHANGELOG.md` - Version documentation
+
 ---
 
 ## [3.1.11] - 2025-01-06
