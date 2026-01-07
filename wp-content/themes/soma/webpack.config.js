@@ -6,6 +6,11 @@ module.exports = {
         path: __dirname + '/js',
         filename: 'main.bundle.js'
     },
+    // Use WordPress jQuery (external) instead of bundling our own
+    // This ensures plugins like Slick Carousel work correctly
+    externals: {
+        jquery: 'jQuery'
+    },
     module: {
         rules: [
             {
