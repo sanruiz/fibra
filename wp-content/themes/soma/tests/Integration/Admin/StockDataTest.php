@@ -79,14 +79,22 @@ class StockDataTest extends WP_UnitTestCase {
 	/**
 	 * Skip test if API didn't return valid stock data.
 	 *
-	 * Validates that stock_data option contains expected structure.
+	 * Validates that stock_data option contains expected structure
+	 * and that the data actually came from the API (not old/placeholder data).
 	 * External APIs may be rate-limited, unavailable, or return errors.
 	 *
 	 * @param mixed $data The stock data from get_option( 'stock_data' ).
 	 */
 	private function skip_without_valid_stock_data( $data ): void {
+		// Check basic structure.
 		if ( ! is_array( $data ) || empty( $data ) || ! isset( $data['symbol'] ) ) {
 			$this->markTestSkipped( 'API did not return valid stock data. External API may be unavailable or rate limited.' );
+		}
+
+		// Check that data actually came from API (not placeholder/old data).
+		// Valid API data should have symbol = SOMA21.MX and currency = MXN.
+		if ( 'SOMA21.MX' !== $data['symbol'] || ! isset( $data['currency'] ) || 'MXN' !== $data['currency'] ) {
+			$this->markTestSkipped( 'API did not return expected stock data. External API may be unavailable or rate limited.' );
 		}
 	}
 
@@ -461,7 +469,7 @@ class StockDataTest extends WP_UnitTestCase {
 		StockData::instance();
 
 		$next_scheduled = wp_next_scheduled( 'update_stock_data_event' );
-		$now            = current_time( 'timestamp' );
+		$now            = time();
 
 		$this->assertGreaterThanOrEqual( $now, $next_scheduled );
 	}
@@ -473,7 +481,7 @@ class StockDataTest extends WP_UnitTestCase {
 		StockData::instance();
 
 		$next_scheduled = wp_next_scheduled( 'update_stock_data_event' );
-		$now            = current_time( 'timestamp' );
+		$now            = time();
 		$three_hours    = 3 * HOUR_IN_SECONDS;
 
 		$this->assertLessThanOrEqual( $now + $three_hours, $next_scheduled );
@@ -597,7 +605,7 @@ class StockDataTest extends WP_UnitTestCase {
 		// Get updated data.
 		$data = get_option( 'stock_data' );
 
-		// Skip if API didn't return valid data.
+		// Skip if API didn't return valid data (must check BEFORE assertions).
 		$this->skip_without_valid_stock_data( $data );
 
 		// Verify data was updated.
