@@ -34,17 +34,17 @@ class TeamMemberWidgetTest extends WP_UnitTestCase {
 	/**
 	 * Set up test environment
 	 */
-	public function set_up(): void {
-		parent::set_up();
+	public function setUp(): void {
+		parent::setUp();
 		$this->widget = new TeamMember();
 	}
 
 	/**
 	 * Tear down test environment
 	 */
-	public function tear_down(): void {
+	public function tearDown(): void {
 		$this->widget = null;
-		parent::tear_down();
+		parent::tearDown();
 	}
 
 	/**
