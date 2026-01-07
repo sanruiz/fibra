@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🐛 Fixed
+
+#### JavaScript Execution
+- **ShareQuotation Component** - Fixed stock price showing $0 on `/company/` page (#158)
+  - Added `safeInit()` wrapper for Slick-dependent handlers to prevent uncaught errors from halting JS execution
+  - Slick carousel errors now logged as warnings instead of crashing the script
+  - Removed debug console.logs from `main.js` and `ShareQuotation.js`
+
 ---
 
 ## [3.1.10] - 2025-01-05
