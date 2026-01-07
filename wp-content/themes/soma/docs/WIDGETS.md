@@ -895,14 +895,21 @@ class MyWidgetTest extends WP_UnitTestCase {
 
     private ?MyWidget $widget = null;
 
-    public function set_up(): void {
-        parent::set_up();
+    public function setUp(): void {
+        parent::setUp();
+        
+        // Skip if Elementor not loaded - CRITICAL for CI compatibility
+        if (!did_action('elementor/loaded')) {
+            $this->markTestSkipped('Elementor not loaded');
+            return; // IMPORTANT: Always include return after markTestSkipped
+        }
+        
         $this->widget = new MyWidget();
     }
 
-    public function tear_down(): void {
+    public function tearDown(): void {
         $this->widget = null;
-        parent::tear_down();
+        parent::tearDown();
     }
 
     public function test_widget_name(): void {
