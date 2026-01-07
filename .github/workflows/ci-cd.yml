@@ -201,6 +201,37 @@ jobs:
                     echo "✅ Theme symlink created"
                   fi
 
+            - name: 🔌 Install Test Plugins
+              run: |
+                  cd ${{ env.THEME_PATH }}
+                  echo "🔌 Installing required plugins for tests..."
+                  
+                  # Install ACF Pro
+                  if [ -f "tests/bin/install-acf-for-tests.sh" ]; then
+                    echo "📦 Installing Advanced Custom Fields PRO..."
+                    bash tests/bin/install-acf-for-tests.sh
+                    echo "✅ ACF PRO installed"
+                  fi
+                  
+                  # Install Contact Form 7
+                  if [ -f "tests/bin/install-cf7-for-tests.sh" ]; then
+                    echo "📧 Installing Contact Form 7..."
+                    bash tests/bin/install-cf7-for-tests.sh
+                    echo "✅ CF7 installed"
+                  fi
+                  
+                  # Install Elementor
+                  if [ -f "tests/bin/install-elementor-for-tests.sh" ]; then
+                    echo "🎨 Installing Elementor..."
+                    bash tests/bin/install-elementor-for-tests.sh
+                    echo "✅ Elementor installed"
+                  fi
+                  
+                  echo "✅ All test plugins installed successfully"
+              env:
+                  WP_TESTS_DIR: /tmp/wordpress-tests-lib
+                  WP_CORE_DIR: /tmp/wordpress/
+
             - name: 🧪 Run PHPUnit Tests
               run: |
                   cd ${{ env.THEME_PATH }}
