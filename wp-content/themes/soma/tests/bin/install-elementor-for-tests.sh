@@ -78,7 +78,7 @@ if [ -d "$ELEMENTOR_PLUGIN_DIR" ]; then
     echo ""
     
     # Check for non-interactive mode
-    if [[ "$FORCE_ELEMENTOR_REINSTALL" === "true" ]] || [[ "$CI" === "true" ]] || [[ "$GITHUB_ACTIONS" === "true" ]]; then
+    if [[ "$FORCE_ELEMENTOR_REINSTALL" == "true" ]] || [[ "$CI" == "true" ]] || [[ "$GITHUB_ACTIONS" == "true" ]]; then
         print_warning "Non-interactive mode: Automatically reinstalling Elementor"
         REPLY="y"
     else

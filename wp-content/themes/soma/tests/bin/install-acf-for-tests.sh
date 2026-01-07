@@ -85,7 +85,7 @@ if [ -d "$ACF_PLUGIN_DIR" ]; then
     print_warning "ACF PRO already installed in test environment"
     
     # Check for non-interactive mode
-    if [[ "$FORCE_ACF_REINSTALL" === "true" ]] || [[ "$CI" === "true" ]] || [[ "$GITHUB_ACTIONS" === "true" ]]; then
+    if [[ "$FORCE_ACF_REINSTALL" == "true" ]] || [[ "$CI" == "true" ]] || [[ "$GITHUB_ACTIONS" == "true" ]]; then
         print_warning "Non-interactive mode: Automatically reinstalling ACF PRO"
         REPLY="y"
     else
