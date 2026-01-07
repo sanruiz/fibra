@@ -8,7 +8,8 @@ applyTo: "tests/**/*.php"
 
 **Applies to**: All test files in `tests/` directory  
 **Last Updated**: January 7, 2026  
-**Project**: SOMA WordPress Theme v3.0+
+**Project**: SOMA WordPress Theme v3.0+  
+**Widget Count**: 9 Elementor widgets (all with integration tests)
 
 ---
 
@@ -316,7 +317,10 @@ public function tearDown(): void {
 
 **Why**: PHPUnit requires camelCase for lifecycle methods. Snake_case is a deprecated convention that causes PHPUnit to not recognize these as setup/teardown hooks, leading to test initialization failures.
 
-**Historical Context**: In commit `c41d03a`, we fixed `TeamMemberWidgetTest.php` by changing `set_up`/`tear_down` to `setUp`/`tearDown`.
+**Historical Context**: 
+- Commit `c41d03a`: Fixed `TeamMemberWidgetTest.php` by changing `set_up`/`tear_down` to `setUp`/`tearDown`.
+- Commit `862f767`: Added Elementor check to `TeamMemberWidgetTest` after 10 CI failures when widget instantiation failed without Elementor.
+- Key learning: Always include `return;` after `markTestSkipped()` to prevent further execution.
 
 #### 2. Always Call Parent Methods
 
