@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [3.1.11] - 2025-01-06
+
+### Week 4 Patch - JavaScript & Footer Bug Fixes
+
+This patch release fixes the stock price display issue on the company page and resolves HTML tags being visible in the mobile footer.
+
+---
+
 ### 🐛 Fixed
 
 #### JavaScript Execution
@@ -21,6 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **HTML Tags Visible on Mobile** - Fixed `<br>` tags showing as literal text instead of rendering (#159)
   - Changed `logo_subtext` from `esc_html()` to `wp_kses_post()` to allow safe HTML
   - Changed `copyright` from `esc_html()` to `wp_kses_post()` for consistency with Elementor widget
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #160**: [fix: Prevent Slick carousel crash from blocking ShareQuotation](https://github.com/sanruiz/fibra/pull/160) - Merged
+- **PR #161**: [fix: Footer <br> tags visible on mobile](https://github.com/sanruiz/fibra/pull/161) - Merged
 
 ---
 
