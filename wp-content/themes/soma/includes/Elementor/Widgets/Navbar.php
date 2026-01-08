@@ -430,7 +430,7 @@ class Navbar extends WidgetBase {
 				$logo_id    = get_theme_mod( 'custom_logo' );
 				$logo_image = wp_get_attachment_image_src( $logo_id, 'full' );
 				$logo_url   = is_array( $logo_image ) ? $logo_image[0] : '';
-			} elseif ( ! empty( $settings['custom_logo']['url'] ) ) {
+			} elseif ( isset( $settings['custom_logo']['url'] ) && ! empty( $settings['custom_logo']['url'] ) ) {
 				$logo_url = $settings['custom_logo']['url'];
 			}
 		}
