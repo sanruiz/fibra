@@ -462,6 +462,141 @@ Before creating a PR for widget changes, verify:
 
 ---
 
-**Document Version**: 1.1  
-**Last Updated**: January 8, 2026  
+## 📝 CHANGELOG Update (MANDATORY)
+
+**When creating or updating a widget, you MUST document the changes in the `[Unreleased]` section of `wp-content/themes/soma/CHANGELOG.md`.**
+
+### What to Document
+
+#### For New Widgets
+
+```markdown
+### ✨ Added
+
+#### New Elementor Widget
+
+- **{WidgetName} Widget** - Brief description of the widget purpose (#issue-number)
+  - Key feature 1
+  - Key feature 2
+  - Key feature 3
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/{WidgetName}.php` - New {WidgetName} widget
+- `assets/css/widgets/{widget-name}.css` - Widget-specific styles
+- `tests/Integration/Elementor/{WidgetName}WidgetTest.php` - Integration tests
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register {WidgetName} widget
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include {WidgetName} widget
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+```
+
+#### For Widget Updates/Fixes
+
+```markdown
+### 🐛 Fixed
+
+#### {WidgetName} Widget
+
+- **Issue Description** - Brief explanation of what was fixed (#issue-number)
+  - Technical detail of the fix
+
+### 🔄 Changed
+
+#### {WidgetName} Widget
+
+- **Feature/Behavior Change** - Description of what changed
+  - Before: Old behavior
+  - After: New behavior
+
+### 📦 Files Changed
+
+#### Modified
+
+- `includes/Elementor/Widgets/{WidgetName}.php` - Description of change
+- `assets/css/widgets/{widget-name}.css` - Style updates (if applicable)
+```
+
+### CHANGELOG Categories Reference
+
+| Category | Use For |
+|----------|---------|
+| `### ✨ Added` | New widgets, features, controls |
+| `### 🐛 Fixed` | Bug fixes, issue resolutions |
+| `### 🔄 Changed` | Behavior changes, refactoring |
+| `### 🗑️ Deprecated` | Features marked for removal |
+| `### 🔒 Security` | Security-related changes |
+| `### 🌐 Translations` | New translated strings |
+| `### 📦 Files Changed` | List of added/modified files |
+| `### 🔗 Related Issues & PRs` | Links to GitHub issues/PRs |
+
+### Example: Complete CHANGELOG Entry
+
+```markdown
+## [Unreleased]
+
+### Week 4 Feature - AnnualReports Elementor Widget (Issue #XX)
+
+This feature adds a new AnnualReports Elementor widget for displaying annual financial reports.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **AnnualReports Widget** - Display annual reports in grid/list layout (#XX)
+  - Year filter with dropdown selection
+  - Category filtering via taxonomy
+  - Responsive grid with 2/3/4 column options
+  - Download link with file size display
+
+### 🌐 Translations
+
+#### AnnualReports Widget (X strings)
+
+- `Annual Reports` → `Informes Anuales`
+- `Select Year` → `Seleccionar Año`
+- `Download Report` → `Descargar Informe`
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/AnnualReports.php` - New AnnualReports widget
+- `assets/css/widgets/annual-reports.css` - Widget-specific styles
+- `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Integration tests
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register AnnualReports widget
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include AnnualReports widget
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #XX**: [Issue Title](https://github.com/sanruiz/fibra/issues/XX)
+- **PR #YY**: [PR Title](https://github.com/sanruiz/fibra/pull/YY) - Merged to week-N
+```
+
+### Important Notes
+
+1. **Always use `[Unreleased]` section** - Do NOT create version numbers; versioning is handled during releases
+2. **Reference issue numbers** - Use `(#XX)` format to link to GitHub issues
+3. **Be specific** - List actual file paths and specific changes
+4. **Include translations** - Document any new Spanish translations added
+5. **Update on every PR** - Each widget-related PR should update the CHANGELOG
+
+---
+
+**Document Version**: 1.2  
+**Last Updated**: January 7, 2026  
 **Maintainer**: Miguel Colmenares

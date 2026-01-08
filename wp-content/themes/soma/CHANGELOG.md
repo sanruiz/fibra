@@ -9,6 +9,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Week 4 Feature - AnnualReports Elementor Widget (Issue #21)
+
+This feature adds a new AnnualReports Elementor widget for displaying annual financial reports with year filtering on the "Reportes Anuales" page.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **AnnualReports Widget** - Annual financial reports display with year filtering (#21)
+  - **Two-Column Layout**:
+    - Left column: Year filter buttons (vertical list)
+    - Right column: Documents grid with download links
+  - **Dynamic Year Filtering**:
+    - AJAX-powered year filtering via REST API
+    - All years loaded initially, filterable by click
+    - Active year highlighting
+  - **Document Display**:
+    - Featured image thumbnail
+    - Document title and description
+    - Download link with file type icon
+    - Publication date
+  - **Style Variants**:
+    - "full-width" (default) - 2-column layout
+    - "three-columns" - Compact 3-column grid
+  - **Elementor Controls**:
+    - Style variant selection
+    - Typography controls for titles, descriptions, dates
+    - Color controls for text and backgrounds
+    - Responsive spacing and layout controls
+  - **REST API Integration**:
+    - Uses existing `/wp-json/soma/documents` endpoint
+    - Category filtering (Reportes Anuales)
+    - Year-based document grouping
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/AnnualReports.php` - New AnnualReports widget (353 lines)
+- `assets/css/widgets/annual-reports.css` - Widget-specific styles (~280 lines)
+- `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Integration tests (14 test methods)
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register AnnualReports widget and assets
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include AnnualReports widget in test arrays
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #21**: [Página de Reportes Anuales](https://github.com/sanruiz/fibra/issues/21)
+
+---
+
 ### Week 4 Feature - ShareQuotation Elementor Widget (Issue #23)
 
 This feature adds a new ShareQuotation Elementor widget for displaying comprehensive stock market information on the "Información Bursátil" page.

@@ -26,7 +26,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 	 *
 	 * @var array<string, string>
 	 */
-	private array $widget_classes = [
+	private array $widget_classes = array(
 		'Navbar'         => \Soma\Elementor\Widgets\Navbar::class,
 		'Footer'         => \Soma\Elementor\Widgets\Footer::class,
 		'BusinessUnits'  => \Soma\Elementor\Widgets\BusinessUnits::class,
@@ -40,14 +40,15 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'Documents'      => \Soma\Elementor\Widgets\Documents::class,
 		'Breadcrumb'     => \Soma\Elementor\Widgets\Breadcrumb::class,
 		'ShareQuotation' => \Soma\Elementor\Widgets\ShareQuotation::class,
-	];
+		'AnnualReports'  => \Soma\Elementor\Widgets\AnnualReports::class,
+	);
 
 	/**
 	 * Expected style handles for each widget
 	 *
 	 * @var array<string, string>
 	 */
-	private array $widget_styles = [
+	private array $widget_styles = array(
 		'Navbar'         => 'soma-navbar',
 		'Footer'         => 'soma-footer',
 		'BusinessUnits'  => 'soma-business-units',
@@ -61,7 +62,8 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'Documents'      => 'soma-documents',
 		'Breadcrumb'     => 'soma-breadcrumb',
 		'ShareQuotation' => 'soma-share-quotation',
-	];
+		'AnnualReports'  => 'soma-annual-reports',
+	);
 
 	/**
 	 * Set up test
@@ -106,7 +108,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 	 * Test all widgets have unique names
 	 */
 	public function test_all_widgets_have_unique_names(): void {
-		$names = [];
+		$names = array();
 
 		foreach ( $this->widget_classes as $widget_name => $class ) {
 			$widget = new $class();
@@ -173,7 +175,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		foreach ( $this->widget_classes as $name => $class ) {
 			$widget = new $class();
 
-			// Use reflection to call protected register_controls method
+			// Use reflection to call protected register_controls method.
 			$reflection = new \ReflectionClass( $widget );
 			$method     = $reflection->getMethod( 'register_controls' );
 			$method->invoke( $widget );
@@ -194,7 +196,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		foreach ( $this->widget_classes as $name => $class ) {
 			$widget = new $class();
 
-			// Use reflection to call protected render method
+			// Use reflection to call protected render method.
 			$reflection = new \ReflectionClass( $widget );
 			$method     = $reflection->getMethod( 'render' );
 
@@ -213,7 +215,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 	 * Test all widget CSS files exist
 	 */
 	public function test_all_widget_css_files_exist(): void {
-		$css_files = [
+		$css_files = array(
 			'Navbar'         => 'navbar.css',
 			'Footer'         => 'footer.css',
 			'BusinessUnits'  => 'business-units.css',
@@ -224,7 +226,8 @@ class AllWidgetsTest extends WP_UnitTestCase {
 			'ContactForm'    => 'contact-form.css',
 			'StockPrice'     => 'stock-price.css',
 			'ShareQuotation' => 'share-quotation.css',
-		];
+			'AnnualReports'  => 'annual-reports.css',
+		);
 
 		$assets_dir = get_template_directory() . '/assets/css/widgets/';
 
@@ -249,7 +252,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 	 * Test widgets render expected HTML structure
 	 */
 	public function test_widgets_render_expected_structure(): void {
-		$expected_classes = [
+		$expected_classes = array(
 			'Navbar'         => 'soma-navbar',
 			'Footer'         => 'soma-footer',
 			'BusinessUnits'  => 'soma-business-units',
@@ -260,13 +263,14 @@ class AllWidgetsTest extends WP_UnitTestCase {
 			'ContactForm'    => 'soma-contact-form',
 			'StockPrice'     => 'soma-stock-price',
 			'ShareQuotation' => 'soma-share-quotation',
-		];
+			'AnnualReports'  => 'soma-annual-reports',
+		);
 
 		foreach ( $this->widget_classes as $name => $class ) {
 			$widget         = new $class();
 			$expected_class = $expected_classes[ $name ];
 
-			// Use reflection to call protected render method
+			// Use reflection to call protected render method.
 			$reflection = new \ReflectionClass( $widget );
 			$method     = $reflection->getMethod( 'render' );
 
