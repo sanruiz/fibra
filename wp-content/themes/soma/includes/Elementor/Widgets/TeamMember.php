@@ -153,10 +153,10 @@ class TeamMember extends WidgetBase {
 		$this->add_control(
 			'show_photo',
 			array(
-				'label'        => __( 'Show Photo', 'soma' ),
+				'label'        => esc_html__( 'Show Photo', 'soma' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'soma' ),
-				'label_off'    => __( 'No', 'soma' ),
+				'label_on'     => esc_html__( 'Yes', 'soma' ),
+				'label_off'    => esc_html__( 'No', 'soma' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			)
