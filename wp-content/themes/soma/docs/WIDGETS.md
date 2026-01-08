@@ -1,8 +1,8 @@
 # SOMA Theme v3.0 - Elementor Widgets Reference
 
-**Version**: 3.1.12  
-**Last Updated**: January 7, 2026  
-**Total Widgets**: 9
+**Version**: 3.1.13  
+**Last Updated**: January 8, 2026  
+**Total Widgets**: 10
 
 ---
 
@@ -19,6 +19,7 @@
    - [News List Widget](#7-news-list-widget)
    - [Portfolio Widget](#8-portfolio-widget)
    - [Contact Form Widget](#9-contact-form-widget)
+   - [Reports Widget](#10-reports-widget)
 3. [Common Features](#common-features)
 4. [Development Guide](#development-guide)
 5. [Troubleshooting](#troubleshooting)
@@ -27,7 +28,7 @@
 
 ## Overview
 
-SOMA v3.0 includes 9 custom Elementor widgets designed specifically for corporate websites and real estate investment trusts. All widgets are grouped under the **"SOMA"** category in the Elementor panel.
+SOMA v3.0 includes 10 custom Elementor widgets designed specifically for corporate websites and real estate investment trusts. All widgets are grouped under the **"SOMA"** category in the Elementor panel.
 
 ### Key Features
 
@@ -730,6 +731,108 @@ None - Uses CF7 shortcode and widget settings.
 
 ---
 
+### 10. Reports Widget
+
+**Class**: `Soma\Elementor\Widgets\AnnualReports`  
+**ID**: `soma-annual-reports`  
+**Icon**: `eicon-document-file`
+
+#### Description
+
+Financial reports display widget with year filtering for "Reportes Anuales" and "Reportes Trimestrales" pages. Supports two layout variants and AJAX-powered year filtering via REST API.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Category** | Select2 | - | Filter by documents-taxonomy category |
+| **Preselect Latest Year** | Switcher | Yes | Auto-select most recent year on load |
+| **Style Variant** | Select | `full-width` | Layout (full-width/three-columns) |
+| **Filter Title (Mobile)** | Text | `Filter by Year` | Mobile filter button text |
+| **See All Text** | Text | `See All` | Text for "show all years" option |
+| **Download Text** | Text | `Download` | Download button label |
+
+#### Style Controls
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Year Filter** | Section | Year button styling |
+| **Active Background** | Color | Active year button background |
+| **Active Color** | Color | Active year text color |
+| **Button Typography** | Group | Year button text styling |
+| **Document Card** | Section | Card styling |
+| **Title Typography** | Group | Document title styling |
+| **Title Color** | Color | Title text color |
+| **Description Typography** | Group | Description text styling |
+| **Description Color** | Color | Description text color |
+| **Margin Bottom** | Slider | Space below each card |
+
+#### Layout Variants
+
+**Full Width (`full-width`):**
+- Two-column layout
+- Left: Year filter buttons (vertical list)
+- Right: Documents grid with download links
+- Used for "Reportes Anuales" page
+
+**Three Columns (`three-columns`):**
+- Compact 3-column document grid
+- Year filtering in horizontal header
+- Used for "Reportes Trimestrales" page
+
+#### CSS Variables Used
+
+```css
+--soma-primary
+--soma-text-primary
+--soma-bg-white
+--soma-spacing-md
+--soma-spacing-lg
+--soma-border-radius
+--soma-transition
+```
+
+#### Usage Example
+
+```php
+// Query documents by category and year
+$args = [
+    'post_type' => 'documents-reports',
+    'posts_per_page' => -1,
+    'tax_query' => [
+        [
+            'taxonomy' => 'documents-taxonomy',
+            'field' => 'term_id',
+            'terms' => $category_id,
+        ],
+    ],
+    'orderby' => 'date',
+    'order' => 'DESC',
+];
+
+// Group by year
+$documents_by_year = [];
+foreach ($documents as $doc) {
+    $year = get_the_date('Y', $doc);
+    $documents_by_year[$year][] = $doc;
+}
+```
+
+#### REST API Integration
+
+- Uses existing `/wp-json/soma/documents` endpoint
+- Filter by category: `?category={term_id}`
+- Returns documents with year grouping
+
+#### ACF Integration
+
+Relies on `documents-reports` CPT with:
+- Featured Image (thumbnail)
+- Document description
+- File attachment for download
+
+---
+
 ## Common Features
 
 ### All Widgets Include
@@ -1220,7 +1323,7 @@ grep -rn "post_title" includes/Elementor/Widgets/*.php | grep -v "get_the_title"
 
 ---
 
-**Document Version**: 1.1  
+**Document Version**: 1.2  
 **Last Updated**: January 8, 2026  
-**Widgets Count**: 9  
+**Widgets Count**: 10  
 **Maintainer**: Miguel Colmenares

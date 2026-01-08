@@ -90,10 +90,16 @@ msgstr "Fondo de Marcador de Posición"
 msgid "Underline on Hover"
 msgstr "Subrayado al Pasar"
 
+#: includes/Elementor/Widgets/AnnualReports.php:187
+#: includes/Elementor/Widgets/AnnualReports.php:188
+#: includes/Elementor/Widgets/AnnualReports.php:383
 #: partials/AnnualReports.php:42
 msgid "Filter by Year"
 msgstr "Filtrar por año"
 
+#: includes/Elementor/Widgets/AnnualReports.php:197
+#: includes/Elementor/Widgets/AnnualReports.php:198
+#: includes/Elementor/Widgets/AnnualReports.php:384
 #: partials/AnnualReports.php:47
 #: partials/Events.php:41
 msgid "See All"
@@ -308,12 +314,12 @@ msgstr "Radio de Borde"
 msgid "Select Menu"
 msgstr "Seleccionar Menú"
 
-#: includes/Elementor/Loader.php:189
+#: includes/Elementor/Loader.php:195
 msgid "Soma"
 msgstr "Soma"
 
 #. translators: 1: Plugin name 2: Elementor
-#: includes/Elementor/Loader.php:365
+#: includes/Elementor/Loader.php:371
 #, php-format
 msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be installed and activated for full functionality."
 msgstr "<strong>%1$s</strong> requiere que el plugin <strong>%2$s</strong> esté instalado y activado para su funcionalidad completa."
@@ -344,6 +350,7 @@ msgstr "Título"
 msgid "Maximum Items"
 msgstr "Elementos Máximos"
 
+#: includes/Elementor/Widgets/AnnualReports.php:155
 #: includes/Elementor/Widgets/BusinessUnits.php:109
 #: includes/Elementor/Widgets/Documents.php:212
 #: includes/Elementor/Widgets/Services.php:155
@@ -361,6 +368,7 @@ msgstr "Cuadrícula"
 msgid "List"
 msgstr "Lista"
 
+#: includes/Elementor/Widgets/AnnualReports.php:234
 #: includes/Elementor/Widgets/Breadcrumb.php:157
 #: includes/Elementor/Widgets/BusinessUnits.php:139
 #: includes/Elementor/Widgets/BusinessUnits.php:230
@@ -386,6 +394,7 @@ msgstr "Lista"
 msgid "Typography"
 msgstr "Tipografía"
 
+#: includes/Elementor/Widgets/AnnualReports.php:245
 #: includes/Elementor/Widgets/BusinessUnits.php:143
 #: includes/Elementor/Widgets/Documents.php:356
 #: includes/Elementor/Widgets/Documents.php:419
@@ -439,6 +448,7 @@ msgstr "Sombra"
 msgid "Hover Transition"
 msgstr "Transición al Pasar"
 
+#: includes/Elementor/Widgets/AnnualReports.php:178
 #: includes/Elementor/Widgets/BusinessUnits.php:223
 #: includes/Elementor/Widgets/ShareQuotation.php:147
 #: includes/Elementor/Widgets/TeamMembers.php:291
@@ -465,6 +475,7 @@ msgstr "Por favor selecciona un formulario de contacto."
 msgid "Documents"
 msgstr "Documentos"
 
+#: includes/Elementor/Widgets/AnnualReports.php:121
 #: includes/Elementor/Widgets/Documents.php:112
 #: includes/Elementor/Widgets/NewsList.php:72
 #: includes/Elementor/Widgets/Portfolio.php:124
@@ -523,6 +534,7 @@ msgstr "Ascendente"
 msgid "Title HTML Tag"
 msgstr "Etiqueta HTML del Título"
 
+#: includes/Elementor/Widgets/AnnualReports.php:205
 #: includes/Elementor/Widgets/Documents.php:199
 msgid "Download Link Text"
 msgstr "Texto del Enlace de Descarga"
@@ -588,6 +600,7 @@ msgstr "Espaciado"
 msgid "Download Link"
 msgstr "Enlace de Descarga"
 
+#: includes/Elementor/Widgets/AnnualReports.php:273
 #: includes/Elementor/Widgets/Documents.php:433
 #: includes/Elementor/Widgets/Portfolio.php:526
 #: includes/Elementor/Widgets/TeamMembers.php:544
@@ -598,6 +611,7 @@ msgstr "Color al Pasar"
 msgid "No documents found."
 msgstr "No se encontraron documentos."
 
+#: includes/Elementor/Widgets/AnnualReports.php:162
 #: includes/Elementor/Widgets/Footer.php:81
 #: includes/Elementor/Widgets/Navbar.php:206
 #: includes/Elementor/Widgets/Portfolio.php:266
@@ -744,11 +758,13 @@ msgstr "Colores"
 msgid "Text Color"
 msgstr "Color del Texto"
 
+#: includes/Elementor/Widgets/AnnualReports.php:344
 #: includes/Elementor/Widgets/Breadcrumb.php:182
 #: includes/Elementor/Widgets/Footer.php:382
 msgid "Link Color"
 msgstr "Color del Enlace"
 
+#: includes/Elementor/Widgets/AnnualReports.php:358
 #: includes/Elementor/Widgets/Breadcrumb.php:196
 #: includes/Elementor/Widgets/Footer.php:383
 msgid "Link Hover Color"
@@ -808,6 +824,7 @@ msgstr "Ocultar"
 msgid "Use Theme Customizer Logo"
 msgstr "Usar Logo del Personalizador del Tema"
 
+#: includes/Elementor/Widgets/AnnualReports.php:141
 #: includes/Elementor/Widgets/Navbar.php:142
 #: includes/Elementor/Widgets/Portfolio.php:220
 #: includes/Elementor/Widgets/Portfolio.php:232
@@ -826,6 +843,7 @@ msgstr "Usar Logo del Personalizador del Tema"
 msgid "Yes"
 msgstr "Sí"
 
+#: includes/Elementor/Widgets/AnnualReports.php:142
 #: includes/Elementor/Widgets/Navbar.php:143
 #: includes/Elementor/Widgets/Portfolio.php:221
 #: includes/Elementor/Widgets/Portfolio.php:233
@@ -1180,7 +1198,7 @@ msgid "Separator Color"
 msgstr "Color del Separador"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:298
-#: includes/Utils/Helpers.php:534
+#: includes/Utils/Helpers.php:649
 msgid "Home"
 msgstr "Inicio"
 
@@ -1282,6 +1300,7 @@ msgstr "Color de Fondo"
 msgid "Filters"
 msgstr "Filtros"
 
+#: includes/Elementor/Widgets/AnnualReports.php:259
 #: includes/Elementor/Widgets/Portfolio.php:406
 msgid "Active Color"
 msgstr "Color Activo"
@@ -1307,16 +1326,16 @@ msgid "View Toggle"
 msgstr "Cambio de Vista"
 
 #. translators: %s: search query
-#: includes/Utils/Helpers.php:636
+#: includes/Utils/Helpers.php:751
 #, php-format
 msgid "Search results for: %s"
 msgstr "Resultados de búsqueda para: %s"
 
-#: includes/Utils/Helpers.php:649
+#: includes/Utils/Helpers.php:764
 msgid "Page Not Found"
 msgstr "Página No Encontrada"
 
-#: includes/Utils/Helpers.php:668
+#: includes/Utils/Helpers.php:783
 msgid "Blog"
 msgstr "Blog"
 
@@ -1416,6 +1435,7 @@ msgstr "No autorizado"
 msgid "Stock Data"
 msgstr "Datos Bursátiles"
 
+#: includes/Elementor/Widgets/AnnualReports.php:128
 #: includes/Elementor/Widgets/Documents.php:119
 #: includes/Elementor/Widgets/TeamMembers.php:125
 msgid "Category"
@@ -1453,27 +1473,27 @@ msgstr "Selecciona una categoría para filtrar documentos. Deja vacío para most
 
 #: includes/Elementor/Widgets/TeamMember.php:55
 msgid "Team Member Profile"
-msgstr ""
+msgstr "Perfil de Miembro del Equipo"
 
 #: includes/Elementor/Widgets/TeamMember.php:92
 msgid "Select a team member..."
-msgstr ""
+msgstr "Selecciona un miembro del equipo..."
 
 #: includes/Elementor/Widgets/TeamMember.php:156
 msgid "Show Featured Text"
-msgstr ""
+msgstr "Mostrar Texto Destacado"
 
 #: includes/Elementor/Widgets/TeamMember.php:168
 msgid "Show SOMA Logo"
-msgstr ""
+msgstr "Mostrar Logo SOMA"
 
 #: includes/Elementor/Widgets/TeamMember.php:334
 msgid "Biography"
-msgstr ""
+msgstr "Biografía"
 
 #: includes/Elementor/Widgets/TeamMember.php:430
 msgid "Please select a team member from the widget settings."
-msgstr ""
+msgstr "Por favor selecciona un miembro del equipo desde los ajustes del widget."
 
 #: includes/Elementor/Widgets/TeamMember.php:443
 msgid "Invalid team member selected."
@@ -1501,108 +1521,174 @@ msgstr "Este widget mostrará el miembro actual del equipo cuando se visualice e
 
 #: includes/Elementor/Widgets/ShareQuotation.php:49
 msgid "Share Quotation"
-msgstr ""
+msgstr "Cotización de Acciones"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:124
 msgid "FIBRASOMA"
-msgstr ""
+msgstr "FIBRASOMA"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:125
 msgid "Enter title"
-msgstr ""
+msgstr "Ingresa el título"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:133
 msgid "Stock Symbol"
-msgstr ""
+msgstr "Símbolo Bursátil"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:136
 msgid "e.g., FIBRA SOMA 15"
-msgstr ""
+msgstr "ej., FIBRA SOMA 15"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:155
 msgid "Price Label"
-msgstr ""
+msgstr "Etiqueta de Precio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:164
 msgid "Change Label"
-msgstr ""
+msgstr "Etiqueta de Cambio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:166
 msgid "Change"
-msgstr ""
+msgstr "Cambio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:173
 msgid "Percent Label"
-msgstr ""
+msgstr "Etiqueta de Porcentaje"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:182
 msgid "Volume Label"
-msgstr ""
+msgstr "Etiqueta de Volumen"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:184
 msgid "Volume"
-msgstr ""
+msgstr "Volumen"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:191
 msgid "Date Label"
-msgstr ""
+msgstr "Etiqueta de Fecha"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:203
 msgid "Display Options"
-msgstr ""
+msgstr "Opciones de Visualización"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:211
 msgid "Dark Background"
-msgstr ""
+msgstr "Fondo Oscuro"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:217
 msgid "Enable for dark backgrounds (white text)"
-msgstr ""
+msgstr "Activar para fondos oscuros (texto blanco)"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:224
 msgid "Show Download Link"
-msgstr ""
+msgstr "Mostrar Enlace de Descarga"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:236
 msgid "Download URL"
-msgstr ""
+msgstr "URL de Descarga"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:238
 msgid "https://example.com/file.pdf"
-msgstr ""
+msgstr "https://ejemplo.com/archivo.pdf"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:366
 msgid "Symbol"
-msgstr ""
+msgstr "Símbolo"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:436
 msgid "Label Typography"
-msgstr ""
+msgstr "Tipografía de Etiqueta"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:447
 msgid "Label Color"
-msgstr ""
+msgstr "Color de Etiqueta"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:464
 msgid "Change Indicators"
-msgstr ""
+msgstr "Indicadores de Cambio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:472
 msgid "Positive Change Color"
-msgstr ""
+msgstr "Color de Cambio Positivo"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:484
 msgid "Negative Change Color"
-msgstr ""
+msgstr "Color de Cambio Negativo"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:510
 msgid "Icon Color"
-msgstr ""
+msgstr "Color de Ícono"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:522
 msgid "Icon Size"
-msgstr ""
+msgstr "Tamaño de Ícono"
 
-#: includes/Elementor/Widgets/ShareQuotation.php:636
+#: includes/Elementor/Widgets/ShareQuotation.php:573
 msgid "Stock data not available. Please configure stock data in Settings."
-msgstr ""
+msgstr "Datos bursátiles no disponibles. Por favor configura los datos bursátiles en Ajustes."
+
+#: includes/Elementor/Widgets/AnnualReports.php:132
+msgid "Select a category to filter annual reports."
+msgstr "Selecciona una categoría para filtrar reportes."
+
+#: includes/Elementor/Widgets/AnnualReports.php:139
+msgid "Preselect Latest Year"
+msgstr "Preseleccionar Último Año"
+
+#: includes/Elementor/Widgets/AnnualReports.php:145
+msgid "Automatically select the most recent year when loading."
+msgstr "Seleccionar automáticamente el año más reciente al cargar."
+
+#: includes/Elementor/Widgets/AnnualReports.php:166
+msgid "Full Width"
+msgstr "Ancho Completo"
+
+#: includes/Elementor/Widgets/AnnualReports.php:167
+msgid "Three Columns"
+msgstr "Tres Columnas"
+
+#: includes/Elementor/Widgets/AnnualReports.php:185
+msgid "Filter Title (Mobile)"
+msgstr "Título del Filtro (Móvil)"
+
+#: includes/Elementor/Widgets/AnnualReports.php:195
+msgid "See All Text"
+msgstr "Texto de Ver Todos"
+
+#: includes/Elementor/Widgets/AnnualReports.php:207
+#: includes/Elementor/Widgets/AnnualReports.php:208
+#: includes/Elementor/Widgets/AnnualReports.php:385
+msgid "Download"
+msgstr "Descargar"
+
+#: includes/Elementor/Widgets/AnnualReports.php:225
+msgid "Year Filter"
+msgstr "Filtro de Año"
+
+#: includes/Elementor/Widgets/AnnualReports.php:287
+msgid "Document Card"
+msgstr "Tarjeta de Documento"
+
+#: includes/Elementor/Widgets/AnnualReports.php:296
+msgid "Title Typography"
+msgstr "Tipografía del Título"
+
+#: includes/Elementor/Widgets/AnnualReports.php:307
+msgid "Title Color"
+msgstr "Color del Título"
+
+#: includes/Elementor/Widgets/AnnualReports.php:322
+msgid "Description Typography"
+msgstr "Tipografía de la Descripción"
+
+#: includes/Elementor/Widgets/AnnualReports.php:333
+msgid "Description Color"
+msgstr "Color de la Descripción"
+
+#: includes/Elementor/Widgets/AnnualReports.php:399
+msgid "Please select a document category to display annual reports."
+msgstr "Por favor selecciona una categoría de documentos para mostrar reportes."
+
+#: includes/Elementor/Widgets/AnnualReports.php:48
+msgid "Reports"
+msgstr "Reportes"

@@ -54,6 +54,7 @@ class Loader implements LoadableInterface {
 		'Documents'      => Widgets\Documents::class,
 		'Breadcrumb'     => Widgets\Breadcrumb::class,
 		'ShareQuotation' => Widgets\ShareQuotation::class,
+		'AnnualReports'  => Widgets\AnnualReports::class,
 	);
 
 	/**
@@ -75,6 +76,7 @@ class Loader implements LoadableInterface {
 		'soma-documents'       => 'documents.css',
 		'soma-breadcrumb'      => 'breadcrumb.css',
 		'soma-share-quotation' => 'share-quotation.css',
+		'soma-annual-reports'  => 'annual-reports.css',
 	);
 
 	/**
@@ -83,8 +85,12 @@ class Loader implements LoadableInterface {
 	 * @var array<string, array{file: string, deps: array<int, string>}> Widget script handles, files, and dependencies
 	 */
 	private array $widget_scripts = array(
-		'soma-portfolio' => array(
+		'soma-portfolio'      => array(
 			'file' => 'portfolio.js',
+			'deps' => array( 'jquery' ),
+		),
+		'soma-annual-reports' => array(
+			'file' => 'annualReports.js',
 			'deps' => array( 'jquery' ),
 		),
 	);

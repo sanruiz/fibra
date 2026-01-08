@@ -997,6 +997,8 @@ Use `soma_get_i18n_field()` for ACF fields with language variants (`file`/`file_
    wp i18n update-po languages/soma.pot languages/
    wp i18n make-mo languages/
    ```
+   
+   **⚠️ MANDATORY**: After running `update-po`, open `languages/es_ES.po` and translate ALL new strings. **Never commit empty `msgstr ""`** entries.
 
 8. **Quality Gates** - Run before commit:
    ```bash

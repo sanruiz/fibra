@@ -9,6 +9,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Week 4 Feature - Reports Elementor Widget (Issues #21 & #20)
+
+This feature adds a new Reports Elementor widget for displaying financial reports with year filtering. The widget supports both the "Reportes Anuales" page (Issue #21) and "Reportes Trimestrales" page (Issue #20) through category selection and configurable layout variants.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **Reports Widget** - Financial reports display with year filtering (#21, #20)
+  - **Two-Column Layout** (`full-width` variant):
+    - Left column: Year filter buttons (vertical list)
+    - Right column: Documents grid with download links
+    - Used for "Reportes Anuales" page
+  - **Three-Column Layout** (`three-columns` variant):
+    - Compact 3-column document grid
+    - Year filtering in horizontal header
+    - Used for "Reportes Trimestrales" page
+  - **Dynamic Year Filtering**:
+    - AJAX-powered year filtering via REST API
+    - All years loaded initially, filterable by click
+    - Active year highlighting
+  - **Document Display**:
+    - Featured image thumbnail
+    - Document title and description
+    - Download link with file type icon
+    - Publication date
+  - **Elementor Controls**:
+    - Style variant selection (`full-width` or `three-columns`)
+    - Category selector (filters by documents-taxonomy)
+    - Typography controls for titles, descriptions, dates
+    - Color controls for text and backgrounds
+    - Responsive spacing and layout controls
+  - **REST API Integration**:
+    - Uses existing `/wp-json/soma/documents` endpoint
+    - Category filtering via taxonomy
+    - Year-based document grouping
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/AnnualReports.php` - New Reports widget (~440 lines)
+- `assets/css/widgets/annual-reports.css` - Widget-specific styles (~280 lines)
+- `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Integration tests (14 test methods)
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register AnnualReports widget and assets
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include AnnualReports widget in test arrays
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #21**: [Página de Reportes Anuales](https://github.com/sanruiz/fibra/issues/21)
+- **Issue #20**: [Página de Reportes Trimestrales](https://github.com/sanruiz/fibra/issues/20)
+
+---
+
 ### Week 4 Feature - ShareQuotation Elementor Widget (Issue #23)
 
 This feature adds a new ShareQuotation Elementor widget for displaying comprehensive stock market information on the "Información Bursátil" page.
