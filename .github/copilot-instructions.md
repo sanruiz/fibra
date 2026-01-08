@@ -366,9 +366,11 @@ gh release view vX.Y.Z | cat
 
 **Expected CI/CD Flow:**
 1. ✅ Stage 1: Quality Gates (code-quality, php-tests, frontend-build) ~2min
-2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release) ~1min
+2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release **automatically**) ~1min
 3. ✅ Stage 3: Deploy to Production (SFTP upload, backup, extract) ~2min
 4. ✅ Total: ~5-6 minutes
+
+**⚠️ IMPORTANT**: The GitHub release is created **automatically** by the ci-cd.yml workflow. NEVER use `gh release create` manually.
 
 ---
 
