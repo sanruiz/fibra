@@ -1,0 +1,271 @@
+/**
+ * Share Quotation Widget Styles
+ *
+ * Styles for the ShareQuotation Elementor widget that displays
+ * stock market data in a 3-column layout.
+ *
+ * @package Soma
+ * @subpackage Elementor/Widgets
+ * @since 3.1.13
+ */
+
+/* ==========================================================================
+   Container & Layout
+   ========================================================================== */
+
+.soma-share-quotation {
+	margin-top: 100px;
+	padding: 60px 0;
+}
+
+.soma-share-quotation:first-of-type {
+	margin-top: 0;
+	padding: 20px 0 300px 0;
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation:first-of-type {
+		padding: 10px 0 50px 0;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.soma-share-quotation {
+		margin-top: 50px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation {
+		padding: 40px 0;
+	}
+}
+
+/* ==========================================================================
+   Background Variants
+   ========================================================================== */
+
+.soma-share-quotation--dark {
+	background-color: var(--soma-color-primary, #171717);
+}
+
+.soma-share-quotation--dark .soma-share-quotation__title,
+.soma-share-quotation--dark .soma-share-quotation__symbol,
+.soma-share-quotation--dark .soma-share-quotation__price,
+.soma-share-quotation--dark .soma-share-quotation__label,
+.soma-share-quotation--dark .soma-share-quotation__value,
+.soma-share-quotation--dark .soma-share-quotation__download {
+	color: #fff;
+}
+
+.soma-share-quotation--light .soma-share-quotation__download svg line {
+	stroke: var(--soma-color-primary, #171717);
+}
+
+.soma-share-quotation--light .soma-share-quotation__download svg polygon {
+	stroke: var(--soma-color-primary, #171717);
+	fill: var(--soma-color-primary, #171717);
+}
+
+/* ==========================================================================
+   Grid Container
+   ========================================================================== */
+
+.soma-share-quotation__container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Columns
+   ========================================================================== */
+
+.soma-share-quotation__column {
+	width: calc(100% * (4 / 12));
+	box-sizing: border-box;
+}
+
+/* Column 1: Title & Symbol */
+.soma-share-quotation__column--header {
+	padding-right: 15px;
+}
+
+@media screen and (max-width: 991px) {
+	.soma-share-quotation__column--header {
+		width: 100%;
+		padding-right: 0;
+	}
+}
+
+/* Column 2: Price & Change */
+.soma-share-quotation__column--price {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+@media screen and (max-width: 991px) {
+	.soma-share-quotation__column--price {
+		width: 50%;
+		padding-left: 0;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation__column--price {
+		width: 100%;
+		padding: 0;
+	}
+}
+
+/* Column 3: Volume & Date */
+.soma-share-quotation__column--stats {
+	padding-left: 15px;
+}
+
+@media screen and (max-width: 991px) {
+	.soma-share-quotation__column--stats {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation__column--stats {
+		width: 100%;
+		padding: 0;
+	}
+}
+
+/* ==========================================================================
+   Typography & Values
+   ========================================================================== */
+
+.soma-share-quotation__title {
+	margin: 0 0 10px 0;
+}
+
+.soma-share-quotation__symbol {
+	margin: 0;
+}
+
+.soma-share-quotation__price-wrapper {
+	margin-top: -15px;
+}
+
+.soma-share-quotation__price-label {
+	margin-top: -60px;
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation__price-label {
+		margin-top: -30px;
+	}
+}
+
+.soma-share-quotation__price {
+	margin: 0;
+	font-size: var(--soma-font-size-h1, 3rem);
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.soma-share-quotation__label {
+	margin: 0;
+	font-size: var(--soma-font-size-small, 0.875rem);
+	color: var(--soma-color-text-secondary, #7E7E87);
+}
+
+.soma-share-quotation__value {
+	margin: 0;
+	font-size: var(--soma-font-size-body, 1rem);
+}
+
+/* ==========================================================================
+   Change Indicators
+   ========================================================================== */
+
+.soma-share-quotation__value--positive {
+	color: var(--soma-color-success, #22C55E);
+}
+
+.soma-share-quotation__value--negative {
+	color: var(--soma-color-danger, #EF4444);
+}
+
+/* ==========================================================================
+   Download Link
+   ========================================================================== */
+
+.soma-share-quotation__download {
+	display: inline-block;
+	margin-top: 15px;
+	text-decoration: none;
+	transition: var(--soma-transition, 0.5s);
+}
+
+.soma-share-quotation__download svg {
+	margin-left: 5px;
+}
+
+.soma-share-quotation__download svg line,
+.soma-share-quotation__download svg polygon {
+	transition: var(--soma-transition, 0.5s);
+}
+
+/* Mobile download link */
+.soma-share-quotation__download--mobile {
+	display: none;
+}
+
+/* Desktop download link */
+.soma-share-quotation__download--desktop {
+	display: inline-block;
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation__download--mobile {
+		display: table;
+		margin-bottom: 30px;
+	}
+
+	.soma-share-quotation__download--desktop {
+		display: none;
+	}
+}
+
+/* Desktop hover effects */
+@media screen and (min-width: 992px) {
+	.soma-share-quotation__download:hover {
+		color: var(--soma-color-text-secondary, #7E7E87);
+	}
+
+	.soma-share-quotation__download:hover svg line {
+		stroke: var(--soma-color-text-secondary, #7E7E87);
+	}
+
+	.soma-share-quotation__download:hover svg polygon {
+		stroke: var(--soma-color-text-secondary, #7E7E87);
+		fill: var(--soma-color-text-secondary, #7E7E87);
+	}
+}
+
+/* ==========================================================================
+   Data Rows
+   ========================================================================== */
+
+.soma-share-quotation__row {
+	margin-bottom: 15px;
+}
+
+.soma-share-quotation__row:last-child {
+	margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Inline Values (Change & Percent)
+   ========================================================================== */
+
+.soma-share-quotation__inline {
+	display: flex;
+	gap: 10px;
+	align-items: baseline;
+}

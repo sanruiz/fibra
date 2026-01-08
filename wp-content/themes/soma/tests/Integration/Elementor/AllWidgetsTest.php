@@ -27,18 +27,19 @@ class AllWidgetsTest extends WP_UnitTestCase {
 	 * @var array<string, string>
 	 */
 	private array $widget_classes = [
-		'Navbar'        => \Soma\Elementor\Widgets\Navbar::class,
-		'Footer'        => \Soma\Elementor\Widgets\Footer::class,
-		'BusinessUnits' => \Soma\Elementor\Widgets\BusinessUnits::class,
-		'Services'      => \Soma\Elementor\Widgets\Services::class,
-		'TeamMembers'   => \Soma\Elementor\Widgets\TeamMembers::class,
-		'TeamMember'    => \Soma\Elementor\Widgets\TeamMember::class,
-		'NewsList'      => \Soma\Elementor\Widgets\NewsList::class,
-		'Portfolio'     => \Soma\Elementor\Widgets\Portfolio::class,
-		'ContactForm'   => \Soma\Elementor\Widgets\ContactForm::class,
-		'StockPrice'    => \Soma\Elementor\Widgets\StockPrice::class,
-		'Documents'     => \Soma\Elementor\Widgets\Documents::class,
-		'Breadcrumb'    => \Soma\Elementor\Widgets\Breadcrumb::class,
+		'Navbar'         => \Soma\Elementor\Widgets\Navbar::class,
+		'Footer'         => \Soma\Elementor\Widgets\Footer::class,
+		'BusinessUnits'  => \Soma\Elementor\Widgets\BusinessUnits::class,
+		'Services'       => \Soma\Elementor\Widgets\Services::class,
+		'TeamMembers'    => \Soma\Elementor\Widgets\TeamMembers::class,
+		'TeamMember'     => \Soma\Elementor\Widgets\TeamMember::class,
+		'NewsList'       => \Soma\Elementor\Widgets\NewsList::class,
+		'Portfolio'      => \Soma\Elementor\Widgets\Portfolio::class,
+		'ContactForm'    => \Soma\Elementor\Widgets\ContactForm::class,
+		'StockPrice'     => \Soma\Elementor\Widgets\StockPrice::class,
+		'Documents'      => \Soma\Elementor\Widgets\Documents::class,
+		'Breadcrumb'     => \Soma\Elementor\Widgets\Breadcrumb::class,
+		'ShareQuotation' => \Soma\Elementor\Widgets\ShareQuotation::class,
 	];
 
 	/**
@@ -47,18 +48,19 @@ class AllWidgetsTest extends WP_UnitTestCase {
 	 * @var array<string, string>
 	 */
 	private array $widget_styles = [
-		'Navbar'        => 'soma-navbar',
-		'Footer'        => 'soma-footer',
-		'BusinessUnits' => 'soma-business-units',
-		'Services'      => 'soma-services',
-		'TeamMembers'   => 'soma-team-members',
-		'TeamMember'    => 'soma-team-member',
-		'NewsList'      => 'soma-news-list',
-		'Portfolio'     => 'soma-portfolio',
-		'ContactForm'   => 'soma-contact-form',
-		'StockPrice'    => 'soma-stock-price',
-		'Documents'     => 'soma-documents',
-		'Breadcrumb'    => 'soma-breadcrumb',
+		'Navbar'         => 'soma-navbar',
+		'Footer'         => 'soma-footer',
+		'BusinessUnits'  => 'soma-business-units',
+		'Services'       => 'soma-services',
+		'TeamMembers'    => 'soma-team-members',
+		'TeamMember'     => 'soma-team-member',
+		'NewsList'       => 'soma-news-list',
+		'Portfolio'      => 'soma-portfolio',
+		'ContactForm'    => 'soma-contact-form',
+		'StockPrice'     => 'soma-stock-price',
+		'Documents'      => 'soma-documents',
+		'Breadcrumb'     => 'soma-breadcrumb',
+		'ShareQuotation' => 'soma-share-quotation',
 	];
 
 	/**
@@ -212,15 +214,16 @@ class AllWidgetsTest extends WP_UnitTestCase {
 	 */
 	public function test_all_widget_css_files_exist(): void {
 		$css_files = [
-			'Navbar'        => 'navbar.css',
-			'Footer'        => 'footer.css',
-			'BusinessUnits' => 'business-units.css',
-			'Services'      => 'services.css',
-			'TeamMembers'   => 'team-members.css',
-			'NewsList'      => 'news-list.css',
-			'Portfolio'     => 'portfolio.css',
-			'ContactForm'   => 'contact-form.css',
-			'StockPrice'    => 'stock-price.css',
+			'Navbar'         => 'navbar.css',
+			'Footer'         => 'footer.css',
+			'BusinessUnits'  => 'business-units.css',
+			'Services'       => 'services.css',
+			'TeamMembers'    => 'team-members.css',
+			'NewsList'       => 'news-list.css',
+			'Portfolio'      => 'portfolio.css',
+			'ContactForm'    => 'contact-form.css',
+			'StockPrice'     => 'stock-price.css',
+			'ShareQuotation' => 'share-quotation.css',
 		];
 
 		$assets_dir = get_template_directory() . '/assets/css/widgets/';
@@ -247,15 +250,16 @@ class AllWidgetsTest extends WP_UnitTestCase {
 	 */
 	public function test_widgets_render_expected_structure(): void {
 		$expected_classes = [
-			'Navbar'        => 'soma-navbar',
-			'Footer'        => 'soma-footer',
-			'BusinessUnits' => 'soma-business-units',
-			'Services'      => 'soma-services',
-			'TeamMembers'   => 'soma-team-members',
-			'NewsList'      => 'soma-news-list',
-			'Portfolio'     => 'soma-portfolio',
-			'ContactForm'   => 'soma-contact-form',
-			'StockPrice'    => 'soma-stock-price',
+			'Navbar'         => 'soma-navbar',
+			'Footer'         => 'soma-footer',
+			'BusinessUnits'  => 'soma-business-units',
+			'Services'       => 'soma-services',
+			'TeamMembers'    => 'soma-team-members',
+			'NewsList'       => 'soma-news-list',
+			'Portfolio'      => 'soma-portfolio',
+			'ContactForm'    => 'soma-contact-form',
+			'StockPrice'     => 'soma-stock-price',
+			'ShareQuotation' => 'soma-share-quotation',
 		];
 
 		foreach ( $this->widget_classes as $name => $class ) {

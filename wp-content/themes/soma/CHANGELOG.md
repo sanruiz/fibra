@@ -9,6 +9,81 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Week 4 Feature - ShareQuotation Elementor Widget (Issue #23)
+
+This feature adds a new ShareQuotation Elementor widget for displaying comprehensive stock market information on the "Información Bursátil" page.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **ShareQuotation Widget** - Comprehensive stock market information display widget (#23)
+  - Current stock price with currency formatting
+  - Price change indicator (positive/negative with color coding)
+  - Percentage change display
+  - Trading volume with number formatting
+  - Market time display
+  - **52-Week/Month High-Low Carousel**:
+    - Slick carousel integration for high/low price ranges
+    - 52-week high and low prices
+    - Monthly high and low prices
+    - Auto-advancement with navigation arrows
+  - **Configurable Layout**:
+    - Horizontal layout with flexible sections
+    - Responsive design for mobile/tablet
+  - **Styling Controls**:
+    - Background color customization
+    - Typography controls for all text elements
+    - Price color (positive/negative) configuration
+
+#### Shared Helper Functions
+
+- **`soma_format_stock_price()`** - Format stock price with currency symbol and decimals
+- **`soma_format_stock_change()`** - Format price change with +/- indicator
+- **`soma_format_stock_volume()`** - Format trading volume with number separators
+- **`soma_format_market_time()`** - Format market timestamp for display
+
+#### Code Refactoring
+
+- **StockPrice Widget** - Refactored to use shared helper functions from `Utils/Helpers.php`
+- **DRY Principle** - Eliminated duplicate formatting logic between StockPrice and ShareQuotation widgets
+
+### 🐛 Fixed
+
+#### Multilang Dropdown Display
+
+- **TeamMember Widget** - Fixed dropdown showing raw `[:en]Name[:es]Nombre[:]` format
+  - Changed `$member->post_title` to `get_the_title($member->ID)` to trigger wp-multilang filters
+- **ContactForm Widget** - Fixed same multilang issue in CF7 form selector
+  - Changed `$form->post_title` to `get_the_title($form->ID)`
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/ShareQuotation.php` - New ShareQuotation widget
+- `assets/css/widgets/share-quotation.css` - Widget-specific styles
+- `tests/Integration/Elementor/ShareQuotationWidgetTest.php` - Integration tests
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register ShareQuotation widget
+- `includes/Elementor/Widgets/StockPrice.php` - Refactored to use shared helpers
+- `includes/Elementor/Widgets/TeamMember.php` - Fixed multilang dropdown display
+- `includes/Elementor/Widgets/ContactForm.php` - Fixed multilang dropdown display
+- `includes/Utils/Helpers.php` - Added 4 new stock formatting helper functions
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include ShareQuotation widget
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #23**: [Página de Información Bursátil](https://github.com/sanruiz/fibra/issues/23)
+
 ---
 
 ## [3.1.12] - 2026-01-08

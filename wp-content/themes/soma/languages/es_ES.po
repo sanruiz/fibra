@@ -143,7 +143,7 @@ msgid "Filter by Month"
 msgstr "Filtrar por mes"
 
 #: includes/Core/Navigation.php:90
-#: includes/Elementor/Widgets/Footer.php:455
+#: includes/Elementor/Widgets/Footer.php:459
 #: includes/Elementor/Widgets/Navbar.php:105
 #: partials/Footer.php:75
 msgid "Social"
@@ -152,7 +152,7 @@ msgstr "Redes"
 #: includes/Core/Navigation.php:91
 #: includes/Elementor/Widgets/BusinessUnits.php:40
 #: includes/Elementor/Widgets/BusinessUnits.php:90
-#: includes/Elementor/Widgets/Footer.php:469
+#: includes/Elementor/Widgets/Footer.php:473
 #: includes/Elementor/Widgets/Navbar.php:106
 #: partials/Footer.php:88
 msgid "Business Units"
@@ -299,7 +299,7 @@ msgstr "Plantilla de Barra Lateral de Navegación"
 
 #: includes/Elementor/Base/WidgetBase.php:216
 #: includes/Elementor/Widgets/Documents.php:321
-#: includes/Elementor/Widgets/TeamMember.php:419
+#: includes/Elementor/Widgets/TeamMember.php:379
 msgid "Border Radius"
 msgstr "Radio de Borde"
 
@@ -308,18 +308,19 @@ msgstr "Radio de Borde"
 msgid "Select Menu"
 msgstr "Seleccionar Menú"
 
-#: includes/Elementor/Loader.php:187
+#: includes/Elementor/Loader.php:189
 msgid "Soma"
 msgstr "Soma"
 
 #. translators: 1: Plugin name 2: Elementor
-#: includes/Elementor/Loader.php:363
+#: includes/Elementor/Loader.php:365
 #, php-format
 msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be installed and activated for full functionality."
 msgstr "<strong>%1$s</strong> requiere que el plugin <strong>%2$s</strong> esté instalado y activado para su funcionalidad completa."
 
 #: includes/Elementor/Widgets/BusinessUnits.php:81
 #: includes/Elementor/Widgets/Documents.php:172
+#: includes/Elementor/Widgets/ShareQuotation.php:114
 #: includes/Elementor/Widgets/StockPrice.php:81
 #: includes/Elementor/Widgets/TeamMember.php:121
 msgid "Content"
@@ -331,8 +332,10 @@ msgstr "Contenido"
 #: includes/Elementor/Widgets/Documents.php:336
 #: includes/Elementor/Widgets/Portfolio.php:173
 #: includes/Elementor/Widgets/Portfolio.php:492
-#: includes/Elementor/Widgets/Services.php:98
-#: includes/Elementor/Widgets/Services.php:316
+#: includes/Elementor/Widgets/Services.php:102
+#: includes/Elementor/Widgets/Services.php:320
+#: includes/Elementor/Widgets/ShareQuotation.php:122
+#: includes/Elementor/Widgets/ShareQuotation.php:308
 #: includes/Elementor/Widgets/TeamMembers.php:155
 msgid "Title"
 msgstr "Título"
@@ -343,7 +346,7 @@ msgstr "Elementos Máximos"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:109
 #: includes/Elementor/Widgets/Documents.php:212
-#: includes/Elementor/Widgets/Services.php:151
+#: includes/Elementor/Widgets/Services.php:155
 #: includes/Elementor/Widgets/StockPrice.php:89
 msgid "Layout"
 msgstr "Diseño"
@@ -363,21 +366,20 @@ msgstr "Lista"
 #: includes/Elementor/Widgets/BusinessUnits.php:230
 #: includes/Elementor/Widgets/Documents.php:345
 #: includes/Elementor/Widgets/Documents.php:408
-#: includes/Elementor/Widgets/Footer.php:343
-#: includes/Elementor/Widgets/Navbar.php:308
+#: includes/Elementor/Widgets/Footer.php:347
+#: includes/Elementor/Widgets/Navbar.php:311
 #: includes/Elementor/Widgets/Portfolio.php:381
 #: includes/Elementor/Widgets/Portfolio.php:464
 #: includes/Elementor/Widgets/Portfolio.php:501
 #: includes/Elementor/Widgets/Portfolio.php:555
 #: includes/Elementor/Widgets/Portfolio.php:651
-#: includes/Elementor/Widgets/Services.php:323
-#: includes/Elementor/Widgets/Services.php:368
+#: includes/Elementor/Widgets/Services.php:327
+#: includes/Elementor/Widgets/Services.php:372
 #: includes/Elementor/Widgets/StockPrice.php:183
 #: includes/Elementor/Widgets/StockPrice.php:215
 #: includes/Elementor/Widgets/TeamMember.php:233
 #: includes/Elementor/Widgets/TeamMember.php:288
-#: includes/Elementor/Widgets/TeamMember.php:346
-#: includes/Elementor/Widgets/TeamMember.php:383
+#: includes/Elementor/Widgets/TeamMember.php:343
 #: includes/Elementor/Widgets/TeamMembers.php:363
 #: includes/Elementor/Widgets/TeamMembers.php:509
 #: includes/Elementor/Widgets/TeamMembers.php:611
@@ -392,15 +394,16 @@ msgstr "Tipografía"
 #: includes/Elementor/Widgets/Portfolio.php:512
 #: includes/Elementor/Widgets/Portfolio.php:566
 #: includes/Elementor/Widgets/Portfolio.php:662
-#: includes/Elementor/Widgets/Services.php:327
-#: includes/Elementor/Widgets/Services.php:372
+#: includes/Elementor/Widgets/Services.php:331
+#: includes/Elementor/Widgets/Services.php:376
+#: includes/Elementor/Widgets/ShareQuotation.php:327
+#: includes/Elementor/Widgets/ShareQuotation.php:385
+#: includes/Elementor/Widgets/ShareQuotation.php:421
 #: includes/Elementor/Widgets/StockPrice.php:170
 #: includes/Elementor/Widgets/StockPrice.php:202
 #: includes/Elementor/Widgets/TeamMember.php:244
 #: includes/Elementor/Widgets/TeamMember.php:299
-#: includes/Elementor/Widgets/TeamMember.php:357
-#: includes/Elementor/Widgets/TeamMember.php:394
-#: includes/Elementor/Widgets/TeamMember.php:455
+#: includes/Elementor/Widgets/TeamMember.php:354
 #: includes/Elementor/Widgets/TeamMembers.php:374
 #: includes/Elementor/Widgets/TeamMembers.php:528
 #: includes/Elementor/Widgets/TeamMembers.php:630
@@ -409,7 +412,7 @@ msgstr "Color"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:159
 #: includes/Elementor/Widgets/Documents.php:239
-#: includes/Elementor/Widgets/Services.php:180
+#: includes/Elementor/Widgets/Services.php:184
 #: includes/Elementor/Widgets/StockPrice.php:128
 #: includes/Elementor/Widgets/TeamMembers.php:425
 msgid "Gap"
@@ -421,22 +424,23 @@ msgstr "Elementos"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:193
 #: includes/Elementor/Widgets/Documents.php:282
-#: includes/Elementor/Widgets/Services.php:223
+#: includes/Elementor/Widgets/Services.php:227
 msgid "Border"
 msgstr "Borde"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:194
 #: includes/Elementor/Widgets/Documents.php:283
-#: includes/Elementor/Widgets/Services.php:224
+#: includes/Elementor/Widgets/Services.php:228
 msgid "Box Shadow"
 msgstr "Sombra"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:199
-#: includes/Elementor/Widgets/Services.php:229
+#: includes/Elementor/Widgets/Services.php:233
 msgid "Hover Transition"
 msgstr "Transición al Pasar"
 
 #: includes/Elementor/Widgets/BusinessUnits.php:223
+#: includes/Elementor/Widgets/ShareQuotation.php:147
 #: includes/Elementor/Widgets/TeamMembers.php:291
 msgid "Labels"
 msgstr "Etiquetas"
@@ -480,6 +484,7 @@ msgstr "Ordenar Por"
 
 #: includes/Elementor/Widgets/Documents.php:145
 #: includes/Elementor/Widgets/Portfolio.php:172
+#: includes/Elementor/Widgets/ShareQuotation.php:193
 #: includes/Elementor/Widgets/TeamMembers.php:154
 msgid "Date"
 msgstr "Fecha"
@@ -531,28 +536,29 @@ msgid "Enter download link text"
 msgstr "Ingresa el texto del enlace de descarga"
 
 #: includes/Elementor/Widgets/Documents.php:219
-#: includes/Elementor/Widgets/Services.php:158
+#: includes/Elementor/Widgets/Services.php:162
 #: includes/Elementor/Widgets/TeamMembers.php:187
 msgid "Columns"
 msgstr "Columnas"
 
 #: includes/Elementor/Widgets/Documents.php:275
-#: includes/Elementor/Widgets/Services.php:216
+#: includes/Elementor/Widgets/Services.php:220
 msgid "Card"
 msgstr "Tarjeta"
 
 #: includes/Elementor/Widgets/Documents.php:280
-#: includes/Elementor/Widgets/Footer.php:289
-#: includes/Elementor/Widgets/Navbar.php:258
-#: includes/Elementor/Widgets/Services.php:221
+#: includes/Elementor/Widgets/Footer.php:293
+#: includes/Elementor/Widgets/Navbar.php:261
+#: includes/Elementor/Widgets/Services.php:225
 msgid "Background"
 msgstr "Fondo"
 
 #: includes/Elementor/Widgets/Documents.php:281
-#: includes/Elementor/Widgets/Footer.php:290
-#: includes/Elementor/Widgets/Navbar.php:262
+#: includes/Elementor/Widgets/Footer.php:294
+#: includes/Elementor/Widgets/Navbar.php:265
 #: includes/Elementor/Widgets/Portfolio.php:343
-#: includes/Elementor/Widgets/Services.php:222
+#: includes/Elementor/Widgets/Services.php:226
+#: includes/Elementor/Widgets/ShareQuotation.php:272
 #: includes/Elementor/Widgets/TeamMember.php:198
 #: includes/Elementor/Widgets/TeamMembers.php:325
 msgid "Padding"
@@ -560,24 +566,25 @@ msgstr "Relleno"
 
 #: includes/Elementor/Widgets/Documents.php:291
 #: includes/Elementor/Widgets/Portfolio.php:583
-#: includes/Elementor/Widgets/TeamMember.php:411
+#: includes/Elementor/Widgets/TeamMember.php:371
 #: includes/Elementor/Widgets/TeamMembers.php:454
 msgid "Image"
 msgstr "Imagen"
 
 #: includes/Elementor/Widgets/Documents.php:299
-#: includes/Elementor/Widgets/Navbar.php:276
+#: includes/Elementor/Widgets/Navbar.php:279
 msgid "Height"
 msgstr "Altura"
 
 #: includes/Elementor/Widgets/Documents.php:370
 #: includes/Elementor/Widgets/Portfolio.php:420
-#: includes/Elementor/Widgets/Services.php:287
-#: includes/Elementor/Widgets/Services.php:332
+#: includes/Elementor/Widgets/Services.php:291
+#: includes/Elementor/Widgets/Services.php:336
 msgid "Spacing"
 msgstr "Espaciado"
 
 #: includes/Elementor/Widgets/Documents.php:399
+#: includes/Elementor/Widgets/ShareQuotation.php:499
 msgid "Download Link"
 msgstr "Enlace de Descarga"
 
@@ -592,7 +599,7 @@ msgid "No documents found."
 msgstr "No se encontraron documentos."
 
 #: includes/Elementor/Widgets/Footer.php:81
-#: includes/Elementor/Widgets/Navbar.php:203
+#: includes/Elementor/Widgets/Navbar.php:206
 #: includes/Elementor/Widgets/Portfolio.php:266
 msgid "Style Variant"
 msgstr "Variante de Estilo"
@@ -610,9 +617,9 @@ msgid "Fibrasoma (Single Menu)"
 msgstr "Fibrasoma (Menú Único)"
 
 #: includes/Elementor/Widgets/Footer.php:104
-#: includes/Elementor/Widgets/Footer.php:298
+#: includes/Elementor/Widgets/Footer.php:302
 #: includes/Elementor/Widgets/Navbar.php:120
-#: includes/Elementor/Widgets/Navbar.php:384
+#: includes/Elementor/Widgets/Navbar.php:387
 msgid "Logo"
 msgstr "Logo"
 
@@ -625,137 +632,138 @@ msgstr "Usar Logo de ACF"
 msgid "Custom Logo"
 msgstr "Logo Personalizado"
 
-#: includes/Elementor/Widgets/Footer.php:131
+#: includes/Elementor/Widgets/Footer.php:135
 msgid "Logo Subtext"
 msgstr "Subtexto del Logo"
 
-#: includes/Elementor/Widgets/Footer.php:134
+#: includes/Elementor/Widgets/Footer.php:138
 msgid "Enter subtext below logo"
 msgstr "Ingresa el subtexto debajo del logo"
 
-#: includes/Elementor/Widgets/Footer.php:144
+#: includes/Elementor/Widgets/Footer.php:148
 msgid "Newsletter"
 msgstr "Boletín"
 
-#: includes/Elementor/Widgets/Footer.php:151
+#: includes/Elementor/Widgets/Footer.php:155
 msgid "Contact Form 7 Shortcode"
 msgstr "Shortcode de Contact Form 7"
 
-#: includes/Elementor/Widgets/Footer.php:155
+#: includes/Elementor/Widgets/Footer.php:159
 msgid "Enter the CF7 shortcode for newsletter subscription"
 msgstr "Ingresa el shortcode de CF7 para suscripción al boletín"
 
-#: includes/Elementor/Widgets/Footer.php:162
+#: includes/Elementor/Widgets/Footer.php:166
 msgid "Success Message"
 msgstr "Mensaje de Éxito"
 
-#: includes/Elementor/Widgets/Footer.php:164
+#: includes/Elementor/Widgets/Footer.php:168
 msgid "Thank you for subscribing."
 msgstr "Gracias por suscribirte."
 
-#: includes/Elementor/Widgets/Footer.php:174
+#: includes/Elementor/Widgets/Footer.php:178
 msgid "Location"
 msgstr "Ubicación"
 
-#: includes/Elementor/Widgets/Footer.php:181
+#: includes/Elementor/Widgets/Footer.php:185
 msgid "Location Text"
 msgstr "Texto de Ubicación"
 
-#: includes/Elementor/Widgets/Footer.php:193
+#: includes/Elementor/Widgets/Footer.php:197
 msgid "Navigation Menus"
 msgstr "Menús de Navegación"
 
-#: includes/Elementor/Widgets/Footer.php:200
+#: includes/Elementor/Widgets/Footer.php:204
 msgid "Fibrasoma Menu"
 msgstr "Menú Fibrasoma"
 
-#: includes/Elementor/Widgets/Footer.php:213
+#: includes/Elementor/Widgets/Footer.php:217
 msgid "Social Menu"
 msgstr "Menú de Redes Sociales"
 
-#: includes/Elementor/Widgets/Footer.php:226
+#: includes/Elementor/Widgets/Footer.php:230
 msgid "Business Units Menu"
 msgstr "Menú de Unidades de Negocio"
 
-#: includes/Elementor/Widgets/Footer.php:242
+#: includes/Elementor/Widgets/Footer.php:246
 msgid "Footer Bottom"
 msgstr "Parte Inferior del Pie"
 
-#: includes/Elementor/Widgets/Footer.php:249
+#: includes/Elementor/Widgets/Footer.php:253
 msgid "Copyright Text"
 msgstr "Texto de Derechos de Autor"
 
-#: includes/Elementor/Widgets/Footer.php:258
+#: includes/Elementor/Widgets/Footer.php:262
 msgid "Credits Link"
 msgstr "Enlace de Créditos"
 
-#: includes/Elementor/Widgets/Footer.php:266
+#: includes/Elementor/Widgets/Footer.php:270
 msgid "Privacy Policy Link"
 msgstr "Enlace de Política de Privacidad"
 
-#: includes/Elementor/Widgets/Footer.php:284
+#: includes/Elementor/Widgets/Footer.php:288
 #: includes/Elementor/Widgets/Portfolio.php:335
+#: includes/Elementor/Widgets/ShareQuotation.php:264
 #: includes/Elementor/Widgets/TeamMember.php:190
 #: includes/Elementor/Widgets/TeamMembers.php:317
 msgid "Container"
 msgstr "Contenedor"
 
-#: includes/Elementor/Widgets/Footer.php:306
-#: includes/Elementor/Widgets/Navbar.php:395
+#: includes/Elementor/Widgets/Footer.php:310
+#: includes/Elementor/Widgets/Navbar.php:398
 msgid "Width"
 msgstr "Ancho"
 
-#: includes/Elementor/Widgets/Footer.php:331
+#: includes/Elementor/Widgets/Footer.php:335
 msgid "Subtext Typography"
 msgstr "Tipografía del Subtexto"
 
-#: includes/Elementor/Widgets/Footer.php:335
+#: includes/Elementor/Widgets/Footer.php:339
 msgid "Subtext Color"
 msgstr "Color del Subtexto"
 
-#: includes/Elementor/Widgets/Footer.php:350
+#: includes/Elementor/Widgets/Footer.php:354
 msgid "Menu Title Typography"
 msgstr "Tipografía del Título del Menú"
 
-#: includes/Elementor/Widgets/Footer.php:356
+#: includes/Elementor/Widgets/Footer.php:360
 msgid "Menu Item Typography"
 msgstr "Tipografía del Elemento del Menú"
 
-#: includes/Elementor/Widgets/Footer.php:362
+#: includes/Elementor/Widgets/Footer.php:366
 msgid "Copyright Typography"
 msgstr "Tipografía del Copyright"
 
-#: includes/Elementor/Widgets/Footer.php:372
+#: includes/Elementor/Widgets/Footer.php:376
 msgid "Colors"
 msgstr "Colores"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:168
-#: includes/Elementor/Widgets/Footer.php:377
-#: includes/Elementor/Widgets/Navbar.php:350
-#: includes/Elementor/Widgets/Navbar.php:368
+#: includes/Elementor/Widgets/Footer.php:381
+#: includes/Elementor/Widgets/Navbar.php:353
+#: includes/Elementor/Widgets/Navbar.php:371
 msgid "Text Color"
 msgstr "Color del Texto"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:182
-#: includes/Elementor/Widgets/Footer.php:378
+#: includes/Elementor/Widgets/Footer.php:382
 msgid "Link Color"
 msgstr "Color del Enlace"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:196
-#: includes/Elementor/Widgets/Footer.php:379
+#: includes/Elementor/Widgets/Footer.php:383
 msgid "Link Hover Color"
 msgstr "Color del Enlace al Pasar"
 
-#: includes/Elementor/Widgets/Footer.php:496
+#: includes/Elementor/Widgets/Footer.php:500
 msgid "Credits"
 msgstr "Créditos"
 
-#: includes/Elementor/Widgets/Footer.php:502
+#: includes/Elementor/Widgets/Footer.php:506
 msgid "Privacy Policy"
 msgstr "Política de Privacidad"
 
 #: includes/Elementor/Widgets/Navbar.php:45
-#: includes/Elementor/Widgets/Navbar.php:253
+#: includes/Elementor/Widgets/Navbar.php:256
 msgid "Navbar"
 msgstr "Barra de Navegación"
 
@@ -783,16 +791,16 @@ msgstr "Mostrar Logo"
 #: includes/Elementor/Widgets/Breadcrumb.php:123
 #: includes/Elementor/Widgets/Breadcrumb.php:135
 #: includes/Elementor/Widgets/Navbar.php:130
-#: includes/Elementor/Widgets/Navbar.php:181
-#: includes/Elementor/Widgets/Navbar.php:193
+#: includes/Elementor/Widgets/Navbar.php:184
+#: includes/Elementor/Widgets/Navbar.php:196
 msgid "Show"
 msgstr "Mostrar"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:124
 #: includes/Elementor/Widgets/Breadcrumb.php:136
 #: includes/Elementor/Widgets/Navbar.php:131
-#: includes/Elementor/Widgets/Navbar.php:182
-#: includes/Elementor/Widgets/Navbar.php:194
+#: includes/Elementor/Widgets/Navbar.php:185
+#: includes/Elementor/Widgets/Navbar.php:197
 msgid "Hide"
 msgstr "Ocultar"
 
@@ -805,6 +813,8 @@ msgstr "Usar Logo del Personalizador del Tema"
 #: includes/Elementor/Widgets/Portfolio.php:232
 #: includes/Elementor/Widgets/Portfolio.php:244
 #: includes/Elementor/Widgets/Portfolio.php:256
+#: includes/Elementor/Widgets/ShareQuotation.php:213
+#: includes/Elementor/Widgets/ShareQuotation.php:226
 #: includes/Elementor/Widgets/TeamMember.php:131
 #: includes/Elementor/Widgets/TeamMember.php:158
 #: includes/Elementor/Widgets/TeamMember.php:170
@@ -821,6 +831,8 @@ msgstr "Sí"
 #: includes/Elementor/Widgets/Portfolio.php:233
 #: includes/Elementor/Widgets/Portfolio.php:245
 #: includes/Elementor/Widgets/Portfolio.php:257
+#: includes/Elementor/Widgets/ShareQuotation.php:214
+#: includes/Elementor/Widgets/ShareQuotation.php:227
 #: includes/Elementor/Widgets/TeamMember.php:132
 #: includes/Elementor/Widgets/TeamMember.php:159
 #: includes/Elementor/Widgets/TeamMember.php:171
@@ -832,56 +844,56 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#: includes/Elementor/Widgets/Navbar.php:171
+#: includes/Elementor/Widgets/Navbar.php:174
 msgid "Features"
 msgstr "Características"
 
-#: includes/Elementor/Widgets/Navbar.php:179
+#: includes/Elementor/Widgets/Navbar.php:182
 msgid "Show Search Button"
 msgstr "Mostrar Botón de Búsqueda"
 
-#: includes/Elementor/Widgets/Navbar.php:191
+#: includes/Elementor/Widgets/Navbar.php:194
 msgid "Show Language Switcher"
 msgstr "Mostrar Selector de Idioma"
 
-#: includes/Elementor/Widgets/Navbar.php:206
+#: includes/Elementor/Widgets/Navbar.php:209
 msgid "Default"
 msgstr "Predeterminado"
 
-#: includes/Elementor/Widgets/Navbar.php:207
+#: includes/Elementor/Widgets/Navbar.php:210
 msgid "Fibrasoma"
 msgstr "Fibrasoma"
 
-#: includes/Elementor/Widgets/Navbar.php:216
+#: includes/Elementor/Widgets/Navbar.php:219
 msgid "Top Bar Link Text"
 msgstr "Texto del Enlace de la Barra Superior"
 
-#: includes/Elementor/Widgets/Navbar.php:219
+#: includes/Elementor/Widgets/Navbar.php:222
 msgid "Link text"
 msgstr "Texto del enlace"
 
-#: includes/Elementor/Widgets/Navbar.php:229
+#: includes/Elementor/Widgets/Navbar.php:232
 msgid "Top Bar Link URL"
 msgstr "URL del Enlace de la Barra Superior"
 
-#: includes/Elementor/Widgets/Navbar.php:231
+#: includes/Elementor/Widgets/Navbar.php:234
 msgid "https://your-link.com"
 msgstr "https://tu-enlace.com"
 
-#: includes/Elementor/Widgets/Navbar.php:301
+#: includes/Elementor/Widgets/Navbar.php:304
 msgid "Menu Items"
 msgstr "Elementos del Menú"
 
 #: includes/Elementor/Widgets/Breadcrumb.php:261
-#: includes/Elementor/Widgets/Navbar.php:315
+#: includes/Elementor/Widgets/Navbar.php:318
 msgid "Item Spacing"
 msgstr "Espaciado de Elementos"
 
-#: includes/Elementor/Widgets/Navbar.php:344
+#: includes/Elementor/Widgets/Navbar.php:347
 msgid "Normal"
 msgstr "Normal"
 
-#: includes/Elementor/Widgets/Navbar.php:362
+#: includes/Elementor/Widgets/Navbar.php:365
 msgid "Hover"
 msgstr "Al Pasar"
 
@@ -903,57 +915,56 @@ msgid "Services"
 msgstr "Servicios"
 
 #: includes/Elementor/Widgets/Services.php:90
-#: includes/Elementor/Widgets/Services.php:253
+#: includes/Elementor/Widgets/Services.php:257
 msgid "Icon"
 msgstr "Ícono"
 
-#: includes/Elementor/Widgets/Services.php:100
+#: includes/Elementor/Widgets/Services.php:104
 msgid "Service Title"
 msgstr "Título del Servicio"
 
-#: includes/Elementor/Widgets/Services.php:107
-#: includes/Elementor/Widgets/Services.php:361
+#: includes/Elementor/Widgets/Services.php:111
+#: includes/Elementor/Widgets/Services.php:365
 msgid "Description"
 msgstr "Descripción"
 
-#: includes/Elementor/Widgets/Services.php:109
+#: includes/Elementor/Widgets/Services.php:113
 msgid "Service description goes here."
 msgstr "La descripción del servicio va aquí."
 
-#: includes/Elementor/Widgets/Services.php:116
+#: includes/Elementor/Widgets/Services.php:120
 msgid "Link"
 msgstr "Enlace"
 
-#: includes/Elementor/Widgets/Services.php:124
+#: includes/Elementor/Widgets/Services.php:128
 msgid "Services List"
 msgstr "Lista de Servicios"
 
-#: includes/Elementor/Widgets/Services.php:129
+#: includes/Elementor/Widgets/Services.php:133
 msgid "Service 1"
 msgstr "Servicio 1"
 
-#: includes/Elementor/Widgets/Services.php:130
+#: includes/Elementor/Widgets/Services.php:134
 msgid "Description for service 1"
 msgstr "Descripción del servicio 1"
 
-#: includes/Elementor/Widgets/Services.php:133
+#: includes/Elementor/Widgets/Services.php:137
 msgid "Service 2"
 msgstr "Servicio 2"
 
-#: includes/Elementor/Widgets/Services.php:134
+#: includes/Elementor/Widgets/Services.php:138
 msgid "Description for service 2"
 msgstr "Descripción del servicio 2"
 
-#: includes/Elementor/Widgets/Services.php:137
+#: includes/Elementor/Widgets/Services.php:141
 msgid "Service 3"
 msgstr "Servicio 3"
 
-#: includes/Elementor/Widgets/Services.php:138
+#: includes/Elementor/Widgets/Services.php:142
 msgid "Description for service 3"
 msgstr "Descripción del servicio 3"
 
-#: includes/Elementor/Widgets/Services.php:261
-#: includes/Elementor/Widgets/TeamMember.php:467
+#: includes/Elementor/Widgets/Services.php:265
 msgid "Size"
 msgstr "Tamaño"
 
@@ -993,6 +1004,8 @@ msgstr "Derecha"
 msgid "Label"
 msgstr "Etiqueta"
 
+#: includes/Elementor/Widgets/ShareQuotation.php:157
+#: includes/Elementor/Widgets/ShareQuotation.php:402
 #: includes/Elementor/Widgets/StockPrice.php:194
 msgid "Price"
 msgstr "Precio"
@@ -1259,6 +1272,7 @@ msgid "Loading more"
 msgstr "Cargando más"
 
 #: includes/Elementor/Widgets/Portfolio.php:355
+#: includes/Elementor/Widgets/ShareQuotation.php:291
 #: includes/Elementor/Widgets/TeamMember.php:210
 #: includes/Elementor/Widgets/TeamMembers.php:337
 msgid "Background Color"
@@ -1411,6 +1425,7 @@ msgstr "Categoría"
 msgid "Section Title"
 msgstr "Título de Sección"
 
+#: includes/Elementor/Widgets/ShareQuotation.php:341
 #: includes/Elementor/Widgets/TeamMember.php:258
 #: includes/Elementor/Widgets/TeamMember.php:313
 #: includes/Elementor/Widgets/TeamMembers.php:388
@@ -1453,22 +1468,14 @@ msgid "Show SOMA Logo"
 msgstr ""
 
 #: includes/Elementor/Widgets/TeamMember.php:334
-msgid "Featured Text"
-msgstr ""
-
-#: includes/Elementor/Widgets/TeamMember.php:374
 msgid "Biography"
 msgstr ""
 
-#: includes/Elementor/Widgets/TeamMember.php:444
-msgid "SOMA Logo"
-msgstr ""
-
-#: includes/Elementor/Widgets/TeamMember.php:520
+#: includes/Elementor/Widgets/TeamMember.php:430
 msgid "Please select a team member from the widget settings."
 msgstr ""
 
-#: includes/Elementor/Widgets/TeamMember.php:533
+#: includes/Elementor/Widgets/TeamMember.php:443
 msgid "Invalid team member selected."
 msgstr "Miembro del equipo seleccionado inválido."
 
@@ -1488,6 +1495,114 @@ msgstr "Seleccionar Miembro del Equipo"
 msgid "Manually select a specific team member."
 msgstr "Seleccionar manualmente un miembro específico del equipo."
 
-#: includes/Elementor/Widgets/TeamMember.php:518
+#: includes/Elementor/Widgets/TeamMember.php:428
 msgid "This widget will display the current team member when viewed on a team member page. Preview not available in editor."
 msgstr "Este widget mostrará el miembro actual del equipo cuando se visualice en una página de miembro. Vista previa no disponible en el editor."
+
+#: includes/Elementor/Widgets/ShareQuotation.php:49
+msgid "Share Quotation"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:124
+msgid "FIBRASOMA"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:125
+msgid "Enter title"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:133
+msgid "Stock Symbol"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:136
+msgid "e.g., FIBRA SOMA 15"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:155
+msgid "Price Label"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:164
+msgid "Change Label"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:166
+msgid "Change"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:173
+msgid "Percent Label"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:182
+msgid "Volume Label"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:184
+msgid "Volume"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:191
+msgid "Date Label"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:203
+msgid "Display Options"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:211
+msgid "Dark Background"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:217
+msgid "Enable for dark backgrounds (white text)"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:224
+msgid "Show Download Link"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:236
+msgid "Download URL"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:238
+msgid "https://example.com/file.pdf"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:366
+msgid "Symbol"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:436
+msgid "Label Typography"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:447
+msgid "Label Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:464
+msgid "Change Indicators"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:472
+msgid "Positive Change Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:484
+msgid "Negative Change Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:510
+msgid "Icon Color"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:522
+msgid "Icon Size"
+msgstr ""
+
+#: includes/Elementor/Widgets/ShareQuotation.php:636
+msgid "Stock data not available. Please configure stock data in Settings."
+msgstr ""
