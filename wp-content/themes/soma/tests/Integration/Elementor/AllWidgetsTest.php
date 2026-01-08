@@ -41,6 +41,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'Breadcrumb'     => \Soma\Elementor\Widgets\Breadcrumb::class,
 		'ShareQuotation' => \Soma\Elementor\Widgets\ShareQuotation::class,
 		'AnnualReports'  => \Soma\Elementor\Widgets\AnnualReports::class,
+		'Events'         => \Soma\Elementor\Widgets\Events::class,
 	);
 
 	/**
@@ -63,6 +64,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'Breadcrumb'     => 'soma-breadcrumb',
 		'ShareQuotation' => 'soma-share-quotation',
 		'AnnualReports'  => 'soma-annual-reports',
+		'Events'         => 'soma-events',
 	);
 
 	/**
@@ -227,6 +229,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 			'StockPrice'     => 'stock-price.css',
 			'ShareQuotation' => 'share-quotation.css',
 			'AnnualReports'  => 'annual-reports.css',
+			'Events'         => 'events.css',
 		);
 
 		$assets_dir = get_template_directory() . '/assets/css/widgets/';
@@ -264,6 +267,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 			'StockPrice'     => 'soma-stock-price',
 			'ShareQuotation' => 'soma-share-quotation',
 			'AnnualReports'  => 'soma-annual-reports',
+			'Events'         => 'soma-events',
 		);
 
 		foreach ( $this->widget_classes as $name => $class ) {
