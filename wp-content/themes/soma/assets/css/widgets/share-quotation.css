@@ -112,6 +112,11 @@
 	padding-left: 15px;
 }
 
+/* Maintain column space even when volume is hidden */
+.soma-share-quotation__column--volume:empty {
+	visibility: hidden;
+}
+
 @media screen and (max-width: 991px) {
 	.soma-share-quotation__column--volume {
 		width: 50%;
@@ -122,6 +127,11 @@
 	.soma-share-quotation__column--volume {
 		width: 100%;
 		padding: 0;
+	}
+	
+	/* Hide empty column on mobile to save space */
+	.soma-share-quotation__column--volume:empty {
+		display: none;
 	}
 }
 

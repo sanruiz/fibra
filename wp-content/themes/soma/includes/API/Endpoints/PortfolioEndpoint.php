@@ -179,8 +179,8 @@ final class PortfolioEndpoint {
 		array_multisort( $years, SORT_DESC, $formatted_posts );
 
 		// Get available categories (child categories only, exclude parent "Fibrasoma").
-		$categories           = $this->get_available_categories();
-		$include_categories   = isset( $params['include_categories'] ) && 'true' === $params['include_categories'];
+		$categories         = $this->get_available_categories();
+		$include_categories = isset( $params['include_categories'] ) && 'true' === $params['include_categories'];
 
 		$response = array(
 			'status' => 'success',

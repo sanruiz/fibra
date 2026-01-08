@@ -151,6 +151,18 @@ class TeamMember extends WidgetBase {
 		);
 
 		$this->add_control(
+			'show_photo',
+			array(
+				'label'        => __( 'Show Photo', 'soma' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'soma' ),
+				'label_off'    => __( 'No', 'soma' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->add_control(
 			'show_featured_text',
 			array(
 				'label'        => __( 'Show Featured Text', 'soma' ),
@@ -446,25 +458,36 @@ class TeamMember extends WidgetBase {
 			return;
 		}
 
-		$info  = get_field( 'team_member_info', $team_member_id );
-		$image = get_the_post_thumbnail_url( $team_member_id, 'full' );
+		$info               = get_field( 'team_member_info', $team_member_id );
+		$image              = get_the_post_thumbnail_url( $team_member_id, 'full' );
+		$member_url         = get_permalink( $team_member_id );
+		$show_photo         = 'yes' === ( $settings['show_photo'] ?? 'yes' );
+		$show_logo          = 'yes' === ( $settings['show_logo'] ?? 'yes' );
+		$show_featured_text = 'yes' === ( $settings['show_featured_text'] ?? 'yes' );
+
+		// Determine if we should wrap the entire card in a link.
+		$use_card_link = ! empty( $member_url ) && ( $use_current_member || ! empty( $settings['team_member_id'] ) );
 		?>
 
 		<section class="soma-team-member">
 			<div class="container">
+				<?php if ( $use_card_link ) : ?>
+					<a href="<?php echo esc_url( $member_url ); ?>" class="soma-team-member__card-link">
+				<?php endif; ?>
+				
 				<div class="content">
 					<div class="title">
 						<h3 class="member-name"><?php echo esc_html( get_the_title( $team_member_id ) ); ?></h3>
 						<h3 class="member-title"><?php echo esc_html( $info['title'] ?? '' ); ?></h3>
 					</div>
 
-					<?php if ( $image ) : ?>
+					<?php if ( $show_photo && $image ) : ?>
 						<div class="featured-image">
-							<img src="<?php echo esc_url( $image ); ?>" alt="Featured image">
+							<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( get_the_title( $team_member_id ) ); ?>">
 						</div>
 					<?php endif; ?>
 
-					<?php if ( ! empty( $info['featured_text'] ) ) : ?>
+					<?php if ( $show_featured_text && ! empty( $info['featured_text'] ) ) : ?>
 						<div class="featured-text movil">
 							<h3><?php echo esc_html( $info['featured_text'] ); ?></h3>
 						</div>
@@ -478,6 +501,10 @@ class TeamMember extends WidgetBase {
 						</div>
 					<?php endif; ?>
 				</div>
+				
+				<?php if ( $use_card_link ) : ?>
+					</a>
+				<?php endif; ?>
 			</div>
 		</section>
 		<?php

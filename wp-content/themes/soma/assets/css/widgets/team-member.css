@@ -18,6 +18,23 @@
 	padding: 0 var(--soma-spacing-md);
 }
 
+/* Full Card Link */
+.soma-team-member__card-link {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+	transition: var(--soma-transition, 0.3s ease);
+}
+
+.soma-team-member__card-link:hover {
+	opacity: 0.9;
+}
+
+.soma-team-member__card-link:hover .member-name {
+	color: var(--soma-color-primary, #171717);
+	text-decoration: underline;
+}
+
 /* Flexbox 2-column layout */
 .soma-team-member .content {
 	display: flex;

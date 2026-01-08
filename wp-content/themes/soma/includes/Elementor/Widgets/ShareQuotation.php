@@ -247,6 +247,54 @@ class ShareQuotation extends WidgetBase {
 			)
 		);
 
+		$this->add_control(
+			'show_volume',
+			array(
+				'label'        => esc_html__( 'Show Volume', 'soma' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'soma' ),
+				'label_off'    => esc_html__( 'No', 'soma' ),
+				'return_value' => 'yes',
+				'default'      => '',
+			)
+		);
+
+		$this->add_control(
+			'show_date',
+			array(
+				'label'        => esc_html__( 'Show Date', 'soma' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'soma' ),
+				'label_off'    => esc_html__( 'No', 'soma' ),
+				'return_value' => 'yes',
+				'default'      => '',
+			)
+		);
+
+		$this->add_control(
+			'show_change',
+			array(
+				'label'        => esc_html__( 'Show Change', 'soma' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'soma' ),
+				'label_off'    => esc_html__( 'No', 'soma' ),
+				'return_value' => 'yes',
+				'default'      => '',
+			)
+		);
+
+		$this->add_control(
+			'show_percent',
+			array(
+				'label'        => esc_html__( 'Show Percentage', 'soma' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Yes', 'soma' ),
+				'label_off'    => esc_html__( 'No', 'soma' ),
+				'return_value' => 'yes',
+				'default'      => '',
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -634,22 +682,36 @@ class ShareQuotation extends WidgetBase {
 						<span class="soma-share-quotation__label"><?php echo esc_html( $settings['price_label'] ); ?></span>
 						<span class="soma-share-quotation__price-value"><?php echo esc_html( soma_format_stock_price_simple( $price, $currency ) ); ?></span>
 					</div>
-					<div class="soma-share-quotation__data-row soma-share-quotation__data-row--change-combined">
-						<span class="soma-share-quotation__change soma-share-quotation__change--<?php echo esc_attr( $change_class ); ?>">
-							<?php echo esc_html( soma_format_stock_change_combined( $change, $percent ) ); ?>
-						</span>
-					</div>
-					<div class="soma-share-quotation__data-row">
-						<span class="soma-share-quotation__date"><?php echo esc_html( soma_format_stock_datetime( $timestamp ) ); ?></span>
-					</div>
+					<?php if ( 'yes' === $settings['show_change'] || 'yes' === $settings['show_percent'] ) : ?>
+						<div class="soma-share-quotation__data-row soma-share-quotation__data-row--change-combined">
+							<span class="soma-share-quotation__change soma-share-quotation__change--<?php echo esc_attr( $change_class ); ?>">
+								<?php
+								if ( 'yes' === $settings['show_change'] && 'yes' === $settings['show_percent'] ) {
+									echo esc_html( soma_format_stock_change_combined( $change, $percent ) );
+								} elseif ( 'yes' === $settings['show_change'] ) {
+									echo esc_html( soma_format_stock_change( $change ) );
+								} elseif ( 'yes' === $settings['show_percent'] ) {
+									echo esc_html( soma_format_stock_percent( $percent ) );
+								}
+								?>
+							</span>
+						</div>
+					<?php endif; ?>
+					<?php if ( 'yes' === $settings['show_date'] ) : ?>
+						<div class="soma-share-quotation__data-row">
+							<span class="soma-share-quotation__date"><?php echo esc_html( soma_format_stock_datetime( $timestamp ) ); ?></span>
+						</div>
+					<?php endif; ?>
 				</div>
 
 				<!-- Column 3: Volume -->
 				<div class="soma-share-quotation__column soma-share-quotation__column--volume">
-					<div class="soma-share-quotation__data-row">
-						<span class="soma-share-quotation__label"><?php echo esc_html( $settings['volume_label'] ); ?></span>
-						<span class="soma-share-quotation__volume-value"><?php echo esc_html( soma_format_stock_volume( $volume ) ); ?></span>
-					</div>
+					<?php if ( 'yes' === $settings['show_volume'] ) : ?>
+						<div class="soma-share-quotation__data-row">
+							<span class="soma-share-quotation__label"><?php echo esc_html( $settings['volume_label'] ); ?></span>
+							<span class="soma-share-quotation__volume-value"><?php echo esc_html( soma_format_stock_volume( $volume ) ); ?></span>
+						</div>
+					<?php endif; ?>
 				</div>
 			</div>
 		</section>
