@@ -100,6 +100,8 @@ msgstr "Filtrar por año"
 #: includes/Elementor/Widgets/AnnualReports.php:197
 #: includes/Elementor/Widgets/AnnualReports.php:198
 #: includes/Elementor/Widgets/AnnualReports.php:384
+#: includes/Elementor/Widgets/Events.php:193
+#: includes/Elementor/Widgets/Events.php:446
 #: partials/AnnualReports.php:47
 #: partials/Events.php:41
 msgid "See All"
@@ -144,6 +146,8 @@ msgstr "Ver Todos"
 msgid "Designed by"
 msgstr "Diseñado por"
 
+#: includes/Elementor/Widgets/Events.php:181
+#: includes/Elementor/Widgets/Events.php:445
 #: partials/Events.php:38
 msgid "Filter by Month"
 msgstr "Filtrar por mes"
@@ -314,18 +318,19 @@ msgstr "Radio de Borde"
 msgid "Select Menu"
 msgstr "Seleccionar Menú"
 
-#: includes/Elementor/Loader.php:195
+#: includes/Elementor/Loader.php:201
 msgid "Soma"
 msgstr "Soma"
 
 #. translators: 1: Plugin name 2: Elementor
-#: includes/Elementor/Loader.php:371
+#: includes/Elementor/Loader.php:377
 #, php-format
 msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be installed and activated for full functionality."
 msgstr "<strong>%1$s</strong> requiere que el plugin <strong>%2$s</strong> esté instalado y activado para su funcionalidad completa."
 
 #: includes/Elementor/Widgets/BusinessUnits.php:81
 #: includes/Elementor/Widgets/Documents.php:172
+#: includes/Elementor/Widgets/Events.php:115
 #: includes/Elementor/Widgets/ShareQuotation.php:114
 #: includes/Elementor/Widgets/StockPrice.php:81
 #: includes/Elementor/Widgets/TeamMember.php:121
@@ -336,6 +341,7 @@ msgstr "Contenido"
 #: includes/Elementor/Widgets/BusinessUnits.php:132
 #: includes/Elementor/Widgets/Documents.php:146
 #: includes/Elementor/Widgets/Documents.php:336
+#: includes/Elementor/Widgets/Events.php:142
 #: includes/Elementor/Widgets/Portfolio.php:173
 #: includes/Elementor/Widgets/Portfolio.php:492
 #: includes/Elementor/Widgets/Services.php:102
@@ -374,6 +380,7 @@ msgstr "Lista"
 #: includes/Elementor/Widgets/BusinessUnits.php:230
 #: includes/Elementor/Widgets/Documents.php:345
 #: includes/Elementor/Widgets/Documents.php:408
+#: includes/Elementor/Widgets/Events.php:259
 #: includes/Elementor/Widgets/Footer.php:347
 #: includes/Elementor/Widgets/Navbar.php:311
 #: includes/Elementor/Widgets/Portfolio.php:381
@@ -398,6 +405,7 @@ msgstr "Tipografía"
 #: includes/Elementor/Widgets/BusinessUnits.php:143
 #: includes/Elementor/Widgets/Documents.php:356
 #: includes/Elementor/Widgets/Documents.php:419
+#: includes/Elementor/Widgets/Events.php:270
 #: includes/Elementor/Widgets/Portfolio.php:392
 #: includes/Elementor/Widgets/Portfolio.php:475
 #: includes/Elementor/Widgets/Portfolio.php:512
@@ -450,6 +458,7 @@ msgstr "Transición al Pasar"
 
 #: includes/Elementor/Widgets/AnnualReports.php:178
 #: includes/Elementor/Widgets/BusinessUnits.php:223
+#: includes/Elementor/Widgets/Events.php:171
 #: includes/Elementor/Widgets/ShareQuotation.php:147
 #: includes/Elementor/Widgets/TeamMembers.php:291
 msgid "Labels"
@@ -488,6 +497,7 @@ msgid "Number of Documents"
 msgstr "Número de Documentos"
 
 #: includes/Elementor/Widgets/Documents.php:141
+#: includes/Elementor/Widgets/Events.php:136
 #: includes/Elementor/Widgets/Portfolio.php:166
 #: includes/Elementor/Widgets/TeamMembers.php:149
 msgid "Order By"
@@ -513,18 +523,21 @@ msgid "Modified Date"
 msgstr "Fecha de Modificación"
 
 #: includes/Elementor/Widgets/Documents.php:156
+#: includes/Elementor/Widgets/Events.php:123
 #: includes/Elementor/Widgets/Portfolio.php:182
 #: includes/Elementor/Widgets/TeamMembers.php:164
 msgid "Order"
 msgstr "Orden"
 
 #: includes/Elementor/Widgets/Documents.php:160
+#: includes/Elementor/Widgets/Events.php:128
 #: includes/Elementor/Widgets/Portfolio.php:186
 #: includes/Elementor/Widgets/TeamMembers.php:169
 msgid "Descending"
 msgstr "Descendente"
 
 #: includes/Elementor/Widgets/Documents.php:161
+#: includes/Elementor/Widgets/Events.php:127
 #: includes/Elementor/Widgets/Portfolio.php:187
 #: includes/Elementor/Widgets/TeamMembers.php:168
 msgid "Ascending"
@@ -566,6 +579,7 @@ msgid "Background"
 msgstr "Fondo"
 
 #: includes/Elementor/Widgets/Documents.php:281
+#: includes/Elementor/Widgets/Events.php:221
 #: includes/Elementor/Widgets/Footer.php:294
 #: includes/Elementor/Widgets/Navbar.php:265
 #: includes/Elementor/Widgets/Portfolio.php:343
@@ -714,6 +728,7 @@ msgstr "Enlace de Créditos"
 msgid "Privacy Policy Link"
 msgstr "Enlace de Política de Privacidad"
 
+#: includes/Elementor/Widgets/Events.php:213
 #: includes/Elementor/Widgets/Footer.php:288
 #: includes/Elementor/Widgets/Portfolio.php:335
 #: includes/Elementor/Widgets/ShareQuotation.php:264
@@ -760,12 +775,14 @@ msgstr "Color del Texto"
 
 #: includes/Elementor/Widgets/AnnualReports.php:344
 #: includes/Elementor/Widgets/Breadcrumb.php:182
+#: includes/Elementor/Widgets/Events.php:384
 #: includes/Elementor/Widgets/Footer.php:382
 msgid "Link Color"
 msgstr "Color del Enlace"
 
 #: includes/Elementor/Widgets/AnnualReports.php:358
 #: includes/Elementor/Widgets/Breadcrumb.php:196
+#: includes/Elementor/Widgets/Events.php:398
 #: includes/Elementor/Widgets/Footer.php:383
 msgid "Link Hover Color"
 msgstr "Color del Enlace al Pasar"
@@ -825,6 +842,7 @@ msgid "Use Theme Customizer Logo"
 msgstr "Usar Logo del Personalizador del Tema"
 
 #: includes/Elementor/Widgets/AnnualReports.php:141
+#: includes/Elementor/Widgets/Events.php:152
 #: includes/Elementor/Widgets/Navbar.php:142
 #: includes/Elementor/Widgets/Portfolio.php:220
 #: includes/Elementor/Widgets/Portfolio.php:232
@@ -844,6 +862,7 @@ msgid "Yes"
 msgstr "Sí"
 
 #: includes/Elementor/Widgets/AnnualReports.php:142
+#: includes/Elementor/Widgets/Events.php:153
 #: includes/Elementor/Widgets/Navbar.php:143
 #: includes/Elementor/Widgets/Portfolio.php:221
 #: includes/Elementor/Widgets/Portfolio.php:233
@@ -1049,6 +1068,7 @@ msgstr "Documentos e Informes"
 msgid "Document"
 msgstr "Documento"
 
+#: includes/Elementor/Widgets/Events.php:56
 #: includes/PostTypes/Types/Events.php:96
 msgid "Events"
 msgstr "Eventos"
@@ -1244,6 +1264,7 @@ msgstr "Visualización"
 msgid "Default View"
 msgstr "Vista Predeterminada"
 
+#: includes/Elementor/Widgets/Events.php:150
 #: includes/Elementor/Widgets/Portfolio.php:218
 msgid "Show Filters"
 msgstr "Mostrar Filtros"
@@ -1289,6 +1310,7 @@ msgstr "Texto de Carga"
 msgid "Loading more"
 msgstr "Cargando más"
 
+#: includes/Elementor/Widgets/Events.php:233
 #: includes/Elementor/Widgets/Portfolio.php:355
 #: includes/Elementor/Widgets/ShareQuotation.php:291
 #: includes/Elementor/Widgets/TeamMember.php:210
@@ -1296,11 +1318,13 @@ msgstr "Cargando más"
 msgid "Background Color"
 msgstr "Color de Fondo"
 
+#: includes/Elementor/Widgets/Events.php:247
 #: includes/Elementor/Widgets/Portfolio.php:369
 msgid "Filters"
 msgstr "Filtros"
 
 #: includes/Elementor/Widgets/AnnualReports.php:259
+#: includes/Elementor/Widgets/Events.php:284
 #: includes/Elementor/Widgets/Portfolio.php:406
 msgid "Active Color"
 msgstr "Color Activo"
@@ -1595,10 +1619,12 @@ msgstr "https://ejemplo.com/archivo.pdf"
 msgid "Symbol"
 msgstr "Símbolo"
 
+#: includes/Elementor/Widgets/Events.php:324
 #: includes/Elementor/Widgets/ShareQuotation.php:436
 msgid "Label Typography"
 msgstr "Tipografía de Etiqueta"
 
+#: includes/Elementor/Widgets/Events.php:309
 #: includes/Elementor/Widgets/ShareQuotation.php:447
 msgid "Label Color"
 msgstr "Color de Etiqueta"
@@ -1648,10 +1674,12 @@ msgid "Three Columns"
 msgstr "Tres Columnas"
 
 #: includes/Elementor/Widgets/AnnualReports.php:185
+#: includes/Elementor/Widgets/Events.php:179
 msgid "Filter Title (Mobile)"
 msgstr "Título del Filtro (Móvil)"
 
 #: includes/Elementor/Widgets/AnnualReports.php:195
+#: includes/Elementor/Widgets/Events.php:191
 msgid "See All Text"
 msgstr "Texto de Ver Todos"
 
@@ -1678,10 +1706,12 @@ msgid "Title Color"
 msgstr "Color del Título"
 
 #: includes/Elementor/Widgets/AnnualReports.php:322
+#: includes/Elementor/Widgets/Events.php:373
 msgid "Description Typography"
 msgstr "Tipografía de la Descripción"
 
 #: includes/Elementor/Widgets/AnnualReports.php:333
+#: includes/Elementor/Widgets/Events.php:361
 msgid "Description Color"
 msgstr "Color de la Descripción"
 
@@ -1692,3 +1722,27 @@ msgstr "Por favor selecciona una categoría de documentos para mostrar reportes.
 #: includes/Elementor/Widgets/AnnualReports.php:48
 msgid "Reports"
 msgstr "Reportes"
+
+#: includes/Elementor/Widgets/Events.php:140
+msgid "Event Date"
+msgstr "Fecha del Evento"
+
+#: includes/Elementor/Widgets/Events.php:141
+msgid "Published Date"
+msgstr "Fecha de Publicación"
+
+#: includes/Elementor/Widgets/Events.php:301
+msgid "Event Card"
+msgstr "Tarjeta de Evento"
+
+#: includes/Elementor/Widgets/Events.php:335
+msgid "Date Color"
+msgstr "Color de Fecha"
+
+#: includes/Elementor/Widgets/Events.php:350
+msgid "Date Typography"
+msgstr "Tipografía de Fecha"
+
+#: includes/Elementor/Widgets/Events.php:409
+msgid "Card Gap"
+msgstr "Espacio entre Tarjetas"

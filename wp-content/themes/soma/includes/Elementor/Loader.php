@@ -41,20 +41,21 @@ class Loader implements LoadableInterface {
 	 * @var array<string, string> Widget class names
 	 */
 	private array $widgets = array(
-		'Navbar'         => Widgets\Navbar::class,
-		'Footer'         => Widgets\Footer::class,
+		'AnnualReports'  => Widgets\AnnualReports::class,
+		'Breadcrumb'     => Widgets\Breadcrumb::class,
 		'BusinessUnits'  => Widgets\BusinessUnits::class,
-		'Services'       => Widgets\Services::class,
-		'TeamMembers'    => Widgets\TeamMembers::class,
-		'TeamMember'     => Widgets\TeamMember::class,
+		'ContactForm'    => Widgets\ContactForm::class,
+		'Documents'      => Widgets\Documents::class,
+		'Events'         => Widgets\Events::class,
+		'Footer'         => Widgets\Footer::class,
+		'Navbar'         => Widgets\Navbar::class,
 		'NewsList'       => Widgets\NewsList::class,
 		'Portfolio'      => Widgets\Portfolio::class,
-		'ContactForm'    => Widgets\ContactForm::class,
-		'StockPrice'     => Widgets\StockPrice::class,
-		'Documents'      => Widgets\Documents::class,
-		'Breadcrumb'     => Widgets\Breadcrumb::class,
+		'Services'       => Widgets\Services::class,
 		'ShareQuotation' => Widgets\ShareQuotation::class,
-		'AnnualReports'  => Widgets\AnnualReports::class,
+		'StockPrice'     => Widgets\StockPrice::class,
+		'TeamMember'     => Widgets\TeamMember::class,
+		'TeamMembers'    => Widgets\TeamMembers::class,
 	);
 
 	/**
@@ -63,20 +64,21 @@ class Loader implements LoadableInterface {
 	 * @var array<string, string> Widget style handles and files
 	 */
 	private array $widget_styles = array(
-		'soma-navbar'          => 'navbar.css',
-		'soma-footer'          => 'footer.css',
+		'soma-annual-reports'  => 'annual-reports.css',
+		'soma-breadcrumb'      => 'breadcrumb.css',
 		'soma-business-units'  => 'business-units.css',
-		'soma-services'        => 'services.css',
-		'soma-team-members'    => 'team-members.css',
-		'soma-team-member'     => 'team-member.css',
+		'soma-contact-form'    => 'contact-form.css',
+		'soma-documents'       => 'documents.css',
+		'soma-events'          => 'events.css',
+		'soma-footer'          => 'footer.css',
+		'soma-navbar'          => 'navbar.css',
 		'soma-news-list'       => 'news-list.css',
 		'soma-portfolio'       => 'portfolio.css',
-		'soma-contact-form'    => 'contact-form.css',
-		'soma-stock-price'     => 'stock-price.css',
-		'soma-documents'       => 'documents.css',
-		'soma-breadcrumb'      => 'breadcrumb.css',
+		'soma-services'        => 'services.css',
 		'soma-share-quotation' => 'share-quotation.css',
-		'soma-annual-reports'  => 'annual-reports.css',
+		'soma-stock-price'     => 'stock-price.css',
+		'soma-team-member'     => 'team-member.css',
+		'soma-team-members'    => 'team-members.css',
 	);
 
 	/**
@@ -85,12 +87,16 @@ class Loader implements LoadableInterface {
 	 * @var array<string, array{file: string, deps: array<int, string>}> Widget script handles, files, and dependencies
 	 */
 	private array $widget_scripts = array(
-		'soma-portfolio'      => array(
-			'file' => 'portfolio.js',
-			'deps' => array( 'jquery' ),
-		),
 		'soma-annual-reports' => array(
 			'file' => 'annualReports.js',
+			'deps' => array( 'jquery' ),
+		),
+		'soma-events'         => array(
+			'file' => 'events.js',
+			'deps' => array( 'jquery' ),
+		),
+		'soma-portfolio'      => array(
+			'file' => 'portfolio.js',
 			'deps' => array( 'jquery' ),
 		),
 	);
