@@ -158,6 +158,238 @@ npm run prod   # Production build (minified)
 
 ---
 
+## 🔐 Security Patterns (MANDATORY)
+
+### Nonce Validation (CSRF Protection)
+
+**ALWAYS validate nonces in AJAX handlers and form submissions.** Nonces protect against CSRF attacks.
+
+**Creating nonces:**
+```php
+// In PHP (for forms)
+wp_nonce_field( 'action_name', 'nonce_field_name' );
+
+// In PHP (for URLs)
+$url = wp_nonce_url( $url, 'action_name' );
+
+// In PHP (for JavaScript via wp_localize_script)
+wp_localize_script( 'handle', 'myAjax', array(
+    'nonce' => wp_create_nonce( 'my_ajax_nonce' ),
+    'ajaxurl' => admin_url( 'admin-ajax.php' ),
+));
+```
+
+**Verifying nonces (REQUIRED in every AJAX handler):**
+```php
+// For AJAX handlers - use check_ajax_referer()
+public function ajax_handler(): void {
+    // ✅ ALWAYS verify nonce FIRST
+    check_ajax_referer( 'my_ajax_nonce', 'nonce' );
+    
+    // Then check capabilities
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Unauthorized', 403 );
+        return;
+    }
+    
+    // Now process the request...
+    wp_send_json_success( $data );
+}
+
+// For form submissions - use wp_verify_nonce()
+if ( ! wp_verify_nonce( $_POST['nonce_field_name'], 'action_name' ) ) {
+    wp_die( 'Security check failed' );
+}
+```
+
+**❌ NEVER process AJAX without nonce verification:**
+```php
+// ❌ BAD - No nonce check
+public function ajax_handler(): void {
+    $data = $_POST['data']; // Vulnerable to CSRF!
+}
+
+// ✅ GOOD - Nonce verified first
+public function ajax_handler(): void {
+    check_ajax_referer( 'my_nonce', 'nonce' ); // Dies if invalid
+    $data = sanitize_text_field( $_POST['data'] );
+}
+```
+
+### Input Sanitization
+
+**Always sanitize user input before using or storing:**
+```php
+$text = sanitize_text_field( $_POST['field'] );
+$email = sanitize_email( $_POST['email'] );
+$url = esc_url_raw( $_POST['url'] );  // For database storage
+$int = absint( $_POST['number'] );     // Positive integer
+$key = sanitize_key( $_POST['key'] );  // Lowercase alphanumeric
+```
+
+### Output Escaping
+
+**Always escape output to prevent XSS attacks:**
+
+| Function | Use Case | Example |
+|----------|----------|---------|
+| `esc_html()` | HTML content | `<p><?php echo esc_html( $text ); ?></p>` |
+| `esc_attr()` | HTML attributes | `<div class="<?php echo esc_attr( $class ); ?>">` |
+| `esc_url()` | URLs (href, src) | `<a href="<?php echo esc_url( $link ); ?>">` |
+| `wp_kses_post()` | Allow safe HTML | `<?php echo wp_kses_post( $html_content ); ?>` |
+
+---
+
+## 🏗️ PSR-4 & Modern PHP Conventions (v3.0.0+)
+
+### Singleton Pattern
+
+```php
+private static ?ClassName $instance = null;
+
+public static function instance(): ClassName {
+    if ( self::$instance === null ) {
+        self::$instance = new self();
+    }
+    return self::$instance;
+}
+
+private function __construct() {}
+private function __clone() {}
+public function __wakeup() {
+    throw new \Exception( 'Cannot unserialize singleton' );
+}
+```
+
+### First-Class Callables (PHP 8.1+)
+
+```php
+add_action( 'rest_api_init', $this->register(...) ); // ✅ Modern
+// NOT: add_action( 'rest_api_init', array( $this, 'register' ) ); // ❌ Old
+```
+
+### ReflectionProperty (PHP 8.1+)
+
+In PHP 8.1+, `setAccessible()` is deprecated. Private/protected properties are accessible via `getValue()` and `setValue()` without it:
+
+```php
+// ✅ CORRECT (PHP 8.1+)
+$reflection = new \ReflectionClass( ClassName::class );
+$property   = $reflection->getProperty( 'instance' );
+$property->setValue( null, null ); // Works without setAccessible()
+
+// ❌ DEPRECATED - Do NOT use
+$property->setAccessible( true ); // Deprecated in PHP 8.1+
+```
+
+### LoadableInterface Pattern
+
+All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
+- `init()`: Initialize the component
+- `get_priority()`: Return loading priority (10-50)
+- `should_load()`: Conditional loading check
+
+**Priority System:**
+- 10: Utilities (must load FIRST)
+- 20: Post Types
+- 25: PageBuilder, CustomFields
+- 30: CF7, Elementor
+- 35: REST API
+- 40: Admin
+
+---
+
+## 🚀 Release Workflow (Global Commands)
+
+**⚠️ Note**: These commands are global because path-specific instructions are reactive (only activate when `applyTo` matches).
+
+### Standard Release (from week-* to main)
+
+```bash
+# 1. Ensure all sprint features merged to week-N
+gh pr list --base week-N | cat  # Should be empty
+
+# 2. Verify quality gates pass
+cd wp-content/themes/soma
+composer phpcs && composer phpstan && composer test
+npm run prod
+
+# 3. Create release branch from week-N
+git checkout week-N
+git pull origin week-N
+git checkout -b release/vX.Y.Z
+
+# 4. Update version files
+# - wp-content/themes/soma/style.css: Version: X.Y.Z
+# - wp-content/themes/soma/CHANGELOG.md: Add release notes
+
+# 5. Commit version bump
+git add style.css CHANGELOG.md
+git commit -m "chore: Prepare release vX.Y.Z"
+
+# 6. Create PR to week-N, then merge
+git push -u origin release/vX.Y.Z
+gh pr create --base week-N --title "Release vX.Y.Z" | cat
+gh pr merge NUMBER --squash --delete-branch | cat
+
+# 7. Create PR from week-N to main, then merge
+gh pr create --base main --head week-N --title "Week N: Sprint completion" | cat
+gh pr merge NUMBER --squash | cat
+
+# 8. Checkout main and create tag
+git checkout main
+git pull origin main
+git tag -a vX.Y.Z -m "Release vX.Y.Z: Description"
+
+# 9. Push tag (triggers CI/CD → Release → Deploy)
+git push origin vX.Y.Z
+
+# 10. Monitor workflow
+gh run watch
+gh release view vX.Y.Z | cat
+```
+
+**Expected CI/CD Flow:**
+1. ✅ Stage 1: Quality Gates (code-quality, php-tests, frontend-build) ~2min
+2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release **automatically**)
+3. ✅ Stage 3: Deploy to Production (SFTP upload, backup, extract)
+4. ✅ Total: ~5-6 minutes
+
+**⚠️ IMPORTANT**: The GitHub release is created **automatically** by ci-cd.yml. NEVER use `gh release create` manually.
+
+### Hotfix Workflow (Emergency Production Fix)
+
+```bash
+# 1. Create hotfix branch from main (NOT week-*)
+git checkout main
+git pull origin main
+git checkout -b hotfix/critical-issue
+
+# 2. Apply fix and test
+composer test && npm run prod
+
+# 3. Commit and create PR to main
+git add . && git commit -m "fix: Critical issue"
+git push -u origin hotfix/critical-issue
+gh pr create --base main --title "HOTFIX: Critical issue" --label "bug,alta-prioridad,hotfix" | cat
+
+# 4. After emergency approval, merge
+gh pr merge NUMBER --squash | cat
+
+# 5. Create patch release tag
+git checkout main && git pull origin main
+# Update version (patch): 3.1.2 → 3.1.3
+git tag -a v3.1.3 -m "Hotfix v3.1.3: Critical security patch"
+git push origin v3.1.3
+
+# 6. Backport to current sprint (if needed)
+git checkout week-N
+git cherry-pick COMMIT_SHA
+git push origin week-N
+```
+
+---
+
 ## ⚠️ WP-Multilang Compatibility (CRITICAL)
 
 **WP-Multilang stores translations** in a single database field using `[:en]..[:es]..[:]` delimiters. The plugin hooks into WordPress filters to parse and display the correct language.
