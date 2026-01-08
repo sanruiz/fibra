@@ -273,10 +273,10 @@ class ShareQuotation extends WidgetBase {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'default'    => array(
-					'top'    => '60',
-					'right'  => '30',
-					'bottom' => '60',
-					'left'   => '30',
+					'top'    => '80',
+					'right'  => '20',
+					'bottom' => '80',
+					'left'   => '20',
 					'unit'   => 'px',
 				),
 				'selectors'  => array(
