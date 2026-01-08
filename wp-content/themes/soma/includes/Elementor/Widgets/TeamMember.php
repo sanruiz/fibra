@@ -474,7 +474,6 @@ class TeamMember extends WidgetBase {
 				<?php if ( $use_card_link ) : ?>
 					<a href="<?php echo esc_url( $member_url ); ?>" class="soma-team-member__card-link">
 				<?php endif; ?>
-				
 				<div class="content">
 					<div class="title">
 						<h3 class="member-name"><?php echo esc_html( get_the_title( $team_member_id ) ); ?></h3>
