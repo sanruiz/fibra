@@ -898,6 +898,42 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 - Safe SVG
 - WP Multilang (language switcher via `wpm_language_switcher()`)
 
+## WP-Multilang Compatibility (CRITICAL)
+
+**WP-Multilang stores translations** in a single database field using `[:en]..[:es]..[:]` delimiters. The plugin hooks into WordPress filters to parse and display the correct language.
+
+### Post Titles in Elementor Widget Dropdowns
+
+**ALWAYS use `get_the_title()` instead of `$post->post_title`** in SELECT/SELECT2 controls:
+
+```php
+// ❌ WRONG - Bypasses WP-Multilang filters
+foreach ( $posts as $post ) {
+    $options[ $post->ID ] = $post->post_title;
+    // Shows raw: "[:en]John Doe[:es]Juan Pérez[:]"
+}
+
+// ✅ CORRECT - Applies 'the_title' filter (WP-Multilang hooks here)
+foreach ( $posts as $post ) {
+    $options[ $post->ID ] = get_the_title( $post->ID );
+    // Shows translated: "John Doe" or "Juan Pérez"
+}
+```
+
+**Why this matters:**
+- `$post->post_title` is direct property access → NO filters applied
+- `get_the_title()` applies the `the_title` filter → WP-Multilang can translate
+- This affects ALL widgets with post selector dropdowns
+
+**Affected patterns:**
+- Team member selectors
+- CF7 form selectors
+- Custom post type selectors
+- Any dropdown populated from `WP_Query` results
+
+**Helper function for i18n fields:**
+Use `soma_get_i18n_field()` for ACF fields with language variants (`file`/`file_es`).
+
 ## Development Workflow
 1. Edit source files (`.php`, `.scss`, `.js`)
 2. Run `npm run watch` for hot reloading
