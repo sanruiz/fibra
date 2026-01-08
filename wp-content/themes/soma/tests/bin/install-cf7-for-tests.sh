@@ -78,7 +78,7 @@ if [ -d "$CF7_PLUGIN_DIR" ]; then
     echo ""
     
     # Check for non-interactive mode
-    if [[ "$FORCE_CF7_REINSTALL" === "true" ]] || [[ "$CI" === "true" ]] || [[ "$GITHUB_ACTIONS" === "true" ]]; then
+    if [[ "$FORCE_CF7_REINSTALL" == "true" ]] || [[ "$CI" == "true" ]] || [[ "$GITHUB_ACTIONS" == "true" ]]; then
         print_warning "Non-interactive mode: Automatically reinstalling Contact Form 7"
         REPLY="y"
     else

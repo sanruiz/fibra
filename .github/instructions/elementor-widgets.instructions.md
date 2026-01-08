@@ -379,7 +379,20 @@ wp i18n update-po languages/soma.pot languages/
 wp i18n make-mo languages/
 ```
 
-### 3. Missing Tests for New Controls
+### 3. Empty Spanish Translations
+```php
+// ❌ WRONG - Empty translation (DO NOT COMMIT)
+msgid "Category"
+msgstr ""
+
+// ✅ CORRECT - Proper Spanish translation
+msgid "Category"
+msgstr "Categoría"
+```
+
+**MANDATORY**: After running `wp i18n update-po`, open `languages/es_ES.po` and translate ALL new strings. Never commit empty `msgstr ""` entries.
+
+### 4. Missing Tests for New Controls
 ```php
 // When adding 'category' control, add test assertion:
 public function test_has_controls(): void {
@@ -388,7 +401,7 @@ public function test_has_controls(): void {
 }
 ```
 
-### 4. Skipping Quality Gates
+### 5. Skipping Quality Gates
 ```bash
 # NEVER skip these before commit:
 composer phpcs    # MUST pass
@@ -396,7 +409,7 @@ composer phpstan  # MUST pass
 composer test     # MUST pass
 ```
 
-### 5. Wrong Text Domain
+### 6. Wrong Text Domain
 ```php
 // ❌ WRONG - Wrong text domain
 __( 'Label', 'theme' )
@@ -404,6 +417,35 @@ __( 'Label', 'theme' )
 // ✅ CORRECT - SOMA text domain
 __( 'Label', 'soma' )
 ```
+
+### 7. Direct Post Title Access in Dropdowns (Multilang Bug)
+
+**Problem:** When using `$post->post_title` directly in SELECT/SELECT2 controls, WP-Multilang strings stored in `[:en]Name[:es]Nombre[:]` format display as raw text instead of the translated version.
+
+```php
+// ❌ WRONG - Bypasses WP-Multilang filters
+$options[ $post->ID ] = $post->post_title;
+// Shows: "[:en]John Doe[:es]Juan Pérez[:]"
+
+// ✅ CORRECT - Uses WordPress filter that WP-Multilang hooks into
+$options[ $post->ID ] = get_the_title( $post->ID );
+// Shows: "John Doe" (EN) or "Juan Pérez" (ES)
+```
+
+**Why it happens:**
+- WP-Multilang stores translations in a single field using `[:lang]...[:]` delimiters
+- The plugin hooks into the `the_title` filter to parse these strings
+- `$post->post_title` is a direct property access that bypasses all filters
+- `get_the_title()` applies the `the_title` filter, enabling WP-Multilang translation
+
+**Affected widgets:**
+- TeamMember.php (team member selector dropdown)
+- ContactForm.php (CF7 form selector dropdown)
+- Any widget with post/CPT selector dropdowns
+
+**Always use:**
+- `get_the_title( $post->ID )` for post titles
+- `get_the_title( $post )` also works (accepts WP_Post object)
 
 ---
 
@@ -414,12 +456,14 @@ Before creating a PR for widget changes, verify:
 - [ ] All user-facing strings use `__()`, `esc_html__()`, or `esc_attr__()`
 - [ ] Text domain is always `'soma'`
 - [ ] Translation files regenerated (`wp i18n make-pot`, `update-po`, `make-mo`)
+- [ ] **ALL Spanish translations provided** (no empty `msgstr ""` in es_ES.po)
 - [ ] Integration tests added/updated for new controls
 - [ ] `test_has_controls()` includes new control IDs
 - [ ] PHPCS passes with 0 errors
 - [ ] PHPStan Level 6+ passes
 - [ ] All tests pass
 - [ ] CSS uses SOMA variables (`--soma-*`)
+- [ ] Post titles use `get_the_title()` not `$post->post_title` (WP-Multilang compatibility)
 
 ---
 
@@ -432,6 +476,141 @@ Before creating a PR for widget changes, verify:
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 4, 2026  
+## 📝 CHANGELOG Update (MANDATORY)
+
+**When creating or updating a widget, you MUST document the changes in the `[Unreleased]` section of `wp-content/themes/soma/CHANGELOG.md`.**
+
+### What to Document
+
+#### For New Widgets
+
+```markdown
+### ✨ Added
+
+#### New Elementor Widget
+
+- **{WidgetName} Widget** - Brief description of the widget purpose (#issue-number)
+  - Key feature 1
+  - Key feature 2
+  - Key feature 3
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/{WidgetName}.php` - New {WidgetName} widget
+- `assets/css/widgets/{widget-name}.css` - Widget-specific styles
+- `tests/Integration/Elementor/{WidgetName}WidgetTest.php` - Integration tests
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register {WidgetName} widget
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include {WidgetName} widget
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+```
+
+#### For Widget Updates/Fixes
+
+```markdown
+### 🐛 Fixed
+
+#### {WidgetName} Widget
+
+- **Issue Description** - Brief explanation of what was fixed (#issue-number)
+  - Technical detail of the fix
+
+### 🔄 Changed
+
+#### {WidgetName} Widget
+
+- **Feature/Behavior Change** - Description of what changed
+  - Before: Old behavior
+  - After: New behavior
+
+### 📦 Files Changed
+
+#### Modified
+
+- `includes/Elementor/Widgets/{WidgetName}.php` - Description of change
+- `assets/css/widgets/{widget-name}.css` - Style updates (if applicable)
+```
+
+### CHANGELOG Categories Reference
+
+| Category | Use For |
+|----------|---------|
+| `### ✨ Added` | New widgets, features, controls |
+| `### 🐛 Fixed` | Bug fixes, issue resolutions |
+| `### 🔄 Changed` | Behavior changes, refactoring |
+| `### 🗑️ Deprecated` | Features marked for removal |
+| `### 🔒 Security` | Security-related changes |
+| `### 🌐 Translations` | New translated strings |
+| `### 📦 Files Changed` | List of added/modified files |
+| `### 🔗 Related Issues & PRs` | Links to GitHub issues/PRs |
+
+### Example: Complete CHANGELOG Entry
+
+```markdown
+## [Unreleased]
+
+### Week 4 Feature - AnnualReports Elementor Widget (Issue #XX)
+
+This feature adds a new AnnualReports Elementor widget for displaying annual financial reports.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **AnnualReports Widget** - Display annual reports in grid/list layout (#XX)
+  - Year filter with dropdown selection
+  - Category filtering via taxonomy
+  - Responsive grid with 2/3/4 column options
+  - Download link with file size display
+
+### 🌐 Translations
+
+#### AnnualReports Widget (X strings)
+
+- `Annual Reports` → `Informes Anuales`
+- `Select Year` → `Seleccionar Año`
+- `Download Report` → `Descargar Informe`
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/AnnualReports.php` - New AnnualReports widget
+- `assets/css/widgets/annual-reports.css` - Widget-specific styles
+- `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Integration tests
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register AnnualReports widget
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include AnnualReports widget
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #XX**: [Issue Title](https://github.com/sanruiz/fibra/issues/XX)
+- **PR #YY**: [PR Title](https://github.com/sanruiz/fibra/pull/YY) - Merged to week-N
+```
+
+### Important Notes
+
+1. **Always use `[Unreleased]` section** - Do NOT create version numbers; versioning is handled during releases
+2. **Reference issue numbers** - Use `(#XX)` format to link to GitHub issues
+3. **Be specific** - List actual file paths and specific changes
+4. **Include translations** - Document any new Spanish translations added
+5. **Update on every PR** - Each widget-related PR should update the CHANGELOG
+
+---
+
+**Document Version**: 1.2  
+**Last Updated**: January 8, 2026  
 **Maintainer**: Miguel Colmenares

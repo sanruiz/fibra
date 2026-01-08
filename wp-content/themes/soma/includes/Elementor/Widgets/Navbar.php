@@ -154,7 +154,10 @@ class Navbar extends WidgetBase {
 			array(
 				'label'     => __( 'Custom Logo', 'soma' ),
 				'type'      => Controls_Manager::MEDIA,
-				'default'   => array(),
+				'default'   => array(
+					'url' => '',
+					'id'  => 0,
+				),
 				'condition' => array(
 					'show_logo'        => 'yes',
 					'use_custom_logo!' => 'yes',
@@ -424,9 +427,10 @@ class Navbar extends WidgetBase {
 		$logo_url = '';
 		if ( 'yes' === $settings['show_logo'] ) {
 			if ( 'yes' === $settings['use_custom_logo'] && has_custom_logo() ) {
-				$logo_id  = get_theme_mod( 'custom_logo' );
-				$logo_url = wp_get_attachment_image_src( $logo_id, 'full' )[0] ?? '';
-			} elseif ( ! empty( $settings['custom_logo']['url'] ) ) {
+				$logo_id    = get_theme_mod( 'custom_logo' );
+				$logo_image = wp_get_attachment_image_src( $logo_id, 'full' );
+				$logo_url   = is_array( $logo_image ) ? $logo_image[0] : '';
+			} elseif ( isset( $settings['custom_logo']['url'] ) && ! empty( $settings['custom_logo']['url'] ) ) {
 				$logo_url = $settings['custom_logo']['url'];
 			}
 		}

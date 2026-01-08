@@ -1,0 +1,259 @@
+/**
+ * Share Quotation Widget Styles
+ *
+ * Styles for the ShareQuotation Elementor widget that displays
+ * stock market data in a 3-column layout.
+ *
+ * @package Soma
+ * @subpackage Elementor/Widgets
+ * @since 3.1.13
+ */
+
+/* ==========================================================================
+   Background Variants
+   ========================================================================== */
+
+/* Dark background (black-bg) - white text */
+.soma-share-quotation--black-bg {
+	background-color: var(--soma-color-primary, #171717);
+}
+
+.soma-share-quotation--black-bg .soma-share-quotation__title,
+.soma-share-quotation--black-bg .soma-share-quotation__symbol,
+.soma-share-quotation--black-bg .soma-share-quotation__label,
+.soma-share-quotation--black-bg .soma-share-quotation__price-value,
+.soma-share-quotation--black-bg .soma-share-quotation__volume-value,
+.soma-share-quotation--black-bg .soma-share-quotation__date,
+.soma-share-quotation--black-bg .soma-share-quotation__download {
+	color: #fff;
+}
+
+/* Light background (white-bg) - dark text */
+.soma-share-quotation--white-bg {
+	background-color: #fff;
+}
+
+.soma-share-quotation--white-bg .soma-share-quotation__title,
+.soma-share-quotation--white-bg .soma-share-quotation__symbol,
+.soma-share-quotation--white-bg .soma-share-quotation__label,
+.soma-share-quotation--white-bg .soma-share-quotation__price-value,
+.soma-share-quotation--white-bg .soma-share-quotation__volume-value,
+.soma-share-quotation--white-bg .soma-share-quotation__date,
+.soma-share-quotation--white-bg .soma-share-quotation__download {
+	color: var(--soma-color-primary, #171717);
+}
+
+/* Download icon SVG colors */
+.soma-share-quotation--white-bg .soma-share-quotation__download-icon svg path {
+	stroke: var(--soma-color-primary, #171717);
+}
+
+.soma-share-quotation--black-bg .soma-share-quotation__download-icon svg path {
+	stroke: #fff;
+}
+
+/* ==========================================================================
+   Grid Container
+   ========================================================================== */
+
+.soma-share-quotation__container {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: var(--soma-container-max-width, 1200px);
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* ==========================================================================
+   Columns
+   ========================================================================== */
+
+.soma-share-quotation__column {
+	width: calc(100% * (4 / 12));
+	box-sizing: border-box;
+}
+
+/* Column 1: Title & Symbol (--info) */
+.soma-share-quotation__column--info {
+	padding-right: 15px;
+}
+
+@media screen and (max-width: 991px) {
+	.soma-share-quotation__column--info {
+		width: 100%;
+		padding-right: 0;
+		margin-bottom: 30px;
+	}
+}
+
+/* Column 2: Price & Change */
+.soma-share-quotation__column--price {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+@media screen and (max-width: 991px) {
+	.soma-share-quotation__column--price {
+		width: 50%;
+		padding-left: 0;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation__column--price {
+		width: 100%;
+		padding: 0;
+		margin-bottom: 30px;
+	}
+}
+
+/* Column 3: Volume (--volume) */
+.soma-share-quotation__column--volume {
+	padding-left: 15px;
+}
+
+@media screen and (max-width: 991px) {
+	.soma-share-quotation__column--volume {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation__column--volume {
+		width: 100%;
+		padding: 0;
+	}
+}
+
+/* ==========================================================================
+   Data Rows
+   ========================================================================== */
+
+.soma-share-quotation__data-row {
+	margin-bottom: 10px;
+}
+
+.soma-share-quotation__data-row:last-child {
+	margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Typography & Values
+   ========================================================================== */
+
+.soma-share-quotation__title {
+	margin: 0 0 5px 0;
+	font-size: var(--soma-font-size-h3, 1.5rem);
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.soma-share-quotation__symbol {
+	display: block;
+	margin: 0;
+	font-size: var(--soma-font-size-small, 0.875rem);
+	font-weight: 400;
+}
+
+.soma-share-quotation__label {
+	display: block;
+	margin: 0 0 5px 0;
+	font-size: var(--soma-font-size-small, 0.875rem);
+	font-weight: 400;
+}
+
+/* Large values (price and volume) - matching original h2 style */
+.soma-share-quotation__price-value,
+.soma-share-quotation__volume-value {
+	display: block;
+	margin: 0;
+	font-size: var(--soma-font-size-h1, 3rem);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+/* Change indicator values */
+.soma-share-quotation__change {
+	display: block;
+	margin: 0;
+	font-size: var(--soma-font-size-body, 1rem);
+	font-weight: 500;
+}
+
+/* Date display */
+.soma-share-quotation__date {
+	display: block;
+	margin: 0;
+	font-size: var(--soma-font-size-small, 0.875rem);
+}
+
+/* ==========================================================================
+   Change Indicators (Positive/Negative)
+   ========================================================================== */
+
+.soma-share-quotation__change--positive {
+	color: var(--soma-color-success, #22C55E);
+}
+
+.soma-share-quotation__change--negative {
+	color: var(--soma-color-danger, #EF4444);
+}
+
+/* ==========================================================================
+   Download Link
+   ========================================================================== */
+
+.soma-share-quotation__download {
+	display: inline-flex;
+	align-items: center;
+	margin-top: 15px;
+	text-decoration: none;
+	transition: var(--soma-transition, 0.3s);
+}
+
+.soma-share-quotation__download-icon {
+	display: inline-flex;
+	margin-left: 10px;
+}
+
+.soma-share-quotation__download-icon svg {
+	width: 35px;
+	height: 35px;
+}
+
+.soma-share-quotation__download-icon svg path {
+	transition: var(--soma-transition, 0.3s);
+}
+
+/* Desktop hover effects */
+@media screen and (min-width: 992px) {
+	.soma-share-quotation__download:hover {
+		opacity: 0.7;
+	}
+
+	.soma-share-quotation__download:hover .soma-share-quotation__download-icon svg path {
+		stroke: var(--soma-color-text-secondary, #7E7E87);
+	}
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media screen and (max-width: 991px) {
+	.soma-share-quotation__price-value,
+	.soma-share-quotation__volume-value {
+		font-size: var(--soma-font-size-h2, 2.5rem);
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.soma-share-quotation__title {
+		font-size: var(--soma-font-size-h4, 1.25rem);
+	}
+
+	.soma-share-quotation__price-value,
+	.soma-share-quotation__volume-value {
+		font-size: var(--soma-font-size-h3, 1.75rem);
+	}
+}

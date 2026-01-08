@@ -238,8 +238,8 @@ class StockPrice extends WidgetBase {
 			$currency = isset( $stock_data['currency'] ) ? sanitize_text_field( (string) $stock_data['currency'] ) : 'MXN';
 		}
 
-		// Format price with currency symbol.
-		$formatted_price = $this->format_price( $price, $currency );
+		// Format price with currency symbol using shared helper.
+		$formatted_price = soma_format_stock_price( $price, $currency );
 
 		// Layout class.
 		$layout_class = 'horizontal' === $settings['layout'] ? 'soma-stock-price--horizontal' : 'soma-stock-price--vertical';
@@ -254,29 +254,5 @@ class StockPrice extends WidgetBase {
 			</span>
 		</div>
 		<?php
-	}
-
-	/**
-	 * Format price with currency symbol
-	 *
-	 * @param float  $price    The price value.
-	 * @param string $currency The currency code.
-	 * @return string Formatted price.
-	 */
-	private function format_price( float $price, string $currency ): string {
-		$symbol = '$';
-
-		// Add more currency symbols as needed.
-		$symbols = array(
-			'MXN' => '$',
-			'USD' => '$',
-			'EUR' => '€',
-		);
-
-		if ( isset( $symbols[ $currency ] ) ) {
-			$symbol = $symbols[ $currency ];
-		}
-
-		return $symbol . number_format( $price, 2 );
 	}
 }

@@ -493,7 +493,7 @@ class Documents extends WidgetBase {
 				$file    = $content ? \soma_get_i18n_field( $content, 'file' ) : null;
 
 				// Only include documents with valid file URL.
-				if ( ! empty( $file['url'] ) ) {
+				if ( is_array( $file ) && ! empty( $file['url'] ) ) {
 					$valid_documents[] = array(
 						'id'        => $post_id,
 						'title'     => get_the_title(),

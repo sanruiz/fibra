@@ -124,7 +124,7 @@ class ContactForm extends WidgetBase {
 		);
 
 		foreach ( $cf7_forms as $form ) {
-			$forms[ $form->ID ] = $form->post_title;
+			$forms[ $form->ID ] = get_the_title( $form->ID );
 		}
 
 		return $forms;

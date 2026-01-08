@@ -1,0 +1,383 @@
+/**
+ * Annual Reports Widget Styles
+ *
+ * Two-column layout with year filter sidebar and documents grid.
+ * Supports "full-width" and "three-columns" style variants.
+ *
+ * @package Soma
+ * @subpackage Elementor/Widgets
+ * @since 3.1.13
+ */
+
+/* ==========================================================================
+   Container & Layout
+   ========================================================================== */
+
+.soma-annual-reports-widget {
+	padding: 64px 0 100px 0;
+}
+
+.soma-annual-reports-widget .content {
+	display: flex;
+}
+
+.soma-annual-reports-widget .year-list {
+	width: calc(100% * (2 / 12));
+	box-sizing: border-box;
+	padding-right: 15px;
+	margin-top: -10px;
+}
+
+.soma-annual-reports-widget .documents {
+	width: calc(100% * (10 / 12));
+	box-sizing: border-box;
+	padding-left: 15px;
+}
+
+/* ==========================================================================
+   Year Filter Sidebar
+   ========================================================================== */
+
+.soma-annual-reports-widget .year-list .mobile-title {
+	display: none;
+}
+
+.soma-annual-reports-widget .year-list .all {
+	text-underline-position: from-font;
+	margin-top: 30px;
+}
+
+.soma-annual-reports-widget .year-list .all a {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.soma-annual-reports-widget .year-list h3 {
+	margin-top: 0;
+	margin-bottom: 10px;
+	cursor: pointer;
+	color: var(--soma-color-text-secondary, #7E7E87);
+	transition: var(--soma-transition-base, 0.3s ease);
+}
+
+.soma-annual-reports-widget .year-list h3.active {
+	color: var(--soma-color-primary, #191919);
+}
+
+/* ==========================================================================
+   Full Width Style Variant
+   ========================================================================== */
+
+.soma-annual-reports-widget.full-width .document {
+	display: flex;
+	margin-bottom: 50px;
+}
+
+.soma-annual-reports-widget.full-width .document.hidden {
+	display: none;
+}
+
+.soma-annual-reports-widget.full-width .document .image {
+	width: calc(100% * (6 / 10));
+	box-sizing: border-box;
+	padding-right: 15px;
+}
+
+.soma-annual-reports-widget.full-width .document .image h3 {
+	display: none;
+}
+
+.soma-annual-reports-widget.full-width .document .image img {
+	width: 100%;
+	max-width: 546px;
+}
+
+.soma-annual-reports-widget.full-width .document .text {
+	width: calc(100% * (4 / 10));
+	box-sizing: border-box;
+	padding-left: 15px;
+}
+
+.soma-annual-reports-widget.full-width .document .text h3 {
+	margin-top: -10px;
+	margin-bottom: 46px;
+}
+
+.soma-annual-reports-widget.full-width .document .text .description {
+	margin-bottom: 40px;
+}
+
+.soma-annual-reports-widget.full-width .document .text .link a {
+	display: table;
+	margin-bottom: 8px;
+}
+
+.soma-annual-reports-widget.full-width .document .text .date {
+	display: none;
+}
+
+/* ==========================================================================
+   Three Columns Style Variant - Default View
+   ========================================================================== */
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -15px;
+	width: calc(100% * (9 / 10) + 30px);
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document {
+	width: calc((100% / 3) - 30px);
+	margin: 0 15px 68px 15px;
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document.hidden {
+	display: none;
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .image {
+	margin-bottom: 10px;
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .image h3 {
+	display: none;
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	max-height: 348px;
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .text h3 {
+	margin-top: 0;
+	margin-bottom: 13px;
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .text .description {
+	display: none;
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .text .link a {
+	display: table;
+	margin-bottom: 8px;
+}
+
+.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .date {
+	display: none;
+}
+
+/* ==========================================================================
+   Three Columns Style Variant - Filtered View (Year Selected)
+   ========================================================================== */
+
+.soma-annual-reports-widget.three-columns .document-list.filtered .document {
+	position: relative;
+	padding-bottom: 45px;
+	margin-bottom: 45px;
+	border-bottom: 1px solid var(--soma-color-primary, #191919);
+}
+
+.soma-annual-reports-widget.three-columns .document-list.filtered .document.hidden {
+	display: none;
+}
+
+.soma-annual-reports-widget.three-columns .document-list.filtered .document .image {
+	display: none;
+}
+
+.soma-annual-reports-widget.three-columns .document-list.filtered .document .text h3 {
+	margin-top: -10px;
+	margin-bottom: 8px;
+}
+
+.soma-annual-reports-widget.three-columns .document-list.filtered .document .text .link a {
+	display: inline-block;
+	padding: 0 15px;
+	border-left: 1px solid #A1A1AE;
+	line-height: 1;
+}
+
+.soma-annual-reports-widget.three-columns .document-list.filtered .document .text .link a:first-of-type {
+	padding-left: 0;
+	border-left: none;
+}
+
+.soma-annual-reports-widget.three-columns .document-list.filtered .document .text .date {
+	position: absolute;
+	top: 4px;
+	right: 0;
+}
+
+/* ==========================================================================
+   Link Hover States
+   ========================================================================== */
+
+.soma-annual-reports-widget a {
+	transition: var(--soma-transition-base, 0.3s ease);
+}
+
+/* ==========================================================================
+   Responsive - Tablet Landscape (max-width: 1199px)
+   ========================================================================== */
+
+@media screen and (max-width: 1199px) {
+	.soma-annual-reports-widget.three-columns .document-list:not(.filtered) {
+		width: calc(100% + 30px);
+	}
+}
+
+/* ==========================================================================
+   Responsive - Tablet Portrait (max-width: 991px)
+   ========================================================================== */
+
+@media screen and (max-width: 991px) {
+	.soma-annual-reports-widget.full-width .document {
+		flex-wrap: wrap;
+	}
+
+	.soma-annual-reports-widget.full-width .document .image {
+		width: 100%;
+		padding-right: 0;
+		margin-bottom: 40px;
+	}
+
+	.soma-annual-reports-widget.full-width .document .image h3 {
+		display: block;
+		margin-top: -10px;
+		margin-bottom: 40px;
+	}
+
+	.soma-annual-reports-widget.full-width .document .image img {
+		max-width: 100%;
+	}
+
+	.soma-annual-reports-widget.full-width .document .text {
+		width: 100%;
+		padding-left: 0;
+	}
+
+	.soma-annual-reports-widget.full-width .document .text h3 {
+		display: none;
+	}
+
+	.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document {
+		width: calc((100% / 2) - 30px);
+	}
+
+	.soma-annual-reports-widget.three-columns .document-list.filtered .document .text .date {
+		display: none;
+	}
+}
+
+/* ==========================================================================
+   Responsive - Mobile (max-width: 767px)
+   ========================================================================== */
+
+@media screen and (max-width: 767px) {
+	.soma-annual-reports-widget {
+		padding: 20px 0 30px 0;
+	}
+
+	.soma-annual-reports-widget .content {
+		flex-wrap: wrap;
+	}
+
+	.soma-annual-reports-widget .year-list {
+		width: 100%;
+		padding-right: 0;
+		margin-top: 0;
+		margin-bottom: 40px;
+	}
+
+	.soma-annual-reports-widget .documents {
+		width: 100%;
+		padding-left: 0;
+	}
+
+	/* Mobile Year Filter Toggle */
+	.soma-annual-reports-widget .year-list .mobile-title {
+		display: block;
+		position: relative;
+		margin-bottom: 10px;
+		cursor: pointer;
+	}
+
+	.soma-annual-reports-widget .year-list .mobile-title span {
+		position: absolute;
+		display: block;
+		top: calc(50% - 6px);
+		right: 0;
+		width: 12px;
+		height: 12px;
+		transition: var(--soma-transition-base, 0.3s ease);
+	}
+
+	.soma-annual-reports-widget .year-list .mobile-title span::after,
+	.soma-annual-reports-widget .year-list .mobile-title span::before {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 2px;
+		background-color: var(--soma-color-primary, #191919);
+		position: absolute;
+		top: 50%;
+		left: 0;
+	}
+
+	.soma-annual-reports-widget .year-list .mobile-title span::before {
+		transform: rotate(90deg);
+	}
+
+	.soma-annual-reports-widget .year-list .mobile-title.open span {
+		transform: rotate(45deg);
+	}
+
+	.soma-annual-reports-widget .year-list .mobile-title:not(.open) + .years {
+		display: none;
+	}
+
+	/* Mobile Document Cards */
+	.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document {
+		width: 100%;
+		margin: 0 15px 35px 15px;
+	}
+
+	.soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .image img {
+		height: auto;
+		max-height: none;
+	}
+
+	.soma-annual-reports-widget.three-columns .document-list.filtered .document {
+		padding-bottom: 40px;
+		margin-bottom: 40px;
+	}
+
+	.soma-annual-reports-widget.three-columns .document-list.filtered .document .text h3 {
+		margin-bottom: 23px;
+	}
+
+	.soma-annual-reports-widget.three-columns .document-list.filtered .document .text .link a {
+		display: table;
+		padding: 0;
+		border-left: 0;
+		margin-bottom: 8px;
+	}
+}
+
+/* ==========================================================================
+   Desktop Hover States (min-width: 1200px)
+   ========================================================================== */
+
+@media screen and (min-width: 1200px) {
+	.soma-annual-reports-widget .year-list h3:hover {
+		color: var(--soma-color-primary, #191919);
+	}
+
+	.soma-annual-reports-widget a:hover {
+		color: var(--soma-color-text-secondary, #7E7E87);
+	}
+}

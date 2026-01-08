@@ -366,9 +366,11 @@ gh release view vX.Y.Z | cat
 
 **Expected CI/CD Flow:**
 1. ✅ Stage 1: Quality Gates (code-quality, php-tests, frontend-build) ~2min
-2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release) ~1min
+2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release **automatically**) ~1min
 3. ✅ Stage 3: Deploy to Production (SFTP upload, backup, extract) ~2min
 4. ✅ Total: ~5-6 minutes
+
+**⚠️ IMPORTANT**: The GitHub release is created **automatically** by the ci-cd.yml workflow. NEVER use `gh release create` manually.
 
 ---
 
@@ -896,6 +898,42 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 - Safe SVG
 - WP Multilang (language switcher via `wpm_language_switcher()`)
 
+## WP-Multilang Compatibility (CRITICAL)
+
+**WP-Multilang stores translations** in a single database field using `[:en]..[:es]..[:]` delimiters. The plugin hooks into WordPress filters to parse and display the correct language.
+
+### Post Titles in Elementor Widget Dropdowns
+
+**ALWAYS use `get_the_title()` instead of `$post->post_title`** in SELECT/SELECT2 controls:
+
+```php
+// ❌ WRONG - Bypasses WP-Multilang filters
+foreach ( $posts as $post ) {
+    $options[ $post->ID ] = $post->post_title;
+    // Shows raw: "[:en]John Doe[:es]Juan Pérez[:]"
+}
+
+// ✅ CORRECT - Applies 'the_title' filter (WP-Multilang hooks here)
+foreach ( $posts as $post ) {
+    $options[ $post->ID ] = get_the_title( $post->ID );
+    // Shows translated: "John Doe" or "Juan Pérez"
+}
+```
+
+**Why this matters:**
+- `$post->post_title` is direct property access → NO filters applied
+- `get_the_title()` applies the `the_title` filter → WP-Multilang can translate
+- This affects ALL widgets with post selector dropdowns
+
+**Affected patterns:**
+- Team member selectors
+- CF7 form selectors
+- Custom post type selectors
+- Any dropdown populated from `WP_Query` results
+
+**Helper function for i18n fields:**
+Use `soma_get_i18n_field()` for ACF fields with language variants (`file`/`file_es`).
+
 ## Development Workflow
 1. Edit source files (`.php`, `.scss`, `.js`)
 2. Run `npm run watch` for hot reloading
@@ -936,18 +974,15 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 
 4. **Enqueue CSS** - In widget class `get_style_depends()` or `functions.php`
 
-5. **Create Unit Tests** - `tests/Unit/Elementor/{WidgetName}WidgetTest.php`
-   - Test class structure with ReflectionClass
-   - Test required methods exist
-   - Test return types and visibility
-
-6. **Create Integration Tests** - `tests/Integration/Elementor/{WidgetName}WidgetTest.php`
+5. **Create Integration Tests** - `tests/Integration/Elementor/{WidgetName}WidgetTest.php`
+   - ⚠️ **IMPORTANT**: Widgets should ONLY have integration tests, NOT unit tests
    - Test widget name, title, icon
    - Test categories contain 'soma'
    - Test style dependencies
    - Test rendering output
+   - **Note**: This is a project convention - no other widget unit tests exist
 
-7. **Update AllWidgetsTest** - `tests/Integration/Elementor/AllWidgetsTest.php`
+6. **Update AllWidgetsTest** - `tests/Integration/Elementor/AllWidgetsTest.php`
    ```php
    // Add to $widget_classes array
    '{WidgetName}' => \Soma\Elementor\Widgets\{WidgetName}::class,
@@ -956,14 +991,16 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
    '{WidgetName}' => 'soma-{widget-name}',
    ```
 
-8. **Regenerate Translations** - From theme root:
+7. **Regenerate Translations** - From theme root:
    ```bash
    wp i18n make-pot . languages/soma.pot --domain=soma --exclude=node_modules,vendor,tests
    wp i18n update-po languages/soma.pot languages/
    wp i18n make-mo languages/
    ```
+   
+   **⚠️ MANDATORY**: After running `update-po`, open `languages/es_ES.po` and translate ALL new strings. **Never commit empty `msgstr ""`** entries.
 
-9. **Quality Gates** - Run before commit:
+8. **Quality Gates** - Run before commit:
    ```bash
    php -l includes/Elementor/Widgets/{WidgetName}.php  # Syntax check
    vendor/bin/phpcs includes/Elementor/Widgets/{WidgetName}.php  # Coding standards

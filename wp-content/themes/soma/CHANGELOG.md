@@ -11,6 +11,263 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.13] - 2026-01-08
+
+### Week 4 Feature - Events Elementor Widget (Issue #24)
+
+This feature adds a new Events Elementor widget for displaying corporate events on the "Página de Eventos Relevantes" page. The widget includes month/year filtering, AJAX loading, and responsive grid layout.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **Events Widget** - Corporate events display with month filtering (#24)
+  - **Responsive Grid Layout**:
+    - 3-column grid on desktop
+    - 2-column grid on tablet (991px)
+    - 1-column on mobile (767px)
+  - **Month/Year Filtering**:
+    - AJAX-powered month filtering via REST API
+    - "See All" option to show all events
+    - Active month highlighting
+    - Mobile-friendly filter toggle
+  - **Event Card Display**:
+    - Featured image with aspect ratio control
+    - Event title with configurable typography
+    - Event date or published date display
+    - Hover effects with zoom transition
+  - **Elementor Controls**:
+    - Number of events to display
+    - Sort order (ASC/DESC)
+    - Sort by (event date or published date)
+    - "See All" button text customization
+    - Container, filter, and card style sections
+    - Full typography and color controls
+  - **REST API Integration**:
+    - Uses existing `/wp-json/soma/events` endpoint
+    - Month-based filtering parameter
+    - Elementor editor preview support
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/Events.php` - New Events widget (~490 lines)
+- `assets/css/widgets/events.css` - Widget-specific styles (~185 lines)
+- `assets/js/widgets/events.js` - AJAX loading and filtering (~173 lines)
+- `tests/Integration/Elementor/EventsWidgetTest.php` - Integration tests (14 test methods)
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register Events widget, styles, and scripts
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include Events widget in test arrays
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #24**: [Página de Eventos Relevantes](https://github.com/sanruiz/fibra/issues/24)
+- **PR #170**: [feat(elementor): Add Events widget](https://github.com/sanruiz/fibra/pull/170)
+
+---
+
+### Week 4 Feature - Reports Elementor Widget (Issues #21 & #20)
+
+This feature adds a new Reports Elementor widget for displaying financial reports with year filtering. The widget supports both the "Reportes Anuales" page (Issue #21) and "Reportes Trimestrales" page (Issue #20) through category selection and configurable layout variants.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **Reports Widget** - Financial reports display with year filtering (#21, #20)
+  - **Two-Column Layout** (`full-width` variant):
+    - Left column: Year filter buttons (vertical list)
+    - Right column: Documents grid with download links
+    - Used for "Reportes Anuales" page
+  - **Three-Column Layout** (`three-columns` variant):
+    - Compact 3-column document grid
+    - Year filtering in horizontal header
+    - Used for "Reportes Trimestrales" page
+  - **Dynamic Year Filtering**:
+    - AJAX-powered year filtering via REST API
+    - All years loaded initially, filterable by click
+    - Active year highlighting
+  - **Document Display**:
+    - Featured image thumbnail
+    - Document title and description
+    - Download link with file type icon
+    - Publication date
+  - **Elementor Controls**:
+    - Style variant selection (`full-width` or `three-columns`)
+    - Category selector (filters by documents-taxonomy)
+    - Typography controls for titles, descriptions, dates
+    - Color controls for text and backgrounds
+    - Responsive spacing and layout controls
+  - **REST API Integration**:
+    - Uses existing `/wp-json/soma/documents` endpoint
+    - Category filtering via taxonomy
+    - Year-based document grouping
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/AnnualReports.php` - New Reports widget (~440 lines)
+- `assets/css/widgets/annual-reports.css` - Widget-specific styles (~280 lines)
+- `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Integration tests (14 test methods)
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register AnnualReports widget and assets
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include AnnualReports widget in test arrays
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #21**: [Página de Reportes Anuales](https://github.com/sanruiz/fibra/issues/21)
+- **Issue #20**: [Página de Reportes Trimestrales](https://github.com/sanruiz/fibra/issues/20)
+
+---
+
+### Week 4 Feature - ShareQuotation Elementor Widget (Issue #23)
+
+This feature adds a new ShareQuotation Elementor widget for displaying comprehensive stock market information on the "Información Bursátil" page.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **ShareQuotation Widget** - Comprehensive stock market information display widget (#23)
+  - Current stock price with currency formatting
+  - Price change indicator (positive/negative with color coding)
+  - Percentage change display
+  - Trading volume with number formatting
+  - Market time display
+  - **52-Week/Month High-Low Carousel**:
+    - Slick carousel integration for high/low price ranges
+    - 52-week high and low prices
+    - Monthly high and low prices
+    - Auto-advancement with navigation arrows
+  - **Configurable Layout**:
+    - Horizontal layout with flexible sections
+    - Responsive design for mobile/tablet
+  - **Styling Controls**:
+    - Background color customization
+    - Typography controls for all text elements
+    - Price color (positive/negative) configuration
+
+#### Shared Helper Functions
+
+- **`soma_format_stock_price()`** - Format stock price with currency symbol and decimals
+- **`soma_format_stock_change()`** - Format price change with +/- indicator
+- **`soma_format_stock_volume()`** - Format trading volume with number separators
+- **`soma_format_market_time()`** - Format market timestamp for display
+
+#### Code Refactoring
+
+- **StockPrice Widget** - Refactored to use shared helper functions from `Utils/Helpers.php`
+- **DRY Principle** - Eliminated duplicate formatting logic between StockPrice and ShareQuotation widgets
+
+### 🐛 Fixed
+
+#### Multilang Dropdown Display
+
+- **TeamMember Widget** - Fixed dropdown showing raw `[:en]Name[:es]Nombre[:]` format
+  - Changed `$member->post_title` to `get_the_title($member->ID)` to trigger wp-multilang filters
+- **ContactForm Widget** - Fixed same multilang issue in CF7 form selector
+  - Changed `$form->post_title` to `get_the_title($form->ID)`
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/ShareQuotation.php` - New ShareQuotation widget
+- `assets/css/widgets/share-quotation.css` - Widget-specific styles
+- `tests/Integration/Elementor/ShareQuotationWidgetTest.php` - Integration tests
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register ShareQuotation widget
+- `includes/Elementor/Widgets/StockPrice.php` - Refactored to use shared helpers
+- `includes/Elementor/Widgets/TeamMember.php` - Fixed multilang dropdown display
+- `includes/Elementor/Widgets/ContactForm.php` - Fixed multilang dropdown display
+- `includes/Utils/Helpers.php` - Added 4 new stock formatting helper functions
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include ShareQuotation widget
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #23**: [Página de Información Bursátil](https://github.com/sanruiz/fibra/issues/23)
+
+---
+
+## [3.1.12] - 2026-01-08
+
+### Week 4 Feature - TeamMember Elementor Widget
+
+This release adds a new TeamMember Elementor widget that replicates the team member single page functionality, enabling flexible integration of team member profiles into any page layout via Elementor.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **TeamMember Widget** - New Elementor widget for displaying individual team member profiles
+  - Replicates complete team-members single page structure and design
+  - Auto-detects team member from URL context when used in global templates (Header/Footer)
+  - Manual team member selection via Elementor control for custom layouts
+  - **Responsive 2-Column Flexbox Layout**:
+    - Left column: Name, Position, Featured Text (50% width, `padding-right: 15px`)
+    - Right column: Featured Image, Biography (50% width, `padding-left: 15px`, `margin-left: auto`)
+    - 50/50 split using `calc(100% * (6/12))`
+    - Container padding: `60px 0 140px` (desktop), `45px 0 80px` (mobile)
+    - Section margins: `70px` (desktop), `45px` (mobile)
+  - **Typography Controls**:
+    - Name styling with configurable margins
+    - Position/title styling
+    - Biography content with `18px` font-size, `25px` line-height
+  - **Image Handling**:
+    - Featured image with `max-width: 410px`
+    - Responsive behavior on mobile
+  - **Widget Independence**:
+    - Uses widget-specific class `soma-team-member`
+    - Completely independent of partial styles
+    - Future-proof for partial elimination
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/TeamMember.php` - New TeamMember widget (531 lines)
+- `assets/css/widgets/team-member.css` - Widget-specific styles with flexbox layout
+
+#### Modified
+
+- `wp-content/themes/soma/CHANGELOG.md` - Version documentation
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #164**: [feat(elementor): Add TeamMember widget](https://github.com/sanruiz/fibra/pull/164) - Merged to week-4
+
+---
+
 ## [3.1.11] - 2025-01-06
 
 ### Week 4 Patch - JavaScript & Footer Bug Fixes
@@ -22,12 +279,14 @@ This patch release fixes the stock price display issue on the company page and r
 ### 🐛 Fixed
 
 #### JavaScript Execution
+
 - **ShareQuotation Component** - Fixed stock price showing $0 on `/company/` page (#158)
   - Added `safeInit()` wrapper for Slick-dependent handlers to prevent uncaught errors from halting JS execution
   - Slick carousel errors now logged as warnings instead of crashing the script
   - Removed debug console.logs from `main.js` and `ShareQuotation.js`
 
 #### Footer Partial
+
 - **HTML Tags Visible on Mobile** - Fixed `<br>` tags showing as literal text instead of rendering (#159)
   - Changed `logo_subtext` from `esc_html()` to `wp_kses_post()` to allow safe HTML
   - Changed `copyright` from `esc_html()` to `wp_kses_post()` for consistency with Elementor widget
@@ -52,33 +311,39 @@ This release enhances the Stock Data admin panel with configurable sync interval
 ### ✨ Added
 
 #### Documents Widget Category Filter
+
 - **Category Dropdown** - New Elementor control to filter documents by taxonomy category (#151)
 - **Dynamic Filtering** - Documents automatically filtered based on selected category
 - **Empty State Handling** - Shows all documents when no category selected
 
 #### Stock Data Admin Panel
+
 - **Configurable Sync Interval** - New dropdown to select stock data update frequency (1, 2, 3, 6, 12, or 24 hours)
 - **Test API Connection Button** - Quick button to test Yahoo Finance API connectivity without waiting for cron
 - **Sync Status Display** - Shows last sync time, current cached data, and next scheduled sync
 - **Real-time Feedback** - AJAX-powered status updates and API test results
 
 #### External JavaScript Module
+
 - **stock-data.js** - New external JavaScript file using IIFE module pattern
 - **wp_localize_script Integration** - Proper WordPress data passing (nonce, i18n strings, AJAX URL)
 
 #### Documentation
+
 - **Elementor Widgets Instructions** - New `.github/instructions/elementor-widgets.instructions.md` with complete widget development workflow
 - **Global Styles Examples** - Documentation for using `Global_Colors` and `Global_Typography` in Elementor widgets
 
 ### 🔄 Changed
 
 #### Code Quality Improvements
+
 - **External JavaScript** - Refactored inline JavaScript (~100 lines) to external `assets/js/admin/stock-data.js`
 - **External CSS** - Refactored inline CSS (~35 lines) to external `assets/css/admin/stock-data.css`
 - **Explicit Cron Intervals** - Changed from dynamic loop to explicit interval definitions for PHPCS compliance
 - **Removed Unnecessary Comments** - Cleaned up phpcs:ignore comment that was no longer needed
 
 #### TeamMembers Widget
+
 - **Variable Naming Clarity** - Renamed `$member_title` to `$member_position` to better reflect ACF field purpose (#153)
 - **Field Mapping Documentation** - Added inline comments documenting image (Featured Image) and position (ACF `team_member_info.title`) field sources
 
@@ -91,6 +356,7 @@ This release enhances the Stock Data admin panel with configurable sync interval
 ### 🌐 Translations
 
 #### Stock Data Admin (22 strings)
+
 - `Test API Connection` → `Probar Conexión API`
 - `Testing...` → `Probando...`
 - `Request failed` → `Solicitud fallida`
@@ -115,6 +381,7 @@ This release enhances the Stock Data admin panel with configurable sync interval
 - `Stock Data` → `Datos Bursátiles`
 
 #### TeamMembers Widget (6 strings)
+
 - `Category` → `Categoría`
 - `Section Title` → `Título de Sección`
 - `Margin Bottom` → `Margen Inferior`
@@ -123,6 +390,7 @@ This release enhances the Stock Data admin panel with configurable sync interval
 - `Position` → `Cargo`
 
 #### Breadcrumb Widget (11 strings)
+
 - `SOMA Breadcrumb` → `Migas de Pan SOMA`
 - `Breadcrumb Settings` → `Configuración de Migas de Pan`
 - `Separator` → `Separador`
@@ -135,6 +403,7 @@ This release enhances the Stock Data admin panel with configurable sync interval
 - `Breadcrumb Navigation` → `Navegación de Migas de Pan`
 
 #### Portfolio Widget (28 strings)
+
 - `Main Category` → `Categoría Principal`
 - `Filter Categories` → `Filtrar Categorías`
 - `Initial Posts` → `Publicaciones Iniciales`
@@ -162,9 +431,11 @@ This release enhances the Stock Data admin panel with configurable sync interval
 - `View Toggle` → `Cambio de Vista`
 
 #### Documents Widget (1 string)
+
 - `Select a category to filter documents...` → `Selecciona una categoría para filtrar documentos...`
 
 #### Helper Functions (4 strings)
+
 - `Search results for: %s` → `Resultados de búsqueda para: %s`
 - `Page Not Found` → `Página No Encontrada`
 - `Blog` → `Blog`
@@ -173,11 +444,13 @@ This release enhances the Stock Data admin panel with configurable sync interval
 ### 📦 Files Changed
 
 #### Added
+
 - `assets/js/admin/stock-data.js` - External JavaScript module for admin panel (150 lines)
 - `assets/css/admin/stock-data.css` - External CSS for admin panel
 - `.github/instructions/elementor-widgets.instructions.md` - Elementor widget development workflow
 
 #### Modified
+
 - `includes/Admin/StockData.php` - Sync interval control, test API button, status display, external JS/CSS enqueue, CSRF protection
 - `includes/Elementor/Widgets/Documents.php` - Added category filter control
 - `includes/Elementor/Widgets/TeamMembers.php` - Variable rename for clarity, field mapping documentation
@@ -206,11 +479,13 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 ### ✨ Added
 
 #### TeamMembers Widget
+
 - **Modular Design** - Widget now accepts a single category per instance for flexible page layouts (#145)
 - **Integration Tests** - 18 tests covering widget structure, CSS variables, and responsive breakpoints
 - **Column Configuration** - Support for 2, 3, or 4 column layouts
 
 #### StockData System
+
 - **ACF Options Integration** - Stock API credentials now stored in ACF options page (#147)
 - **WordPress Options Fallback** - Graceful fallback to WordPress options when ACF not available
 - **Comprehensive Tests** - 26 new tests for StockData admin class and REST endpoint
@@ -218,6 +493,7 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 ### 🔄 Changed
 
 #### CSS Variables Integration
+
 - **Typography** - Name and position use `--soma-font-size-h3`, `--soma-font-size-body`, `--soma-font-family-primary`
 - **Colors** - Text colors use `--soma-color-text-primary`, `--soma-color-text-secondary`
 - **Spacing** - Grid gaps and padding use `--soma-spacing-*` variables
@@ -225,16 +501,19 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 - **Layout** - Container uses `--soma-container-max-width`
 
 #### Responsive Breakpoints
+
 - **Tablet (991px)** - Uses `--soma-font-size-h5`, `--soma-font-size-body-mobile`
 - **Mobile (767px)** - Uses `--soma-font-size-h3-mobile`, `--soma-font-size-small`
 
 #### StockData Refactor
+
 - **Configuration** - API credentials moved from hardcoded values to ACF options
 - **Type Safety** - Added explicit return type hints and casts
 
 ### 📦 Files Changed
 
 #### Added
+
 - `tests/Integration/Elementor/TeamMembersWidgetTest.php` - 18 integration tests
 - `tests/Integration/API/StockDataEndpointTest.php` - REST API tests
 - `tests/Integration/Admin/StockDataTest.php` - Admin integration tests
@@ -243,6 +522,7 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 - `local.env.example` - Environment variables example file
 
 #### Modified
+
 - `includes/Elementor/Widgets/TeamMembers.php` - Modular single-category design with Elementor defaults
 - `assets/css/widgets/team-members.css` - Full SOMA CSS variables integration
 - `includes/Admin/StockData.php` - ACF options integration with WordPress fallback
@@ -253,6 +533,7 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 ### 🌐 Translations
 
 #### TeamMembers Widget (20 strings)
+
 - `All Categories` → `Todas las Categorías`
 - `Number of Members` → `Número de Miembros`
 - `Show Section Title` → `Mostrar Título de Sección`
@@ -275,6 +556,7 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 - `Order` → `Orden`
 
 #### Breadcrumb Widget (11 strings)
+
 - `SOMA Breadcrumb` → `Migas de Pan SOMA`
 - `Breadcrumb Settings` → `Configuración de Migas de Pan`
 - `Separator` → `Separador`
@@ -287,6 +569,7 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 - `Breadcrumb Navigation` → `Navegación de Migas de Pan`
 
 #### Portfolio Widget (28 strings)
+
 - `Main Category` → `Categoría Principal`
 - `Filter Categories` → `Filtrar Categorías`
 - `Initial Posts` → `Publicaciones Iniciales`
@@ -314,6 +597,7 @@ This release improves the TeamMembers Elementor widget with modular single-categ
 - `View Toggle` → `Cambio de Vista`
 
 #### Helper Functions (3 strings)
+
 - `Search results for: %s` → `Resultados de búsqueda para: %s`
 - `Page Not Found` → `Página No Encontrada`
 - `Blog` → `Blog`
@@ -339,6 +623,7 @@ This release completes the Portfolio Elementor widget with dynamic category filt
 ### ✨ Added
 
 #### Portfolio Widget Enhancements
+
 - **Dynamic Category Filters** - Portfolio widget now displays interactive category filter buttons that filter content via AJAX (Issue #17)
 - **Filter Position Control** - New Elementor control to position filters left, center, or right
 - **Filter Spacing Control** - New control to adjust spacing between filter buttons using CSS `gap`
@@ -347,6 +632,7 @@ This release completes the Portfolio Elementor widget with dynamic category filt
 - **Portfolio Widget Tests** - 17 integration tests covering widget controls, rendering, and API integration
 
 #### REST API Improvements
+
 - **Portfolio Categories** - New `include_categories=true` parameter returns available portfolio categories
 - **Category Filtering** - Filter portfolio items by category slug via `category` parameter
 - **Fibrasoma Exclusion** - Fibrasoma category automatically excluded from public category lists
@@ -354,21 +640,25 @@ This release completes the Portfolio Elementor widget with dynamic category filt
 ### 🔄 Changed
 
 #### CSS & Styling
+
 - **Filter Layout** - Changed from `margin-right` to `gap` for filter spacing (better flexbox support)
 - **Font Family** - Updated to "Neue Haas Unica Pro" in CSS variables
 - **Responsive Filters** - Improved mobile responsiveness for filter buttons
 
 #### Code Quality
+
 - **PHPCS Compliance** - Fixed unsanitized `$_GET` input in Portfolio widget with proper `sanitize_text_field()`
 - **Test Cleanup** - Removed deprecated `setAccessible(true)` call in StockPriceWidgetTest
 
 ### 📦 Files Changed
 
 #### Added
+
 - `assets/js/widgets/portfolio.js` - Client-side AJAX filtering logic
 - `tests/Integration/Elementor/PortfolioWidgetTest.php` - 17 integration tests
 
 #### Modified
+
 - `includes/Elementor/Widgets/Portfolio.php` - Dynamic filters, AJAX loading, new controls
 - `includes/API/Endpoints/PortfolioEndpoint.php` - Category filtering support
 - `assets/css/widgets/portfolio.css` - Flexbox layout with gap, improved responsive
@@ -396,6 +686,7 @@ This release adds a new Breadcrumb Elementor widget for content page navigation.
 ### ✨ Added
 
 #### New Elementor Widget
+
 - **Breadcrumb Widget** - Clean navigation breadcrumb widget for content pages (#134)
   - Uses Global_Colors and Global_Typography from Elementor Site Kit
   - Customizable separator (text or icon)
@@ -405,6 +696,7 @@ This release adds a new Breadcrumb Elementor widget for content page navigation.
   - Full typography and color controls for all elements
 
 #### Helper Functions
+
 - **`soma_get_breadcrumb_items()`** - Flexible breadcrumb generation helper function
   - Supports hierarchical pages and custom post types
   - Returns array of breadcrumb items with title and URL
@@ -413,11 +705,13 @@ This release adds a new Breadcrumb Elementor widget for content page navigation.
 ### 📦 Files Changed
 
 #### Added
+
 - `includes/Elementor/Widgets/Breadcrumb.php` - Breadcrumb widget (425 lines)
 - `assets/css/widgets/breadcrumb.css` - Widget styles (49 lines)
 - `tests/Integration/Elementor/BreadcrumbWidgetTest.php` - 15 integration tests
 
 #### Modified
+
 - `includes/Elementor/Loader.php` - Register Breadcrumb widget
 - `includes/Utils/Helpers.php` - Added `soma_get_breadcrumb_items()` function
 - `tests/Integration/Elementor/AllWidgetsTest.php` - Include Breadcrumb widget
@@ -445,6 +739,7 @@ This patch release completes Spanish translations for all theme components and i
 ### ✨ Added
 
 #### Internationalization (i18n)
+
 - **Complete Spanish Translations** - Added 170+ Spanish translations covering all theme components
 - **Elementor Widgets** - All 10 widget titles, descriptions, and controls translated
 - **PostType Enum** - Labels for Portfolio, News, Careers, Team Members, Events, Documents
@@ -456,17 +751,20 @@ This patch release completes Spanish translations for all theme components and i
 ### 🐛 Fixed
 
 #### Code Quality
+
 - **PHPCS Compliance** - Fixed `count()` inside while loop in Documents widget (moved to variable before loop)
 
 ### 🔄 Changed
 
 #### Documents Widget
+
 - **Layout Improvements** - Enhanced grid layout for better document display
 - **Responsive Styles** - Improved mobile responsiveness for document cards
 
 ### 📦 Files Changed
 
 #### Modified
+
 - `languages/es_ES.po` - Added 170+ Spanish translations
 - `languages/es_ES.mo` - Compiled binary translation file
 - `includes/Elementor/Widgets/Documents.php` - PHPCS fix and layout improvements
@@ -491,25 +789,30 @@ This release adds two new Elementor widgets (StockPrice and Documents) and inclu
 ### ✨ Added
 
 #### New Elementor Widgets
+
 - **Documents Widget** - Display documents from `documents-reports` CPT in responsive grid layout with i18n support for bilingual file downloads (#128)
 - **StockPrice Widget** - Display current stock price from cached stock data with configurable styling (#126)
 
 #### Documentation
+
 - **Manual Issue Closure Note** - Added documentation about manual issue closure for non-default branch merges (#125)
 
 ### 🐛 Fixed
 
 #### Cron & Scheduling
+
 - **Stock Data Cron** - Register cron schedule before using it in StockData endpoint (#124)
 
 ### 🔄 Changed
 
 #### Code Quality
+
 - **StockDataEndpoint Refactor** - Use `soma_get_stock_data()` helper instead of direct transient access (#127)
 
 ### 📦 Files Changed
 
 #### Added
+
 - `includes/Elementor/Widgets/Documents.php` - Documents grid widget (485 lines)
 - `includes/Elementor/Widgets/StockPrice.php` - Stock price display widget
 - `assets/css/widgets/documents.css` - Documents widget styles (148 lines)
@@ -518,6 +821,7 @@ This release adds two new Elementor widgets (StockPrice and Documents) and inclu
 - `tests/Integration/Elementor/StockPriceWidgetTest.php` - Integration tests
 
 #### Modified
+
 - `includes/Elementor/Loader.php` - Register new widgets
 - `includes/Core/Theme.php` - Loader registration order fix
 - `includes/API/Endpoints/StockDataEndpoint.php` - Use helper function
@@ -549,6 +853,7 @@ This patch release restores backward compatibility for the team-members post typ
 ### 🐛 Fixed
 
 #### Post Type Slug
+
 - **team-members Post Type** - Restored original hyphenated slug `'team-members'` (was incorrectly changed to `'team_members'` during v3.0.0 refactoring)
 - **Backward Compatibility** - Existing Team Members posts created before v3.0.0 are now accessible again
 - **Database Consistency** - Post type slug now matches existing database records
@@ -556,6 +861,7 @@ This patch release restores backward compatibility for the team-members post typ
 ### 📦 Files Changed
 
 #### Modified
+
 - `wp-content/themes/soma/includes/Core/Enums/PostType.php` - Changed `TEAM_MEMBERS` enum value from `'team_members'` to `'team-members'`
 
 ---
@@ -579,6 +885,7 @@ This patch release fixes Elementor widget style conflicts and adds important sec
 ### 🐛 Fixed
 
 #### Elementor Styles
+
 - **Global Styles Override** - Simplified exclusion selectors to prevent global typography from affecting Elementor widgets
 - **CSS Specificity** - Changed from complex `:not()` with multiple conditions to simple `:not(.elementor a)` pattern
 - **Widget Styling** - Elementor widgets now maintain their specific styles without interference from theme globals
@@ -586,6 +893,7 @@ This patch release fixes Elementor widget style conflicts and adds important sec
 ### ✨ Added
 
 #### Security & CI/CD
+
 - **CodeQL Security Analysis** - Automated code scanning for security vulnerabilities
 - **Git Hooks** - Pre-commit hooks to enforce branch protection and prevent direct commits to protected branches
 - **Branch Protection** - Blocks commits to `main`, `week-*`, and `develop` branches
@@ -594,6 +902,7 @@ This patch release fixes Elementor widget style conflicts and adds important sec
 ### 🔄 Changed
 
 #### Workflow Improvements
+
 - **Release Process** - Enforced GitFlow: only tags from `main` trigger releases and deployments
 - **Branch Strategy** - Documented sprint-based workflow with `week-*` branches
 - **Quality Gates** - CI runs on all PRs to `week-*` and `main` branches
@@ -601,11 +910,13 @@ This patch release fixes Elementor widget style conflicts and adds important sec
 ### 📦 Files Changed
 
 #### Modified
+
 - `wp-content/themes/soma/sass/_general.scss` - Simplified Elementor exclusion selectors
 - `.github/workflows/ci-cd.yml` - Added main branch restriction for releases
 - `.github/workflows/codeql.yml` - New security scanning workflow
 
 #### Added
+
 - `install-hooks.sh` - Git hooks installation script
 - `.git/hooks/pre-commit` - Branch protection enforcement
 
@@ -632,6 +943,7 @@ This patch release fixes asset versioning to use a single source of truth from `
 ### 🐛 Fixed
 
 #### Asset Versioning
+
 - **Outdated Version Numbers** - Assets were loading with version 2.0.7 instead of current version
 - **Browser Caching Issues** - New styles not appearing due to old version numbers in query strings
 - **Hardcoded Versions** - Eliminated hardcoded `$version` and `$legacy_version` properties
@@ -640,6 +952,7 @@ This patch release fixes asset versioning to use a single source of truth from `
 ### 🔄 Changed
 
 #### Single Source of Truth Pattern
+
 - **Assets.php** - Now reads version from `style.css` header using `wp_get_theme()->get('Version')` in constructor
 - **Theme.php** - `get_version()` method uses `wp_get_theme()->get('Version')` instead of hardcoded constant
 - **Removed** - `VERSION` constant from Theme.php
@@ -649,6 +962,7 @@ This patch release fixes asset versioning to use a single source of truth from `
 ### 📦 Files Changed
 
 #### Modified
+
 - `wp-content/themes/soma/includes/Core/Assets.php` - Dynamic version loading
 - `wp-content/themes/soma/includes/Core/Theme.php` - Removed hardcoded constant
 
@@ -672,6 +986,7 @@ This patch release fixes a critical race condition in the CI/CD pipeline that ca
 ### 🐛 Fixed
 
 #### CI/CD Architecture
+
 - **Race Condition Eliminated** - Unified `ci-cd.yml` replaces separate `quality-and-tests.yml` and `release-and-deploy.yml` workflows
 - **Sequential Execution** - Stage 2 (Build & Release) waits for Stage 1 (Quality Gates) completion via `needs:` keyword
 - **Deployment Reliability** - Stage 3 (Deploy) executes only after successful release creation
@@ -683,6 +998,7 @@ This patch release fixes a critical race condition in the CI/CD pipeline that ca
 ### ✨ Added
 
 #### Workflow Architecture
+
 - **Unified CI/CD Pipeline** - Single `.github/workflows/ci-cd.yml` (546 lines) with 3-stage architecture
 - **Stage 1: Quality Gates** (parallel execution, always runs)
   - `code-quality`: PHPCS strict + PHPStan Level 6+ (~27s)
@@ -700,6 +1016,7 @@ This patch release fixes a critical race condition in the CI/CD pipeline that ca
 - **Stage 4: Pipeline Summary** (always runs, reports all stage results)
 
 #### Documentation
+
 - **Comprehensive CI/CD Guide** - New `docs/workflows/CI_CD.md` (600+ lines)
   - Architecture overview with visual flow diagram
   - Detailed job descriptions for all stages
@@ -714,11 +1031,13 @@ This patch release fixes a critical race condition in the CI/CD pipeline that ca
 ### 🔄 Changed
 
 #### Workflow Files
+
 - **Replaced**: `.github/workflows/quality-and-tests.yml` (302 lines, deleted)
 - **Replaced**: `.github/workflows/release-and-deploy.yml` (357 lines, deleted)
 - **Created**: `.github/workflows/ci-cd.yml` (546 lines, unified pipeline)
 
 #### Execution Flow
+
 - **OLD**: Separate workflows triggered simultaneously on tag push → race condition → wait-for-ci job → deployment failures
 - **NEW**: Single workflow with guaranteed sequential stages → no race conditions → reliable deployment
 
@@ -727,15 +1046,18 @@ This patch release fixes a critical race condition in the CI/CD pipeline that ca
 ### 📦 Files Changed
 
 #### Created
+
 - `.github/workflows/ci-cd.yml` - Unified CI/CD pipeline (546 lines)
 - `docs/workflows/CI_CD.md` - Comprehensive workflow documentation (600+ lines)
 
 #### Modified
+
 - `docs/WORKFLOWS.md` - Updated with unified architecture, new quick start, troubleshooting
 - `docs/workflows/QUALITY_AND_TESTS.md` - Added deprecation notice and migration guide
 - `docs/workflows/RELEASE_AND_DEPLOY.md` - Added deprecation notice and migration guide
 
 #### Deleted
+
 - `.github/workflows/quality-and-tests.yml` - Merged into ci-cd.yml
 - `.github/workflows/release-and-deploy.yml` - Merged into ci-cd.yml
 
@@ -784,17 +1106,20 @@ This release adds full Elementor support to base WordPress templates, enabling v
 ### ✨ Added
 
 #### Elementor Integration
+
 - **Full Template Support** - `single.php`, `page.php`, and `index.php` now support Elementor editor
 - **Dedicated Elementor Template** - New `elementor-template.php` for pages built entirely with Elementor
 - **Conditional Rendering** - Automatically detects Elementor content vs ACF blocks
 - **Backward Compatible** - Existing ACF flexible content continues to work seamlessly
 
 #### CI/CD & Automation
+
 - **Quality Checks for PRs** - `quality-and-tests.yml` now runs on PRs to `week-*` branches
 - **GitHub Workflow Documentation** - Comprehensive guide in `.github/instructions/github-workflow.instructions.md`
 - **Custom Instructions System** - YAML frontmatter support for path-specific coding standards
 
 #### Developer Experience
+
 - **i18n Helper Enhancement** - `soma_get_i18n_field()` for unified language-specific field handling
 - **API Language Support** - REST endpoints use helper for consistent multilingual field access
 - **WordPress Coding Standards** - Fixed 644 PHPCS errors, improved code quality
@@ -804,11 +1129,13 @@ This release adds full Elementor support to base WordPress templates, enabling v
 ### 🔄 Changed
 
 #### Template Architecture
+
 - **Base Templates Enhanced** - All main templates check for Elementor before rendering ACF blocks
 - **Content Function** - Reverted `the_content()` to dedicated Elementor template instead of modifying core templates
 - **Template Hierarchy** - Added Elementor template to WordPress template hierarchy
 
 #### Code Quality
+
 - **PHPUnit Configuration** - Fixed textdomain redeclaration warnings in test suite
 - **API Endpoints** - Migrated language conditionals to use `soma_get_i18n_field()` helper
 - **Workflow Improvements** - Enhanced CI/CD reliability and test coverage
@@ -818,10 +1145,12 @@ This release adds full Elementor support to base WordPress templates, enabling v
 ### 🐛 Fixed
 
 #### Testing
+
 - **PHPUnit Warnings** - Resolved textdomain redeclaration issues in test bootstrap
 - **WordPress Test Suite** - Properly configured for Local by Flywheel environment
 
 #### Code Standards
+
 - **PHPCS Compliance** - Fixed 644 coding standard violations
 - **Type Safety** - Improved type hints and documentation across codebase
 
@@ -830,11 +1159,13 @@ This release adds full Elementor support to base WordPress templates, enabling v
 ### 📦 Files Changed
 
 #### Added
+
 - `.github/instructions/github-workflow.instructions.md` - GitHub workflow standards
 - `.github/instructions/documentation-language.instructions.md` - Updated with YAML frontmatter
 - `elementor-template.php` - Dedicated Elementor page template
 
 #### Modified
+
 - `single.php` - Added Elementor support check
 - `page.php` - Added Elementor support check
 - `index.php` - Added Elementor support check
@@ -855,6 +1186,7 @@ This release adds full Elementor support to base WordPress templates, enabling v
 ### 🚀 Deployment
 
 This version enables:
+
 - Visual page building with Elementor widgets (8 custom widgets available)
 - Mixed content approach (ACF blocks + Elementor sections on same site)
 - Improved developer workflow with automated quality checks
@@ -877,6 +1209,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 ### ✨ Added
 
 #### Internationalization (i18n) System
+
 - **WordPress i18n Standard** - Full compliance with WordPress internationalization best practices
 - **Translation Helper Function** - `soma_get_i18n_field()` for ACF field internationalization with language variants
 - **Translation Files** - Complete Spanish (es_ES) translation with .pot template, .po source, and .mo compiled files
@@ -885,6 +1218,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **i18n Documentation** - Complete internationalization guide in `docs/INTERNATIONALIZATION.md`
 
 #### Architecture & Infrastructure
+
 - **PSR-4 Autoloading** - Complete namespace structure with `Soma\` base namespace
 - **Composer Integration** - Modern dependency management with autoloader
 - **LoadableInterface System** - Standardized component loading with priorities (10-50)
@@ -892,6 +1226,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **PHP 8.1+ Features** - Enums, match expressions, first-class callables, readonly properties
 
 #### Core Components
+
 - **3 Custom Taxonomies** - Portfolio, News, Team Members taxonomies with enum configuration
 - **Taxonomy Enum** (`Soma\Core\Enums\Taxonomy`) - Type-safe taxonomy references with 5 helper methods
 - **PostType Enum** (`Soma\Core\Enums\PostType`) - Type-safe post type identifiers
@@ -899,6 +1234,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **CacheTag Enum** (`Soma\Utils\Enums\CacheTag`) - Type-safe cache tag identifiers
 
 #### Helper Functions System (25 functions)
+
 - **Logger Helpers (9)** - `soma_log_emergency()`, `soma_log_alert()`, `soma_log_critical()`, `soma_log_error()`, `soma_log_warning()`, `soma_log_notice()`, `soma_log_info()`, `soma_log_debug()`, `soma_get_logger()`
 - **Cache Helpers (6)** - `soma_cache_get()`, `soma_cache_set()`, `soma_cache_remember()`, `soma_cache_invalidate_tags()`, `soma_cache_flush()`, `soma_get_cache()`
 - **Post Type Helpers (4)** - `soma_get_portfolio_items()`, `soma_get_news_items()`, `soma_get_careers_items()`, `soma_get_team_members()`
@@ -909,6 +1245,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **Stock Data (1)** - `soma_get_stock_data()`
 
 #### Caching System
+
 - **PSR-16 Cache Implementation** - Simple cache interface with WordPress object cache backend
 - **Tag-Based Invalidation** - Group cache entries by tags for bulk invalidation
 - **Automatic Cache Invalidation** - Auto-invalidates on `save_post` and ACF save hooks
@@ -917,6 +1254,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **CacheInvalidationManager** - Centralized invalidation with tag tracking
 
 #### Logging System
+
 - **PSR-3 Logger** - Full PSR-3 compliance with 8 severity levels
 - **File-Based Logging** - Logs to `wp-content/uploads/soma-logs/soma.log`
 - **Contextual Logging** - Rich context support for debugging
@@ -924,6 +1262,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **Helper Functions** - Simple `soma_log_*()` functions for all log levels
 
 #### Elementor Integration
+
 - **8 Custom Widgets** - Navbar, Footer, Business Units, Services, Team Members, News List, Portfolio, Contact Form
 - **Custom Widget Category** - 'soma' category in Elementor panel
 - **ACF Data Integration** - Widgets can access ACF fields seamlessly
@@ -933,6 +1272,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **Icon Controls** - Icon library integration for visual elements
 
 #### PageBuilder Enhancements
+
 - **BlockRegistry** - Centralized mapping of 53 blocks (layout → field_group → partial)
 - **BlockRenderer** - Advanced rendering engine with validation, error handling, and optional caching
 - **Multi-Layer Validation** - Structure validation, registry validation, file existence checks
@@ -942,6 +1282,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **LoadableInterface** - Priority-based loading (priority 25)
 
 #### Testing Infrastructure
+
 - **PHPUnit Integration** - Comprehensive unit and integration tests
 - **108 Tests** - 355 assertions across 24 test files
 - **Test Organization** - Separate unit and integration test suites
@@ -951,6 +1292,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **SOMA_TESTING Constant** - Clean test output without error_log noise
 
 #### Code Quality Tools
+
 - **PHPCS Integration** - WordPress Coding Standards compliance
 - **PHPStan Static Analysis** - Level 6-8 static type checking
 - **PHPCBF Auto-Fixing** - Automatic code formatting
@@ -959,6 +1301,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 - **Baseline Support** - `phpstan-baseline.neon` for acceptable warnings
 
 #### Documentation (5,000+ lines)
+
 - **DEVELOPMENT.md** (1,093 lines) - Complete developer guide with 30+ code examples
 - **WIDGETS.md** (900 lines) - Elementor widgets reference with control tables
 - **HELPERS.md** (850+ lines) - API reference for 24 helper functions
@@ -976,6 +1319,7 @@ SOMA v3.0.0 is a **complete rewrite** bringing modern PHP standards, enterprise-
 #### Breaking Changes
 
 ##### PageBuilder Global Variables → Query Vars (CRITICAL)
+
 ```php
 // ❌ v2.0.7 (OLD - NO LONGER WORKS)
 global $pageBlock;
@@ -991,6 +1335,7 @@ $title = $block_content['title'] ?? '';
 **Migration**: See [MIGRATION_FROM_V2.md § Code Updates](docs/MIGRATION_FROM_V2.md#code-updates-required)
 
 ##### Directory Structure Reorganization
+
 ```
 ❌ OLD (v2.0.7):          ✅ NEW (v3.0.0):
 inc/                      includes/
@@ -1009,6 +1354,7 @@ inc/                      includes/
 **Migration**: Use namespaced classes instead of `require_once`
 
 ##### Class Structure - Functions → Singletons
+
 ```php
 // ❌ OLD (v2.0.7)
 register_portfolio_post_type();
@@ -1025,12 +1371,14 @@ $items = soma_get_portfolio_items();
 **Migration**: Use singleton classes or helper functions
 
 ##### PHP Version Requirement
+
 - **OLD**: PHP 7.4+ supported
 - **NEW**: PHP 8.1+ required
 
 **Reason**: Enums, first-class callables, match expressions, readonly properties
 
 ##### Hook Registration - Array Syntax → First-Class Callables
+
 ```php
 // ❌ OLD (v2.0.7)
 add_action('init', array($this, 'init'));
@@ -1044,6 +1392,7 @@ add_action('init', $this->init(...));
 #### Non-Breaking Changes
 
 ##### Post Types Migration
+
 - All 4 post types migrated to PSR-4 structure (`Soma\PostTypes\Types\*`)
 - Singleton pattern with `instance()` method
 - LoadableInterface implementation (priority 20)
@@ -1051,6 +1400,7 @@ add_action('init', $this->init(...));
 - Enhanced with helper functions
 
 ##### Custom Fields Migration
+
 - ACF field groups preserved 100% (no changes to field structure)
 - Field registration migrated to PSR-4 classes (`Soma\CustomFields\Fields\*`)
 - Singleton pattern implementation
@@ -1058,6 +1408,7 @@ add_action('init', $this->init(...));
 - JSON sync functionality maintained
 
 ##### REST API Migration
+
 - All 5 endpoints migrated to PSR-4 structure (`Soma\API\Endpoints\*`)
 - Singleton pattern with clean initialization
 - First-class callables for route registration
@@ -1065,17 +1416,20 @@ add_action('init', $this->init(...));
 - Same endpoint URLs maintained (no breaking changes)
 
 ##### CF7 Integration Migration
+
 - Validation classes migrated to PSR-4 (`Soma\CF7\Validations`)
 - Singleton pattern implementation
 - Enhanced error messages
 - Maintained backward compatibility with existing forms
 
 ##### Logger Enhancement
+
 - Test mode suppression (checks `SOMA_TESTING` constant)
 - Performance optimization (single instance, minimal overhead)
 - Log rotation support (future-ready)
 
 ##### Cache System Enhancement
+
 - Performance optimizations
 - Better error handling
 - Tag validation
@@ -1086,17 +1440,20 @@ add_action('init', $this->init(...));
 ### 🐛 Fixed
 
 #### Code Quality Fixes
+
 - **PHPCS Errors**: Reduced from 624 to 154 errors (470 auto-fixed with PHPCBF)
 - **PHPStan Issues**: Achieved Level 6 compliance with 0 critical errors
 - **Baseline Created**: `phpstan-baseline.neon` for 3 acceptable warnings
 - **41 Files Formatted**: Consistent coding standards across codebase
 
 #### Test Error Fixes
+
 - **Logger Error Messages**: Suppressed `error_log()` during tests (added `SOMA_TESTING` check)
 - **Test Output Cleanup**: Clean PHPUnit runs with 0 console errors
 - **108/108 Tests Passing**: All tests green (355 assertions)
 
 #### Documentation Fixes
+
 - **Enum Documentation**: Updated Phase 2.5 docs with enum improvements
 - **Test Coverage**: Corrected test counts (36 → 39 tests)
 - **File Counts**: Updated to reflect actual implementation (8 → 9 files)
@@ -1106,13 +1463,16 @@ add_action('init', $this->init(...));
 ### 🗑️ Deprecated
 
 #### Functions (Backward Compatible)
+
 - `translateDate()` - Use `soma_translate_date()` instead (alias maintained for compatibility)
 
 #### Global Variables (Breaking)
+
 - `$pageBlock` - Use `get_query_var('soma_block_content')` instead
 - `$pageBuilder` - Use `get_query_var('soma_blocks')` instead
 
 #### File Includes (Breaking)
+
 - `require_once get_template_directory() . '/inc/post-types.php'` - Use Composer autoload
 - `require_once get_template_directory() . '/inc/endpoints.php'` - Use Composer autoload
 - `require_once get_template_directory() . '/inc/cf7-validations.php'` - Use Composer autoload
@@ -1122,18 +1482,21 @@ add_action('init', $this->init(...));
 ### 🔒 Security
 
 #### Input Validation
+
 - All user input sanitized through WordPress functions
 - ACF handles field sanitization automatically
 - REST API parameter validation with type checking
 - Nonce verification for all form submissions
 
 #### Output Escaping
+
 - All dynamic output escaped with context-aware functions
 - XSS prevention in templates and partials
 - SQL injection prevention (prepared statements only)
 - File upload validation
 
 #### Authentication & Authorization
+
 - Proper capability checks for admin functions
 - REST API permission callbacks implemented
 - Admin area restrictions enforced
@@ -1144,12 +1507,14 @@ add_action('init', $this->init(...));
 ### 📊 Performance
 
 #### Improvements
+
 - **Caching System**: Tag-based caching reduces database queries
 - **Autoloading**: Composer autoload faster than manual includes
 - **Helper Functions**: Optimized query patterns with `soma_get_*_items()`
 - **Asset Optimization**: Minified CSS/JS with versioning
 
 #### Benchmarks (Estimated)
+
 - **Page Load Time**: < 2.5s average (homepage)
 - **Database Queries**: < 40 average per page
 - **Cache Hit Rate**: > 90% for repeated requests
@@ -1160,6 +1525,7 @@ add_action('init', $this->init(...));
 ### 🧪 Testing
 
 #### Test Coverage
+
 - **Total Tests**: 108 tests, 355 assertions
 - **Unit Tests**: 75 tests
   - PostTypes: 24 tests (Portfolio, News, Careers, TeamMembers)
@@ -1173,6 +1539,7 @@ add_action('init', $this->init(...));
   - PageBuilder Integration: 12 tests
 
 #### Quality Metrics
+
 - **PHPCS**: WordPress Coding Standards compliant (0 errors)
 - **PHPStan**: Level 6 compliance (0 critical errors)
 - **Code Coverage**: Unit test coverage for all critical components
@@ -1183,6 +1550,7 @@ add_action('init', $this->init(...));
 ### 📦 Dependencies
 
 #### Added
+
 - `composer/installers` ^2.0 - WordPress plugin/theme installer
 - `phpunit/phpunit` ^9.0 (dev) - Testing framework
 - `squizlabs/php_codesniffer` ^3.7 (dev) - Coding standards
@@ -1191,6 +1559,7 @@ add_action('init', $this->init(...));
 - `szepeviktor/phpstan-wordpress` ^1.3 (dev) - WordPress PHPStan rules
 
 #### Updated
+
 - Node.js packages updated for security
 - Webpack configuration modernized
 
@@ -1199,6 +1568,7 @@ add_action('init', $this->init(...));
 ### 🏗️ Development
 
 #### New Scripts
+
 ```bash
 composer test         # Run all PHPUnit tests
 composer phpcs        # Check coding standards
@@ -1208,6 +1578,7 @@ composer validate     # Run all quality checks
 ```
 
 #### New Tools
+
 - `scripts/validate-theme.sh` - Complete validation pipeline
 - `tests/bin/install-wp-tests.sh` - WordPress test environment setup
 - Git pre-commit hooks for quality validation
@@ -1217,12 +1588,14 @@ composer validate     # Run all quality checks
 ### 📁 File Changes Summary
 
 #### Phase 1: Foundation & Infrastructure
+
 - **Added**: `composer.json`, `phpstan.neon`, `phpcs.xml`, `phpunit.xml`
 - **Added**: `includes/Core/Loader.php`, `includes/Core/Theme.php`
 - **Added**: `includes/Core/Interfaces/LoadableInterface.php`
 - **Added**: `tests/` directory structure (bootstrap, Unit, Integration, Mocks)
 
 #### Phase 2.1-2.4: Module Migration
+
 - **Added**: 4 files in `includes/PostTypes/Types/` (Portfolio, News, Careers, TeamMembers)
 - **Added**: 1 file `includes/PostTypes/Loader.php`
 - **Added**: 4 files in `includes/CustomFields/Fields/`
@@ -1234,6 +1607,7 @@ composer validate     # Run all quality checks
 - **Removed**: `inc/post-types.php`, `inc/endpoints.php`, `inc/cf7-validations.php` (migrated)
 
 #### Phase 2.5: Taxonomies Migration
+
 - **Added**: `includes/Core/Enums/Taxonomy.php` (119 lines)
 - **Added**: 3 files in `includes/Taxonomies/` (PortfolioTaxonomy, NewsTaxonomy, TeamMembersTaxonomy)
 - **Added**: `includes/Taxonomies/Loader.php`
@@ -1243,6 +1617,7 @@ composer validate     # Run all quality checks
 - **Removed**: `inc/taxonomies.php.deprecated`
 
 #### Phase 3: Utilities & Helpers
+
 - **Added**: `includes/Utils/Helpers.php` (458 lines, 24 functions)
 - **Added**: `includes/Utils/Logger.php` (PSR-3 implementation)
 - **Added**: `includes/Utils/Cache.php` (tag-based caching)
@@ -1252,12 +1627,14 @@ composer validate     # Run all quality checks
 - **Added**: `includes/Core/Enums/PostType.php`
 
 #### Phase 4: Elementor Integration
+
 - **Added**: 8 files in `includes/Elementor/Widgets/` (Navbar, Footer, BusinessUnits, Services, TeamMembers, NewsList, Portfolio, ContactForm)
 - **Added**: `includes/Elementor/Loader.php`
 - **Added**: 8 CSS files in `assets/css/widgets/`
 - **Added**: Integration tests for all widgets
 
 #### Phase 6: PageBuilder Enhancement
+
 - **Added**: `includes/PageBuilder/Loader.php` (235 lines)
 - **Added**: `includes/PageBuilder/BlockRegistry.php` (236 lines, 53 blocks)
 - **Added**: `includes/PageBuilder/BlockRenderer.php` (334 lines)
@@ -1266,6 +1643,7 @@ composer validate     # Run all quality checks
 - **Added**: `docs/TESTING_GUIDE.md` (337 lines)
 
 #### Phase 8: Documentation & Release
+
 - **Added**: `docs/DEVELOPMENT.md` (1,093 lines)
 - **Added**: `docs/WIDGETS.md` (900 lines)
 - **Added**: `docs/HELPERS.md` (850+ lines)
@@ -1274,6 +1652,7 @@ composer validate     # Run all quality checks
 - **Added**: `CHANGELOG.md` (this file)
 
 #### Total Changes
+
 - **Files Added**: 70+ files
 - **Files Modified**: 15+ files
 - **Files Removed**: 5+ deprecated files
@@ -1327,6 +1706,7 @@ composer validate     # Run all quality checks
 Last stable release before v3.0.0 modernization. This version used the traditional WordPress theme structure without PSR-4, Composer, or modern PHP features.
 
 #### Features
+
 - ACF Flexible Content page builder (50+ partials)
 - 4 Custom Post Types (Portfolio, News, Careers, Team Members)
 - 5 REST API endpoints
@@ -1336,6 +1716,7 @@ Last stable release before v3.0.0 modernization. This version used the tradition
 - Basic SCSS architecture
 
 #### Known Issues (Fixed in v3.0)
+
 - No PSR-4 compliance
 - No automated testing
 - No code quality tools

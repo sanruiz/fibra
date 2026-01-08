@@ -1,8 +1,8 @@
 # SOMA Theme v3.0 - Elementor Widgets Reference
 
-**Version**: 3.0.0  
-**Last Updated**: December 12, 2025  
-**Total Widgets**: 8
+**Version**: 3.1.13  
+**Last Updated**: January 8, 2026  
+**Total Widgets**: 10
 
 ---
 
@@ -15,9 +15,11 @@
    - [Business Units Widget](#3-business-units-widget)
    - [Services Widget](#4-services-widget)
    - [Team Members Widget](#5-team-members-widget)
-   - [News List Widget](#6-news-list-widget)
-   - [Portfolio Widget](#7-portfolio-widget)
-   - [Contact Form Widget](#8-contact-form-widget)
+   - [Team Member Widget](#6-team-member-widget)
+   - [News List Widget](#7-news-list-widget)
+   - [Portfolio Widget](#8-portfolio-widget)
+   - [Contact Form Widget](#9-contact-form-widget)
+   - [Reports Widget](#10-reports-widget)
 3. [Common Features](#common-features)
 4. [Development Guide](#development-guide)
 5. [Troubleshooting](#troubleshooting)
@@ -26,7 +28,7 @@
 
 ## Overview
 
-SOMA v3.0 includes 8 custom Elementor widgets designed specifically for corporate websites and real estate investment trusts. All widgets are grouped under the **"SOMA"** category in the Elementor panel.
+SOMA v3.0 includes 10 custom Elementor widgets designed specifically for corporate websites and real estate investment trusts. All widgets are grouped under the **"SOMA"** category in the Elementor panel.
 
 ### Key Features
 
@@ -240,6 +242,7 @@ $args = [
 #### ACF Integration
 
 **Required ACF Fields on Business Unit Pages:**
+
 - `unit_icon` (Image) - Business unit icon
 - `unit_description` (Textarea) - Short description
 - `unit_link` (Link) - External or internal link
@@ -390,6 +393,7 @@ if (!empty($settings['taxonomy_filter'])) {
 #### ACF Integration
 
 **Required ACF Fields on team-members post type:**
+
 - `member_position` (Text) - Job title
 - `member_bio` (Textarea) - Biography
 - `member_email` (Email) - Contact email
@@ -398,7 +402,90 @@ if (!empty($settings['taxonomy_filter'])) {
 
 ---
 
-### 6. News List Widget
+### 6. Team Member Widget
+
+**Class**: `Soma\Elementor\Widgets\TeamMember`  
+**ID**: `soma-team-member`  
+**Icon**: `eicon-person`
+
+#### Description
+
+Displays a single team member profile with photo, name, position, featured text, and biography. Designed to replicate the team-members single page structure within Elementor layouts. Auto-detects team member from URL context or allows manual selection.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Team Member** | Select | Auto-detect | Team member to display (auto-detects from URL) |
+| **Show Featured Image** | Switcher | Yes | Display member photo |
+| **Show Name** | Switcher | Yes | Display member name |
+| **Show Position** | Switcher | Yes | Display job title |
+| **Show Featured Text** | Switcher | Yes | Display highlighted text |
+| **Show Biography** | Switcher | Yes | Display full bio |
+
+#### Style Controls
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Container Padding** | Dimensions | Section padding (60px 0 140px default) |
+| **Name Typography** | Group | Name text styling |
+| **Name Margin** | Dimensions | Name spacing |
+| **Position Typography** | Group | Job title styling |
+| **Position Margin** | Dimensions | Position spacing |
+| **Featured Text Typography** | Group | Featured text styling |
+| **Biography Typography** | Group | Bio content styling (18px/25px line-height) |
+| **Image Max Width** | Slider | Photo width (max 410px) |
+| **Section Margins** | Dimensions | Spacing between sections (70px default) |
+
+#### Layout
+
+**Responsive 2-Column Flexbox:**
+
+- Left column (50%): Name, Position, Featured Text
+- Right column (50%): Featured Image, Biography  
+- Desktop padding: `60px 0 140px`
+- Mobile padding: `45px 0 80px`
+- Section margins: `70px` (desktop), `45px` (mobile)
+
+#### CSS Variables Used
+
+```css
+--soma-font-size-h1
+--soma-font-size-h3
+--soma-font-size-body
+--soma-font-family-primary
+--soma-color-text-primary
+--soma-spacing-md
+--soma-spacing-lg
+--soma-spacing-xl
+--soma-transition-base
+```
+
+#### Usage Example
+
+```php
+// Auto-detect from URL (in single-team-members.php template)
+// Widget automatically gets team member from URL context
+
+// Manual selection (in custom layouts)
+$settings['team_member_id'] = 123; // Specific team member post ID
+```
+
+#### ACF Integration
+
+**Required ACF Fields on team-members post type:**
+
+- Featured Image (WordPress native)
+- `team_member_info` (Group)
+  - `title` (Text) - Job title/position
+  - `featured_text` (Textarea) - Highlighted intro text
+  - `description` (WYSIWYG) - Full biography
+
+**Note**: Field mapping uses `team_member_info.title` for position (not `member_position`).
+
+---
+
+### 7. News List Widget
 
 **Class**: `Soma\Elementor\Widgets\NewsList`  
 **ID**: `soma-news-list`  
@@ -478,7 +565,7 @@ Optional - Can display custom ACF fields if available.
 
 ---
 
-### 7. Portfolio Widget
+### 8. Portfolio Widget
 
 **Class**: `Soma\Elementor\Widgets\Portfolio`  
 **ID**: `soma-portfolio`  
@@ -555,6 +642,7 @@ if (!empty($settings['taxonomy_filter'])) {
 #### ACF Integration
 
 **Required ACF Fields on portfolio post type:**
+
 - `project_client` (Text) - Client name
 - `project_location` (Text) - Project location
 - `project_year` (Number) - Completion year
@@ -563,7 +651,7 @@ if (!empty($settings['taxonomy_filter'])) {
 
 ---
 
-### 8. Contact Form Widget
+### 9. Contact Form Widget
 
 **Class**: `Soma\Elementor\Widgets\ContactForm`  
 **ID**: `soma-contact-form`  
@@ -643,6 +731,108 @@ None - Uses CF7 shortcode and widget settings.
 
 ---
 
+### 10. Reports Widget
+
+**Class**: `Soma\Elementor\Widgets\AnnualReports`  
+**ID**: `soma-annual-reports`  
+**Icon**: `eicon-document-file`
+
+#### Description
+
+Financial reports display widget with year filtering for "Reportes Anuales" and "Reportes Trimestrales" pages. Supports two layout variants and AJAX-powered year filtering via REST API.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Category** | Select2 | - | Filter by documents-taxonomy category |
+| **Preselect Latest Year** | Switcher | Yes | Auto-select most recent year on load |
+| **Style Variant** | Select | `full-width` | Layout (full-width/three-columns) |
+| **Filter Title (Mobile)** | Text | `Filter by Year` | Mobile filter button text |
+| **See All Text** | Text | `See All` | Text for "show all years" option |
+| **Download Text** | Text | `Download` | Download button label |
+
+#### Style Controls
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Year Filter** | Section | Year button styling |
+| **Active Background** | Color | Active year button background |
+| **Active Color** | Color | Active year text color |
+| **Button Typography** | Group | Year button text styling |
+| **Document Card** | Section | Card styling |
+| **Title Typography** | Group | Document title styling |
+| **Title Color** | Color | Title text color |
+| **Description Typography** | Group | Description text styling |
+| **Description Color** | Color | Description text color |
+| **Margin Bottom** | Slider | Space below each card |
+
+#### Layout Variants
+
+**Full Width (`full-width`):**
+- Two-column layout
+- Left: Year filter buttons (vertical list)
+- Right: Documents grid with download links
+- Used for "Reportes Anuales" page
+
+**Three Columns (`three-columns`):**
+- Compact 3-column document grid
+- Year filtering in horizontal header
+- Used for "Reportes Trimestrales" page
+
+#### CSS Variables Used
+
+```css
+--soma-primary
+--soma-text-primary
+--soma-bg-white
+--soma-spacing-md
+--soma-spacing-lg
+--soma-border-radius
+--soma-transition
+```
+
+#### Usage Example
+
+```php
+// Query documents by category and year
+$args = [
+    'post_type' => 'documents-reports',
+    'posts_per_page' => -1,
+    'tax_query' => [
+        [
+            'taxonomy' => 'documents-taxonomy',
+            'field' => 'term_id',
+            'terms' => $category_id,
+        ],
+    ],
+    'orderby' => 'date',
+    'order' => 'DESC',
+];
+
+// Group by year
+$documents_by_year = [];
+foreach ($documents as $doc) {
+    $year = get_the_date('Y', $doc);
+    $documents_by_year[$year][] = $doc;
+}
+```
+
+#### REST API Integration
+
+- Uses existing `/wp-json/soma/documents` endpoint
+- Filter by category: `?category={term_id}`
+- Returns documents with year grouping
+
+#### ACF Integration
+
+Relies on `documents-reports` CPT with:
+- Featured Image (thumbnail)
+- Document description
+- File attachment for download
+
+---
+
 ## Common Features
 
 ### All Widgets Include
@@ -659,11 +849,13 @@ None - Uses CF7 shortcode and widget settings.
 ### Standard Control Groups
 
 **Content Tab:**
+
 - Section settings (title, subtitle)
 - Query settings (number, order, filter)
 - Display options (layout, columns, show/hide)
 
 **Style Tab:**
+
 - Section styling (title, description)
 - Card/item styling (background, borders, spacing)
 - Typography (all text elements)
@@ -671,6 +863,7 @@ None - Uses CF7 shortcode and widget settings.
 - Spacing (padding, margins, gaps)
 
 **Advanced Tab:**
+
 - CSS ID
 - CSS Classes
 - Custom CSS
@@ -814,14 +1007,21 @@ class MyWidgetTest extends WP_UnitTestCase {
 
     private ?MyWidget $widget = null;
 
-    public function set_up(): void {
-        parent::set_up();
+    public function setUp(): void {
+        parent::setUp();
+        
+        // Skip if Elementor not loaded - CRITICAL for CI compatibility
+        if (!did_action('elementor/loaded')) {
+            $this->markTestSkipped('Elementor not loaded');
+            return; // IMPORTANT: Always include return after markTestSkipped
+        }
+        
         $this->widget = new MyWidget();
     }
 
-    public function tear_down(): void {
+    public function tearDown(): void {
         $this->widget = null;
-        parent::tear_down();
+        parent::tearDown();
     }
 
     public function test_widget_name(): void {
@@ -908,6 +1108,52 @@ Use this checklist when creating a new Elementor widget:
 6. **Support RTL languages** when applicable
 7. **Test responsive behavior** on all devices
 8. **Document custom controls** with descriptions
+9. **Use `get_the_title()` for post titles** - Never use `$post->post_title` directly (see WP-Multilang section below)
+
+---
+
+### WP-Multilang Compatibility
+
+**CRITICAL**: When populating SELECT/SELECT2 controls with post titles, always use `get_the_title()` instead of direct property access.
+
+**The Problem:**
+
+WP-Multilang stores translations in a single database field using `[:en]English[:es]Spanish[:]` format. The plugin hooks into the `the_title` filter to parse and return the correct language.
+
+```php
+// ❌ WRONG - Bypasses WP-Multilang filters, shows raw delimiters
+foreach ($posts as $post) {
+    $options[$post->ID] = $post->post_title;
+    // Shows: "[:en]John Doe[:es]Juan Pérez[:]"
+}
+
+// ✅ CORRECT - Applies 'the_title' filter, WP-Multilang translates
+foreach ($posts as $post) {
+    $options[$post->ID] = get_the_title($post->ID);
+    // Shows: "John Doe" or "Juan Pérez" based on current language
+}
+```
+
+**Why This Happens:**
+
+- `$post->post_title` → Direct property access → **NO filters applied**
+- `get_the_title()` → Applies `the_title` filter → **WP-Multilang hooks here**
+
+**Affected Patterns:**
+
+- Team member selector dropdowns
+- Contact Form 7 form selectors
+- Custom post type selectors
+- Any SELECT control populated from `WP_Query` results
+
+**Pre-Commit Check:**
+
+Before committing widget code, search for this pattern:
+```bash
+grep -n "post_title" includes/Elementor/Widgets/*.php
+```
+
+If found in a dropdown context, replace with `get_the_title($post->ID)`.
 
 ---
 
@@ -916,12 +1162,14 @@ Use this checklist when creating a new Elementor widget:
 ### Widget Not Appearing in Panel
 
 **Possible Causes:**
+
 1. Widget class not registered in Loader
 2. Elementor cache needs clearing
 3. Widget class has syntax error
 4. Base class not extended
 
 **Solutions:**
+
 ```php
 // 1. Check Loader.php registration
 private function register_widgets(): void {
@@ -943,12 +1191,14 @@ class YourWidget extends WidgetBase { }
 ### Styles Not Loading
 
 **Possible Causes:**
+
 1. CSS file not enqueued
 2. Style dependencies not declared
 3. File path incorrect
 4. Caching issue
 
 **Solutions:**
+
 ```php
 // 1. Check get_style_depends()
 public function get_style_depends(): array {
@@ -966,12 +1216,14 @@ soma_cache_flush();
 ### ACF Fields Not Displaying
 
 **Possible Causes:**
+
 1. Field group not assigned to post type
 2. Field key incorrect
 3. ACF not active
 4. Field data not saved
 
 **Solutions:**
+
 ```php
 // 1. Check field exists
 $value = get_field('field_name');
@@ -991,12 +1243,14 @@ if (!function_exists('get_field')) {
 ### Query Returns No Results
 
 **Possible Causes:**
+
 1. Post type not registered
 2. Incorrect query arguments
 3. No posts published
 4. Taxonomy filter too restrictive
 
 **Solutions:**
+
 ```php
 // 1. Verify post type exists
 if (!post_type_exists('your-post-type')) {
@@ -1012,6 +1266,36 @@ soma_log_debug('Query results', [
 
 // 3. Check publish status
 $args['post_status'] = 'publish';
+```
+
+### Dropdown Shows Raw Multilang Delimiters
+
+**Symptoms:**
+- SELECT controls show `[:en]Name[:es]Nombre[:]` instead of translated text
+- Only happens with WP-Multilang enabled
+- Affects team member, form, or post type selectors
+
+**Cause:**
+Direct `$post->post_title` property access bypasses WordPress filters. WP-Multilang hooks into the `the_title` filter to process translations.
+
+**Solution:**
+
+```php
+// ❌ WRONG - Direct property access
+foreach ($posts as $post) {
+    $options[$post->ID] = $post->post_title;
+}
+
+// ✅ CORRECT - Use WordPress function
+foreach ($posts as $post) {
+    $options[$post->ID] = get_the_title($post->ID);
+}
+```
+
+**Quick Fix Command:**
+```bash
+# Find affected files
+grep -rn "post_title" includes/Elementor/Widgets/*.php | grep -v "get_the_title"
 ```
 
 ---
@@ -1034,12 +1318,12 @@ $args['post_status'] = 'publish';
 
 ### Support
 
-- **GitHub Issues**: https://github.com/sanruiz/fibra/issues
-- **Project Board**: https://github.com/users/sanruiz/projects/4
+- **GitHub Issues**: <https://github.com/sanruiz/fibra/issues>
+- **Project Board**: <https://github.com/users/sanruiz/projects/4>
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: December 12, 2025  
-**Widgets Count**: 8  
+**Document Version**: 1.2  
+**Last Updated**: January 8, 2026  
+**Widgets Count**: 10  
 **Maintainer**: Miguel Colmenares

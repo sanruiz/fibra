@@ -835,13 +835,23 @@ gh release list | cat
 # View release
 gh release view TAG | cat
 
-# Create release (manual - usually done by workflow)
-gh release create v3.0.1 \
-  --title "SOMA Theme v3.0.1" \
-  --notes "See CHANGELOG.md for details" \
-  soma-v3.0.1.zip | cat
+# ⚠️ NEVER create releases manually with gh release create
+# Releases are ALWAYS created automatically by ci-cd.yml workflow
+# when a tag is pushed. The workflow handles:
+# - Building the release package
+# - Generating release notes from CHANGELOG.md
+# - Creating the GitHub release
+# - Uploading artifacts
+# - Deploying to production
+#
+# To create a release:
+# 1. Update version in style.css
+# 2. Update CHANGELOG.md
+# 3. Commit changes
+# 4. Create and push tag: git tag -a v3.0.1 -m "Release v3.0.1" && git push origin v3.0.1
+# 5. Monitor workflow: gh run watch | cat
 
-# Delete release
+# Delete release (emergency only - requires re-tag)
 gh release delete TAG | cat
 ```
 

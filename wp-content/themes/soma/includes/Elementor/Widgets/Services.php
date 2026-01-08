@@ -87,8 +87,12 @@ class Services extends WidgetBase {
 		$repeater->add_control(
 			'service_icon',
 			array(
-				'label' => __( 'Icon', 'soma' ),
-				'type'  => Controls_Manager::MEDIA,
+				'label'   => __( 'Icon', 'soma' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array(
+					'url' => '',
+					'id'  => 0,
+				),
 			)
 		);
 
