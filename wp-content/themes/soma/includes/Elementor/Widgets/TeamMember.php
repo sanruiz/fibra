@@ -500,7 +500,6 @@ class TeamMember extends WidgetBase {
 						</div>
 					<?php endif; ?>
 				</div>
-				
 				<?php if ( $use_card_link ) : ?>
 					</a>
 				<?php endif; ?>
