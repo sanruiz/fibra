@@ -41,18 +41,19 @@ class Loader implements LoadableInterface {
 	 * @var array<string, string> Widget class names
 	 */
 	private array $widgets = array(
-		'Navbar'        => Widgets\Navbar::class,
-		'Footer'        => Widgets\Footer::class,
-		'BusinessUnits' => Widgets\BusinessUnits::class,
-		'Services'      => Widgets\Services::class,
-		'TeamMembers'   => Widgets\TeamMembers::class,
-		'TeamMember'    => Widgets\TeamMember::class,
-		'NewsList'      => Widgets\NewsList::class,
-		'Portfolio'     => Widgets\Portfolio::class,
-		'ContactForm'   => Widgets\ContactForm::class,
-		'StockPrice'    => Widgets\StockPrice::class,
-		'Documents'     => Widgets\Documents::class,
-		'Breadcrumb'    => Widgets\Breadcrumb::class,
+		'Navbar'         => Widgets\Navbar::class,
+		'Footer'         => Widgets\Footer::class,
+		'BusinessUnits'  => Widgets\BusinessUnits::class,
+		'Services'       => Widgets\Services::class,
+		'TeamMembers'    => Widgets\TeamMembers::class,
+		'TeamMember'     => Widgets\TeamMember::class,
+		'NewsList'       => Widgets\NewsList::class,
+		'Portfolio'      => Widgets\Portfolio::class,
+		'ContactForm'    => Widgets\ContactForm::class,
+		'StockPrice'     => Widgets\StockPrice::class,
+		'Documents'      => Widgets\Documents::class,
+		'Breadcrumb'     => Widgets\Breadcrumb::class,
+		'ShareQuotation' => Widgets\ShareQuotation::class,
 	);
 
 	/**
@@ -61,18 +62,19 @@ class Loader implements LoadableInterface {
 	 * @var array<string, string> Widget style handles and files
 	 */
 	private array $widget_styles = array(
-		'soma-navbar'         => 'navbar.css',
-		'soma-footer'         => 'footer.css',
-		'soma-business-units' => 'business-units.css',
-		'soma-services'       => 'services.css',
-		'soma-team-members'   => 'team-members.css',
-		'soma-team-member'    => 'team-member.css',
-		'soma-news-list'      => 'news-list.css',
-		'soma-portfolio'      => 'portfolio.css',
-		'soma-contact-form'   => 'contact-form.css',
-		'soma-stock-price'    => 'stock-price.css',
-		'soma-documents'      => 'documents.css',
-		'soma-breadcrumb'     => 'breadcrumb.css',
+		'soma-navbar'          => 'navbar.css',
+		'soma-footer'          => 'footer.css',
+		'soma-business-units'  => 'business-units.css',
+		'soma-services'        => 'services.css',
+		'soma-team-members'    => 'team-members.css',
+		'soma-team-member'     => 'team-member.css',
+		'soma-news-list'       => 'news-list.css',
+		'soma-portfolio'       => 'portfolio.css',
+		'soma-contact-form'    => 'contact-form.css',
+		'soma-stock-price'     => 'stock-price.css',
+		'soma-documents'       => 'documents.css',
+		'soma-breadcrumb'      => 'breadcrumb.css',
+		'soma-share-quotation' => 'share-quotation.css',
 	);
 
 	/**

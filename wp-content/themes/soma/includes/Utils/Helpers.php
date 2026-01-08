@@ -494,6 +494,121 @@ function soma_get_i18n_field( array $content, string $field ) {
 }
 
 // =============================================================================
+// Stock Data Formatting Helpers
+// =============================================================================
+
+/**
+ * Format stock price with currency symbol
+ *
+ * Formats a numeric price value with currency symbol and code.
+ * Supports MXN, USD, and EUR currencies.
+ *
+ * @since 3.1.13
+ *
+ * @param float  $price    The price value to format.
+ * @param string $currency The currency code (default: 'MXN').
+ * @return string Formatted price string (e.g., "$45.67 MXN").
+ *
+ * @example
+ * echo soma_format_stock_price( 45.67, 'MXN' ); // "$45.67 MXN"
+ * echo soma_format_stock_price( 100.00, 'USD' ); // "$100.00 USD"
+ * echo soma_format_stock_price( 85.50, 'EUR' ); // "€85.50 EUR"
+ */
+function soma_format_stock_price( float $price, string $currency = 'MXN' ): string {
+	$symbols = array(
+		'MXN' => '$',
+		'USD' => '$',
+		'EUR' => '€',
+	);
+
+	$symbol = $symbols[ $currency ] ?? '$';
+
+	return $symbol . number_format( $price, 2 ) . ' ' . $currency;
+}
+
+/**
+ * Format stock volume number
+ *
+ * Formats a volume integer with thousand separators.
+ *
+ * @since 3.1.13
+ *
+ * @param int $volume The volume value to format.
+ * @return string Formatted volume string (e.g., "1,234,567").
+ *
+ * @example
+ * echo soma_format_stock_volume( 1234567 ); // "1,234,567"
+ */
+function soma_format_stock_volume( int $volume ): string {
+	return number_format( $volume );
+}
+
+/**
+ * Format stock change value with sign
+ *
+ * Formats a change value with positive/negative sign prefix.
+ *
+ * @since 3.1.13
+ *
+ * @param float $change The change value to format.
+ * @return string Formatted change string with sign (e.g., "+1.23" or "-0.45").
+ *
+ * @example
+ * echo soma_format_stock_change( 1.23 );  // "+1.23"
+ * echo soma_format_stock_change( -0.45 ); // "-0.45"
+ * echo soma_format_stock_change( 0.00 );  // "+0.00"
+ */
+function soma_format_stock_change( float $change ): string {
+	$sign = $change >= 0 ? '+' : '';
+	return $sign . number_format( $change, 2 );
+}
+
+/**
+ * Format stock percent change with sign
+ *
+ * Formats a percent value with sign prefix and percent symbol.
+ *
+ * @since 3.1.13
+ *
+ * @param float $percent The percent value to format.
+ * @return string Formatted percent string with sign (e.g., "+2.50%" or "-1.25%").
+ *
+ * @example
+ * echo soma_format_stock_percent( 2.50 );  // "+2.50%"
+ * echo soma_format_stock_percent( -1.25 ); // "-1.25%"
+ */
+function soma_format_stock_percent( float $percent ): string {
+	$sign = $percent >= 0 ? '+' : '';
+	return $sign . number_format( $percent, 2 ) . '%';
+}
+
+/**
+ * Format stock timestamp to localized date
+ *
+ * Formats a Unix timestamp to a human-readable date string.
+ * Automatically translates month names if soma_translate_date() is available.
+ *
+ * @since 3.1.13
+ *
+ * @param int    $timestamp The Unix timestamp to format.
+ * @param string $format    The date format ('short' for abbreviated months, 'long' for full).
+ * @return string Formatted date string (e.g., "Ene 07, 2026" or "Enero 07, 2026").
+ *
+ * @example
+ * echo soma_format_stock_date( time(), 'short' ); // "Ene 07, 2026"
+ * echo soma_format_stock_date( time(), 'long' );  // "Enero 07, 2026"
+ */
+function soma_format_stock_date( int $timestamp, string $format = 'short' ): string {
+	$date = gmdate( 'M d, Y', $timestamp );
+
+	if ( function_exists( 'soma_translate_date' ) ) {
+		return soma_translate_date( $date, $format );
+	}
+
+	return $date;
+}
+
+// =============================================================================
 // Breadcrumb Helpers
 // =============================================================================
 
