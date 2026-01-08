@@ -109,7 +109,7 @@ class AnnualReportsWidgetTest extends WP_UnitTestCase {
 	 * Test widget title
 	 */
 	public function test_get_title(): void {
-		$this->assertSame( 'Annual Reports', $this->widget->get_title() );
+		$this->assertSame( 'Reports', $this->widget->get_title() );
 	}
 
 	/**

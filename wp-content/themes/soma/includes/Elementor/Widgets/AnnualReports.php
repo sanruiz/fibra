@@ -45,7 +45,7 @@ class AnnualReports extends WidgetBase {
 	 * @return string
 	 */
 	public function get_title(): string {
-		return __( 'Annual Reports', 'soma' );
+		return __( 'Reports', 'soma' );
 	}
 
 	/**
