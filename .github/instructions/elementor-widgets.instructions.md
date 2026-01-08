@@ -116,6 +116,50 @@ wp i18n update-po languages/soma.pot languages/
 wp i18n make-mo languages/
 ```
 
+### Step 11: Update Documentation (MANDATORY)
+**When**: After adding or modifying ANY widget
+
+**Location**: `docs/WIDGETS.md` (NEVER create separate .md files in theme root)
+
+**⚠️ CRITICAL**: All widget documentation MUST go in `docs/WIDGETS.md`:
+
+- ❌ **NEVER** create standalone .md files in theme root (e.g., `IMPLEMENTATION_SUMMARY.md`)
+- ❌ **NEVER** create duplicate documentation files
+- ✅ **ALWAYS** update the existing `docs/WIDGETS.md` file
+
+**What to update in WIDGETS.md:**
+
+1. **Header**: Update "Total Widgets" count if adding new widget
+2. **Table of Contents**: Add entry for new widget
+3. **Widget Section**: Add or update the widget's documentation section including:
+   - Content Controls table
+   - Style Controls table  
+   - CSS Variables Used
+   - Usage Example
+   - ACF Integration (if applicable)
+
+**Example structure for new widget section:**
+```markdown
+### N. Widget Name Widget
+
+**Class**: `Soma\Elementor\Widgets\WidgetName`  
+**ID**: `soma-widget-name`  
+**Icon**: `eicon-icon-name`
+
+#### Description
+Brief description of widget functionality.
+
+#### Content Controls
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Control Name** | Type | default | Description |
+
+#### Style Controls
+| Control | Type | Description |
+|---------|------|-------------|
+| **Control Name** | Type | Description |
+```
+
 ---
 
 ## 📝 Elementor Control Patterns

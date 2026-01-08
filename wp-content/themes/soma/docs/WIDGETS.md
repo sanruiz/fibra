@@ -2,7 +2,7 @@
 
 **Version**: 3.1.13  
 **Last Updated**: January 8, 2026  
-**Total Widgets**: 10
+**Total Widgets**: 11
 
 ---
 
@@ -20,6 +20,7 @@
    - [Portfolio Widget](#8-portfolio-widget)
    - [Contact Form Widget](#9-contact-form-widget)
    - [Reports Widget](#10-reports-widget)
+   - [Share Quotation Widget](#11-share-quotation-widget)
 3. [Common Features](#common-features)
 4. [Development Guide](#development-guide)
 5. [Troubleshooting](#troubleshooting)
@@ -417,11 +418,13 @@ Displays a single team member profile with photo, name, position, featured text,
 | Control | Type | Default | Description |
 |---------|------|---------|-------------|
 | **Team Member** | Select | Auto-detect | Team member to display (auto-detects from URL) |
-| **Show Featured Image** | Switcher | Yes | Display member photo |
-| **Show Name** | Switcher | Yes | Display member name |
-| **Show Position** | Switcher | Yes | Display job title |
-| **Show Featured Text** | Switcher | Yes | Display highlighted text |
-| **Show Biography** | Switcher | Yes | Display full bio |
+| **Show Photo** | Switcher | Yes | Display member featured image |
+| **Show Featured Text** | Switcher | Yes | Display highlighted intro text |
+| **Show SOMA Logo** | Switcher | Yes | Display SOMA logo in profile |
+
+#### Features
+
+**Full Card Link**: The entire member card is now clickable when a team member is selected or detected. Hover effects apply to the entire card area, improving user experience and interaction while maintaining visual hierarchy.
 
 #### Style Controls
 
@@ -830,6 +833,93 @@ Relies on `documents-reports` CPT with:
 - Featured Image (thumbnail)
 - Document description
 - File attachment for download
+
+---
+
+### 11. Share Quotation Widget
+
+**Class**: `Soma\Elementor\Widgets\ShareQuotation`  
+**ID**: `soma-share-quotation`  
+**Icon**: `eicon-price-table`
+
+#### Description
+
+Comprehensive stock market information display widget showing current stock price, price change, percentage change, trading volume, and market time. Features a 52-week/month high-low carousel with Slick integration.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Title** | Text | `SOMA21` | Widget title |
+| **Subtitle** | Text | `Share Quotation` | Symbol or description |
+| **Price Label** | Text | `Actual Price` | Label for price display |
+| **Change Label** | Text | `Change` | Label for change display |
+| **Percent Label** | Text | `%` | Label for percentage |
+| **Volume Label** | Text | `Volume` | Label for volume |
+| **Date Label** | Text | `Date` | Label for date/time |
+
+#### Display Options
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Dark Background** | Switcher | No | Enable for dark backgrounds (white text) |
+| **Show Download Link** | Switcher | Yes | Display download button |
+| **Download URL** | URL | - | URL for downloadable file |
+| **Show Volume** | Switcher | No | Display trading volume |
+| **Show Date** | Switcher | No | Display market date/time |
+| **Show Change** | Switcher | No | Display price change |
+| **Show Percentage** | Switcher | No | Display percentage change |
+
+#### Style Controls
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Background Color** | Color | Widget background |
+| **Title Typography** | Group | Title text styling |
+| **Title Color** | Color | Title text color |
+| **Price Typography** | Group | Price display styling |
+| **Price Color** | Color | Price text color |
+| **Label Typography** | Group | Labels styling |
+| **Label Color** | Color | Labels text color |
+
+#### Layout
+
+**3-Column Responsive Layout:**
+
+- Column 1: Title, subtitle, and download link
+- Column 2: Price and change information (conditional)
+- Column 3: Volume and date information (conditional, hidden if both disabled)
+- 52-Week High-Low Carousel with Slick integration
+
+#### CSS Variables Used
+
+```css
+--soma-font-family-primary
+--soma-color-text-primary
+--soma-color-text-secondary
+--soma-spacing-md
+--soma-spacing-lg
+--soma-transition-base
+```
+
+#### Usage Example
+
+```php
+// Stock data is fetched automatically from cached transient
+// via soma_get_stock_data() helper function
+
+// Widget displays:
+// - Current price formatted with currency
+// - Change and percentage (if enabled)
+// - Volume (if enabled)
+// - Market date/time (if enabled)
+```
+
+#### Data Source
+
+- Uses `soma_get_stock_data()` helper function
+- Data cached via WordPress transients
+- Source: Yahoo Finance API (configured in Admin → Stock Data)
 
 ---
 

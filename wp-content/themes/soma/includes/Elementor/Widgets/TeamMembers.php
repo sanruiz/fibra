@@ -773,7 +773,7 @@ class TeamMembers extends WidgetBase {
 								$info = array();
 							}
 							// Image: Use WordPress Featured Image.
-							$image_url       = get_the_post_thumbnail_url( $member->ID, 'large' );
+							$image_url = get_the_post_thumbnail_url( $member->ID, 'large' );
 							// Position: Use ACF field team_member_info.title (field_5f94478d81128).
 							$member_position = $info['title'] ?? '';
 							$hide_single     = ! empty( $info['hide_single_page'] );

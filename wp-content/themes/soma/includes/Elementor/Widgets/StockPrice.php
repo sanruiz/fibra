@@ -99,9 +99,9 @@ class StockPrice extends WidgetBase {
 		$this->add_control(
 			'alignment',
 			array(
-				'label'   => __( 'Alignment', 'soma' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'options' => array(
+				'label'     => __( 'Alignment', 'soma' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
 					'flex-start' => array(
 						'title' => __( 'Left', 'soma' ),
 						'icon'  => 'eicon-text-align-left',
@@ -115,7 +115,7 @@ class StockPrice extends WidgetBase {
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
-				'default' => 'flex-start',
+				'default'   => 'flex-start',
 				'selectors' => array(
 					'{{WRAPPER}} .soma-stock-price' => 'justify-content: {{VALUE}}; align-items: {{VALUE}};',
 				),

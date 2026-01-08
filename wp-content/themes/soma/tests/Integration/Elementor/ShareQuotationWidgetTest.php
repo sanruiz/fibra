@@ -169,6 +169,10 @@ class ShareQuotationWidgetTest extends WP_UnitTestCase {
 			'date_label',
 			'dark_background',
 			'show_download',
+			'show_volume',
+			'show_date',
+			'show_change',
+			'show_percent',
 		];
 
 		foreach ( $expected_controls as $expected ) {
@@ -434,5 +438,65 @@ class ShareQuotationWidgetTest extends WP_UnitTestCase {
 
 		// Should contain negative indicator class.
 		$this->assertStringContainsString( '--negative', $output );
+	}
+
+	/**
+	 * Test show_volume control defaults to hidden.
+	 *
+	 * @return void
+	 */
+	public function test_show_volume_defaults_to_hidden(): void {
+		$reflection = new \ReflectionClass( $this->widget );
+		$method     = $reflection->getMethod( 'register_controls' );
+		$method->invoke( $this->widget );
+
+		$controls = $this->widget->get_controls();
+		$this->assertArrayHasKey( 'show_volume', $controls, 'Widget should have show_volume control' );
+		$this->assertSame( '', $controls['show_volume']['default'], 'show_volume should default to hidden (empty string)' );
+	}
+
+	/**
+	 * Test show_date control defaults to hidden.
+	 *
+	 * @return void
+	 */
+	public function test_show_date_defaults_to_hidden(): void {
+		$reflection = new \ReflectionClass( $this->widget );
+		$method     = $reflection->getMethod( 'register_controls' );
+		$method->invoke( $this->widget );
+
+		$controls = $this->widget->get_controls();
+		$this->assertArrayHasKey( 'show_date', $controls, 'Widget should have show_date control' );
+		$this->assertSame( '', $controls['show_date']['default'], 'show_date should default to hidden (empty string)' );
+	}
+
+	/**
+	 * Test show_change control defaults to hidden.
+	 *
+	 * @return void
+	 */
+	public function test_show_change_defaults_to_hidden(): void {
+		$reflection = new \ReflectionClass( $this->widget );
+		$method     = $reflection->getMethod( 'register_controls' );
+		$method->invoke( $this->widget );
+
+		$controls = $this->widget->get_controls();
+		$this->assertArrayHasKey( 'show_change', $controls, 'Widget should have show_change control' );
+		$this->assertSame( '', $controls['show_change']['default'], 'show_change should default to hidden (empty string)' );
+	}
+
+	/**
+	 * Test show_percent control defaults to hidden.
+	 *
+	 * @return void
+	 */
+	public function test_show_percent_defaults_to_hidden(): void {
+		$reflection = new \ReflectionClass( $this->widget );
+		$method     = $reflection->getMethod( 'register_controls' );
+		$method->invoke( $this->widget );
+
+		$controls = $this->widget->get_controls();
+		$this->assertArrayHasKey( 'show_percent', $controls, 'Widget should have show_percent control' );
+		$this->assertSame( '', $controls['show_percent']['default'], 'show_percent should default to hidden (empty string)' );
 	}
 }

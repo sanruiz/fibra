@@ -9,6 +9,93 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Feature - Show/Hide Controls for ShareQuotation and TeamMember Widgets (Issue #178)
+
+This feature adds visibility controls to ShareQuotation and TeamMember Elementor widgets, allowing editors to customize which elements are displayed. Also improves TeamMember card interaction by making the entire card clickable.
+
+---
+
+### ✨ Added
+
+#### ShareQuotation Widget Enhancements
+
+- **Volume Visibility Control** - Switcher control to show/hide volume information (default: hidden)
+  - Maintains 3-column layout when hidden on desktop
+  - Hides empty column on mobile to save space
+- **Date Visibility Control** - Switcher control to show/hide date/time (default: hidden)
+- **Change Visibility Control** - Switcher control to show/hide price change (default: hidden)
+- **Percentage Visibility Control** - Switcher control to show/hide percentage change (default: hidden)
+- **Conditional Rendering** - Smart rendering that shows combined change/percent or individual values based on control settings
+
+#### TeamMember Widget Enhancements
+
+- **Photo Visibility Control** - Switcher control to show/hide featured image (default: visible)
+- **Full Card Link** - Entire card is now clickable when a member is selected/detected
+  - Hover effects apply to entire card area
+  - Improves user experience and interaction
+  - Maintains visual hierarchy
+
+### 🔄 Changed
+
+#### ShareQuotation Widget
+
+- Modified render method to conditionally display volume, date, change, and percent fields
+- Updated CSS to maintain column spacing when volume is hidden
+
+#### TeamMember Widget
+
+- Wrapped card content in clickable link when applicable
+- Updated alt text for images to use member name
+- Added variables for show_photo, show_logo, and show_featured_text settings
+
+### 🌐 Translations
+
+#### ShareQuotation Widget (4 strings)
+
+- `Show Volume` → `Mostrar Volumen`
+- `Show Date` → `Mostrar Fecha`
+- `Show Change` → `Mostrar Cambio`
+- `Show Percentage` → `Mostrar Porcentaje`
+
+#### TeamMember Widget (1 string)
+
+- `Show Photo` → `Mostrar Foto`
+
+### 🧪 Tests
+
+#### ShareQuotation Widget Tests
+
+- Added test for show_volume control and default value
+- Added test for show_date control and default value
+- Added test for show_change control and default value
+- Added test for show_percent control and default value
+- Updated expected controls list in test_has_controls
+
+#### TeamMember Widget Tests
+
+- Added test for show_photo control presence
+- Added test for show_photo default value (yes)
+- Added test for card link wrapper presence
+- Added test for use_card_link variable
+
+### 📦 Files Changed
+
+#### Modified
+
+- `includes/Elementor/Widgets/ShareQuotation.php` - Added 4 visibility controls, conditional rendering
+- `includes/Elementor/Widgets/TeamMember.php` - Added photo control, full-card link
+- `assets/css/widgets/share-quotation.css` - Styles for hidden states (maintain column spacing)
+- `assets/css/widgets/team-member.css` - Card link styles and hover effects
+- `tests/Integration/Elementor/ShareQuotationWidgetTest.php` - New control tests
+- `tests/Integration/Elementor/TeamMemberWidgetTest.php` - New control and card link tests
+- `CHANGELOG.md` - Documented changes
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #178**: [Add Show/Hide controls to ShareQuotation and TeamMember widgets](https://github.com/sanruiz/fibra/issues/178)
+
 ---
 
 ## [3.1.13] - 2026-01-08
