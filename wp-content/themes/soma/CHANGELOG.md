@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Week 4 Feature - AnnualReports Elementor Widget (Issue #21)
+### Week 4 Feature - AnnualReports Elementor Widget (Issues #21 & #20)
 
-This feature adds a new AnnualReports Elementor widget for displaying annual financial reports with year filtering on the "Reportes Anuales" page.
+This feature adds a new AnnualReports Elementor widget for displaying financial reports with year filtering. The widget supports both the "Reportes Anuales" page (Issue #21) and "Reportes Trimestrales" page (Issue #20) through category selection and configurable layout variants.
 
 ---
 
@@ -19,10 +19,15 @@ This feature adds a new AnnualReports Elementor widget for displaying annual fin
 
 #### New Elementor Widget
 
-- **AnnualReports Widget** - Annual financial reports display with year filtering (#21)
-  - **Two-Column Layout**:
+- **AnnualReports Widget** - Financial reports display with year filtering (#21, #20)
+  - **Two-Column Layout** (`full-width` variant):
     - Left column: Year filter buttons (vertical list)
     - Right column: Documents grid with download links
+    - Used for "Reportes Anuales" page
+  - **Three-Column Layout** (`three-columns` variant):
+    - Compact 3-column document grid
+    - Year filtering in horizontal header
+    - Used for "Reportes Trimestrales" page
   - **Dynamic Year Filtering**:
     - AJAX-powered year filtering via REST API
     - All years loaded initially, filterable by click
@@ -32,24 +37,22 @@ This feature adds a new AnnualReports Elementor widget for displaying annual fin
     - Document title and description
     - Download link with file type icon
     - Publication date
-  - **Style Variants**:
-    - "full-width" (default) - 2-column layout
-    - "three-columns" - Compact 3-column grid
   - **Elementor Controls**:
-    - Style variant selection
+    - Style variant selection (`full-width` or `three-columns`)
+    - Category selector (filters by documents-taxonomy)
     - Typography controls for titles, descriptions, dates
     - Color controls for text and backgrounds
     - Responsive spacing and layout controls
   - **REST API Integration**:
     - Uses existing `/wp-json/soma/documents` endpoint
-    - Category filtering (Reportes Anuales)
+    - Category filtering via taxonomy
     - Year-based document grouping
 
 ### 📦 Files Changed
 
 #### Added
 
-- `includes/Elementor/Widgets/AnnualReports.php` - New AnnualReports widget (353 lines)
+- `includes/Elementor/Widgets/AnnualReports.php` - New AnnualReports widget (~440 lines)
 - `assets/css/widgets/annual-reports.css` - Widget-specific styles (~280 lines)
 - `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Integration tests (14 test methods)
 
@@ -65,6 +68,7 @@ This feature adds a new AnnualReports Elementor widget for displaying annual fin
 ### 🔗 Related Issues & PRs
 
 - **Issue #21**: [Página de Reportes Anuales](https://github.com/sanruiz/fibra/issues/21)
+- **Issue #20**: [Página de Reportes Trimestrales](https://github.com/sanruiz/fibra/issues/20)
 
 ---
 

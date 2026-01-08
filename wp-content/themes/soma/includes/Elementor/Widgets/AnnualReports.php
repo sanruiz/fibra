@@ -54,7 +54,7 @@ class AnnualReports extends WidgetBase {
 	 * @return string
 	 */
 	public function get_icon(): string {
-		return 'eicon-archive-posts';
+		return 'eicon-document-file';
 	}
 
 	/**
@@ -406,8 +406,12 @@ class AnnualReports extends WidgetBase {
 			data-last-year="<?php echo esc_attr( $latest_year ); ?>"
 			data-category="<?php echo esc_attr( (string) $category ); ?>"
 			data-lang="<?php echo esc_attr( $current_lang ); ?>"
-			data-download-text="<?php echo esc_attr( $download_text ); ?>">
+			data-download-text="<?php echo esc_attr( $download_text ); ?>"
+			data-endpoint="<?php echo esc_url( rest_url( 'soma/documents' ) ); ?>">
 			<div class="container">
+				<div class="loading">
+					<span class="spinner"></span>
+				</div>
 				<div class="content">
 					<div class="year-list">
 						<div class="mobile-title">

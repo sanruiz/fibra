@@ -598,5 +598,5 @@ This feature adds a new AnnualReports Elementor widget for displaying annual fin
 ---
 
 **Document Version**: 1.2  
-**Last Updated**: January 7, 2026  
+**Last Updated**: January 8, 2026  
 **Maintainer**: Miguel Colmenares
