@@ -2,7 +2,7 @@
 
 **Version**: 3.0.0  
 **Last Updated**: December 15, 2025  
-**Total Functions**: 25 helper functions
+**Total Functions**: 28 helper functions
 
 ---
 
@@ -24,7 +24,7 @@
 
 ## Overview
 
-SOMA v3.0 provides 24 global helper functions with the `soma_` prefix for common theme operations. All functions are loaded automatically and available throughout the theme.
+SOMA v3.0 provides 28 global helper functions with the `soma_` prefix for common theme operations. All functions are loaded automatically and available throughout the theme.
 
 ### File Location
 
@@ -41,7 +41,7 @@ SOMA v3.0 provides 24 global helper functions with the `soma_` prefix for common
 - **ACF**: 2 functions (flexible content)
 - **Utilities**: 4 functions (theme helpers)
 - **Translation**: 3 functions (i18n support)
-- **Stock Data**: 1 function (stock information)
+- **Stock Data**: 4 functions (stock information)
 
 ---
 
@@ -901,6 +901,97 @@ if ($stock) {
     'updated_at' => '2025-12-12 15:30:00',
 ]
 ```
+
+---
+
+### soma_format_stock_price_simple()
+
+Format stock price with currency symbol only.
+
+**Syntax:**
+```php
+soma_format_stock_price_simple( float $price, string $currency = 'MXN' ): string
+```
+
+**Parameters:**
+- `$price` (float) - The stock price to format
+- `$currency` (string) - Currency code: 'MXN', 'USD', 'EUR' (default: 'MXN')
+
+**Returns:** Formatted price string with currency symbol and 2 decimal places
+
+**Example:**
+```php
+echo soma_format_stock_price_simple( 21.52 );        // "$21.52 MXN"
+echo soma_format_stock_price_simple( 21.52, 'USD' ); // "$21.52 USD"
+echo soma_format_stock_price_simple( 21.52, 'EUR' ); // "€21.52 EUR"
+```
+
+**Since:** 3.1.13
+
+---
+
+### soma_format_stock_change_combined()
+
+Format stock price change with percentage in a combined string.
+
+**Syntax:**
+```php
+soma_format_stock_change_combined( float $change, float $change_percent ): string
+```
+
+**Parameters:**
+- `$change` (float) - The price change amount
+- `$change_percent` (float) - The percentage change
+
+**Returns:** Combined formatted string showing change and percentage
+
+**Example:**
+```php
+// Positive change
+echo soma_format_stock_change_combined( 0.19, 0.89 );
+// Output: "+$0.19 (+0.89%)"
+
+// Negative change
+echo soma_format_stock_change_combined( -0.50, -2.35 );
+// Output: "-$0.50 (-2.35%)"
+
+// No change
+echo soma_format_stock_change_combined( 0, 0 );
+// Output: "$0.00 (0.00%)"
+```
+
+**Since:** 3.1.13
+
+---
+
+### soma_format_stock_datetime()
+
+Format stock timestamp with time, timezone, and date.
+
+**Syntax:**
+```php
+soma_format_stock_datetime( int $timestamp ): string
+```
+
+**Parameters:**
+- `$timestamp` (int) - Unix timestamp to format
+
+**Returns:** Formatted datetime string with timezone
+
+**Example:**
+```php
+$timestamp = time();
+echo soma_format_stock_datetime( $timestamp );
+// Output: "As of 11:10 AM CST 1/7/2026"
+```
+
+**Notes:**
+- Uses WordPress site timezone settings via `wp_date()`
+- Timezone abbreviation is dynamically determined (CST, CDT, EST, etc.)
+- Time format is 12-hour with AM/PM
+- Date format is month/day/year without leading zeros
+
+**Since:** 3.1.13
 
 ---
 

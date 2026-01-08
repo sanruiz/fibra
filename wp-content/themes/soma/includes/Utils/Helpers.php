@@ -660,6 +660,7 @@ function soma_format_stock_change_combined( float $change, float $percent ): str
  * Format stock timestamp with time and timezone
  *
  * Formats a Unix timestamp to include time with AM/PM and timezone.
+ * Uses WordPress site timezone settings for accurate local time display.
  * Used for detailed timestamp displays in ShareQuotation widget.
  *
  * @since 3.1.13
@@ -671,12 +672,14 @@ function soma_format_stock_change_combined( float $change, float $percent ): str
  * echo soma_format_stock_datetime( time() ); // "As of 11:10 AM CST 1/7/2026"
  */
 function soma_format_stock_datetime( int $timestamp ): string {
-	// Format time as h:i A (12-hour with AM/PM).
-	$time = gmdate( 'g:i A', $timestamp );
-	// Format date as n/j/Y (no leading zeros).
-	$date = gmdate( 'n/j/Y', $timestamp );
+	// Format time as h:i A (12-hour with AM/PM) using site timezone.
+	$time = wp_date( 'g:i A', $timestamp );
+	// Format date as n/j/Y (no leading zeros) using site timezone.
+	$date = wp_date( 'n/j/Y', $timestamp );
+	// Get timezone abbreviation (e.g., CST, CDT) for site timezone.
+	$timezone_abbr = wp_date( 'T', $timestamp );
 
-	return 'As of ' . $time . ' CST ' . $date;
+	return 'As of ' . $time . ' ' . $timezone_abbr . ' ' . $date;
 }
 
 // =============================================================================

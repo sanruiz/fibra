@@ -121,7 +121,7 @@ class ShareQuotation extends WidgetBase {
 			array(
 				'label'       => esc_html__( 'Title', 'soma' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => 'SOMA21',
+				'default'     => esc_html__( 'SOMA21', 'soma' ),
 				'placeholder' => esc_html__( 'Enter title', 'soma' ),
 				'label_block' => true,
 			)
