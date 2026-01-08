@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [3.1.13] - 2026-01-08
+
 ### Week 4 Feature - Events Elementor Widget (Issue #24)
 
 This feature adds a new Events Elementor widget for displaying corporate events on the "Página de Eventos Relevantes" page. The widget includes month/year filtering, AJAX loading, and responsive grid layout.
