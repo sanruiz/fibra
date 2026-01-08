@@ -92,7 +92,7 @@ class TeamMember extends WidgetBase {
 		$options = array( '' => __( 'Select a team member...', 'soma' ) );
 
 		foreach ( $members as $member ) {
-			$options[ $member->ID ] = $member->post_title;
+			$options[ $member->ID ] = get_the_title( $member->ID );
 		}
 
 		return $options;
@@ -454,7 +454,7 @@ class TeamMember extends WidgetBase {
 			<div class="container">
 				<div class="content">
 					<div class="title">
-						<h3 class="member-name"><?php echo esc_html( $member->post_title ); ?></h3>
+						<h3 class="member-name"><?php echo esc_html( get_the_title( $team_member_id ) ); ?></h3>
 						<h3 class="member-title"><?php echo esc_html( $info['title'] ?? '' ); ?></h3>
 					</div>
 
