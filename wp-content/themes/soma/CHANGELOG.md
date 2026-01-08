@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Feature - Show/Hide Controls for ShareQuotation and TeamMember Widgets (Issue #XX)
+### Feature - Show/Hide Controls for ShareQuotation and TeamMember Widgets (Issue #178)
 
 This feature adds visibility controls to ShareQuotation and TeamMember Elementor widgets, allowing editors to customize which elements are displayed. Also improves TeamMember card interaction by making the entire card clickable.
 
@@ -94,7 +94,7 @@ This feature adds visibility controls to ShareQuotation and TeamMember Elementor
 
 ### 🔗 Related Issues & PRs
 
-- **Issue #XX**: [Issue Title](https://github.com/sanruiz/fibra/issues/XX)
+- **Issue #178**: [Add Show/Hide controls to ShareQuotation and TeamMember widgets](https://github.com/sanruiz/fibra/issues/178)
 
 ---
 
