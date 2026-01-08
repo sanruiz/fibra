@@ -1621,74 +1621,74 @@ msgstr ""
 
 #: includes/Elementor/Widgets/ShareQuotation.php:522
 msgid "Icon Size"
-msgstr ""
+msgstr "Tamaño de Ícono"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:573
 msgid "Stock data not available. Please configure stock data in Settings."
-msgstr ""
-
-#: includes/Elementor/Widgets/AnnualReports.php:48
-msgid "Annual Reports"
-msgstr ""
+msgstr "Datos bursátiles no disponibles. Por favor configura los datos bursátiles en Ajustes."
 
 #: includes/Elementor/Widgets/AnnualReports.php:132
 msgid "Select a category to filter annual reports."
-msgstr ""
+msgstr "Selecciona una categoría para filtrar reportes."
 
 #: includes/Elementor/Widgets/AnnualReports.php:139
 msgid "Preselect Latest Year"
-msgstr ""
+msgstr "Preseleccionar Último Año"
 
 #: includes/Elementor/Widgets/AnnualReports.php:145
 msgid "Automatically select the most recent year when loading."
-msgstr ""
+msgstr "Seleccionar automáticamente el año más reciente al cargar."
 
 #: includes/Elementor/Widgets/AnnualReports.php:166
 msgid "Full Width"
-msgstr ""
+msgstr "Ancho Completo"
 
 #: includes/Elementor/Widgets/AnnualReports.php:167
 msgid "Three Columns"
-msgstr ""
+msgstr "Tres Columnas"
 
 #: includes/Elementor/Widgets/AnnualReports.php:185
 msgid "Filter Title (Mobile)"
-msgstr ""
+msgstr "Título del Filtro (Móvil)"
 
 #: includes/Elementor/Widgets/AnnualReports.php:195
 msgid "See All Text"
-msgstr ""
+msgstr "Texto de Ver Todos"
 
 #: includes/Elementor/Widgets/AnnualReports.php:207
 #: includes/Elementor/Widgets/AnnualReports.php:208
 #: includes/Elementor/Widgets/AnnualReports.php:385
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 #: includes/Elementor/Widgets/AnnualReports.php:225
 msgid "Year Filter"
-msgstr ""
+msgstr "Filtro de Año"
 
 #: includes/Elementor/Widgets/AnnualReports.php:287
 msgid "Document Card"
-msgstr ""
+msgstr "Tarjeta de Documento"
 
 #: includes/Elementor/Widgets/AnnualReports.php:296
 msgid "Title Typography"
-msgstr ""
+msgstr "Tipografía del Título"
 
 #: includes/Elementor/Widgets/AnnualReports.php:307
 msgid "Title Color"
-msgstr ""
+msgstr "Color del Título"
 
 #: includes/Elementor/Widgets/AnnualReports.php:322
 msgid "Description Typography"
-msgstr ""
+msgstr "Tipografía de la Descripción"
 
 #: includes/Elementor/Widgets/AnnualReports.php:333
 msgid "Description Color"
-msgstr ""
+msgstr "Color de la Descripción"
 
 #: includes/Elementor/Widgets/AnnualReports.php:399
 msgid "Please select a document category to display annual reports."
-msgstr ""
+msgstr "Por favor selecciona una categoría de documentos para mostrar reportes."
+
+#: includes/Elementor/Widgets/AnnualReports.php:48
+msgid "Reports"
+msgstr "Reportes"
