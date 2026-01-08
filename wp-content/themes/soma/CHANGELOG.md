@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [3.1.12] - 2026-01-08
+
 ### Week 4 Feature - TeamMember Elementor Widget
 
 This release adds a new TeamMember Elementor widget that replicates the team member single page functionality, enabling flexible integration of team member profiles into any page layout via Elementor.
@@ -48,6 +52,12 @@ This release adds a new TeamMember Elementor widget that replicates the team mem
 
 #### Modified
 - `wp-content/themes/soma/CHANGELOG.md` - Version documentation
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #164**: [feat(elementor): Add TeamMember widget](https://github.com/sanruiz/fibra/pull/164) - Merged to week-4
 
 ---
 
