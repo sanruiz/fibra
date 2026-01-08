@@ -306,6 +306,64 @@ git cherry-pick COMMIT_SHA
 git push origin week-N
 ```
 
+### 📝 Responding to PR Review Comments
+
+When a PR has review comments from Copilot Code Review or other reviewers, use these commands to list and respond:
+
+**List all review comments with IDs and file locations:**
+```bash
+gh api repos/sanruiz/fibra/pulls/<pr-number>/comments --jq '.[] | "ID: \(.id) | File: \(.path):\(.line // .original_line)"' | cat
+```
+
+**Get valid commit SHA from PR (required for replies):**
+```bash
+gh api repos/sanruiz/fibra/pulls/<pr-number>/commits --jq '.[].sha' | cat
+```
+
+**Reply to a review comment:**
+```bash
+gh api repos/sanruiz/fibra/pulls/<pr-number>/comments -X POST --input - <<EOF | cat
+{
+  "body": "Fixed in commit <short-sha>. <description>",
+  "commit_id": "<full-40-char-sha-from-pr>",
+  "path": "<file-path>",
+  "line": <line-number>,
+  "in_reply_to": <original-comment-id>
+}
+EOF
+```
+
+**GraphQL API (Recommended for Copilot Review):**
+```bash
+# Get review thread IDs
+gh api graphql -f query='
+query {
+  repository(owner: "sanruiz", name: "fibra") {
+    pullRequest(number: <pr-number>) {
+      reviewThreads(first: 20) {
+        nodes {
+          id
+          path
+          isResolved
+          comments(first: 1) { nodes { id body } }
+        }
+      }
+    }
+  }
+}' | cat
+
+# Reply to thread (uses PRRT_* thread ID)
+gh api graphql -f query='
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDONqY9Pc6XXXXXXX",
+    body: "Fixed in commit abc1234. Description of the fix."
+  }) {
+    comment { id body }
+  }
+}' | cat
+```
+
 ---
 
 ## ⚠️ WP-Multilang Compatibility (CRITICAL)
