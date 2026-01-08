@@ -10,61 +10,46 @@
  */
 
 /* ==========================================================================
-   Container & Layout
-   ========================================================================== */
-
-.soma-share-quotation {
-	margin-top: 100px;
-	padding: 60px 0;
-}
-
-.soma-share-quotation:first-of-type {
-	margin-top: 0;
-	padding: 20px 0 300px 0;
-}
-
-@media screen and (max-width: 767px) {
-	.soma-share-quotation:first-of-type {
-		padding: 10px 0 50px 0;
-	}
-}
-
-@media screen and (max-width: 991px) {
-	.soma-share-quotation {
-		margin-top: 50px;
-	}
-}
-
-@media screen and (max-width: 767px) {
-	.soma-share-quotation {
-		padding: 40px 0;
-	}
-}
-
-/* ==========================================================================
    Background Variants
    ========================================================================== */
 
-.soma-share-quotation--dark {
+/* Dark background (black-bg) - white text */
+.soma-share-quotation--black-bg {
 	background-color: var(--soma-color-primary, #171717);
 }
 
-.soma-share-quotation--dark .soma-share-quotation__title,
-.soma-share-quotation--dark .soma-share-quotation__symbol,
-.soma-share-quotation--dark .soma-share-quotation__price,
-.soma-share-quotation--dark .soma-share-quotation__label,
-.soma-share-quotation--dark .soma-share-quotation__value,
-.soma-share-quotation--dark .soma-share-quotation__download {
+.soma-share-quotation--black-bg .soma-share-quotation__title,
+.soma-share-quotation--black-bg .soma-share-quotation__symbol,
+.soma-share-quotation--black-bg .soma-share-quotation__label,
+.soma-share-quotation--black-bg .soma-share-quotation__price-value,
+.soma-share-quotation--black-bg .soma-share-quotation__volume-value,
+.soma-share-quotation--black-bg .soma-share-quotation__date,
+.soma-share-quotation--black-bg .soma-share-quotation__download {
 	color: #fff;
 }
 
-.soma-share-quotation--light .soma-share-quotation__download svg line {
+/* Light background (white-bg) - dark text */
+.soma-share-quotation--white-bg {
+	background-color: #fff;
+}
+
+.soma-share-quotation--white-bg .soma-share-quotation__title,
+.soma-share-quotation--white-bg .soma-share-quotation__symbol,
+.soma-share-quotation--white-bg .soma-share-quotation__label,
+.soma-share-quotation--white-bg .soma-share-quotation__price-value,
+.soma-share-quotation--white-bg .soma-share-quotation__volume-value,
+.soma-share-quotation--white-bg .soma-share-quotation__date,
+.soma-share-quotation--white-bg .soma-share-quotation__download {
+	color: var(--soma-color-primary, #171717);
+}
+
+/* Download icon SVG colors */
+.soma-share-quotation--white-bg .soma-share-quotation__download-icon svg path {
 	stroke: var(--soma-color-primary, #171717);
 }
 
-.soma-share-quotation--light .soma-share-quotation__download svg polygon {
-	stroke: var(--soma-color-primary, #171717);
-	fill: var(--soma-color-primary, #171717);
+.soma-share-quotation--black-bg .soma-share-quotation__download-icon svg path {
+	stroke: #fff;
 }
 
 /* ==========================================================================
@@ -74,6 +59,9 @@
 .soma-share-quotation__container {
 	display: flex;
 	flex-wrap: wrap;
+	max-width: var(--soma-container-max-width, 1200px);
+	margin: 0 auto;
+	padding: 0;
 }
 
 /* ==========================================================================
@@ -85,15 +73,16 @@
 	box-sizing: border-box;
 }
 
-/* Column 1: Title & Symbol */
-.soma-share-quotation__column--header {
+/* Column 1: Title & Symbol (--info) */
+.soma-share-quotation__column--info {
 	padding-right: 15px;
 }
 
 @media screen and (max-width: 991px) {
-	.soma-share-quotation__column--header {
+	.soma-share-quotation__column--info {
 		width: 100%;
 		padding-right: 0;
+		margin-bottom: 30px;
 	}
 }
 
@@ -114,25 +103,38 @@
 	.soma-share-quotation__column--price {
 		width: 100%;
 		padding: 0;
+		margin-bottom: 30px;
 	}
 }
 
-/* Column 3: Volume & Date */
-.soma-share-quotation__column--stats {
+/* Column 3: Volume (--volume) */
+.soma-share-quotation__column--volume {
 	padding-left: 15px;
 }
 
 @media screen and (max-width: 991px) {
-	.soma-share-quotation__column--stats {
+	.soma-share-quotation__column--volume {
 		width: 50%;
 	}
 }
 
 @media screen and (max-width: 767px) {
-	.soma-share-quotation__column--stats {
+	.soma-share-quotation__column--volume {
 		width: 100%;
 		padding: 0;
 	}
+}
+
+/* ==========================================================================
+   Data Rows
+   ========================================================================== */
+
+.soma-share-quotation__data-row {
+	margin-bottom: 10px;
+}
+
+.soma-share-quotation__data-row:last-child {
+	margin-bottom: 0;
 }
 
 /* ==========================================================================
@@ -140,54 +142,60 @@
    ========================================================================== */
 
 .soma-share-quotation__title {
-	margin: 0 0 10px 0;
-}
-
-.soma-share-quotation__symbol {
-	margin: 0;
-}
-
-.soma-share-quotation__price-wrapper {
-	margin-top: -15px;
-}
-
-.soma-share-quotation__price-label {
-	margin-top: -60px;
-}
-
-@media screen and (max-width: 767px) {
-	.soma-share-quotation__price-label {
-		margin-top: -30px;
-	}
-}
-
-.soma-share-quotation__price {
-	margin: 0;
-	font-size: var(--soma-font-size-h1, 3rem);
-	font-weight: 700;
+	margin: 0 0 5px 0;
+	font-size: var(--soma-font-size-h3, 1.5rem);
+	font-weight: 600;
 	line-height: 1.2;
 }
 
-.soma-share-quotation__label {
+.soma-share-quotation__symbol {
+	display: block;
 	margin: 0;
 	font-size: var(--soma-font-size-small, 0.875rem);
-	color: var(--soma-color-text-secondary, #7E7E87);
+	font-weight: 400;
 }
 
-.soma-share-quotation__value {
+.soma-share-quotation__label {
+	display: block;
+	margin: 0 0 5px 0;
+	font-size: var(--soma-font-size-small, 0.875rem);
+	font-weight: 400;
+}
+
+/* Large values (price and volume) - matching original h2 style */
+.soma-share-quotation__price-value,
+.soma-share-quotation__volume-value {
+	display: block;
+	margin: 0;
+	font-size: var(--soma-font-size-h1, 3rem);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+/* Change indicator values */
+.soma-share-quotation__change {
+	display: block;
 	margin: 0;
 	font-size: var(--soma-font-size-body, 1rem);
+	font-weight: 500;
+}
+
+/* Date display */
+.soma-share-quotation__date {
+	display: block;
+	margin: 0;
+	font-size: var(--soma-font-size-small, 0.875rem);
 }
 
 /* ==========================================================================
-   Change Indicators
+   Change Indicators (Positive/Negative)
    ========================================================================== */
 
-.soma-share-quotation__value--positive {
+.soma-share-quotation__change--positive {
 	color: var(--soma-color-success, #22C55E);
 }
 
-.soma-share-quotation__value--negative {
+.soma-share-quotation__change--negative {
 	color: var(--soma-color-danger, #EF4444);
 }
 
@@ -196,76 +204,56 @@
    ========================================================================== */
 
 .soma-share-quotation__download {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
 	margin-top: 15px;
 	text-decoration: none;
-	transition: var(--soma-transition, 0.5s);
+	transition: var(--soma-transition, 0.3s);
 }
 
-.soma-share-quotation__download svg {
-	margin-left: 5px;
+.soma-share-quotation__download-icon {
+	display: inline-flex;
+	margin-left: 10px;
 }
 
-.soma-share-quotation__download svg line,
-.soma-share-quotation__download svg polygon {
-	transition: var(--soma-transition, 0.5s);
+.soma-share-quotation__download-icon svg {
+	width: 35px;
+	height: 35px;
 }
 
-/* Mobile download link */
-.soma-share-quotation__download--mobile {
-	display: none;
-}
-
-/* Desktop download link */
-.soma-share-quotation__download--desktop {
-	display: inline-block;
-}
-
-@media screen and (max-width: 767px) {
-	.soma-share-quotation__download--mobile {
-		display: table;
-		margin-bottom: 30px;
-	}
-
-	.soma-share-quotation__download--desktop {
-		display: none;
-	}
+.soma-share-quotation__download-icon svg path {
+	transition: var(--soma-transition, 0.3s);
 }
 
 /* Desktop hover effects */
 @media screen and (min-width: 992px) {
 	.soma-share-quotation__download:hover {
-		color: var(--soma-color-text-secondary, #7E7E87);
+		opacity: 0.7;
 	}
 
-	.soma-share-quotation__download:hover svg line {
+	.soma-share-quotation__download:hover .soma-share-quotation__download-icon svg path {
 		stroke: var(--soma-color-text-secondary, #7E7E87);
-	}
-
-	.soma-share-quotation__download:hover svg polygon {
-		stroke: var(--soma-color-text-secondary, #7E7E87);
-		fill: var(--soma-color-text-secondary, #7E7E87);
 	}
 }
 
 /* ==========================================================================
-   Data Rows
+   Responsive Adjustments
    ========================================================================== */
 
-.soma-share-quotation__row {
-	margin-bottom: 15px;
+@media screen and (max-width: 991px) {
+	.soma-share-quotation__price-value,
+	.soma-share-quotation__volume-value {
+		font-size: var(--soma-font-size-h2, 2.5rem);
+	}
 }
 
-.soma-share-quotation__row:last-child {
-	margin-bottom: 0;
-}
+@media screen and (max-width: 767px) {
+	.soma-share-quotation__title {
+		font-size: var(--soma-font-size-h4, 1.25rem);
+	}
 
-/* ==========================================================================
-   Inline Values (Change & Percent)
-   ========================================================================== */
-
-.soma-share-quotation__inline {
-	display: flex;
-	gap: 10px;
-	align-items: baseline;
+	.soma-share-quotation__price-value,
+	.soma-share-quotation__volume-value {
+		font-size: var(--soma-font-size-h3, 1.75rem);
+	}
 }

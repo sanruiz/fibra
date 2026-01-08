@@ -608,6 +608,80 @@ function soma_format_stock_date( int $timestamp, string $format = 'short' ): str
 	return $date;
 }
 
+/**
+ * Format stock price without currency suffix
+ *
+ * Formats a price value with currency symbol only (no currency code suffix).
+ * Used for compact price displays in ShareQuotation widget.
+ *
+ * @since 3.1.13
+ *
+ * @param float  $price    The price value to format.
+ * @param string $currency The currency code (MXN, USD, EUR).
+ * @return string Formatted price string (e.g., "$45.67").
+ *
+ * @example
+ * echo soma_format_stock_price_simple( 45.67, 'MXN' ); // "$45.67"
+ * echo soma_format_stock_price_simple( 100.00, 'USD' ); // "$100.00"
+ */
+function soma_format_stock_price_simple( float $price, string $currency = 'MXN' ): string {
+	$symbols = array(
+		'MXN' => '$',
+		'USD' => '$',
+		'EUR' => '€',
+	);
+
+	$symbol = $symbols[ $currency ] ?? '$';
+
+	return $symbol . number_format( $price, 2 );
+}
+
+/**
+ * Format stock change and percent combined
+ *
+ * Formats change and percent values on a single line.
+ * Used for compact displays in ShareQuotation widget.
+ *
+ * @since 3.1.13
+ *
+ * @param float $change  The change value.
+ * @param float $percent The percent value.
+ * @return string Formatted string (e.g., "$ 0.00  0.00 %").
+ *
+ * @example
+ * echo soma_format_stock_change_combined( 1.23, 2.50 );  // "$ 1.23  2.50 %"
+ * echo soma_format_stock_change_combined( -0.45, -1.25 ); // "$ -0.45  -1.25 %"
+ */
+function soma_format_stock_change_combined( float $change, float $percent ): string {
+	return '$ ' . number_format( $change, 2 ) . '  ' . number_format( $percent, 2 ) . ' %';
+}
+
+/**
+ * Format stock timestamp with time and timezone
+ *
+ * Formats a Unix timestamp to include time with AM/PM and timezone.
+ * Uses WordPress site timezone settings for accurate local time display.
+ * Used for detailed timestamp displays in ShareQuotation widget.
+ *
+ * @since 3.1.13
+ *
+ * @param int $timestamp The Unix timestamp to format.
+ * @return string Formatted datetime string (e.g., "As of 11:10 AM CST 1/2/2026").
+ *
+ * @example
+ * echo soma_format_stock_datetime( time() ); // "As of 11:10 AM CST 1/7/2026"
+ */
+function soma_format_stock_datetime( int $timestamp ): string {
+	// Format time as h:i A (12-hour with AM/PM) using site timezone.
+	$time = wp_date( 'g:i A', $timestamp );
+	// Format date as n/j/Y (no leading zeros) using site timezone.
+	$date = wp_date( 'n/j/Y', $timestamp );
+	// Get timezone abbreviation (e.g., CST, CDT) for site timezone.
+	$timezone_abbr = wp_date( 'T', $timestamp );
+
+	return 'As of ' . $time . ' ' . $timezone_abbr . ' ' . $date;
+}
+
 // =============================================================================
 // Breadcrumb Helpers
 // =============================================================================

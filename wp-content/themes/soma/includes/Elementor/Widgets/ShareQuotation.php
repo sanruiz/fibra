@@ -121,7 +121,7 @@ class ShareQuotation extends WidgetBase {
 			array(
 				'label'       => esc_html__( 'Title', 'soma' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => esc_html__( 'FIBRASOMA', 'soma' ),
+				'default'     => esc_html__( 'SOMA21', 'soma' ),
 				'placeholder' => esc_html__( 'Enter title', 'soma' ),
 				'label_block' => true,
 			)
@@ -130,10 +130,10 @@ class ShareQuotation extends WidgetBase {
 		$this->add_control(
 			'symbol',
 			array(
-				'label'       => esc_html__( 'Stock Symbol', 'soma' ),
+				'label'       => esc_html__( 'Subtitle', 'soma' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => 'FIBRA SOMA 15',
-				'placeholder' => esc_html__( 'e.g., FIBRA SOMA 15', 'soma' ),
+				'default'     => esc_html__( 'Share Quotation', 'soma' ),
+				'placeholder' => esc_html__( 'e.g., Share Quotation', 'soma' ),
 				'label_block' => true,
 			)
 		);
@@ -154,7 +154,7 @@ class ShareQuotation extends WidgetBase {
 			array(
 				'label'   => esc_html__( 'Price Label', 'soma' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => esc_html__( 'Price', 'soma' ),
+				'default' => esc_html__( 'Actual Price', 'soma' ),
 			)
 		);
 
@@ -213,7 +213,7 @@ class ShareQuotation extends WidgetBase {
 				'label_on'     => esc_html__( 'Yes', 'soma' ),
 				'label_off'    => esc_html__( 'No', 'soma' ),
 				'return_value' => 'yes',
-				'default'      => 'yes',
+				'default'      => 'no',
 				'description'  => esc_html__( 'Enable for dark backgrounds (white text)', 'soma' ),
 			)
 		);
@@ -273,10 +273,10 @@ class ShareQuotation extends WidgetBase {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'default'    => array(
-					'top'    => '60',
-					'right'  => '30',
-					'bottom' => '60',
-					'left'   => '30',
+					'top'    => '80',
+					'right'  => '20',
+					'bottom' => '80',
+					'left'   => '20',
 					'unit'   => 'px',
 				),
 				'selectors'  => array(
@@ -628,27 +628,19 @@ class ShareQuotation extends WidgetBase {
 					<?php endif; ?>
 				</div>
 
-				<!-- Column 2: Price, Change, Percent, Date -->
+				<!-- Column 2: Price, Change/Percent, Date -->
 				<div class="soma-share-quotation__column soma-share-quotation__column--price">
 					<div class="soma-share-quotation__data-row">
 						<span class="soma-share-quotation__label"><?php echo esc_html( $settings['price_label'] ); ?></span>
-						<span class="soma-share-quotation__price-value"><?php echo esc_html( soma_format_stock_price( $price, $currency ) ); ?></span>
+						<span class="soma-share-quotation__price-value"><?php echo esc_html( soma_format_stock_price_simple( $price, $currency ) ); ?></span>
 					</div>
-					<div class="soma-share-quotation__data-row">
-						<span class="soma-share-quotation__label"><?php echo esc_html( $settings['change_label'] ); ?></span>
+					<div class="soma-share-quotation__data-row soma-share-quotation__data-row--change-combined">
 						<span class="soma-share-quotation__change soma-share-quotation__change--<?php echo esc_attr( $change_class ); ?>">
-							<?php echo esc_html( soma_format_stock_change( $change ) ); ?>
+							<?php echo esc_html( soma_format_stock_change_combined( $change, $percent ) ); ?>
 						</span>
 					</div>
 					<div class="soma-share-quotation__data-row">
-						<span class="soma-share-quotation__label"><?php echo esc_html( $settings['percent_label'] ); ?></span>
-						<span class="soma-share-quotation__change soma-share-quotation__change--<?php echo esc_attr( $change_class ); ?>">
-							<?php echo esc_html( soma_format_stock_percent( $percent ) ); ?>
-						</span>
-					</div>
-					<div class="soma-share-quotation__data-row">
-						<span class="soma-share-quotation__label"><?php echo esc_html( $settings['date_label'] ); ?></span>
-						<span class="soma-share-quotation__date"><?php echo esc_html( soma_format_stock_date( $timestamp ) ); ?></span>
+						<span class="soma-share-quotation__date"><?php echo esc_html( soma_format_stock_datetime( $timestamp ) ); ?></span>
 					</div>
 				</div>
 
