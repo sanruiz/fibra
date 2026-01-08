@@ -9,6 +9,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Week 4 Feature - Events Elementor Widget (Issue #24)
+
+This feature adds a new Events Elementor widget for displaying corporate events on the "Página de Eventos Relevantes" page. The widget includes month/year filtering, AJAX loading, and responsive grid layout.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **Events Widget** - Corporate events display with month filtering (#24)
+  - **Responsive Grid Layout**:
+    - 3-column grid on desktop
+    - 2-column grid on tablet (991px)
+    - 1-column on mobile (767px)
+  - **Month/Year Filtering**:
+    - AJAX-powered month filtering via REST API
+    - "See All" option to show all events
+    - Active month highlighting
+    - Mobile-friendly filter toggle
+  - **Event Card Display**:
+    - Featured image with aspect ratio control
+    - Event title with configurable typography
+    - Event date or published date display
+    - Hover effects with zoom transition
+  - **Elementor Controls**:
+    - Number of events to display
+    - Sort order (ASC/DESC)
+    - Sort by (event date or published date)
+    - "See All" button text customization
+    - Container, filter, and card style sections
+    - Full typography and color controls
+  - **REST API Integration**:
+    - Uses existing `/wp-json/soma/events` endpoint
+    - Month-based filtering parameter
+    - Elementor editor preview support
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/Events.php` - New Events widget (~490 lines)
+- `assets/css/widgets/events.css` - Widget-specific styles (~185 lines)
+- `assets/js/widgets/events.js` - AJAX loading and filtering (~173 lines)
+- `tests/Integration/Elementor/EventsWidgetTest.php` - Integration tests (14 test methods)
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register Events widget, styles, and scripts
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include Events widget in test arrays
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations for new strings
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #24**: [Página de Eventos Relevantes](https://github.com/sanruiz/fibra/issues/24)
+- **PR #170**: [feat(elementor): Add Events widget](https://github.com/sanruiz/fibra/pull/170)
+
+---
+
 ### Week 4 Feature - Reports Elementor Widget (Issues #21 & #20)
 
 This feature adds a new Reports Elementor widget for displaying financial reports with year filtering. The widget supports both the "Reportes Anuales" page (Issue #21) and "Reportes Trimestrales" page (Issue #20) through category selection and configurable layout variants.
