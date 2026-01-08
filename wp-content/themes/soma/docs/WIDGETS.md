@@ -15,9 +15,10 @@
    - [Business Units Widget](#3-business-units-widget)
    - [Services Widget](#4-services-widget)
    - [Team Members Widget](#5-team-members-widget)
-   - [News List Widget](#6-news-list-widget)
-   - [Portfolio Widget](#7-portfolio-widget)
-   - [Contact Form Widget](#8-contact-form-widget)
+   - [Team Member Widget](#6-team-member-widget)
+   - [News List Widget](#7-news-list-widget)
+   - [Portfolio Widget](#8-portfolio-widget)
+   - [Contact Form Widget](#9-contact-form-widget)
 3. [Common Features](#common-features)
 4. [Development Guide](#development-guide)
 5. [Troubleshooting](#troubleshooting)
@@ -1004,6 +1005,52 @@ Use this checklist when creating a new Elementor widget:
 6. **Support RTL languages** when applicable
 7. **Test responsive behavior** on all devices
 8. **Document custom controls** with descriptions
+9. **Use `get_the_title()` for post titles** - Never use `$post->post_title` directly (see WP-Multilang section below)
+
+---
+
+### WP-Multilang Compatibility
+
+**CRITICAL**: When populating SELECT/SELECT2 controls with post titles, always use `get_the_title()` instead of direct property access.
+
+**The Problem:**
+
+WP-Multilang stores translations in a single database field using `[:en]English[:es]Spanish[:]` format. The plugin hooks into the `the_title` filter to parse and return the correct language.
+
+```php
+// ❌ WRONG - Bypasses WP-Multilang filters, shows raw delimiters
+foreach ($posts as $post) {
+    $options[$post->ID] = $post->post_title;
+    // Shows: "[:en]John Doe[:es]Juan Pérez[:]"
+}
+
+// ✅ CORRECT - Applies 'the_title' filter, WP-Multilang translates
+foreach ($posts as $post) {
+    $options[$post->ID] = get_the_title($post->ID);
+    // Shows: "John Doe" or "Juan Pérez" based on current language
+}
+```
+
+**Why This Happens:**
+
+- `$post->post_title` → Direct property access → **NO filters applied**
+- `get_the_title()` → Applies `the_title` filter → **WP-Multilang hooks here**
+
+**Affected Patterns:**
+
+- Team member selector dropdowns
+- Contact Form 7 form selectors
+- Custom post type selectors
+- Any SELECT control populated from `WP_Query` results
+
+**Pre-Commit Check:**
+
+Before committing widget code, search for this pattern:
+```bash
+grep -n "post_title" includes/Elementor/Widgets/*.php
+```
+
+If found in a dropdown context, replace with `get_the_title($post->ID)`.
 
 ---
 
@@ -1118,6 +1165,36 @@ soma_log_debug('Query results', [
 $args['post_status'] = 'publish';
 ```
 
+### Dropdown Shows Raw Multilang Delimiters
+
+**Symptoms:**
+- SELECT controls show `[:en]Name[:es]Nombre[:]` instead of translated text
+- Only happens with WP-Multilang enabled
+- Affects team member, form, or post type selectors
+
+**Cause:**
+Direct `$post->post_title` property access bypasses WordPress filters. WP-Multilang hooks into the `the_title` filter to process translations.
+
+**Solution:**
+
+```php
+// ❌ WRONG - Direct property access
+foreach ($posts as $post) {
+    $options[$post->ID] = $post->post_title;
+}
+
+// ✅ CORRECT - Use WordPress function
+foreach ($posts as $post) {
+    $options[$post->ID] = get_the_title($post->ID);
+}
+```
+
+**Quick Fix Command:**
+```bash
+# Find affected files
+grep -rn "post_title" includes/Elementor/Widgets/*.php | grep -v "get_the_title"
+```
+
 ---
 
 ## Additional Resources
@@ -1143,7 +1220,7 @@ $args['post_status'] = 'publish';
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: December 12, 2025  
-**Widgets Count**: 8  
+**Document Version**: 1.1  
+**Last Updated**: January 8, 2026  
+**Widgets Count**: 9  
 **Maintainer**: Miguel Colmenares

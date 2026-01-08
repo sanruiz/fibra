@@ -405,6 +405,35 @@ __( 'Label', 'theme' )
 __( 'Label', 'soma' )
 ```
 
+### 6. Direct Post Title Access in Dropdowns (Multilang Bug)
+
+**Problem:** When using `$post->post_title` directly in SELECT/SELECT2 controls, WP-Multilang strings stored in `[:en]Name[:es]Nombre[:]` format display as raw text instead of the translated version.
+
+```php
+// ❌ WRONG - Bypasses WP-Multilang filters
+$options[ $post->ID ] = $post->post_title;
+// Shows: "[:en]John Doe[:es]Juan Pérez[:]"
+
+// ✅ CORRECT - Uses WordPress filter that WP-Multilang hooks into
+$options[ $post->ID ] = get_the_title( $post->ID );
+// Shows: "John Doe" (EN) or "Juan Pérez" (ES)
+```
+
+**Why it happens:**
+- WP-Multilang stores translations in a single field using `[:lang]...[:]` delimiters
+- The plugin hooks into the `the_title` filter to parse these strings
+- `$post->post_title` is a direct property access that bypasses all filters
+- `get_the_title()` applies the `the_title` filter, enabling WP-Multilang translation
+
+**Affected widgets:**
+- TeamMember.php (team member selector dropdown)
+- ContactForm.php (CF7 form selector dropdown)
+- Any widget with post/CPT selector dropdowns
+
+**Always use:**
+- `get_the_title( $post->ID )` for post titles
+- `get_the_title( $post )` also works (accepts WP_Post object)
+
 ---
 
 ## 📋 Pre-Commit Checklist
@@ -420,6 +449,7 @@ Before creating a PR for widget changes, verify:
 - [ ] PHPStan Level 6+ passes
 - [ ] All tests pass
 - [ ] CSS uses SOMA variables (`--soma-*`)
+- [ ] Post titles use `get_the_title()` not `$post->post_title` (WP-Multilang compatibility)
 
 ---
 
@@ -432,6 +462,6 @@ Before creating a PR for widget changes, verify:
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 4, 2026  
+**Document Version**: 1.1  
+**Last Updated**: January 8, 2026  
 **Maintainer**: Miguel Colmenares
