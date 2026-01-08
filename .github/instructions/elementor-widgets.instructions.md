@@ -379,7 +379,20 @@ wp i18n update-po languages/soma.pot languages/
 wp i18n make-mo languages/
 ```
 
-### 3. Missing Tests for New Controls
+### 3. Empty Spanish Translations
+```php
+// ❌ WRONG - Empty translation (DO NOT COMMIT)
+msgid "Category"
+msgstr ""
+
+// ✅ CORRECT - Proper Spanish translation
+msgid "Category"
+msgstr "Categoría"
+```
+
+**MANDATORY**: After running `wp i18n update-po`, open `languages/es_ES.po` and translate ALL new strings. Never commit empty `msgstr ""` entries.
+
+### 4. Missing Tests for New Controls
 ```php
 // When adding 'category' control, add test assertion:
 public function test_has_controls(): void {
@@ -388,7 +401,7 @@ public function test_has_controls(): void {
 }
 ```
 
-### 4. Skipping Quality Gates
+### 5. Skipping Quality Gates
 ```bash
 # NEVER skip these before commit:
 composer phpcs    # MUST pass
@@ -396,7 +409,7 @@ composer phpstan  # MUST pass
 composer test     # MUST pass
 ```
 
-### 5. Wrong Text Domain
+### 6. Wrong Text Domain
 ```php
 // ❌ WRONG - Wrong text domain
 __( 'Label', 'theme' )
@@ -405,7 +418,7 @@ __( 'Label', 'theme' )
 __( 'Label', 'soma' )
 ```
 
-### 6. Direct Post Title Access in Dropdowns (Multilang Bug)
+### 7. Direct Post Title Access in Dropdowns (Multilang Bug)
 
 **Problem:** When using `$post->post_title` directly in SELECT/SELECT2 controls, WP-Multilang strings stored in `[:en]Name[:es]Nombre[:]` format display as raw text instead of the translated version.
 
@@ -443,6 +456,7 @@ Before creating a PR for widget changes, verify:
 - [ ] All user-facing strings use `__()`, `esc_html__()`, or `esc_attr__()`
 - [ ] Text domain is always `'soma'`
 - [ ] Translation files regenerated (`wp i18n make-pot`, `update-po`, `make-mo`)
+- [ ] **ALL Spanish translations provided** (no empty `msgstr ""` in es_ES.po)
 - [ ] Integration tests added/updated for new controls
 - [ ] `test_has_controls()` includes new control IDs
 - [ ] PHPCS passes with 0 errors

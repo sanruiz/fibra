@@ -1473,27 +1473,27 @@ msgstr "Selecciona una categoría para filtrar documentos. Deja vacío para most
 
 #: includes/Elementor/Widgets/TeamMember.php:55
 msgid "Team Member Profile"
-msgstr ""
+msgstr "Perfil de Miembro del Equipo"
 
 #: includes/Elementor/Widgets/TeamMember.php:92
 msgid "Select a team member..."
-msgstr ""
+msgstr "Selecciona un miembro del equipo..."
 
 #: includes/Elementor/Widgets/TeamMember.php:156
 msgid "Show Featured Text"
-msgstr ""
+msgstr "Mostrar Texto Destacado"
 
 #: includes/Elementor/Widgets/TeamMember.php:168
 msgid "Show SOMA Logo"
-msgstr ""
+msgstr "Mostrar Logo SOMA"
 
 #: includes/Elementor/Widgets/TeamMember.php:334
 msgid "Biography"
-msgstr ""
+msgstr "Biografía"
 
 #: includes/Elementor/Widgets/TeamMember.php:430
 msgid "Please select a team member from the widget settings."
-msgstr ""
+msgstr "Por favor selecciona un miembro del equipo desde los ajustes del widget."
 
 #: includes/Elementor/Widgets/TeamMember.php:443
 msgid "Invalid team member selected."
@@ -1521,103 +1521,103 @@ msgstr "Este widget mostrará el miembro actual del equipo cuando se visualice e
 
 #: includes/Elementor/Widgets/ShareQuotation.php:49
 msgid "Share Quotation"
-msgstr ""
+msgstr "Cotización de Acciones"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:124
 msgid "FIBRASOMA"
-msgstr ""
+msgstr "FIBRASOMA"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:125
 msgid "Enter title"
-msgstr ""
+msgstr "Ingresa el título"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:133
 msgid "Stock Symbol"
-msgstr ""
+msgstr "Símbolo Bursátil"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:136
 msgid "e.g., FIBRA SOMA 15"
-msgstr ""
+msgstr "ej., FIBRA SOMA 15"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:155
 msgid "Price Label"
-msgstr ""
+msgstr "Etiqueta de Precio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:164
 msgid "Change Label"
-msgstr ""
+msgstr "Etiqueta de Cambio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:166
 msgid "Change"
-msgstr ""
+msgstr "Cambio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:173
 msgid "Percent Label"
-msgstr ""
+msgstr "Etiqueta de Porcentaje"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:182
 msgid "Volume Label"
-msgstr ""
+msgstr "Etiqueta de Volumen"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:184
 msgid "Volume"
-msgstr ""
+msgstr "Volumen"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:191
 msgid "Date Label"
-msgstr ""
+msgstr "Etiqueta de Fecha"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:203
 msgid "Display Options"
-msgstr ""
+msgstr "Opciones de Visualización"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:211
 msgid "Dark Background"
-msgstr ""
+msgstr "Fondo Oscuro"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:217
 msgid "Enable for dark backgrounds (white text)"
-msgstr ""
+msgstr "Activar para fondos oscuros (texto blanco)"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:224
 msgid "Show Download Link"
-msgstr ""
+msgstr "Mostrar Enlace de Descarga"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:236
 msgid "Download URL"
-msgstr ""
+msgstr "URL de Descarga"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:238
 msgid "https://example.com/file.pdf"
-msgstr ""
+msgstr "https://ejemplo.com/archivo.pdf"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:366
 msgid "Symbol"
-msgstr ""
+msgstr "Símbolo"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:436
 msgid "Label Typography"
-msgstr ""
+msgstr "Tipografía de Etiqueta"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:447
 msgid "Label Color"
-msgstr ""
+msgstr "Color de Etiqueta"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:464
 msgid "Change Indicators"
-msgstr ""
+msgstr "Indicadores de Cambio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:472
 msgid "Positive Change Color"
-msgstr ""
+msgstr "Color de Cambio Positivo"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:484
 msgid "Negative Change Color"
-msgstr ""
+msgstr "Color de Cambio Negativo"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:510
 msgid "Icon Color"
-msgstr ""
+msgstr "Color de Ícono"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:522
 msgid "Icon Size"

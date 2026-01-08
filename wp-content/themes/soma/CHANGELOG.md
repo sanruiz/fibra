@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Week 4 Feature - AnnualReports Elementor Widget (Issues #21 & #20)
+### Week 4 Feature - Reports Elementor Widget (Issues #21 & #20)
 
-This feature adds a new AnnualReports Elementor widget for displaying financial reports with year filtering. The widget supports both the "Reportes Anuales" page (Issue #21) and "Reportes Trimestrales" page (Issue #20) through category selection and configurable layout variants.
+This feature adds a new Reports Elementor widget for displaying financial reports with year filtering. The widget supports both the "Reportes Anuales" page (Issue #21) and "Reportes Trimestrales" page (Issue #20) through category selection and configurable layout variants.
 
 ---
 
@@ -19,7 +19,7 @@ This feature adds a new AnnualReports Elementor widget for displaying financial 
 
 #### New Elementor Widget
 
-- **AnnualReports Widget** - Financial reports display with year filtering (#21, #20)
+- **Reports Widget** - Financial reports display with year filtering (#21, #20)
   - **Two-Column Layout** (`full-width` variant):
     - Left column: Year filter buttons (vertical list)
     - Right column: Documents grid with download links
@@ -52,7 +52,7 @@ This feature adds a new AnnualReports Elementor widget for displaying financial 
 
 #### Added
 
-- `includes/Elementor/Widgets/AnnualReports.php` - New AnnualReports widget (~440 lines)
+- `includes/Elementor/Widgets/AnnualReports.php` - New Reports widget (~440 lines)
 - `assets/css/widgets/annual-reports.css` - Widget-specific styles (~280 lines)
 - `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Integration tests (14 test methods)
 
