@@ -33,6 +33,8 @@ jobs:
     copilot-setup-steps:
         name: 🔧 Setup PHP Dependencies for Copilot Agent
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
 
         steps:
             - name: 📥 Checkout repository
