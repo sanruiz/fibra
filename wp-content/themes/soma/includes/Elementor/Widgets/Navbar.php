@@ -154,7 +154,10 @@ class Navbar extends WidgetBase {
 			array(
 				'label'     => __( 'Custom Logo', 'soma' ),
 				'type'      => Controls_Manager::MEDIA,
-				'default'   => array(),
+				'default'   => array(
+					'url' => '',
+					'id'  => 0,
+				),
 				'condition' => array(
 					'show_logo'        => 'yes',
 					'use_custom_logo!' => 'yes',

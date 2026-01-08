@@ -119,6 +119,10 @@ class Footer extends WidgetBase {
 			array(
 				'label'     => __( 'Custom Logo', 'soma' ),
 				'type'      => Controls_Manager::MEDIA,
+				'default'   => array(
+					'url' => '',
+					'id'  => 0,
+				),
 				'condition' => array(
 					'use_acf_logo' => '',
 				),
