@@ -119,6 +119,10 @@ class Footer extends WidgetBase {
 			array(
 				'label'     => __( 'Custom Logo', 'soma' ),
 				'type'      => Controls_Manager::MEDIA,
+				'default'   => array(
+					'url' => '',
+					'id'  => 0,
+				),
 				'condition' => array(
 					'use_acf_logo' => '',
 				),
@@ -490,13 +494,13 @@ class Footer extends WidgetBase {
 							<?php echo wp_kses_post( $settings['copyright'] ); ?>
 						</div>
 						<div class="credits">
-							<?php if ( ! empty( $settings['credits_link']['url'] ) ) : ?>
+							<?php if ( isset( $settings['credits_link']['url'] ) && ! empty( $settings['credits_link']['url'] ) ) : ?>
 								<a href="<?php echo esc_url( $settings['credits_link']['url'] ); ?>" 
 									target="<?php echo esc_attr( $settings['credits_link']['is_external'] ? '_blank' : '_self' ); ?>">
 									<?php echo esc_html( $settings['credits_link']['custom_attributes'] ?? __( 'Credits', 'soma' ) ); ?>
 								</a>
 							<?php endif; ?>
-							<?php if ( ! empty( $settings['privacy_link']['url'] ) ) : ?>
+							<?php if ( isset( $settings['privacy_link']['url'] ) && ! empty( $settings['privacy_link']['url'] ) ) : ?>
 								<a href="<?php echo esc_url( $settings['privacy_link']['url'] ); ?>" 
 									target="<?php echo esc_attr( $settings['privacy_link']['is_external'] ? '_blank' : '_self' ); ?>">
 									<?php echo esc_html( $settings['privacy_link']['custom_attributes'] ?? __( 'Privacy Policy', 'soma' ) ); ?>

@@ -14,7 +14,7 @@
 	flex-wrap: wrap;
 	align-items: center;
 	padding: var(--soma-spacing-sm, 0.5rem) 0;
-	font-size: 0.875rem;
+	font-size: var(--soma-font-size-body, 1.25rem);
 	line-height: 1.5;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .soma-breadcrumb .current {
-	font-weight: 500;
+	font-size: var(--soma-font-size-small, 1rem);
 }
 
 .soma-breadcrumb .separator {

@@ -277,6 +277,6 @@ class StockPrice extends WidgetBase {
 			$symbol = $symbols[ $currency ];
 		}
 
-		return $symbol . number_format( $price, 2 );
+		return $symbol . number_format( $price, 2 ) . ' ' . $currency;
 	}
 }

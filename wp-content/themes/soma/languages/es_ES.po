@@ -299,6 +299,7 @@ msgstr "Plantilla de Barra Lateral de Navegación"
 
 #: includes/Elementor/Base/WidgetBase.php:216
 #: includes/Elementor/Widgets/Documents.php:321
+#: includes/Elementor/Widgets/TeamMember.php:419
 msgid "Border Radius"
 msgstr "Radio de Borde"
 
@@ -307,12 +308,12 @@ msgstr "Radio de Borde"
 msgid "Select Menu"
 msgstr "Seleccionar Menú"
 
-#: includes/Elementor/Loader.php:185
+#: includes/Elementor/Loader.php:187
 msgid "Soma"
 msgstr "Soma"
 
 #. translators: 1: Plugin name 2: Elementor
-#: includes/Elementor/Loader.php:361
+#: includes/Elementor/Loader.php:363
 #, php-format
 msgid "<strong>%1$s</strong> requires <strong>%2$s</strong> plugin to be installed and activated for full functionality."
 msgstr "<strong>%1$s</strong> requiere que el plugin <strong>%2$s</strong> esté instalado y activado para su funcionalidad completa."
@@ -320,6 +321,7 @@ msgstr "<strong>%1$s</strong> requiere que el plugin <strong>%2$s</strong> esté
 #: includes/Elementor/Widgets/BusinessUnits.php:81
 #: includes/Elementor/Widgets/Documents.php:172
 #: includes/Elementor/Widgets/StockPrice.php:81
+#: includes/Elementor/Widgets/TeamMember.php:121
 msgid "Content"
 msgstr "Contenido"
 
@@ -372,6 +374,10 @@ msgstr "Lista"
 #: includes/Elementor/Widgets/Services.php:368
 #: includes/Elementor/Widgets/StockPrice.php:183
 #: includes/Elementor/Widgets/StockPrice.php:215
+#: includes/Elementor/Widgets/TeamMember.php:233
+#: includes/Elementor/Widgets/TeamMember.php:288
+#: includes/Elementor/Widgets/TeamMember.php:346
+#: includes/Elementor/Widgets/TeamMember.php:383
 #: includes/Elementor/Widgets/TeamMembers.php:363
 #: includes/Elementor/Widgets/TeamMembers.php:509
 #: includes/Elementor/Widgets/TeamMembers.php:611
@@ -390,6 +396,11 @@ msgstr "Tipografía"
 #: includes/Elementor/Widgets/Services.php:372
 #: includes/Elementor/Widgets/StockPrice.php:170
 #: includes/Elementor/Widgets/StockPrice.php:202
+#: includes/Elementor/Widgets/TeamMember.php:244
+#: includes/Elementor/Widgets/TeamMember.php:299
+#: includes/Elementor/Widgets/TeamMember.php:357
+#: includes/Elementor/Widgets/TeamMember.php:394
+#: includes/Elementor/Widgets/TeamMember.php:455
 #: includes/Elementor/Widgets/TeamMembers.php:374
 #: includes/Elementor/Widgets/TeamMembers.php:528
 #: includes/Elementor/Widgets/TeamMembers.php:630
@@ -542,12 +553,14 @@ msgstr "Fondo"
 #: includes/Elementor/Widgets/Navbar.php:262
 #: includes/Elementor/Widgets/Portfolio.php:343
 #: includes/Elementor/Widgets/Services.php:222
+#: includes/Elementor/Widgets/TeamMember.php:198
 #: includes/Elementor/Widgets/TeamMembers.php:325
 msgid "Padding"
 msgstr "Relleno"
 
 #: includes/Elementor/Widgets/Documents.php:291
 #: includes/Elementor/Widgets/Portfolio.php:583
+#: includes/Elementor/Widgets/TeamMember.php:411
 #: includes/Elementor/Widgets/TeamMembers.php:454
 msgid "Image"
 msgstr "Imagen"
@@ -682,6 +695,7 @@ msgstr "Enlace de Política de Privacidad"
 
 #: includes/Elementor/Widgets/Footer.php:284
 #: includes/Elementor/Widgets/Portfolio.php:335
+#: includes/Elementor/Widgets/TeamMember.php:190
 #: includes/Elementor/Widgets/TeamMembers.php:317
 msgid "Container"
 msgstr "Contenedor"
@@ -791,6 +805,9 @@ msgstr "Usar Logo del Personalizador del Tema"
 #: includes/Elementor/Widgets/Portfolio.php:232
 #: includes/Elementor/Widgets/Portfolio.php:244
 #: includes/Elementor/Widgets/Portfolio.php:256
+#: includes/Elementor/Widgets/TeamMember.php:131
+#: includes/Elementor/Widgets/TeamMember.php:158
+#: includes/Elementor/Widgets/TeamMember.php:170
 #: includes/Elementor/Widgets/TeamMembers.php:203
 #: includes/Elementor/Widgets/TeamMembers.php:252
 #: includes/Elementor/Widgets/TeamMembers.php:264
@@ -804,6 +821,9 @@ msgstr "Sí"
 #: includes/Elementor/Widgets/Portfolio.php:233
 #: includes/Elementor/Widgets/Portfolio.php:245
 #: includes/Elementor/Widgets/Portfolio.php:257
+#: includes/Elementor/Widgets/TeamMember.php:132
+#: includes/Elementor/Widgets/TeamMember.php:159
+#: includes/Elementor/Widgets/TeamMember.php:171
 #: includes/Elementor/Widgets/TeamMembers.php:204
 #: includes/Elementor/Widgets/TeamMembers.php:253
 #: includes/Elementor/Widgets/TeamMembers.php:265
@@ -933,6 +953,7 @@ msgid "Description for service 3"
 msgstr "Descripción del servicio 3"
 
 #: includes/Elementor/Widgets/Services.php:261
+#: includes/Elementor/Widgets/TeamMember.php:467
 msgid "Size"
 msgstr "Tamaño"
 
@@ -1238,6 +1259,7 @@ msgid "Loading more"
 msgstr "Cargando más"
 
 #: includes/Elementor/Widgets/Portfolio.php:355
+#: includes/Elementor/Widgets/TeamMember.php:210
 #: includes/Elementor/Widgets/TeamMembers.php:337
 msgid "Background Color"
 msgstr "Color de Fondo"
@@ -1389,10 +1411,13 @@ msgstr "Categoría"
 msgid "Section Title"
 msgstr "Título de Sección"
 
+#: includes/Elementor/Widgets/TeamMember.php:258
+#: includes/Elementor/Widgets/TeamMember.php:313
 #: includes/Elementor/Widgets/TeamMembers.php:388
 msgid "Margin Bottom"
 msgstr "Margen Inferior"
 
+#: includes/Elementor/Widgets/TeamMember.php:224
 #: includes/Elementor/Widgets/TeamMembers.php:500
 msgid "Name"
 msgstr "Nombre"
@@ -1402,6 +1427,7 @@ msgstr "Nombre"
 msgid "Margin Top"
 msgstr "Margen Superior"
 
+#: includes/Elementor/Widgets/TeamMember.php:279
 #: includes/Elementor/Widgets/TeamMembers.php:599
 msgid "Position"
 msgstr "Cargo"
@@ -1409,3 +1435,59 @@ msgstr "Cargo"
 #: includes/Elementor/Widgets/Documents.php:123
 msgid "Select a category to filter documents. Leave empty to show all."
 msgstr "Selecciona una categoría para filtrar documentos. Deja vacío para mostrar todos."
+
+#: includes/Elementor/Widgets/TeamMember.php:55
+msgid "Team Member Profile"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMember.php:92
+msgid "Select a team member..."
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMember.php:156
+msgid "Show Featured Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMember.php:168
+msgid "Show SOMA Logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMember.php:334
+msgid "Featured Text"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMember.php:374
+msgid "Biography"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMember.php:444
+msgid "SOMA Logo"
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMember.php:520
+msgid "Please select a team member from the widget settings."
+msgstr ""
+
+#: includes/Elementor/Widgets/TeamMember.php:533
+msgid "Invalid team member selected."
+msgstr "Miembro del equipo seleccionado inválido."
+
+#: includes/Elementor/Widgets/TeamMember.php:128
+msgid "Use Current Member"
+msgstr "Usar Miembro Actual"
+
+#: includes/Elementor/Widgets/TeamMember.php:129
+msgid "Automatically detect team member from URL. Ideal for global templates."
+msgstr "Detectar automáticamente el miembro del equipo desde la URL. Ideal para plantillas globales."
+
+#: includes/Elementor/Widgets/TeamMember.php:141
+msgid "Select Team Member"
+msgstr "Seleccionar Miembro del Equipo"
+
+#: includes/Elementor/Widgets/TeamMember.php:142
+msgid "Manually select a specific team member."
+msgstr "Seleccionar manualmente un miembro específico del equipo."
+
+#: includes/Elementor/Widgets/TeamMember.php:518
+msgid "This widget will display the current team member when viewed on a team member page. Preview not available in editor."
+msgstr "Este widget mostrará el miembro actual del equipo cuando se visualice en una página de miembro. Vista previa no disponible en el editor."

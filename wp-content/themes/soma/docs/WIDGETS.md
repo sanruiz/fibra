@@ -1,8 +1,8 @@
 # SOMA Theme v3.0 - Elementor Widgets Reference
 
-**Version**: 3.0.0  
-**Last Updated**: December 12, 2025  
-**Total Widgets**: 8
+**Version**: 3.1.12  
+**Last Updated**: January 7, 2026  
+**Total Widgets**: 9
 
 ---
 
@@ -26,7 +26,7 @@
 
 ## Overview
 
-SOMA v3.0 includes 8 custom Elementor widgets designed specifically for corporate websites and real estate investment trusts. All widgets are grouped under the **"SOMA"** category in the Elementor panel.
+SOMA v3.0 includes 9 custom Elementor widgets designed specifically for corporate websites and real estate investment trusts. All widgets are grouped under the **"SOMA"** category in the Elementor panel.
 
 ### Key Features
 
@@ -398,7 +398,88 @@ if (!empty($settings['taxonomy_filter'])) {
 
 ---
 
-### 6. News List Widget
+### 6. Team Member Widget
+
+**Class**: `Soma\Elementor\Widgets\TeamMember`  
+**ID**: `soma-team-member`  
+**Icon**: `eicon-person`
+
+#### Description
+
+Displays a single team member profile with photo, name, position, featured text, and biography. Designed to replicate the team-members single page structure within Elementor layouts. Auto-detects team member from URL context or allows manual selection.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Team Member** | Select | Auto-detect | Team member to display (auto-detects from URL) |
+| **Show Featured Image** | Switcher | Yes | Display member photo |
+| **Show Name** | Switcher | Yes | Display member name |
+| **Show Position** | Switcher | Yes | Display job title |
+| **Show Featured Text** | Switcher | Yes | Display highlighted text |
+| **Show Biography** | Switcher | Yes | Display full bio |
+
+#### Style Controls
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Container Padding** | Dimensions | Section padding (60px 0 140px default) |
+| **Name Typography** | Group | Name text styling |
+| **Name Margin** | Dimensions | Name spacing |
+| **Position Typography** | Group | Job title styling |
+| **Position Margin** | Dimensions | Position spacing |
+| **Featured Text Typography** | Group | Featured text styling |
+| **Biography Typography** | Group | Bio content styling (18px/25px line-height) |
+| **Image Max Width** | Slider | Photo width (max 410px) |
+| **Section Margins** | Dimensions | Spacing between sections (70px default) |
+
+#### Layout
+
+**Responsive 2-Column Flexbox:**
+- Left column (50%): Name, Position, Featured Text
+- Right column (50%): Featured Image, Biography  
+- Desktop padding: `60px 0 140px`
+- Mobile padding: `45px 0 80px`
+- Section margins: `70px` (desktop), `45px` (mobile)
+
+#### CSS Variables Used
+
+```css
+--soma-font-size-h1
+--soma-font-size-h3
+--soma-font-size-body
+--soma-font-family-primary
+--soma-color-text-primary
+--soma-spacing-md
+--soma-spacing-lg
+--soma-spacing-xl
+--soma-transition-base
+```
+
+#### Usage Example
+
+```php
+// Auto-detect from URL (in single-team-members.php template)
+// Widget automatically gets team member from URL context
+
+// Manual selection (in custom layouts)
+$settings['team_member_id'] = 123; // Specific team member post ID
+```
+
+#### ACF Integration
+
+**Required ACF Fields on team-members post type:**
+- Featured Image (WordPress native)
+- `team_member_info` (Group)
+  - `title` (Text) - Job title/position
+  - `featured_text` (Textarea) - Highlighted intro text
+  - `description` (WYSIWYG) - Full biography
+
+**Note**: Field mapping uses `team_member_info.title` for position (not `member_position`).
+
+---
+
+### 7. News List Widget
 
 **Class**: `Soma\Elementor\Widgets\NewsList`  
 **ID**: `soma-news-list`  
@@ -478,7 +559,7 @@ Optional - Can display custom ACF fields if available.
 
 ---
 
-### 7. Portfolio Widget
+### 8. Portfolio Widget
 
 **Class**: `Soma\Elementor\Widgets\Portfolio`  
 **ID**: `soma-portfolio`  
@@ -563,7 +644,7 @@ if (!empty($settings['taxonomy_filter'])) {
 
 ---
 
-### 8. Contact Form Widget
+### 9. Contact Form Widget
 
 **Class**: `Soma\Elementor\Widgets\ContactForm`  
 **ID**: `soma-contact-form`  
@@ -814,14 +895,21 @@ class MyWidgetTest extends WP_UnitTestCase {
 
     private ?MyWidget $widget = null;
 
-    public function set_up(): void {
-        parent::set_up();
+    public function setUp(): void {
+        parent::setUp();
+        
+        // Skip if Elementor not loaded - CRITICAL for CI compatibility
+        if (!did_action('elementor/loaded')) {
+            $this->markTestSkipped('Elementor not loaded');
+            return; // IMPORTANT: Always include return after markTestSkipped
+        }
+        
         $this->widget = new MyWidget();
     }
 
-    public function tear_down(): void {
+    public function tearDown(): void {
         $this->widget = null;
-        parent::tear_down();
+        parent::tearDown();
     }
 
     public function test_widget_name(): void {

@@ -105,8 +105,9 @@ class StockPriceWidgetTest extends WP_UnitTestCase {
 		$this->assertNotEmpty( $controls, 'Widget should have controls registered' );
 
 		// Verify specific controls exist.
-		$this->assertArrayHasKey( 'label_text', $controls, 'Widget should have label_text control' );
 		$this->assertArrayHasKey( 'layout', $controls, 'Widget should have layout control' );
+		$this->assertArrayHasKey( 'alignment', $controls, 'Widget should have alignment control' );
+		$this->assertArrayHasKey( 'gap', $controls, 'Widget should have gap control' );
 	}
 
 	/**

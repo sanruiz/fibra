@@ -936,18 +936,15 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 
 4. **Enqueue CSS** - In widget class `get_style_depends()` or `functions.php`
 
-5. **Create Unit Tests** - `tests/Unit/Elementor/{WidgetName}WidgetTest.php`
-   - Test class structure with ReflectionClass
-   - Test required methods exist
-   - Test return types and visibility
-
-6. **Create Integration Tests** - `tests/Integration/Elementor/{WidgetName}WidgetTest.php`
+5. **Create Integration Tests** - `tests/Integration/Elementor/{WidgetName}WidgetTest.php`
+   - ⚠️ **IMPORTANT**: Widgets should ONLY have integration tests, NOT unit tests
    - Test widget name, title, icon
    - Test categories contain 'soma'
    - Test style dependencies
    - Test rendering output
+   - **Note**: This is a project convention - no other widget unit tests exist
 
-7. **Update AllWidgetsTest** - `tests/Integration/Elementor/AllWidgetsTest.php`
+6. **Update AllWidgetsTest** - `tests/Integration/Elementor/AllWidgetsTest.php`
    ```php
    // Add to $widget_classes array
    '{WidgetName}' => \Soma\Elementor\Widgets\{WidgetName}::class,
@@ -956,14 +953,14 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
    '{WidgetName}' => 'soma-{widget-name}',
    ```
 
-8. **Regenerate Translations** - From theme root:
+7. **Regenerate Translations** - From theme root:
    ```bash
    wp i18n make-pot . languages/soma.pot --domain=soma --exclude=node_modules,vendor,tests
    wp i18n update-po languages/soma.pot languages/
    wp i18n make-mo languages/
    ```
 
-9. **Quality Gates** - Run before commit:
+8. **Quality Gates** - Run before commit:
    ```bash
    php -l includes/Elementor/Widgets/{WidgetName}.php  # Syntax check
    vendor/bin/phpcs includes/Elementor/Widgets/{WidgetName}.php  # Coding standards

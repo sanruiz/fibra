@@ -34,11 +34,12 @@ class BreadcrumbWidgetTest extends WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function set_up(): void {
-		parent::set_up();
+	public function setUp(): void {
+		parent::setUp();
 
 		if ( ! class_exists( '\Elementor\Plugin' ) ) {
 			$this->markTestSkipped( 'Elementor plugin is not active' );
+			return; // Prevent further execution when skipped.
 		}
 
 		$this->widget = new Breadcrumb();
@@ -49,9 +50,9 @@ class BreadcrumbWidgetTest extends WP_UnitTestCase {
 	 *
 	 * @return void
 	 */
-	public function tear_down(): void {
+	public function tearDown(): void {
 		$this->widget = null;
-		parent::tear_down();
+		parent::tearDown();
 	}
 
 	/**

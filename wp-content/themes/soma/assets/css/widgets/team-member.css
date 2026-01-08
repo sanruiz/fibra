@@ -1,0 +1,183 @@
+/**
+ * Team Member Widget Styles (Single Profile)
+ *
+ * Replicates the two-column flexbox layout from singles/team-members.php.
+ * Layout: Left column (title + featured-text), Right column (image + body).
+ *
+ * @package Soma
+ * @since 3.1.12
+ */
+
+.soma-team-member {
+	padding: 60px 0 140px 0;
+}
+
+.soma-team-member .container {
+	max-width: var(--soma-container-max-width);
+	margin: 0 auto;
+	padding: 0 var(--soma-spacing-md);
+}
+
+/* Flexbox 2-column layout */
+.soma-team-member .content {
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+}
+
+/* Left Column: Title and Featured Text (50% width) */
+.soma-team-member .title,
+.soma-team-member .featured-text {
+	width: calc(100% * (6 / 12));
+	box-sizing: border-box;
+	padding-right: 15px;
+}
+
+/* Right Column: Image and Body (50% width) */
+.soma-team-member .featured-image,
+.soma-team-member .body {
+	width: calc(100% * (6 / 12));
+	box-sizing: border-box;
+	padding-left: 15px;
+	margin-left: auto;
+}
+
+/* Spacing between sections */
+.soma-team-member .title,
+.soma-team-member .featured-image {
+	margin-bottom: 70px;
+}
+
+/* Title Section */
+.soma-team-member .title {
+	position: relative;
+	min-height: 200px;
+}
+
+.soma-team-member .title h3 {
+	margin: 0;
+}
+
+.soma-team-member .member-name {
+	font-family: var(--soma-font-family-primary);
+	font-size: var(--soma-font-size-h2);
+	font-weight: var(--soma-font-weight-bold);
+	line-height: var(--soma-line-height-tight);
+	color: var(--soma-color-text-primary);
+	margin-top: -10px;
+}
+
+.soma-team-member .member-title {
+	font-family: var(--soma-font-family-primary);
+	font-size: var(--soma-font-size-h4);
+	font-weight: var(--soma-font-weight-normal);
+	line-height: var(--soma-line-height-normal);
+	color: var(--soma-color-text-secondary, #7E7E87);
+}
+
+/* Featured Image */
+.soma-team-member .featured-image img {
+	width: 100%;
+	max-width: 410px;
+	height: auto;
+	display: block;
+}
+
+/* Featured Text */
+.soma-team-member .featured-text {
+	position: relative;
+}
+
+.soma-team-member .featured-text h3 {
+	font-family: var(--soma-font-family-primary);
+	font-size: var(--soma-font-size-h3);
+	font-weight: var(--soma-font-weight-bold);
+	line-height: var(--soma-line-height-normal);
+	color: var(--soma-color-text-primary);
+	margin: 0;
+	max-width: 480px;
+}
+
+/* Biography/Body */
+.soma-team-member .body-content p {
+	font-size: var(--soma-font-size-medium, 18px);
+	color: var(--soma-color-text-secondary, #7E7E87);
+	letter-spacing: 0;
+	line-height: 25px;
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+
+.soma-team-member .body-content li {
+	font-size: var(--soma-font-size-medium, 18px);
+	color: var(--soma-color-text-secondary, #7E7E87);
+}
+
+.soma-team-member .body-content h1,
+.soma-team-member .body-content h2,
+.soma-team-member .body-content h3,
+.soma-team-member .body-content h4,
+.soma-team-member .body-content h5,
+.soma-team-member .body-content h6 {
+	margin: var(--soma-spacing-lg) 0 var(--soma-spacing-md) 0;
+	font-family: var(--soma-font-family-primary);
+	font-weight: var(--soma-font-weight-bold);
+	line-height: var(--soma-line-height-tight);
+	color: var(--soma-color-text-primary);
+}
+
+.soma-team-member .body-content ul,
+.soma-team-member .body-content ol {
+	margin: 0 0 var(--soma-spacing-md) 0;
+	padding-left: var(--soma-spacing-lg);
+}
+
+/* Responsive - Mobile (767px and below) */
+@media (max-width: 767px) {
+	.soma-team-member {
+		padding: 45px 0 80px 0;
+	}
+
+	/* Stack columns vertically on mobile */
+	.soma-team-member .title,
+	.soma-team-member .featured-text,
+	.soma-team-member .featured-image,
+	.soma-team-member .body {
+		width: 100%;
+		padding-right: 0;
+		padding-left: 0;
+	}
+
+	.soma-team-member .title,
+	.soma-team-member .featured-image {
+		margin-bottom: 45px;
+	}
+
+	.soma-team-member .title {
+		min-height: auto;
+	}
+
+	.soma-team-member .featured-text h3 {
+		margin-bottom: 40px;
+	}
+}
+
+/* Elementor Editor Alerts */
+.soma-team-member .elementor-alert {
+	padding: var(--soma-spacing-md);
+	margin: var(--soma-spacing-md) 0;
+	border-radius: var(--soma-border-radius);
+	font-family: var(--soma-font-family-primary);
+}
+
+.soma-team-member .elementor-alert-warning {
+	background-color: #fff3cd;
+	border: 1px solid #ffc107;
+	color: #856404;
+}
+
+.soma-team-member .elementor-alert-danger {
+	background-color: #f8d7da;
+	border: 1px solid #dc3545;
+	color: #721c24;
+}
