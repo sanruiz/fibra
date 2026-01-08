@@ -240,6 +240,7 @@ $args = [
 #### ACF Integration
 
 **Required ACF Fields on Business Unit Pages:**
+
 - `unit_icon` (Image) - Business unit icon
 - `unit_description` (Textarea) - Short description
 - `unit_link` (Link) - External or internal link
@@ -390,6 +391,7 @@ if (!empty($settings['taxonomy_filter'])) {
 #### ACF Integration
 
 **Required ACF Fields on team-members post type:**
+
 - `member_position` (Text) - Job title
 - `member_bio` (Textarea) - Biography
 - `member_email` (Email) - Contact email
@@ -436,6 +438,7 @@ Displays a single team member profile with photo, name, position, featured text,
 #### Layout
 
 **Responsive 2-Column Flexbox:**
+
 - Left column (50%): Name, Position, Featured Text
 - Right column (50%): Featured Image, Biography  
 - Desktop padding: `60px 0 140px`
@@ -469,6 +472,7 @@ $settings['team_member_id'] = 123; // Specific team member post ID
 #### ACF Integration
 
 **Required ACF Fields on team-members post type:**
+
 - Featured Image (WordPress native)
 - `team_member_info` (Group)
   - `title` (Text) - Job title/position
@@ -636,6 +640,7 @@ if (!empty($settings['taxonomy_filter'])) {
 #### ACF Integration
 
 **Required ACF Fields on portfolio post type:**
+
 - `project_client` (Text) - Client name
 - `project_location` (Text) - Project location
 - `project_year` (Number) - Completion year
@@ -740,11 +745,13 @@ None - Uses CF7 shortcode and widget settings.
 ### Standard Control Groups
 
 **Content Tab:**
+
 - Section settings (title, subtitle)
 - Query settings (number, order, filter)
 - Display options (layout, columns, show/hide)
 
 **Style Tab:**
+
 - Section styling (title, description)
 - Card/item styling (background, borders, spacing)
 - Typography (all text elements)
@@ -752,6 +759,7 @@ None - Uses CF7 shortcode and widget settings.
 - Spacing (padding, margins, gaps)
 
 **Advanced Tab:**
+
 - CSS ID
 - CSS Classes
 - Custom CSS
@@ -1004,12 +1012,14 @@ Use this checklist when creating a new Elementor widget:
 ### Widget Not Appearing in Panel
 
 **Possible Causes:**
+
 1. Widget class not registered in Loader
 2. Elementor cache needs clearing
 3. Widget class has syntax error
 4. Base class not extended
 
 **Solutions:**
+
 ```php
 // 1. Check Loader.php registration
 private function register_widgets(): void {
@@ -1031,12 +1041,14 @@ class YourWidget extends WidgetBase { }
 ### Styles Not Loading
 
 **Possible Causes:**
+
 1. CSS file not enqueued
 2. Style dependencies not declared
 3. File path incorrect
 4. Caching issue
 
 **Solutions:**
+
 ```php
 // 1. Check get_style_depends()
 public function get_style_depends(): array {
@@ -1054,12 +1066,14 @@ soma_cache_flush();
 ### ACF Fields Not Displaying
 
 **Possible Causes:**
+
 1. Field group not assigned to post type
 2. Field key incorrect
 3. ACF not active
 4. Field data not saved
 
 **Solutions:**
+
 ```php
 // 1. Check field exists
 $value = get_field('field_name');
@@ -1079,12 +1093,14 @@ if (!function_exists('get_field')) {
 ### Query Returns No Results
 
 **Possible Causes:**
+
 1. Post type not registered
 2. Incorrect query arguments
 3. No posts published
 4. Taxonomy filter too restrictive
 
 **Solutions:**
+
 ```php
 // 1. Verify post type exists
 if (!post_type_exists('your-post-type')) {
@@ -1122,8 +1138,8 @@ $args['post_status'] = 'publish';
 
 ### Support
 
-- **GitHub Issues**: https://github.com/sanruiz/fibra/issues
-- **Project Board**: https://github.com/users/sanruiz/projects/4
+- **GitHub Issues**: <https://github.com/sanruiz/fibra/issues>
+- **Project Board**: <https://github.com/users/sanruiz/projects/4>
 
 ---
 
