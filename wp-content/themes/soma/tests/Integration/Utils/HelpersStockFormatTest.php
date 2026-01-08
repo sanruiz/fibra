@@ -2,9 +2,9 @@
 /**
  * Stock Formatting Helper Functions Integration Tests
  *
- * Tests for stock formatting helper functions that use WordPress functions.
- * These are integration tests because soma_format_stock_datetime() uses wp_date()
- * which requires WordPress to be loaded.
+ * Tests for stock formatting helper functions.
+ * These are integration tests because soma_format_stock_datetime() uses wp_date(),
+ * which requires WordPress to be loaded, while the price and change helpers use native PHP.
  *
  * @package Soma\Tests\Integration\Utils
  */
