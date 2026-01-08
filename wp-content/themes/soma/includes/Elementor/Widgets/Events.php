@@ -77,19 +77,25 @@ class Events extends WidgetBase {
 	/**
 	 * Get style dependencies
 	 *
+	 * Widget uses styles from main.bundle.css (sass/partials/_Events.scss)
+	 * No custom widget CSS needed.
+	 *
 	 * @return array<int, string> Style handles
 	 */
 	public function get_style_depends(): array {
-		return array( 'soma-events' );
+		return array();
 	}
 
 	/**
 	 * Get script dependencies
 	 *
+	 * Widget uses eventsHandler from main.bundle.js (js/components/events.js)
+	 * Auto-initialized via .events-partial-e5e1bb class detection in main.js
+	 *
 	 * @return array<int, string> Script handles
 	 */
 	public function get_script_depends(): array {
-		return array( 'soma-events' );
+		return array();
 	}
 
 	/**
@@ -431,56 +437,48 @@ class Events extends WidgetBase {
 	/**
 	 * Render widget output
 	 *
-	 * Outputs HTML structure that works with the events.js handler.
+	 * Outputs HTML structure matching the original Events partial so that the
+	 * existing eventsHandler from js/components/events.js works without modification.
 	 * The JS fetches data from /wp-json/soma/events and populates the DOM.
+	 *
+	 * Structure matches partials/Events.php and sass/partials/_Events.scss:
+	 * - .events-partial-e5e1bb > .container > .content
+	 * - .content > .filters + .events (flex layout)
+	 * - .filters > .mobile-title + .list > .item (not ul/li)
 	 *
 	 * @return void
 	 */
 	protected function render(): void {
 		$settings = $this->get_settings_for_display();
 
-		$order        = $settings['order'] ?? 'ASC';
-		$order_by     = $settings['order_by'] ?? 'custom_date';
 		$show_filters = 'yes' === ( $settings['show_filters'] ?? 'yes' );
 		$filter_title = $settings['filter_title'] ?? __( 'Filter by Month', 'soma' );
 		$see_all_text = $settings['see_all_text'] ?? __( 'See All', 'soma' );
 		$current_lang = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
-
-		// Build widget classes.
-		$widget_classes = array(
-			'soma-events-widget',
-			'events-partial-e5e1bb', // Keep for JS handler compatibility.
-		);
 		?>
-		<section class="<?php echo esc_attr( implode( ' ', $widget_classes ) ); ?>"
-			data-lang="<?php echo esc_attr( $current_lang ); ?>"
-			data-order="<?php echo esc_attr( $order ); ?>"
-			data-order-by="<?php echo esc_attr( $order_by ); ?>"
-			data-endpoint="<?php echo esc_url( rest_url( 'soma/events' ) ); ?>">
+		<section class="events-partial-e5e1bb" data-lang="<?php echo esc_attr( $current_lang ); ?>">
+			<div class="container">
+				<div class="content">
+					<?php if ( $show_filters ) : ?>
+					<div class="filters">
+						<div class="mobile-title">
+							<?php echo esc_html( $filter_title ); ?>
+							<span></span>
+						</div>
+						<div class="list">
+							<div class="item active" data-filter="all">
+								<?php echo esc_html( $see_all_text ); ?>
+							</div>
+							<!-- JS adds more filter items dynamically -->
+						</div>
+					</div>
+					<?php endif; ?>
 
-			<?php if ( $show_filters ) : ?>
-			<div class="filters">
-				<div class="mobile-title">
-					<?php echo esc_html( $filter_title ); ?>
-					<span></span>
-				</div>
-				<ul>
-					<li>
-						<a class="active" data-filter="all">
-							<?php echo esc_html( $see_all_text ); ?>
-						</a>
-					</li>
-					<!-- AJAX: Filter items rendered by JS -->
-				</ul>
-			</div>
-			<?php endif; ?>
-
-			<div class="events">
-				<div class="loading">
-					<span class="spinner"></span>
-				</div>
-				<div class="event-list">
-					<!-- AJAX: Event cards rendered by JS -->
+					<div class="events">
+						<div class="event-list">
+							<!-- JS populates event cards dynamically -->
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>

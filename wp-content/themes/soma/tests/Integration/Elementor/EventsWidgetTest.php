@@ -105,22 +105,26 @@ class EventsWidgetTest extends WP_UnitTestCase {
 
 	/**
 	 * Test style dependencies
+	 *
+	 * Widget uses main.bundle.css (from _Events.scss), no custom CSS.
 	 */
 	public function test_get_style_depends(): void {
 		$styles = $this->widget->get_style_depends();
 
 		$this->assertIsArray( $styles );
-		$this->assertContains( 'soma-events', $styles );
+		$this->assertEmpty( $styles, 'Widget should use main.bundle.css, no custom styles' );
 	}
 
 	/**
 	 * Test script dependencies
+	 *
+	 * Widget uses eventsHandler from main.bundle.js, no custom JS.
 	 */
 	public function test_get_script_depends(): void {
 		$scripts = $this->widget->get_script_depends();
 
 		$this->assertIsArray( $scripts );
-		$this->assertContains( 'soma-events', $scripts );
+		$this->assertEmpty( $scripts, 'Widget should use main.bundle.js eventsHandler, no custom scripts' );
 	}
 
 	/**
@@ -187,11 +191,14 @@ class EventsWidgetTest extends WP_UnitTestCase {
 		$output = ob_get_clean();
 
 		$this->assertNotEmpty( $output, 'Widget should render output' );
-		$this->assertStringContainsString( 'soma-events-widget', $output );
+		$this->assertStringContainsString( 'events-partial-e5e1bb', $output );
 	}
 
 	/**
 	 * Test widget renders expected container classes
+	 *
+	 * Widget outputs same structure as partials/Events.php for
+	 * compatibility with eventsHandler from main.bundle.js.
 	 */
 	public function test_renders_container_classes(): void {
 		$reflection = new \ReflectionClass( $this->widget );
@@ -202,10 +209,15 @@ class EventsWidgetTest extends WP_UnitTestCase {
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( 'events-partial-e5e1bb', $output );
+		$this->assertStringContainsString( 'class="container"', $output );
+		$this->assertStringContainsString( 'class="content"', $output );
 	}
 
 	/**
 	 * Test widget renders data attributes
+	 *
+	 * Widget now uses original eventsHandler which uses _dittoURL_ global.
+	 * Only data-lang is needed for multilingual support.
 	 */
 	public function test_renders_data_attributes(): void {
 		$reflection = new \ReflectionClass( $this->widget );
@@ -215,9 +227,6 @@ class EventsWidgetTest extends WP_UnitTestCase {
 		$method->invoke( $this->widget );
 		$output = ob_get_clean();
 
-		$this->assertStringContainsString( 'data-endpoint', $output );
-		$this->assertStringContainsString( 'data-order', $output );
-		$this->assertStringContainsString( 'data-order-by', $output );
 		$this->assertStringContainsString( 'data-lang', $output );
 	}
 
@@ -301,9 +310,12 @@ class EventsWidgetTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test widget renders REST API endpoint URL
+	 * Test widget is compatible with original eventsHandler
+	 *
+	 * Widget outputs HTML structure expected by js/components/events.js
+	 * which is auto-initialized in main.js via .events-partial-e5e1bb selector.
 	 */
-	public function test_renders_rest_api_endpoint(): void {
+	public function test_compatible_with_events_handler(): void {
 		$reflection = new \ReflectionClass( $this->widget );
 		$method     = $reflection->getMethod( 'render' );
 
@@ -311,6 +323,8 @@ class EventsWidgetTest extends WP_UnitTestCase {
 		$method->invoke( $this->widget );
 		$output = ob_get_clean();
 
-		$this->assertStringContainsString( '/wp-json/soma/events', $output );
+		// eventsHandler expects: .filters .list .item elements.
+		$this->assertStringContainsString( 'class="list"', $output );
+		$this->assertStringContainsString( 'class="item', $output );
 	}
 }

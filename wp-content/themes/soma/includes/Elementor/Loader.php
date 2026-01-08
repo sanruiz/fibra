@@ -69,7 +69,6 @@ class Loader implements LoadableInterface {
 		'soma-business-units'  => 'business-units.css',
 		'soma-contact-form'    => 'contact-form.css',
 		'soma-documents'       => 'documents.css',
-		'soma-events'          => 'events.css',
 		'soma-footer'          => 'footer.css',
 		'soma-navbar'          => 'navbar.css',
 		'soma-news-list'       => 'news-list.css',
@@ -89,10 +88,6 @@ class Loader implements LoadableInterface {
 	private array $widget_scripts = array(
 		'soma-annual-reports' => array(
 			'file' => 'annualReports.js',
-			'deps' => array( 'jquery' ),
-		),
-		'soma-events'         => array(
-			'file' => 'events.js',
 			'deps' => array( 'jquery' ),
 		),
 		'soma-portfolio'      => array(
