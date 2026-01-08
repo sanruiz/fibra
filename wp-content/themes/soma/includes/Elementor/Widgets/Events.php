@@ -409,28 +409,6 @@ class Events extends WidgetBase {
 			)
 		);
 
-		$this->add_responsive_control(
-			'event_card_gap',
-			array(
-				'label'      => __( 'Card Gap', 'soma' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 60,
-					),
-				),
-				'default'    => array(
-					'size' => 30,
-					'unit' => 'px',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .event-list' => 'gap: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
 		$this->end_controls_section();
 	}
 
@@ -457,7 +435,6 @@ class Events extends WidgetBase {
 		$current_lang = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
 		?>
 		<section class="events-partial-e5e1bb" data-lang="<?php echo esc_attr( $current_lang ); ?>">
-			<div class="container">
 				<div class="content">
 					<?php if ( $show_filters ) : ?>
 					<div class="filters">
@@ -480,7 +457,6 @@ class Events extends WidgetBase {
 						</div>
 					</div>
 				</div>
-			</div>
 		</section>
 		<?php
 	}
