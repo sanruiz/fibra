@@ -179,7 +179,8 @@ class HelpersStockFormatTest extends WP_UnitTestCase {
 		$result    = soma_format_stock_datetime( $timestamp );
 
 		// Verify complete structure: "As of [time] [AM/PM] [TZ] [date]".
-		$pattern = '/^As of \d{1,2}:\d{2} (AM|PM) [A-Z]{3,5} \d{1,2}\/\d{1,2}\/\d{4}$/';
+		// Timezone can be abbreviated (CST, EST) or offset format (GMT+0000, UTC).
+		$pattern = '/^As of \d{1,2}:\d{2} (AM|PM) ([A-Z]{3,5}|GMT[+-]\d{4}|UTC) \d{1,2}\/\d{1,2}\/\d{4}$/';
 		$this->assertMatchesRegularExpression(
 			$pattern,
 			$result,
