@@ -799,8 +799,9 @@ class TeamMembers extends WidgetBase {
 								<?php if ( $use_card_link ) : ?>
 										<?php
 										// translators: %s is the team member's name.
+										$aria_label = sprintf( __( 'View %s profile', 'soma' ), get_the_title( $member->ID ) );
 										?>
-										<a href="<?php echo esc_url( $profile_url ); ?>" class="team-member-link" aria-label="<?php echo esc_attr( sprintf( __( 'View %s profile', 'soma' ), get_the_title( $member->ID ) ) ); ?>">
+										<a href="<?php echo esc_url( $profile_url ); ?>" class="team-member-link" aria-label="<?php echo esc_attr( $aria_label ); ?>">
 								<?php endif; ?>
 								<?php if ( $show_photo ) : ?>
 									<div class="member-image <?php echo esc_attr( ! $image_url ? 'no-image' : '' ); ?>">
