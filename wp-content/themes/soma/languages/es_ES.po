@@ -92,14 +92,14 @@ msgstr "Subrayado al Pasar"
 
 #: includes/Elementor/Widgets/AnnualReports.php:187
 #: includes/Elementor/Widgets/AnnualReports.php:188
-#: includes/Elementor/Widgets/AnnualReports.php:383
+#: includes/Elementor/Widgets/AnnualReports.php:452
 #: partials/AnnualReports.php:42
 msgid "Filter by Year"
 msgstr "Filtrar por año"
 
 #: includes/Elementor/Widgets/AnnualReports.php:197
 #: includes/Elementor/Widgets/AnnualReports.php:198
-#: includes/Elementor/Widgets/AnnualReports.php:384
+#: includes/Elementor/Widgets/AnnualReports.php:453
 #: includes/Elementor/Widgets/Events.php:199
 #: includes/Elementor/Widgets/Events.php:434
 #: partials/AnnualReports.php:47
@@ -374,7 +374,7 @@ msgstr "Cuadrícula"
 msgid "List"
 msgstr "Lista"
 
-#: includes/Elementor/Widgets/AnnualReports.php:234
+#: includes/Elementor/Widgets/AnnualReports.php:303
 #: includes/Elementor/Widgets/Breadcrumb.php:157
 #: includes/Elementor/Widgets/BusinessUnits.php:139
 #: includes/Elementor/Widgets/BusinessUnits.php:230
@@ -401,7 +401,7 @@ msgstr "Lista"
 msgid "Typography"
 msgstr "Tipografía"
 
-#: includes/Elementor/Widgets/AnnualReports.php:245
+#: includes/Elementor/Widgets/AnnualReports.php:314
 #: includes/Elementor/Widgets/BusinessUnits.php:143
 #: includes/Elementor/Widgets/Documents.php:356
 #: includes/Elementor/Widgets/Documents.php:419
@@ -590,6 +590,7 @@ msgstr "Fondo"
 msgid "Padding"
 msgstr "Relleno"
 
+#: includes/Elementor/Widgets/AnnualReports.php:225
 #: includes/Elementor/Widgets/Documents.php:291
 #: includes/Elementor/Widgets/Portfolio.php:583
 #: includes/Elementor/Widgets/TeamMember.php:383
@@ -614,7 +615,7 @@ msgstr "Espaciado"
 msgid "Download Link"
 msgstr "Enlace de Descarga"
 
-#: includes/Elementor/Widgets/AnnualReports.php:273
+#: includes/Elementor/Widgets/AnnualReports.php:342
 #: includes/Elementor/Widgets/Documents.php:433
 #: includes/Elementor/Widgets/Portfolio.php:526
 #: includes/Elementor/Widgets/TeamMembers.php:557
@@ -773,14 +774,14 @@ msgstr "Colores"
 msgid "Text Color"
 msgstr "Color del Texto"
 
-#: includes/Elementor/Widgets/AnnualReports.php:344
+#: includes/Elementor/Widgets/AnnualReports.php:413
 #: includes/Elementor/Widgets/Breadcrumb.php:182
 #: includes/Elementor/Widgets/Events.php:390
 #: includes/Elementor/Widgets/Footer.php:382
 msgid "Link Color"
 msgstr "Color del Enlace"
 
-#: includes/Elementor/Widgets/AnnualReports.php:358
+#: includes/Elementor/Widgets/AnnualReports.php:427
 #: includes/Elementor/Widgets/Breadcrumb.php:196
 #: includes/Elementor/Widgets/Events.php:404
 #: includes/Elementor/Widgets/Footer.php:383
@@ -1334,7 +1335,7 @@ msgstr "Color de Fondo"
 msgid "Filters"
 msgstr "Filtros"
 
-#: includes/Elementor/Widgets/AnnualReports.php:259
+#: includes/Elementor/Widgets/AnnualReports.php:328
 #: includes/Elementor/Widgets/Events.php:290
 #: includes/Elementor/Widgets/Portfolio.php:406
 msgid "Active Color"
@@ -1685,37 +1686,37 @@ msgstr "Texto de Ver Todos"
 
 #: includes/Elementor/Widgets/AnnualReports.php:207
 #: includes/Elementor/Widgets/AnnualReports.php:208
-#: includes/Elementor/Widgets/AnnualReports.php:385
+#: includes/Elementor/Widgets/AnnualReports.php:454
 msgid "Download"
 msgstr "Descargar"
 
-#: includes/Elementor/Widgets/AnnualReports.php:225
+#: includes/Elementor/Widgets/AnnualReports.php:294
 msgid "Year Filter"
 msgstr "Filtro de Año"
 
-#: includes/Elementor/Widgets/AnnualReports.php:287
+#: includes/Elementor/Widgets/AnnualReports.php:356
 msgid "Document Card"
 msgstr "Tarjeta de Documento"
 
-#: includes/Elementor/Widgets/AnnualReports.php:296
+#: includes/Elementor/Widgets/AnnualReports.php:365
 msgid "Title Typography"
 msgstr "Tipografía del Título"
 
-#: includes/Elementor/Widgets/AnnualReports.php:307
+#: includes/Elementor/Widgets/AnnualReports.php:376
 msgid "Title Color"
 msgstr "Color del Título"
 
-#: includes/Elementor/Widgets/AnnualReports.php:322
+#: includes/Elementor/Widgets/AnnualReports.php:391
 #: includes/Elementor/Widgets/Events.php:379
 msgid "Description Typography"
 msgstr "Tipografía de la Descripción"
 
-#: includes/Elementor/Widgets/AnnualReports.php:333
+#: includes/Elementor/Widgets/AnnualReports.php:402
 #: includes/Elementor/Widgets/Events.php:367
 msgid "Description Color"
 msgstr "Color de la Descripción"
 
-#: includes/Elementor/Widgets/AnnualReports.php:399
+#: includes/Elementor/Widgets/AnnualReports.php:468
 msgid "Please select a document category to display annual reports."
 msgstr "Por favor selecciona una categoría de documentos para mostrar reportes."
 
@@ -1745,35 +1746,35 @@ msgstr "Tipografía de Fecha"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:124
 msgid "SOMA21"
-msgstr ""
+msgstr "SOMA21"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:133
 msgid "Subtitle"
-msgstr ""
+msgstr "Subtítulo"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:136
 msgid "e.g., Share Quotation"
-msgstr ""
+msgstr "ej., Cotización de Acciones"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:157
 msgid "Actual Price"
-msgstr ""
+msgstr "Precio Actual"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:253
 msgid "Show Volume"
-msgstr ""
+msgstr "Mostrar Volumen"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:265
 msgid "Show Date"
-msgstr ""
+msgstr "Mostrar Fecha"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:277
 msgid "Show Change"
-msgstr ""
+msgstr "Mostrar Cambio"
 
 #: includes/Elementor/Widgets/ShareQuotation.php:289
 msgid "Show Percentage"
-msgstr ""
+msgstr "Mostrar Porcentaje"
 
 #: includes/Elementor/Widgets/TeamMember.php:156
 #: includes/Elementor/Widgets/TeamMembers.php:288
@@ -1784,7 +1785,13 @@ msgstr "Mostrar Foto"
 msgid "Display member featured image."
 msgstr "Mostrar la imagen destacada del miembro."
 
-#: includes/Elementor/Widgets/TeamMembers.php:800
+#. translators: %s is the team member's name.
+#: includes/Elementor/Widgets/TeamMembers.php:802
 #, php-format
 msgid "View %s profile"
 msgstr "Ver perfil de %s"
+
+#: includes/Elementor/Widgets/AnnualReports.php:233
+#: includes/Elementor/Widgets/AnnualReports.php:262
+msgid "Image Height"
+msgstr "Altura de Imagen"

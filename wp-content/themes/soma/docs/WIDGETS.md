@@ -765,6 +765,9 @@ Financial reports display widget with year filtering for "Reportes Anuales" and 
 
 | Control | Type | Description |
 |---------|------|-------------|
+| **Image** | Section | Image height customization |
+| **Image Height (Full Width)** | Slider | Height for images in full-width variant (default: 307px) |
+| **Image Height (Three Columns)** | Slider | Height for images in three-columns variant (default: 348px) |
 | **Year Filter** | Section | Year button styling |
 | **Active Background** | Color | Active year button background |
 | **Active Color** | Color | Active year text color |

@@ -9,6 +9,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### AnnualReports Widget Enhancements
+
+#### ✨ Added
+
+- **Image Height Controls** - New Elementor SLIDER controls to customize image heights
+  - `image_height_full_width` - Controls image height in full-width variant (default: 307px)
+  - `image_height_three_columns` - Controls image height in three-columns variant (default: 348px)
+  - Responsive support with px and vh units
+  - Conditional display based on style_variant
+
+#### 🔄 Changed
+
+- **Removed Container Wrapper** - Eliminated `<div class="container">` wrapper from widget output
+  - Widget now adapts to its Elementor context (sections, columns)
+  - Improved layout flexibility for different page configurations
+  - No CSS, JS, or test dependencies were affected
+
+- **Image Display Improvements** - Enhanced image rendering in both layout variants
+  - Full-width variant: Added `aspect-ratio: 16/9`, `overflow: hidden`, `object-fit: cover`
+  - Three-columns variant: Added `aspect-ratio: 59/69`, `overflow: hidden`, `object-fit: cover`
+  - Removed fixed `max-height: 348px` in favor of Elementor-controlled height
+  - Images now fill container properly with consistent cropping
+
+#### 📦 Files Changed
+
+- `includes/Elementor/Widgets/AnnualReports.php` - Added Image style section with height controls, removed container div
+- `assets/css/widgets/annual-reports.css` - Added aspect-ratio, overflow, object-fit properties for consistent image display
+- `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Added assertions for image height controls
+- `docs/WIDGETS.md` - Added Image style controls documentation
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Added Spanish translations
+
+#### 🌐 Translations
+
+- `Image Height` → `Altura de Imagen`
+
+---
+
 ## [3.1.15] - 2026-01-08
 
 ### TeamMembers Widget Enhancements
