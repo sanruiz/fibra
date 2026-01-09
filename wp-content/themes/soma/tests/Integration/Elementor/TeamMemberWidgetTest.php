@@ -250,4 +250,55 @@ class TeamMemberWidgetTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'featured-text', $source, 'Widget should render featured text' );
 		$this->assertStringContainsString( 'body-content', $source, 'Widget should render body content' );
 	}
+
+	/**
+	 * Test that widget has photo toggle.
+	 */
+	public function test_has_photo_toggle(): void {
+		$reflection = new ReflectionClass( $this->widget );
+		$source     = file_get_contents( $reflection->getFileName() );
+
+		$this->assertStringContainsString(
+			"'show_photo'",
+			$source,
+			'TeamMember widget should have show_photo control'
+		);
+		$this->assertStringContainsString(
+			'Controls_Manager::SWITCHER',
+			$source,
+			'TeamMember widget should use SWITCHER for photo toggle'
+		);
+	}
+
+	/**
+	 * Test that show_photo control defaults to visible.
+	 */
+	public function test_show_photo_defaults_to_visible(): void {
+		$reflection = new ReflectionClass( $this->widget );
+		$method     = $reflection->getMethod( 'register_controls' );
+		$method->invoke( $this->widget );
+
+		$controls = $this->widget->get_controls();
+		$this->assertArrayHasKey( 'show_photo', $controls, 'Widget should have show_photo control' );
+		$this->assertSame( 'yes', $controls['show_photo']['default'], 'show_photo should default to visible (yes)' );
+	}
+
+	/**
+	 * Test that widget has full-card link.
+	 */
+	public function test_has_card_link(): void {
+		$reflection = new ReflectionClass( $this->widget );
+		$source     = file_get_contents( $reflection->getFileName() );
+
+		$this->assertStringContainsString(
+			'soma-team-member__card-link',
+			$source,
+			'TeamMember widget should have card link wrapper'
+		);
+		$this->assertStringContainsString(
+			'use_card_link',
+			$source,
+			'TeamMember widget should check if card link should be used'
+		);
+	}
 }

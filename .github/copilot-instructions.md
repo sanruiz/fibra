@@ -16,305 +16,293 @@ This is an **8-week WordPress website development project** for FibraSOMA's corp
 
 **Current status**: Check GitHub Projects board for current milestone and progress
 
-## ⚠️ CRITICAL: Language Policy
+---
 
-**ALL project files MUST be written in ENGLISH:**
+## 📋 Path-Specific Instructions
 
-- ✅ **Documentation** (`.md` files) - English only
-- ✅ **GitHub Actions Workflows** (`.yml` files) - English comments and descriptions
-- ✅ **Scripts** (`.sh`, `.php`, etc.) - English comments and output messages
-- ✅ **Code comments** - English only
-- ✅ **Commit messages** - English only
-- ✅ **PR descriptions** - English only
-- ✅ **Issue descriptions** - English only
+This project uses **automatic path-specific instructions** that VS Code loads based on file patterns. The following instruction files apply automatically:
 
-**Rationale**: 
-- Professional international standard
-- Better integration with development tools
-- Accessibility for global team members
-- Consistency with SOMA v3.0.0 codebase (fully in English)
+| File | Applies To | Description |
+|------|-----------|-------------|
+| `github-workflow.instructions.md` | `**` | GitFlow workflow, branch strategy, PRs, releases, CI/CD |
+| `documentation-language.instructions.md` | `**` | English-only policy, documentation standards |
+| `php.instructions.md` | `**/*.php` | WordPress/PHP coding standards, security patterns |
+| `elementor-widgets.instructions.md` | `**/Elementor/Widgets/**/*.php` | Widget development workflow |
+| `testing.instructions.md` | `tests/**/*.php` | PHPUnit testing conventions |
 
-**Exception**: User-facing content in WordPress (Spanish for FibraSOMA website visitors)
+**Note**: VS Code automatically combines applicable instructions. Content below provides unique project context not covered in path-specific files.
+
+### 🤔 Global vs Reactive: When to Use Which?
+
+**Understanding the Architecture:**
+- **Global** (`copilot-instructions.md`): ALWAYS loaded by VS Code, regardless of which files are open
+- **Reactive** (`.github/instructions/*.md`): Only loaded when files matching `applyTo` pattern are opened
+
+**What Goes in Global (this file):**
+| Content Type | Reason |
+|--------------|--------|
+| Project context & status | Always needed for any task |
+| Repository structure | Essential for navigation |
+| Commit & branch conventions | Needed during git operations (no files open) |
+| Release workflow commands | Used in terminal without editing files |
+| PR review comment commands | GitHub API operations |
+| Common pitfalls | Quick reference across all contexts |
+| Architecture overview (PSR-4, PageBuilder) | Foundational knowledge |
+
+**What Goes in Reactive Instructions:**
+| Content Type | File | Reason |
+|--------------|------|--------|
+| PHP coding standards, security patterns | `php.instructions.md` | Only when editing `.php` files |
+| Elementor widget workflow | `elementor-widgets.instructions.md` | Only when in Widgets directory |
+| PHPUnit conventions | `testing.instructions.md` | Only when editing tests |
+| Full workflow details | `github-workflow.instructions.md` | Detailed reference (not quick commands) |
+| Documentation standards | `documentation-language.instructions.md` | When writing docs |
+
+**Rule of Thumb:**
+- ✅ **Global**: Commands you run in terminal, context needed without files open, quick references
+- ✅ **Reactive**: Detailed coding standards, file-type-specific patterns, comprehensive guides
+- ⚠️ **Avoid duplication**: If detailed content exists in reactive files, only add a summary to global
 
 ---
 
-## ⚠️ MANDATORY: GitHub Workflow - GitFlow with Weekly Sprints
+## 📁 Repository Structure
 
-**CRITICAL**: This project follows a strict GitFlow workflow with weekly sprints.
+### Theme Development (within soma/)
+- **Location**: `wp-content/themes/soma/`
+- **Contains**: Source code, documentation, tests, assets
+- **Documentation**: `wp-content/themes/soma/docs/`
 
-### 🌳 Branch Strategy
+### GitHub Actions Workflows (repository root)
+- **Location**: `.github/workflows/` (repository root, NOT within theme)
+- **Contains**: All CI/CD workflow files (`.yml`)
+- **Current Workflows**:
+  - `.github/workflows/quality-and-tests.yml` - **CI**: Code quality and automated testing
+  - `.github/workflows/release-and-deploy.yml` - **CD**: Build, release, and deploy
 
-**Production Branch:**
-- `main` - Production-ready code ONLY
-  - ❌ NEVER commit directly
-  - ✅ Only receives PRs from `week-*` at sprint end
-  - ✅ Tags (`v*`) pushed ONLY from main
-  - ✅ Releases and deploys ONLY from main
+### Directory Summary
+- ✅ Theme code/docs: `wp-content/themes/soma/`
+- ✅ Workflows: `.github/workflows/` (root)
+- ✅ Deployment scripts: `.github/scripts/` (root)
+- ✅ Copilot instructions: `.github/copilot-instructions.md` (root)
+- ✅ Path-specific instructions: `.github/instructions/`
 
-**Sprint Branches:**
-- `week-*` - Sprint development branches (e.g., week-2, week-3)
-  - ❌ NEVER commit directly
-  - ✅ Receives PRs from `feature/`, `fix/` branches
-  - ✅ Merged to `main` at sprint end
-  - ⚠️ Tags from week-* run quality checks but DON'T deploy
+---
 
-**Development Branches:**
-- `feature/*` - New features from issues (e.g., `feature/hero-section`)
-- `fix/*` - Bug fixes from issues (e.g., `fix/navbar-mobile`)
-- `hotfix/*` - Emergency production fixes (e.g., `hotfix/security-patch`)
-- `chore/*`, `refactor/*` - Maintenance tasks
+## 🎯 SOMA v3.0.0 Theme Architecture
 
-**Deprecated:**
-- `develop` - No longer used (removed from CI/CD triggers)
+**Version**: 3.0.0 (Released December 12, 2025)  
+**Migration**: v2.0.7 → v3.0.0 complete  
 
-### 🔒 Git Hooks Setup (REQUIRED)
+### Core Architecture: ACF Flexible Content Page Builder
 
-**Install Git hooks on first clone to enforce branch protection:**
+**v3.0.0 PSR-4 System:** The page builder uses modern PSR-4 architecture with WordPress query vars:
 
-```bash
-# Run once after cloning the repository
-chmod +x install-hooks.sh
-./install-hooks.sh
-```
+```php
+// In page.php, templates/*.php, single.php:
+get_template_part('page-builder'); // Renders all ACF soma_blocks using PSR-4
 
-**What the hooks do:**
-- ✅ **pre-commit**: Blocks direct commits to `main`, `week-*`, `release/*`, and `develop`
-- ✅ **Enforces workflow**: All work must be done on `feature/fix/hotfix` branches
-- ✅ **Helpful messages**: Shows correct workflow if you try to commit to protected branch
-
-**Protected branches:**
-- `main` - Production (only via PR from week-*)
-- `week-*` - Sprints (only via PR from feature/fix)
-- `release/*` - Release preparation (only version bump, CHANGELOG, critical fixes)
-- `develop` - Legacy (deprecated)
-
-**Allowed branches:**
-- `feature/*`, `fix/*`, `hotfix/*`, `chore/*`, `refactor/*`
-
-If you accidentally try to commit to a protected branch, the hook will:
-1. Block the commit
-2. Show which branch is protected
-3. Display the correct workflow to follow
-
-### ✅ Git Operation Checklist
-
-**Before EVERY commit, verify:**
-1. **Check current branch**: `git branch | grep "^\*"`
-   - Must show a feature branch (NOT week-*, NOT main, NOT release/*)
-   - **Git hook will block commits to protected branches**
-2. **If on wrong branch**: Create feature branch FIRST
-   ```bash
-   git checkout week-N
-   git checkout -b feature/description
-   ```
-3. **Then commit**: Use conventional commits format
-   - **Hook automatically validates branch before commit**
-4. **Before push - Run quality gates locally**:
-   ```bash
-   # Required: Pass ALL quality checks before pushing
-   composer quality-check  # Runs phpcs + phpstan + tests (all must pass)
-   # Or run individually:
-   composer phpcs        # WordPress Coding Standards (must pass)
-   composer phpstan      # Static analysis Level 6+ (0 critical errors)
-   composer test         # PHPUnit tests (all passing)
-   npm run prod          # Frontend build (if modified CSS/JS)
-   ```
-   **Why**: Prevent wasting GitHub Actions resources on avoidable failures
-5. **Then push**: `git push -u origin feature/description`
-6. **Then create PR**: Target `week-N` branch (NOT main)
-
-### 📋 Post-PR Merge Checklist (MANDATORY)
-
-**After EVERY PR merge, complete these steps:**
-
-1. **Clean up branches** (local AND remote):
-   ```bash
-   git checkout week-N && git pull origin week-N
-   git branch -d feature/your-feature           # Delete local
-   git push origin --delete feature/your-feature # Delete remote
-   ```
-
-2. **Update related issue(s)** (issues do NOT auto-close on `week-*` branches):
-   ```bash
-   gh issue view ISSUE_NUMBER | cat              # Check status
-   gh issue comment ISSUE_NUMBER --body "✅ Completed in PR #XX" | cat
-   gh issue close ISSUE_NUMBER | cat             # Close the issue
-   ```
-
-**⚠️ DO NOT skip this checklist** - orphan branches and open issues create project management chaos.
-
-### ✅ Pull Request Rules
-
-**🚨 MANDATORY: Run quality checks BEFORE creating any PR:**
-```bash
-cd wp-content/themes/soma
-composer phpcs && composer phpstan && composer test && npm run prod
-```
-If ANY check fails, fix issues BEFORE creating PR.
-
-**When creating PRs:**
-- Base branch: `week-N` (current milestone)
-- Never target `main` directly during milestone work
-- Use labels: `enhancement`, `semana-N`, `frontend`/`backend`, priority
-- Reference issues: `Closes #N`, `Relates to #N`
-
-### ✅ GitHub CLI Rules
-
-**ALWAYS append `| cat` to `gh` commands:**
-```bash
-gh issue list | cat          # ✅ Correct
-gh issue list                # ❌ Will hang
-
-gh pr view 42 | cat          # ✅ Correct
-gh pr view 42                # ❌ Will hang
-```
-
-### 📝 Responding to PR Review Comments
-
-When the PR has review comments from Copilot Code Review or other reviewers, use these commands to list and respond to them:
-
-**List all review comments with their IDs and file locations:**
-```bash
-gh api repos/sanruiz/fibra/pulls/<pr-number>/comments --jq '.[] | "ID: \(.id) | File: \(.path):\(.line // .original_line)"' | cat
-```
-
-**Get full details of a specific comment:**
-```bash
-gh api repos/sanruiz/fibra/pulls/<pr-number>/comments --jq '.[] | select(.id == <comment-id>)' | cat
-```
-
-**Get all commits in the PR (needed for commit_id when replying):**
-```bash
-gh api repos/sanruiz/fibra/pulls/<pr-number>/commits --jq '.[].sha' | cat
-```
-
-**Reply to a review comment (use the LATEST commit SHA from the PR):**
-```bash
-gh api repos/sanruiz/fibra/pulls/<pr-number>/comments -X POST --input - <<EOF | cat
-{
-  "body": "Fixed in commit <short-sha>. <description of the fix>",
-  "commit_id": "<full-40-char-commit-sha-from-pr>",
-  "path": "<file-path-from-comment>",
-  "line": <line-number-from-comment>,
-  "in_reply_to": <original-comment-id>
+// page-builder.php (34 lines):
+$soma_blocks = get_field( 'soma_blocks' );
+if ( class_exists( '\Soma\PageBuilder\BlockRenderer' ) ) {
+    $renderer = \Soma\PageBuilder\BlockRenderer::instance();
+    $renderer->render( $soma_blocks ); // Validation, error logging, caching
 }
-EOF
 ```
 
-**Important Notes for Replying to Review Comments:**
-- The `commit_id` MUST be a full 40-character SHA that belongs to the PR (use the commits endpoint to get valid SHAs)
-- The `in_reply_to` field links your reply to the original comment thread
-- The `path` and `line` should match the original comment's location
-- Always pipe to `| cat` to avoid paging issues
+**PSR-4 PageBuilder Components:**
+- **`includes/PageBuilder/Loader.php`**: LoadableInterface, priority 25, cache invalidation hooks
+- **`includes/PageBuilder/BlockRegistry.php`**: Centralized 53 block mappings (layout → field_group + partial)
+- **`includes/PageBuilder/BlockRenderer.php`**: Rendering engine with validation, PSR-3 logging, optional caching
 
-**Example Workflow (REST API):**
+**When creating new content blocks:**
+1. Add partial to `/partials/ComponentName.php` using WordPress query vars:
+   ```php
+   // Access block data via WordPress query vars (v3.0+)
+   $block_counter = get_query_var( 'soma_block_counter' );
+   $block_content = get_query_var( 'soma_block_content' );
+   $block_layout = get_query_var( 'soma_block_layout' );
+   ```
+2. Register in `BlockRegistry::register_default_blocks()`: 
+   ```php
+   $this->register_block('ComponentName', 'component_name_content', 'ComponentName')
+   ```
+3. Create corresponding SCSS in `/sass/partials/_ComponentName.scss`
+4. Import SCSS in `/sass/main.scss` under `// #DittoPartials`
+5. Add JS handler in `/js/components/componentName.js` if interactive
+6. Import/initialize in `/js/main.js` with conditional check
+
+### Directory Structure (PSR-4)
+
+**`/includes/`** - PSR-4 classes with `Soma\` namespace:
+- `Core/` - Theme core (Loader, Theme, Interfaces, Enums)
+- `PostTypes/` - Custom post types (Portfolio, News, Careers, TeamMembers)
+- `Taxonomies/` - Custom taxonomies (PortfolioTaxonomy, NewsTaxonomy, TeamMembersTaxonomy)
+- `API/` - REST endpoints (NewsEndpoint, CareersEndpoint, PortfolioEndpoint, DocumentsEndpoint, EventsEndpoint)
+- `PageBuilder/` - ACF flexible content (Loader, BlockRegistry, BlockRenderer)
+- `Elementor/` - Custom widgets (Navbar, Footer, BusinessUnits, Services, TeamMembers, NewsList, Portfolio, ContactForm)
+- `CF7/` - Contact Form 7 integration (Validations)
+- `Utils/` - Helper functions (Helpers, Logger, Cache, CacheInvalidationManager, Enums)
+- `Admin/` - Admin customizations
+
+**`/partials/`** - Page builder components (50+ files). Each accesses block data via WordPress query vars:
+```php
+// v3.0.0+ Standard (NO globals)
+$block_counter = get_query_var( 'soma_block_counter' ); // Block index
+$block_content = get_query_var( 'soma_block_content' ); // ACF field data
+$block_layout  = get_query_var( 'soma_block_layout' );  // Layout name
+```
+
+**`/templates/`** - Custom page templates with special header comment  
+**`/singles/`** - Single post templates by type: `news.php`, `careers.php`, `team-members.php`  
+**`/acf-json/`** - ACF field group sync files (13 groups). Auto-synced—never edit manually  
+**`/js/components/`** - Modular handlers initialized conditionally in `main.js`
+
+### Build System (Webpack 4 + Sass)
+
 ```bash
-# 1. Get comment IDs
-gh api repos/sanruiz/fibra/pulls/150/comments --jq '.[] | "ID: \(.id) | File: \(.path):\(.original_line)"' | cat
+npm run watch  # Dev mode with watch (requires --openssl-legacy-provider flag)
+npm run dev    # Dev build
+npm run prod   # Production build (minified)
+```
 
-# 2. Get valid commit SHA from PR
-gh api repos/sanruiz/fibra/pulls/150/commits --jq '.[].sha' | cat
-# Output: 2c714cbb93edfbf923c70d29815974ce9f00e91b (use the latest one)
+**Entry:** `js/main.js` imports all components + `sass/main.scss`  
+**Output:** `js/main.bundle.js` + `css/main.bundle.css`
 
-# 3. Reply to comment
-gh api repos/sanruiz/fibra/pulls/150/comments -X POST --input - <<EOF | cat
-{
-  "body": "Fixed in commit 85e5d7f. Added check_ajax_referer() for CSRF protection.",
-  "commit_id": "2c714cbb93edfbf923c70d29815974ce9f00e91b",
-  "path": "includes/Admin/StockData.php",
-  "line": 270,
-  "in_reply_to": 2659078318
+### Custom Post Types & Endpoints
+
+- **CPTs:** portfolio, news, careers, team_members, events, documents
+- **REST routes:** `/wp-json/soma/{news|careers|portfolio|documents|events}`
+- **Nav menus:** 5 locations: `main_menu`, `social`, `business_units`, `fibrasoma_footer`, `navigation_sidebar_template`
+
+### CSS/JS Naming Conventions
+
+- **Partials use hashed class names:** `.navbar-partial-df27ae`, `.businessunits-partial-a1b2c3`
+- **Templates use descriptive IDs:** `#navigationsidebar-template-207713`
+- **Dark mode:** Check `.dark-style` class; `main` gets `.latest-block-is-dark` if last section is dark
+
+### Required WordPress Plugins
+
+- Advanced Custom Fields PRO
+- Contact Form 7
+- Safe SVG
+- WP Multilang (language switcher via `wpm_language_switcher()`)
+
+---
+
+## 🏗️ PSR-4 & Modern PHP Conventions (v3.0.0+)
+
+### Singleton Pattern
+
+```php
+private static ?ClassName $instance = null;
+
+public static function instance(): ClassName {
+    if ( self::$instance === null ) {
+        self::$instance = new self();
+    }
+    return self::$instance;
 }
-EOF
+
+private function __construct() {}
+private function __clone() {}
+public function __wakeup() {
+    throw new \Exception( 'Cannot unserialize singleton' );
+}
 ```
 
-### 📝 Using GraphQL API for Review Threads (Recommended)
+### First-Class Callables (PHP 8.1+)
 
-The GraphQL API provides better access to review threads and is more reliable for replying to Copilot Code Review comments:
-
-**Get all review thread IDs with their comments:**
-```bash
-gh api graphql -f query='
-query {
-  repository(owner: "sanruiz", name: "fibra") {
-    pullRequest(number: <pr-number>) {
-      reviewThreads(first: 20) {
-        nodes {
-          id
-          path
-          isResolved
-          comments(first: 1) {
-            nodes {
-              id
-              body
-            }
-          }
-        }
-      }
-    }
-  }
-}' | cat
+```php
+add_action( 'rest_api_init', $this->register(...) ); // ✅ Modern
+// NOT: add_action( 'rest_api_init', array( $this, 'register' ) ); // ❌ Old
 ```
 
-**Reply to a specific review thread using GraphQL:**
-```bash
-gh api graphql -f query='
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDONqY9Pc6XXXXXXX",
-    body: "Fixed in commit abc1234. Description of the fix."
-  }) {
-    comment {
-      id
-      body
-    }
-  }
-}' | cat
+### ReflectionProperty (PHP 8.1+)
+
+In PHP 8.1+, `setAccessible()` is deprecated. Private/protected properties are accessible via `getValue()` and `setValue()` without it:
+
+```php
+// ✅ CORRECT (PHP 8.1+)
+$reflection = new \ReflectionClass( ClassName::class );
+$property   = $reflection->getProperty( 'instance' );
+$property->setValue( null, null ); // Works without setAccessible()
+
+// ❌ DEPRECATED - Do NOT use
+$property->setAccessible( true ); // Deprecated in PHP 8.1+
 ```
 
-**Why GraphQL over REST API:**
-- Review thread IDs (`PRRT_...`) are more reliable for Copilot Code Review comments
-- No need to provide `commit_id`, `path`, or `line` - the thread ID handles all context
-- Simpler mutation structure for replies
-- Better support for multi-line review comments
+### LoadableInterface Pattern
 
-**Example GraphQL Workflow:**
-```bash
-# 1. Get all review thread IDs
-gh api graphql -f query='
-query {
-  repository(owner: "sanruiz", name: "fibra") {
-    pullRequest(number: 150) {
-      reviewThreads(first: 20) {
-        nodes {
-          id
-          path
-          comments(first: 1) {
-            nodes {
-              body
-            }
-          }
-        }
-      }
-    }
-  }
-}' | cat
+All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
+- `init()`: Initialize the component
+- `get_priority()`: Return loading priority (10-50)
+- `should_load()`: Conditional loading check
 
-# 2. Reply to each thread (repeat for each thread ID)
-gh api graphql -f query='
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDONqY9Pc6ABC123",
-    body: "Fixed in commit abc1234. Added proper validation."
-  }) {
-    comment { id }
-  }
-}' | cat
+**Priority System:**
+- 10: Utilities (must load FIRST)
+- 20: Post Types
+- 25: PageBuilder, CustomFields
+- 30: CF7, Elementor
+- 35: REST API
+- 40: Admin
+
+---
+
+## � Commit & Branch Conventions (Global)
+
+**⚠️ Note**: These conventions are global because they're needed when making commits/PRs without files open.
+
+### Branch Naming
+
+```
+week-N              → Milestone branches (week-2, week-3, ..., week-9)
+feature/description → New features (e.g., feature/hero-section)
+fix/description     → Bug fixes (e.g., fix/navbar-mobile)
+chore/description   → Maintenance tasks (e.g., chore/update-deps)
+hotfix/description  → Emergency fixes (e.g., hotfix/security-patch)
+release/vX.Y.Z      → Release preparation (e.g., release/v3.1.3)
 ```
 
-### 🚀 Release Workflow Checklist
+### Commit Message Format (Conventional Commits)
 
-**Standard Release (from week-* to main):**
+```
+type(scope): brief description
+
+Detailed explanation of changes (optional)
+
+- Bullet point 1
+- Bullet point 2
+
+Closes #issue-number (if applicable)
+```
+
+### Commit Types
+
+| Type | Usage |
+|------|-------|
+| `feat` | New features |
+| `fix` | Bug fixes |
+| `docs` | Documentation only |
+| `style` | Code formatting (no logic change) |
+| `refactor` | Code refactoring |
+| `perf` | Performance improvements |
+| `test` | Add or update tests |
+| `build` | Build system changes |
+| `ci` | CI/CD changes |
+| `chore` | Maintenance tasks |
+| `revert` | Revert previous commit |
+
+### Scope Examples
+
+`(homepage)`, `(navbar)`, `(portfolio)`, `(ci)`, `(deps)`, `(docs)`, `(tests)`, `(elementor)`
+
+---
+
+## �🚀 Release Workflow (Global Commands)
+
+**⚠️ Note**: These commands are global because path-specific instructions are reactive (only activate when `applyTo` matches).
+
+### Standard Release (from week-* to main)
 
 ```bash
 # 1. Ensure all sprint features merged to week-N
@@ -338,45 +326,37 @@ git checkout -b release/vX.Y.Z
 git add style.css CHANGELOG.md
 git commit -m "chore: Prepare release vX.Y.Z"
 
-# 6. Create PR to week-N
+# 6. Create PR to week-N, then merge
 git push -u origin release/vX.Y.Z
 gh pr create --base week-N --title "Release vX.Y.Z" | cat
-
-# 7. After PR approval, merge to week-N
 gh pr merge NUMBER --squash --delete-branch | cat
 
-# 8. Create PR from week-N to main
+# 7. Create PR from week-N to main, then merge
 gh pr create --base main --head week-N --title "Week N: Sprint completion" | cat
-
-# 9. After approval, merge to main
 gh pr merge NUMBER --squash | cat
 
-# 10. Checkout main and create tag
+# 8. Checkout main and create tag
 git checkout main
 git pull origin main
 git tag -a vX.Y.Z -m "Release vX.Y.Z: Description"
 
-# 11. Push tag (triggers CI/CD → Release → Deploy)
+# 9. Push tag (triggers CI/CD → Release → Deploy)
 git push origin vX.Y.Z
 
-# 12. Monitor workflow
+# 10. Monitor workflow
 gh run watch
 gh release view vX.Y.Z | cat
 ```
 
 **Expected CI/CD Flow:**
 1. ✅ Stage 1: Quality Gates (code-quality, php-tests, frontend-build) ~2min
-2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release **automatically**) ~1min
-3. ✅ Stage 3: Deploy to Production (SFTP upload, backup, extract) ~2min
+2. ✅ Stage 2: Build & Release (creates soma-vX.Y.Z.zip, GitHub release **automatically**)
+3. ✅ Stage 3: Deploy to Production (SFTP upload, backup, extract)
 4. ✅ Total: ~5-6 minutes
 
-**⚠️ IMPORTANT**: The GitHub release is created **automatically** by the ci-cd.yml workflow. NEVER use `gh release create` manually.
+**⚠️ IMPORTANT**: The GitHub release is created **automatically** by ci-cd.yml. NEVER use `gh release create` manually.
 
----
-
-### 🚨 Hotfix Workflow (Emergency Production Fix)
-
-**When**: Critical bug in production needs immediate fix
+### Hotfix Workflow (Emergency Production Fix)
 
 ```bash
 # 1. Create hotfix branch from main (NOT week-*)
@@ -385,520 +365,89 @@ git pull origin main
 git checkout -b hotfix/critical-issue
 
 # 2. Apply fix and test
-# ... fix code ...
-composer test
-npm run prod
+composer test && npm run prod
 
-# 3. Commit fix
-git add .
-git commit -m "fix: Critical security vulnerability"
-
-# 4. Push and create PR to main (emergency approval)
+# 3. Commit and create PR to main
+git add . && git commit -m "fix: Critical issue"
 git push -u origin hotfix/critical-issue
-gh pr create --base main --title "HOTFIX: Critical issue" \
-  --label "bug,alta-prioridad,hotfix" | cat
+gh pr create --base main --title "HOTFIX: Critical issue" --label "bug,alta-prioridad,hotfix" | cat
 
-# 5. After emergency approval, merge
+# 4. After emergency approval, merge
 gh pr merge NUMBER --squash | cat
 
-# 6. Create patch release tag
-git checkout main
-git pull origin main
-
+# 5. Create patch release tag
+git checkout main && git pull origin main
 # Update version (patch): 3.1.2 → 3.1.3
-# Edit style.css and CHANGELOG.md
-
-git add style.css CHANGELOG.md
-git commit -m "chore: Hotfix release v3.1.3"
-git push origin main
-
 git tag -a v3.1.3 -m "Hotfix v3.1.3: Critical security patch"
 git push origin v3.1.3
 
-# 7. Monitor deployment
-gh run watch
-
-# 8. Backport to current sprint (if needed)
+# 6. Backport to current sprint (if needed)
 git checkout week-N
 git cherry-pick COMMIT_SHA
 git push origin week-N
 ```
 
-**Key Differences:**
-- Branch from `main` (not week-*)
-- PR directly to `main`
-- Emergency approval process
-- Patch version increment (X.Y.Z → X.Y.Z+1)
-- Backport to sprint branch after deploy
+### 📝 Responding to PR Review Comments
 
----
+When a PR has review comments from Copilot Code Review or other reviewers, use these commands to list and respond:
 
-### �🔄 Common Workflow Scenarios
-
-**Scenario 1: Starting new feature**
+**List all review comments with IDs and file locations:**
 ```bash
-git checkout week-2
-git pull origin week-2
-git checkout -b feature/my-feature
-# ... make changes ...
-git add .
-git commit -m "feat: add new feature"
-git push -u origin feature/my-feature
-gh pr create --base week-2 --label "enhancement,semana-2" | cat
+gh api repos/sanruiz/fibra/pulls/<pr-number>/comments --jq '.[] | "ID: \(.id) | File: \(.path):\(.line // .original_line)"' | cat
 ```
 
-**Scenario 2: If you find yourself on week-* or main**
+**Get valid commit SHA from PR (required for replies):**
 ```bash
-# STOP - Do NOT commit
-# Check staged changes
-git status
-# Create feature branch
-git checkout -b feature/description
-# Now you can commit
+gh api repos/sanruiz/fibra/pulls/<pr-number>/commits --jq '.[].sha' | cat
 ```
 
-**See complete workflow guide**: `.github/instructions/github-workflow.instructions.md`
-
----
-
-## 📋 Path-Specific Instructions
-
-The following instruction files apply automatically based on file type. VS Code will load them when working with matching files.
-
-**Available instruction files:**
-- `.github/instructions/php.instructions.md` → PHP files (`**/*.php`)
-- `.github/instructions/elementor-widgets.instructions.md` → Elementor widgets (`**/Elementor/Widgets/**/*.php`)
-- `.github/instructions/documentation-language.instructions.md` → Documentation and language policy
-- `.github/instructions/github-workflow.instructions.md` → GitHub operations and workflow
-
-**Note**: These files use YAML frontmatter with `applyTo` patterns and are automatically detected by VS Code.
-
----
-
-## 📁 Repository Structure
-
-**IMPORTANT Directory Conventions:**
-
-### Theme Development (within soma/)
-- **Location**: `wp-content/themes/soma/`
-- **Contains**: Source code, documentation, tests, assets
-- **Documentation**: `wp-content/themes/soma/docs/`
-
-### GitHub Actions Workflows (repository root)
-- **Location**: `.github/workflows/` (repository root, NOT within theme)
-- **Contains**: All CI/CD workflow files (`.yml`)
-- **Rationale**: GitHub Actions only reads workflows from repository root
-- **Current Workflows**:
-  - `.github/workflows/quality-and-tests.yml` - **CI**: Code quality and automated testing (runs on push/PR)
-  - `.github/workflows/release-and-deploy.yml` - **CD**: Build, release, and deploy (runs on tags only)
-
-### Deployment Scripts (repository root)
-- **Location**: `.github/scripts/` (repository root)
-- **Contains**: Deployment automation scripts (PHP, Shell, etc.)
-- **Examples**:
-  - `.github/scripts/soma-extractor.php`
-
-### Copilot Instructions (repository root)
-- **Location**: `.github/copilot-instructions.md` (repository root)
-- **Purpose**: Global project context and conventions
-
-**Summary:**
-- ✅ Theme code/docs: `wp-content/themes/soma/`
-- ✅ Workflows: `.github/workflows/` (root)
-- ✅ Deployment scripts: `.github/scripts/` (root)
-- ✅ Copilot instructions: `.github/copilot-instructions.md` (root)
-- ✅ Workflow instructions: `.github/instructions/github-workflow.instructions.md`
-
-## 🚀 CI/CD Workflows (Summary)
-
-**For detailed workflow instructions, see** `.github/instructions/github-workflow.instructions.md`
-
-### Quick Reference
-
-**Continuous Integration** (`quality-and-tests.yml`):
-- Triggers: Push to main/week-*, PRs
-- Duration: ~3-5 minutes
-- Jobs: PHPCS, PHPStan, PHPUnit, Frontend Build
-- Purpose: Validate code quality before merge
-
-**Continuous Deployment** (`release-and-deploy.yml`):
-- Triggers: Tags `v*`, manual dispatch
-- Duration: ~5-8 minutes  
-- Jobs: Wait for CI → Build & Release → Deploy
-- Purpose: Automated releases and deployment
-
-## 📊 GitHub Project Organization
-
-**For complete workflow details**, see `.github/instructions/github-workflow.instructions.md`
-
-### View Project
-- **Project Board**: https://github.com/users/sanruiz/projects/4
-- **Issues**: https://github.com/sanruiz/fibra/issues
-- **Milestones**: https://github.com/sanruiz/fibra/milestones
-
-### Quick Commands
+**Reply to a review comment:**
 ```bash
-# View issues and PRs (always use | cat)
-gh issue list | cat
-gh pr list | cat
-
-# Create issue with labels
-gh issue create --label "enhancement,frontend,semana-2,alta-prioridad" | cat
-
-# View labels
-gh label list | cat
-```
-
-## 📋 Website Development Plan
-
-**Full development plan**: Check GitHub Projects milestones for detailed weekly breakdown and current status.
-
-## 🎯 SOMA v3.0.0 Theme - Completed ✅
-
-**Version**: 3.0.0 (Released December 12, 2025)  
-**Migration**: v2.0.7 → v3.0.0 complete  
-**Documentation**: Comprehensive docs in `wp-content/themes/soma/docs/`
-
----
-
-## Core Architecture: ACF Flexible Content Page Builder
-
-**v3.0.0 PSR-4 System (Current):** The page builder uses modern PSR-4 architecture with WordPress query vars:
-
-```php
-// In page.php, templates/*.php, single.php:
-get_template_part('page-builder'); // Renders all ACF soma_blocks using PSR-4
-
-// page-builder.php (34 lines):
-$soma_blocks = get_field( 'soma_blocks' );
-if ( class_exists( '\Soma\PageBuilder\BlockRenderer' ) ) {
-    $renderer = \Soma\PageBuilder\BlockRenderer::instance();
-    $renderer->render( $soma_blocks ); // Validation, error logging, caching
+gh api repos/sanruiz/fibra/pulls/<pr-number>/comments -X POST --input - <<EOF | cat
+{
+  "body": "Fixed in commit <short-sha>. <description>",
+  "commit_id": "<full-40-char-sha-from-pr>",
+  "path": "<file-path>",
+  "line": <line-number>,
+  "in_reply_to": <original-comment-id>
 }
+EOF
 ```
 
-**PSR-4 PageBuilder Components:**
-- **`includes/PageBuilder/Loader.php`**: LoadableInterface, priority 25, cache invalidation hooks
-- **`includes/PageBuilder/BlockRegistry.php`**: Centralized 53 block mappings (layout → field_group + partial)
-- **`includes/PageBuilder/BlockRenderer.php`**: Rendering engine with validation, PSR-3 logging, optional caching
-
-**Features:**
-- Multi-layer validation (structure, registry, file existence)
-- Error handling with `soma_log_error()` + WP_DEBUG display
-- Optional block caching with tag-based invalidation
-- Cache auto-invalidation on `save_post` and `acf/save_post`
-- **WordPress query vars** (no globals) for partial data access
-
-**When creating new content blocks:**
-1. Add partial to `/partials/ComponentName.php` using WordPress query vars:
-   ```php
-   // Access block data via WordPress query vars (v3.0+)
-   $block_counter = get_query_var( 'soma_block_counter' );
-   $block_content = get_query_var( 'soma_block_content' );
-   $block_layout = get_query_var( 'soma_block_layout' );
-   ```
-2. Register in `BlockRegistry::register_default_blocks()`: 
-   ```php
-   $this->register_block('ComponentName', 'component_name_content', 'ComponentName')
-   ```
-3. Create corresponding SCSS in `/sass/partials/_ComponentName.scss`
-4. Import SCSS in `/sass/main.scss` under `// #DittoPartials`
-5. Add JS handler in `/js/components/componentName.js` if interactive
-6. Import/initialize in `/js/main.js` with conditional check
-
-## Directory Structure (PSR-4)
-
-**`/includes/`** - PSR-4 classes with `Soma\` namespace:
-- `Core/` - Theme core (Loader, Theme, Interfaces, Enums)
-- `PostTypes/` - Custom post types (Portfolio, News, Careers, TeamMembers)
-- `Taxonomies/` - Custom taxonomies (PortfolioTaxonomy, NewsTaxonomy, TeamMembersTaxonomy)
-- `API/` - REST endpoints (NewsEndpoint, CareersEndpoint, PortfolioEndpoint, DocumentsEndpoint, EventsEndpoint)
-- `PageBuilder/` - ACF flexible content (Loader, BlockRegistry, BlockRenderer)
-- `Elementor/` - 8 custom widgets (Navbar, Footer, BusinessUnits, Services, TeamMembers, NewsList, Portfolio, ContactForm)
-- `CF7/` - Contact Form 7 integration (Validations)
-- `Utils/` - Helper functions (Helpers, Logger, Cache, CacheInvalidationManager, Enums)
-- `Admin/` - Admin customizations
-
-**`/partials/`** - Page builder components (50+ files). Each accesses block data via WordPress query vars:
-```php
-// v3.0.0+ Standard (NO globals)
-$block_counter = get_query_var( 'soma_block_counter' ); // Block index
-$block_content = get_query_var( 'soma_block_content' ); // ACF field data
-$block_layout  = get_query_var( 'soma_block_layout' );  // Layout name
-```
-
-**`/templates/`** - Custom page templates with special header comment (e.g., `business-unit-template.php`, `navigationsidebar-template.php`)
-
-**`/singles/`** - Single post templates by type: `news.php`, `careers.php`, `team-members.php`
-
-**`/acf-json/`** - ACF field group sync files (13 groups). Auto-synced—never edit manually
-
-**`/js/components/`** - Modular handlers initialized conditionally in `main.js`:
-```javascript
-if($('.navbar-partial-df27ae').length > 0) navbarHandler($('.navbar-partial-df27ae'));
-```
-
-## Build System (Webpack 4 + Sass)
-
+**GraphQL API (Recommended for Copilot Review):**
 ```bash
-npm run watch  # Dev mode with watch (requires --openssl-legacy-provider flag)
-npm run dev    # Dev build
-npm run prod   # Production build (minified)
-```
-
-**Entry:** `js/main.js` imports all components + `sass/main.scss`  
-**Output:** `js/main.bundle.js` + `css/main.bundle.css`  
-**Sass imports:** Organized by `// #DittoPartials` marker in `main.scss` (autogenerated list)
-
-## WordPress-Specific Conventions
-
-### Security: ABSPATH Check
-
-All PHP files start with:
-```php
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
-```
-
-### Security: Nonce Validation (MANDATORY)
-
-**ALWAYS validate nonces in AJAX handlers and form submissions.** Nonces protect against CSRF attacks.
-
-**Creating nonces:**
-```php
-// In PHP (for forms)
-wp_nonce_field( 'action_name', 'nonce_field_name' );
-
-// In PHP (for URLs)
-$url = wp_nonce_url( $url, 'action_name' );
-
-// In PHP (for JavaScript via wp_localize_script)
-wp_localize_script( 'handle', 'myAjax', array(
-    'nonce' => wp_create_nonce( 'my_ajax_nonce' ),
-    'ajaxurl' => admin_url( 'admin-ajax.php' ),
-));
-```
-
-**Verifying nonces (REQUIRED in every AJAX handler):**
-```php
-// For AJAX handlers - use check_ajax_referer()
-public function ajax_handler(): void {
-    // ✅ ALWAYS verify nonce FIRST
-    check_ajax_referer( 'my_ajax_nonce', 'nonce' );
-    
-    // Then check capabilities
-    if ( ! current_user_can( 'manage_options' ) ) {
-        wp_send_json_error( 'Unauthorized', 403 );
-        return;
+# Get review thread IDs
+gh api graphql -f query='
+query {
+  repository(owner: "sanruiz", name: "fibra") {
+    pullRequest(number: <pr-number>) {
+      reviewThreads(first: 20) {
+        nodes {
+          id
+          path
+          isResolved
+          comments(first: 1) { nodes { id body } }
+        }
+      }
     }
-    
-    // Now process the request...
-    wp_send_json_success( $data );
-}
+  }
+}' | cat
 
-// For form submissions - use wp_verify_nonce()
-if ( ! wp_verify_nonce( $_POST['nonce_field_name'], 'action_name' ) ) {
-    wp_die( 'Security check failed' );
-}
+# Reply to thread (uses PRRT_* thread ID)
+gh api graphql -f query='
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDONqY9Pc6XXXXXXX",
+    body: "Fixed in commit abc1234. Description of the fix."
+  }) {
+    comment { id body }
+  }
+}' | cat
 ```
 
-**❌ NEVER process AJAX without nonce verification:**
-```php
-// ❌ BAD - No nonce check
-public function ajax_handler(): void {
-    $data = $_POST['data']; // Vulnerable to CSRF!
-    // ...
-}
+---
 
-// ✅ GOOD - Nonce verified first
-public function ajax_handler(): void {
-    check_ajax_referer( 'my_nonce', 'nonce' ); // Dies if invalid
-    $data = sanitize_text_field( $_POST['data'] );
-    // ...
-}
-```
-
-### Security: Output Escaping (MANDATORY)
-
-**Always escape output to prevent XSS attacks.** WordPress provides context-specific escaping functions:
-
-| Function | Use Case | Example |
-|----------|----------|---------|
-| `esc_html()` | HTML content (strips tags) | `<p><?php echo esc_html( $text ); ?></p>` |
-| `esc_attr()` | HTML attributes | `<div class="<?php echo esc_attr( $class ); ?>">` |
-| `esc_url()` | URLs (href, src) | `<a href="<?php echo esc_url( $link ); ?>">` |
-| `esc_js()` | Inline JavaScript | `onclick="doSomething('<?php echo esc_js( $val ); ?>')"` |
-| `esc_textarea()` | Textarea content | `<textarea><?php echo esc_textarea( $content ); ?></textarea>` |
-| `wp_kses_post()` | Allow safe HTML | `<?php echo wp_kses_post( $html_content ); ?>` |
-
-**Escaping with Localization (combined functions):**
-```php
-// These combine escaping + translation
-esc_html__( 'Text', 'soma' );   // Returns escaped translated string
-esc_html_e( 'Text', 'soma' );   // Echoes escaped translated string
-esc_attr__( 'Text', 'soma' );   // Returns escaped for attribute
-esc_attr_e( 'Text', 'soma' );   // Echoes escaped for attribute
-```
-
-**❌ NEVER echo unescaped data:**
-```php
-// ❌ BAD - XSS vulnerability
-echo $user_input;
-echo $_GET['search'];
-
-// ✅ GOOD - Properly escaped
-echo esc_html( $user_input );
-echo esc_html( sanitize_text_field( $_GET['search'] ) );
-```
-
-**Escape Late Principle:** Always escape at the point of output, not before:
-```php
-// ❌ Not ideal - escaped too early
-$title = esc_html( get_the_title() );
-// ... more code ...
-echo $title;
-
-// ✅ Better - escape at output
-$title = get_the_title();
-// ... more code ...
-echo esc_html( $title );
-```
-
-### Security: Input Sanitization
-
-**Always sanitize user input before using or storing:**
-```php
-$text = sanitize_text_field( $_POST['field'] );
-$email = sanitize_email( $_POST['email'] );
-$url = esc_url_raw( $_POST['url'] );  // For database storage
-$int = absint( $_POST['number'] );     // Positive integer
-$key = sanitize_key( $_POST['key'] );  // Lowercase alphanumeric
-```
-
-**Template inclusion:** Use `get_template_part()`, not `include()`:
-```php
-get_template_part('partials/BreadCrumb');
-get_template_part('page-builder');
-```
-
-**ACF data access:**
-```php
-$data = get_field('field_name'); // From current post
-$options = get_field('header_content', 'options'); // From ACF options page
-```
-
-**REST endpoints:** Registered in `inc/endpoints.php` with `'permission_callback' => '__return_true'`
-
-## PSR-4 & Modern PHP Conventions (v3.0.0+)
-
-**Namespace Structure:**
-- Base namespace: `Soma\`
-- All classes in `includes/` directory follow PSR-4 autoloading
-- Example: `includes/API/Endpoints/NewsEndpoint.php` → `namespace Soma\API\Endpoints;`
-
-**Use Statements:**
-- Always import external classes at the top of the file to avoid `\` in code
-- Place `use` statements after namespace declaration, before class definition
-- Group `use` statements logically (WordPress classes, plugin classes, internal classes)
-
-```php
-<?php
-namespace Soma\CF7;
-
-use WPCF7_Submission;
-use WPCF7_Validation;
-use WPCF7_FormTag;
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-class Validations {
-	// Now use classes directly without \ prefix
-	public function validate_email( $result, $tag ) {
-		$submission = WPCF7_Submission::get_instance(); // ✅ Clean
-		// NOT: $submission = \WPCF7_Submission::get_instance(); // ❌ Avoid
-	}
-}
-```
-
-**Singleton Pattern:**
-```php
-private static ?ClassName $instance = null;
-
-public static function instance(): ClassName {
-	if ( self::$instance === null ) {
-		self::$instance = new self();
-	}
-	return self::$instance;
-}
-
-private function __construct() {}
-private function __clone() {}
-public function __wakeup() {
-	throw new \Exception( 'Cannot unserialize singleton' );
-}
-```
-
-**First-Class Callables (PHP 8.1+):**
-```php
-add_action( 'rest_api_init', $this->register(...) ); // ✅ Modern
-// NOT: add_action( 'rest_api_init', array( $this, 'register' ) ); // ❌ Old
-```
-
-**ReflectionProperty (PHP 8.1+ - setAccessible() Deprecated):**
-In PHP 8.1+, `ReflectionProperty::setAccessible()` is deprecated and **no longer needed**. Private/protected properties are now accessible via `getValue()` and `setValue()` without calling `setAccessible(true)`.
-
-```php
-// ✅ CORRECT (PHP 8.1+)
-$reflection = new \ReflectionClass( ClassName::class );
-$property   = $reflection->getProperty( 'instance' );
-$property->setValue( null, null ); // Works without setAccessible()
-
-// ❌ DEPRECATED - Do NOT use
-$property->setAccessible( true ); // Deprecated in PHP 8.1+
-$property->setValue( null, null );
-```
-
-**Common use case - Reset singleton for testing:**
-```php
-private function reset_singleton( string $class_name ): void {
-    $reflection = new \ReflectionClass( $class_name );
-    $property   = $reflection->getProperty( 'instance' );
-    // Note: setAccessible() NOT needed in PHP 8.1+
-    $property->setValue( null, null );
-}
-```
-
-**LoadableInterface Pattern:**
-All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
-- `init()`: Initialize the component
-- `get_priority()`: Return loading priority (10-50)
-- `should_load()`: Conditional loading check
-
-**Priority System:**
-- 10: Utilities (must load FIRST to provide soma_* helper functions)
-- 20: Post Types
-- 30: CF7, Elementor, Integrations
-- 35: REST API
-- 40: Admin
-
-## Custom Post Types & Endpoints
-- **CPTs:** portfolio, news, careers, team_members, events, documents (all registered in `inc/post-types.php`)
-- **REST routes:** `/wp-json/soma/{news|careers|portfolio|documents|events}` (see `inc/endpoints.php`)
-- **Nav menus:** 5 locations registered: `main_menu`, `social`, `business_units`, `fibrasoma_footer`, `navigation_sidebar_template`
-
-## CSS/JS Naming Conventions
-- **Partials use hashed class names:** `.navbar-partial-df27ae`, `.businessunits-partial-a1b2c3`
-- **Templates use descriptive IDs:** `#navigationsidebar-template-207713`
-- **Dark mode:** Check `.dark-style` class; `main` gets `.latest-block-is-dark` if last section is dark
-
-## Required WordPress Plugins
-- Advanced Custom Fields PRO
-- Contact Form 7
-- Safe SVG
-- WP Multilang (language switcher via `wpm_language_switcher()`)
-
-## WP-Multilang Compatibility (CRITICAL)
+## ⚠️ WP-Multilang Compatibility (CRITICAL)
 
 **WP-Multilang stores translations** in a single database field using `[:en]..[:es]..[:]` delimiters. The plugin hooks into WordPress filters to parse and display the correct language.
 
@@ -934,107 +483,40 @@ foreach ( $posts as $post ) {
 **Helper function for i18n fields:**
 Use `soma_get_i18n_field()` for ACF fields with language variants (`file`/`file_es`).
 
-## Development Workflow
-1. Edit source files (`.php`, `.scss`, `.js`)
-2. Run `npm run watch` for hot reloading
-3. ACF field changes sync to `/acf-json/` automatically
-4. Build production with `npm run prod` before deployment
-5. Only commit `wp-content/themes/soma/` (per `.gitignore`)
+---
 
-**⚠️ IMPORTANTE - GitHub CLI (`gh`) Commands:**
-- **ALWAYS append `| cat` to `gh` commands** to prevent terminal pagination/waiting
-- Examples:
-  - `gh issue list | cat`
-  - `gh issue view 1 | cat`
-  - `gh pr list | cat`
-- This ensures commands complete immediately without user interaction
+## ⚠️ Common Pitfalls
 
-## 🎨 Elementor Widget Development Workflow
-
-**When creating a new Elementor widget, follow this complete workflow:**
-
-### Step-by-Step Checklist
-
-1. **Create Widget Class** - `includes/Elementor/Widgets/{WidgetName}.php`
-   - Extend `Soma\Elementor\Base\WidgetBase`
-   - Implement: `get_name()`, `get_title()`, `get_icon()`, `get_style_depends()`
-   - Add controls in `register_controls()`
-   - Render output in `render()`
-
-2. **Create CSS File** - `assets/css/widgets/{widget-name}.css`
-   - Use CSS variables (`--soma-*`) for consistency
-   - Follow responsive design patterns
-
-3. **Register Widget** - `includes/Elementor/Loader.php`
-   ```php
-   \Elementor\Plugin::instance()->widgets_manager->register(
-       new Widgets\{WidgetName}()
-   );
-   ```
-
-4. **Enqueue CSS** - In widget class `get_style_depends()` or `functions.php`
-
-5. **Create Integration Tests** - `tests/Integration/Elementor/{WidgetName}WidgetTest.php`
-   - ⚠️ **IMPORTANT**: Widgets should ONLY have integration tests, NOT unit tests
-   - Test widget name, title, icon
-   - Test categories contain 'soma'
-   - Test style dependencies
-   - Test rendering output
-   - **Note**: This is a project convention - no other widget unit tests exist
-
-6. **Update AllWidgetsTest** - `tests/Integration/Elementor/AllWidgetsTest.php`
-   ```php
-   // Add to $widget_classes array
-   '{WidgetName}' => \Soma\Elementor\Widgets\{WidgetName}::class,
-   
-   // Add to $widget_names array
-   '{WidgetName}' => 'soma-{widget-name}',
-   ```
-
-7. **Regenerate Translations** - From theme root:
-   ```bash
-   wp i18n make-pot . languages/soma.pot --domain=soma --exclude=node_modules,vendor,tests
-   wp i18n update-po languages/soma.pot languages/
-   wp i18n make-mo languages/
-   ```
-   
-   **⚠️ MANDATORY**: After running `update-po`, open `languages/es_ES.po` and translate ALL new strings. **Never commit empty `msgstr ""`** entries.
-
-8. **Quality Gates** - Run before commit:
-   ```bash
-   php -l includes/Elementor/Widgets/{WidgetName}.php  # Syntax check
-   vendor/bin/phpcs includes/Elementor/Widgets/{WidgetName}.php  # Coding standards
-   vendor/bin/phpstan analyse includes/Elementor/Widgets/  # Static analysis
-   ```
-
-**See:** [WIDGETS.md](../wp-content/themes/soma/docs/WIDGETS.md) for detailed widget development guide
-
-## Common Pitfalls
 - **Don't use `locate_template()`** in this codebase—use `get_template_part()`
 - **Webpack requires legacy OpenSSL flag** for Node.js (see `package.json` scripts)
 - **NO global variables:** Use `get_query_var()` for block data (v3.0+ breaking change)
 - **SCSS imports must be added to `main.scss`** under `// #DittoPartials` marker
 - **JS handlers need conditional initialization** in `main.js` to avoid errors on pages without components
+- **ALWAYS append `| cat` to `gh` commands** to prevent terminal pagination/waiting
+
+---
 
 ## 📚 Complete Documentation (5,800+ lines)
 
 **Development Guides:**
-- **[DEVELOPMENT.md](../wp-content/themes/soma/docs/DEVELOPMENT.md)** (1,093 lines) - Complete developer guide with setup, architecture, patterns, testing
-- **[WIDGETS.md](../wp-content/themes/soma/docs/WIDGETS.md)** (900 lines) - Elementor widgets reference with controls and examples
+- **[DEVELOPMENT.md](../wp-content/themes/soma/docs/DEVELOPMENT.md)** (1,093 lines) - Complete developer guide
+- **[WIDGETS.md](../wp-content/themes/soma/docs/WIDGETS.md)** (900 lines) - Elementor widgets reference
 - **[HELPERS.md](../wp-content/themes/soma/docs/HELPERS.md)** (850+ lines) - API reference for 24 soma_* helper functions
-- **[MIGRATION_FROM_V2.md](../wp-content/themes/soma/docs/MIGRATION_FROM_V2.md)** (1,549 lines) - Upgrade guide from v2.0.7 to v3.0.0
-- **[TESTING_GUIDE.md](../wp-content/themes/soma/docs/TESTING_GUIDE.md)** (337 lines) - Testing documentation with examples
+- **[MIGRATION_FROM_V2.md](../wp-content/themes/soma/docs/MIGRATION_FROM_V2.md)** (1,549 lines) - Upgrade guide
+- **[TESTING_GUIDE.md](../wp-content/themes/soma/docs/TESTING_GUIDE.md)** (337 lines) - Testing documentation
 - **[CHANGELOG.md](../wp-content/themes/soma/CHANGELOG.md)** (850+ lines) - Complete v3.0.0 changelog
 - **[README.md](../wp-content/themes/soma/README.md)** (600+ lines) - Comprehensive project overview
 
 **Quick Reference:**
 - **Helper Functions**: 24 functions in `Soma\Utils\Helpers` (Logger, Cache, Post Types, Templates, ACF, Utilities)
 - **Enums**: PostType, Taxonomy, LogLevel, CacheTag (all type-safe)
-- **Widgets**: 8 Elementor widgets in 'soma' category
+- **Widgets**: 8+ Elementor widgets in 'soma' category
 - **Tests**: 108 tests passing (355 assertions) - `vendor/bin/phpunit`
 - **Quality**: PHPCS clean, PHPStan Level 6, no critical errors
 
-## v3.0.0 Quick Start
+---
+
+## 🚀 v3.0.0 Quick Start
 
 **Installation:**
 ```bash
@@ -1061,12 +543,3 @@ composer phpstan        # Static analysis Level 6
 - ✅ Elementor widgets with ACF integration
 - ✅ ACF flexible content blocks via PageBuilder
 - ✅ Comprehensive test coverage, PHPCS clean, PHPStan Level 6+
-
----
-
-## 🏷️ GitHub Labels & Project Organization
-
-**For complete label inventory, usage guidelines, and GitHub workflow**, see:  
-`.github/instructions/github-workflow.instructions.md`
-
-**Quick reference**: Use `gh label list | cat` to see current labels

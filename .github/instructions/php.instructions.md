@@ -87,11 +87,80 @@ if ( $condition )
 }
 ```
 
-## Security: Output Escaping (CRITICAL)
+## Security (CRITICAL)
+
+### Nonce Validation (CSRF Protection)
+
+**ALWAYS validate nonces in AJAX handlers and form submissions.** Nonces protect against CSRF attacks.
+
+**Creating nonces:**
+```php
+// In PHP (for forms)
+wp_nonce_field( 'action_name', 'nonce_field_name' );
+
+// In PHP (for URLs)
+$url = wp_nonce_url( $url, 'action_name' );
+
+// In PHP (for JavaScript via wp_localize_script)
+wp_localize_script( 'handle', 'myAjax', array(
+    'nonce' => wp_create_nonce( 'my_ajax_nonce' ),
+    'ajaxurl' => admin_url( 'admin-ajax.php' ),
+));
+```
+
+**Verifying nonces (REQUIRED in every AJAX handler):**
+```php
+// For AJAX handlers - use check_ajax_referer()
+public function ajax_handler(): void {
+    // ✅ ALWAYS verify nonce FIRST.
+    check_ajax_referer( 'my_ajax_nonce', 'nonce' );
+    
+    // Then check capabilities.
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Unauthorized', 403 );
+        return;
+    }
+    
+    // Now process the request.
+    wp_send_json_success( $data );
+}
+
+// For form submissions - use wp_verify_nonce()
+if ( ! wp_verify_nonce( $_POST['nonce_field_name'], 'action_name' ) ) {
+    wp_die( 'Security check failed' );
+}
+```
+
+**❌ NEVER process AJAX without nonce verification:**
+```php
+// ❌ BAD - No nonce check.
+public function ajax_handler(): void {
+    $data = $_POST['data']; // Vulnerable to CSRF!
+}
+
+// ✅ GOOD - Nonce verified first.
+public function ajax_handler(): void {
+    check_ajax_referer( 'my_nonce', 'nonce' ); // Dies if invalid.
+    $data = sanitize_text_field( $_POST['data'] );
+}
+```
+
+### Input Sanitization
+
+**Always sanitize user input before using or storing:**
+```php
+$text = sanitize_text_field( $_POST['field'] );
+$email = sanitize_email( $_POST['email'] );
+$url = esc_url_raw( $_POST['url'] );  // For database storage.
+$int = absint( $_POST['number'] );     // Positive integer.
+$key = sanitize_key( $_POST['key'] );  // Lowercase alphanumeric.
+```
+
+### Output Escaping
 
 **ALL dynamic output MUST be escaped.** PHPCS enforces `WordPress.Security.EscapeOutput`.
 
-### Escaping Functions Reference
+#### Escaping Functions Reference
 
 | Function | Use Case | Example |
 |----------|----------|---------|
