@@ -9,6 +9,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### TeamMembers Widget Enhancements
+
+#### ✨ Added
+
+- **Show Photo Control** - New SWITCHER control to show/hide member photos (default: Show)
+- **Full Card Link** - Entire card is now clickable when "Link to Profile" is enabled
+  - Hover effects apply to entire card area with opacity transition
+  - Improves user experience and click target area
+  - Uses `.team-member-link` wrapper element
+
+#### 🔄 Changed
+
+- **Card Link Behavior** - Link moved from member name to entire card
+- **CSS Refactoring** - Removed old `.member-name a` styles, added `.team-member-link` flex container
+
+#### 🌐 Translations
+
+- `Show Photo` → `Mostrar Foto`
+- `Display member featured image.` → `Mostrar la imagen destacada del miembro.`
+
+#### 📦 Files Changed
+
+- `includes/Elementor/Widgets/TeamMembers.php` - Added show_photo control, full card link
+- `assets/css/widgets/team-members.css` - Card link styles and hover effects
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Spanish translations
+- `docs/WIDGETS.md` - Updated documentation
+
+---
+
 ## [3.1.14] - 2026-01-08
 
 ### Feature - Show/Hide Controls for ShareQuotation and TeamMember Widgets (Issue #178)

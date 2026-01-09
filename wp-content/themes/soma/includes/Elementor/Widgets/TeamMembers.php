@@ -282,6 +282,19 @@ class TeamMembers extends WidgetBase {
 			)
 		);
 
+		$this->add_control(
+			'show_photo',
+			array(
+				'label'        => __( 'Show Photo', 'soma' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'soma' ),
+				'label_off'    => __( 'No', 'soma' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'description'  => __( 'Display member featured image.', 'soma' ),
+			)
+		);
+
 		$this->end_controls_section();
 
 		// Labels section.
@@ -740,6 +753,7 @@ class TeamMembers extends WidgetBase {
 		$show_position      = 'yes' === $settings['show_position'];
 		$link_to_profile    = 'yes' === $settings['link_to_profile'];
 		$grayscale_images   = 'yes' === $settings['grayscale_images'];
+		$show_photo         = 'yes' === $settings['show_photo'];
 		$name_underline     = 'yes' === $settings['name_underline'];
 		$columns            = $settings['columns'] ?? '3';
 		$no_members_text    = $settings['no_members_text'] ?? __( 'No team members found.', 'soma' );
@@ -779,8 +793,14 @@ class TeamMembers extends WidgetBase {
 							$hide_single     = ! empty( $info['hide_single_page'] );
 							$can_link        = $link_to_profile && ! $hide_single;
 							$profile_url     = $can_link ? get_permalink( $member->ID ) : '';
+							$use_card_link   = $can_link && $profile_url;
 							?>
-							<article class="team-member">
+							<article class="team-member<?php echo $use_card_link ? ' has-link' : ''; ?>">
+								<?php if ( $use_card_link ) : ?>
+								<a href="<?php echo esc_url( $profile_url ); ?>" class="team-member-link">
+								<?php endif; ?>
+
+								<?php if ( $show_photo ) : ?>
 									<div class="member-image <?php echo esc_attr( ! $image_url ? 'no-image' : '' ); ?>">
 									<?php if ( $image_url ) : ?>
 										<img 
@@ -789,17 +809,12 @@ class TeamMembers extends WidgetBase {
 											loading="lazy"
 										>
 									<?php endif; ?>
-								</div>
+									</div>
+								<?php endif; ?>
 
 								<div class="member-info">
 									<div class="member-name">
-										<?php if ( $can_link ) : ?>
-											<a href="<?php echo esc_url( $profile_url ); ?>">
-												<?php echo esc_html( get_the_title( $member->ID ) ); ?>
-											</a>
-										<?php else : ?>
-											<?php echo esc_html( get_the_title( $member->ID ) ); ?>
-										<?php endif; ?>
+										<?php echo esc_html( get_the_title( $member->ID ) ); ?>
 									</div>
 
 									<?php if ( $show_position && $member_position ) : ?>
@@ -808,6 +823,10 @@ class TeamMembers extends WidgetBase {
 										</div>
 									<?php endif; ?>
 								</div>
+
+								<?php if ( $use_card_link ) : ?>
+								</a>
+								<?php endif; ?>
 							</article>
 						<?php endforeach; ?>
 					</div>

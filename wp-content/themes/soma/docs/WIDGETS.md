@@ -341,6 +341,12 @@ Displays team members from the custom post type in a grid with photos, names, po
 | **Order By** | Select | `menu_order` | Sort field |
 | **Order** | Select | `ASC` | Sort direction |
 | **Columns** | Select | `3` | Grid columns (2/3/4) |
+| **Show Photo** | Switcher | Yes | Display member featured image |
+| **Link to Profile** | Switcher | Yes | Make entire card clickable to profile page |
+
+#### Features
+
+**Full Card Link**: The entire member card is now clickable when "Link to Profile" is enabled. Hover effects apply to the entire card area, improving user experience and interaction while maintaining visual hierarchy.
 
 #### Style Controls
 
