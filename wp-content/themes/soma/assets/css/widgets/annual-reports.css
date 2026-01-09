@@ -87,9 +87,17 @@
 	display: none;
 }
 
+.soma-annual-reports-widget.full-width .document .image {
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+
 .soma-annual-reports-widget.full-width .document .image img {
 	width: 100%;
+	height: 100%;
 	max-width: 546px;
+	object-fit: cover;
+	object-position: center;
 }
 
 .soma-annual-reports-widget.full-width .document .text {
@@ -138,6 +146,8 @@
 
 .soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .image {
 	margin-bottom: 10px;
+	aspect-ratio: 59 / 69;
+	overflow: hidden;
 }
 
 .soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .image h3 {
@@ -149,7 +159,6 @@
 	height: 100%;
 	object-fit: cover;
 	object-position: center;
-	max-height: 348px;
 }
 
 .soma-annual-reports-widget.three-columns .document-list:not(.filtered) .document .text h3 {
