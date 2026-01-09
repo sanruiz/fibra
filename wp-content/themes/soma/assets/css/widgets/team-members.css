@@ -57,6 +57,27 @@
 	flex-direction: column;
 }
 
+/* Full card link */
+.team-member-link {
+	display: flex;
+	flex-direction: column;
+	text-decoration: none;
+	color: inherit;
+	transition: opacity var(--soma-transition-base);
+}
+
+.team-member.has-link:hover {
+	cursor: pointer;
+}
+
+.team-member-link:hover {
+	opacity: 0.85;
+}
+
+.soma-team-members.name-underline .team-member-link:hover .member-name {
+	text-decoration: underline;
+}
+
 /* Image container */
 .soma-team-members .team-member .member-image {
 	position: relative;
@@ -101,16 +122,6 @@
 	line-height: var(--soma-line-height-h3);
 	color: var(--soma-color-text-primary);
 	margin: 0;
-}
-
-.soma-team-members .team-member .member-name a {
-	color: inherit;
-	text-decoration: none;
-	transition: color var(--soma-transition-base);
-}
-
-.soma-team-members.name-underline .team-member .member-name a:hover {
-	text-decoration: underline;
 }
 
 /* Position/Title */
