@@ -81,15 +81,12 @@
 	width: calc(100% * (6 / 10));
 	box-sizing: border-box;
 	padding-right: 15px;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
 }
 
 .soma-annual-reports-widget.full-width .document .image h3 {
 	display: none;
-}
-
-.soma-annual-reports-widget.full-width .document .image {
-	aspect-ratio: 16 / 9;
-	overflow: hidden;
 }
 
 .soma-annual-reports-widget.full-width .document .image img {
