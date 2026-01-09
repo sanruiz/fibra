@@ -460,20 +460,13 @@ class TeamMember extends WidgetBase {
 
 		$info               = get_field( 'team_member_info', $team_member_id );
 		$image              = get_the_post_thumbnail_url( $team_member_id, 'full' );
-		$member_url         = get_permalink( $team_member_id );
 		$show_photo         = 'yes' === ( $settings['show_photo'] ?? 'yes' );
 		$show_logo          = 'yes' === ( $settings['show_logo'] ?? 'yes' );
 		$show_featured_text = 'yes' === ( $settings['show_featured_text'] ?? 'yes' );
-
-		// Determine if we should wrap the entire card in a link.
-		$use_card_link = ! empty( $member_url ) && ( $use_current_member || ! empty( $settings['team_member_id'] ) );
 		?>
 
 		<section class="soma-team-member">
 			<div class="container">
-				<?php if ( $use_card_link ) : ?>
-					<a href="<?php echo esc_url( $member_url ); ?>" class="soma-team-member__card-link">
-				<?php endif; ?>
 				<div class="content">
 					<div class="title">
 						<h3 class="member-name"><?php echo esc_html( get_the_title( $team_member_id ) ); ?></h3>
@@ -500,9 +493,6 @@ class TeamMember extends WidgetBase {
 						</div>
 					<?php endif; ?>
 				</div>
-				<?php if ( $use_card_link ) : ?>
-					</a>
-				<?php endif; ?>
 			</div>
 		</section>
 		<?php
