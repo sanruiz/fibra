@@ -36,6 +36,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `includes/Elementor/Widgets/AnnualReports.php` - Added Image style section with height controls, removed container div
 - `assets/css/widgets/annual-reports.css` - Added aspect-ratio, overflow, object-fit properties for consistent image display
+- `tests/Integration/Elementor/AnnualReportsWidgetTest.php` - Added assertions for image height controls
+- `docs/WIDGETS.md` - Added Image style controls documentation
+- `languages/soma.pot` - Updated translation template
+- `languages/es_ES.po` - Added Spanish translations
+
+#### 🌐 Translations
+
+- `Image Height` → `Altura de Imagen`
 
 ---
 
