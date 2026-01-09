@@ -32,6 +32,37 @@ This project uses **automatic path-specific instructions** that VS Code loads ba
 
 **Note**: VS Code automatically combines applicable instructions. Content below provides unique project context not covered in path-specific files.
 
+### 🤔 Global vs Reactive: When to Use Which?
+
+**Understanding the Architecture:**
+- **Global** (`copilot-instructions.md`): ALWAYS loaded by VS Code, regardless of which files are open
+- **Reactive** (`.github/instructions/*.md`): Only loaded when files matching `applyTo` pattern are opened
+
+**What Goes in Global (this file):**
+| Content Type | Reason |
+|--------------|--------|
+| Project context & status | Always needed for any task |
+| Repository structure | Essential for navigation |
+| Commit & branch conventions | Needed during git operations (no files open) |
+| Release workflow commands | Used in terminal without editing files |
+| PR review comment commands | GitHub API operations |
+| Common pitfalls | Quick reference across all contexts |
+| Architecture overview (PSR-4, PageBuilder) | Foundational knowledge |
+
+**What Goes in Reactive Instructions:**
+| Content Type | File | Reason |
+|--------------|------|--------|
+| PHP coding standards, security patterns | `php.instructions.md` | Only when editing `.php` files |
+| Elementor widget workflow | `elementor-widgets.instructions.md` | Only when in Widgets directory |
+| PHPUnit conventions | `testing.instructions.md` | Only when editing tests |
+| Full workflow details | `github-workflow.instructions.md` | Detailed reference (not quick commands) |
+| Documentation standards | `documentation-language.instructions.md` | When writing docs |
+
+**Rule of Thumb:**
+- ✅ **Global**: Commands you run in terminal, context needed without files open, quick references
+- ✅ **Reactive**: Detailed coding standards, file-type-specific patterns, comprehensive guides
+- ⚠️ **Avoid duplication**: If detailed content exists in reactive files, only add a summary to global
+
 ---
 
 ## 📁 Repository Structure
