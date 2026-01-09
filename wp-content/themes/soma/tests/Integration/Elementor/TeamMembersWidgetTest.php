@@ -250,7 +250,6 @@ class TeamMembersWidgetTest extends WP_UnitTestCase {
 	public function test_has_show_photo_control(): void {
 		$reflection = new \ReflectionClass( $this->widget );
 		$method     = $reflection->getMethod( 'register_controls' );
-		$method->setAccessible( true );
 		$method->invoke( $this->widget );
 
 		$controls = $this->widget->get_controls();
