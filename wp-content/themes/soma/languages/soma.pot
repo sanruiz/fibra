@@ -1605,6 +1605,11 @@ msgstr ""
 msgid "Display member featured image."
 msgstr ""
 
+#: includes/Elementor/Widgets/TeamMembers.php:800
+#, php-format
+msgid "View %s profile"
+msgstr ""
+
 #: includes/Elementor/Widgets/TeamMembers.php:311
 msgid "No Members Text"
 msgstr ""

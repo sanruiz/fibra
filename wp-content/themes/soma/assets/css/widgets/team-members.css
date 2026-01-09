@@ -58,7 +58,7 @@
 }
 
 /* Full card link */
-.soma-team-members .team-member .team-member-link {
+.team-member-link {
 	display: flex;
 	flex-direction: column;
 	text-decoration: none;
@@ -66,15 +66,15 @@
 	transition: opacity var(--soma-transition-base);
 }
 
-.soma-team-members .team-member.has-link:hover {
+.team-member.has-link:hover {
 	cursor: pointer;
 }
 
-.soma-team-members .team-member .team-member-link:hover {
+.team-member-link:hover {
 	opacity: 0.85;
 }
 
-.soma-team-members.name-underline .team-member .team-member-link:hover .member-name {
+.soma-team-members.name-underline .team-member-link:hover .member-name {
 	text-decoration: underline;
 }
 

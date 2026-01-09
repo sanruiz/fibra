@@ -1783,3 +1783,8 @@ msgstr "Mostrar Foto"
 #: includes/Elementor/Widgets/TeamMembers.php:294
 msgid "Display member featured image."
 msgstr "Mostrar la imagen destacada del miembro."
+
+#: includes/Elementor/Widgets/TeamMembers.php:800
+#, php-format
+msgid "View %s profile"
+msgstr "Ver perfil de %s"
