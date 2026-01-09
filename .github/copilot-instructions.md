@@ -217,7 +217,57 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 
 ---
 
-## 🚀 Release Workflow (Global Commands)
+## � Commit & Branch Conventions (Global)
+
+**⚠️ Note**: These conventions are global because they're needed when making commits/PRs without files open.
+
+### Branch Naming
+
+```
+week-N              → Milestone branches (week-2, week-3, ..., week-9)
+feature/description → New features (e.g., feature/hero-section)
+fix/description     → Bug fixes (e.g., fix/navbar-mobile)
+chore/description   → Maintenance tasks (e.g., chore/update-deps)
+hotfix/description  → Emergency fixes (e.g., hotfix/security-patch)
+release/vX.Y.Z      → Release preparation (e.g., release/v3.1.3)
+```
+
+### Commit Message Format (Conventional Commits)
+
+```
+type(scope): brief description
+
+Detailed explanation of changes (optional)
+
+- Bullet point 1
+- Bullet point 2
+
+Closes #issue-number (if applicable)
+```
+
+### Commit Types
+
+| Type | Usage |
+|------|-------|
+| `feat` | New features |
+| `fix` | Bug fixes |
+| `docs` | Documentation only |
+| `style` | Code formatting (no logic change) |
+| `refactor` | Code refactoring |
+| `perf` | Performance improvements |
+| `test` | Add or update tests |
+| `build` | Build system changes |
+| `ci` | CI/CD changes |
+| `chore` | Maintenance tasks |
+| `revert` | Revert previous commit |
+
+### Scope Examples
+
+`(homepage)`, `(navbar)`, `(portfolio)`, `(ci)`, `(deps)`, `(docs)`, `(tests)`, `(elementor)`
+
+---
+
+## �🚀 Release Workflow (Global Commands)
 
 **⚠️ Note**: These commands are global because path-specific instructions are reactive (only activate when `applyTo` matches).
 
