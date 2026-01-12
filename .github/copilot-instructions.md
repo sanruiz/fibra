@@ -298,9 +298,31 @@ Closes #issue-number (if applicable)
 
 ---
 
-## �🚀 Release Workflow (Global Commands)
+## 🚀 Release Workflow (Global Commands)
 
 **⚠️ Note**: These commands are global because path-specific instructions are reactive (only activate when `applyTo` matches).
+
+### 🚨 CRITICAL: Tags Must Be Created from `main` Branch Only
+
+**NEVER create tags from `week-*` branches.** Tags created from sprint branches become orphaned when using squash merge, because:
+
+1. Squash merge creates a NEW commit in `main` (combining all commits)
+2. The original commits in `week-*` are NOT ancestors of `main`
+3. Tags pointing to those commits become "orphaned" (not reachable from any branch)
+
+```
+❌ WRONG: Create tag on week-4, then merge week-4 to main
+   → Tag points to commit that doesn't exist in main history
+
+✅ CORRECT: Merge week-4 to main FIRST, then create tag on main
+   → Tag points to the squash merge commit in main
+```
+
+**The correct order is:**
+1. Merge `week-N` → `main` (via PR with squash)
+2. Checkout `main` and pull
+3. Create tag on `main`
+4. Push tag (triggers release workflow)
 
 ### Standard Release (from week-* to main)
 
@@ -326,18 +348,22 @@ git checkout -b release/vX.Y.Z
 git add style.css CHANGELOG.md
 git commit -m "chore: Prepare release vX.Y.Z"
 
-# 6. Create PR to week-N, then merge
+# 6. Create PR from release branch to week-N, then merge
 git push -u origin release/vX.Y.Z
 gh pr create --base week-N --title "Release vX.Y.Z" | cat
 gh pr merge NUMBER --squash --delete-branch | cat
 
 # 7. Create PR from week-N to main, then merge
+# ⚠️ This MUST complete BEFORE creating any tags!
 gh pr create --base main --head week-N --title "Week N: Sprint completion" | cat
 gh pr merge NUMBER --squash | cat
 
-# 8. Checkout main and create tag
+# 8. 🚨 CRITICAL: Checkout main and create tag FROM MAIN
+# Tags MUST be created after merging to main, not before!
 git checkout main
 git pull origin main
+# Verify you're on main with the merge commit:
+git log -1 --oneline  # Should show the squash merge commit
 git tag -a vX.Y.Z -m "Release vX.Y.Z: Description"
 
 # 9. Push tag (triggers CI/CD → Release → Deploy)

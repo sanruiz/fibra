@@ -544,6 +544,43 @@ gh issue list --milestone "Week 2" | cat
 
 ## 🚀 Release & Deployment Flow
 
+### 🚨 CRITICAL: Tags Must Be Created from `main` Only
+
+**NEVER create tags from `week-*` or `release/*` branches.** This is the most common mistake that leads to orphaned tags.
+
+**Why this matters:**
+- We use **squash merge** to keep `main` history clean
+- Squash merge creates a NEW commit in `main` (not the same commits from `week-*`)
+- If you create a tag on `week-*` BEFORE merging, that tag points to a commit that will NEVER exist in `main`
+- Result: "Orphaned tags" - tags pointing to commits not reachable from any branch
+
+**Visual explanation:**
+```
+❌ WRONG ORDER (creates orphaned tag):
+
+week-4:  A---B---C  <-- tag v3.1.16 points here
+              \
+               \ (squash merge)
+                \
+main:    X---Y---Z---[ABCD]  <-- NEW commit, tag NOT here!
+
+✅ CORRECT ORDER (tag in main history):
+
+week-4:  A---B---C
+              \
+               \ (squash merge)
+                \
+main:    X---Y---Z---[ABCD]  <-- tag v3.1.16 points here!
+```
+
+**The ONLY correct workflow:**
+1. ✅ Merge `week-N` → `main` (via PR with squash) 
+2. ✅ Checkout `main` and pull latest
+3. ✅ Create tag on `main`
+4. ✅ Push tag
+
+---
+
 ### Prerequisites Checklist
 
 **Before Creating a Release:**
@@ -662,15 +699,30 @@ See CHANGELOG.md for details.
   --base week-2 | cat
 ```
 
-#### Phase 5: Merge and Tag
+#### Phase 5: Merge to Main and Tag
+
+**🚨 CRITICAL ORDER: Merge to main FIRST, then create tag FROM main**
 
 ```bash
-# After PR approval, merge
+# After release PR to week-N is approved and merged
 gh pr merge NUMBER --squash | cat
 
-# Checkout base branch and pull
-git checkout week-2
-git pull origin week-2
+# Create PR from week-N to main
+gh pr create \
+  --title "Release v3.0.1 to production" \
+  --base main \
+  --head week-2 | cat
+
+# Wait for CI and merge to main
+gh pr merge NUMBER --squash | cat
+
+# 🚨 NOW checkout main and create the tag
+git checkout main
+git pull origin main
+
+# Verify you're on the correct commit (the squash merge)
+git log -1 --oneline
+# Should show something like: "6bedd53 Release v3.0.1 to production (#XX)"
 
 # Create annotated tag
 git tag -a v3.0.1 -m "Release v3.0.1: Bugfixes and improvements"
@@ -1165,23 +1217,32 @@ Closes milestone #2" | cat
 # 4. Wait for CI and approval
 gh run watch
 
-# 5. Merge to main
+# 5. Merge to main (squash merge)
 gh pr merge NUMBER --squash | cat
 
 # 6. Close milestone
 gh api repos/sanruiz/fibra/milestones/2 -X PATCH -f state=closed | cat
 
-# 7. Optional: Create release tag
+# 7. 🚨 CRITICAL: Create release tag FROM MAIN (not week-N!)
+# You MUST checkout main AFTER the merge completes
 git checkout main
 git pull origin main
+# Verify you're on the correct commit:
+git log -1 --oneline  # Should show the squash merge commit
 git tag -a v3.1.0 -m "Release v3.1.0: Week 2 complete"
 git push origin v3.1.0
+
+# 8. Monitor release workflow
+gh run watch
 ```
 
 ### Scenario 5: Create Patch Release
 
+**⚠️ Important:** Patch releases during a sprint should follow the same rule - 
+tags MUST be created from `main` after merging.
+
 ```bash
-# 1. Start from current branch
+# 1. Start from current sprint branch
 git checkout week-2
 git pull origin week-2
 git checkout -b release/v3.0.1
@@ -1207,17 +1268,21 @@ git commit -m "chore: Bump version to 3.0.1"
 git push -u origin release/v3.0.1
 gh run watch
 
-# 5. Create PR to week-2
+# 5. Create PR to week-2, then merge
 gh pr create \
   --title "Release v3.0.1" \
   --base week-2 | cat
+gh pr merge NUMBER --squash --delete-branch | cat
 
-# 6. Merge PR
+# 6. Create PR from week-2 to main, then merge
+gh pr create --base main --head week-2 --title "Release v3.0.1 to production" | cat
 gh pr merge NUMBER --squash | cat
 
-# 7. Create and push tag
-git checkout week-2
-git pull origin week-2
+# 7. 🚨 CRITICAL: Create tag FROM MAIN (after merge!)
+git checkout main
+git pull origin main
+# Verify you're on the merge commit:
+git log -1 --oneline
 git tag -a v3.0.1 -m "Release v3.0.1"
 git push origin v3.0.1
 
@@ -1273,6 +1338,8 @@ gh run watch
 **Releases:**
 - ✅ Update version in style.css
 - ✅ Update CHANGELOG.md with release notes
+- ✅ **ALWAYS merge to `main` FIRST, then create tag FROM `main`**
+- ✅ **NEVER create tags from `week-*` branches (they become orphaned after squash merge)**
 - ✅ Create release tag only after CI passes
 - ✅ Verify deployment after release
 - ✅ Create backup before major releases
@@ -1305,6 +1372,7 @@ gh run watch
 
 **Releases:**
 - ❌ Don't create tags without CI passing
+- ❌ **NEVER create tags from `week-*` branches (use `main` only!)**
 - ❌ Don't skip version updates
 - ❌ Don't deploy without testing
 - ❌ Don't forget to update CHANGELOG.md
@@ -1363,11 +1431,12 @@ gh run list --workflow=quality-and-tests.yml | cat
 # 3. If needed, trigger manually
 gh workflow run release-and-deploy.yml -f version=3.0.1
 
-# 4. Or delete and recreate tag on latest commit
+# 4. Or delete and recreate tag on main (CORRECT APPROACH)
 git tag -d v3.0.1
 git push origin --delete v3.0.1
-git checkout week-2
-git pull origin week-2
+# 🚨 CRITICAL: Checkout MAIN, not week-N
+git checkout main
+git pull origin main
 git tag -a v3.0.1 -m "Release v3.0.1"
 git push origin v3.0.1
 ```
