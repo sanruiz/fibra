@@ -232,4 +232,29 @@ class TeamMembersWidgetTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'filter: grayscale(100%)', $css_content );
 		$this->assertStringContainsString( 'filter: grayscale(0%)', $css_content );
 	}
+
+	/**
+	 * Test CSS file contains team-member-link styles for full card link
+	 */
+	public function test_css_has_team_member_link_styles(): void {
+		$css_path    = get_template_directory() . '/assets/css/widgets/team-members.css';
+		$css_content = file_get_contents( $css_path );
+
+		$this->assertStringContainsString( '.team-member-link', $css_content );
+		$this->assertStringContainsString( '.has-link', $css_content );
+	}
+
+	/**
+	 * Test widget has show_photo control
+	 */
+	public function test_has_show_photo_control(): void {
+		$reflection = new \ReflectionClass( $this->widget );
+		$method     = $reflection->getMethod( 'register_controls' );
+		$method->invoke( $this->widget );
+
+		$controls = $this->widget->get_controls();
+
+		$this->assertArrayHasKey( 'show_photo', $controls );
+		$this->assertSame( 'yes', $controls['show_photo']['default'] );
+	}
 }

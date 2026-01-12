@@ -169,6 +169,8 @@ class AnnualReportsWidgetTest extends WP_UnitTestCase {
 		$this->assertArrayHasKey( 'filter_title', $controls, 'Widget should have filter_title control' );
 		$this->assertArrayHasKey( 'see_all_text', $controls, 'Widget should have see_all_text control' );
 		$this->assertArrayHasKey( 'download_text', $controls, 'Widget should have download_text control' );
+		$this->assertArrayHasKey( 'image_height_full_width', $controls, 'Widget should have image_height_full_width control' );
+		$this->assertArrayHasKey( 'image_height_three_columns', $controls, 'Widget should have image_height_three_columns control' );
 	}
 
 	/**

@@ -218,6 +218,75 @@ class AnnualReports extends WidgetBase {
 	 * @return void
 	 */
 	private function register_style_controls(): void {
+		// Image styles.
+		$this->start_controls_section(
+			'section_style_image',
+			array(
+				'label' => __( 'Image', 'soma' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_responsive_control(
+			'image_height_full_width',
+			array(
+				'label'      => __( 'Image Height', 'soma' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'vh' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 100,
+						'max' => 600,
+					),
+					'vh' => array(
+						'min' => 10,
+						'max' => 100,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 307,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .full-width .document .image' => 'height: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'style_variant' => 'full-width',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'image_height_three_columns',
+			array(
+				'label'      => __( 'Image Height', 'soma' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'vh' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 100,
+						'max' => 600,
+					),
+					'vh' => array(
+						'min' => 10,
+						'max' => 100,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 348,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .three-columns .document-list:not(.filtered) .document .image' => 'height: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'style_variant' => 'three-columns',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
 		// Year list styles.
 		$this->start_controls_section(
 			'section_style_year_list',
@@ -408,27 +477,25 @@ class AnnualReports extends WidgetBase {
 			data-lang="<?php echo esc_attr( $current_lang ); ?>"
 			data-download-text="<?php echo esc_attr( $download_text ); ?>"
 			data-endpoint="<?php echo esc_url( rest_url( 'soma/documents' ) ); ?>">
-			<div class="container">
-				<div class="loading">
-					<span class="spinner"></span>
-				</div>
-				<div class="content">
-					<div class="year-list">
-						<div class="mobile-title">
-							<?php echo esc_html( $filter_title ); ?>
-							<span></span>
-						</div>
-						<div class="years">
-							<!-- AJAX: Year filter buttons rendered by JS -->
-						</div>
-						<div class="all">
-							<a><?php echo esc_html( $see_all_text ); ?></a>
-						</div>
+			<div class="loading">
+				<span class="spinner"></span>
+			</div>
+			<div class="content">
+				<div class="year-list">
+					<div class="mobile-title">
+						<?php echo esc_html( $filter_title ); ?>
+						<span></span>
 					</div>
-					<div class="documents">
-						<div class="document-list">
-							<!-- AJAX: Documents rendered by JS -->
-						</div>
+					<div class="years">
+						<!-- AJAX: Year filter buttons rendered by JS -->
+					</div>
+					<div class="all">
+						<a><?php echo esc_html( $see_all_text ); ?></a>
+					</div>
+				</div>
+				<div class="documents">
+					<div class="document-list">
+						<!-- AJAX: Documents rendered by JS -->
 					</div>
 				</div>
 			</div>

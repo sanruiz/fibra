@@ -341,6 +341,12 @@ Displays team members from the custom post type in a grid with photos, names, po
 | **Order By** | Select | `menu_order` | Sort field |
 | **Order** | Select | `ASC` | Sort direction |
 | **Columns** | Select | `3` | Grid columns (2/3/4) |
+| **Show Photo** | Switcher | Yes | Display member featured image |
+| **Link to Profile** | Switcher | Yes | Make entire card clickable to profile page |
+
+#### Features
+
+**Full Card Link**: The entire member card is now clickable when "Link to Profile" is enabled. Hover effects apply to the entire card area, improving user experience and interaction while maintaining visual hierarchy.
 
 #### Style Controls
 
@@ -759,6 +765,9 @@ Financial reports display widget with year filtering for "Reportes Anuales" and 
 
 | Control | Type | Description |
 |---------|------|-------------|
+| **Image** | Section | Image height customization |
+| **Image Height (Full Width)** | Slider | Height for images in full-width variant (default: 307px) |
+| **Image Height (Three Columns)** | Slider | Height for images in three-columns variant (default: 348px) |
 | **Year Filter** | Section | Year button styling |
 | **Active Background** | Color | Active year button background |
 | **Active Color** | Color | Active year text color |
