@@ -3,8 +3,12 @@
  * Single Portfolio Template
  *
  * Displays project title, city and taxonomy terms.
- * Additional content (gallery, technical data, related projects)
- * is managed via Elementor widgets.
+ * Supports both Elementor-based layouts (new) and ACF Flexible Content (legacy).
+ *
+ * - Elementor: Gallery, technical data, sustainability, and related projects
+ *   are managed via custom Elementor widgets.
+ * - Legacy: Falls back to ACF page-builder for existing projects not yet
+ *   migrated to Elementor.
  *
  * @package Soma
  * @since   3.1.17
@@ -20,6 +24,7 @@ $terms        = get_the_terms( get_the_ID(), 'portfolio-taxonomy' );
 
 // Filter out parent/umbrella taxonomy terms.
 $excluded_slugs = array( 'soma_real_estate', 'soma_construction', 'fibrasoma' );
+$uses_elementor = soma_is_built_with_elementor();
 ?>
 
 <section class="single-portfolio-hero">
@@ -40,7 +45,14 @@ $excluded_slugs = array( 'soma_real_estate', 'soma_construction', 'fibrasoma' );
 	</div>
 </section>
 
-<?php
-// Elementor content - gallery, technical data, sustainability, related projects.
-the_content();
-?>
+<?php if ( $uses_elementor ) : ?>
+	<?php
+	// Elementor content - gallery, technical data, sustainability, related projects.
+	the_content();
+	?>
+<?php else : ?>
+	<?php
+	// Legacy: ACF Flexible Content blocks for projects not migrated to Elementor.
+	get_template_part( 'page-builder' );
+	?>
+<?php endif; ?>
