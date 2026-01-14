@@ -120,7 +120,7 @@ For each phase:
 1. **Mark TODO as in-progress** - Update status before starting work
 2. **Implement changes** - Make code changes following the plan
 3. **Write/update tests** - Add unit tests, ensure regression tests pass
-4. **Run tests** - `npm test` to verify no regressions
+4. **Run tests** - `composer test` to verify no regressions
 5. **Mark TODO as completed** - Update status after successful implementation
 6. **Commit phase** - `git commit -m "#XX: Implement [feature] - Phase N"`
 7. **Validate** - Check build, tests, and functionality
@@ -157,7 +157,7 @@ git commit -m "#XX: Add feature implementation plan"
 # Phase 2-N: Implementation Phases
 manage_todo_list(update, phase1_in_progress)
 [make changes]
-npm test
+composer test
 manage_todo_list(update, phase1_completed)
 git commit -m "#XX: Implement feature - Phase 1"
 
