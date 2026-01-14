@@ -1,0 +1,107 @@
+/**
+ * TextWithReadMore Widget Styles
+ *
+ * Expandable text content with Read More/Less functionality.
+ *
+ * @package Soma
+ * @since   3.1.17
+ */
+
+.soma-text-read-more {
+	position: relative;
+}
+
+.soma-text-read-more__title {
+	margin: 0 0 20px;
+}
+
+.soma-text-read-more__wrapper {
+	position: relative;
+	overflow: hidden;
+	transition: max-height 0.3s ease-out;
+}
+
+.soma-text-read-more__content {
+	line-height: 1.6em;
+}
+
+.soma-text-read-more__content p:first-child {
+	margin-top: 0;
+}
+
+.soma-text-read-more__content p:last-child {
+	margin-bottom: 0;
+}
+
+/* Gradient overlay for truncated content */
+.soma-text-read-more__gradient {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	background: linear-gradient(to bottom, transparent 0%, var(--soma-bg-white, #fff) 100%);
+	pointer-events: none;
+	opacity: 1;
+	transition: opacity 0.3s ease-out;
+}
+
+.soma-text-read-more.is-expanded .soma-text-read-more__gradient {
+	opacity: 0;
+}
+
+/* Toggle button */
+.soma-text-read-more__toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 0;
+	margin-top: 15px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-weight: 500;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	transition: color 0.2s ease;
+}
+
+.soma-text-read-more__toggle:hover {
+	text-decoration-thickness: 2px;
+}
+
+.soma-text-read-more__toggle:focus {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.soma-text-read-more__toggle-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 0.3s ease;
+}
+
+.soma-text-read-more.is-expanded .soma-text-read-more__toggle-icon {
+	transform: rotate(180deg);
+}
+
+/* Hidden state - content not overflowing */
+.soma-text-read-more.no-overflow .soma-text-read-more__toggle,
+.soma-text-read-more.no-overflow .soma-text-read-more__gradient {
+	display: none;
+}
+
+/* Accessibility - maintain content visibility for screen readers */
+.soma-text-read-more__content[aria-expanded="false"] {
+	/* Height controlled via JavaScript */
+}
+
+.soma-text-read-more__content[aria-expanded="true"] {
+	/* Full height via JavaScript */
+}
+
+/* Dark mode support */
+.dark-style .soma-text-read-more__gradient {
+	background: linear-gradient(to bottom, transparent 0%, var(--soma-bg-dark, #1a1a1a) 100%);
+}

@@ -41,21 +41,24 @@ class Loader implements LoadableInterface {
 	 * @var array<string, string> Widget class names
 	 */
 	private array $widgets = array(
-		'AnnualReports'  => Widgets\AnnualReports::class,
-		'Breadcrumb'     => Widgets\Breadcrumb::class,
-		'BusinessUnits'  => Widgets\BusinessUnits::class,
-		'ContactForm'    => Widgets\ContactForm::class,
-		'Documents'      => Widgets\Documents::class,
-		'Events'         => Widgets\Events::class,
-		'Footer'         => Widgets\Footer::class,
-		'Navbar'         => Widgets\Navbar::class,
-		'NewsList'       => Widgets\NewsList::class,
-		'Portfolio'      => Widgets\Portfolio::class,
-		'Services'       => Widgets\Services::class,
-		'ShareQuotation' => Widgets\ShareQuotation::class,
-		'StockPrice'     => Widgets\StockPrice::class,
-		'TeamMember'     => Widgets\TeamMember::class,
-		'TeamMembers'    => Widgets\TeamMembers::class,
+		'AnnualReports'           => Widgets\AnnualReports::class,
+		'Breadcrumb'              => Widgets\Breadcrumb::class,
+		'BusinessUnits'           => Widgets\BusinessUnits::class,
+		'ContactForm'             => Widgets\ContactForm::class,
+		'Documents'               => Widgets\Documents::class,
+		'Events'                  => Widgets\Events::class,
+		'Footer'                  => Widgets\Footer::class,
+		'Navbar'                  => Widgets\Navbar::class,
+		'NewsList'                => Widgets\NewsList::class,
+		'Portfolio'               => Widgets\Portfolio::class,
+		'PortfolioGallery'        => Widgets\PortfolioGallery::class,
+		'PortfolioTechnicalSpecs' => Widgets\PortfolioTechnicalSpecs::class,
+		'Services'                => Widgets\Services::class,
+		'TextWithReadMore'        => Widgets\TextWithReadMore::class,
+		'ShareQuotation'          => Widgets\ShareQuotation::class,
+		'StockPrice'              => Widgets\StockPrice::class,
+		'TeamMember'              => Widgets\TeamMember::class,
+		'TeamMembers'             => Widgets\TeamMembers::class,
 	);
 
 	/**
@@ -64,20 +67,23 @@ class Loader implements LoadableInterface {
 	 * @var array<string, string> Widget style handles and files
 	 */
 	private array $widget_styles = array(
-		'soma-annual-reports'  => 'annual-reports.css',
-		'soma-breadcrumb'      => 'breadcrumb.css',
-		'soma-business-units'  => 'business-units.css',
-		'soma-contact-form'    => 'contact-form.css',
-		'soma-documents'       => 'documents.css',
-		'soma-footer'          => 'footer.css',
-		'soma-navbar'          => 'navbar.css',
-		'soma-news-list'       => 'news-list.css',
-		'soma-portfolio'       => 'portfolio.css',
-		'soma-services'        => 'services.css',
-		'soma-share-quotation' => 'share-quotation.css',
-		'soma-stock-price'     => 'stock-price.css',
-		'soma-team-member'     => 'team-member.css',
-		'soma-team-members'    => 'team-members.css',
+		'soma-annual-reports'            => 'annual-reports.css',
+		'soma-breadcrumb'                => 'breadcrumb.css',
+		'soma-business-units'            => 'business-units.css',
+		'soma-contact-form'              => 'contact-form.css',
+		'soma-documents'                 => 'documents.css',
+		'soma-footer'                    => 'footer.css',
+		'soma-navbar'                    => 'navbar.css',
+		'soma-news-list'                 => 'news-list.css',
+		'soma-portfolio'                 => 'portfolio.css',
+		'soma-portfolio-gallery'         => 'portfolio-gallery.css',
+		'soma-portfolio-technical-specs' => 'portfolio-technical-specs.css',
+		'soma-services'                  => 'services.css',
+		'soma-share-quotation'           => 'share-quotation.css',
+		'soma-stock-price'               => 'stock-price.css',
+		'soma-team-member'               => 'team-member.css',
+		'soma-team-members'              => 'team-members.css',
+		'soma-text-with-read-more'       => 'text-with-read-more.css',
 	);
 
 	/**
@@ -86,12 +92,20 @@ class Loader implements LoadableInterface {
 	 * @var array<string, array{file: string, deps: array<int, string>}> Widget script handles, files, and dependencies
 	 */
 	private array $widget_scripts = array(
-		'soma-annual-reports' => array(
+		'soma-annual-reports'    => array(
 			'file' => 'annualReports.js',
 			'deps' => array( 'jquery' ),
 		),
-		'soma-portfolio'      => array(
+		'soma-portfolio'         => array(
 			'file' => 'portfolio.js',
+			'deps' => array( 'jquery' ),
+		),
+		'soma-portfolio-gallery'      => array(
+			'file' => 'portfolio-gallery.js',
+			'deps' => array( 'jquery', 'slick' ),
+		),
+		'soma-text-with-read-more'    => array(
+			'file' => 'text-with-read-more.js',
 			'deps' => array( 'jquery' ),
 		),
 	);

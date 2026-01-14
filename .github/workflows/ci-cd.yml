@@ -29,10 +29,20 @@ on:
             - "week-*"  # CI only for sprint branches
         tags:
             - "v*"      # Release only when tag pushed from main
+        paths-ignore:
+            - "**/*.md"           # Skip for markdown files
+            - "docs/**"           # Skip for documentation folder
+            - ".github/*.md"      # Skip for GitHub markdown files
+            - "LICENSE"           # Skip for license file
     pull_request:
         branches:
             - main      # PRs to main (from week-* at sprint end)
             - "week-*"  # PRs to sprint branches (from feature/fix)
+        paths-ignore:
+            - "**/*.md"           # Skip for markdown files
+            - "docs/**"           # Skip for documentation folder
+            - ".github/*.md"      # Skip for GitHub markdown files
+            - "LICENSE"           # Skip for license file
     workflow_dispatch:
         inputs:
             version:

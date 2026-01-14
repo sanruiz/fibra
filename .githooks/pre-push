@@ -1,0 +1,81 @@
+#!/bin/bash
+#
+# SOMA Theme - Pre-push Git Hook
+# Prevents pushing version tags (v*) from branches other than main
+#
+# Why this matters:
+#   When using squash merge, commits in week-* branches are NOT ancestors of main.
+#   Tags created on week-* branches become "orphaned" after merge - they point to
+#   commits that don't exist in main's history.
+#
+# Correct workflow:
+#   1. Merge week-N → main (via PR with squash)
+#   2. Checkout main and pull
+#   3. Create tag on main
+#   4. Push tag
+#
+
+# Get current branch name
+BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+# Remote and URL are passed as arguments
+REMOTE="$1"
+URL="$2"
+
+# Read stdin for refs being pushed
+while read local_ref local_sha remote_ref remote_sha; do
+    # Check if we're pushing a tag
+    if [[ "$local_ref" =~ ^refs/tags/ ]]; then
+        # Extract tag name
+        TAG_NAME="${local_ref#refs/tags/}"
+        
+        # Check if it's a version tag (v*)
+        if [[ "$TAG_NAME" =~ ^v[0-9] ]]; then
+            # Check if we're NOT on main branch
+            if [ "$BRANCH" != "main" ]; then
+                echo ""
+                echo "🚫 ════════════════════════════════════════════════════════════"
+                echo "   TAG PUSH BLOCKED: Cannot push version tag from '$BRANCH'"
+                echo "════════════════════════════════════════════════════════════"
+                echo ""
+                echo "❌ You're trying to push tag '$TAG_NAME' from branch '$BRANCH'"
+                echo ""
+                echo "⚠️  Version tags (v*) must ONLY be created from 'main' branch."
+                echo ""
+                echo "📋 Why this matters:"
+                echo "   Squash merge creates NEW commits in main. Tags created on"
+                echo "   week-* branches become 'orphaned' - they point to commits"
+                echo "   that don't exist in main's history."
+                echo ""
+                echo "📋 Correct workflow:"
+                echo "   1. First, merge your branch to main via PR:"
+                echo "      gh pr create --base main --head $BRANCH | cat"
+                echo "      gh pr merge NUMBER --squash | cat"
+                echo ""
+                echo "   2. Then checkout main and pull:"
+                echo "      git checkout main"
+                echo "      git pull origin main"
+                echo ""
+                echo "   3. Verify you're on the correct commit:"
+                echo "      git log -1 --oneline"
+                echo ""
+                echo "   4. Now create and push the tag:"
+                echo "      git tag -a $TAG_NAME -m \"Release $TAG_NAME\""
+                echo "      git push origin $TAG_NAME"
+                echo ""
+                echo "🔧 To fix this now:"
+                echo "   1. Delete the local tag:"
+                echo "      git tag -d $TAG_NAME"
+                echo ""
+                echo "   2. Follow the correct workflow above"
+                echo ""
+                echo "════════════════════════════════════════════════════════════"
+                echo ""
+                exit 1
+            fi
+        fi
+    fi
+done
+
+# Allow push
+exit 0

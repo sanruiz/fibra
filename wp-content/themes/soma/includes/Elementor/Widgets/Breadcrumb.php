@@ -195,6 +195,9 @@ class Breadcrumb extends WidgetBase {
 			array(
 				'label'     => __( 'Link Hover Color', 'soma' ),
 				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .soma-breadcrumb a:hover' => 'color: {{VALUE}};',
 				),
@@ -206,9 +209,7 @@ class Breadcrumb extends WidgetBase {
 			array(
 				'label'     => __( 'Current Page Color', 'soma' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => Global_Colors::COLOR_TEXT,
-				),
+				'default'   => '#7E7E87',
 				'selectors' => array(
 					'{{WRAPPER}} .soma-breadcrumb .current' => 'color: {{VALUE}};',
 				),
@@ -220,9 +221,7 @@ class Breadcrumb extends WidgetBase {
 			array(
 				'label'     => __( 'Separator Color', 'soma' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => Global_Colors::COLOR_TEXT,
-				),
+				'default'   => '#7E7E87',
 				'selectors' => array(
 					'{{WRAPPER}} .soma-breadcrumb .separator' => 'color: {{VALUE}};',
 				),

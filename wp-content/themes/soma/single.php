@@ -33,30 +33,7 @@ $header_options = get_field( 'header_content', 'options' );
 
 	<?php elseif ( get_post_type() === 'portfolio' ) : ?>
 
-		<?php
-			global $page_builder;
-			$page_builder = get_field( 'soma_blocks' );
-			$city         = get_field( 'project_info_city' );
-			$terms        = get_the_terms( get_the_id(), 'portfolio-taxonomy' );
-		?>
-
-		<section class="project-title-section">
-			<div class="container">
-				<h2><?php echo esc_html( get_the_title() ); ?></h2>
-				<p>
-					<?php echo $city ? esc_html( $city ) . '. ' : ''; ?>
-					<?php if ( $terms ) : ?>
-						<?php foreach ( $terms as $key => $taxonomy_term ) : ?>
-							<?php if ( $taxonomy_term->slug !== 'soma_real_estate' && $taxonomy_term->slug !== 'soma_construction' && $taxonomy_term->slug !== 'fibrasoma' ) : ?>
-								<?php echo esc_html( $taxonomy_term->name ) . '. '; ?>
-							<?php endif; ?>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</p>
-			</div>
-		</section>
-
-		<?php get_template_part( 'page-builder' ); ?>
+		<?php get_template_part( 'singles/portfolio' ); ?>
 
 	<?php else : ?>
 

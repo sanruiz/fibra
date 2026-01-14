@@ -63,6 +63,111 @@ This project uses **automatic path-specific instructions** that VS Code loads ba
 - ✅ **Reactive**: Detailed coding standards, file-type-specific patterns, comprehensive guides
 - ⚠️ **Avoid duplication**: If detailed content exists in reactive files, only add a summary to global
 
+
+## 🎯 Agent Skills
+
+This project includes **custom Agent Skills** that provide detailed knowledge for specific complex tasks. Skills are located in `.github/skills/` and should be consulted when performing related operations.
+
+### Available Skills
+
+| Skill | Location | Use When |
+|-------|----------|----------|
+| **Elementor Widget Creation** | `.github/skills/elementor-widget-creation/` | Creating new Elementor widgets or modifying existing ones |
+| **PHPUnit Testing** | `.github/skills/phpunit-testing/` | Writing or updating tests, troubleshooting test failures |
+| **GitHub Release Workflow** | `.github/skills/github-release-workflow/` | Creating releases, troubleshooting CI/CD, version management |
+| **ACF Block Development** | `.github/skills/acf-block-development/` | Creating ACF flexible content blocks or PageBuilder partials |
+| **GitHub Actions Debugging** | `.github/skills/github-actions-debugging/` | Diagnosing workflow failures, optimizing CI/CD pipelines |
+
+### How to Use Skills
+
+1. **Read the SKILL.md file** in the relevant skill directory before starting work
+2. **Follow the checklist** provided in each skill for task completion
+3. **Reference skill patterns** when implementing similar features
+4. **Update skills** when discovering new patterns or solutions
+
+### When to Consult Skills
+
+- ✅ **Always**: Before creating Elementor widgets, ACF blocks, or writing tests
+- ✅ **On Errors**: When CI/CD fails or tests break
+- ✅ **For Releases**: When preparing version releases or managing deployments
+
+---
+
+## 🔄 Copilot Agent Workflow for Complex Tasks
+
+When implementing new features, refactoring code, or fixing complex issues, **always follow this systematic workflow**:
+
+### Phase 1: Initial Analysis
+1. **Analyze the request** - Understand the full scope, dependencies, and potential impacts
+2. **Search existing code** - Use semantic search and grep to understand current implementation
+3. **Identify components** - List all files, functions, and components that need changes
+4. **Review documentation** - Check existing docs for patterns and conventions
+
+### Phase 2: Planning Documentation
+1. **Create planning document** - `wp-content/themes/soma/docs/[feature-name]-plan.md` with:
+   - Problem statement and objectives
+   - Current architecture analysis
+   - Proposed changes with before/after code examples
+   - Risk assessment and mitigation strategies
+   - Phase breakdown if complex (separate into logical phases)
+   - Priority assignment (HIGH/MEDIUM/LOW)
+2. **Add action plan** - Detailed step-by-step implementation guide
+3. **Create TODO list** - Use `manage_todo_list` tool to track all phases
+4. **Commit planning** - `git commit -m "#XX: Add [feature] implementation plan"`
+
+### Phase 3: Implementation by Phases
+For each phase:
+1. **Mark TODO as in-progress** - Update status before starting work
+2. **Implement changes** - Make code changes following the plan
+3. **Write/update tests** - Add unit tests, ensure regression tests pass
+4. **Run tests** - `composer test` to verify no regressions
+5. **Mark TODO as completed** - Update status after successful implementation
+6. **Commit phase** - `git commit -m "#XX: Implement [feature] - Phase N"`
+7. **Validate** - Check build, tests, and functionality
+
+### Phase 4: Final Documentation
+1. **Create final documentation** - `wp-content/themes/soma/docs/[feature-name].md` with:
+   - Feature overview and usage guide
+   - API documentation and examples
+   - Integration guide
+   - Testing strategy
+   - Troubleshooting section
+2. **Update related docs** - Update `readme.md`, etc.
+3. **Update Copilot context** - Add patterns and conventions to this file
+4. **Delete planning docs** - Remove temporary planning documents
+5. **Final commit** - `git commit -m "#XX: Add [feature] documentation"`
+
+### Key Principles
+- ✅ **One commit per phase** - Create clear checkpoint commits
+- ✅ **Test everything** - Run full test suite after each phase
+- ✅ **No breaking changes** - Ensure backward compatibility
+- ✅ **Document as you go** - Update docs with each phase
+- ✅ **Clean up** - Remove temporary planning files at the end
+- ✅ **Type safety** - Maintain full TypeScript coverage
+- ✅ **Follow patterns** - Use existing project patterns and conventions
+
+### Example Workflow
+```bash
+# Phase 1: Analysis and Planning
+[semantic_search, grep_search, read_file]
+create_file("wp-content/themes/soma/docs/feature-plan.md")
+manage_todo_list(write, [todos])
+git commit -m "#XX: Add feature implementation plan"
+
+# Phase 2-N: Implementation Phases
+manage_todo_list(update, phase1_in_progress)
+[make changes]
+composer test
+manage_todo_list(update, phase1_completed)
+git commit -m "#XX: Implement feature - Phase 1"
+
+# Final Phase: Documentation
+create_file("wp-content/themes/soma/docs/feature.md")
+update copilot-instructions.md
+delete planning docs
+git commit -m "#XX: Add feature documentation and cleanup"
+```
+
 ---
 
 ## 📁 Repository Structure
@@ -298,9 +403,31 @@ Closes #issue-number (if applicable)
 
 ---
 
-## �🚀 Release Workflow (Global Commands)
+## 🚀 Release Workflow (Global Commands)
 
 **⚠️ Note**: These commands are global because path-specific instructions are reactive (only activate when `applyTo` matches).
+
+### 🚨 CRITICAL: Tags Must Be Created from `main` Branch Only
+
+**NEVER create tags from `week-*` branches.** Tags created from sprint branches become orphaned when using squash merge, because:
+
+1. Squash merge creates a NEW commit in `main` (combining all commits)
+2. The original commits in `week-*` are NOT ancestors of `main`
+3. Tags pointing to those commits become "orphaned" (not reachable from any branch)
+
+```
+❌ WRONG: Create tag on week-4, then merge week-4 to main
+   → Tag points to commit that doesn't exist in main history
+
+✅ CORRECT: Merge week-4 to main FIRST, then create tag on main
+   → Tag points to the squash merge commit in main
+```
+
+**The correct order is:**
+1. Merge `week-N` → `main` (via PR with squash)
+2. Checkout `main` and pull
+3. Create tag on `main`
+4. Push tag (triggers release workflow)
 
 ### Standard Release (from week-* to main)
 
@@ -326,18 +453,22 @@ git checkout -b release/vX.Y.Z
 git add style.css CHANGELOG.md
 git commit -m "chore: Prepare release vX.Y.Z"
 
-# 6. Create PR to week-N, then merge
+# 6. Create PR from release branch to week-N, then merge
 git push -u origin release/vX.Y.Z
 gh pr create --base week-N --title "Release vX.Y.Z" | cat
 gh pr merge NUMBER --squash --delete-branch | cat
 
 # 7. Create PR from week-N to main, then merge
+# ⚠️ This MUST complete BEFORE creating any tags!
 gh pr create --base main --head week-N --title "Week N: Sprint completion" | cat
 gh pr merge NUMBER --squash | cat
 
-# 8. Checkout main and create tag
+# 8. 🚨 CRITICAL: Checkout main and create tag FROM MAIN
+# Tags MUST be created after merging to main, not before!
 git checkout main
 git pull origin main
+# Verify you're on main with the merge commit:
+git log -1 --oneline  # Should show the squash merge commit
 git tag -a vX.Y.Z -m "Release vX.Y.Z: Description"
 
 # 9. Push tag (triggers CI/CD → Release → Deploy)
