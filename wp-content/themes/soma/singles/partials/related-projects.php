@@ -23,9 +23,9 @@ $current_terms = get_the_terms( $current_post_id, 'portfolio-taxonomy' );
 $term_slugs    = array();
 
 if ( $current_terms && ! is_wp_error( $current_terms ) ) {
-	foreach ( $current_terms as $term ) {
-		if ( ! in_array( $term->slug, $excluded_slugs, true ) ) {
-			$term_slugs[] = $term->slug;
+	foreach ( $current_terms as $current_term ) {
+		if ( ! in_array( $current_term->slug, $excluded_slugs, true ) ) {
+			$term_slugs[] = $current_term->slug;
 		}
 	}
 }
