@@ -1,21 +1,23 @@
 /**
  * SOMA Breadcrumb Widget Styles
  *
- * Basic styling for breadcrumb navigation widget.
- * Most styling should be controlled through Elementor controls.
+ * Styling for breadcrumb navigation widget.
+ * Matches legacy partial .breadcrumb-partial-ad683a styles.
  *
  * @package    Soma
  * @subpackage Assets/CSS
  * @since      3.1.7
+ * @updated    3.1.17 - Standardized font sizes to match partial (Issue #191)
  */
 
 .soma-breadcrumb {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	padding: var(--soma-spacing-sm, 0.5rem) 0;
-	font-size: var(--soma-font-size-body, 1.25rem);
+	padding: 70px 0 0 0;
+	font-size: var(--soma-font-size-small, 16px);
 	line-height: 1.5;
+	letter-spacing: 0;
 }
 
 .soma-breadcrumb > span {
@@ -23,27 +25,50 @@
 	align-items: center;
 }
 
+.soma-breadcrumb a,
+.soma-breadcrumb span {
+	font-size: var(--soma-font-size-small, 16px);
+	letter-spacing: 0;
+}
+
 .soma-breadcrumb a {
+	color: var(--soma-color-text-secondary, #7E7E87);
 	text-decoration: none;
-	transition: all 0.2s ease-in-out;
+	transition: var(--soma-transition, 0.5s);
 }
 
 .soma-breadcrumb a:hover {
-	text-decoration: underline;
+	color: var(--soma-color-text-primary, #171717);
+	text-decoration: none;
 }
 
 .soma-breadcrumb .current {
-	font-size: var(--soma-font-size-small, 1rem);
+	font-size: var(--soma-font-size-small, 16px);
 }
 
-.soma-breadcrumb .separator {
-	opacity: 0.6;
+.soma-breadcrumb .separator,
+.soma-breadcrumb i {
+	color: var(--soma-color-text-secondary, #7E7E87);
 	user-select: none;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
 	.soma-breadcrumb {
-		font-size: 0.8125rem;
+		padding: 10px 0 0 0;
+		font-size: var(--soma-font-size-tiny, 14px);
+	}
+
+	.soma-breadcrumb a,
+	.soma-breadcrumb span,
+	.soma-breadcrumb .current {
+		font-size: var(--soma-font-size-tiny, 14px);
+	}
+
+	/* Hide items beyond the first 3 on mobile (matches partial behavior) */
+	.soma-breadcrumb > span:nth-child(n+4),
+	.soma-breadcrumb > a:nth-child(n+4),
+	.soma-breadcrumb > i:nth-child(n+4) {
+		display: none;
 	}
 }

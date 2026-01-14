@@ -1,20 +1,209 @@
+/**
+ * Single Portfolio Styles
+ *
+ * Styles for the portfolio single page hero section.
+ * Additional sections are styled via Elementor widgets.
+ *
+ * @package Soma
+ * @since   3.1.16
+ */
+
+// Hero Section.
+.single-portfolio-hero {
+    padding: 45px 0 35px;
+    background-color: #fff;
+
+    .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .project-title {
+        font-family: $f1;
+        font-size: 48px;
+        font-weight: 500;
+        line-height: 1.1;
+        margin: 0 0 8px 0;
+        color: $c1;
+
+        @media screen and ($t-portrait) {
+            font-size: 36px;
+        }
+
+        @media screen and ($mobile) {
+            font-size: 28px;
+        }
+    }
+
+    .project-meta {
+        font-family: $f1;
+        font-size: 16px;
+        color: #666;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+
+        span:not(:last-child)::after {
+            content: '.';
+            margin-left: 2px;
+        }
+
+        @media screen and ($mobile) {
+            font-size: 14px;
+        }
+    }
+}
+
+// Legacy styles for backward compatibility.
 .project-title-section {
     padding: 22px 0 15px 0;
+
     h2 {
         margin-top: 0;
         margin-bottom: 40px;
     }
+
     p {
         margin: 0;
     }
 }
 
-.single-portfolio #ditto-single {
-    padding-bottom: 120px;
+// Related Projects Section.
+.related-projects-section {
+    padding: 60px 0 80px;
+    background-color: #f8f8f8;
+
     @media screen and ($mobile) {
-        padding-bottom: 40px;
+        padding: 40px 0 60px;
     }
-    &.latest-block-is-dark {
-        padding-bottom: 0 !important;
+
+    // Dark style variant.
+    &.dark-style {
+        background-color: $c1;
+
+        .related-projects-title {
+            color: #fff;
+        }
+
+        .related-project-card {
+            &:hover {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .related-project-image {
+            background: #333;
+        }
+
+        .related-project-name {
+            color: #fff;
+        }
+
+        .related-project-city,
+        .related-project-type {
+            color: #A1A1AE;
+        }
+    }
+
+    .container {
+        max-width: var(--soma-container-max-width, 1440px);
+        margin: 0 auto;
+        padding: 0 var(--soma-container-padding-desktop, 80px);
+    }
+
+    .related-projects-title {
+        font-size: 32px;
+        font-weight: 500;
+        color: $c1;
+        margin: 0 0 32px 0;
+        text-align: left;
+
+        @media screen and ($mobile) {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+    }
+
+    .related-projects-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+
+        @media screen and ($t-portrait) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and ($mobile) {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+    }
+
+    .related-project-card {
+        display: block;
+        text-decoration: none;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+            .related-project-image img {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .related-project-image {
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        background: #eee;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+    }
+
+    .related-project-info {
+        padding: 16px;
+        transition: background-color 0.3s ease;
+
+        @media screen and ($mobile) {
+            padding: 12px;
+        }
+    }
+
+    .related-project-name {
+        font-family: $f1;
+        font-size: 16px;
+        font-weight: 500;
+        color: $c1;
+        margin: 0 0 4px 0;
+        line-height: 1.3;
+        transition: color 0.3s ease;
+
+        @media screen and ($mobile) {
+            font-size: 14px;
+        }
+    }
+
+    .related-project-city,
+    .related-project-type {
+        font-family: $f1;
+        font-size: 13px;
+        color: #666;
+        display: inline;
+        transition: color 0.3s ease;
+    }
+
+    .related-project-city::after {
+        content: '.';
+        margin: 0 4px 0 2px;
     }
 }

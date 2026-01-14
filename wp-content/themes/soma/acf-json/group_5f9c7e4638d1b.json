@@ -22,40 +22,147 @@
                     "label": "Year",
                     "name": "year",
                     "type": "text",
-                    "instructions": "",
+                    "instructions": "Project completion year (e.g., 2026)",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "20",
+                        "width": "25",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
-                    "placeholder": "",
+                    "placeholder": "2026",
                     "prepend": "",
                     "append": "",
-                    "maxlength": ""
+                    "maxlength": "4"
                 },
                 {
                     "key": "field_5f9c81334d16d",
                     "label": "City",
                     "name": "city",
                     "type": "text",
-                    "instructions": "",
+                    "instructions": "Project location (e.g., Ciudad de México)",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "80",
+                        "width": "75",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
-                    "placeholder": "",
+                    "placeholder": "Ciudad de México",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_678c0001a1b2c",
+                    "label": "Designed By",
+                    "name": "designed_by",
+                    "type": "text",
+                    "instructions": "Architect or design firm (e.g., Sordo Madaleno)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Sordo Madaleno",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_678c0002b2c3d",
+                    "label": "GLA",
+                    "name": "gla",
+                    "type": "number",
+                    "instructions": "Gross Leasable Area in square meters (e.g., 90000)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "90000",
+                    "prepend": "",
+                    "append": "m²",
+                    "min": "",
+                    "max": "",
+                    "step": ""
+                },
+                {
+                    "key": "field_678c0003c3d4e",
+                    "label": "Occupancy Rate",
+                    "name": "occupancy_rate",
+                    "type": "number",
+                    "instructions": "Occupancy rate percentage (e.g., 100)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "100",
+                    "prepend": "",
+                    "append": "%",
+                    "min": "0",
+                    "max": "100",
+                    "step": "1"
+                },
+                {
+                    "key": "field_678c0004d4e5f",
+                    "label": "Project Type",
+                    "name": "project_type",
+                    "type": "text",
+                    "instructions": "Type of project (e.g., Usos mixtos, Comercial, Oficinas)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Usos mixtos",
                     "prepend": "",
                     "append": "",
                     "maxlength": ""
                 }
             ]
+        },
+        {
+            "key": "field_678c0005e5f6g",
+            "label": "Gallery",
+            "name": "project_gallery",
+            "type": "gallery",
+            "instructions": "Project images for the hero slider. First image will be the main hero image.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min": "",
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg, jpeg, png, webp",
+            "insert": "append",
+            "preview_size": "medium"
         }
     ],
     "location": [
@@ -72,10 +179,8 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [
-        "the_content"
-    ],
+    "hide_on_screen": "",
     "active": true,
-    "description": "",
-    "modified": 1606148026
+    "description": "Project metadata fields for portfolio items (year, city, GLA, occupancy, gallery)",
+    "modified": 1736812800
 }

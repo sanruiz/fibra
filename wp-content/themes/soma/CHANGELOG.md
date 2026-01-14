@@ -9,6 +9,101 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Week 6 Feature - Portfolio Detail Template and Elementor Widgets
+
+This release implements the complete portfolio single page template with dedicated Elementor widgets for project galleries, technical specifications, expandable text content, and related projects.
+
+---
+
+### ✨ Added
+
+#### Portfolio Single Template
+
+- **Dedicated Template** - New `singles/portfolio.php` template for individual portfolio items (#27)
+  - Custom header with project title and category
+  - Flexible content sections via Elementor
+  - Dark/light style variants support
+  - Responsive layout for all devices
+
+#### New Elementor Widgets
+
+- **PortfolioGallery Widget** - Image gallery with Slick carousel integration (#28)
+  - Responsive grid layout (3 columns desktop, 2 tablet, 1 mobile)
+  - Lightbox functionality with navigation
+  - Lazy loading for performance
+  - Custom navigation arrows
+  - ACF gallery field integration
+
+- **PortfolioTechnicalSpecs Widget** - Technical specifications display (#29)
+  - Key-value pairs layout
+  - Icon support for each specification
+  - Responsive grid system
+  - ACF repeater field integration
+
+- **TextWithReadMore Widget** - Expandable text content (#30)
+  - Configurable initial text height
+  - Smooth expand/collapse animation
+  - Customizable "Read More" / "Read Less" button text
+  - Typography and color controls
+  - Gradient fade effect on collapsed state
+
+#### Template Parts
+
+- **Related Projects** - Reusable template part for showing related portfolio items (#31)
+  - Query by same taxonomy terms
+  - Configurable number of items
+  - Dark-style variant support
+  - Grid layout with hover effects
+
+#### Breadcrumb Improvements
+
+- **Standardized Styling** - Unified breadcrumb font sizes and colors (#191)
+  - Consistent 14px font size across all views
+  - Standardized separator and link colors
+  - Improved mobile responsiveness
+
+### 🐛 Fixed
+
+- **PHPCS Compliance** - Renamed `$term` to `$current_term` to avoid WordPress global override
+- **Script Dependencies** - Fixed `get_script_depends()` to include `soma-portfolio-gallery` ensuring widget JavaScript loads correctly
+
+### 📦 Files Changed
+
+#### Added
+
+- `singles/portfolio.php` - Portfolio single template
+- `includes/Elementor/Widgets/PortfolioGallery.php` - Gallery widget (~380 lines)
+- `includes/Elementor/Widgets/PortfolioTechnicalSpecs.php` - Tech specs widget (~280 lines)
+- `includes/Elementor/Widgets/TextWithReadMore.php` - Expandable text widget (~320 lines)
+- `assets/css/widgets/portfolio-gallery.css` - Gallery styles
+- `assets/css/widgets/portfolio-technical-specs.css` - Tech specs styles
+- `assets/css/widgets/text-with-read-more.css` - Expandable text styles
+- `assets/js/widgets/portfolio-gallery.js` - Gallery JavaScript with Slick integration
+- `assets/js/widgets/text-with-read-more.js` - Expand/collapse functionality
+- `template-parts/related-projects.php` - Related projects template part
+- `tests/Integration/Elementor/PortfolioGalleryWidgetTest.php` - Gallery widget tests
+- `tests/Integration/Elementor/PortfolioTechnicalSpecsWidgetTest.php` - Tech specs tests
+- `tests/Integration/Elementor/TextWithReadMoreWidgetTest.php` - Expandable text tests
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Register new widgets, styles, and scripts
+- `includes/Elementor/Widgets/Breadcrumb.php` - Standardized styling
+- `assets/css/widgets/breadcrumb.css` - Updated font sizes and colors
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Include new widgets in test arrays
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #27**: [Template de Proyecto Individual](https://github.com/sanruiz/fibra/issues/27) - Closed
+- **Issue #28**: [Galería de Imágenes del Proyecto](https://github.com/sanruiz/fibra/issues/28) - Closed
+- **Issue #29**: [Datos Clave del Proyecto](https://github.com/sanruiz/fibra/issues/29) - Closed
+- **Issue #30**: [Sección de Sostenibilidad del Proyecto](https://github.com/sanruiz/fibra/issues/30) - Closed
+- **Issue #31**: [Proyectos Relacionados](https://github.com/sanruiz/fibra/issues/31) - Closed
+- **Issue #191**: [Standardize breadcrumb font sizes](https://github.com/sanruiz/fibra/issues/191) - Closed
+- **PR #195**: [feat(portfolio): Week 6 - Portfolio detail template and Elementor widgets](https://github.com/sanruiz/fibra/pull/195)
+
 ---
 
 ## [3.1.16] - 2026-01-09
