@@ -85,7 +85,7 @@ class PortfolioGallery extends Widget_Base {
 	 * @return array Script dependencies.
 	 */
 	public function get_script_depends(): array {
-		return array( 'slick' );
+		return array( 'soma-portfolio-gallery', 'slick' );
 	}
 
 	/**
