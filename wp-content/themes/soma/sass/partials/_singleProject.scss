@@ -70,18 +70,6 @@
     }
 }
 
-.single-portfolio #ditto-single {
-    padding-bottom: 120px;
-
-    @media screen and ($mobile) {
-        padding-bottom: 40px;
-    }
-
-    &.latest-block-is-dark {
-        padding-bottom: 0 !important;
-    }
-}
-
 // Related Projects Section.
 .related-projects-section {
     padding: 60px 0 80px;
@@ -91,14 +79,41 @@
         padding: 40px 0 60px;
     }
 
+    // Dark style variant.
+    &.dark-style {
+        background-color: $c1;
+
+        .related-projects-title {
+            color: #fff;
+        }
+
+        .related-project-card {
+            &:hover {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .related-project-image {
+            background: #333;
+        }
+
+        .related-project-name {
+            color: #fff;
+        }
+
+        .related-project-city,
+        .related-project-type {
+            color: #A1A1AE;
+        }
+    }
+
     .container {
-        max-width: 1240px;
+        max-width: var(--soma-container-max-width, 1440px);
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 var(--soma-container-padding-desktop, 80px);
     }
 
     .related-projects-title {
-        font-family: $f1;
         font-size: 32px;
         font-weight: 500;
         color: $c1;
@@ -157,6 +172,7 @@
 
     .related-project-info {
         padding: 16px;
+        transition: background-color 0.3s ease;
 
         @media screen and ($mobile) {
             padding: 12px;
@@ -170,6 +186,7 @@
         color: $c1;
         margin: 0 0 4px 0;
         line-height: 1.3;
+        transition: color 0.3s ease;
 
         @media screen and ($mobile) {
             font-size: 14px;
@@ -182,6 +199,7 @@
         font-size: 13px;
         color: #666;
         display: inline;
+        transition: color 0.3s ease;
     }
 
     .related-project-city::after {
