@@ -16,11 +16,21 @@ on:
     branches: 
       - "main"
       - "week-*"  # Analyze sprint branches for early security detection
+    paths-ignore:
+      - "**/*.md"           # Skip for markdown files
+      - "docs/**"           # Skip for documentation folder
+      - ".github/*.md"      # Skip for GitHub markdown files
+      - "LICENSE"           # Skip for license file
   
   pull_request:
     branches: 
       - "main"
       - "week-*"  # Scan PRs before merge
+    paths-ignore:
+      - "**/*.md"           # Skip for markdown files
+      - "docs/**"           # Skip for documentation folder
+      - ".github/*.md"      # Skip for GitHub markdown files
+      - "LICENSE"           # Skip for license file
   
   schedule:
     # Run security scan every Monday at 12:28 UTC

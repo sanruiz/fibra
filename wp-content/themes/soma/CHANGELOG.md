@@ -67,6 +67,15 @@ This release implements the complete portfolio single page template with dedicat
 - **PHPCS Compliance** - Renamed `$term` to `$current_term` to avoid WordPress global override
 - **Script Dependencies** - Fixed `get_script_depends()` to include `soma-portfolio-gallery` ensuring widget JavaScript loads correctly
 
+### ⚡ Performance
+
+#### CI/CD Optimization
+
+- **Skip Workflows for Documentation** - Added `paths-ignore` to CI/CD and CodeQL workflows
+  - Commits with only `.md` files no longer trigger workflows
+  - Saves CI resources and reduces unnecessary runs
+  - Patterns excluded: `**/*.md`, `docs/**`, `.github/*.md`, `LICENSE`
+
 ### 📦 Files Changed
 
 #### Added
