@@ -63,6 +63,111 @@ This project uses **automatic path-specific instructions** that VS Code loads ba
 - ✅ **Reactive**: Detailed coding standards, file-type-specific patterns, comprehensive guides
 - ⚠️ **Avoid duplication**: If detailed content exists in reactive files, only add a summary to global
 
+
+## 🎯 Agent Skills
+
+This project includes **custom Agent Skills** that provide detailed knowledge for specific complex tasks. Skills are located in `.github/skills/` and should be consulted when performing related operations.
+
+### Available Skills
+
+| Skill | Location | Use When |
+|-------|----------|----------|
+| **Elementor Widget Creation** | `.github/skills/elementor-widget-creation/` | Creating new Elementor widgets or modifying existing ones |
+| **PHPUnit Testing** | `.github/skills/phpunit-testing/` | Writing or updating tests, troubleshooting test failures |
+| **GitHub Release Workflow** | `.github/skills/github-release-workflow/` | Creating releases, troubleshooting CI/CD, version management |
+| **ACF Block Development** | `.github/skills/acf-block-development/` | Creating ACF flexible content blocks or PageBuilder partials |
+| **GitHub Actions Debugging** | `.github/skills/github-actions-debugging/` | Diagnosing workflow failures, optimizing CI/CD pipelines |
+
+### How to Use Skills
+
+1. **Read the SKILL.md file** in the relevant skill directory before starting work
+2. **Follow the checklist** provided in each skill for task completion
+3. **Reference skill patterns** when implementing similar features
+4. **Update skills** when discovering new patterns or solutions
+
+### When to Consult Skills
+
+- ✅ **Always**: Before creating Elementor widgets, ACF blocks, or writing tests
+- ✅ **On Errors**: When CI/CD fails or tests break
+- ✅ **For Releases**: When preparing version releases or managing deployments
+
+---
+
+## 🔄 Copilot Agent Workflow for Complex Tasks
+
+When implementing new features, refactoring code, or fixing complex issues, **always follow this systematic workflow**:
+
+### Phase 1: Initial Analysis
+1. **Analyze the request** - Understand the full scope, dependencies, and potential impacts
+2. **Search existing code** - Use semantic search and grep to understand current implementation
+3. **Identify components** - List all files, functions, and components that need changes
+4. **Review documentation** - Check existing docs for patterns and conventions
+
+### Phase 2: Planning Documentation
+1. **Create planning document** - `wp-content/themes/soma/docs/[feature-name]-plan.md` with:
+   - Problem statement and objectives
+   - Current architecture analysis
+   - Proposed changes with before/after code examples
+   - Risk assessment and mitigation strategies
+   - Phase breakdown if complex (separate into logical phases)
+   - Priority assignment (HIGH/MEDIUM/LOW)
+2. **Add action plan** - Detailed step-by-step implementation guide
+3. **Create TODO list** - Use `manage_todo_list` tool to track all phases
+4. **Commit planning** - `git commit -m "#XX: Add [feature] implementation plan"`
+
+### Phase 3: Implementation by Phases
+For each phase:
+1. **Mark TODO as in-progress** - Update status before starting work
+2. **Implement changes** - Make code changes following the plan
+3. **Write/update tests** - Add unit tests, ensure regression tests pass
+4. **Run tests** - `npm test` to verify no regressions
+5. **Mark TODO as completed** - Update status after successful implementation
+6. **Commit phase** - `git commit -m "#XX: Implement [feature] - Phase N"`
+7. **Validate** - Check build, tests, and functionality
+
+### Phase 4: Final Documentation
+1. **Create final documentation** - `wp-content/themes/soma/docs/[feature-name].md` with:
+   - Feature overview and usage guide
+   - API documentation and examples
+   - Integration guide
+   - Testing strategy
+   - Troubleshooting section
+2. **Update related docs** - Update `readme.md`, etc.
+3. **Update Copilot context** - Add patterns and conventions to this file
+4. **Delete planning docs** - Remove temporary planning documents
+5. **Final commit** - `git commit -m "#XX: Add [feature] documentation"`
+
+### Key Principles
+- ✅ **One commit per phase** - Create clear checkpoint commits
+- ✅ **Test everything** - Run full test suite after each phase
+- ✅ **No breaking changes** - Ensure backward compatibility
+- ✅ **Document as you go** - Update docs with each phase
+- ✅ **Clean up** - Remove temporary planning files at the end
+- ✅ **Type safety** - Maintain full TypeScript coverage
+- ✅ **Follow patterns** - Use existing project patterns and conventions
+
+### Example Workflow
+```bash
+# Phase 1: Analysis and Planning
+[semantic_search, grep_search, read_file]
+create_file("wp-content/themes/soma/docs/feature-plan.md")
+manage_todo_list(write, [todos])
+git commit -m "#XX: Add feature implementation plan"
+
+# Phase 2-N: Implementation Phases
+manage_todo_list(update, phase1_in_progress)
+[make changes]
+npm test
+manage_todo_list(update, phase1_completed)
+git commit -m "#XX: Implement feature - Phase 1"
+
+# Final Phase: Documentation
+create_file("wp-content/themes/soma/docs/feature.md")
+update copilot-instructions.md
+delete planning docs
+git commit -m "#XX: Add feature documentation and cleanup"
+```
+
 ---
 
 ## 📁 Repository Structure
