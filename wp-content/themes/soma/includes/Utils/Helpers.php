@@ -683,6 +683,58 @@ function soma_format_stock_datetime( int $timestamp ): string {
 }
 
 // =============================================================================
+// Elementor Helpers
+// =============================================================================
+
+/**
+ * Check if current post is built with Elementor
+ *
+ * Detects whether the current post or a specific post was built using
+ * Elementor page builder. Used for backward compatibility in templates
+ * to conditionally render Elementor content or legacy ACF page-builder content.
+ *
+ * @since 3.1.17
+ *
+ * @param int|null $post_id Optional post ID. Defaults to current post if null.
+ * @return bool True if post is built with Elementor, false otherwise.
+ *
+ * @example
+ * // Check current post
+ * if ( soma_is_built_with_elementor() ) {
+ *     the_content(); // Render Elementor content
+ * } else {
+ *     get_template_part( 'page-builder' ); // Render ACF blocks
+ * }
+ *
+ * // Check specific post
+ * if ( soma_is_built_with_elementor( 123 ) ) {
+ *     // Post 123 uses Elementor
+ * }
+ */
+function soma_is_built_with_elementor( ?int $post_id = null ): bool {
+	// Check if Elementor is active.
+	if ( ! class_exists( '\Elementor\Plugin' ) ) {
+		return false;
+	}
+
+	// Use current post ID if not provided.
+	if ( null === $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	// Ensure we have a valid post ID.
+	if ( ! $post_id ) {
+		return false;
+	}
+
+	// Get Elementor document for this post.
+	$document = \Elementor\Plugin::$instance->documents->get( $post_id );
+
+	// Check if document exists and is built with Elementor.
+	return $document && $document->is_built_with_elementor();
+}
+
+// =============================================================================
 // Breadcrumb Helpers
 // =============================================================================
 
