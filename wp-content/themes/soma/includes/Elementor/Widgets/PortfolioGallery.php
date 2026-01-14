@@ -49,7 +49,7 @@ class PortfolioGallery extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title(): string {
-		return esc_html__( 'SOMA Portfolio Gallery', 'soma' );
+		return esc_html__( 'Portfolio Gallery', 'soma' );
 	}
 
 	/**
