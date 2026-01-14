@@ -54,6 +54,7 @@ class Loader implements LoadableInterface {
 		'PortfolioGallery'        => Widgets\PortfolioGallery::class,
 		'PortfolioTechnicalSpecs' => Widgets\PortfolioTechnicalSpecs::class,
 		'Services'                => Widgets\Services::class,
+		'TextWithReadMore'        => Widgets\TextWithReadMore::class,
 		'ShareQuotation'          => Widgets\ShareQuotation::class,
 		'StockPrice'              => Widgets\StockPrice::class,
 		'TeamMember'              => Widgets\TeamMember::class,
@@ -82,6 +83,7 @@ class Loader implements LoadableInterface {
 		'soma-stock-price'               => 'stock-price.css',
 		'soma-team-member'               => 'team-member.css',
 		'soma-team-members'              => 'team-members.css',
+		'soma-text-with-read-more'       => 'text-with-read-more.css',
 	);
 
 	/**
@@ -98,9 +100,13 @@ class Loader implements LoadableInterface {
 			'file' => 'portfolio.js',
 			'deps' => array( 'jquery' ),
 		),
-		'soma-portfolio-gallery' => array(
+		'soma-portfolio-gallery'      => array(
 			'file' => 'portfolio-gallery.js',
 			'deps' => array( 'jquery', 'slick' ),
+		),
+		'soma-text-with-read-more'    => array(
+			'file' => 'text-with-read-more.js',
+			'deps' => array( 'jquery' ),
 		),
 	);
 
