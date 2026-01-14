@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [3.1.17] - 2026-01-13
+
 ### Week 6 Feature - Portfolio Detail Template and Elementor Widgets
 
 This release implements the complete portfolio single page template with dedicated Elementor widgets for project galleries, technical specifications, expandable text content, and related projects.
