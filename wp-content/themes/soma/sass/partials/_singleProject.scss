@@ -1,9 +1,70 @@
+/**
+ * Single Portfolio Styles
+ *
+ * Styles for the portfolio single page hero section.
+ * Additional sections are styled via Elementor widgets.
+ *
+ * @package Soma
+ * @since   3.1.16
+ */
+
+// Hero Section.
+.single-portfolio-hero {
+    padding: 45px 0 35px;
+    background-color: #fff;
+
+    .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .project-title {
+        font-family: $f1;
+        font-size: 48px;
+        font-weight: 500;
+        line-height: 1.1;
+        margin: 0 0 8px 0;
+        color: $c1;
+
+        @media screen and ($t-portrait) {
+            font-size: 36px;
+        }
+
+        @media screen and ($mobile) {
+            font-size: 28px;
+        }
+    }
+
+    .project-meta {
+        font-family: $f1;
+        font-size: 16px;
+        color: #666;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+
+        span:not(:last-child)::after {
+            content: '.';
+            margin-left: 2px;
+        }
+
+        @media screen and ($mobile) {
+            font-size: 14px;
+        }
+    }
+}
+
+// Legacy styles for backward compatibility.
 .project-title-section {
     padding: 22px 0 15px 0;
+
     h2 {
         margin-top: 0;
         margin-bottom: 40px;
     }
+
     p {
         margin: 0;
     }
@@ -11,9 +72,11 @@
 
 .single-portfolio #ditto-single {
     padding-bottom: 120px;
+
     @media screen and ($mobile) {
         padding-bottom: 40px;
     }
+
     &.latest-block-is-dark {
         padding-bottom: 0 !important;
     }
