@@ -16,11 +16,15 @@ $featured_image = get_the_post_thumbnail_url();
 	<div class="container">
 		<div class="container-box">
 			<h2 class="career-name"><?php echo esc_html( get_the_title() ); ?></h2>
-			<div class="career-text"><?php echo wp_kses_post( $info['text'] ); ?></div>
+			<?php if ( ! empty( $info['text'] ) ) : ?>
+				<div class="career-text"><?php echo wp_kses_post( $info['text'] ); ?></div>
+			<?php endif; ?>
 		</div>
-		<div class="container-apply">
-			<a href="<?php echo esc_url( $info['apply_now']['url'] ); ?>" target="<?php echo esc_attr( $info['apply_now']['target'] ); ?>"><h3><?php echo esc_html( $info['apply_now']['title'] ); ?></h3></a>
-		</div>
+		<?php if ( ! empty( $info['apply_now'] ) && is_array( $info['apply_now'] ) ) : ?>
+			<div class="container-apply">
+				<a href="<?php echo esc_url( $info['apply_now']['url'] ); ?>" target="<?php echo esc_attr( $info['apply_now']['target'] ); ?>"><h3><?php echo esc_html( $info['apply_now']['title'] ); ?></h3></a>
+			</div>
+		<?php endif; ?>
 	</div>
 </section>
 
