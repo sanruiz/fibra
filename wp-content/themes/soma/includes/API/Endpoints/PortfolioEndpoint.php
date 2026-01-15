@@ -167,7 +167,7 @@ final class PortfolioEndpoint {
 					'ID'             => $item->ID,
 					'title'          => get_the_title( $item->ID ),
 					'permalink'      => get_the_permalink( $item->ID ),
-					'featured_image' => get_the_post_thumbnail_url( $item->ID ),
+					'featured_image' => get_the_post_thumbnail_url( $item->ID, 'large' ),
 					'city'           => $info['city'] ?? '',
 					'year'           => $info['year'] ?? '',
 				);

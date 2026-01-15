@@ -169,7 +169,7 @@ final class DocumentsEndpoint {
 				$document = array(
 					'ID'                   => $item->ID,
 					'title'                => get_the_title( $item->ID ),
-					'featured_image'       => get_the_post_thumbnail_url( $item->ID ),
+					'featured_image'       => get_the_post_thumbnail_url( $item->ID, 'large' ),
 					'label'                => $content['label'],
 					'date'                 => $content['date'],
 					'formated_date'        => $formatted_date,

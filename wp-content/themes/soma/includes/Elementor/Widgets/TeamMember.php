@@ -459,7 +459,7 @@ class TeamMember extends WidgetBase {
 		}
 
 		$info               = get_field( 'team_member_info', $team_member_id );
-		$image              = get_the_post_thumbnail_url( $team_member_id, 'full' );
+		$image              = get_the_post_thumbnail_url( $team_member_id, 'large' );
 		$show_photo         = 'yes' === ( $settings['show_photo'] ?? 'yes' );
 		$show_logo          = 'yes' === ( $settings['show_logo'] ?? 'yes' );
 		$show_featured_text = 'yes' === ( $settings['show_featured_text'] ?? 'yes' );
