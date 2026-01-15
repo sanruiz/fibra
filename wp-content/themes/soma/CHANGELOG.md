@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [3.1.20] - 2026-01-15
+
+### Portfolio Elementor Support & Image Optimizations
+
+This patch release enables Elementor editor support for Portfolio custom post type and adds additional image optimizations.
+
+---
+
 ### 🐛 Fixed
 
 #### Portfolio Elementor Support
@@ -36,6 +46,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `documents.js` - Document featured images
   - `annualReports.js` - Annual report featured images
   - `vimeoPlayer.js` - Video cover images (custom cover and Vimeo thumbnail)
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #27**: [Template de Proyecto Individual](https://github.com/sanruiz/fibra/issues/27) - Related
+- **PR #209**: [fix: Enable Elementor editor support for Portfolio CPT](https://github.com/sanruiz/fibra/pull/209) - Merged
 
 ---
 
