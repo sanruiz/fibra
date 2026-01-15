@@ -148,6 +148,19 @@ class StockPrice extends WidgetBase {
 			)
 		);
 
+		$this->add_control(
+			'show_currency',
+			array(
+				'label'        => __( 'Show Currency Code', 'soma' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'soma' ),
+				'label_off'    => __( 'Hide', 'soma' ),
+				'return_value' => 'yes',
+				'default'      => '',
+				'description'  => __( 'Display currency code (e.g., MXN) after the price.', 'soma' ),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -238,8 +251,21 @@ class StockPrice extends WidgetBase {
 			$currency = isset( $stock_data['currency'] ) ? sanitize_text_field( (string) $stock_data['currency'] ) : 'MXN';
 		}
 
-		// Format price with currency symbol using shared helper.
-		$formatted_price = soma_format_stock_price( $price, $currency );
+		// Format price - with or without currency code based on toggle.
+		$show_currency = 'yes' === $settings['show_currency'];
+		if ( $show_currency ) {
+			// Full format with currency code (e.g., "$45.67 MXN").
+			$formatted_price = soma_format_stock_price( $price, $currency );
+		} else {
+			// Symbol and value only (e.g., "$45.67").
+			$symbols         = array(
+				'MXN' => '$',
+				'USD' => '$',
+				'EUR' => '€',
+			);
+			$symbol          = $symbols[ $currency ] ?? '$';
+			$formatted_price = $symbol . number_format( $price, 2 );
+		}
 
 		// Layout class.
 		$layout_class = 'horizontal' === $settings['layout'] ? 'soma-stock-price--horizontal' : 'soma-stock-price--vertical';
