@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🔄 Changed
+
+#### StockPrice Widget
+
+- **Currency Code Toggle** - Added 'Show Currency Code' toggle control to show/hide currency code (MXN, USD, EUR) (#192)
+  - Default: Hidden (shows only symbol and price, e.g., "$45.67")
+  - When enabled: Shows full format with code (e.g., "$45.67 MXN")
+  - Preserves future flexibility if currency display needs to be re-enabled
+
+### 🌐 Translations
+
+- `Show Currency Code` → `Mostrar Código de Moneda`
+- `Display currency code (e.g., MXN) after the price.` → `Mostrar código de moneda (ej. MXN) después del precio.`
+
 ---
 
 ## [3.1.17] - 2026-01-13
