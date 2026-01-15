@@ -92,19 +92,19 @@ class Loader implements LoadableInterface {
 	 * @var array<string, array{file: string, deps: array<int, string>}> Widget script handles, files, and dependencies
 	 */
 	private array $widget_scripts = array(
-		'soma-annual-reports'    => array(
+		'soma-annual-reports'      => array(
 			'file' => 'annualReports.js',
 			'deps' => array( 'jquery' ),
 		),
-		'soma-portfolio'         => array(
+		'soma-portfolio'           => array(
 			'file' => 'portfolio.js',
 			'deps' => array( 'jquery' ),
 		),
-		'soma-portfolio-gallery'      => array(
+		'soma-portfolio-gallery'   => array(
 			'file' => 'portfolio-gallery.js',
 			'deps' => array( 'jquery', 'slick' ),
 		),
-		'soma-text-with-read-more'    => array(
+		'soma-text-with-read-more' => array(
 			'file' => 'text-with-read-more.js',
 			'deps' => array( 'jquery' ),
 		),
@@ -151,6 +151,9 @@ class Loader implements LoadableInterface {
 			return;
 		}
 
+		// Enable Elementor for custom post types.
+		add_action( 'init', $this->add_cpt_support( ... ), 999 );
+
 		// Register custom category.
 		add_action( 'elementor/elements/categories_registered', $this->register_category( ... ) );
 
@@ -196,6 +199,37 @@ class Loader implements LoadableInterface {
 	 */
 	private function is_elementor_active(): bool {
 		return did_action( 'elementor/loaded' ) || class_exists( '\Elementor\Plugin' );
+	}
+
+	/**
+	 * Add Elementor support for custom post types.
+	 *
+	 * Programmatically enables Elementor editor for portfolio and other CPTs.
+	 * This ensures users can edit projects with Elementor without manual configuration.
+	 *
+	 * @return void
+	 */
+	public function add_cpt_support(): void {
+		$cpt_support = get_option( 'elementor_cpt_support', array( 'page', 'post' ) );
+
+		// Custom post types that should support Elementor.
+		$soma_cpts = array( 'portfolio' );
+
+		$updated = false;
+		foreach ( $soma_cpts as $cpt ) {
+			if ( ! in_array( $cpt, $cpt_support, true ) ) {
+				$cpt_support[] = $cpt;
+				$updated       = true;
+			}
+		}
+
+		if ( $updated ) {
+			update_option( 'elementor_cpt_support', $cpt_support );
+			\soma_log_info(
+				'Enabled Elementor support for custom post types',
+				array( 'cpts' => $soma_cpts )
+			);
+		}
 	}
 
 	/**
