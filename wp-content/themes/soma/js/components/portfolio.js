@@ -18,7 +18,7 @@ const printProject = (data) => {
         <div class="project">
             <a href="${data.permalink}" target="_blank">
                 <div class="image">
-                    <img src="${data.featured_image}" alt="Featured image" />
+                    <img src="${data.featured_image}" alt="Featured image" loading="lazy" />
                 </div>
                 <div class="info-container">
                     ${data.year ? `<h2 class="year">${data.year}</h2>` : ''}

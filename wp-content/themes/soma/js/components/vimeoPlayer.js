@@ -42,10 +42,10 @@ const vimeoPlayerHandler = (players) => {
                 allowfullscreen: true
             }));
             if(cover != '') {
-                content.append(`<div class="cover"><img src="${cover}" alt="cover" /></div>`);
+                content.append(`<div class="cover"><img src="${cover}" alt="cover" loading="lazy" /></div>`);
             } else {
                 getVimeoThumb(vimeoID, thumb => {
-                    content.append(`<div class="cover"><img src="${thumb}" alt="cover" /></div>`);
+                    content.append(`<div class="cover"><img src="${thumb}" alt="cover" loading="lazy" /></div>`);
                 });
             }
             content.append(`<button class="play-button">${play_button}</button>`);

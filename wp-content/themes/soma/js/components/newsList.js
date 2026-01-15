@@ -57,7 +57,7 @@ const mewsItem = (data) => {
             <a href="${data.permalink}">
                 <div class="news-item">
                     <div class="image">
-                        ${ data.featured_image ? `<img src="${data.featured_image}" alt="News featured image" />` : ''}
+                        ${ data.featured_image ? `<img src="${data.featured_image}" alt="News featured image" loading="lazy" />` : ''}
                     </div>
                     <div class="text">
                         <div class="type-content"><span>${data.post_type}<span>${label}</div>
@@ -79,7 +79,7 @@ const mewsItem = (data) => {
         <div class="${classevento}">
             <div class="news-item">
                 <div class="image">
-                    ${ data.featured_image ? `<img src="${data.featured_image}" alt="News featured image" />` : ''}
+                    ${ data.featured_image ? `<img src="${data.featured_image}" alt="News featured image" loading="lazy" />` : ''}
                 </div>
                 <div class="text">
                     <div class="type-content"><span>${data.post_type}<span>${label}</div>
