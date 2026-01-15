@@ -11,6 +11,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.19] - 2026-01-15
+
+### Image Size Optimization & Documentation Updates
+
+This patch release optimizes Elementor widget image sizes for better performance and adds documentation for GitHub Copilot Coding Agent workflow.
+
+---
+
+### ⚡ Performance
+
+#### Elementor Widget Image Optimization
+
+- **Documents Widget** - Changed from 'medium' to 'large' (1024x1024) image size for better quality/performance balance (#204)
+- **TeamMember Widget** - Changed from 'full' to 'large' image size (80-95% file size reduction) (#204)
+- **REST API Endpoints** - Updated DocumentsEndpoint, EventsEndpoint, and PortfolioEndpoint to use 'large' image size (#204)
+
+### 📚 Documentation
+
+- **AGENTS.md** - Added `.github/AGENTS.md` configuration file for GitHub Copilot Coding Agent workflow (#205)
+  - Sprint branch workflow rules
+  - PR requirements and base branch conventions
+  - Testing and quality gate requirements
+  - CHANGELOG update guidelines
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #203**: [Optimize image sizes in Elementor widgets](https://github.com/sanruiz/fibra/issues/203) - Closed
+- **PR #204**: [perf: Use 'large' image size instead of 'full' in Elementor widgets](https://github.com/sanruiz/fibra/pull/204) - Merged
+- **PR #205**: [docs: Add AGENTS.md for Copilot Coding Agent workflow](https://github.com/sanruiz/fibra/pull/205) - Merged
+
+---
+
 ## [3.1.18] - 2026-01-14
 
 ### StockPrice Widget Currency Toggle
