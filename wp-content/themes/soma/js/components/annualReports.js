@@ -35,7 +35,7 @@ const documentItem = (data) => {
         <div class="document" data-year="${data.year}">
             <div class="image">
                 <h3>${data.title}</h3>
-                ${ data.featured_image ? `<img src="${data.featured_image}" alt="News featured image" />` : ''}
+                ${ data.featured_image ? `<img src="${data.featured_image}" alt="News featured image" loading="lazy" />` : ''}
             </div>
             <div class="text">
                 <h3>${data.title}</h3>

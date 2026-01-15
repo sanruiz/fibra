@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### ⚡ Performance
+
+#### Additional Image Optimizations
+
+- **REST API Endpoints** - Extended 'large' image size optimization to remaining endpoints
+  - `CareersEndpoint.php` - Changed from 'full' to 'large' image size
+  - `NewsEndpoint.php` - Changed from 'full' to 'large' image size
+
+#### Lazy Loading for Dynamic Images
+
+- **JavaScript Components** - Added `loading="lazy"` attribute to all dynamically rendered images
+  - `newsList.js` - News/events item featured images
+  - `portfolio.js` - Portfolio project featured images
+  - `search.js` - Search result images (featured image and logo fallback)
+  - `documents.js` - Document featured images
+  - `annualReports.js` - Annual report featured images
+  - `vimeoPlayer.js` - Video cover images (custom cover and Vimeo thumbnail)
+
 ---
 
 ## [3.1.19] - 2026-01-15
