@@ -11,6 +11,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.18] - 2026-01-14
+
+### StockPrice Widget Currency Toggle
+
+This patch release adds a toggle control to the StockPrice widget allowing users to show or hide the currency code.
+
+---
+
+### 🔄 Changed
+
+#### StockPrice Widget
+
+- **Currency Code Toggle** - Added 'Show Currency Code' toggle control to show/hide currency code (MXN, USD, EUR) (#192)
+  - Default: Hidden (shows only symbol and price, e.g., "$45.67")
+  - When enabled: Shows full format with code (e.g., "$45.67 MXN")
+  - Preserves future flexibility if currency display needs to be re-enabled
+
+### 🌐 Translations
+
+- `Show Currency Code` → `Mostrar Código de Moneda`
+- `Display currency code (e.g., MXN) after the price.` → `Mostrar código de moneda (ej. MXN) después del precio.`
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #192**: [Remove the currency](https://github.com/sanruiz/fibra/issues/192) - Closed
+- **PR #200**: [feat(elementor): Add currency toggle to StockPrice widget](https://github.com/sanruiz/fibra/pull/200) - Merged
+
+---
+
 ## [3.1.17] - 2026-01-13
 
 ### Week 6 Feature - Portfolio Detail Template and Elementor Widgets

@@ -1063,6 +1063,14 @@ msgstr "Precio"
 msgid "Current Price"
 msgstr "Precio Actual"
 
+#: includes/Elementor/Widgets/StockPrice.php:155
+msgid "Show Currency Code"
+msgstr "Mostrar Código de Moneda"
+
+#: includes/Elementor/Widgets/StockPrice.php:161
+msgid "Display currency code (e.g., MXN) after the price."
+msgstr "Mostrar código de moneda (ej. MXN) después del precio."
+
 #: includes/Elementor/Widgets/TeamMembers.php:313
 #: includes/Elementor/Widgets/TeamMembers.php:759
 msgid "No team members found."
