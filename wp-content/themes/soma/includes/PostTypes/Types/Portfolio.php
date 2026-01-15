@@ -101,11 +101,11 @@ class Portfolio {
 				'public'             => true,
 				'publicly_queryable' => true,
 				'has_archive'        => false,
-				'show_in_rest'       => false,
+				'show_in_rest'       => true,
 				'show_in_menu'       => true,
 				'rewrite'            => array( 'slug' => self::POST_TYPE->value() ),
 				'menu_icon'          => 'dashicons-portfolio',
-				'supports'           => array( 'title', 'thumbnail' ),
+				'supports'           => array( 'title', 'thumbnail', 'editor' ),
 			)
 		);
 	}

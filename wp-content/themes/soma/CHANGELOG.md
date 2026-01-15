@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🐛 Fixed
+
+#### Portfolio Elementor Support
+
+- **Portfolio CPT** - Enabled Elementor editor support for Portfolio custom post type (#27)
+  - Added `editor` to post type supports array (required for Elementor)
+  - Enabled REST API support (`show_in_rest => true`) for block editor compatibility
+  - Added programmatic registration of Portfolio CPT in Elementor's supported post types
+  - Users can now use "Edit with Elementor" button when creating/editing portfolio items
+
 ### ⚡ Performance
 
 #### Additional Image Optimizations
