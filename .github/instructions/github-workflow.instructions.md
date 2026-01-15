@@ -398,11 +398,42 @@ Failing to run local checks wastes CI/CD resources and delays the team.
 - [ ] Testing notes
 - [ ] Issue references (Closes #N)
 
+**🏷️ PR Labels (REQUIRED):**
+
+Every PR **MUST** include appropriate labels via `--label` flag:
+
+| Type | Required Labels | Examples |
+|------|-----------------|----------|
+| **Bug Fix** | `bug` + area | `bug,backend,elementor` |
+| **Feature** | `enhancement` + area | `enhancement,frontend,week-6` |
+| **Docs** | `documentation` | `documentation` |
+| **Refactor** | `refactor` + area | `refactor,backend` |
+| **Chore** | `chore` | `chore,dependencies` |
+
+**Area labels:** `frontend`, `backend`, `elementor`, `api`, `testing`, `cicd`
+
+```bash
+# Example: Bug fix PR
+gh pr create \
+  --title "fix: Portfolio Elementor support" \
+  --base week-6 \
+  --label "bug,backend,elementor" | cat
+
+# Example: Feature PR
+gh pr create \
+  --title "feat: Add Events widget" \
+  --base week-4 \
+  --label "enhancement,frontend,elementor,week-4" | cat
+```
+
+**⚠️ PRs without labels are harder to track and categorize for releases.**
+
 **After PR Created:**
 - [ ] CI workflow passes (quality-and-tests.yml)
 - [ ] Code review by team member (if applicable)
 - [ ] All comments addressed
 - [ ] No merge conflicts
+- [ ] **Labels assigned** (if not included in `gh pr create`)
 
 ### PR Commands
 
