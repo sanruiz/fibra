@@ -32,7 +32,7 @@ const documentItem = (data) => {
         <a href="${data.file.url}" target="_blank">
             <div class="press-item">
                 <div class="image">
-                    ${ data.featured_image ? `<img src="${data.featured_image}" alt="News featured image" />` : ''}
+                    ${ data.featured_image ? `<img src="${data.featured_image}" alt="News featured image" loading="lazy" />` : ''}
                 </div>
                 <div class="text">
                     <div class="press-title"><h3>${data.title}</h3></div>

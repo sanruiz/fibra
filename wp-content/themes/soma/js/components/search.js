@@ -19,11 +19,11 @@ const printResult = (data, lang) => {
             <a href="${data.permalink}">
                 ${data.featured_image ? `
                     <div class="thumb image">
-                        <img src="${data.featured_image}" alt="Thumbnail"/>
+                        <img src="${data.featured_image}" alt="Thumbnail" loading="lazy"/>
                     </div>
                 ` : `
                     <div class="thumb logo">
-                        <img src="${_dittoURI_}/images/soma_white.svg" alt="Thumbnail"/>
+                        <img src="${_dittoURI_}/images/soma_white.svg" alt="Thumbnail" loading="lazy"/>
                     </div>
                 `}
                 <div class="post-type">
