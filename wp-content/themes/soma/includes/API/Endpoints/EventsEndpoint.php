@@ -159,7 +159,7 @@ final class EventsEndpoint {
 				$event = array(
 					'ID'             => $item->ID,
 					'title'          => get_the_title( $item->ID ),
-					'featured_image' => get_the_post_thumbnail_url( $item->ID ),
+					'featured_image' => get_the_post_thumbnail_url( $item->ID, 'large' ),
 					'label'          => $content['label'],
 					'init_date'      => $content['init_date'],
 					'end_date'       => $content['end_date'] ? $content['end_date'] : null,

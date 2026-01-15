@@ -499,7 +499,7 @@ class Documents extends WidgetBase {
 						'title'     => get_the_title(),
 						'thumbnail' => has_post_thumbnail() ? get_the_post_thumbnail(
 							$post_id,
-							'medium',
+							'large',
 							array(
 								'loading' => 'lazy',
 								'alt'     => get_the_title(),
