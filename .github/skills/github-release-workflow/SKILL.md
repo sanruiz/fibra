@@ -108,6 +108,8 @@ git push -u origin release/vX.Y.Z
 
 ### Step 5: Create PR to Sprint Branch
 
+**🏷️ REQUIRED: Always include labels in PR creation**
+
 ```bash
 gh pr create \
   --title "Release vX.Y.Z" \
@@ -121,7 +123,8 @@ See CHANGELOG.md for details.
 - ✅ PHPStan Level 6
 - ✅ All tests passing
 - ✅ Frontend build successful" \
-  --base week-N | cat
+  --base week-N \
+  --label "release,chore" | cat
 
 # Wait for CI, then merge
 gh pr merge NUMBER --squash --delete-branch | cat
@@ -134,7 +137,8 @@ gh pr merge NUMBER --squash --delete-branch | cat
 gh pr create \
   --title "Release vX.Y.Z to production" \
   --base main \
-  --head week-N | cat
+  --head week-N \
+  --label "release" | cat
 
 # After CI passes and approval
 gh pr merge NUMBER --squash | cat
@@ -383,6 +387,7 @@ gh workflow run ci-cd.yml -f version=X.Y.Z
 - [ ] Version updated in `style.css`
 - [ ] CHANGELOG.md updated with release notes
 - [ ] Related issues closed
+- [ ] PR created with appropriate labels (`--label "release,..."`)
 - [ ] PR approved and merged
 - [ ] Tag created from `main` (not `week-N`)
 - [ ] CI/CD pipeline completed successfully

@@ -216,83 +216,14 @@ wp_register_style(
 }
 ```
 
-### Step 4: Create Unit Tests
+### Step 4: Create Integration Tests
 
-**Location**: `wp-content/themes/soma/tests/Unit/Elementor/{WidgetName}WidgetTest.php`
-
-```php
-<?php
-/**
- * Unit tests for {WidgetName} Elementor widget.
- *
- * @package Soma\Tests\Unit\Elementor
- */
-
-declare(strict_types=1);
-
-namespace Soma\Tests\Unit\Elementor;
-
-use PHPUnit\Framework\TestCase;
-use ReflectionClass;
-
-/**
- * @group unit
- * @group elementor
- * @group widgets
- */
-class {WidgetName}WidgetTest extends TestCase {
-
-    /**
-     * Widget class name.
-     *
-     * @var string
-     */
-    private string $widget_class = \Soma\Elementor\Widgets\{WidgetName}::class;
-
-    /**
-     * Test class exists.
-     */
-    public function test_class_exists(): void {
-        $this->assertTrue( class_exists( $this->widget_class ) );
-    }
-
-    /**
-     * Test extends Widget_Base.
-     */
-    public function test_extends_widget_base(): void {
-        $reflection = new ReflectionClass( $this->widget_class );
-        $parent     = $reflection->getParentClass();
-        
-        $this->assertNotFalse( $parent );
-        $this->assertSame( 'Elementor\Widget_Base', $parent->getName() );
-    }
-
-    /**
-     * Test has required methods.
-     */
-    public function test_has_required_methods(): void {
-        $reflection = new ReflectionClass( $this->widget_class );
-        $methods    = [
-            'get_name',
-            'get_title',
-            'get_icon',
-            'get_categories',
-            'get_style_depends',
-            'register_controls',
-            'render',
-        ];
-
-        foreach ( $methods as $method ) {
-            $this->assertTrue(
-                $reflection->hasMethod( $method ),
-                "Method {$method} should exist"
-            );
-        }
-    }
-}
-```
-
-### Step 5: Create Integration Tests
+> **⚠️ IMPORTANT**: Elementor widgets have **Integration tests ONLY**. Do NOT create Unit tests for widgets.
+>
+> **Why?**
+> - Widgets require Elementor loaded (`did_action('elementor/loaded')`)
+> - Widgets extend `\Elementor\Widget_Base` (needs Elementor classes)
+> - Controls registration needs Elementor infrastructure
 
 **Location**: `wp-content/themes/soma/tests/Integration/Elementor/{WidgetName}WidgetTest.php`
 
@@ -377,7 +308,7 @@ class {WidgetName}WidgetTest extends WP_UnitTestCase {
 }
 ```
 
-### Step 6: Update AllWidgetsTest.php
+### Step 5: Update AllWidgetsTest.php
 
 **File**: `wp-content/themes/soma/tests/Integration/Elementor/AllWidgetsTest.php`
 
@@ -393,7 +324,7 @@ Add to `$widget_names` array:
 '{WidgetName}' => 'soma-{widget-slug}',
 ```
 
-### Step 7: Add Translations
+### Step 6: Add Translations
 
 Update translation files:
 
@@ -409,7 +340,7 @@ wp i18n update-po languages/soma.pot languages/
 wp i18n make-mo languages/
 ```
 
-### Step 8: Update Documentation
+### Step 7: Update Documentation
 
 **File**: `wp-content/themes/soma/docs/WIDGETS.md`
 
@@ -552,8 +483,7 @@ Use these CSS variables for consistency:
 - [ ] Widget registered in `Loader.php`
 - [ ] CSS file created in `assets/css/widgets/`
 - [ ] CSS style registered in `Loader.php`
-- [ ] Unit tests created
-- [ ] Integration tests created
+- [ ] Integration tests created (⚠️ NOT unit tests - widgets use integration tests ONLY)
 - [ ] AllWidgetsTest.php updated
 - [ ] PHPCS passes (`composer phpcs`)
 - [ ] PHPStan passes (`composer phpstan`)
