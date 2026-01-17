@@ -33,7 +33,7 @@ class TeamMembersTest extends TestCase {
 		$this->assertTrue( $reflection->hasConstant( 'POST_TYPE' ) );
 		$post_type = $reflection->getConstant( 'POST_TYPE' );
 		$this->assertInstanceOf( \Soma\Core\Enums\PostType::class, $post_type );
-		$this->assertEquals( 'team_members', $post_type->value );
+		$this->assertEquals( 'team-members', $post_type->value );
 	}
 
 	/**
