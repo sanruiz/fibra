@@ -23,8 +23,8 @@ $city         = $project_info['city'] ?? '';
 $terms        = get_the_terms( get_the_ID(), 'portfolio-taxonomy' );
 
 // Filter out parent/umbrella taxonomy terms.
-$excluded_slugs    = array( 'soma_real_estate', 'soma_construction', 'fibrasoma' );
-$uses_elementor    = soma_is_built_with_elementor();
+$excluded_slugs = array( 'soma_real_estate', 'soma_construction', 'fibrasoma' );
+$uses_elementor = soma_is_built_with_elementor();
 ?>
 
 <section class="single-portfolio-hero">
