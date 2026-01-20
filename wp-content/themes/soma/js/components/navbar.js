@@ -48,10 +48,6 @@ const navbarHandler = (containers) => {
             $(el).removeClass('sticky-close');
             $(el).addClass('sticky-open');
         }
-        const closeSticky = () => {
-            $(el).removeClass('sticky-open');
-            $(el).addClass('sticky-close');
-        }
 
         // Sticky navbar events
         $(window).on('scroll', () => {
