@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.22] - 2026-01-19
+
 ### Slick Carousel & Sticky Navbar Fixes
 
 This patch release fixes the Slick carousel initialization error and improves the sticky navbar behavior.
