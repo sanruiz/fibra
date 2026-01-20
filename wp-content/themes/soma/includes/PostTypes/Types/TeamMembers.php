@@ -104,7 +104,7 @@ class TeamMembers {
 				'show_in_menu'       => true,
 				'rewrite'            => array( 'slug' => self::POST_TYPE->value() ),
 				'menu_icon'          => 'dashicons-groups',
-				'supports'           => array( 'title', 'thumbnail' ),
+				'supports'           => array( 'title', 'thumbnail', 'page-attributes' ),
 			)
 		);
 	}
