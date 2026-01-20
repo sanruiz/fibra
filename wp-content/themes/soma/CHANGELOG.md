@@ -9,6 +9,90 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.22] - 2026-01-19
+
+### Slick Carousel & Sticky Navbar Fixes
+
+This patch release fixes the Slick carousel initialization error and improves the sticky navbar behavior.
+
+---
+
+### 🐛 Fixed
+
+#### Slick Carousel Import
+
+- **JavaScript Bundle** - Fixed `slick is not a function` error on Company page (#215)
+  - Added `import 'slick-carousel'` in `main.js` after jQuery import
+  - Slick JS is now properly bundled (was only importing CSS via SCSS)
+  - All Slick-dependent components now work: textSlider, brand, fullscreenSlider, timeline
+
+### 🔄 Changed
+
+#### Sticky Navbar Behavior
+
+- **Always Visible Sticky** - Header now remains visible when scrolled (#215)
+  - Sticky activates after 100px scroll (was 400px)
+  - Always visible regardless of scroll direction (up or down)
+  - Works consistently on desktop and mobile
+  - Removed scroll direction detection logic (no longer needed)
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #215**: [fix: Add Slick carousel import and make navbar always sticky](https://github.com/sanruiz/fibra/pull/215) - Merged
+
+---
+
+## [3.1.21] - 2026-01-17
+
+### Team Members Menu Order Support
+
+This patch release adds page-attributes support to the Team Members custom post type, enabling manual ordering via WordPress admin.
+
+---
+
+### ✨ Added
+
+#### Team Members CPT Enhancement
+
+- **Menu Order Support** - Added `page-attributes` to Team Members CPT supports array (#212)
+  - Enables `menu_order` field in WordPress admin for Team Members
+  - Allows manual ordering of team members via "Order" field in admin
+  - Enables Elementor "Order By: Menu Order" functionality for TeamMembers widget
+  - Provides consistent ordering control across widgets and queries
+
+#### Unit Tests
+
+- **TeamMembersTest.php** - New unit test file for Team Members post type
+  - Tests singleton instance pattern
+  - Tests post type registration
+  - Tests supports array includes `page-attributes`
+  - Follows existing PostTypes test patterns
+
+### 🐛 Fixed
+
+#### Test Assertions
+
+- **TeamMembersTest** - Corrected expected value assertions (#212)
+
+### 📦 Files Changed
+
+#### Modified
+
+- `includes/PostTypes/Types/TeamMembers.php` - Added `page-attributes` to supports array
+- `singles/portfolio.php` - Minor spacing fixes (phpcbf auto-fix)
+
+#### Added
+
+- `tests/Unit/PostTypes/TeamMembersTest.php` - New unit test file (47 lines)
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #212**: [feat: Add page-attributes support to Team Members CPT](https://github.com/sanruiz/fibra/pull/212) - Merged (Copilot Agent)
+
 ---
 
 ## [3.1.20] - 2026-01-15
