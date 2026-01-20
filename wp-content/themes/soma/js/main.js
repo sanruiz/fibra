@@ -1,5 +1,6 @@
 import '../sass/main.scss'
 import $ from 'jquery';
+import 'slick-carousel';
 
 // Component handlers
 import navbarHandler                    from './components/navbar';

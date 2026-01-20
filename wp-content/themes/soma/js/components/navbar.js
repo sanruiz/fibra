@@ -54,27 +54,11 @@ const navbarHandler = (containers) => {
         }
 
         // Sticky navbar events
-        var scrollPos = 0;
-
         $(window).on('scroll', () => {
-            if($(window).scrollTop() > 400) {
-                
+            if($(window).scrollTop() > 100) {
                 $('#page').css('padding-top', $(el).not('.prepare-sticky').innerHeight() + 'px');
                 $(el).addClass('prepare-sticky');
-
-                if($(window).scrollTop() > 800) {
-                    // detects new state and compares it with the new one
-                    if ((document.body.getBoundingClientRect()).top > scrollPos) {
-                        openSticky();
-                    } else {
-                        closeSticky();
-                    }
-                } else {
-                    closeSticky();
-                }
-
-                // saves the new position for iteration.
-                scrollPos = (document.body.getBoundingClientRect()).top;
+                openSticky();
             } else {
                 $(el).removeClass('prepare-sticky sticky-open sticky-close');
                 $('#page').css('padding-top', '0px'); 
