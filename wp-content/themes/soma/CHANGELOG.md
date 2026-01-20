@@ -9,6 +9,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Slick Carousel & Sticky Navbar Fixes
+
+This patch release fixes the Slick carousel initialization error and improves the sticky navbar behavior.
+
+---
+
+### 🐛 Fixed
+
+#### Slick Carousel Import
+
+- **JavaScript Bundle** - Fixed `slick is not a function` error on Company page (#215)
+  - Added `import 'slick-carousel'` in `main.js` after jQuery import
+  - Slick JS is now properly bundled (was only importing CSS via SCSS)
+  - All Slick-dependent components now work: textSlider, brand, fullscreenSlider, timeline
+
+### 🔄 Changed
+
+#### Sticky Navbar Behavior
+
+- **Always Visible Sticky** - Header now remains visible when scrolled (#215)
+  - Sticky activates after 100px scroll (was 400px)
+  - Always visible regardless of scroll direction (up or down)
+  - Works consistently on desktop and mobile
+  - Removed scroll direction detection logic (no longer needed)
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **PR #215**: [fix: Add Slick carousel import and make navbar always sticky](https://github.com/sanruiz/fibra/pull/215) - Merged
+
 ---
 
 ## [3.1.20] - 2026-01-15
