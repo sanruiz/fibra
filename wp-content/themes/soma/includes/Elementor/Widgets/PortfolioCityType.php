@@ -288,8 +288,20 @@ class PortfolioCityType extends Widget_Base {
 			return '';
 		}
 
-		// Return the first term name.
-		return $terms[0]->name;
+		// Return the first term name using get_term() so filters (e.g., WP-Multilang) are applied.
+		$first_term = $terms[0];
+
+		if ( ! isset( $first_term->term_id ) ) {
+			return '';
+		}
+
+		$term = get_term( (int) $first_term->term_id );
+
+		if ( ! $term || is_wp_error( $term ) ) {
+			return '';
+		}
+
+		return (string) $term->name;
 	}
 
 	/**
