@@ -299,7 +299,7 @@ class TextWithReadMore extends Widget_Base {
 			array(
 				'name'     => 'title_typography',
 				'global'   => array(
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+					'default' => Global_Typography::TYPOGRAPHY_SECONDARY,
 				),
 				'selector' => '{{WRAPPER}} .soma-text-read-more__title',
 			)

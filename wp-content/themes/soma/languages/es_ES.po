@@ -1803,3 +1803,43 @@ msgstr "Ver perfil de %s"
 #: includes/Elementor/Widgets/AnnualReports.php:262
 msgid "Image Height"
 msgstr "Altura de Imagen"
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:39
+msgid "Portfolio City & Type"
+msgstr "Ciudad y Tipo del Portafolio"
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:81
+msgid "Character(s) between city and project type."
+msgstr "Carácter(es) entre la ciudad y el tipo de proyecto."
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:88
+msgid "Show City"
+msgstr "Mostrar Ciudad"
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:101
+msgid "Show Project Type"
+msgstr "Mostrar Tipo de Proyecto"
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:114
+msgid "Fallback City"
+msgstr "Ciudad de Respaldo"
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:118
+msgid "Text to display if city is empty."
+msgstr "Texto a mostrar si la ciudad está vacía."
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:125
+msgid "Fallback Project Type"
+msgstr "Tipo de Proyecto de Respaldo"
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:129
+msgid "Text to display if project type is empty."
+msgstr "Texto a mostrar si el tipo de proyecto está vacío."
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:190
+msgid "Separator Color"
+msgstr "Color del Separador"
+
+#: includes/Elementor/Widgets/PortfolioCityType.php:254
+msgid "City & Project Type will appear here"
+msgstr "La Ciudad y el Tipo de Proyecto aparecerán aquí"
