@@ -11,6 +11,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.24] - 2026-01-21
+
+### New Elementor Widget: Portfolio City & Type
+
+This release adds a new Elementor widget to display the city (ACF field) and project type (taxonomy) for portfolio items.
+
+---
+
+### ✨ Added
+
+#### New Elementor Widget
+
+- **PortfolioCityType Widget** - Display city and project type in single line format
+  - Output format: `{City}. {Project Type}` (e.g., "Ciudad de México. Usos Mixtos")
+  - **Data Sources**:
+    - City: ACF field `project_info.city`
+    - Project Type: `project-type` taxonomy (excludes umbrella terms)
+  - **Elementor Controls**:
+    - Separator text (default: `. `)
+    - Show/Hide toggles for city and type
+    - Fallback text for empty values
+    - Typography with `Global_Typography::TYPOGRAPHY_TEXT` default
+    - Text color with `Global_Colors::COLOR_TEXT` default
+    - Separator color control
+    - Alignment (left/center/right)
+  - Editor placeholder for visual feedback
+  - Auto-detects current portfolio post
+
+### 🌐 Translations
+
+- Added Spanish translations for all widget strings:
+  - `Portfolio City & Type` → `Ciudad y Tipo del Portafolio`
+  - `Show City` → `Mostrar Ciudad`
+  - `Show Project Type` → `Mostrar Tipo de Proyecto`
+  - `Fallback City` → `Ciudad de Respaldo`
+  - `Fallback Project Type` → `Tipo de Proyecto de Respaldo`
+  - `Separator Color` → `Color del Separador`
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/Widgets/PortfolioCityType.php` - New widget (~290 lines)
+- `assets/css/widgets/portfolio-city-type.css` - BEM-styled widget CSS
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Registered widget class and CSS
+- `languages/es_ES.po` - Added Spanish translations
+- `languages/es_ES.mo` - Compiled translation binary
+
+---
+
 ## [3.1.23] - 2026-01-21
 
 ### Portfolio Single Template Simplification (#219)
