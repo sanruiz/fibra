@@ -80,6 +80,7 @@ class Loader implements LoadableInterface {
 		TeamMembersTaxonomy::instance();
 		PortfolioTaxonomy::instance();
 		DocumentsTaxonomy::instance();
+		ProjectTypeTaxonomy::instance();
 	}
 
 	/**
