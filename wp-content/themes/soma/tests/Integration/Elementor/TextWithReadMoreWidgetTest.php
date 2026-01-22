@@ -3,7 +3,7 @@
  * Integration tests for the TextWithReadMore Elementor widget.
  *
  * @package Soma\Tests\Integration\Elementor
- * @since   3.1.17
+ * @since   3.1.24
  */
 
 namespace Soma\Tests\Integration\Elementor;
