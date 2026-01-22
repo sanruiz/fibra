@@ -1,8 +1,8 @@
 # SOMA Theme v3.0 - Elementor Widgets Reference
 
-**Version**: 3.1.13  
-**Last Updated**: January 8, 2026  
-**Total Widgets**: 11
+**Version**: 3.1.23  
+**Last Updated**: January 21, 2026  
+**Total Widgets**: 12
 
 ---
 
@@ -21,6 +21,7 @@
    - [Contact Form Widget](#9-contact-form-widget)
    - [Reports Widget](#10-reports-widget)
    - [Share Quotation Widget](#11-share-quotation-widget)
+   - [Portfolio Technical Specs Widget](#12-portfolio-technical-specs-widget)
 3. [Common Features](#common-features)
 4. [Development Guide](#development-guide)
 5. [Troubleshooting](#troubleshooting)
@@ -929,6 +930,96 @@ Comprehensive stock market information display widget showing current stock pric
 - Uses `soma_get_stock_data()` helper function
 - Data cached via WordPress transients
 - Source: Yahoo Finance API (configured in Admin → Stock Data)
+
+---
+
+### 12. Portfolio Technical Specs Widget
+
+**Class**: `Soma\Elementor\Widgets\PortfolioTechnicalSpecs`  
+**ID**: `soma-portfolio-technical-specs`  
+**Icon**: `eicon-bullet-list`
+
+#### Description
+
+Displays technical specifications for portfolio projects in a clean key-value format. Uses a repeater control allowing editors to add unlimited specification items with labels and values. Ideal for showing project details like year, location, GLA, certifications, etc.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Specs List** | Repeater | 3 items | List of specification items |
+| └─ **Label** | Text | - | Specification label (e.g., "Year", "Location") |
+| └─ **Value** | Text | - | Specification value (e.g., "2024", "Ciudad de México") |
+
+**Default Specifications:**
+- Year: 2024
+- Location: Ciudad de México
+- GLA: 90,000 m²
+
+#### Style Controls
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Container** | Section | Overall container styling |
+| └─ Padding | Dimensions | Container inner spacing |
+| └─ Background Color | Color | Container background |
+| **Items** | Section | Individual spec item styling |
+| └─ Spacing | Slider | Gap between spec items (0-50px) |
+| └─ Border Bottom | Switcher | Show/hide bottom border on items |
+| └─ Border Color | Color | Border color (default: `rgba(0,0,0,0.1)`) |
+| └─ Item Padding | Dimensions | Padding inside each item |
+| **Label** | Section | Label text styling |
+| └─ Color | Color | Label text color |
+| └─ Typography | Group | Label font styling |
+| **Value** | Section | Value text styling |
+| └─ Color | Color | Value text color |
+| └─ Typography | Group | Value font styling |
+
+#### CSS Variables Used
+
+```css
+--soma-font-family-primary
+--soma-color-text-primary
+--soma-color-text-secondary
+--soma-spacing-md
+--soma-spacing-lg
+```
+
+#### Usage Example
+
+```php
+// Widget automatically renders specs from repeater field
+// Each spec item displays as:
+// <div class="spec-item">
+//     <span class="spec-label">Year</span>
+//     <span class="spec-value">2024</span>
+// </div>
+
+// Typical use in portfolio single template:
+// 1. Add widget to Elementor layout
+// 2. Edit specs list to match project data
+// 3. Style to match design requirements
+```
+
+#### HTML Structure
+
+```html
+<div class="soma-portfolio-technical-specs">
+    <div class="spec-item">
+        <span class="spec-label">Year</span>
+        <span class="spec-value">2024</span>
+    </div>
+    <div class="spec-item">
+        <span class="spec-label">Location</span>
+        <span class="spec-value">Ciudad de México</span>
+    </div>
+    <!-- Additional spec items... -->
+</div>
+```
+
+#### ACF Integration
+
+None - Uses Elementor repeater control for manual data entry. For dynamic data from ACF fields, consider using Elementor's dynamic tags or custom widget extension.
 
 ---
 

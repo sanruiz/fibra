@@ -30,6 +30,7 @@
                         "class": "",
                         "id": ""
                     },
+                    "show_in_rest": 1,
                     "default_value": "",
                     "placeholder": "2026",
                     "prepend": "",
@@ -49,6 +50,7 @@
                         "class": "",
                         "id": ""
                     },
+                    "show_in_rest": 1,
                     "default_value": "",
                     "placeholder": "Ciudad de México",
                     "prepend": "",
@@ -75,5 +77,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "Project metadata fields for portfolio items (year, city). Technical specs and gallery managed via Elementor.",
-    "modified": 1737331200
+    "show_in_rest": 1,
+    "modified": 1737500000
 }
