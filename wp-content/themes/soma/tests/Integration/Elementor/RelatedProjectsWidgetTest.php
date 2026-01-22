@@ -4,7 +4,7 @@
  *
  * @package Soma
  * @subpackage Tests\Integration\Elementor
- * @since 3.1.24
+ * @since 3.1.23
  */
 
 namespace Soma\Tests\Integration\Elementor;

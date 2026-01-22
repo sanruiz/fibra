@@ -1,6 +1,6 @@
 # SOMA Theme v3.0 - Elementor Widgets Reference
 
-**Version**: 3.1.24  
+**Version**: 3.1.23  
 **Last Updated**: January 21, 2026  
 **Total Widgets**: 13
 
