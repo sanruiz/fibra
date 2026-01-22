@@ -132,33 +132,39 @@ enum Taxonomy: string {
 	public function getArgs(): array {
 		$is_hierarchical = $this->isHierarchical();
 
+		// Build labels array and filter out null values (non-hierarchical-specific labels).
+		$labels = array(
+			'name'                       => $this->label(),
+			'singular_name'              => $this->singularLabel(),
+			'search_items'               => $is_hierarchical
+				? sprintf( /* translators: %s: taxonomy label */ __( 'Search %s', 'soma' ), $this->label() )
+				: sprintf( /* translators: %s: taxonomy label */ __( 'Search %s', 'soma' ), $this->label() ),
+			'popular_items'              => $is_hierarchical
+				? null
+				: sprintf( /* translators: %s: taxonomy label */ __( 'Popular %s', 'soma' ), $this->label() ),
+			'all_items'                  => sprintf( /* translators: %s: taxonomy label */ __( 'All %s', 'soma' ), $this->label() ),
+			'edit_item'                  => sprintf( /* translators: %s: taxonomy singular label */ __( 'Edit %s', 'soma' ), $this->singularLabel() ),
+			'update_item'                => sprintf( /* translators: %s: taxonomy singular label */ __( 'Update %s', 'soma' ), $this->singularLabel() ),
+			'add_new_item'               => sprintf( /* translators: %s: taxonomy singular label */ __( 'Add New %s', 'soma' ), $this->singularLabel() ),
+			'new_item_name'              => sprintf( /* translators: %s: taxonomy singular label */ __( 'New %s Name', 'soma' ), $this->singularLabel() ),
+			'separate_items_with_commas' => $is_hierarchical
+				? null
+				: sprintf( /* translators: %s: taxonomy label */ __( 'Separate %s with commas', 'soma' ), strtolower( $this->label() ) ),
+			'add_or_remove_items'        => $is_hierarchical
+				? null
+				: sprintf( /* translators: %s: taxonomy label */ __( 'Add or remove %s', 'soma' ), strtolower( $this->label() ) ),
+			'choose_from_most_used'      => $is_hierarchical
+				? null
+				: sprintf( /* translators: %s: taxonomy label */ __( 'Choose from the most used %s', 'soma' ), strtolower( $this->label() ) ),
+			'not_found'                  => sprintf( /* translators: %s: taxonomy label */ __( 'No %s found', 'soma' ), strtolower( $this->label() ) ),
+			'menu_name'                  => $this->label(),
+		);
+
+		// Filter out null values (tags-only labels for hierarchical taxonomies).
+		$labels = array_filter( $labels, fn( $value ) => $value !== null );
+
 		return array(
-			'labels'            => array(
-				'name'                       => $this->label(),
-				'singular_name'              => $this->singularLabel(),
-				'search_items'               => $is_hierarchical
-					? sprintf( /* translators: %s: taxonomy label */ __( 'Search %s', 'soma' ), $this->label() )
-					: sprintf( /* translators: %s: taxonomy label */ __( 'Search %s', 'soma' ), $this->label() ),
-				'popular_items'              => $is_hierarchical
-					? null
-					: sprintf( /* translators: %s: taxonomy label */ __( 'Popular %s', 'soma' ), $this->label() ),
-				'all_items'                  => sprintf( /* translators: %s: taxonomy label */ __( 'All %s', 'soma' ), $this->label() ),
-				'edit_item'                  => sprintf( /* translators: %s: taxonomy singular label */ __( 'Edit %s', 'soma' ), $this->singularLabel() ),
-				'update_item'                => sprintf( /* translators: %s: taxonomy singular label */ __( 'Update %s', 'soma' ), $this->singularLabel() ),
-				'add_new_item'               => sprintf( /* translators: %s: taxonomy singular label */ __( 'Add New %s', 'soma' ), $this->singularLabel() ),
-				'new_item_name'              => sprintf( /* translators: %s: taxonomy singular label */ __( 'New %s Name', 'soma' ), $this->singularLabel() ),
-				'separate_items_with_commas' => $is_hierarchical
-					? null
-					: sprintf( /* translators: %s: taxonomy label */ __( 'Separate %s with commas', 'soma' ), strtolower( $this->label() ) ),
-				'add_or_remove_items'        => $is_hierarchical
-					? null
-					: sprintf( /* translators: %s: taxonomy label */ __( 'Add or remove %s', 'soma' ), strtolower( $this->label() ) ),
-				'choose_from_most_used'      => $is_hierarchical
-					? null
-					: sprintf( /* translators: %s: taxonomy label */ __( 'Choose from the most used %s', 'soma' ), strtolower( $this->label() ) ),
-				'not_found'                  => sprintf( /* translators: %s: taxonomy label */ __( 'No %s found', 'soma' ), strtolower( $this->label() ) ),
-				'menu_name'                  => $this->label(),
-			),
+			'labels'            => $labels,
 			'hierarchical'      => $is_hierarchical,
 			'public'            => true,
 			'show_ui'           => true,

@@ -1,8 +1,8 @@
 # SOMA Theme v3.0 - Elementor Widgets Reference
 
-**Version**: 3.1.23  
+**Version**: 3.1.24  
 **Last Updated**: January 21, 2026  
-**Total Widgets**: 12
+**Total Widgets**: 13
 
 ---
 
@@ -22,6 +22,7 @@
    - [Reports Widget](#10-reports-widget)
    - [Share Quotation Widget](#11-share-quotation-widget)
    - [Portfolio Technical Specs Widget](#12-portfolio-technical-specs-widget)
+   - [Related Projects Widget](#13-related-projects-widget)
 3. [Common Features](#common-features)
 4. [Development Guide](#development-guide)
 5. [Troubleshooting](#troubleshooting)
@@ -1020,6 +1021,113 @@ Displays technical specifications for portfolio projects in a clean key-value fo
 #### ACF Integration
 
 None - Uses Elementor repeater control for manual data entry. For dynamic data from ACF fields, consider using Elementor's dynamic tags or custom widget extension.
+
+---
+
+### 13. Related Projects Widget
+
+**Class**: `Soma\Elementor\Widgets\RelatedProjects`  
+**ID**: `soma-related-projects`  
+**Icon**: `eicon-posts-grid`
+
+#### Description
+
+Displays related portfolio projects based on shared taxonomy terms. Automatically queries projects with matching `portfolio-taxonomy` terms while excluding the current post and parent/umbrella categories (soma_real_estate, soma_construction, fibrasoma). Ideal for portfolio single pages to show similar projects.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Section Title** | Text | `Related Projects` | Section heading text |
+| **Number of Projects** | Number | 4 | Projects to display (1-12) |
+| **Columns** | Select | `4` | Grid columns (2/3/4) |
+| **Show City** | Switcher | Yes | Display project city from ACF |
+| **Show Category** | Switcher | Yes | Display first valid taxonomy term |
+| **Order By** | Select | `rand` | Sort order (Random/Date/Title/Menu Order) |
+
+#### Style Controls
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Section** | Section | Overall section styling |
+| └─ Style Variant | Select | Dark or Light background theme |
+| └─ Background Color | Color | Custom background color |
+| └─ Padding | Dimensions | Section padding (default: 80px 0) |
+| **Title** | Section | Title text styling |
+| └─ Title Color | Color | Section title color |
+| └─ Title Typography | Group | Title font styling |
+| └─ Margin Bottom | Slider | Space below title (default: 40px) |
+| **Card** | Section | Project card styling |
+| └─ Grid Gap | Slider | Space between cards (default: 24px) |
+| └─ Project Name Color | Color | Project title color |
+| └─ Project Name Typography | Group | Project title font styling |
+| └─ Meta Color | Color | City and category text color |
+| └─ Meta Typography | Group | Meta text font styling |
+| └─ Image Height | Slider | Featured image height (default: 250px) |
+
+#### CSS Variables Used
+
+```css
+--soma-font-family-primary
+--soma-color-text-primary
+--soma-color-text-secondary
+--soma-spacing-md
+--soma-spacing-lg
+--soma-transition-base
+```
+
+#### Usage Example
+
+```php
+// Widget automatically queries related projects based on current post's taxonomy terms
+// Excludes parent/umbrella terms: soma_real_estate, soma_construction, fibrasoma
+
+// Typical use in portfolio single template:
+// 1. Add widget to Elementor layout at bottom of portfolio single page
+// 2. Configure number of projects and columns
+// 3. Choose style variant (dark/light) to match page design
+// 4. Widget automatically finds related projects by shared taxonomy
+```
+
+#### HTML Structure
+
+```html
+<section class="soma-related-projects soma-related-projects--dark">
+    <div class="soma-related-projects__container">
+        <h2 class="soma-related-projects__title">Related Projects</h2>
+        <div class="soma-related-projects__grid soma-related-projects__grid--cols-4">
+            <a href="/project-url/" class="soma-related-projects__card">
+                <div class="soma-related-projects__image">
+                    <img src="..." loading="lazy" />
+                </div>
+                <div class="soma-related-projects__info">
+                    <h3 class="soma-related-projects__name">Project Name</h3>
+                    <span class="soma-related-projects__city">Ciudad de México</span>
+                    <span class="soma-related-projects__type">Industrial</span>
+                </div>
+            </a>
+            <!-- Additional project cards... -->
+        </div>
+    </div>
+</section>
+```
+
+#### ACF Integration
+
+**Required ACF Fields on portfolio post type:**
+
+- `project_info` (Group) - Project information group
+  - `city` (Text) - Project location city
+
+**Taxonomy Integration:**
+
+- Uses `portfolio-taxonomy` to find related projects
+- Automatically excludes parent umbrella terms from filtering and display
+- Shows first valid (non-umbrella) term as project category
+
+#### Editor Preview
+
+When editing in Elementor and no taxonomy terms are found or no related projects exist, the widget displays a helpful placeholder message instead of empty space.
 
 ---
 
