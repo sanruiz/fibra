@@ -1,8 +1,11 @@
 /**
  * Portfolio Technical Specs Widget Styles
  *
+ * Simplified styles for REPEATER-based specs display.
+ * Only uses: spec-item, spec-label, spec-value
+ *
  * @package Soma
- * @since 3.1.17
+ * @since 3.1.23
  */
 
 /* ==========================================================================
@@ -10,43 +13,8 @@
    ========================================================================== */
 
 .soma-portfolio-technical-specs {
-	padding: var(--soma-spacing-2xl) 0;
-}
-
-/* ==========================================================================
-   Section Title
-   ========================================================================== */
-
-.soma-portfolio-technical-specs .section-title {
-	margin-bottom: var(--soma-spacing-xl);
-	font-family: var(--soma-font-family-primary);
-	font-size: var(--soma-font-size-h2);
-	font-weight: 700;
-	color: var(--soma-color-text-primary);
-}
-
-/* ==========================================================================
-   Specs Grid
-   ========================================================================== */
-
-.soma-portfolio-technical-specs .specs-grid {
-	display: grid;
-	gap: var(--soma-spacing-lg);
-}
-
-/* 2 Columns */
-.soma-portfolio-technical-specs .specs-grid--2-cols {
-	grid-template-columns: repeat(2, 1fr);
-}
-
-/* 3 Columns */
-.soma-portfolio-technical-specs .specs-grid--3-cols {
-	grid-template-columns: repeat(3, 1fr);
-}
-
-/* 4 Columns */
-.soma-portfolio-technical-specs .specs-grid--4-cols {
-	grid-template-columns: repeat(4, 1fr);
+	display: flex;
+	flex-direction: column;
 }
 
 /* ==========================================================================
@@ -56,43 +24,7 @@
 .soma-portfolio-technical-specs .spec-item {
 	display: flex;
 	flex-direction: column;
-	gap: var(--soma-spacing-xs);
-	padding: var(--soma-spacing-md);
-	background: var(--soma-bg-light);
-	border-radius: var(--soma-border-radius);
-	transition: var(--soma-transition-base);
-}
-
-.soma-portfolio-technical-specs .spec-item:hover {
-	box-shadow: var(--soma-shadow-sm);
-}
-
-/* ==========================================================================
-   Spec Item - With Icon Layout
-   ========================================================================== */
-
-.soma-portfolio-technical-specs .spec-item--with-icon {
-	flex-direction: row;
-	align-items: flex-start;
-	gap: var(--soma-spacing-md);
-}
-
-.soma-portfolio-technical-specs .spec-icon {
-	flex-shrink: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 48px;
-	height: 48px;
-	font-size: 24px;
-	color: var(--soma-primary);
-}
-
-.soma-portfolio-technical-specs .spec-content {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	gap: var(--soma-spacing-xs);
+	gap: var(--soma-spacing-xs, 4px);
 }
 
 /* ==========================================================================
@@ -117,10 +49,10 @@
 }
 
 /* ==========================================================================
-   Empty State
+   Empty State (Elementor Editor only)
    ========================================================================== */
 
-.soma-portfolio-technical-specs .empty-state {
+.soma-portfolio-technical-specs--empty {
 	padding: var(--soma-spacing-xl);
 	text-align: center;
 	font-family: var(--soma-font-family-primary);
@@ -131,43 +63,10 @@
 }
 
 /* ==========================================================================
-   Responsive - Tablet
-   ========================================================================== */
-
-@media (max-width: 991px) {
-	.soma-portfolio-technical-specs .specs-grid--4-cols {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	.soma-portfolio-technical-specs .specs-grid--3-cols {
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
-
-/* ==========================================================================
    Responsive - Mobile
    ========================================================================== */
 
 @media (max-width: 767px) {
-	.soma-portfolio-technical-specs {
-		padding: var(--soma-spacing-xl) 0;
-	}
-
-	.soma-portfolio-technical-specs .section-title {
-		font-size: var(--soma-font-size-h3);
-		margin-bottom: var(--soma-spacing-lg);
-	}
-
-	.soma-portfolio-technical-specs .specs-grid--4-cols,
-	.soma-portfolio-technical-specs .specs-grid--3-cols,
-	.soma-portfolio-technical-specs .specs-grid--2-cols {
-		grid-template-columns: 1fr;
-	}
-
-	.soma-portfolio-technical-specs .spec-item {
-		padding: var(--soma-spacing-sm);
-	}
-
 	.soma-portfolio-technical-specs .spec-value {
 		font-size: var(--soma-font-size-h5);
 	}
