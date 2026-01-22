@@ -51,7 +51,6 @@ class Loader implements LoadableInterface {
 		'Navbar'                  => Widgets\Navbar::class,
 		'NewsList'                => Widgets\NewsList::class,
 		'Portfolio'               => Widgets\Portfolio::class,
-		'PortfolioGallery'        => Widgets\PortfolioGallery::class,
 		'PortfolioTechnicalSpecs' => Widgets\PortfolioTechnicalSpecs::class,
 		'Services'                => Widgets\Services::class,
 		'TextWithReadMore'        => Widgets\TextWithReadMore::class,
@@ -76,7 +75,6 @@ class Loader implements LoadableInterface {
 		'soma-navbar'                    => 'navbar.css',
 		'soma-news-list'                 => 'news-list.css',
 		'soma-portfolio'                 => 'portfolio.css',
-		'soma-portfolio-gallery'         => 'portfolio-gallery.css',
 		'soma-portfolio-technical-specs' => 'portfolio-technical-specs.css',
 		'soma-services'                  => 'services.css',
 		'soma-share-quotation'           => 'share-quotation.css',
@@ -99,10 +97,6 @@ class Loader implements LoadableInterface {
 		'soma-portfolio'           => array(
 			'file' => 'portfolio.js',
 			'deps' => array( 'jquery' ),
-		),
-		'soma-portfolio-gallery'   => array(
-			'file' => 'portfolio-gallery.js',
-			'deps' => array( 'jquery', 'slick' ),
 		),
 		'soma-text-with-read-more' => array(
 			'file' => 'text-with-read-more.js',
