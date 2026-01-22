@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [3.1.23] - 2026-01-21
+
 ### Portfolio Single Template Simplification (#219)
 
 This release simplifies the Portfolio single template architecture by removing redundant fields and consolidating the technical specs management into the PortfolioTechnicalSpecs Elementor widget.
