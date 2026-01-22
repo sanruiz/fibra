@@ -132,7 +132,7 @@ class RelatedProjects extends Widget_Base {
 			array(
 				'label'   => __( 'Columns', 'soma' ),
 				'type'    => Controls_Manager::SELECT,
-				'default' => '4',
+				'default' => '3',
 				'options' => array(
 					'2' => '2',
 					'3' => '3',

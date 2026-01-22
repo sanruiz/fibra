@@ -1,8 +1,8 @@
 # SOMA Theme v3.0 - Elementor Widgets Reference
 
-**Version**: 3.1.23  
+**Version**: 3.1.24  
 **Last Updated**: January 21, 2026  
-**Total Widgets**: 13
+**Total Widgets**: 15
 
 ---
 
@@ -23,6 +23,8 @@
    - [Share Quotation Widget](#11-share-quotation-widget)
    - [Portfolio Technical Specs Widget](#12-portfolio-technical-specs-widget)
    - [Related Projects Widget](#13-related-projects-widget)
+   - [Text With Read More Widget](#14-text-with-read-more-widget)
+   - [Portfolio City Type Widget](#15-portfolio-city-type-widget)
 3. [Common Features](#common-features)
 4. [Development Guide](#development-guide)
 5. [Troubleshooting](#troubleshooting)
@@ -1128,6 +1130,194 @@ Displays related portfolio projects based on shared taxonomy terms. Automaticall
 #### Editor Preview
 
 When editing in Elementor and no taxonomy terms are found or no related projects exist, the widget displays a helpful placeholder message instead of empty space.
+
+---
+
+### 14. Text With Read More Widget
+
+**Class**: `Soma\Elementor\Widgets\TextWithReadMore`  
+**ID**: `soma-text-with-read-more`  
+**Icon**: `eicon-post-content`
+
+#### Description
+
+Expandable text content widget with configurable line limit. Displays content truncated to a specified number of lines with a "Read More" button that expands to show full content. Includes smooth animations, gradient fade effect, and accessibility support.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Show Title** | Switcher | Yes | Toggle title visibility |
+| **Title** | Text | `Section Title` | Section heading text |
+| **Title Tag** | Select | `h2` | HTML tag (h1-h6, div, span, p) |
+| **Content** | WYSIWYG | - | Rich text content to display |
+
+#### Display Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Max Lines** | Number | 5 | Lines shown before truncation (1-50) |
+| **Read More Text** | Text | `Read More` | Button text for collapsed state |
+| **Read Less Text** | Text | `Read Less` | Button text for expanded state |
+| **Show Icon** | Switcher | Yes | Display chevron icon on button |
+| **Animation Duration** | Number | 300 | Expand/collapse animation in ms (0-1000) |
+
+#### Style Controls
+
+**Title Style:**
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Color** | Color | Title text color (Global: COLOR_PRIMARY) |
+| **Typography** | Group | Title font styling (Global: TYPOGRAPHY_SECONDARY) |
+| **Margin** | Dimensions | Title spacing (default: bottom 20px) |
+
+**Content Style:**
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Color** | Color | Content text color (Global: COLOR_TEXT) |
+| **Typography** | Group | Content font styling (Global: TYPOGRAPHY_TEXT) |
+| **Line Height** | Slider | Content line height (default: 1.6em) |
+
+**Button Style:**
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Color** | Color | Button text color (Global: COLOR_ACCENT) |
+| **Hover Color** | Color | Button hover state color |
+| **Typography** | Group | Button font styling (Global: TYPOGRAPHY_ACCENT) |
+| **Margin** | Dimensions | Button spacing (default: top 15px) |
+
+#### CSS Variables Used
+
+```css
+--soma-font-family-primary
+--soma-color-text-primary
+--soma-spacing-md
+--soma-transition-base
+```
+
+#### Usage Example
+
+```php
+// Widget automatically handles content truncation based on max_lines setting
+// JavaScript manages expand/collapse animation using data attributes:
+// - data-max-lines: Number of visible lines
+// - data-line-height: Line height value
+// - data-animation-duration: Animation speed in ms
+// - data-read-more / data-read-less: Button text labels
+```
+
+#### HTML Structure
+
+```html
+<div class="soma-text-read-more">
+    <h2 class="soma-text-read-more__title">Section Title</h2>
+    <div class="soma-text-read-more__content"
+         data-max-lines="5"
+         data-line-height="1.6"
+         data-animation-duration="300"
+         data-read-more="Read More"
+         data-read-less="Read Less">
+        <div class="soma-text-read-more__wrapper">
+            <!-- Rich text content -->
+        </div>
+        <div class="soma-text-read-more__gradient"></div>
+        <button class="soma-text-read-more__toggle" aria-expanded="false">
+            <span class="soma-text-read-more__toggle-text">Read More</span>
+            <span class="soma-text-read-more__toggle-icon">
+                <!-- SVG chevron icon -->
+            </span>
+        </button>
+    </div>
+</div>
+```
+
+#### ACF Integration
+
+None - Uses Elementor WYSIWYG control for manual content entry.
+
+---
+
+### 15. Portfolio City Type Widget
+
+**Class**: `Soma\Elementor\Widgets\PortfolioCityType`  
+**ID**: `soma-portfolio-city-type`  
+**Icon**: `eicon-map-pin`
+
+#### Description
+
+Displays city and project type in single line format for portfolio items. Auto-detects current portfolio post and retrieves city from ACF field and project type from taxonomy. Output format: `{City}. {Project Type}` (e.g., "Ciudad de México. Usos Mixtos").
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Separator** | Text | `. ` | Text between city and type |
+| **Show City** | Switcher | Yes | Display city value |
+| **Show Project Type** | Switcher | Yes | Display project type |
+| **Fallback City** | Text | - | Default text when city is empty |
+| **Fallback Project Type** | Text | - | Default text when type is empty |
+
+#### Style Controls
+
+| Control | Type | Description |
+|---------|------|-------------|
+| **Typography** | Group | Text font styling (Global: TYPOGRAPHY_TEXT) |
+| **Text Color** | Color | Main text color (Global: COLOR_TEXT) |
+| **Separator Color** | Color | Separator text color |
+| **Alignment** | Choose | Text alignment (left/center/right) |
+
+#### CSS Variables Used
+
+```css
+--soma-font-family-primary
+--soma-color-text-primary
+--soma-color-text-secondary
+```
+
+#### Usage Example
+
+```php
+// Widget auto-detects current portfolio post
+// City is retrieved from ACF field: project_info.city
+// Project type is retrieved from: project-type taxonomy
+
+// Typical use in portfolio single template:
+// 1. Add widget to Elementor layout
+// 2. Configure separator and visibility options
+// 3. Widget automatically displays city and type
+```
+
+#### HTML Structure
+
+```html
+<div class="soma-portfolio-city-type">
+    <span class="soma-portfolio-city-type__text">
+        <span class="soma-portfolio-city-type__city">Ciudad de México</span>
+        <span class="soma-portfolio-city-type__separator">. </span>
+        <span class="soma-portfolio-city-type__type">Usos Mixtos</span>
+    </span>
+</div>
+```
+
+#### ACF Integration
+
+**Required ACF Fields on portfolio post type:**
+
+- `project_info` (Group) - Project information group
+  - `city` (Text) - Project location city
+
+**Taxonomy Integration:**
+
+- Uses `project-type` taxonomy to retrieve project classification
+- Returns first assigned term name
+- Fallback text displayed when no term assigned
+
+#### Editor Preview
+
+Displays placeholder text in Elementor editor when not on a portfolio post or when no data is available.
 
 ---
 
