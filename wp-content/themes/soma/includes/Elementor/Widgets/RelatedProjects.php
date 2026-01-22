@@ -477,7 +477,7 @@ class RelatedProjects extends Widget_Base {
 								</div>
 							<?php endif; ?>
 							<div class="soma-related-projects__info">
-								<h3 class="soma-related-projects__name"><?php the_title(); ?></h3>
+								<h3 class="soma-related-projects__name"><?php echo esc_html( get_the_title() ); ?></h3>
 								<?php if ( 'yes' === $settings['show_city'] && $related_city ) : ?>
 									<span class="soma-related-projects__city"><?php echo esc_html( $related_city ); ?></span>
 								<?php endif; ?>
