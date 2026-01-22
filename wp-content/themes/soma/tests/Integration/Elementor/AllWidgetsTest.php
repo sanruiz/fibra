@@ -45,6 +45,8 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'ShareQuotation'          => \Soma\Elementor\Widgets\ShareQuotation::class,
 		'AnnualReports'           => \Soma\Elementor\Widgets\AnnualReports::class,
 		'Events'                  => \Soma\Elementor\Widgets\Events::class,
+		'TextWithReadMore'        => \Soma\Elementor\Widgets\TextWithReadMore::class,
+		'PortfolioCityType'       => \Soma\Elementor\Widgets\PortfolioCityType::class,
 	);
 
 	/**
@@ -71,6 +73,8 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'ShareQuotation'          => 'soma-share-quotation',
 		'AnnualReports'           => 'soma-annual-reports',
 		'Events'                  => 'soma-events',
+		'TextWithReadMore'        => 'soma-text-with-read-more',
+		'PortfolioCityType'       => 'soma-portfolio-city-type',
 	);
 
 	/**
