@@ -9,6 +9,78 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Portfolio Single Template Simplification (#219)
+
+This release simplifies the Portfolio single template architecture by removing redundant fields and consolidating the technical specs management into the PortfolioTechnicalSpecs Elementor widget.
+
+---
+
+### ✨ Added
+
+#### New Taxonomy
+
+- **ProjectTypeTaxonomy** - New taxonomy for portfolio project types (#219)
+  - Registered with `show_in_rest => true` for block editor support
+  - Hierarchical taxonomy for categorizing projects
+  - Attached to `portfolio` post type
+  - Unit tests in `tests/Unit/Taxonomies/ProjectTypeTaxonomyTest.php`
+
+#### Unit Tests
+
+- **ProjectTypeTaxonomyTest.php** - Comprehensive unit tests for new taxonomy
+  - Tests singleton pattern
+  - Tests taxonomy constant definition
+  - Tests required methods presence
+  - Tests args structure
+
+### 🔄 Changed
+
+#### ACF Field Simplification
+
+- **Portfolio ACF Fields** - Simplified from 12+ fields to 2 core fields (#219)
+  - Removed: sustainability_text, sustainability_image, gla, certifications, location, and other redundant fields
+  - Kept: `year` (text, maxlength 4) and `city` (text)
+  - Added `show_in_rest: 1` for REST API and block editor compatibility
+  - Technical specs now managed via PortfolioTechnicalSpecs Elementor widget repeater
+
+#### Template Architecture
+
+- **singles/portfolio.php** - Simplified to use Elementor for all layout (#219)
+  - Removed legacy hero section with ACF fields
+  - Removed page-builder fallback section
+  - Now uses `the_content()` for full Elementor control
+  - Related projects section maintained via template part
+
+### 📚 Documentation
+
+- **WIDGETS.md** - Added PortfolioTechnicalSpecs widget documentation (#219)
+  - Complete control reference for repeater-based specs
+  - Style controls documentation
+  - Usage examples and HTML structure
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Taxonomies/ProjectTypeTaxonomy.php` - New project type taxonomy
+- `tests/Unit/Taxonomies/ProjectTypeTaxonomyTest.php` - Unit tests
+
+#### Modified
+
+- `acf-json/group_5f9c7e4638d1b.json` - Simplified fields, added show_in_rest
+- `singles/portfolio.php` - Simplified template architecture
+- `includes/Elementor/Widgets/PortfolioTechnicalSpecs.php` - Refactored to use REPEATER control
+- `docs/WIDGETS.md` - Added PortfolioTechnicalSpecs documentation
+
+---
+
+### 🔗 Related Issues & PRs
+
+- **Issue #219**: [Portfolio Single Template Simplification](https://github.com/sanruiz/fibra/issues/219)
+- **PR #220**: [feat: Portfolio single template simplification](https://github.com/sanruiz/fibra/pull/220)
+
+---
+
 ## [3.1.22] - 2026-01-19
 
 ### Slick Carousel & Sticky Navbar Fixes
