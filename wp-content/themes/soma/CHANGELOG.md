@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🐛 Fixed
+
+#### TextWithReadMore Widget
+
+- **First Click Not Responding** - Fixed toggle button not working on first click after page load (#226)
+  - **Problem**: Widget calculated `scrollHeight` before web fonts loaded, causing incorrect height comparisons
+  - **Symptom**: Button only worked after opening DevTools (which triggers repaint/reflow)
+  - **Solution**: Wait for `document.fonts.ready` API before initializing widget
+  - **Fallback**: Uses `window.load` event for browsers without Font Loading API support
+
+### 📦 Files Changed
+
+#### Modified
+
+- `assets/js/widgets/text-with-read-more.js` - Font loading wait before initialization
+
 ---
 
 ## [3.1.24] - 2026-01-21

@@ -90,9 +90,19 @@
 		});
 	}
 
-	// Initialize on document ready.
+	// Initialize after fonts are loaded to ensure accurate height calculations.
 	$(document).ready(function () {
-		initTextWithReadMore();
+		// Use document.fonts API if available, otherwise fallback to window.load.
+		if (document.fonts && document.fonts.ready) {
+			document.fonts.ready.then(function () {
+				initTextWithReadMore();
+			});
+		} else {
+			// Fallback for older browsers.
+			$(window).on('load', function () {
+				initTextWithReadMore();
+			});
+		}
 	});
 
 	// Re-initialize for Elementor editor.
