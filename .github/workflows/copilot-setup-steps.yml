@@ -49,7 +49,7 @@ jobs:
                   coverage: none
 
             - name: 📦 Cache Composer dependencies
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: wp-content/themes/soma/vendor
                   key: composer-copilot-${{ hashFiles('wp-content/themes/soma/composer.lock') }}
