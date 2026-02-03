@@ -31,8 +31,8 @@ This release refactors the RelatedProjects Elementor widget to use intelligent l
   - Maintains city display via ACF field
 
 - **Code Architecture** - Refactored into modular methods for better maintainability
-  - `find_related_projects()` - Orchestrates layered search with caching
-  - `query_by_taxonomy()` - Reusable taxonomy-based query helper
+  - `find_related_projects()` - Orchestrates layered search algorithm
+  - `query_by_taxonomy()` - Reusable taxonomy-based query helper with empty terms validation
   - `query_by_meta()` - Reusable ACF meta field query helper
   - `render_projects_grid()` - Extracted grid rendering logic
 
