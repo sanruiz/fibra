@@ -64,8 +64,15 @@
 			$content.attr('aria-expanded', 'false');
 			$toggle.attr('aria-expanded', 'false');
 
-			// Toggle handler.
-			$toggle.on('click', function () {
+			// IMPORTANT: Remove any existing handlers before attaching new ones.
+			// This prevents duplicate handlers when widget is re-initialized (fonts.ready + timeout).
+			$toggle.off('click touchend');
+
+			// Toggle handler - use namespace to prevent conflicts.
+			$toggle.on('click.textReadMore touchend.textReadMore', function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
 				const isExpanded = $widget.hasClass('is-expanded');
 
 				if (isExpanded) {

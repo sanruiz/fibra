@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.27] - 2026-02-03
+
+### TextWithReadMore Mobile Touch Hotfix
+
+This hotfix resolves the intermittent touch failure on mobile devices for the TextWithReadMore widget.
+
+---
+
+### 🐛 Fixed
+
+#### TextWithReadMore Widget
+
+- **Mobile Touch Stops Responding After Several Interactions** - Fixed duplicate event handler stacking (#226)
+  - **Problem**: Double initialization (fonts.ready + 2-second safety timeout) caused duplicate event handlers
+  - **Symptom**: Toggle button worked initially but stopped responding after multiple expand/collapse cycles
+  - **Solution**: Added `.off('click touchend')` before `.on()` to clear existing handlers before rebinding
+  - **Added**: Event namespacing (`click.textReadMore touchend.textReadMore`) for cleaner handler management
+
+### 📦 Files Changed
+
+#### Modified
+
+- `assets/js/widgets/text-with-read-more.js` - Clear handlers before rebinding, add event namespacing
+
+---
+
 ## [3.1.26] - 2026-02-03
 
 ### Portfolio Project Info Helper Function
