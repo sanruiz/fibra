@@ -161,15 +161,15 @@ final class PortfolioEndpoint {
 
 		if ( $posts ) {
 			foreach ( $posts as $item ) {
-				$info = get_field( 'project_info', $item->ID );
+				$info = soma_get_portfolio_project_info( $item->ID );
 
 				$formatted_posts[] = array(
 					'ID'             => $item->ID,
 					'title'          => get_the_title( $item->ID ),
 					'permalink'      => get_the_permalink( $item->ID ),
 					'featured_image' => get_the_post_thumbnail_url( $item->ID, 'large' ),
-					'city'           => $info['city'] ?? '',
-					'year'           => $info['year'] ?? '',
+					'city'           => $info['city'],
+					'year'           => $info['year'],
 				);
 			}
 		}

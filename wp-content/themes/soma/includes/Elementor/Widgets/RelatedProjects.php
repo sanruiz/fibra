@@ -409,9 +409,9 @@ class RelatedProjects extends Widget_Base {
 		$orderby         = $settings['orderby'];
 
 		// Get current project's data for layered matching.
-		$current_info         = get_field( 'project_info', $current_post_id );
-		$current_city         = $current_info['city'] ?? '';
-		$current_year         = $current_info['year'] ?? '';
+		$current_info         = soma_get_portfolio_project_info( $current_post_id );
+		$current_city         = $current_info['city'];
+		$current_year         = $current_info['year'];
 		$current_categories   = get_the_terms( $current_post_id, 'portfolio-taxonomy' );
 		$current_project_type = get_the_terms( $current_post_id, 'project-type' );
 
@@ -583,8 +583,8 @@ class RelatedProjects extends Widget_Base {
 					<?php
 					while ( $related_projects->have_posts() ) :
 						$related_projects->the_post();
-						$related_info         = get_field( 'project_info' );
-						$related_city         = $related_info['city'] ?? '';
+						$related_info = soma_get_portfolio_project_info();
+						$related_city = $related_info['city'];
 						$related_project_type = get_the_terms( get_the_ID(), 'project-type' );
 						?>
 						<a href="<?php the_permalink(); ?>" class="soma-related-projects__card">

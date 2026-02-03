@@ -9,6 +9,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Portfolio Project Info Helper Function
+
+This release adds a centralized helper function for retrieving portfolio project information (city, year) from ACF fields, establishing a Single Source of Truth (SSOT) pattern.
+
+---
+
+### ✨ Added
+
+#### Helper Functions
+
+- **`soma_get_portfolio_project_info()`** - New helper function for retrieving portfolio project ACF data
+  - Accepts optional `$post_id` parameter (defaults to current post)
+  - Returns associative array with `city` and `year` keys (always strings)
+  - Handles ACF unavailability gracefully (returns empty strings)
+  - Handles non-array ACF responses safely
+  - Handles missing array keys with defaults
+  - **Single Source of Truth** for all portfolio project info access
+
+#### Unit Tests
+
+- **HelpersTest.php** - New unit test file for helper functions
+  - Tests function existence
+  - Tests return type (array)
+  - Tests expected keys presence
+  - Tests value types (strings)
+  - Tests default empty values
+  - Tests null and integer post_id handling
+
+### 🔄 Changed
+
+#### Code Refactoring - Portfolio Project Info Access
+
+All direct `get_field('project_info')` calls refactored to use `soma_get_portfolio_project_info()`:
+
+- **RelatedProjects Widget** - Refactored 2 usages in render method and grid rendering
+- **PortfolioCityType Widget** - Simplified `get_city()` method from 13 lines to 5 lines
+- **PortfolioEndpoint API** - Updated foreach loop to use helper, removed null coalescing operators
+- **related-projects.php Partial** - Updated template loop to use helper
+
+### 📦 Files Changed
+
+#### Added
+
+- `tests/Unit/Utils/HelpersTest.php` - Unit tests for helper functions
+
+#### Modified
+
+- `includes/Utils/Helpers.php` - Added `soma_get_portfolio_project_info()` function
+- `includes/Elementor/Widgets/RelatedProjects.php` - Refactored to use helper (2 usages)
+- `includes/Elementor/Widgets/PortfolioCityType.php` - Refactored `get_city()` method
+- `includes/API/Endpoints/PortfolioEndpoint.php` - Refactored endpoint response
+- `singles/partials/related-projects.php` - Refactored template loop
+
+---
+
 ### RelatedProjects Widget Refactor
 
 This release refactors the RelatedProjects Elementor widget to use intelligent layered search for finding related portfolio projects.
