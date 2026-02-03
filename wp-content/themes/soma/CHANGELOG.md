@@ -15,7 +15,7 @@ This release refactors the RelatedProjects Elementor widget to use intelligent l
 
 ---
 
-### � Fixed
+### 🐛 Fixed
 
 #### TextWithReadMore Widget
 
@@ -25,7 +25,7 @@ This release refactors the RelatedProjects Elementor widget to use intelligent l
   - **Additional Fix**: Added `touch-action: manipulation` CSS to prevent iOS 300ms tap delay
   - **Compatibility**: Works on all browsers with graceful degradation
 
-### �🔄 Changed
+### 🔄 Changed
 
 #### RelatedProjects Widget
 
