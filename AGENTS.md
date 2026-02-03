@@ -47,6 +47,7 @@ git checkout -b copilot/issue-description
 ### PR Title Format
 
 Use conventional commits format:
+
 ```
 type(scope): brief description
 
@@ -136,6 +137,7 @@ Document test results in the PR description:
 ### When to Update CHANGELOG
 
 Update `wp-content/themes/soma/CHANGELOG.md` for:
+
 - New features
 - Bug fixes
 - Performance improvements
@@ -245,6 +247,7 @@ composer phpcs && composer phpstan && composer test && npm run prod
 ### Issue Assignment
 
 When assigned to an issue via `@copilot`:
+
 1. Read the full issue description
 2. Check for linked issues or related PRs
 3. Identify the current sprint branch (`week-N`)

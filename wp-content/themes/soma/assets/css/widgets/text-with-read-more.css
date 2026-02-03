@@ -64,6 +64,8 @@
 	text-decoration: underline;
 	text-underline-offset: 3px;
 	transition: color 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	touch-action: manipulation;
 }
 
 .soma-text-read-more__toggle:hover {

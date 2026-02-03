@@ -15,6 +15,16 @@ This release refactors the RelatedProjects Elementor widget to use intelligent l
 
 ---
 
+### 🐛 Fixed
+
+#### TextWithReadMore Widget
+
+- **Mobile Touch Not Responding** - Fixed toggle button not working on mobile devices (iPhone 12 simulation 390x844px) (#226)
+  - **Problem**: Widget initialization depended on `document.fonts.ready` API which may hang on mobile Safari
+  - **Solution**: Added 2-second safety timeout fallback to ensure initialization even if fonts.ready doesn't resolve
+  - **Additional Fix**: Added `touch-action: manipulation` CSS to prevent iOS 300ms tap delay
+  - **Compatibility**: Works on all browsers with graceful degradation
+
 ### 🔄 Changed
 
 #### RelatedProjects Widget
