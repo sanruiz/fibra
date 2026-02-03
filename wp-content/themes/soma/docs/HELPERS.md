@@ -2,7 +2,7 @@
 
 **Version**: 3.0.0  
 **Last Updated**: December 15, 2025  
-**Total Functions**: 28 helper functions
+**Total Functions**: 29 helper functions
 
 ---
 
@@ -24,7 +24,7 @@
 
 ## Overview
 
-SOMA v3.0 provides 28 global helper functions with the `soma_` prefix for common theme operations. All functions are loaded automatically and available throughout the theme.
+SOMA v3.0 provides 29 global helper functions with the `soma_` prefix for common theme operations. All functions are loaded automatically and available throughout the theme.
 
 ### File Location
 
@@ -36,7 +36,7 @@ SOMA v3.0 provides 28 global helper functions with the `soma_` prefix for common
 
 - **Logger**: 9 functions (PSR-3 compliant logging)
 - **Cache**: 6 functions (tag-based caching)
-- **Post Types**: 4 functions (custom post type queries)
+- **Post Types**: 5 functions (custom post type queries)
 - **Templates**: 2 functions (template loading)
 - **ACF**: 2 functions (flexible content)
 - **Utilities**: 4 functions (theme helpers)
@@ -529,6 +529,55 @@ $query = soma_get_team_members([
         ],
     ],
 ]);
+```
+
+---
+
+### soma_get_portfolio_project_info()
+
+Get portfolio project info (city and year) from ACF field group.
+
+**Syntax:**
+```php
+soma_get_portfolio_project_info( ?int $post_id = null ): array
+```
+
+**Parameters:**
+- `$post_id` (int|null) - Post ID. Null for current post in the loop.
+
+**Returns:** Array with `city` and `year` keys (both strings). Returns empty strings if ACF is not available or field is not set.
+
+**Return Format:**
+```php
+[
+    'city' => string,
+    'year' => string,
+]
+```
+
+**Example:**
+```php
+// Get project info for current post
+$info = soma_get_portfolio_project_info();
+echo $info['city']; // e.g., "Mexico City"
+echo $info['year']; // e.g., "2024"
+
+// Get project info for specific post
+$info = soma_get_portfolio_project_info(123);
+if (!empty($info['city']) && !empty($info['year'])) {
+    echo "{$info['city']}, {$info['year']}";
+}
+
+// Use in a loop
+$query = soma_get_portfolio_items();
+if ($query->have_posts()) {
+    while ($query->have_posts()) {
+        $query->the_post();
+        $info = soma_get_portfolio_project_info();
+        echo "<p>{$info['city']} - {$info['year']}</p>";
+    }
+}
+wp_reset_postdata();
 ```
 
 ---
