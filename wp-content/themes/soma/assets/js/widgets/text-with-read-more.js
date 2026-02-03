@@ -93,10 +93,15 @@
 	// Initialize after fonts are loaded to ensure accurate height calculations.
 	$(document).ready(function () {
 		var initialized = false;
+		var safetyTimeout;
 
 		function safeInit() {
 			if (!initialized) {
 				initialized = true;
+				// Clear safety timeout to avoid unnecessary work.
+				if (safetyTimeout) {
+					clearTimeout(safetyTimeout);
+				}
 				initTextWithReadMore();
 			}
 		}
@@ -106,7 +111,7 @@
 			document.fonts.ready.then(safeInit);
 			// Safety timeout: initialize after 2 seconds if fonts.ready doesn't resolve.
 			// This handles edge cases on mobile Safari where fonts.ready may hang.
-			setTimeout(safeInit, 2000);
+			safetyTimeout = setTimeout(safeInit, 2000);
 		} else {
 			// Fallback for older browsers.
 			$(window).on('load', safeInit);
