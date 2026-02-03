@@ -342,6 +342,40 @@ function soma_render_flexible_content( $blocks ): void {
 	get_template_part( 'page-builder' );
 }
 
+/**
+ * Get portfolio project info (city and year) from ACF field group.
+ *
+ * Centralized helper for accessing the 'project_info' ACF field group
+ * used across portfolio-related components. Provides type-safe access
+ * with fallback values.
+ *
+ * @since 3.1.26
+ *
+ * @param int|null $post_id Post ID. Null for current post in the loop.
+ * @return array{city: string, year: string} Project info with city and year.
+ */
+function soma_get_portfolio_project_info( ?int $post_id = null ): array {
+	$default = array(
+		'city' => '',
+		'year' => '',
+	);
+
+	if ( ! function_exists( 'get_field' ) ) {
+		return $default;
+	}
+
+	$info = get_field( 'project_info', $post_id );
+
+	if ( ! is_array( $info ) ) {
+		return $default;
+	}
+
+	return array(
+		'city' => isset( $info['city'] ) ? (string) $info['city'] : '',
+		'year' => isset( $info['year'] ) ? (string) $info['year'] : '',
+	);
+}
+
 // =============================================================================
 // Utility Helpers
 // =============================================================================

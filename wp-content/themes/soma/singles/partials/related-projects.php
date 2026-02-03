@@ -63,8 +63,8 @@ if ( ! $related_projects->have_posts() ) {
 			<?php
 			while ( $related_projects->have_posts() ) :
 				$related_projects->the_post();
-				$related_info  = get_field( 'project_info' );
-				$related_city  = $related_info['city'] ?? '';
+				$related_info  = soma_get_portfolio_project_info();
+				$related_city  = $related_info['city'];
 				$related_terms = get_the_terms( get_the_ID(), 'portfolio-taxonomy' );
 				?>
 				<a href="<?php the_permalink(); ?>" class="related-project-card">

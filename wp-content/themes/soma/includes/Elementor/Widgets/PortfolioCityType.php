@@ -261,18 +261,10 @@ class PortfolioCityType extends Widget_Base {
 	 * @return string City name or empty string.
 	 */
 	private function get_city(): string {
-		if ( ! function_exists( 'get_field' ) ) {
-			return '';
-		}
-
 		$post_id      = get_the_ID();
-		$project_info = get_field( 'project_info', $post_id );
+		$project_info = soma_get_portfolio_project_info( $post_id );
 
-		if ( is_array( $project_info ) && ! empty( $project_info['city'] ) ) {
-			return (string) $project_info['city'];
-		}
-
-		return '';
+		return $project_info['city'];
 	}
 
 	/**
