@@ -520,6 +520,10 @@ class RelatedProjects extends Widget_Base {
 	 * @return \WP_Query Query results.
 	 */
 	private function query_by_taxonomy( array $base_args, string $taxonomy, array $terms ): \WP_Query {
+		if ( empty( $terms ) ) {
+			return new \WP_Query();
+		}
+
 		$args              = $base_args;
 		$args['tax_query'] = array(
 			array(
@@ -588,8 +592,15 @@ class RelatedProjects extends Widget_Base {
 									<span class="soma-related-projects__city"><?php echo esc_html( $related_city ); ?></span>
 								<?php endif; ?>
 								<?php if ( 'yes' === $settings['show_category'] && $related_project_type && ! is_wp_error( $related_project_type ) ) : ?>
-									<?php $first_type = reset( $related_project_type ); ?>
-									<span class="soma-related-projects__type"><?php echo esc_html( $first_type->name ); ?></span>
+									<?php
+									$first_type = null;
+									if ( isset( $related_project_type[0] ) && $related_project_type[0] instanceof \WP_Term ) {
+										$first_type = $related_project_type[0];
+									}
+									?>
+									<?php if ( $first_type ) : ?>
+										<span class="soma-related-projects__type"><?php echo esc_html( $first_type->name ); ?></span>
+									<?php endif; ?>
 								<?php endif; ?>
 							</div>
 						</a>
