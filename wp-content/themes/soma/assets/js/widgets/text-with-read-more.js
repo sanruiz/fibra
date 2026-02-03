@@ -92,16 +92,24 @@
 
 	// Initialize after fonts are loaded to ensure accurate height calculations.
 	$(document).ready(function () {
+		var initialized = false;
+
+		function safeInit() {
+			if (!initialized) {
+				initialized = true;
+				initTextWithReadMore();
+			}
+		}
+
 		// Use document.fonts API if available, otherwise fallback to window.load.
 		if (document.fonts && document.fonts.ready) {
-			document.fonts.ready.then(function () {
-				initTextWithReadMore();
-			});
+			document.fonts.ready.then(safeInit);
+			// Safety timeout: initialize after 2 seconds if fonts.ready doesn't resolve.
+			// This handles edge cases on mobile Safari where fonts.ready may hang.
+			setTimeout(safeInit, 2000);
 		} else {
 			// Fallback for older browsers.
-			$(window).on('load', function () {
-				initTextWithReadMore();
-			});
+			$(window).on('load', safeInit);
 		}
 	});
 
