@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.26] - 2026-02-03
+
 ### Portfolio Project Info Helper Function
 
 This release adds a centralized helper function for retrieving portfolio project information (city, year) from ACF fields, establishing a Single Source of Truth (SSOT) pattern.
