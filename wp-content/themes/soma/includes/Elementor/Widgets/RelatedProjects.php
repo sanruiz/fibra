@@ -594,7 +594,7 @@ class RelatedProjects extends Widget_Base {
 								<?php if ( 'yes' === $settings['show_category'] && $related_project_type && ! is_wp_error( $related_project_type ) ) : ?>
 									<?php
 									$first_type = null;
-									if ( isset( $related_project_type[0] ) && $related_project_type[0] instanceof \WP_Term ) {
+									if ( isset( $related_project_type[0] ) ) {
 										$first_type = $related_project_type[0];
 									}
 									?>
