@@ -405,54 +405,171 @@ class RelatedProjects extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$current_post_id = get_the_ID();
+		$posts_per_page  = intval( $settings['posts_per_page'] );
+		$orderby         = $settings['orderby'];
 
-		// Parent/umbrella taxonomy terms to exclude from filtering and display.
-		$excluded_slugs = array( 'soma_real_estate', 'soma_construction', 'fibrasoma' );
+		// Get current project's data for layered matching.
+		$current_info         = get_field( 'project_info', $current_post_id );
+		$current_city         = $current_info['city'] ?? '';
+		$current_year         = $current_info['year'] ?? '';
+		$current_categories   = get_the_terms( $current_post_id, 'portfolio-taxonomy' );
+		$current_project_type = get_the_terms( $current_post_id, 'project-type' );
 
-		// Get current project's taxonomy terms (excluding parent/umbrella terms).
-		$current_terms = get_the_terms( $current_post_id, 'portfolio-taxonomy' );
-		$term_slugs    = array();
-
-		if ( $current_terms && ! is_wp_error( $current_terms ) ) {
-			foreach ( $current_terms as $current_term ) {
-				if ( ! in_array( $current_term->slug, $excluded_slugs, true ) ) {
-					$term_slugs[] = $current_term->slug;
-				}
-			}
-		}
-
-		// Only query related projects if we have valid terms.
-		if ( empty( $term_slugs ) ) {
-			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-				echo '<p style="padding: 20px; text-align: center;">' . esc_html__( 'No taxonomy terms found for current post. Related projects will appear here.', 'soma' ) . '</p>';
-			}
-			return;
-		}
-
-		$related_args = array(
-			'post_type'      => 'portfolio',
-			'post_status'    => 'publish',
-			'posts_per_page' => intval( $settings['posts_per_page'] ),
-			'post__not_in'   => array( $current_post_id ),
-			'orderby'        => $settings['orderby'],
-			'tax_query'      => array(
-				array(
-					'taxonomy' => 'portfolio-taxonomy',
-					'field'    => 'slug',
-					'terms'    => $term_slugs,
-				),
-			),
+		// Find related projects using layered search strategy.
+		$related_projects = $this->find_related_projects(
+			$current_post_id,
+			$posts_per_page,
+			$orderby,
+			$current_categories,
+			$current_project_type,
+			$current_city,
+			$current_year
 		);
 
-		$related_projects = new \WP_Query( $related_args );
-
-		if ( ! $related_projects->have_posts() ) {
+		// No related projects found after all layers.
+		if ( ! $related_projects || ! $related_projects->have_posts() ) {
 			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 				echo '<p style="padding: 20px; text-align: center;">' . esc_html__( 'No related projects found. They will appear here when available.', 'soma' ) . '</p>';
 			}
 			return;
 		}
 
+		$this->render_projects_grid( $related_projects, $settings );
+	}
+
+	/**
+	 * Find related projects using layered search strategy.
+	 *
+	 * Search order:
+	 * 1. Portfolio Category (portfolio-taxonomy)
+	 * 2. Project Type (project-type taxonomy)
+	 * 3. City (ACF field)
+	 * 4. Year (ACF field)
+	 *
+	 * @param int         $current_post_id    Current post ID to exclude.
+	 * @param int         $posts_per_page     Number of posts to retrieve.
+	 * @param string      $orderby            Order by parameter.
+	 * @param array|false $current_categories Current post's portfolio-taxonomy terms.
+	 * @param array|false $current_project_type Current post's project-type terms.
+	 * @param string      $current_city       Current post's city.
+	 * @param string      $current_year       Current post's year.
+	 * @return \WP_Query|null Query object or null if no results.
+	 */
+	private function find_related_projects(
+		int $current_post_id,
+		int $posts_per_page,
+		string $orderby,
+		$current_categories,
+		$current_project_type,
+		string $current_city,
+		string $current_year
+	): ?\WP_Query {
+		// Base query args.
+		$base_args = array(
+			'post_type'      => 'portfolio',
+			'post_status'    => 'publish',
+			'posts_per_page' => $posts_per_page,
+			'post__not_in'   => array( $current_post_id ),
+			'orderby'        => $orderby,
+		);
+
+		// Layer 1: Search by Portfolio Category.
+		if ( $current_categories && ! is_wp_error( $current_categories ) ) {
+			$category_slugs = wp_list_pluck( $current_categories, 'slug' );
+			$query          = $this->query_by_taxonomy( $base_args, 'portfolio-taxonomy', $category_slugs );
+			if ( $query->have_posts() ) {
+				return $query;
+			}
+		}
+
+		// Layer 2: Search by Project Type.
+		if ( $current_project_type && ! is_wp_error( $current_project_type ) ) {
+			$type_slugs = wp_list_pluck( $current_project_type, 'slug' );
+			$query      = $this->query_by_taxonomy( $base_args, 'project-type', $type_slugs );
+			if ( $query->have_posts() ) {
+				return $query;
+			}
+		}
+
+		// Layer 3: Search by City.
+		if ( ! empty( $current_city ) ) {
+			$query = $this->query_by_meta( $base_args, 'project_info_city', $current_city );
+			if ( $query->have_posts() ) {
+				return $query;
+			}
+		}
+
+		// Layer 4: Search by Year.
+		if ( ! empty( $current_year ) ) {
+			$query = $this->query_by_meta( $base_args, 'project_info_year', $current_year );
+			if ( $query->have_posts() ) {
+				return $query;
+			}
+		}
+
+		// No matches found in any layer.
+		return null;
+	}
+
+	/**
+	 * Query portfolio items by taxonomy.
+	 *
+	 * @param array  $base_args Base query arguments.
+	 * @param string $taxonomy  Taxonomy name.
+	 * @param array  $terms     Term slugs to search.
+	 * @return \WP_Query Query results.
+	 */
+	private function query_by_taxonomy( array $base_args, string $taxonomy, array $terms ): \WP_Query {
+		if ( empty( $terms ) ) {
+			return new \WP_Query(
+				array_merge(
+					$base_args,
+					array(
+						'post__in' => array( 0 ),
+					)
+				)
+			);
+		}
+
+		$args              = $base_args;
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => $taxonomy,
+				'field'    => 'slug',
+				'terms'    => $terms,
+			),
+		);
+		return new \WP_Query( $args );
+	}
+
+	/**
+	 * Query portfolio items by ACF meta field.
+	 *
+	 * @param array  $base_args Base query arguments.
+	 * @param string $meta_key  Meta key to search.
+	 * @param string $value     Value to match.
+	 * @return \WP_Query Query results.
+	 */
+	private function query_by_meta( array $base_args, string $meta_key, string $value ): \WP_Query {
+		$args               = $base_args;
+		$args['meta_query'] = array(
+			array(
+				'key'     => $meta_key,
+				'value'   => $value,
+				'compare' => '=',
+			),
+		);
+		return new \WP_Query( $args );
+	}
+
+	/**
+	 * Render the projects grid.
+	 *
+	 * @param \WP_Query $related_projects Query object with related projects.
+	 * @param array     $settings         Widget settings.
+	 * @return void
+	 */
+	private function render_projects_grid( \WP_Query $related_projects, array $settings ): void {
 		$style_class = 'dark' === $settings['style_variant'] ? 'soma-related-projects--dark' : 'soma-related-projects--light';
 		$columns     = intval( $settings['columns'] );
 		?>
@@ -466,9 +583,9 @@ class RelatedProjects extends Widget_Base {
 					<?php
 					while ( $related_projects->have_posts() ) :
 						$related_projects->the_post();
-						$related_info  = get_field( 'project_info' );
-						$related_city  = $related_info['city'] ?? '';
-						$related_terms = get_the_terms( get_the_ID(), 'portfolio-taxonomy' );
+						$related_info         = get_field( 'project_info' );
+						$related_city         = $related_info['city'] ?? '';
+						$related_project_type = get_the_terms( get_the_ID(), 'project-type' );
 						?>
 						<a href="<?php the_permalink(); ?>" class="soma-related-projects__card">
 							<?php if ( has_post_thumbnail() ) : ?>
@@ -481,13 +598,16 @@ class RelatedProjects extends Widget_Base {
 								<?php if ( 'yes' === $settings['show_city'] && $related_city ) : ?>
 									<span class="soma-related-projects__city"><?php echo esc_html( $related_city ); ?></span>
 								<?php endif; ?>
-								<?php if ( 'yes' === $settings['show_category'] && $related_terms && ! is_wp_error( $related_terms ) ) : ?>
-									<?php foreach ( $related_terms as $related_term ) : ?>
-										<?php if ( ! in_array( $related_term->slug, $excluded_slugs, true ) ) : ?>
-											<span class="soma-related-projects__type"><?php echo esc_html( $related_term->name ); ?></span>
-											<?php break; // Only show first valid term. ?>
-										<?php endif; ?>
-									<?php endforeach; ?>
+								<?php if ( 'yes' === $settings['show_category'] && $related_project_type && ! is_wp_error( $related_project_type ) ) : ?>
+									<?php
+									$first_type = null;
+									if ( isset( $related_project_type[0] ) ) {
+										$first_type = $related_project_type[0];
+									}
+									?>
+									<?php if ( $first_type ) : ?>
+										<span class="soma-related-projects__type"><?php echo esc_html( $first_type->name ); ?></span>
+									<?php endif; ?>
 								<?php endif; ?>
 							</div>
 						</a>
