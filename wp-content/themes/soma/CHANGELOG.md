@@ -9,6 +9,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### RelatedProjects Widget Refactor
+
+This release refactors the RelatedProjects Elementor widget to use intelligent layered search for finding related portfolio projects.
+
+---
+
+### 🔄 Changed
+
+#### RelatedProjects Widget
+
+- **Layered Search Algorithm** - Complete refactor from hardcoded category exclusions to intelligent multi-layer matching
+  - **Layer 1: Portfolio Category** - Search by same `portfolio-taxonomy` terms
+  - **Layer 2: Project Type** - Fall back to `project-type` taxonomy matching
+  - **Layer 3: City** - Fall back to matching ACF `project_info.city` field
+  - **Layer 4: Year** - Fall back to matching ACF `project_info.year` field
+  - **Graceful Degradation**: Widget only hides when ALL layers find no matches
+
+- **Card Display Improvement** - Cards now show `project-type` taxonomy instead of `portfolio-taxonomy`
+  - Better UX as project type (Industrial, Mixto, etc.) is more relevant than category
+  - Maintains city display via ACF field
+
+- **Code Architecture** - Refactored into modular methods for better maintainability
+  - `find_related_projects()` - Orchestrates layered search with caching
+  - `query_by_taxonomy()` - Reusable taxonomy-based query helper
+  - `query_by_meta()` - Reusable ACF meta field query helper
+  - `render_projects_grid()` - Extracted grid rendering logic
+
+- **Removed Hardcoded Exclusions** - Eliminated obsolete `$excluded_slugs` array that referenced old category hierarchy (`soma_real_estate`, `soma_construction`, `fibrasoma`)
+
+### 📦 Files Changed
+
+#### Modified
+
+- `includes/Elementor/Widgets/RelatedProjects.php` - Complete refactor (~300 lines)
+
 ---
 
 ## [3.1.25] - 2026-01-28
