@@ -521,7 +521,14 @@ class RelatedProjects extends Widget_Base {
 	 */
 	private function query_by_taxonomy( array $base_args, string $taxonomy, array $terms ): \WP_Query {
 		if ( empty( $terms ) ) {
-			return new \WP_Query();
+			return new \WP_Query(
+				array_merge(
+					$base_args,
+					array(
+						'post__in' => array( 0 ),
+					)
+				)
+			);
 		}
 
 		$args              = $base_args;
