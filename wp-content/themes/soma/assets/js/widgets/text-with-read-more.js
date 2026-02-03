@@ -92,24 +92,36 @@
 
 	// Initialize after fonts are loaded to ensure accurate height calculations.
 	$(document).ready(function () {
-		var initialized = false;
+		var timeoutFired = false;
+		var fontsReady = false;
 
-		function safeInit() {
-			if (!initialized) {
-				initialized = true;
+		function initOnTimeout() {
+			if (!timeoutFired) {
+				timeoutFired = true;
+				initTextWithReadMore();
+			}
+		}
+
+		function initOnFontsReady() {
+			if (!fontsReady) {
+				fontsReady = true;
+				// If timeout already fired, re-initialize to get accurate measurements with loaded fonts.
+				if (timeoutFired) {
+					$('.soma-text-read-more').removeData('initialized').removeClass('no-overflow');
+				}
 				initTextWithReadMore();
 			}
 		}
 
 		// Use document.fonts API if available, otherwise fallback to window.load.
 		if (document.fonts && document.fonts.ready) {
-			document.fonts.ready.then(safeInit);
+			document.fonts.ready.then(initOnFontsReady);
 			// Safety timeout: initialize after 2 seconds if fonts.ready doesn't resolve.
 			// This handles edge cases on mobile Safari where fonts.ready may hang.
-			setTimeout(safeInit, 2000);
+			setTimeout(initOnTimeout, 2000);
 		} else {
 			// Fallback for older browsers.
-			$(window).on('load', safeInit);
+			$(window).on('load', initOnFontsReady);
 		}
 	});
 
