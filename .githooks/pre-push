@@ -4,12 +4,12 @@
 # Prevents pushing version tags (v*) from branches other than main
 #
 # Why this matters:
-#   When using squash merge, commits in week-* branches are NOT ancestors of main.
-#   Tags created on week-* branches become "orphaned" after merge - they point to
+#   When using squash merge, commits in develop are NOT ancestors of main.
+#   Tags created on develop become "orphaned" after merge - they point to
 #   commits that don't exist in main's history.
 #
 # Correct workflow:
-#   1. Merge week-N → main (via PR with squash)
+#   1. Merge develop → main (via PR with squash)
 #   2. Checkout main and pull
 #   3. Create tag on main
 #   4. Push tag
@@ -44,7 +44,7 @@ while read local_ref local_sha remote_ref remote_sha; do
                 echo ""
                 echo "📋 Why this matters:"
                 echo "   Squash merge creates NEW commits in main. Tags created on"
-                echo "   week-* branches become 'orphaned' - they point to commits"
+                echo "   develop become 'orphaned' - they point to commits"
                 echo "   that don't exist in main's history."
                 echo ""
                 echo "📋 Correct workflow:"

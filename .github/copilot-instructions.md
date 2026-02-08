@@ -360,7 +360,8 @@ All module loaders must implement `Soma\Core\Interfaces\LoadableInterface`:
 ### Branch Naming
 
 ```
-week-N              → Milestone branches (week-2, week-3, ..., week-9)
+main                → Production branch (stable releases only)
+develop             → Development branch (integration branch for features)
 feature/description → New features (e.g., feature/hero-section)
 fix/description     → Bug fixes (e.g., fix/navbar-mobile)
 chore/description   → Maintenance tasks (e.g., chore/update-deps)
@@ -409,40 +410,40 @@ Closes #issue-number (if applicable)
 
 ### 🚨 CRITICAL: Tags Must Be Created from `main` Branch Only
 
-**NEVER create tags from `week-*` branches.** Tags created from sprint branches become orphaned when using squash merge, because:
+**NEVER create tags from `develop` branch.** Tags created before merging to main become orphaned when using squash merge, because:
 
 1. Squash merge creates a NEW commit in `main` (combining all commits)
-2. The original commits in `week-*` are NOT ancestors of `main`
+2. The original commits in `develop` are NOT ancestors of `main`
 3. Tags pointing to those commits become "orphaned" (not reachable from any branch)
 
 ```
-❌ WRONG: Create tag on week-4, then merge week-4 to main
+❌ WRONG: Create tag on develop, then merge develop to main
    → Tag points to commit that doesn't exist in main history
 
-✅ CORRECT: Merge week-4 to main FIRST, then create tag on main
+✅ CORRECT: Merge develop to main FIRST, then create tag on main
    → Tag points to the squash merge commit in main
 ```
 
 **The correct order is:**
-1. Merge `week-N` → `main` (via PR with squash)
+1. Merge `develop` → `main` (via PR with squash)
 2. Checkout `main` and pull
 3. Create tag on `main`
 4. Push tag (triggers release workflow)
 
-### Standard Release (from week-* to main)
+### Standard Release (from develop to main)
 
 ```bash
-# 1. Ensure all sprint features merged to week-N
-gh pr list --base week-N | cat  # Should be empty
+# 1. Ensure all features merged to develop
+gh pr list --base develop | cat  # Should be empty
 
 # 2. Verify quality gates pass
 cd wp-content/themes/soma
 composer phpcs && composer phpstan && composer test
 npm run prod
 
-# 3. Create release branch from week-N
-git checkout week-N
-git pull origin week-N
+# 3. Create release branch from develop
+git checkout develop
+git pull origin develop
 git checkout -b release/vX.Y.Z
 
 # 4. Update version files
@@ -453,15 +454,12 @@ git checkout -b release/vX.Y.Z
 git add style.css CHANGELOG.md
 git commit -m "chore: Prepare release vX.Y.Z"
 
-# 6. Create PR from release branch to week-N, then merge
+# 6. Push and create PR to main
 git push -u origin release/vX.Y.Z
-gh pr create --base week-N --title "Release vX.Y.Z" | cat
-gh pr merge NUMBER --squash --delete-branch | cat
+gh pr create --base main --title "Release vX.Y.Z" | cat
 
-# 7. Create PR from week-N to main, then merge
-# ⚠️ This MUST complete BEFORE creating any tags!
-gh pr create --base main --head week-N --title "Week N: Sprint completion" | cat
-gh pr merge NUMBER --squash | cat
+# 7. Wait for CI and merge
+gh pr merge NUMBER --squash --delete-branch | cat
 
 # 8. 🚨 CRITICAL: Checkout main and create tag FROM MAIN
 # Tags MUST be created after merging to main, not before!
@@ -474,7 +472,12 @@ git tag -a vX.Y.Z -m "Release vX.Y.Z: Description"
 # 9. Push tag (triggers CI/CD → Release → Deploy)
 git push origin vX.Y.Z
 
-# 10. Monitor workflow
+# 10. Merge main back to develop
+git checkout develop
+git merge main
+git push origin develop
+
+# 11. Monitor workflow
 gh run watch
 gh release view vX.Y.Z | cat
 ```
@@ -490,7 +493,7 @@ gh release view vX.Y.Z | cat
 ### Hotfix Workflow (Emergency Production Fix)
 
 ```bash
-# 1. Create hotfix branch from main (NOT week-*)
+# 1. Create hotfix branch from main (NOT develop)
 git checkout main
 git pull origin main
 git checkout -b hotfix/critical-issue
@@ -512,10 +515,10 @@ git checkout main && git pull origin main
 git tag -a v3.1.3 -m "Hotfix v3.1.3: Critical security patch"
 git push origin v3.1.3
 
-# 6. Backport to current sprint (if needed)
-git checkout week-N
+# 6. Backport to develop
+git checkout develop
 git cherry-pick COMMIT_SHA
-git push origin week-N
+git push origin develop
 ```
 
 ### 📝 Responding to PR Review Comments

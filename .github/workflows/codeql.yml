@@ -15,7 +15,7 @@ on:
   push:
     branches: 
       - "main"
-      - "week-*"  # Analyze sprint branches for early security detection
+      - "develop"  # Analyze development branch for early security detection
     paths-ignore:
       - "**/*.md"           # Skip for markdown files
       - "docs/**"           # Skip for documentation folder
@@ -25,7 +25,7 @@ on:
   pull_request:
     branches: 
       - "main"
-      - "week-*"  # Scan PRs before merge
+      - "develop"  # Scan PRs before merge
     paths-ignore:
       - "**/*.md"           # Skip for markdown files
       - "docs/**"           # Skip for documentation folder

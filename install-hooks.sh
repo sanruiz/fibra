@@ -6,10 +6,8 @@
 # Run once after cloning the repository.
 #
 # Protected branches:
-#   - main: Production branch (only via PR from week-*)
-#   - week-*: Sprint branches (only via PR from feature/fix)
-#   - release/*: Release preparation (only for version bump, no development)
-#   - develop: Legacy branch (deprecated)
+#   - main: Production branch (only via PR from develop or hotfix/*)
+#   - develop: Development branch (only via PR from feature/fix)
 #
 # Usage:
 #   ./install-hooks.sh
@@ -73,9 +71,8 @@ echo "   • pre-commit: Blocks direct commits to protected branches"
 echo "   • pre-push: Blocks pushing v* tags from non-main branches"
 echo ""
 echo "🚫 Protected Branches:"
-echo "   • main - Production (only via PR from week-*)"
-echo "   • week-* - Sprints (only via PR from feature/fix)"
-echo "   • develop - Legacy (deprecated)"
+echo "   • main - Production (only via PR from develop or hotfix/*)"
+echo "   • develop - Development (only via PR from feature/fix)"
 echo ""
 echo "🏷️  Tag Protection:"
 echo "   • Version tags (v*) can ONLY be pushed from 'main' branch"

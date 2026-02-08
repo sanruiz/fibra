@@ -9,10 +9,9 @@ name: SOMA Develop - Auto Deploy
 # Environment: develop (SSH connection)
 #
 # Development Flow:
-#   1. Feature branches (feature/*, fix/*) → PR to week-N
-#   2. Week-N branches → PR to develop (for testing)
-#   3. Develop → automatic quality checks + deploy to DEV server
-#   4. After validation → week-N → PR to main (for production)
+#   1. Feature branches (feature/*, fix/*) → PR to develop
+#   2. Develop → automatic quality checks + deploy to DEV server
+#   3. After validation → develop → PR to main (for production)
 #
 # Difference from production (ci-cd.yml):
 #   - No release/tag required - deploys on every push

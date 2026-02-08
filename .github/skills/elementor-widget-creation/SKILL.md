@@ -1,5 +1,5 @@
 ---
-name: Elementor Widget Creation
+name: elementor-widget-creation
 description: Create new Elementor widgets following SOMA theme standards with complete file structure, tests, and translations
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: GitHub Actions Debugging
+name: github-actions-debugging
 description: Debug and troubleshoot GitHub Actions CI/CD workflows for the SOMA project
 ---
 
@@ -23,7 +23,7 @@ Use this skill when you need to:
 
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
-| `ci-cd.yml` | Push to `main`, `week-*`, PRs, tags | Unified CI/CD pipeline |
+| `ci-cd.yml` | Push to `main`, PRs, tags | Unified CI/CD pipeline |
 
 ### CI/CD Pipeline Stages
 
@@ -263,7 +263,7 @@ gh run list --workflow=ci-cd.yml --limit 5 | cat
 gh run list --status=failure --limit 5 | cat
 
 # Filter by branch
-gh run list --branch=week-4 --limit 5 | cat
+gh run list --branch=develop --limit 5 | cat
 ```
 
 ### View Run Details

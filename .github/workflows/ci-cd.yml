@@ -1,23 +1,23 @@
 name: SOMA CI/CD - Unified Pipeline
 
 # ============================================================================
-# Git Workflow Strategy (GitFlow with Weekly Sprints)
+# Git Workflow Strategy (GitFlow)
 # ============================================================================
 # 
 # Branch Structure:
-#   - main: Production-ready code, receives PRs from week-* at sprint end
-#   - week-*: Sprint branches (e.g., week-2, week-3), receive PRs from feature/fix
+#   - main: Production-ready code, receives PRs from develop for releases
+#   - develop: Development integration branch, receives PRs from feature/fix
 #   - feature/*: Feature development branches from issues
 #   - fix/*: Bug fix branches from issues
 #
 # Development Flow:
-#   1. Issue created → feature/fix-X branch created
-#   2. Development → PR to week-N → Merge (closes issue)
-#   3. Sprint ends → PR week-N to main → Merge
+#   1. Issue created → feature/fix-X branch created from develop
+#   2. Development → PR to develop → Merge (closes issue)
+#   3. Release ready → PR develop to main → Merge
 #   4. Release → Tag v* from main → GitHub Release → Deploy to production
 #
 # CI/CD Triggers:
-#   - Stage 1 (Quality Gates): Runs on push to week-*, PRs to main/week-*
+#   - Stage 1 (Quality Gates): Runs on push to develop, PRs to main/develop
 #   - Stage 2 (Build & Release): ONLY on v* tags pushed from main branch
 #   - Stage 3 (Deploy): ONLY after successful release from main branch
 #
@@ -26,7 +26,7 @@ name: SOMA CI/CD - Unified Pipeline
 on:
     push:
         branches:
-            - "week-*"  # CI only for sprint branches
+            - develop  # CI for development branch
         tags:
             - "v*"      # Release only when tag pushed from main
         paths-ignore:
@@ -36,8 +36,8 @@ on:
             - "LICENSE"           # Skip for license file
     pull_request:
         branches:
-            - main      # PRs to main (from week-* at sprint end)
-            - "week-*"  # PRs to sprint branches (from feature/fix)
+            - main      # PRs to main (from develop for releases)
+            - develop   # PRs to develop (from feature/fix)
         paths-ignore:
             - "**/*.md"           # Skip for markdown files
             - "docs/**"           # Skip for documentation folder

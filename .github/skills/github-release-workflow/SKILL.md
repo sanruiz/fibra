@@ -29,7 +29,7 @@ Use this skill when you need to:
 ```
 main (production)
  ↑
- └── week-N (sprint branch)
+ └── develop (integration branch)
       ↑
       ├── feature/description
       ├── fix/description
@@ -40,12 +40,12 @@ main (production)
 
 | Branch | Purpose | Merge Target |
 |--------|---------|--------------|
-| `main` | Production code | ← week-N only |
-| `week-N` | Sprint development | ← feature/*, fix/* |
-| `feature/*` | New features | → week-N |
-| `fix/*` | Bug fixes | → week-N |
+| `main` | Production code | ← develop only |
+| `develop` | Development integration | ← feature/*, fix/* |
+| `feature/*` | New features | → develop |
+| `fix/*` | Bug fixes | → develop |
 | `hotfix/*` | Emergency fixes | → main |
-| `release/*` | Release preparation | → week-N → main |
+| `release/*` | Release preparation | → main |
 
 ## Standard Release Process
 
@@ -64,9 +64,9 @@ npm run prod          # Frontend build must succeed
 ### Step 2: Create Release Branch
 
 ```bash
-# From current sprint branch
-git checkout week-N
-git pull origin week-N
+# From develop branch
+git checkout develop
+git pull origin develop
 git checkout -b release/vX.Y.Z
 ```
 
@@ -106,7 +106,7 @@ git commit -m "chore: Prepare release vX.Y.Z"
 git push -u origin release/vX.Y.Z
 ```
 
-### Step 5: Create PR to Sprint Branch
+### Step 5: Create PR to Main
 
 **🏷️ REQUIRED: Always include labels in PR creation**
 
@@ -123,28 +123,14 @@ See CHANGELOG.md for details.
 - ✅ PHPStan Level 6
 - ✅ All tests passing
 - ✅ Frontend build successful" \
-  --base week-N \
+  --base main \
   --label "release,chore" | cat
 
 # Wait for CI, then merge
 gh pr merge NUMBER --squash --delete-branch | cat
 ```
 
-### Step 6: Merge Sprint to Main
-
-```bash
-# Create PR from sprint to main
-gh pr create \
-  --title "Release vX.Y.Z to production" \
-  --base main \
-  --head week-N \
-  --label "release" | cat
-
-# After CI passes and approval
-gh pr merge NUMBER --squash | cat
-```
-
-### Step 7: Create Release Tag (CRITICAL)
+### Step 6: Create Release Tag (CRITICAL)
 
 ```bash
 # ⚠️ CRITICAL: Tags MUST be created from main AFTER merge
@@ -177,7 +163,7 @@ gh release view vX.Y.Z | cat
 ## Hotfix Workflow (Emergency)
 
 ```bash
-# 1. Create hotfix from main (NOT week-N)
+# 1. Create hotfix from main (NOT develop)
 git checkout main
 git pull origin main
 git checkout -b hotfix/critical-issue
@@ -207,10 +193,10 @@ git pull origin main
 git tag -a v3.1.16 -m "Hotfix v3.1.16: Security patch"
 git push origin v3.1.16
 
-# 7. Backport to sprint (if needed)
-git checkout week-N
+# 7. Backport to develop (if needed)
+git checkout develop
 git cherry-pick COMMIT_SHA
-git push origin week-N
+git push origin develop
 ```
 
 ## CHANGELOG.md Format
@@ -304,11 +290,11 @@ git commit -m "chore(release): Bump version to 3.1.16 and update changelog"
 # Always use | cat to prevent pagination
 
 # Issues
-gh issue list --milestone "Week N" | cat
+gh issue list | cat
 gh issue close NUMBER --comment "Fixed in PR #XX" | cat
 
 # Pull Requests
-gh pr create --base week-N --title "Title" | cat
+gh pr create --base develop --title "Title" | cat
 gh pr list | cat
 gh pr checks NUMBER | cat
 gh pr merge NUMBER --squash --delete-branch | cat
@@ -322,17 +308,13 @@ gh release view vX.Y.Z | cat
 gh run list --workflow=ci-cd.yml | cat
 gh run watch
 gh run view RUN_ID | cat
-
-# Milestones
-gh api repos/sanruiz/fibra/milestones | jq '.[] | {number, title, state}' | cat
-gh api repos/sanruiz/fibra/milestones/N -X PATCH -f state=closed | cat
 ```
 
 ## Common Issues
 
 ### Tag Created from Wrong Branch
 
-**Problem**: Tag created from `week-N` instead of `main` becomes orphaned after squash merge.
+**Problem**: Tag created from `develop` instead of `main` becomes orphaned after squash merge.
 
 **Solution**:
 ```bash
@@ -378,7 +360,7 @@ gh workflow run ci-cd.yml -f version=X.Y.Z
 
 ## Pre-Release Checklist
 
-- [ ] All feature PRs merged to `week-N`
+- [ ] All feature PRs merged to `develop`
 - [ ] Quality checks pass locally
   - [ ] `composer phpcs` (0 errors)
   - [ ] `composer phpstan` (Level 6+)
@@ -389,7 +371,7 @@ gh workflow run ci-cd.yml -f version=X.Y.Z
 - [ ] Related issues closed
 - [ ] PR created with appropriate labels (`--label "release,..."`)
 - [ ] PR approved and merged
-- [ ] Tag created from `main` (not `week-N`)
+- [ ] Tag created from `main` (not `develop`)
 - [ ] CI/CD pipeline completed successfully
 - [ ] Production site verified
 
@@ -398,6 +380,5 @@ gh workflow run ci-cd.yml -f version=X.Y.Z
 - [ ] Verify deployment on production
 - [ ] Test critical user paths
 - [ ] Check error logs (`soma-logs/soma.log`)
-- [ ] Close milestone if applicable
 - [ ] Announce release (if public)
-- [ ] Merge main back to week-N (if continuing sprint)
+- [ ] Merge main back to develop

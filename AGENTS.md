@@ -7,36 +7,38 @@
 
 ### Base Branch Rule
 
-**NEVER create branches from `main`**. This repository uses sprint-based development.
+**NEVER create branches from `main`**. This repository uses GitFlow with `develop` as the integration branch.
 
-1. **Identify the current sprint branch**: Look for `week-N` branches (e.g., `week-1`, `week-2`, `week-6`, `week-7`)
-2. **Use the latest `week-N` branch as base**: When assigned to an issue, ALWAYS use the most recent `week-N` branch
-3. **Target PRs to `week-N`**: Pull requests MUST target the sprint branch, NOT `main`
+1. **Use `develop` as base**: When assigned to an issue, ALWAYS create branches from `develop`
+2. **Target PRs to `develop`**: Pull requests MUST target `develop`, NOT `main`
+3. **`main` is for releases only**: Only release branches and hotfixes merge to `main`
 
 ```
 ✅ CORRECT:
-   Base: week-7 → Feature branch: copilot/fix-123 → PR target: week-7
+   Base: develop → Feature branch: copilot/fix-123 → PR target: develop
 
 ❌ WRONG:
    Base: main → Feature branch: copilot/fix-123 → PR target: main
 ```
 
-### How to Determine Current Sprint Branch
+### Branch Types
 
-1. Check existing branches: `git branch -r | grep week-`
-2. Use the highest numbered `week-N` branch that exists
-3. If unsure, check the GitHub Projects board or recent PRs
+- `main` - Production branch (stable releases only)
+- `develop` - Development branch (integration branch for features)
+- `feature/*` - New features
+- `fix/*` - Bug fixes
+- `hotfix/*` - Emergency production fixes
+- `release/*` - Release preparation
 
 ### When Creating a Branch
 
 ```bash
-# 1. First, identify current sprint
+# 1. Ensure develop is up to date
 git fetch origin
-git branch -r | grep week-
+git checkout develop
+git pull origin develop
 
-# 2. Create branch from sprint branch (example: week-7)
-git checkout week-7
-git pull origin week-7
+# 2. Create feature branch from develop
 git checkout -b copilot/issue-description
 ```
 
@@ -66,7 +68,6 @@ Examples:
 |----------|--------|
 | **Type** | `enhancement`, `bug`, `documentation`, `performance`, `security` |
 | **Area** | `frontend`, `backend`, `elementor`, `api`, `testing` |
-| **Sprint** | `week-1` through `week-9` (match the target branch) |
 | **Priority** | `alta-prioridad`, `media-prioridad`, `baja-prioridad` |
 
 ### PR Description Template
@@ -224,8 +225,8 @@ composer phpcs && composer phpstan && composer test && npm run prod
 
 ### DO NOT
 
-- ❌ Create branches from `main`
-- ❌ Target PRs to `main`
+- ❌ Create branches from `main` (use `develop`)
+- ❌ Target PRs to `main` (use `develop`)
 - ❌ Skip quality checks before PR
 - ❌ Forget to add labels
 - ❌ Leave CHANGELOG unchanged for features/fixes
@@ -233,7 +234,7 @@ composer phpcs && composer phpstan && composer test && npm run prod
 
 ### ALWAYS
 
-- ✅ Use `week-N` branch as base
+- ✅ Use `develop` branch as base for all features/fixes
 - ✅ Run all quality checks before pushing
 - ✅ Add appropriate labels to PRs
 - ✅ Document test results in PR
@@ -250,10 +251,10 @@ When assigned to an issue via `@copilot`:
 
 1. Read the full issue description
 2. Check for linked issues or related PRs
-3. Identify the current sprint branch (`week-N`)
-4. Create feature branch from sprint branch
+3. Checkout and update `develop` branch
+4. Create feature branch from `develop`
 5. Implement changes following this guide
-6. Create PR targeting sprint branch
+6. Create PR targeting `develop`
 
 ### Commit Message Format
 
@@ -270,6 +271,6 @@ Types: `feat`, `fix`, `perf`, `docs`, `style`, `refactor`, `test`, `chore`
 
 ---
 
-**Last Updated**: January 2026  
+**Last Updated**: February 2026  
 **Repository**: sanruiz/fibra  
 **Theme Version**: 3.1.18+

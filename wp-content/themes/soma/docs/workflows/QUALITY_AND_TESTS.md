@@ -91,10 +91,9 @@ on:
     branches:
       - main
       - develop
-      - 'week-*'
 ```
 
-**When**: Any push to main, develop, or week-* branches  
+**When**: Any push to main or develop branches  
 **Purpose**: Validate code changes before release  
 **Blocks**: Does NOT block deployment (only runs quality gates)
 

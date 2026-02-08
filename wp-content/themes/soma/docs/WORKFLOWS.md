@@ -23,29 +23,29 @@ This directory contains documentation for all GitHub Actions workflows used in t
 
 ### Unified Workflow with GitFlow (v3.1.2+)
 
-SOMA uses a **unified CI/CD workflow** with **GitFlow and weekly sprints** to ensure only stable code reaches production.
+SOMA uses a **unified CI/CD workflow** with **GitFlow** to ensure only stable code reaches production.
 
 #### Git Workflow Strategy
 
 **Branch Structure:**
-- **main**: Production-ready code only, receives PRs from week-* at sprint end
-- **week-N**: Sprint branches (e.g., week-2, week-3), receive PRs from feature/fix
+- **main**: Production-ready code only, receives PRs from develop for releases
+- **develop**: Development integration branch, receives PRs from feature/fix
 - **feature/**, **fix/**, **hotfix/**: Issue-specific development branches
 
 **Development Flow:**
-1. Issue created → create feature/fix-X branch
-2. Development → PR to week-N → merge (closes issue)
-3. Sprint ends → PR week-N to main → merge
+1. Issue created → create feature/fix-X branch from develop
+2. Development → PR to develop → merge (closes issue)
+3. Release ready → PR develop to main → merge
 4. Release → tag v* from main → GitHub Release → deploy to production
 
 **CI/CD Triggers:**
-- **Stage 1 (Quality Gates)**: Runs on push to week-*, PRs to main/week-*
+- **Stage 1 (Quality Gates)**: Runs on push to develop, PRs to main/develop
 - **Stage 2 (Build & Release)**: ONLY on v* tags pushed from main branch
 - **Stage 3 (Deploy)**: ONLY after successful release from main branch
 
 **Key Rules:**
 - ✅ Tags from main → Create release + Deploy to production
-- ⚠️ Tags from week-* → Quality checks only (no release/deploy)
+- ⚠️ Tags from develop → Quality checks only (no release/deploy)
 - ✅ main always reflects production state
 - ✅ Only tested, approved code reaches production
 
@@ -130,24 +130,24 @@ Run the test workflow to validate secrets:
 ### 3. Standard Release Workflow
 
 **Prerequisites:**
-- All sprint features merged to week-N
+- All features merged to develop
 - Quality gates passing
 - Version decided (X.Y.Z)
 
 **Steps:**
 
 ```bash
-# 1. Verify sprint complete
-gh pr list --base week-N | cat  # Should be empty
+# 1. Verify develop ready
+gh pr list --base develop | cat  # Should be empty
 
 # 2. Run quality checks locally
 cd wp-content/themes/soma
 composer phpcs && composer phpstan && composer test
 npm run prod
 
-# 3. Create release branch from week-N
-git checkout week-N
-git pull origin week-N
+# 3. Create release branch from develop
+git checkout develop
+git pull origin develop
 git checkout -b release/vX.Y.Z
 
 # 4. Update version files
@@ -159,25 +159,24 @@ git add style.css CHANGELOG.md
 git commit -m "chore: Prepare release vX.Y.Z"
 git push -u origin release/vX.Y.Z
 
-# 6. Create PR to week-N
-gh pr create --base week-N --title "Release vX.Y.Z" | cat
+# 6. Create PR to main
+gh pr create --base main --title "Release vX.Y.Z" | cat
 
-# 7. After approval, merge to week-N
+# 7. After approval, merge to main
 gh pr merge NUMBER --squash --delete-branch | cat
 
-# 8. Create PR from week-N to main
-gh pr create --base main --head week-N --title "Week N: Sprint completion" | cat
-
-# 9. After approval, merge to main
-gh pr merge NUMBER --squash | cat
-
-# 10. Create tag from main
+# 8. Create tag from main
 git checkout main
 git pull origin main
 git tag -a vX.Y.Z -m "Release vX.Y.Z: Description"
 git push origin vX.Y.Z
 
-# 11. Monitor deployment
+# 9. Merge main back to develop
+git checkout develop
+git merge main
+git push origin develop
+
+# 10. Monitor deployment
 gh run watch
 gh release view vX.Y.Z | cat
 ```
@@ -195,7 +194,7 @@ gh release view vX.Y.Z | cat
 **When:** Critical bug in production needs immediate fix
 
 ```bash
-# 1. Create hotfix from main (NOT week-*)
+# 1. Create hotfix from main (NOT develop)
 git checkout main
 git pull origin main
 git checkout -b hotfix/critical-issue
@@ -233,24 +232,24 @@ git push origin v3.1.3
 # 7. Monitor deployment
 gh run watch
 
-# 8. Backport to sprint (if needed)
-git checkout week-N
+# 8. Backport to develop (if needed)
+git checkout develop
 git cherry-pick COMMIT_SHA
-git push origin week-N
+git push origin develop
 ```
 
 ---
 
-### 5. Sprint Milestone Tagging
+### 5. Development Milestone Tagging
 
-**When:** Want to mark sprint completion without deploying
+**When:** Want to mark development milestone without deploying
 
 ```bash
-# Tag from sprint branch (quality checks only)
-git checkout week-2
-git pull origin week-2
-git tag -a v3.1.2-sprint -m "Week 2 sprint completion"
-git push origin v3.1.2-sprint
+# Tag from develop branch (quality checks only)
+git checkout develop
+git pull origin develop
+git tag -a v3.1.2-dev -m "Development milestone"
+git push origin v3.1.2-dev
 
 # Result:
 # ✅ Quality Gates run
@@ -267,7 +266,7 @@ git push origin v3.1.2-sprint
 **Old Workflows (REMOVED):**
 git add .
 git commit -m "chore: release v3.1.1"
-git push origin week-2
+git push origin develop
 
 # Wait for CI to pass
 gh run watch
@@ -377,9 +376,9 @@ gh run view RUN_ID --job=build-and-release --log | cat
 ### Create Release
 
 ```bash
-# Ensure on latest
-git checkout week-2
-git pull origin week-2
+# Ensure on latest develop
+git checkout develop
+git pull origin develop
 
 # Update version files
 # 1. wp-content/themes/soma/style.css → Version: 3.1.1
@@ -388,12 +387,18 @@ git pull origin week-2
 # Commit changes
 git add .
 git commit -m "chore: bump version to v3.1.1"
-git push origin week-2
+git push origin develop
 
 # Wait for CI
 gh run watch
 
-# Create and push tag
+# Merge develop to main
+gh pr create --base main --head develop --title "Release v3.1.1" | cat
+gh pr merge NUMBER --squash | cat
+
+# Create and push tag from main
+git checkout main
+git pull origin main
 git tag -a v3.1.1 -m "Release v3.1.1: Bug fixes and improvements"
 git push origin v3.1.1
 

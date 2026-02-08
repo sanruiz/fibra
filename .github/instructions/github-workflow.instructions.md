@@ -7,8 +7,8 @@ applyTo: "**"
 # GitHub Workflow Instructions for FibraSOMA Project
 
 **Applies to**: All GitHub operations, branch management, issues, PRs, releases, and deployments  
-**Last Updated**: December 15, 2025  
-**Project**: FibraSOMA Website Development (8 weeks)
+**Last Updated**: February 7, 2026  
+**Project**: FibraSOMA Website (Post-Sprint Development)
 
 ---
 
@@ -28,7 +28,7 @@ chmod +x install-hooks.sh
 
 The pre-commit hook enforces the GitFlow workflow by:
 
-- ✅ **Blocking direct commits** to protected branches (`main`, `week-*`, `develop`)
+- ✅ **Blocking direct commits** to protected branches (`main`, `develop`)
 - ✅ **Enforcing PR workflow** - All work must be done on feature/fix/hotfix branches
 - ✅ **Showing helpful messages** - Displays correct workflow if you try to commit to wrong branch
 - ✅ **Preventing accidents** - Catches mistakes before they reach the remote repository
@@ -37,9 +37,8 @@ The pre-commit hook enforces the GitFlow workflow by:
 
 The hook blocks commits to:
 
-- `main` - Production branch (only via PR from week-*)
-- `week-*` - Sprint branches (only via PR from feature/fix)
-- `develop` - Legacy branch (deprecated, kept for safety)
+- `main` - Production branch (only via PR from develop or hotfix/*)
+- `develop` - Development branch (only via PR from feature/fix)
 
 ### Allowed Branches
 
@@ -66,14 +65,14 @@ $ git commit -m "feat: some change"
 ❌ The 'main' branch is protected and requires Pull Requests.
 
 📋 Correct workflow:
-   1. Create feature branch from week-N:
-      git checkout week-2
+   1. Create feature branch from develop:
+      git checkout develop
       git checkout -b feature/your-feature
 
    2. Make changes and commit
 
-   3. Create PR to week-N (NOT main):
-      gh pr create --base week-2 --title 'feat: Your feature' | cat
+   3. Create PR to develop:
+      gh pr create --base develop --title 'feat: Your feature' | cat
 ```
 
 ### Troubleshooting
@@ -107,7 +106,8 @@ git checkout -b feature/fix
 ### Branch Naming Conventions
 
 ```
-week-N              → Milestone branches (week-2, week-3, ..., week-9)
+main                → Production branch (stable releases only)
+develop             → Development branch (integration branch for features)
 feature/description → New features (e.g., feature/hero-section)
 fix/description     → Bug fixes (e.g., fix/navbar-mobile)
 chore/description   → Maintenance tasks (e.g., chore/update-deps)
@@ -118,41 +118,41 @@ release/vX.Y.Z      → Release preparation (e.g., release/v3.1.3)
 ### Branch Hierarchy
 
 ```
-main (default branch)
+main (production - stable releases)
  ↑
- └── week-2 (current milestone)
+ └── develop (integration branch)
       ↑
-      ├── feature/hero-section
-      ├── feature/business-units
-      ├── fix/navbar-mobile
-      └── chore/update-styles
+      ├── feature/new-feature
+      ├── feature/other-feature
+      ├── fix/bug-fix
+      └── chore/maintenance
 ```
 
 ### CRITICAL Rules
 
 **✅ DO:**
-- Each milestone MUST be developed in a separate `week-N` branch
-- Create feature branches from `week-N`, NOT from `main`
-- Merge feature branches back to `week-N` via PR
-- Merge `week-N` to `main` only after milestone completion
+- Create feature branches from `develop`
+- Merge feature branches back to `develop` via PR
+- Merge `develop` to `main` only for releases
+- Use `hotfix/*` for emergency production fixes (branch from `main`)
 
 **❌ NEVER:**
-- Commit directly to `main`
-- Create feature branches from `main` during milestone work
+- Commit directly to `main` or `develop`
+- Create feature branches from `main` (except hotfixes)
 - Skip the PR review process
 - Merge without CI passing
 
 ### Branch Creation Workflow
 
 ```bash
-# 1. Start new feature from current milestone
-git checkout week-2
-git pull origin week-2
-git checkout -b feature/hero-section
+# 1. Start new feature from develop
+git checkout develop
+git pull origin develop
+git checkout -b feature/new-feature
 
 # 2. Work and commit
 git add .
-git commit -m "feat: Add hero section component"
+git commit -m "feat: Add new feature"
 
 # 3. ⚠️ MANDATORY: Run quality checks BEFORE pushing
 cd wp-content/themes/soma
@@ -162,41 +162,48 @@ composer test         # Must pass (all tests green)
 npm run prod          # Must pass (if CSS/JS modified)
 
 # 4. Push to remote (only after quality checks pass)
-git push -u origin feature/hero-section
+git push -u origin feature/new-feature
 
-# 5. Create PR to week-2 (NOT main)
-gh pr create --title "feat: Add hero section" \
-  --base week-2 \
-  --label "enhancement,week-2,frontend,alta-prioridad" | cat
+# 5. Create PR to develop
+gh pr create --title "feat: Add new feature" \
+  --base develop \
+  --label "enhancement,frontend" | cat
 
 # 6. After PR merge, delete branch (LOCAL + REMOTE)
-git checkout week-2
-git pull origin week-2
-git branch -d feature/hero-section           # Delete local
-git push origin --delete feature/hero-section # Delete remote
+git checkout develop
+git pull origin develop
+git branch -d feature/new-feature           # Delete local
+git push origin --delete feature/new-feature # Delete remote
 ```
 
-### Milestone Branch Lifecycle
+### Release Workflow
 
 ```bash
-# Week 2 starts
+# 1. Ensure develop is ready for release
+git checkout develop
+git pull origin develop
+
+# 2. Create release branch
+git checkout -b release/v3.2.0
+
+# 3. Update version files and CHANGELOG
+# ... make version updates ...
+
+# 4. Create PR to main
+gh pr create --title "Release v3.2.0" \
+  --base main \
+  --body "Release v3.2.0 with new features and fixes" | cat
+
+# 5. After merge, tag the release FROM main
 git checkout main
 git pull origin main
-git checkout -b week-2
-git push -u origin week-2
+git tag -a v3.2.0 -m "Release v3.2.0"
+git push origin v3.2.0
 
-# ... work on features via feature/* branches ...
-
-# Week 2 complete - merge to main
-gh pr create --title "Week 2: Home Page Development" \
-  --base main \
-  --body "Completes Week 2 milestone with all features" | cat
-
-# After merge and approval
-gh pr merge NUMBER --squash | cat
-
-# Close milestone
-gh api repos/sanruiz/fibra/milestones/2 -X PATCH -f state=closed | cat
+# 6. Merge main back to develop to sync
+git checkout develop
+git merge main
+git push origin develop
 ```
 
 ---
@@ -223,16 +230,11 @@ Implement hero section with:
 - [ ] Elementor widget created
 
 **Related:**
-- Milestone: Week 2
 - Component: Home Page" \
-  --label "enhancement,semana-2,frontend,alta-prioridad" \
-  --milestone 2 | cat
+  --label "enhancement,frontend,alta-prioridad" | cat
 ```
 
 ### Required Labels for Each Issue
-
-**Timeline (Required):**
-- `semana-1` to `semana-9` - Based on milestone
 
 **Type (Required):**
 - `enhancement` - New features
@@ -265,36 +267,23 @@ Implement hero section with:
 ### Issue Lifecycle
 
 ```
-1. Create issue → Assign labels + milestone
-2. Create feature branch
+1. Create issue → Assign labels
+2. Create feature branch from develop
 3. Work on branch
 4. Create PR linking issue (#NUMBER)
-5. Merge PR
+5. Merge PR to develop
 6. Issue auto-closes (or close manually)
-7. After all issues done → Close milestone
 ```
 
-**⚠️ IMPORTANT: Auto-Close Only Works on Default Branch**
+**⚠️ IMPORTANT: Auto-Close Works on develop Branch**
 
-GitHub only auto-closes issues (via "Closes #N", "Fixes #N") when PRs are merged to the **default branch** (`main`).
-
-When merging PRs to sprint branches (`week-*`), issues will **NOT** auto-close even if the commit message includes "Closes #N".
-
-**Always verify and manually close issues after merging to `week-*` branches:**
-
-```bash
-# After merging PR to week-N, check if issue is still open
-gh issue view NUMBER | cat
-
-# If still open, close manually with context
-gh issue close NUMBER --comment "Fixed in PR #XX (merged to week-N). Will be deployed with Week N release." | cat
-```
+GitHub auto-closes issues (via "Closes #N", "Fixes #N") when PRs are merged to `develop` (if it's the default branch) or `main`.
 
 ### Issue Commands
 
 ```bash
-# List issues for current milestone
-gh issue list --milestone "Week 2" | cat
+# List all open issues
+gh issue list | cat
 
 # View specific issue
 gh issue view 42 | cat
@@ -321,7 +310,7 @@ gh label create "new-label" \
 ### PR Creation
 
 ```bash
-# Standard PR to week-N
+# Standard PR to develop
 gh pr create \
   --title "feat: Add hero section component" \
   --body "Implements hero section with ACF integration.
@@ -339,13 +328,13 @@ gh pr create \
 - ✅ Responsive on all devices
 
 Closes #42" \
-  --base week-2 \
-  --label "enhancement,frontend,week-2" | cat
+  --base develop \
+  --label "enhancement,frontend" | cat
 
-# Milestone completion PR (week-N to main)
+# Release PR (develop to main)
 gh pr create \
-  --title "Week 2: Home Page Development" \
-  --body "Completes Week 2 milestone.
+  --title "Release v3.2.0" \
+  --body "Release v3.2.0 with new features and fixes.
 
 **Features Completed:**
 - Hero section
@@ -358,9 +347,7 @@ gh pr create \
 - ✅ 108 tests passing (355 assertions)
 - ✅ PHPCS clean (WordPress standards)
 - ✅ PHPStan Level 6 (0 critical errors)
-- ✅ All PRs reviewed and merged
-
-Closes milestone #2" \
+- ✅ All PRs reviewed and merged" \
   --base main | cat
 ```
 
@@ -405,7 +392,7 @@ Every PR **MUST** include appropriate labels via `--label` flag:
 | Type | Required Labels | Examples |
 |------|-----------------|----------|
 | **Bug Fix** | `bug` + area | `bug,backend,elementor` |
-| **Feature** | `enhancement` + area | `enhancement,frontend,week-6` |
+| **Feature** | `enhancement` + area | `enhancement,frontend` |
 | **Docs** | `documentation` | `documentation` |
 | **Refactor** | `refactor` + area | `refactor,backend` |
 | **Chore** | `chore` | `chore,dependencies` |
@@ -416,14 +403,14 @@ Every PR **MUST** include appropriate labels via `--label` flag:
 # Example: Bug fix PR
 gh pr create \
   --title "fix: Portfolio Elementor support" \
-  --base week-6 \
+  --base develop \
   --label "bug,backend,elementor" | cat
 
 # Example: Feature PR
 gh pr create \
   --title "feat: Add Events widget" \
-  --base week-4 \
-  --label "enhancement,frontend,elementor,week-4" | cat
+  --base develop \
+  --label "enhancement,frontend,elementor" | cat
 ```
 
 **⚠️ PRs without labels are harder to track and categorize for releases.**
@@ -467,8 +454,8 @@ gh pr close 55 --comment "Not needed anymore" | cat
 
 ```bash
 # Switch to base branch and update
-git checkout week-N
-git pull origin week-N
+git checkout develop
+git pull origin develop
 
 # Delete local branch
 git branch -d feature/your-feature
@@ -482,8 +469,6 @@ git fetch --prune
 
 ### 2. Update Related Issue(s)
 
-**⚠️ CRITICAL: Issues do NOT auto-close when merging to `week-*` branches**
-
 ```bash
 # Step 1: Check if issue is still open
 gh issue view ISSUE_NUMBER | cat
@@ -492,10 +477,10 @@ gh issue view ISSUE_NUMBER | cat
 gh issue edit ISSUE_NUMBER --body "...updated body with [x] checkboxes..." | cat
 
 # Step 3: Add closing comment with PR reference
-gh issue comment ISSUE_NUMBER --body "✅ Completed in PR #XX (merged to week-N)." | cat
+gh issue comment ISSUE_NUMBER --body "✅ Completed in PR #XX." | cat
 
-# Step 4: Close the issue
-gh issue close ISSUE_NUMBER --comment "Implemented and merged. Will be deployed with Week N release." | cat
+# Step 4: Close the issue (if not auto-closed)
+gh issue close ISSUE_NUMBER --comment "Implemented and merged." | cat
 ```
 
 ### 3. Quick Post-Merge Script
@@ -503,10 +488,10 @@ gh issue close ISSUE_NUMBER --comment "Implemented and merged. Will be deployed 
 ```bash
 # One-liner for post-merge cleanup (replace values)
 BRANCH="feature/your-feature" && ISSUE=42 && PR=55 && \
-git checkout week-4 && git pull && \
+git checkout develop && git pull && \
 git branch -d $BRANCH && \
 git push origin --delete $BRANCH 2>/dev/null; \
-gh issue close $ISSUE --comment "✅ Completed in PR #$PR (merged to week-4). Deployed with next release." | cat
+gh issue close $ISSUE --comment "✅ Completed in PR #$PR." | cat
 ```
 
 ### Post-Merge Checklist
@@ -519,77 +504,23 @@ gh issue close $ISSUE --comment "✅ Completed in PR #$PR (merged to week-4). De
 
 ---
 
-## 🎯 Milestone Management
-
-### Milestone Structure
-
-| Milestone | Branch | Timeline | Description |
-|-----------|--------|----------|-------------|
-| Week 2 | week-2 | Dec 16-22 | Home page sections |
-| Week 3 | week-3 | Dec 23-29 | Corporate pages |
-| Week 4-5 | week-4, week-5 | Dec 30-Jan 12 | Investor Relations |
-| Week 6 | week-6 | Jan 13-19 | Portfolio templates |
-| Week 7 | week-7 | Jan 20-26 | ESG/ASG section |
-| Week 8 | week-8 | Jan 27-Feb 2 | News system |
-| Week 9 | week-9 | Feb 3-9 | QA, optimization, launch |
-
-### Milestone Workflow
-
-```bash
-# 1. Start milestone - Create week-N branch
-git checkout main
-git pull origin main
-git checkout -b week-N
-git push -u origin week-N
-
-# 2. Work on milestone - Create issues
-gh issue create --milestone N --label "semana-N,..." | cat
-
-# 3. Complete issues - Create PRs to week-N
-gh pr create --base week-N | cat
-
-# 4. End milestone - Create PR to main
-gh pr create --title "Week N: Description" --base main | cat
-
-# 5. Close milestone
-gh api repos/sanruiz/fibra/milestones/N -X PATCH -f state=closed | cat
-```
-
-### Milestone Commands
-
-```bash
-# List all milestones
-gh api repos/sanruiz/fibra/milestones | jq '.[] | {number, title, state}' | cat
-
-# View milestone details
-gh api repos/sanruiz/fibra/milestones/2 | cat
-
-# Close milestone
-gh api repos/sanruiz/fibra/milestones/2 -X PATCH -f state=closed | cat
-
-# List issues in milestone
-gh issue list --milestone "Week 2" | cat
-```
-
----
-
 ## 🚀 Release & Deployment Flow
 
 ### 🚨 CRITICAL: Tags Must Be Created from `main` Only
 
-**NEVER create tags from `week-*` or `release/*` branches.** This is the most common mistake that leads to orphaned tags.
+**NEVER create tags from `develop` or `release/*` branches before merging to main.** This is the most common mistake that leads to orphaned tags.
 
 **Why this matters:**
 - We use **squash merge** to keep `main` history clean
-- Squash merge creates a NEW commit in `main` (not the same commits from `week-*`)
-- If you create a tag on `week-*` BEFORE merging, that tag points to a commit that will NEVER exist in `main`
+- Squash merge creates a NEW commit in `main` (not the same commits from `develop`)
+- If you create a tag on `develop` BEFORE merging, that tag points to a commit that will NEVER exist in `main`
 - Result: "Orphaned tags" - tags pointing to commits not reachable from any branch
 
 **Visual explanation:**
 ```
 ❌ WRONG ORDER (creates orphaned tag):
 
-week-4:  A---B---C  <-- tag v3.1.16 points here
+develop:  A---B---C  <-- tag v3.2.0 points here
               \
                \ (squash merge)
                 \
@@ -597,15 +528,15 @@ main:    X---Y---Z---[ABCD]  <-- NEW commit, tag NOT here!
 
 ✅ CORRECT ORDER (tag in main history):
 
-week-4:  A---B---C
+develop:  A---B---C
               \
                \ (squash merge)
                 \
-main:    X---Y---Z---[ABCD]  <-- tag v3.1.16 points here!
+main:    X---Y---Z---[ABCD]  <-- tag v3.2.0 points here!
 ```
 
 **The ONLY correct workflow:**
-1. ✅ Merge `week-N` → `main` (via PR with squash) 
+1. ✅ Merge `develop` → `main` (via PR with squash) 
 2. ✅ Checkout `main` and pull latest
 3. ✅ Create tag on `main`
 4. ✅ Push tag
@@ -630,16 +561,16 @@ main:    X---Y---Z---[ABCD]  <-- tag v3.1.16 points here!
 #### Phase 1: Prepare Release
 
 ```bash
-# 1. Checkout base branch (week-N or main)
-git checkout week-2
-git pull origin week-2
+# 1. Checkout develop branch
+git checkout develop
+git pull origin develop
 
 # 2. Create release branch
-git checkout -b release/v3.0.1
+git checkout -b release/v3.2.0
 
 # 3. Update version in style.css
-# Change: Version: 3.0.0
-# To:     Version: 3.0.1
+# Change: Version: 3.1.0
+# To:     Version: 3.2.0
 ```
 
 #### Phase 2: Update CHANGELOG.md
@@ -650,7 +581,7 @@ The CHANGELOG.md may contain an `[Unreleased]` section with changes that haven't
 
 1. **Find the `[Unreleased]` section** at the top of the changelog
 2. **Replace `[Unreleased]` with the new version number and date**:
-   - `## [Unreleased]` → `## [3.0.1] - 2025-12-20`
+   - `## [Unreleased]` → `## [3.2.0] - 2026-02-07`
 3. **If no `[Unreleased]` section exists**, create a new version entry
 4. **Add a new empty `[Unreleased]` section** above the new version for future changes (optional)
 
@@ -664,26 +595,26 @@ The CHANGELOG.md may contain an `[Unreleased]` section with changes that haven't
 - New feature X
 - New feature Y
 
-## [3.0.0] - 2025-12-15
+## [3.1.0] - 2026-01-15
 ...
 
-# After release preparation (v3.0.1):
+# After release preparation (v3.2.0):
 ## [Unreleased]
 
-## [3.0.1] - 2025-12-20
+## [3.2.0] - 2026-02-07
 
 ### Added
 - New feature X
 - New feature Y
 
-## [3.0.0] - 2025-12-15
+## [3.1.0] - 2026-01-15
 ...
 ```
 
 **Standard entry format:**
 
 ```markdown
-## [3.0.1] - 2025-12-20
+## [3.2.0] - 2026-02-07
 
 ### Added
 - New hero section component
@@ -703,10 +634,10 @@ The CHANGELOG.md may contain an `[Unreleased]` section with changes that haven't
 # Commit version changes
 git add wp-content/themes/soma/style.css
 git add wp-content/themes/soma/CHANGELOG.md
-git commit -m "chore: Prepare release v3.0.1"
+git commit -m "chore: Prepare release v3.2.0"
 
 # Push release branch
-git push -u origin release/v3.0.1
+git push -u origin release/v3.2.0
 
 # Wait for CI to pass
 gh run watch
@@ -716,8 +647,8 @@ gh run watch
 
 ```bash
 gh pr create \
-  --title "Release v3.0.1" \
-  --body "Release v3.0.1 with bugfixes and improvements.
+  --title "Release v3.2.0" \
+  --body "Release v3.2.0 with new features and improvements.
 
 **Changes:**
 See CHANGELOG.md for details.
@@ -725,9 +656,9 @@ See CHANGELOG.md for details.
 **Quality Gates:**
 - ✅ PHPCS clean
 - ✅ PHPStan Level 6
-- ✅ 108 tests passing
+- ✅ All tests passing
 - ✅ Frontend build successful" \
-  --base week-2 | cat
+  --base main | cat
 ```
 
 #### Phase 5: Merge to Main and Tag
@@ -735,16 +666,7 @@ See CHANGELOG.md for details.
 **🚨 CRITICAL ORDER: Merge to main FIRST, then create tag FROM main**
 
 ```bash
-# After release PR to week-N is approved and merged
-gh pr merge NUMBER --squash | cat
-
-# Create PR from week-N to main
-gh pr create \
-  --title "Release v3.0.1 to production" \
-  --base main \
-  --head week-2 | cat
-
-# Wait for CI and merge to main
+# After release PR is approved, merge to main
 gh pr merge NUMBER --squash | cat
 
 # 🚨 NOW checkout main and create the tag
@@ -753,13 +675,18 @@ git pull origin main
 
 # Verify you're on the correct commit (the squash merge)
 git log -1 --oneline
-# Should show something like: "6bedd53 Release v3.0.1 to production (#XX)"
+# Should show something like: "6bedd53 Release v3.2.0 (#XX)"
 
 # Create annotated tag
-git tag -a v3.0.1 -m "Release v3.0.1: Bugfixes and improvements"
+git tag -a v3.2.0 -m "Release v3.2.0: New features and improvements"
 
 # Push tag (THIS TRIGGERS release-and-deploy.yml)
-git push origin v3.0.1
+git push origin v3.2.0
+
+# Merge main back to develop to sync
+git checkout develop
+git merge main
+git push origin develop
 ```
 
 #### Phase 6: Monitor Release Workflow
@@ -857,11 +784,10 @@ gh pr view 42 | cat
 
 ```bash
 # Create issue
-gh issue create --label "enhancement,week-2" | cat
+gh issue create --label "enhancement,frontend" | cat
 
 # List issues
 gh issue list | cat
-gh issue list --milestone "Week 2" | cat
 gh issue list --label "bug,alta-prioridad" | cat
 gh issue list --state all | cat
 
@@ -870,7 +796,6 @@ gh issue view NUMBER | cat
 
 # Edit issue
 gh issue edit NUMBER --add-label "testing" | cat
-gh issue edit NUMBER --milestone "Week 3" | cat
 
 # Close issue
 gh issue close NUMBER | cat
@@ -884,12 +809,12 @@ gh issue reopen NUMBER | cat
 
 ```bash
 # Create PR
-gh pr create --title "..." --base week-2 | cat
+gh pr create --title "..." --base develop | cat
 
 # List PRs
 gh pr list | cat
 gh pr list --state all | cat
-gh pr list --base week-2 | cat
+gh pr list --base develop | cat
 
 # View PR
 gh pr view NUMBER | cat
@@ -948,7 +873,7 @@ gh workflow list | cat
 gh run list | cat
 gh run list --workflow=quality-and-tests.yml | cat
 gh run list --workflow=release-and-deploy.yml | cat
-gh run list --branch week-2 | cat
+gh run list --branch develop | cat
 
 # View run details
 gh run view RUN_ID | cat
@@ -971,12 +896,6 @@ gh api repos/sanruiz/fibra/branches | jq '.[].name' | cat
 
 # List tags
 gh api repos/sanruiz/fibra/tags | jq '.[].name' | cat
-
-# List milestones
-gh api repos/sanruiz/fibra/milestones | jq '.[] | {number, title, state}' | cat
-
-# Close milestone
-gh api repos/sanruiz/fibra/milestones/NUMBER -X PATCH -f state=closed | cat
 ```
 
 ---
@@ -986,7 +905,7 @@ gh api repos/sanruiz/fibra/milestones/NUMBER -X PATCH -f state=closed | cat
 ### quality-and-tests.yml (Continuous Integration)
 
 **Triggers:**
-- Push to branches: `main`, `develop`, `week-*`
+- Push to branches: `main`, `develop`
 - Pull requests to: `main`, `develop`
 - Manual dispatch
 
@@ -1107,9 +1026,9 @@ gh api repos/sanruiz/fibra/milestones/NUMBER -X PATCH -f state=closed | cat
 ### Scenario 1: Start New Feature
 
 ```bash
-# 1. Ensure you're on latest week-N
-git checkout week-2
-git pull origin week-2
+# 1. Ensure you're on latest develop
+git checkout develop
+git pull origin develop
 
 # 2. Create feature branch
 git checkout -b feature/hero-section
@@ -1125,8 +1044,8 @@ git commit -m "feat: Add hero section component with ACF"
 git push -u origin feature/hero-section
 gh pr create \
   --title "feat: Add hero section component" \
-  --base week-2 \
-  --label "enhancement,frontend,week-2,alta-prioridad" | cat
+  --base develop \
+  --label "enhancement,frontend,alta-prioridad" | cat
 
 # 6. Wait for CI to pass
 gh run watch
@@ -1135,17 +1054,17 @@ gh run watch
 gh pr merge NUMBER --squash --delete-branch | cat
 
 # 8. Clean up local branch
-git checkout week-2
-git pull origin week-2
+git checkout develop
+git pull origin develop
 git branch -d feature/hero-section
 ```
 
 ### Scenario 2: Fix Bug
 
 ```bash
-# 1. Create fix branch from week-N
-git checkout week-2
-git pull origin week-2
+# 1. Create fix branch from develop
+git checkout develop
+git pull origin develop
 git checkout -b fix/navbar-mobile
 
 # 2. Fix the bug
@@ -1163,8 +1082,8 @@ git push -u origin fix/navbar-mobile
 # 5. Create PR
 gh pr create \
   --title "fix: Navbar mobile menu not closing" \
-  --base week-2 \
-  --label "bug,frontend,week-2,alta-prioridad" | cat
+  --base develop \
+  --label "bug,frontend,alta-prioridad" | cat
 
 # 6. Merge after CI passes
 gh pr merge NUMBER --squash --delete-branch | cat
@@ -1208,117 +1127,65 @@ git push origin v3.0.2
 # 8. Monitor deployment
 gh run watch
 
-# 9. Backport to week-N if needed
-git checkout week-2
+# 9. Backport to develop if needed
+git checkout develop
 git cherry-pick COMMIT_SHA
-git push origin week-2
+git push origin develop
 ```
 
-### Scenario 4: Complete Week Milestone
+### Scenario 4: Create Release
 
 ```bash
-# 1. Ensure all features merged to week-2
-gh pr list --base week-2 | cat  # Should be empty
+# 1. Ensure all features merged to develop
+gh pr list --base develop | cat  # Should be empty
 
 # 2. Verify all tests pass
-git checkout week-2
-git pull origin week-2
+git checkout develop
+git pull origin develop
 composer test
 npm run prod
 
-# 3. Create PR from week-2 to main
-gh pr create \
-  --title "Week 2: Home Page Development" \
-  --base main \
-  --body "Completes Week 2 milestone.
+# 3. Create release branch
+git checkout -b release/v3.2.0
 
-**Features:**
-- Hero section
-- Business units grid
-- Portfolio showcase
-- News feed
-
-**Quality:**
-- ✅ 108 tests passing
-- ✅ PHPCS clean
-- ✅ PHPStan Level 6
-
-Closes milestone #2" | cat
-
-# 4. Wait for CI and approval
-gh run watch
-
-# 5. Merge to main (squash merge)
-gh pr merge NUMBER --squash | cat
-
-# 6. Close milestone
-gh api repos/sanruiz/fibra/milestones/2 -X PATCH -f state=closed | cat
-
-# 7. 🚨 CRITICAL: Create release tag FROM MAIN (not week-N!)
-# You MUST checkout main AFTER the merge completes
-git checkout main
-git pull origin main
-# Verify you're on the correct commit:
-git log -1 --oneline  # Should show the squash merge commit
-git tag -a v3.1.0 -m "Release v3.1.0: Week 2 complete"
-git push origin v3.1.0
-
-# 8. Monitor release workflow
-gh run watch
-```
-
-### Scenario 5: Create Patch Release
-
-**⚠️ Important:** Patch releases during a sprint should follow the same rule - 
-tags MUST be created from `main` after merging.
-
-```bash
-# 1. Start from current sprint branch
-git checkout week-2
-git pull origin week-2
-git checkout -b release/v3.0.1
-
-# 2. Update version files
+# 4. Update version and CHANGELOG
 # Edit: wp-content/themes/soma/style.css
-# Change: Version: 3.0.0 → Version: 3.0.1
-
 # Edit: wp-content/themes/soma/CHANGELOG.md
-# Add:
-## [3.0.1] - 2025-12-20
 
-### Fixed
-- Navbar mobile menu issue
-- Portfolio image overflow
-
-# 3. Commit version bump
+# 5. Commit version bump
 git add wp-content/themes/soma/style.css
 git add wp-content/themes/soma/CHANGELOG.md
-git commit -m "chore: Bump version to 3.0.1"
+git commit -m "chore: Prepare release v3.2.0"
 
-# 4. Push and wait for CI
-git push -u origin release/v3.0.1
-gh run watch
-
-# 5. Create PR to week-2, then merge
+# 6. Push and create PR to main
+git push -u origin release/v3.2.0
 gh pr create \
-  --title "Release v3.0.1" \
-  --base week-2 | cat
-gh pr merge NUMBER --squash --delete-branch | cat
+  --title "Release v3.2.0" \
+  --base main \
+  --body "Release v3.2.0 with new features and improvements.
 
-# 6. Create PR from week-2 to main, then merge
-gh pr create --base main --head week-2 --title "Release v3.0.1 to production" | cat
+**Quality:**
+- ✅ All tests passing
+- ✅ PHPCS clean
+- ✅ PHPStan Level 6" | cat
+
+# 7. Wait for CI and approval, then merge
+gh run watch
 gh pr merge NUMBER --squash | cat
 
-# 7. 🚨 CRITICAL: Create tag FROM MAIN (after merge!)
+# 8. 🚨 CRITICAL: Create release tag FROM MAIN
 git checkout main
 git pull origin main
-# Verify you're on the merge commit:
-git log -1 --oneline
-git tag -a v3.0.1 -m "Release v3.0.1"
-git push origin v3.0.1
+git log -1 --oneline  # Verify you're on the merge commit
+git tag -a v3.2.0 -m "Release v3.2.0"
+git push origin v3.2.0
 
-# 8. Monitor release workflow
-gh run list --workflow=release-and-deploy.yml | cat
+# 9. Merge main back to develop
+git checkout develop
+git merge main
+git push origin develop
+
+# 10. Monitor release workflow
 gh run watch
 ```
 
@@ -1329,7 +1196,7 @@ gh run watch
 ### DO (Recommended) ✅
 
 **Branch Management:**
-- ✅ Always create feature branches from `week-N`
+- ✅ Always create feature branches from `develop`
 - ✅ Use descriptive branch names with type prefix
 - ✅ Delete branches after PR merge
 - ✅ Keep branches up to date with base branch
@@ -1345,7 +1212,7 @@ gh run watch
 - ✅ Write detailed PR descriptions
 - ✅ Link related issues (Closes #NUMBER)
 - ✅ Respond to review comments promptly
-- ✅ Squash merge to keep main/week-N history clean
+- ✅ Squash merge to keep main/develop history clean
 
 **Quality:**
 - ✅ **ALWAYS run `composer phpcs`, `composer phpstan`, `composer test` BEFORE pushing**
@@ -1363,14 +1230,13 @@ gh run watch
 **GitHub CLI:**
 - ✅ Always append `| cat` to `gh` commands
 - ✅ Use labels consistently on issues/PRs
-- ✅ Close milestones after completion
 - ✅ Monitor CI/CD workflow status
 
 **Releases:**
 - ✅ Update version in style.css
 - ✅ Update CHANGELOG.md with release notes
 - ✅ **ALWAYS merge to `main` FIRST, then create tag FROM `main`**
-- ✅ **NEVER create tags from `week-*` branches (they become orphaned after squash merge)**
+- ✅ **NEVER create tags from `develop` branch (they become orphaned after squash merge)**
 - ✅ Create release tag only after CI passes
 - ✅ Verify deployment after release
 - ✅ Create backup before major releases
@@ -1378,8 +1244,8 @@ gh run watch
 ### DON'T (Avoid) ❌
 
 **Branch Management:**
-- ❌ Never commit directly to `main`
-- ❌ Don't create feature branches from `main` during milestones
+- ❌ Never commit directly to `main` or `develop`
+- ❌ Don't create feature branches from `main` (except hotfixes)
 - ❌ Don't reuse old branch names
 - ❌ Don't merge without PR review
 
@@ -1403,7 +1269,7 @@ gh run watch
 
 **Releases:**
 - ❌ Don't create tags without CI passing
-- ❌ **NEVER create tags from `week-*` branches (use `main` only!)**
+- ❌ **NEVER create tags from `develop` branch (use `main` only!)**
 - ❌ Don't skip version updates
 - ❌ Don't deploy without testing
 - ❌ Don't forget to update CHANGELOG.md
@@ -1411,7 +1277,6 @@ gh run watch
 **GitHub CLI:**
 - ❌ Don't forget `| cat` on `gh` commands
 - ❌ Don't create issues without labels
-- ❌ Don't leave milestones open indefinitely
 
 ---
 
@@ -1465,7 +1330,7 @@ gh workflow run release-and-deploy.yml -f version=3.0.1
 # 4. Or delete and recreate tag on main (CORRECT APPROACH)
 git tag -d v3.0.1
 git push origin --delete v3.0.1
-# 🚨 CRITICAL: Checkout MAIN, not week-N
+# 🚨 CRITICAL: Checkout MAIN, not develop
 git checkout main
 git pull origin main
 git tag -a v3.0.1 -m "Release v3.0.1"
@@ -1481,7 +1346,7 @@ git push origin v3.0.1
 # 1. Update your branch with base
 git checkout feature/my-feature
 git fetch origin
-git merge origin/week-2
+git merge origin/develop
 
 # 2. Resolve conflicts manually
 # Edit conflicted files

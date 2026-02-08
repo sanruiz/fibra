@@ -108,42 +108,42 @@ This workflow **unifies** the entire CI/CD pipeline into a single file to preven
 
 ## Workflow Triggers
 
-### Git Workflow Strategy (GitFlow with Weekly Sprints)
+### Git Workflow Strategy (GitFlow)
 
 **Branch Structure:**
-- **main**: Production-ready code only, receives PRs from week-* at sprint end
-- **week-N**: Sprint branches (e.g., week-2, week-3), receive PRs from feature/fix
+- **main**: Production-ready code only, receives PRs from develop for releases
+- **develop**: Development integration branch, receives PRs from feature/fix
 - **feature/**, **fix/**: Issue-specific development branches
 
 **Development Flow:**
-1. Issue created → create feature/fix-X branch
-2. Development → PR to week-N → merge (closes issue)
-3. Sprint ends → PR week-N to main → merge
+1. Issue created → create feature/fix-X branch from develop
+2. Development → PR to develop → merge (closes issue)
+3. Release ready → PR develop to main → merge
 4. Release → tag v* from main → GitHub Release → deploy to production
 
 **CI/CD Behavior:**
-- **Quality Gates (Stage 1)**: Run on push to week-*, PRs to main/week-*
+- **Quality Gates (Stage 1)**: Run on push to develop, PRs to main/develop
 - **Build & Release (Stage 2)**: ONLY on v* tags pushed from main branch
 - **Deploy (Stage 3)**: ONLY after successful release from main branch
 
 ---
 
-### 1. Push to Sprint Branches
+### 1. Push to Development Branch
 
 ```yaml
 on:
   push:
     branches:
-      - 'week-*'  # CI only for sprint branches
+      - develop  # CI for development branch
 ```
 
-**When**: Any push to week-* branches  
+**When**: Any push to develop branch  
 **What runs**: Only Stage 1 (Quality Gates)  
-**Purpose**: Validate code changes during sprint development
+**Purpose**: Validate code changes during development
 
 **Example:**
 ```bash
-git push origin week-2
+git push origin develop
 # Triggers: code-quality + php-tests + frontend-build
 # Does NOT trigger release or deploy
 ```
@@ -158,21 +158,21 @@ git push origin week-2
 on:
   pull_request:
     branches:
-      - main      # PRs to main (from week-* at sprint end)
-      - 'week-*'  # PRs to sprint branches (from feature/fix)
+      - main      # PRs to main (from develop for releases)
+      - develop   # PRs to develop (from feature/fix)
 ```
 
-**When**: PR opened/updated to main or week-* branches  
+**When**: PR opened/updated to main or develop branches  
 **What runs**: Only Stage 1 (Quality Gates)  
 **Purpose**: Validate changes before merging, block merge if quality gates fail
 
 **Example:**
 ```bash
-# Feature to sprint branch
-gh pr create --base week-2 --title "feat: Add hero section" | cat
+# Feature to develop branch
+gh pr create --base develop --title "feat: Add hero section" | cat
 
-# Sprint to main (release preparation)
-gh pr create --base main --head week-2 --title "Week 2: Sprint completion" | cat
+# Develop to main (release preparation)
+gh pr create --base main --head develop --title "Release: Sprint completion" | cat
 
 # Both trigger quality gates
 # PR cannot merge if any job fails
@@ -208,12 +208,12 @@ git push origin v3.1.2
 # 3. Deploy to Production (SFTP upload, backup, extract) - ~2min
 ```
 
-**Example (from week-* - quality checks only):**
+**Example (from develop - quality checks only):**
 ```bash
-# Tag from sprint branch (for testing/milestones)
-git checkout week-2
-git tag -a v3.1.2-sprint -m "Week 2 completion"
-git push origin v3.1.2-sprint
+# Tag from develop branch (for testing/milestones)
+git checkout develop
+git tag -a v3.1.2-dev -m "Development milestone"
+git push origin v3.1.2-dev
 
 # Triggers ONLY Quality Gates
 # Does NOT create GitHub release
@@ -460,7 +460,7 @@ public_html/
 
 **Trigger:**
 ```bash
-git push origin week-2
+git push origin develop
 ```
 
 **What happens:**
@@ -503,7 +503,7 @@ git push origin v3.1.1
 
 **Trigger:**
 ```bash
-gh pr create --base week-2 --title "feat: Add hero section" | cat
+gh pr create --base develop --title "feat: Add hero section" | cat
 ```
 
 **What happens:**
@@ -670,12 +670,12 @@ composer test       # Run tests
 
 ```bash
 # ❌ BAD: Tag immediately after push
-git push origin week-2
+git push origin develop
 git tag v3.1.1
 git push origin v3.1.1
 
 # ✅ GOOD: Wait for CI to pass
-git push origin week-2
+git push origin develop
 gh run watch  # Wait for quality gates
 git tag v3.1.1
 git push origin v3.1.1
@@ -700,11 +700,11 @@ v3.1.1  # Bug fixes
 - ...
 ```
 
-### 4. Test on staging first
+### 4. Test on develop first
 
 ```bash
-# Create PR to week-N (staging)
-gh pr create --base week-2 | cat
+# Create PR to develop (staging)
+gh pr create --base develop | cat
 
 # After merge and tests pass
 git tag v3.1.1
@@ -763,24 +763,22 @@ npm run prod        # Fix: Check webpack config
 ### Recommended Workflow with Both Environments
 
 ```bash
-# 1. Feature Development (week-N branch)
-git checkout week-2
+# 1. Feature Development (develop branch)
+git checkout develop
 git checkout -b feature/new-hero-section
 # ... work on feature ...
 git add .
 git commit -m "feat: Add new hero section"
 git push origin feature/new-hero-section
 
-# 2. PR to Sprint Branch
-gh pr create --base week-2 --title "feat: New hero section" | cat
+# 2. PR to Develop Branch
+gh pr create --base develop --title "feat: New hero section" | cat
 # ✅ Quality gates run automatically
 # After approval: merge PR
 
 # 3. Test on Development Environment
 git checkout develop
 git pull origin develop
-git merge week-2  # Merge latest week-N changes
-git push origin develop
 
 # ✅ TRIGGERS: develop-deploy.yml workflow
 # - Runs quality gates
@@ -795,14 +793,14 @@ git push origin develop
 # - Get stakeholder approval
 
 # 5. Prepare for Production (after dev validation)
-# Merge week-N to main when sprint complete
-gh pr create --base main --head week-2 --title "Week 2: Sprint completion" | cat
+# Merge develop to main for release
+gh pr create --base main --head develop --title "Release: Sprint completion" | cat
 # After approval: merge PR
 
 # 6. Create Production Release
 git checkout main
 git pull origin main
-git tag -a v3.2.0 -m "Release v3.2.0: Week 2 features"
+git tag -a v3.2.0 -m "Release v3.2.0: New features"
 git push origin v3.2.0
 
 # ✅ TRIGGERS: ci-cd.yml workflow (production)

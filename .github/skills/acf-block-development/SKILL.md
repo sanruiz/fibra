@@ -1,5 +1,5 @@
 ---
-name: ACF Block Development
+name: acf-block-development
 description: Create ACF flexible content blocks (partials) following SOMA PageBuilder architecture
 ---
 
