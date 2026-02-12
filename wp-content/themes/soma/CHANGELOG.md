@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.28] - 2026-02-12
+
+### Footer Social Menu Enhancement
+
+This release adds social navigation menu support to the FibraSoma footer style.
+
+---
+
+### ✨ Added
+
+#### Footer Component
+
+- **Social Navigation Menu Location** - Added `social` menu location support in FibraSoma footer style (#243)
+  - Displays social media links in footer navigation
+  - Integrates with WordPress navigation menu system
+  - Uses `social` theme location registration
+  - Styled consistently with existing footer navigation
+
+### 📦 Files Changed
+
+#### Modified
+
+- `partials/Footer.php` - Added social menu rendering in FibraSoma footer style
+
+---
+
 ## [3.1.27] - 2026-02-03
 
 ### TextWithReadMore Mobile Touch Hotfix
