@@ -70,6 +70,8 @@ $data = get_field( 'footer_content', 'options' );
 									)
 								);
 							?>
+							<div class="nav-list">
+								<div class="title"><?php esc_html_e( 'Social', 'soma' ); ?></div>
 							<?php
 								wp_nav_menu(
 									array(
@@ -80,6 +82,7 @@ $data = get_field( 'footer_content', 'options' );
 									)
 								);
 							?>
+							</div>
 						<?php else : ?>
 							<div class="nav-list">
 								<div class="title"><?php esc_html_e( 'Social', 'soma' ); ?></div>
