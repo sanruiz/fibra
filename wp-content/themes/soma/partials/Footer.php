@@ -70,6 +70,16 @@ $data = get_field( 'footer_content', 'options' );
 									)
 								);
 							?>
+							<?php
+								wp_nav_menu(
+									array(
+										'menu'           => 'social',
+										'theme_location' => 'social',
+										'container'      => 'div',
+										'menu_class'     => 'social-list',
+									)
+								);
+							?>
 						<?php else : ?>
 							<div class="nav-list">
 								<div class="title"><?php esc_html_e( 'Social', 'soma' ); ?></div>
