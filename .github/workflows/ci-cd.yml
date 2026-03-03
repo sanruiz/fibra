@@ -435,7 +435,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 📤 Upload artifact
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@v7
               with:
                   name: soma-release-${{ steps.version.outputs.version }}
                   path: releases/${{ steps.package.outputs.zip_file }}
