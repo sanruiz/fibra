@@ -33,7 +33,7 @@
     "imagesloaded": "^5.0.0",
     "jquery": "^4.0.0",
     "normalize.css": "^8.0.1",
-    "sass": "^1.97.3",
+    "sass": "^1.98.0",
     "sass-loader": "^16.0.7",
     "slick-carousel": "^1.8.1",
     "url-loader": "^4.1.1"
