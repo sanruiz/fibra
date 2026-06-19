@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.29] - 2026-06-19
+
+### Home Events Query Optimization
+
+This patch release improves the automatic event listing on the FibraSoma homepage.
+
+---
+
+### ⚡ Performance
+
+#### Home Events Partial
+
+- **Automatic Events Query** - Filter upcoming and active events directly in the WordPress query
+  - Limits the homepage events query to the four displayed posts
+  - Compares ACF date picker values using the stored `Ymd` format
+  - Preserves ongoing events by checking both start and end dates
+
+### 📦 Files Changed
+
+#### Modified
+
+- `partials/FibrasomaHomeEvents.php` - Query upcoming and active events at the database level
+
+---
+
 ## [3.1.28] - 2026-02-12
 
 ### Footer Social Menu Enhancement
