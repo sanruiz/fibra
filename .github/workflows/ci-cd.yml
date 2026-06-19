@@ -74,7 +74,7 @@ jobs:
               uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
-              uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
+              uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
               with:
                   php-version: ${{ env.PHP_VERSION }}
                   extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
@@ -167,7 +167,7 @@ jobs:
               uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
-              uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
+              uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
               with:
                   php-version: ${{ env.PHP_VERSION }}
                   extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
@@ -237,7 +237,7 @@ jobs:
                   SOMA_STOCK_API_KEY: ${{ secrets.SOMA_STOCK_API_KEY }}
 
             - name: 📊 Upload coverage
-              uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
+              uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v5
               if: always()
               with:
                   files: ${{ env.THEME_PATH }}/coverage.xml
@@ -311,7 +311,7 @@ jobs:
               uses: actions/checkout@v6
 
             - name: 🐘 Setup PHP
-              uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
+              uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
               with:
                   php-version: ${{ env.PHP_VERSION }}
                   extensions: mbstring, xml, ctype, json, tokenizer, intl
@@ -423,7 +423,7 @@ jobs:
                   fi
 
             - name: 🚀 Create GitHub Release
-              uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
+              uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v2
               with:
                   tag_name: ${{ steps.version.outputs.tag }}
                   name: SOMA Theme v${{ steps.version.outputs.version }}
@@ -435,7 +435,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 📤 Upload artifact
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@v7
               with:
                   name: soma-release-${{ steps.version.outputs.version }}
                   path: releases/${{ steps.package.outputs.zip_file }}
@@ -460,7 +460,7 @@ jobs:
               uses: actions/checkout@v6
 
             - name: 📥 Download release artifact
-              uses: actions/download-artifact@v7
+              uses: actions/download-artifact@v8
               with:
                   name: soma-release-${{ needs.build-and-release.outputs.version }}
                   path: ./release
