@@ -76,26 +76,37 @@ if ( get_query_var( 'soma_block_content' )['fill_mode'] === 'featured' ) {
 		}
 	}
 } else {
+	$today        = wp_date( 'Ymd' );
 	$events_query = get_posts(
 		array(
-			'numberposts' => -1,
+			'numberposts' => 4,
 			'post_type'   => 'events',
 			'post_status' => array( 'publish' ),
 			'order'       => 'ASC',
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Event dates are stored in ACF post meta.
 			'meta_key'    => 'event_info_init_date',
 			'orderby'     => 'meta_value',
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Event dates are stored in ACF post meta.
+			'meta_query'  => array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'event_info_init_date',
+					'value'   => $today,
+					'compare' => '>=',
+					'type'    => 'CHAR',
+				),
+				array(
+					'key'     => 'event_info_end_date',
+					'value'   => $today,
+					'compare' => '>=',
+					'type'    => 'CHAR',
+				),
+			),
 		)
 	);
 	if ( $events_query ) {
-		$counter = 1;
-		foreach ( $events_query as $key => $item ) {
-			if ( $counter <= 4 ) {
-				$content = get_field( 'event_info', $item->ID );
-				if ( ( (int) $content['init_date'] + 86400 ) > (int) current_time( 'timestamp' ) || ( (int) $content['end_date'] + 86400 ) > (int) current_time( 'timestamp' ) ) {
-					$events[] = $item->ID;
-					++$counter;
-				}
-			}
+		foreach ( $events_query as $item ) {
+			$events[] = $item->ID;
 		}
 	}
 }
