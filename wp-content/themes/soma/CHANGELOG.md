@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.30] - 2026-07-16
+
+### Team Member Template Visual Stability
+
+This patch release stabilizes Team Member single template rendering in production.
+
+---
+
+### 🐛 Fixed
+
+#### Elementor Team Member + Breadcrumb Widgets
+
+- **Team member heading overlap in single template** - Added resilient static widget rules to prevent name/title overlap when Elementor generated CSS drifts
+- **Breadcrumb boxed alignment inconsistency** - Made breadcrumb widget self-boxed so it no longer depends on Elementor container context
+
+### 📦 Files Changed
+
+#### Modified
+
+- `assets/css/widgets/team-member.css` - Stabilized heading typography/layout and overlap prevention
+- `assets/css/widgets/breadcrumb.css` - Added self-contained boxed layout rules
+
+---
+
 ## [3.1.29] - 2026-06-19
 
 ### Home Events Query Optimization
