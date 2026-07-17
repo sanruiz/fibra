@@ -1,82 +1,82 @@
 {
-    "key": "group_5f9c7e4638d1b",
-    "title": "Project Info",
-    "fields": [
+  "key": "group_5f9c7e4638d1b",
+  "title": "Project Info",
+  "fields": [
+    {
+      "key": "field_5f9c80214d16c",
+      "label": "Info",
+      "name": "project_info",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "sub_fields": [
         {
-            "key": "field_5f9c80214d16c",
-            "label": "Info",
-            "name": "project_info",
-            "type": "group",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_5fbbdfa7d7adf",
-                    "label": "Year",
-                    "name": "year",
-                    "type": "text",
-                    "instructions": "Project completion year (e.g., 2026)",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "25",
-                        "class": "",
-                        "id": ""
-                    },
-                    "show_in_rest": 1,
-                    "default_value": "",
-                    "placeholder": "2026",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "4"
-                },
-                {
-                    "key": "field_5f9c81334d16d",
-                    "label": "City",
-                    "name": "city",
-                    "type": "text",
-                    "instructions": "Project location (e.g., Ciudad de México)",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "75",
-                        "class": "",
-                        "id": ""
-                    },
-                    "show_in_rest": 1,
-                    "default_value": "",
-                    "placeholder": "Ciudad de México",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": ""
-                }
-            ]
+          "key": "field_5fbbdfa7d7adf",
+          "label": "Year",
+          "name": "year",
+          "type": "text",
+          "instructions": "Project completion year (e.g., 2026)",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "25",
+            "class": "",
+            "id": ""
+          },
+          "show_in_rest": 1,
+          "default_value": "",
+          "placeholder": "2026",
+          "prepend": "",
+          "append": "",
+          "maxlength": "4"
+        },
+        {
+          "key": "field_5f9c81334d16d",
+          "label": "City",
+          "name": "city",
+          "type": "text",
+          "instructions": "Project location (e.g., Ciudad de México)",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "75",
+            "class": "",
+            "id": ""
+          },
+          "show_in_rest": 1,
+          "default_value": "",
+          "placeholder": "Ciudad de México",
+          "prepend": "",
+          "append": "",
+          "maxlength": ""
         }
-    ],
-    "location": [
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "portfolio"
-            }
-        ]
-    ],
-    "menu_order": -1,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Project metadata fields for portfolio items (year, city). Technical specs and gallery managed via Elementor.",
-    "show_in_rest": 1,
-    "modified": 1737500000
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "portfolio"
+      }
+    ]
+  ],
+  "menu_order": -1,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "Project metadata fields for portfolio items (year, city). Technical specs and gallery managed via Elementor.",
+  "show_in_rest": 1,
+  "modified": 1784235600
 }

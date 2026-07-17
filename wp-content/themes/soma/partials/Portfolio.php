@@ -29,6 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only front-end filter from query string.
 $pre_filter = isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : null;
 ?>
 
@@ -40,7 +41,7 @@ $pre_filter = isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GE
 			<?php if ( get_query_var( 'soma_block_content' )['filters'] ) : ?>
 				<?php foreach ( get_query_var( 'soma_block_content' )['filters'] as $key => $item ) : ?>
 					<?php $filter_info = get_term( $item ); ?>
-					<?php if ( ( $filter_info->count ) > 0 ) : ?>
+					<?php if ($filter_info && !is_wp_error($filter_info) && ($filter_info->count) > 0): ?>
 					<div class="filter <?php echo ( $filter_info->slug === $pre_filter ) ? 'active' : ''; ?>" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>, <?php echo esc_attr( $item ); ?>">
 							<?php echo esc_html( $filter_info->name ); ?>
 						</div>
@@ -101,8 +102,9 @@ $pre_filter = isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GE
 				<div class="filter active" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>"><?php esc_html_e( 'All', 'soma' ); ?></div>
 				<?php if ( get_query_var( 'soma_block_content' )['filters'] ) : ?>
 					<?php foreach ( get_query_var( 'soma_block_content' )['filters'] as $key => $item ) : ?>
-						<?php if ( ( get_term( $item )->count ) > 0 ) : ?>
-							<?php $filter_name = get_term( $item )->name; ?>
+						<?php $filter_info = get_term($item); ?>
+						<?php if ($filter_info && !is_wp_error($filter_info) && ($filter_info->count) > 0): ?>
+							<?php $filter_name = $filter_info->name; ?>
 						<div class="filter" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>, <?php echo esc_attr( $item ); ?>">
 							<?php echo esc_html( $filter_name ); ?>
 							</div>

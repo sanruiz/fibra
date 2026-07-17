@@ -1,0 +1,44 @@
+/**
+ * Title Description Accordion Widget Styles.
+ *
+ * @package Soma
+ * @since   3.1.25
+ */
+
+.soma-title-description-accordion {
+	font-family: var(--soma-font-family-primary, inherit);
+	width: 100%;
+}
+
+.soma-title-description-accordion__item {
+	border: 0;
+}
+
+.soma-title-description-accordion__title {
+	color: var(--soma-color-text-primary, #1c1c1c);
+	cursor: pointer;
+	display: block;
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1.4;
+	list-style: none;
+	padding: 1rem 0;
+	text-decoration: underline;
+}
+
+.soma-title-description-accordion__title::-webkit-details-marker {
+	display: none;
+}
+
+.soma-title-description-accordion__content {
+	color: var(--soma-color-text-secondary, #3d3d3d);
+	padding: 0 0 1rem;
+}
+
+.soma-title-description-accordion__content > :first-child {
+	margin-top: 0;
+}
+
+.soma-title-description-accordion__content > :last-child {
+	margin-bottom: 0;
+}
