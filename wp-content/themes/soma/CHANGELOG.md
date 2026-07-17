@@ -9,6 +9,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.31] - 2026-07-17
+
+### Sustainability Accordion and News Listing Stability
+
+This patch release introduces a new Elementor accordion widget for sustainability content and improves local stability for the news listing rendering pipeline.
+
+---
+
+### ✨ Added
+
+#### Sustainability Content Support
+
+- **Portfolio Sustainability ACF field** - Added dedicated `portfolio_sustainability` field to the portfolio content model
+- **Title Description Accordion widget** - Added a new SOMA Elementor widget with underlined title style and accordion behavior
+- **ACF-driven accordion content** - Wired widget description content to `portfolio_sustainability` with fallback support
+- **Bilingual default title behavior** - Widget title defaults to Spanish or English based on editing language context
+
+### 🐛 Fixed
+
+#### News Listing Rendering
+
+- **Elementor nested template CSS loading** - Improved template CSS handling for referenced templates in imported environments
+- **Imported uploads URL normalization** - Rewrote imported production upload URLs to local upload URLs to prevent font/CORS warnings in local news listing pages
+
+### 📦 Files Changed
+
+#### Added
+
+- `acf-json/group_portfolio_sustainability.json` - New ACF field group for sustainability content
+- `includes/Elementor/Widgets/TitleDescriptionAccordion.php` - New Elementor widget class
+- `assets/css/widgets/title-description-accordion.css` - Widget-specific styles
+- `tests/Integration/Elementor/TitleDescriptionAccordionWidgetTest.php` - Integration tests for the new widget
+
+#### Modified
+
+- `style.css` - Version bump to `3.1.31`
+- `CHANGELOG.md` - Release notes for `3.1.31`
+- `includes/Elementor/Loader.php` - Widget registration and style dependency registration
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Registered new widget in test matrix
+- `docs/WIDGETS.md` - Added widget documentation entry
+- `functions.php` - Elementor imported-environment compatibility improvements
+
 ## [3.1.30] - 2026-07-16
 
 ### Team Member Template Visual Stability
