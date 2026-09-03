@@ -39,7 +39,7 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "css-loader": "^7.1.4",
+    "css-loader": "^7.1.5",
     "mini-css-extract-plugin": "^2.10.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.109.2",
