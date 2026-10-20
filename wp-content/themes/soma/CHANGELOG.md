@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.32] - 2026-10-20
+
+### Events Year Navigation and Project Type Translation
+
+### 🔄 Changed
+- Replaced the Events sidebar month filters with year filters, ordered newest first.
+
+### 🐛 Fixed
+- Enabled WP Multilang translation support for the `project-type` taxonomy.
+
+### 📦 Files Changed
+
+#### Modified
+- `wpm-config.json` - Added the `project-type` taxonomy to multilingual settings.
+- `includes/API/Endpoints/EventsEndpoint.php` - Exposed and filtered events by year.
+- `includes/Elementor/Widgets/Events.php` - Updated the Events widget mobile filter label.
+- `js/components/events.js` - Built the year navigation and filtering behavior.
+- `partials/Events.php` - Updated the legacy Events partial filter label.
+- `js/main.bundle.js` - Rebuilt the production JavaScript bundle.
+
 ## [3.1.31] - 2026-07-17
 
 ### Sustainability Accordion and News Listing Stability

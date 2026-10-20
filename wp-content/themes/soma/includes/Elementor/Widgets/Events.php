@@ -25,11 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Events Widget Class
  *
- * Displays upcoming and past events with month/type filtering.
+ * Displays upcoming and past events with year filtering.
  * Uses AJAX to load events from /wp-json/soma/events endpoint.
  *
  * Features:
- * - Month filter sidebar (collapsible on mobile)
+ * - Year filter sidebar (collapsible on mobile)
  * - Event cards with date, description, and download links
  * - Responsive 3-column grid layout
  * - Supports both English and Spanish via WP Multilang
@@ -184,7 +184,7 @@ class Events extends WidgetBase {
 			array(
 				'label'     => __( 'Filter Title (Mobile)', 'soma' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Filter by Month', 'soma' ),
+				'default'   => __( 'Filter by Year', 'soma' ),
 				'condition' => array(
 					'show_filters' => 'yes',
 				),
@@ -430,7 +430,7 @@ class Events extends WidgetBase {
 		$settings = $this->get_settings_for_display();
 
 		$show_filters = 'yes' === ( $settings['show_filters'] ?? 'yes' );
-		$filter_title = $settings['filter_title'] ?? __( 'Filter by Month', 'soma' );
+		$filter_title = $settings['filter_title'] ?? __( 'Filter by Year', 'soma' );
 		$see_all_text = $settings['see_all_text'] ?? __( 'See All', 'soma' );
 		$current_lang = function_exists( 'wpm_get_language' ) ? wpm_get_language() : 'en';
 		?>

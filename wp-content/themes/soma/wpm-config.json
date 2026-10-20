@@ -16,6 +16,7 @@
     "taxonomies": {
         "portfolio-taxonomy" : {},
         "documents-taxonomy" : {},
-        "team-members-taxonomy" : {}
+        "team-members-taxonomy" : {},
+        "project-type" : {}
     }
 }
