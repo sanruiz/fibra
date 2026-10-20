@@ -47,6 +47,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'Events'                  => \Soma\Elementor\Widgets\Events::class,
 		'TextWithReadMore'        => \Soma\Elementor\Widgets\TextWithReadMore::class,
 		'PortfolioCityType'       => \Soma\Elementor\Widgets\PortfolioCityType::class,
+		'TitleDescriptionAccordion' => \Soma\Elementor\Widgets\TitleDescriptionAccordion::class,
 	);
 
 	/**
@@ -75,6 +76,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 		'Events'                  => 'soma-events',
 		'TextWithReadMore'        => 'soma-text-with-read-more',
 		'PortfolioCityType'       => 'soma-portfolio-city-type',
+		'TitleDescriptionAccordion' => 'soma-title-description-accordion',
 	);
 
 	/**
@@ -240,6 +242,7 @@ class AllWidgetsTest extends WP_UnitTestCase {
 			'ShareQuotation' => 'share-quotation.css',
 			'AnnualReports'  => 'annual-reports.css',
 			'Events'         => 'events.css',
+			'TitleDescriptionAccordion' => 'title-description-accordion.css',
 		);
 
 		$assets_dir = get_template_directory() . '/assets/css/widgets/';
