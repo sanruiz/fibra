@@ -34,7 +34,7 @@
     "jquery": "^4.0.0",
     "normalize.css": "^8.0.1",
     "sass": "^1.106.1",
-    "sass-loader": "^17.0.1",
+    "sass-loader": "^17.1.0",
     "slick-carousel": "^2.0.0",
     "url-loader": "^4.1.1"
   },
