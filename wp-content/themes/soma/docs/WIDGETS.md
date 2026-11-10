@@ -1,8 +1,8 @@
 # SOMA Theme v3.0 - Elementor Widgets Reference
 
-**Version**: 3.1.24  
-**Last Updated**: January 21, 2026  
-**Total Widgets**: 15
+**Version**: 3.1.25  
+**Last Updated**: July 17, 2026  
+**Total Widgets**: 16
 
 ---
 
@@ -25,6 +25,7 @@
    - [Related Projects Widget](#13-related-projects-widget)
    - [Text With Read More Widget](#14-text-with-read-more-widget)
    - [Portfolio City Type Widget](#15-portfolio-city-type-widget)
+    - [Title Description Accordion Widget](#16-title-description-accordion-widget)
 3. [Common Features](#common-features)
 4. [Development Guide](#development-guide)
 5. [Troubleshooting](#troubleshooting)
@@ -1318,6 +1319,51 @@ Displays city and project type in single line format for portfolio items. Auto-d
 #### Editor Preview
 
 Displays placeholder text in Elementor editor when not on a portfolio post or when no data is available.
+
+---
+
+### 16. Title Description Accordion Widget
+
+**Class**: `Soma\Elementor\Widgets\TitleDescriptionAccordion`  
+**ID**: `soma-title-description-accordion`  
+**Icon**: `eicon-accordion`
+
+#### Description
+
+Displays a single accordion item using two content fields: title and description. The title is used as the accordion trigger and the description is shown when expanded.
+
+#### Content Controls
+
+| Control | Type | Default | Description |
+|---------|------|---------|-------------|
+| **Title** | Text | `Accordion Title` | Accordion heading text |
+| **Description** | WYSIWYG | - | Rich text content for the accordion panel |
+
+#### CSS Variables Used
+
+```css
+--soma-font-family-primary
+--soma-color-text-primary
+--soma-color-text-secondary
+--soma-color-border
+```
+
+#### HTML Structure
+
+```html
+<div class="soma-title-description-accordion">
+    <details class="soma-title-description-accordion__item">
+        <summary class="soma-title-description-accordion__title">Accordion Title</summary>
+        <div class="soma-title-description-accordion__content">
+            <p>Accordion description content.</p>
+        </div>
+    </details>
+</div>
+```
+
+#### ACF Integration
+
+None - Uses Elementor controls for title and description.
 
 ---
 

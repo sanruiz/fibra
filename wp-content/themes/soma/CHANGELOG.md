@@ -9,6 +9,89 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.33] - 2026-11-10
+
+### Elementor CSS Regeneration with WP-Multilang
+
+### 🐛 Fixed
+
+#### Elementor CSS with WP-Multilang
+
+- **Unstyled pages in one language** - Regenerate Elementor post CSS files that are recorded as existing but are missing from disk, instead of linking a 404 stylesheet. Seen on 39 English pages (portfolios, team members via template `post-2201.css`, investors and sustainability pages) while their Spanish versions loaded. Likely cause: WP-Multilang Pro keeps a per-language copy of the CSS meta (`_elementor_css_translate`) that Elementor's "Clear Files & Data" does not delete.
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/CssFileIntegrity.php` - Regenerates missing post CSS files on `elementor/css-file/before_enqueue`
+- `tests/Integration/Elementor/CssFileIntegrityTest.php` - Integration tests for the regeneration rules
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Registers the CSS file integrity hook
+
+## [3.1.32] - 2026-10-20
+
+### Events Year Navigation and Project Type Translation
+
+### 🔄 Changed
+- Replaced the Events sidebar month filters with year filters, ordered newest first.
+
+### 🐛 Fixed
+- Enabled WP Multilang translation support for the `project-type` taxonomy.
+
+### 📦 Files Changed
+
+#### Modified
+- `wpm-config.json` - Added the `project-type` taxonomy to multilingual settings.
+- `includes/API/Endpoints/EventsEndpoint.php` - Exposed and filtered events by year.
+- `includes/Elementor/Widgets/Events.php` - Updated the Events widget mobile filter label.
+- `js/components/events.js` - Built the year navigation and filtering behavior.
+- `partials/Events.php` - Updated the legacy Events partial filter label.
+- `js/main.bundle.js` - Rebuilt the production JavaScript bundle.
+
+## [3.1.31] - 2026-07-17
+
+### Sustainability Accordion and News Listing Stability
+
+This patch release introduces a new Elementor accordion widget for sustainability content and improves local stability for the news listing rendering pipeline.
+
+---
+
+### ✨ Added
+
+#### Sustainability Content Support
+
+- **Portfolio Sustainability ACF field** - Added dedicated `portfolio_sustainability` field to the portfolio content model
+- **Title Description Accordion widget** - Added a new SOMA Elementor widget with underlined title style and accordion behavior
+- **ACF-driven accordion content** - Wired widget description content to `portfolio_sustainability` with fallback support
+- **Bilingual default title behavior** - Widget title defaults to Spanish or English based on editing language context
+
+### 🐛 Fixed
+
+#### News Listing Rendering
+
+- **Elementor nested template CSS loading** - Improved template CSS handling for referenced templates in imported environments
+- **Imported uploads URL normalization** - Rewrote imported production upload URLs to local upload URLs to prevent font/CORS warnings in local news listing pages
+
+### 📦 Files Changed
+
+#### Added
+
+- `acf-json/group_portfolio_sustainability.json` - New ACF field group for sustainability content
+- `includes/Elementor/Widgets/TitleDescriptionAccordion.php` - New Elementor widget class
+- `assets/css/widgets/title-description-accordion.css` - Widget-specific styles
+- `tests/Integration/Elementor/TitleDescriptionAccordionWidgetTest.php` - Integration tests for the new widget
+
+#### Modified
+
+- `style.css` - Version bump to `3.1.31`
+- `CHANGELOG.md` - Release notes for `3.1.31`
+- `includes/Elementor/Loader.php` - Widget registration and style dependency registration
+- `tests/Integration/Elementor/AllWidgetsTest.php` - Registered new widget in test matrix
+- `docs/WIDGETS.md` - Added widget documentation entry
+- `functions.php` - Elementor imported-environment compatibility improvements
+
 ## [3.1.30] - 2026-07-16
 
 ### Team Member Template Visual Stability
