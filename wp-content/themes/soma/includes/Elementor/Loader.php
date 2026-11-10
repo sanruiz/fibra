@@ -151,6 +151,9 @@ class Loader implements LoadableInterface {
 			return;
 		}
 
+		// Regenerate post CSS files whose meta points to a missing file.
+		( new CssFileIntegrity() )->register();
+
 		// Enable Elementor for custom post types.
 		add_action( 'init', $this->add_cpt_support( ... ), 999 );
 
