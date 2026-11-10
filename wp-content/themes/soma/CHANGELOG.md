@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.33] - 2026-11-10
+
+### Elementor CSS Regeneration with WP-Multilang
+
 ### 🐛 Fixed
 
 #### Elementor CSS with WP-Multilang
