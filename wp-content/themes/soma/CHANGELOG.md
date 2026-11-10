@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.33] - 2026-11-10
+
+### Elementor CSS Regeneration with WP-Multilang
+
+### 🐛 Fixed
+
+#### Elementor CSS with WP-Multilang
+
+- **Unstyled pages in one language** - Regenerate Elementor post CSS files that are recorded as existing but are missing from disk, instead of linking a 404 stylesheet. Seen on 39 English pages (portfolios, team members via template `post-2201.css`, investors and sustainability pages) while their Spanish versions loaded. Likely cause: WP-Multilang Pro keeps a per-language copy of the CSS meta (`_elementor_css_translate`) that Elementor's "Clear Files & Data" does not delete.
+
+### 📦 Files Changed
+
+#### Added
+
+- `includes/Elementor/CssFileIntegrity.php` - Regenerates missing post CSS files on `elementor/css-file/before_enqueue`
+- `tests/Integration/Elementor/CssFileIntegrityTest.php` - Integration tests for the regeneration rules
+
+#### Modified
+
+- `includes/Elementor/Loader.php` - Registers the CSS file integrity hook
+
 ## [3.1.32] - 2026-10-20
 
 ### Events Year Navigation and Project Type Translation
