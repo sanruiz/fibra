@@ -96,10 +96,6 @@ class Loader implements LoadableInterface {
 	 * @var array<string, array{file: string, deps: array<int, string>}> Widget script handles, files, and dependencies
 	 */
 	private array $widget_scripts = array(
-		'soma-annual-reports'      => array(
-			'file' => 'annualReports.js',
-			'deps' => array( 'jquery' ),
-		),
 		'soma-portfolio'           => array(
 			'file' => 'portfolio.js',
 			'deps' => array( 'jquery' ),
