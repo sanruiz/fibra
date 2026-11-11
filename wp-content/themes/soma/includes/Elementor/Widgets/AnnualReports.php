@@ -69,10 +69,14 @@ class AnnualReports extends WidgetBase {
 	/**
 	 * Get script dependencies
 	 *
+	 * The year filter is driven by `js/components/annualReports.js`, bundled
+	 * into `main.bundle.js`, not a standalone widget script. There is no
+	 * `assets/js/widgets/annualReports.js` file to register.
+	 *
 	 * @return array<int, string>
 	 */
 	public function get_script_depends(): array {
-		return array( 'soma-annual-reports' );
+		return array();
 	}
 
 	/**

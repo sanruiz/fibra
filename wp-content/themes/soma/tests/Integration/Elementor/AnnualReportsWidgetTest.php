@@ -141,12 +141,15 @@ class AnnualReportsWidgetTest extends WP_UnitTestCase {
 
 	/**
 	 * Test script dependencies
+	 *
+	 * The widget has no standalone script file; the year filter is driven by
+	 * `js/components/annualReports.js` bundled into `main.bundle.js`.
 	 */
 	public function test_get_script_depends(): void {
 		$scripts = $this->widget->get_script_depends();
 
 		$this->assertIsArray( $scripts );
-		$this->assertContains( 'soma-annual-reports', $scripts );
+		$this->assertEmpty( $scripts );
 	}
 
 	/**
