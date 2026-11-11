@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Publicly readable log file** - `Logger` now writes an unguessable filename (`soma-{hash}.log`) and protects the `wp-content/uploads/soma-logs/` directory with a `.htaccess` denying all requests and an empty `index.php`, preventing the log from being served directly over HTTP, including on servers that ignore `.htaccess` (#319)
 
+### 🐛 Fixed
+
+- **Log flooded by missing widget script** - Removed the `soma-annual-reports` entry from `Elementor\Loader::$widget_scripts` and from `AnnualReports::get_script_depends()`. The referenced `assets/js/widgets/annualReports.js` file never existed, so `Loader::register_scripts()` logged a "Widget script file not found" warning on every frontend request, flooding `soma.log` (thousands of lines/day) and burying real warnings. The year filter is unaffected; it is driven by `js/components/annualReports.js`, bundled into `main.bundle.js` (#320)
+
 ## [3.1.33] - 2026-11-10
 
 ### Elementor CSS Regeneration with WP-Multilang
