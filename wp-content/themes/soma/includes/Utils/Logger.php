@@ -71,20 +71,72 @@ class Logger {
 	 * Private constructor
 	 */
 	private function __construct() {
-		$upload_dir     = wp_upload_dir();
-		$log_dir        = $upload_dir['basedir'] . '/soma-logs';
-		$this->log_file = $log_dir . '/soma.log';
+		$upload_dir = wp_upload_dir();
+		$log_dir    = $upload_dir['basedir'] . '/soma-logs';
 
 		// Create log directory if it doesn't exist.
 		if ( ! file_exists( $log_dir ) ) {
 			wp_mkdir_p( $log_dir );
 		}
+
+		$this->protect_log_directory( $log_dir );
+
+		$this->log_file = $log_dir . '/' . $this->get_log_filename();
 	}
 
 	/**
 	 * Prevent cloning
 	 */
 	private function __clone() {}
+
+	/**
+	 * Build an unguessable log filename
+	 *
+	 * The filename is derived from the site's secret keys via `wp_hash()`,
+	 * so it stays stable across requests but cannot be guessed by a visitor.
+	 * This matters because servers that ignore `.htaccess` (e.g. nginx)
+	 * would otherwise serve `soma.log` directly over HTTP.
+	 *
+	 * @return string
+	 */
+	private function get_log_filename(): string {
+		return 'soma-' . substr( wp_hash( 'soma-logs-filename' ), 0, 16 ) . '.log';
+	}
+
+	/**
+	 * Protect the log directory from direct web access
+	 *
+	 * Writes a `.htaccess` rule denying all requests (Apache) and an empty
+	 * `index.php` to prevent directory listing. Combined with the
+	 * unguessable filename, this keeps log contents from being served
+	 * publicly regardless of the web server in use.
+	 *
+	 * @param string $log_dir Absolute path to the log directory.
+	 * @return void
+	 */
+	private function protect_log_directory( string $log_dir ): void {
+		$htaccess_file = $log_dir . '/.htaccess';
+
+		if ( ! file_exists( $htaccess_file ) ) {
+			$htaccess_content = "# Deny all web access to this directory.\n"
+				. "<IfModule mod_authz_core.c>\n"
+				. "\tRequire all denied\n"
+				. "</IfModule>\n"
+				. "<IfModule !mod_authz_core.c>\n"
+				. "\tDeny from all\n"
+				. "</IfModule>\n";
+
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			file_put_contents( $htaccess_file, $htaccess_content );
+		}
+
+		$index_file = $log_dir . '/index.php';
+
+		if ( ! file_exists( $index_file ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			file_put_contents( $index_file, "<?php\n// Silence is golden.\n" );
+		}
+	}
 
 	/**
 	 * Prevent unserialization
