@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🔒 Security
+
+- **Publicly readable log file** - `Logger` now writes an unguessable filename (`soma-{hash}.log`) and protects the `wp-content/uploads/soma-logs/` directory with a `.htaccess` denying all requests and an empty `index.php`, preventing the log from being served directly over HTTP, including on servers that ignore `.htaccess` (#319)
+
 ## [3.1.33] - 2026-11-10
 
 ### Elementor CSS Regeneration with WP-Multilang
