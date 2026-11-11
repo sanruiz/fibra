@@ -14,7 +14,9 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	padding: 70px 0 0 0;
+	max-width: var(--soma-container-max-width, 1280px);
+	margin: 0 auto;
+	padding: 70px var(--soma-spacing-md, 15px) 0 var(--soma-spacing-md, 15px);
 	font-size: var(--soma-font-size-small, 16px);
 	line-height: 1.5;
 	letter-spacing: 0;

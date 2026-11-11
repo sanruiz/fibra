@@ -71,7 +71,8 @@ const eventsHandler = (containers) => {
         console.log('init event');
         const content = $(el).find('.events .event-list');
         const filterList = $(el).find('.filters .list');
-        let filters = [];
+        const allLabel = filterList.find('[data-filter="all"]').text();
+        let years = [];
 
         // Initial args
          let args = { 'order_by': 'custom_date', 'order' : 'ASC' };
@@ -80,26 +81,28 @@ const eventsHandler = (containers) => {
          getEvents(args, res => {
             if(res.data) {
                 res.data.map(item => { 
-                    if (!filters.includes(item.filter)) filters.push(item.filter);
+                    if (!years.includes(String(item.year))) years.push(String(item.year));
                     content.prepend( eventItem(item) );
                 });
-            }
-            if(filters) {
-                filters.map(filter => {
-                    filterList.prepend(`<div class="item" data-filter="${filter}">${filter}</div>`);
+
+                years.sort((a, b) => Number(b) - Number(a));
+                filterList.empty();
+                years.forEach(year => {
+                    filterList.append($('<div>', { class: 'item', 'data-filter': year }).text(year));
                 });
+                filterList.append($('<div>', { class: 'item active', 'data-filter': 'all' }).text(allLabel));
 
                 // Triggers
                 filterList.find('.item').on('click', function() {
                     $(this).addClass('active').siblings().removeClass('active');
                     content.find(`.event`).addClass('hidden');
-                    if ($(this).data('filter') != "all") {
-                        content.find(`.event[data-filter="${$(this).data('filter')}"]`).removeClass('hidden');
+                    const selectedYear = String($(this).data('filter'));
+                    if (selectedYear !== 'all') {
+                        content.find(`.event[data-filter="${selectedYear}"]`).removeClass('hidden');
                     } else {
                         content.find('.event').removeClass('hidden');
                     }
                 });
-
             }
         });
 

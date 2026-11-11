@@ -56,6 +56,7 @@ class Loader implements LoadableInterface {
 		'RelatedProjects'         => Widgets\RelatedProjects::class,
 		'Services'                => Widgets\Services::class,
 		'TextWithReadMore'        => Widgets\TextWithReadMore::class,
+		'TitleDescriptionAccordion' => Widgets\TitleDescriptionAccordion::class,
 		'ShareQuotation'          => Widgets\ShareQuotation::class,
 		'StockPrice'              => Widgets\StockPrice::class,
 		'TeamMember'              => Widgets\TeamMember::class,
@@ -86,6 +87,7 @@ class Loader implements LoadableInterface {
 		'soma-team-member'               => 'team-member.css',
 		'soma-team-members'              => 'team-members.css',
 		'soma-text-with-read-more'       => 'text-with-read-more.css',
+		'soma-title-description-accordion' => 'title-description-accordion.css',
 	);
 
 	/**
@@ -94,10 +96,6 @@ class Loader implements LoadableInterface {
 	 * @var array<string, array{file: string, deps: array<int, string>}> Widget script handles, files, and dependencies
 	 */
 	private array $widget_scripts = array(
-		'soma-annual-reports'      => array(
-			'file' => 'annualReports.js',
-			'deps' => array( 'jquery' ),
-		),
 		'soma-portfolio'           => array(
 			'file' => 'portfolio.js',
 			'deps' => array( 'jquery' ),
@@ -148,6 +146,9 @@ class Loader implements LoadableInterface {
 			\soma_log_warning( 'Elementor plugin not active' );
 			return;
 		}
+
+		// Regenerate post CSS files whose meta points to a missing file.
+		( new CssFileIntegrity() )->register();
 
 		// Enable Elementor for custom post types.
 		add_action( 'init', $this->add_cpt_support( ... ), 999 );

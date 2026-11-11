@@ -152,8 +152,6 @@ final class EventsEndpoint {
 					? $this->translate_date( gmdate( 'M j', $content['end_date'] ), 'short' )
 					: null;
 				$year                = gmdate( 'Y', $content['init_date'] );
-				$filter              = $this->translate_date( gmdate( 'M Y', $content['init_date'] ), 'short' );
-
 				$main_file = $this->format_file( $content );
 
 				$event = array(
@@ -170,12 +168,12 @@ final class EventsEndpoint {
 					'description'    => $content['description'],
 					'file_label'     => $content['file_label'],
 					'file'           => $main_file,
-					'filter'         => $filter,
+					'filter'         => $year,
 				);
 
 				// Filter by year if specified.
 				if ( isset( $params['year'] ) && $params['year'] ) {
-					if ( $params['year'] === $filter ) {
+					if ( (string) $params['year'] === $year ) {
 						$formatted_events[] = $event;
 					}
 				} else {

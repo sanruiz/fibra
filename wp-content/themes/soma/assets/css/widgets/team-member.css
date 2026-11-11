@@ -60,19 +60,27 @@
 
 .soma-team-member .member-name {
 	font-family: var(--soma-font-family-primary);
-	font-size: var(--soma-font-size-h2);
-	font-weight: var(--soma-font-weight-bold);
-	line-height: var(--soma-line-height-tight);
+	font-size: var(--e-global-typography-primary-font-size, 4.2rem) !important;
+	font-weight: var(--e-global-typography-primary-font-weight, 400) !important;
+	line-height: var(--e-global-typography-primary-line-height, 4.2rem) !important;
 	color: var(--soma-color-text-primary);
-	margin-top: -10px;
+	margin-top: 0 !important;
+	margin-bottom: 21px !important;
+	position: static !important;
+	display: block !important;
+	clear: both;
 }
 
 .soma-team-member .member-title {
 	font-family: var(--soma-font-family-primary);
-	font-size: var(--soma-font-size-h4);
-	font-weight: var(--soma-font-weight-normal);
-	line-height: var(--soma-line-height-normal);
+	font-size: var(--e-global-typography-secondary-font-size, 1.7rem) !important;
+	font-weight: var(--e-global-typography-secondary-font-weight, 400) !important;
+	line-height: var(--e-global-typography-secondary-line-height, 2rem) !important;
 	color: var(--soma-color-text-secondary, #7E7E87);
+	margin: 0 !important;
+	position: static !important;
+	display: block !important;
+	clear: both;
 }
 
 /* Featured Image */

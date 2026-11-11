@@ -18,7 +18,4 @@ parameters:
         # Allow missing array value types
         -
             identifier: missingType.iterableValue
-        # Allow missing generic types
-        -
-            identifier: missingType.generics
     treatPhpDocTypesAsCertain: false
