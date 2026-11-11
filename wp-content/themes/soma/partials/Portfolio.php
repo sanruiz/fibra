@@ -29,21 +29,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-$pre_filter = isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : null;
+$pre_filter    = isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : null;
+$block_content = get_query_var( 'soma_block_content' );
 ?>
 
-<?php if ( get_query_var( 'soma_block_content' )['main_category'] && get_query_var( 'soma_block_content' )['posts_per_page'] ) : ?>
-<section class="portfolio-partial-8f3f8b style-<?php echo esc_attr( get_query_var( 'soma_block_content' )['style'] ); ?>" data-main-category="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>" data-posts-per-page="<?php echo esc_attr( get_query_var( 'soma_block_content' )['posts_per_page'] ); ?>" data-lang="<?php echo esc_attr( wpm_get_language() ); ?>">
+<?php if ( ! empty( $block_content['main_category'] ) && ! empty( $block_content['posts_per_page'] ) ) : ?>
+<section class="portfolio-partial-8f3f8b style-<?php echo esc_attr( $block_content['style'] ); ?>" data-main-category="<?php echo esc_attr( $block_content['main_category'] ); ?>" data-posts-per-page="<?php echo esc_attr( $block_content['posts_per_page'] ); ?>" data-lang="<?php echo esc_attr( wpm_get_language() ); ?>">
 	<div class="container">
 		<div class="filters desk">
-			<div class="filter all <?php echo $pre_filter ? '' : 'active'; ?>" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>"><?php esc_html_e( 'All', 'soma' ); ?></div>
-			<?php if ( get_query_var( 'soma_block_content' )['filters'] ) : ?>
-				<?php foreach ( get_query_var( 'soma_block_content' )['filters'] as $key => $item ) : ?>
+			<div class="filter all <?php echo $pre_filter ? '' : 'active'; ?>" data-filters="<?php echo esc_attr( $block_content['main_category'] ); ?>"><?php esc_html_e( 'All', 'soma' ); ?></div>
+			<?php if ( ! empty( $block_content['filters'] ) ) : ?>
+				<?php foreach ( $block_content['filters'] as $key => $item ) : ?>
 					<?php $filter_info = get_term( $item ); ?>
-					<?php if ( ( $filter_info->count ) > 0 ) : ?>
-					<div class="filter <?php echo ( $filter_info->slug === $pre_filter ) ? 'active' : ''; ?>" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>, <?php echo esc_attr( $item ); ?>">
-							<?php echo esc_html( $filter_info->name ); ?>
-						</div>
+					<?php if ( $filter_info instanceof WP_Term && ! is_wp_error( $filter_info ) && ( $filter_info->count ) > 0 ) : ?>
+						<div class="filter <?php echo ( $filter_info->slug === $pre_filter ) ? 'active' : ''; ?>" data-filters="<?php echo esc_attr( $block_content['main_category'] ); ?>, <?php echo esc_attr( $item ); ?>">
+								<?php echo esc_html( $filter_info->name ); ?>
+							</div>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
@@ -98,14 +99,14 @@ $pre_filter = isset( $_GET['category'] ) ? sanitize_text_field( wp_unslash( $_GE
 				</svg>
 			</div>
 			<div class="IteamView" style="display: none;">
-				<div class="filter active" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>"><?php esc_html_e( 'All', 'soma' ); ?></div>
-				<?php if ( get_query_var( 'soma_block_content' )['filters'] ) : ?>
-					<?php foreach ( get_query_var( 'soma_block_content' )['filters'] as $key => $item ) : ?>
-						<?php if ( ( get_term( $item )->count ) > 0 ) : ?>
-							<?php $filter_name = get_term( $item )->name; ?>
-						<div class="filter" data-filters="<?php echo esc_attr( get_query_var( 'soma_block_content' )['main_category'] ); ?>, <?php echo esc_attr( $item ); ?>">
-							<?php echo esc_html( $filter_name ); ?>
-							</div>
+				<div class="filter active" data-filters="<?php echo esc_attr( $block_content['main_category'] ); ?>"><?php esc_html_e( 'All', 'soma' ); ?></div>
+				<?php if ( ! empty( $block_content['filters'] ) ) : ?>
+					<?php foreach ( $block_content['filters'] as $key => $item ) : ?>
+						<?php $filter_info = get_term( $item ); ?>
+						<?php if ( $filter_info instanceof WP_Term && ! is_wp_error( $filter_info ) && ( $filter_info->count ) > 0 ) : ?>
+							<div class="filter" data-filters="<?php echo esc_attr( $block_content['main_category'] ); ?>, <?php echo esc_attr( $item ); ?>">
+								<?php echo esc_html( $filter_info->name ); ?>
+								</div>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				<?php endif; ?>
